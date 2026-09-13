@@ -1,0 +1,54 @@
+site:
+  title_prefix: "Current UK Picks"
+  currency: "GBP"
+  marketplace: "EBAY_GB"
+  delivery_country: "GB"
+  min_seller_feedback_percent: 97.0
+  min_seller_feedback_score: 25
+  history_max_points_per_item: 40
+  affiliate_disclosure: "This page contains affiliate links. If you buy through them, I may earn a commission at no extra cost to you."
+
+publishing:
+  update_existing_posts: true
+  publish_when_no_items: true
+
+niches:
+  - name: "Refurbished laptops under £350"
+    slug: "tech-laptops"
+    query: "refurbished laptop 16GB SSD"
+    max_price: 350
+    min_score: 38
+    max_items: 8
+    require_free_shipping: false
+
+  - name: "Hot Wheels bundles under £35"
+    slug: "hot-wheels"
+    query: "Hot Wheels bundle"
+    max_price: 35
+    min_score: 34
+    max_items: 8
+    require_free_shipping: false
+
+  - name: "Cordless power tools under £120"
+    slug: "power-tools"
+    query: "cordless power tool"
+    max_price: 120
+    min_score: 38
+    max_items: 8
+    require_free_shipping: false
+
+  - name: "Kitchen cookware under £80"
+    slug: "cookware"
+    query: "frying pan cookware"
+    max_price: 80
+    min_score: 34
+    max_items: 8
+    require_free_shipping: false
+
+  - name: "Gaming accessories under £75"
+    slug: "gaming"
+    query: "gaming accessory"
+    max_price: 75
+    min_score: 34
+    max_items: 8
+    require_free_shipping: false

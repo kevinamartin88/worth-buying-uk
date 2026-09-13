@@ -1,0 +1,62 @@
+{
+  "itemSummaries": [
+    {
+      "itemId": "v1|DEMO-001|0",
+      "title": "Demo Refurbished 14 inch Laptop 16GB RAM 512GB SSD",
+      "price": {
+        "value": "289.99",
+        "currency": "GBP"
+      },
+      "buyingOptions": [
+        "FIXED_PRICE"
+      ],
+      "itemWebUrl": "https://www.ebay.co.uk/",
+      "image": {
+        "imageUrl": "https://i.ebayimg.com/images/g/placeholder/s-l500.jpg"
+      },
+      "seller": {
+        "feedbackPercentage": "99.7",
+        "feedbackScore": 12450
+      },
+      "marketingPrice": {
+        "originalPrice": {
+          "value": "349.99",
+          "currency": "GBP"
+        },
+        "discountPercentage": "17.1"
+      }
+    },
+    {
+      "itemId": "v1|DEMO-002|0",
+      "title": "Demo Laptop 16GB RAM 256GB SSD",
+      "price": {
+        "value": "329.00",
+        "currency": "GBP"
+      },
+      "buyingOptions": [
+        "FIXED_PRICE"
+      ],
+      "itemWebUrl": "https://www.ebay.co.uk/",
+      "seller": {
+        "feedbackPercentage": "99.2",
+        "feedbackScore": 3400
+      }
+    },
+    {
+      "itemId": "v1|DEMO-003|0",
+      "title": "Demo Product with Weak Seller Feedback",
+      "price": {
+        "value": "79.99",
+        "currency": "GBP"
+      },
+      "buyingOptions": [
+        "FIXED_PRICE"
+      ],
+      "itemWebUrl": "https://www.ebay.co.uk/",
+      "seller": {
+        "feedbackPercentage": "91.2",
+        "feedbackScore": 12
+      }
+    }
+  ]
+}

@@ -1,0 +1,259 @@
+# Zero-Cost Affiliate Engine
+
+A zero-running-cost MVP that:
+
+1. Searches eBay through the official Browse API.
+2. Keeps eBay's returned item order (it filters, but does not re-sort).
+3. Adds eBay Partner Network affiliate attribution using `affiliateCampaignId`
+   and a niche-specific `affiliateReferenceId` / sub-ID.
+4. Builds useful evergreen "current picks" pages.
+5. Creates or refreshes one Blogger post per niche.
+6. Stores lightweight price observations and publication state in the GitHub repository.
+7. Runs automatically on GitHub Actions.
+
+The project deliberately does **not** use an AI API, so there is no per-run AI charge.
+
+## What it is not
+
+This does not guarantee income. Revenue requires:
+- acceptance into the eBay Partner Network;
+- production access to the eBay Buy/Browse API;
+- people actually finding/clicking your content;
+- qualifying transactions.
+
+The code can be tested in eBay Sandbox before production approval.
+
+## Safety / account security
+
+Never commit passwords, OAuth secrets, client secrets, refresh tokens or API keys.
+Store them in GitHub **Actions secrets**.
+
+## Accounts you need
+
+- eBay account
+- eBay Developers Program account
+- eBay Partner Network (EPN) account
+- Blogger / Google account
+- GitHub account
+
+## Project structure
+
+```text
+.
+├── .github/workflows/publish.yml
+├── config.yml
+├── main.py
+├── requirements.txt
+├── setup_blogger_auth.py
+├── src/
+│   ├── blogger.py
+│   ├── ebay.py
+│   ├── render.py
+│   ├── scoring.py
+│   └── state.py
+├── state/
+│   ├── price_history.json
+│   └── published.json
+├── sample_data/
+│   └── item_summaries.json
+└── tests/
+    └── test_scoring.py
+```
+
+## 1. Test it for free without any accounts
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run the built-in mock data:
+
+```bash
+MOCK_EBAY=1 DRY_RUN=1 python main.py
+```
+
+Open the generated files in `out/`.
+
+## 2. Create a Blogger blog
+
+Create a free Blogger blog and choose a simple, honest niche/deals name.
+
+Do not create lots of near-duplicate blogs. This project is designed to maintain
+one useful site with evergreen pages.
+
+## 3. Create Google Blogger OAuth credentials
+
+In Google Cloud Console:
+
+1. Create a project.
+2. Enable **Blogger API v3**.
+3. Configure the OAuth consent screen.
+4. Create an OAuth Client ID for a **Desktop app**.
+5. Download the client secrets JSON as `client_secret.json`.
+6. Do not commit that file.
+
+Run:
+
+```bash
+python setup_blogger_auth.py --client-secrets client_secret.json
+```
+
+A browser window opens. Sign into the Google account that owns the Blogger blog
+and approve Blogger access.
+
+The helper prints:
+- `BLOGGER_CLIENT_ID`
+- `BLOGGER_CLIENT_SECRET`
+- `BLOGGER_REFRESH_TOKEN`
+- your available Blogger blog IDs
+
+Copy those values into GitHub Actions secrets.
+
+## 4. eBay setup
+
+Create eBay Developer credentials.
+
+For initial testing use Sandbox credentials and:
+
+```text
+EBAY_ENV=sandbox
+```
+
+For earning affiliate commission, join EPN and apply for production access to the
+eBay Buy APIs. Once approved, use Production client credentials and set:
+
+```text
+EBAY_ENV=production
+```
+
+Your EPN campaign ID is the 10-digit campaign ID supplied by EPN.
+
+## 5. GitHub Actions secrets
+
+Create a GitHub repository and upload this project.
+
+In:
+
+**Settings → Secrets and variables → Actions → New repository secret**
+
+add:
+
+```text
+EBAY_CLIENT_ID
+EBAY_CLIENT_SECRET
+EPN_CAMPAIGN_ID
+BLOGGER_CLIENT_ID
+BLOGGER_CLIENT_SECRET
+BLOGGER_REFRESH_TOKEN
+BLOGGER_BLOG_ID
+```
+
+For Sandbox tests you can leave `EPN_CAMPAIGN_ID` blank.
+
+The workflow defaults to `EBAY_ENV=production`. Change it to `sandbox` until
+your eBay production access is approved.
+
+## 6. Configure the niches
+
+Edit `config.yml`.
+
+Start with a small number of focused searches. The default file contains examples
+for UK technology, toys, tools, home/kitchen and gaming.
+
+Each niche has:
+- `name`
+- `slug`
+- `query`
+- `max_price`
+- `min_score`
+- `max_items`
+- optional `require_free_shipping`
+
+The score is used only as a pass/fail filter. Results are not re-sorted.
+
+## 7. Turn on the scheduled workflow
+
+The workflow runs at 07:17 and 19:17 Europe/London time and can also be run
+manually.
+
+For public repositories, standard GitHub-hosted Actions runners are normally free.
+Remember that scheduled workflows in public repositories can be disabled after a
+long period with no repository activity.
+
+## Revenue attribution
+
+Each niche uses an EPN `affiliateReferenceId` like:
+
+```text
+tech-laptops-20260913
+```
+
+That value is embedded by eBay in the affiliate URL as the sub-ID/custom ID.
+Use EPN reporting to identify which categories produce clicks and qualifying sales.
+
+## How selection works
+
+The engine:
+- requests only fixed-price items;
+- requests delivery to Great Britain;
+- optionally requests free shipping;
+- uses eBay's returned ordering;
+- filters out low-feedback sellers;
+- rewards real eBay marketing discounts when returned;
+- stores price observations for an item and rewards a meaningful fall versus its
+  own observed history;
+- never invents a "was" price.
+
+If there are too few good items, the page says so instead of fabricating bargains.
+
+## Affiliate disclosure
+
+Every page includes a clear disclosure before any affiliate links:
+
+> This page contains affiliate links. If you buy through them, I may earn a
+> commission at no extra cost to you.
+
+Keep this visible. You are responsible for complying with applicable advertising,
+consumer and affiliate-program rules.
+
+## Zero-cost principle
+
+This MVP intentionally avoids:
+- paid hosting;
+- paid databases;
+- paid AI calls;
+- paid schedulers.
+
+If it ever earns money, you can decide later whether a domain or better hosting is
+worth paying for.
+
+## Local environment variables
+
+For local production testing you may export the same variables used by GitHub:
+
+```bash
+export EBAY_CLIENT_ID="..."
+export EBAY_CLIENT_SECRET="..."
+export EPN_CAMPAIGN_ID="..."
+export BLOGGER_CLIENT_ID="..."
+export BLOGGER_CLIENT_SECRET="..."
+export BLOGGER_REFRESH_TOKEN="..."
+export BLOGGER_BLOG_ID="..."
+export EBAY_ENV="sandbox"
+```
+
+Then run:
+
+```bash
+DRY_RUN=1 python main.py
+```
+
+Remove `DRY_RUN=1` only when you intentionally want to publish/update Blogger.
+
+## Disclaimer
+
+This is software, not a promise of profit. Affiliate approvals, API access,
+traffic, search visibility, conversions and commission rates are outside the
+script's control.
