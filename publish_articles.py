@@ -42,7 +42,7 @@ def main() -> None:
         title = article["title"]
         content = article["content_html"]
         labels = article.get("labels", [])
-        mode = article.get("mode", "draft").strip().lower()
+        mode = article.get("mode", "publish").strip().lower()
 
         existing = state.get(slug)
         if existing and existing.get("source_sha") == article.get("source_sha"):
