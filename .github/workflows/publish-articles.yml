@@ -8,7 +8,9 @@ on:
     paths:
       - "articles/**"
       - "publish_articles.py"
+      - "publish_x.py"
       - "src/blogger.py"
+      - "src/buffer.py"
 
 permissions:
   contents: write
@@ -44,14 +46,21 @@ jobs:
           BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
         run: python publish_articles.py
 
-      - name: Save article publication state
+      - name: Publish new articles to X through Buffer
+        env:
+          PYTHONPATH: .
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          BUFFER_CHANNEL_NAME: "Worth Buying UK"
+        run: python publish_x.py
+
+      - name: Save publication state
         run: |
-          if git diff --quiet -- state/articles_published.json; then
+          if git diff --quiet -- state/articles_published.json state/x_published.json; then
             echo "No publication state changes to commit."
             exit 0
           fi
           git config user.name "worth-buying-uk-bot"
           git config user.email "worth-buying-uk-bot@users.noreply.github.com"
-          git add state/articles_published.json
-          git commit -m "Update article publication state"
+          git add state/articles_published.json state/x_published.json
+          git commit -m "Update article and X publication state"
           git push
