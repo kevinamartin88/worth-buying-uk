@@ -8,7 +8,10 @@ on:
     paths:
       - "articles-us/**"
       - "publish_articles_us.py"
+      - "publish_x_us.py"
       - "src/blogger.py"
+      - "src/buffer.py"
+      - ".github/workflows/publish-articles-us.yml"
 
 permissions:
   contents: write
@@ -45,14 +48,21 @@ jobs:
           EPN_US_CAMPAIGN_ID: ${{ secrets.EPN_US_CAMPAIGN_ID }}
         run: python publish_articles_us.py
 
-      - name: Save USA article publication state
+      - name: Publish new USA articles to X through Buffer
+        env:
+          PYTHONPATH: .
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          BUFFER_CHANNEL_NAME: "Worth Buying USA"
+        run: python publish_x_us.py
+
+      - name: Save USA article and X publication state
         run: |
-          if git diff --quiet -- state/articles_us_published.json; then
+          git config user.name "worth-buying-usa-bot"
+          git config user.email "worth-buying-usa-bot@users.noreply.github.com"
+          git add state/articles_us_published.json state/x_us_published.json
+          if git diff --cached --quiet; then
             echo "No USA publication state changes to commit."
             exit 0
           fi
-          git config user.name "worth-buying-usa-bot"
-          git config user.email "worth-buying-usa-bot@users.noreply.github.com"
-          git add state/articles_us_published.json
-          git commit -m "Update USA article publication state"
+          git commit -m "Update USA article and X publication state"
           git push
