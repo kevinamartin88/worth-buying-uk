@@ -1,0 +1,57 @@
+name: Publish Blogger articles
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "articles/**"
+      - "publish_articles.py"
+      - "src/blogger.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: blogger-article-publisher
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Publish Blogger articles
+        env:
+          PYTHONPATH: .
+          BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_CLIENT_ID }}
+          BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_CLIENT_SECRET }}
+          BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
+          BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
+        run: python publish_articles.py
+
+      - name: Save article publication state
+        run: |
+          if git diff --quiet -- state/articles_published.json; then
+            echo "No publication state changes to commit."
+            exit 0
+          fi
+          git config user.name "worth-buying-uk-bot"
+          git config user.email "worth-buying-uk-bot@users.noreply.github.com"
+          git add state/articles_published.json
+          git commit -m "Update article publication state"
+          git push
