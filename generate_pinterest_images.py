@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json
-import math
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
@@ -109,19 +108,16 @@ def render_article(article: dict, output: Path) -> None:
     image = Image.new("RGB", (WIDTH, HEIGHT), WHITE)
     draw = ImageDraw.Draw(image)
 
-    # Header
     draw.rectangle((0, 0, WIDTH, 230), fill=NAVY)
     draw.text((70, 58), "Worth Buying", font=load_font(58, bold=True), fill=WHITE)
     draw.text((70, 126), "UK", font=load_font(66, bold=True), fill=TEAL)
     draw_bag_icon(draw)
 
-    # Guide type badge
     badge_font = load_font(27, bold=True)
     badge_w = min(520, measure(draw, kicker, badge_font)[0] + 70)
     draw.rounded_rectangle((70, 282, 70 + badge_w, 344), radius=31, fill=PALE_TEAL)
     draw.text((105, 297), kicker, font=badge_font, fill=NAVY)
 
-    # Main article title
     title_font, title_lines = title_layout(draw, title)
     y = 405
     line_height = measure(draw, "Ag", title_font)[1] + 22
@@ -129,7 +125,6 @@ def render_article(article: dict, output: Path) -> None:
         draw.text((70, y), line, font=title_font, fill=DEEP_NAVY)
         y += line_height
 
-    # Accent line and subtitle
     y += 18
     draw.rounded_rectangle((70, y, 245, y + 12), radius=6, fill=YELLOW)
     y += 48
@@ -138,7 +133,6 @@ def render_article(article: dict, output: Path) -> None:
         draw.text((70, y), line, font=subtitle_font, fill=GREY)
         y += 47
 
-    # Label pills
     label_y = max(y + 42, 900)
     x = 70
     shown = 0
@@ -157,13 +151,11 @@ def render_article(article: dict, output: Path) -> None:
         if shown == 3:
             break
 
-    # Three simple shopping-check cards
     cards_y = 1045
     draw_check_card(draw, 70, cards_y, "1", "Compare", "Price & value")
     draw_check_card(draw, 375, cards_y, "2", "Check", "Seller & details")
     draw_check_card(draw, 680, cards_y, "3", "Choose", "What suits you")
 
-    # Footer
     footer_top = 1295
     draw.rectangle((0, footer_top, WIDTH, HEIGHT), fill=DEEP_NAVY)
     draw.text((70, 1343), "Read the full guide at", font=load_font(28), fill="#B9D7E8")
