@@ -1,0 +1,58 @@
+name: Publish USA Blogger articles
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "articles-us/**"
+      - "publish_articles_us.py"
+      - "src/blogger.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: blogger-article-publisher-us
+  cancel-in-progress: false
+
+jobs:
+  publish-us:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Publish USA Blogger articles
+        env:
+          PYTHONPATH: .
+          BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_CLIENT_ID }}
+          BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_CLIENT_SECRET }}
+          BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
+          BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_US_BLOG_ID }}
+          EPN_US_CAMPAIGN_ID: ${{ secrets.EPN_US_CAMPAIGN_ID }}
+        run: python publish_articles_us.py
+
+      - name: Save USA article publication state
+        run: |
+          if git diff --quiet -- state/articles_us_published.json; then
+            echo "No USA publication state changes to commit."
+            exit 0
+          fi
+          git config user.name "worth-buying-usa-bot"
+          git config user.email "worth-buying-usa-bot@users.noreply.github.com"
+          git add state/articles_us_published.json
+          git commit -m "Update USA article publication state"
+          git push
