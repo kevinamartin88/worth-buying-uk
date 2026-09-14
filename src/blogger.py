@@ -38,19 +38,42 @@ class BloggerClient:
         service = build("blogger", "v3", credentials=creds, cache_discovery=False)
         return cls(service=service, blog_id=required["BLOGGER_BLOG_ID"])
 
-    def create_post(self, title: str, content: str) -> dict:
+    def create_post(
+        self,
+        title: str,
+        content: str,
+        labels: list[str] | None = None,
+        is_draft: bool = False,
+    ) -> dict:
         body = {"title": title, "content": content}
+        if labels:
+            body["labels"] = labels
         return (
             self.service.posts()
-            .insert(blogId=self.blog_id, body=body, isDraft=False)
+            .insert(blogId=self.blog_id, body=body, isDraft=is_draft)
             .execute()
         )
 
-    def update_post(self, post_id: str, title: str, content: str) -> dict:
+    def update_post(
+        self,
+        post_id: str,
+        title: str,
+        content: str,
+        labels: list[str] | None = None,
+    ) -> dict:
         body = {"title": title, "content": content}
+        if labels:
+            body["labels"] = labels
         return (
             self.service.posts()
             .patch(blogId=self.blog_id, postId=post_id, body=body)
+            .execute()
+        )
+
+    def publish_post(self, post_id: str) -> dict:
+        return (
+            self.service.posts()
+            .publish(blogId=self.blog_id, postId=post_id)
             .execute()
         )
 
