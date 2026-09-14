@@ -9,6 +9,8 @@ on:
       - "articles/**"
       - "publish_articles.py"
       - "publish_x.py"
+      - "generate_pinterest_images.py"
+      - "requirements.txt"
       - "src/blogger.py"
       - "src/buffer.py"
 
@@ -36,6 +38,23 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
+
+      - name: Generate Pinterest images
+        env:
+          PYTHONPATH: .
+        run: python generate_pinterest_images.py
+
+      - name: Save Pinterest images
+        run: |
+          if git diff --quiet -- assets/pinterest; then
+            echo "No Pinterest image changes to commit."
+          else
+            git config user.name "worth-buying-uk-bot"
+            git config user.email "worth-buying-uk-bot@users.noreply.github.com"
+            git add assets/pinterest
+            git commit -m "Update Pinterest article images"
+            git push
+          fi
 
       - name: Publish Blogger articles
         env:
