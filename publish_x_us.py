@@ -41,12 +41,38 @@ def default_x_text(title: str, url: str) -> str:
     return f"{intro}{clean_title}{suffix}"
 
 
+def initialize_baseline(blog_state: dict) -> None:
+    baseline = {}
+    for slug, item in sorted(blog_state.items()):
+        if item.get("status") != "published":
+            continue
+        baseline[slug] = {
+            "buffer_post_id": None,
+            "title": item.get("title"),
+            "url": item.get("url"),
+            "source_sha": item.get("source_sha"),
+            "baseline": True,
+        }
+    save_json(X_STATE, baseline)
+    print(
+        f"Initialized USA X publication baseline with {len(baseline)} existing article(s); "
+        "no X posts sent."
+    )
+
+
 def main() -> None:
     if not os.getenv("BUFFER_API_KEY"):
         print("[skip] BUFFER_API_KEY is not configured")
         return
 
     blog_state = load_json(BLOG_STATE)
+
+    # On the first run, record every article that already exists as a baseline.
+    # This prevents connecting X automation from suddenly reposting the old archive.
+    if not X_STATE.exists():
+        initialize_baseline(blog_state)
+        return
+
     x_state = load_json(X_STATE)
     buffer = BufferClient.from_env()
 
