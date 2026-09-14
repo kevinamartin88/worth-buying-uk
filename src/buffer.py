@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 
 import requests
 
@@ -19,6 +20,10 @@ class BufferClient:
         api_key = os.environ["BUFFER_API_KEY"].strip()
         channel_name = os.getenv("BUFFER_CHANNEL_NAME", "Worth Buying UK").strip()
         return cls(api_key=api_key, channel_name=channel_name)
+
+    @staticmethod
+    def _normalise_name(value: str) -> str:
+        return re.sub(r"[^a-z0-9]+", "", value.casefold())
 
     def _graphql(self, query: str) -> dict:
         response = requests.post(
@@ -63,6 +68,15 @@ class BufferClient:
         exact = [c for c in x_channels if str(c.get("name", "")).casefold() == wanted]
         if exact:
             self._channel_id = exact[0]["id"]
+            return self._channel_id
+
+        wanted_normalised = self._normalise_name(self.channel_name)
+        normalised = [
+            c for c in x_channels
+            if self._normalise_name(str(c.get("name", ""))) == wanted_normalised
+        ]
+        if normalised:
+            self._channel_id = normalised[0]["id"]
             return self._channel_id
 
         partial = [c for c in x_channels if wanted in str(c.get("name", "")).casefold()]
