@@ -1,6 +1,7 @@
 {
   "best-apple-samsung-sony-accessories-uk-2026": {
     "post_id": "3726870883318193639",
+    "publish_fingerprint": "5c1be5bb3592126200874de9d933efd2c52909f9c7d5ce7cdc38e1d09624ef75",
     "source_file": "best-apple-samsung-sony-accessories-uk-2026.json",
     "source_sha": "2026-09-14-v1",
     "status": "published",
@@ -9,14 +10,16 @@
   },
   "best-refurbished-iphones-under-300-uk": {
     "post_id": "8241046611522970649",
+    "publish_fingerprint": "a91b352384c5496b6cdfec19266197a13cd19d0f7c14a2dd0cdad8f77359bbb3",
     "source_file": "best-refurbished-iphones-under-300-uk.json",
     "source_sha": "2026-09-14-v1",
     "status": "draft",
     "title": "Best Refurbished iPhones Under £300 in the UK (2026)",
-    "url": "https://worthbuyinguk.blogspot.com/"
+    "url": "https://worthbuyinguk.blogspot.com/2026/09/best-refurbished-iphones-under-300-in.html"
   },
   "best-refurbished-laptops-uk-2026": {
     "post_id": "7367538209967484445",
+    "publish_fingerprint": "0dedbd4f8d59659c56e6698c974e9675bf85d926f267ea749de32931fe51e095",
     "source_file": "best-refurbished-laptops-uk-2026.json",
     "source_sha": "2026-09-14-v1",
     "status": "published",
@@ -25,6 +28,7 @@
   },
   "best-refurbished-smartphones-uk-2026": {
     "post_id": "5773837271702338628",
+    "publish_fingerprint": "c7ea7722662e3e7bae6b1ef5f4534384d8868e1341c3f9ad517a341267bfad9c",
     "source_file": "best-refurbished-smartphones-uk-2026.json",
     "source_sha": "2026-09-14-v1",
     "status": "published",
@@ -33,6 +37,7 @@
   },
   "best-refurbished-tablets-uk-2026": {
     "post_id": "8472563570845166524",
+    "publish_fingerprint": "32563b85828b172c64d1ec5d6c972f4a6eb9cd51903948ae404b06cb3a52d306",
     "source_file": "best-refurbished-tablets-uk-2026.json",
     "source_sha": "2026-09-14-v1",
     "status": "published",
@@ -41,6 +46,7 @@
   },
   "diamond-jewellery-deals-ebay-uk-2026": {
     "post_id": "5717143780323521956",
+    "publish_fingerprint": "54d10e6f172e067df7053d8fb45a3d4aabbc0aa57de08cb4673e9acdad3b79c8",
     "source_file": "diamond-jewellery-deals-ebay-uk-2026.json",
     "source_sha": "2026-09-14-diamond-jewellery-uk-v1",
     "status": "published",
@@ -49,6 +55,7 @@
   },
   "garage-equipment-tools-deals-ebay-uk-2026": {
     "post_id": "4765030648461542963",
+    "publish_fingerprint": "ba83b647dbe7798952c5075703329f02d6649ead293c50a65007b3596cd0e054",
     "source_file": "garage-equipment-tools-deals-ebay-uk-2026.json",
     "source_sha": "2026-09-14-garage-tools-ebay-uk-v1",
     "status": "published",
@@ -57,6 +64,7 @@
   },
   "ps5-vs-ps4-best-value-uk-2026": {
     "post_id": "432563870269042067",
+    "publish_fingerprint": "81a9ebb530a4a2befa267e31b6c2ab59ac7ea950223de0b93fd2ee1b30ea2c06",
     "source_file": "ps5-vs-ps4-best-value-uk-2026.json",
     "source_sha": "2026-09-14-v1",
     "status": "published",
