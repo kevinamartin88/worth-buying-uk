@@ -10,7 +10,7 @@ site:
 
 publishing:
   update_existing_posts: true
-  publish_when_no_items: true
+  publish_when_no_items: false
 
 niches:
   - name: "Refurbished laptops under £350"
