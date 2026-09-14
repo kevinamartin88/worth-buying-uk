@@ -21,7 +21,10 @@ def load_state() -> dict:
 
 def save_state(state: dict) -> None:
     STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    STATE_PATH.write_text(json.dumps(state, indent=2, ensure_ascii=False, sort_keys=True), encoding="utf-8")
+    STATE_PATH.write_text(
+        json.dumps(state, indent=2, ensure_ascii=False, sort_keys=True),
+        encoding="utf-8",
+    )
 
 
 def main() -> None:
@@ -51,8 +54,23 @@ def main() -> None:
             if mode == "publish" and existing.get("status") != "published":
                 post = blogger.publish_post(existing["post_id"])
         else:
-            post = blogger.create_post(title, content, labels, is_draft=(mode != "publish"))
-            action = "created"
+            # Recover safely if the state file is missing or was not committed.
+            # This prevents an already-published article being created a second time.
+            found = blogger.find_post_by_exact_title(title)
+            if found and found.get("id"):
+                post_id = found["id"]
+                post = blogger.update_post(post_id, title, content, labels)
+                action = "reconciled"
+                if mode == "publish" and str(found.get("status", "")).upper() != "LIVE":
+                    post = blogger.publish_post(post_id)
+            else:
+                post = blogger.create_post(
+                    title,
+                    content,
+                    labels,
+                    is_draft=(mode != "publish"),
+                )
+                action = "created"
 
         state[slug] = {
             "post_id": post["id"],
