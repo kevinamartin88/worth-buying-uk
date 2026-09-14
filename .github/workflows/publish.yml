@@ -1,0 +1,58 @@
+name: Refresh affiliate pages
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 7,19 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: affiliate-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run tests
+        run: pytest -q
+
+      - name: Refresh Blogger pages
+        env:
+          EBAY_ENV: "sandbox"
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+          EPN_CAMPAIGN_ID: ${{ secrets.EPN_CAMPAIGN_ID }}
+          BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_CLIENT_ID }}
+          BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_CLIENT_SECRET }}
+          BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
+          BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
+        run: python main.py
+
+      - name: Persist price history and publication state
+        run: |
+          if git diff --quiet -- state/; then
+            echo "No state changes to commit."
+            exit 0
+          fi
+          git config user.name "affiliate-engine-bot"
+          git config user.email "affiliate-engine-bot@users.noreply.github.com"
+          git add state/
+          git commit -m "Update affiliate engine state"
+          git push
