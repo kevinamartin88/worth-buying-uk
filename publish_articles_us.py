@@ -11,6 +11,7 @@ from src.blogger import BloggerClient
 ROOT = Path(__file__).resolve().parent
 ARTICLES_DIR = ROOT / "articles-us"
 STATE_PATH = ROOT / "state" / "articles_us_published.json"
+USA_BLOG_HOST = "worthbuyingusa.blogspot.com"
 
 US_EPN_PARAMS = {
     "mkcid": "1",
@@ -66,6 +67,32 @@ def add_us_epn_tracking(content: str) -> str:
     return HREF_RE.sub(replace, content)
 
 
+def resolve_usa_blog(blogger: BloggerClient) -> None:
+    """Resolve the USA blog from the authenticated Google account by URL.
+
+    This avoids publishing failures caused by a stale or incorrect numeric
+    BLOGGER_US_BLOG_ID secret while still ensuring we only target Worth Buying USA.
+    """
+    blogs = blogger.service.blogs().listByUser(userId="self").execute().get("items", [])
+
+    for blog in blogs:
+        url = str(blog.get("url", ""))
+        host = urlsplit(url).netloc.casefold().split(":", 1)[0]
+        if host == USA_BLOG_HOST:
+            blogger.blog_id = str(blog["id"])
+            print(f"[blog] Using {blog.get('name', 'Worth Buying USA')} ({url})")
+            return
+
+    available = ", ".join(
+        f"{blog.get('name', 'Unnamed')} ({blog.get('url', 'no URL')})" for blog in blogs
+    ) or "none"
+    raise RuntimeError(
+        "The authenticated Google account cannot see Worth Buying USA. "
+        f"Blogs visible to this token: {available}. "
+        "A Blogger OAuth token from an owner/admin of worthbuyingusa.blogspot.com is required."
+    )
+
+
 def main() -> None:
     if not ARTICLES_DIR.exists():
         print("No US articles directory found.")
@@ -73,6 +100,7 @@ def main() -> None:
 
     state = load_state()
     blogger = BloggerClient.from_env()
+    resolve_usa_blog(blogger)
 
     for path in sorted(ARTICLES_DIR.glob("*.json")):
         article = json.loads(path.read_text(encoding="utf-8"))
