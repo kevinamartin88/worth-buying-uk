@@ -26,6 +26,8 @@
       "new iPhone, Samsung Galaxy and Google Pixel launches",
       "new consoles, handhelds, tablets, smartwatches, headphones and cameras",
       "cases, screen protectors, chargers, stands, cables, power banks, car mounts and storage accessories",
+      "new home and kitchen gadgets or appliances showing signs of breakout demand, strong launch interest or viral popularity",
+      "smart-home devices, robot cleaners, cordless cleaning gadgets, coffee and drinks gadgets, countertop cooking appliances, food-prep gadgets and other genuinely useful new household technology",
       "replacement or add-on products buyers purchase immediately after a major product launch",
       "fast-rising, viral or seasonal consumer products where US purchase intent is clear",
       "high-intent comparison searches such as best case for, best charger for, best accessories for and what to buy with"
@@ -33,6 +35,7 @@
     "rules": [
       "Prioritize US buyer intent and launch timing over generic search volume.",
       "Use fresh web research each run and favor products that are actually relevant to the current US market.",
+      "For home and kitchen, favor genuinely new or fast-rising gadgets with credible signs of likely popularity rather than generic evergreen commodity products.",
       "Check Worth Buying USA live posts, articles-us and queued US drafts before selecting a topic so the same subject is not repeated.",
       "Create original, substantive buying guides with clear best-for recommendations, trade-offs and practical buying advice; avoid thin affiliate pages.",
       "Every Amazon.com URL must be an Amazon US Special Link carrying tag=worthbuyingus-20.",
