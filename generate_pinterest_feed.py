@@ -23,6 +23,13 @@ def load_json(path: Path) -> dict:
         return {}
 
 
+def affiliate_description(value: object) -> str:
+    description = " ".join(str(value or "Read the full Worth Buying UK guide.").split())
+    if "affiliate" not in description.casefold():
+        description = f"{description} • Affiliate"
+    return description
+
+
 def main() -> None:
     state = load_json(STATE_PATH)
     items: list[dict] = []
@@ -41,7 +48,7 @@ def main() -> None:
             continue
 
         title = article.get("pinterest_title") or record.get("title") or slug
-        description = article.get("pinterest_subtitle") or "Read the full Worth Buying UK guide."
+        description = affiliate_description(article.get("pinterest_subtitle"))
         items.append(
             {
                 "title": title,
