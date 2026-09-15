@@ -105,7 +105,7 @@ def pinterest_image_html(article: dict) -> str:
     alt = html.escape(str(article.get("pinterest_title") or article["title"]), quote=True)
     return (
         f'<p><img src="{image_url}" alt="{alt}" '
-        'style="max-width:100%;height:auto;display:block;margin:0 auto 24px auto;" /></p>\n'
+        'style="width:460px;max-width:100%;height:auto;display:block;margin:0 auto 24px auto;" /></p>\n'
     )
 
 
