@@ -11,6 +11,7 @@ on:
       - "publish_x.py"
       - "generate_pinterest_images.py"
       - "generate_pinterest_feed.py"
+      - "generate_x_images.py"
       - "requirements.txt"
       - "src/blogger.py"
       - "src/buffer.py"
@@ -54,6 +55,24 @@ jobs:
             git config user.name "worth-buying-uk-bot"
             git config user.email "worth-buying-uk-bot@users.noreply.github.com"
             git commit -m "Update Pinterest article images"
+            git pull --rebase origin main
+            git push
+          fi
+
+      - name: Generate UK X images
+        env:
+          PYTHONPATH: .
+        run: python generate_x_images.py --market uk
+
+      - name: Save UK X images
+        run: |
+          git add assets/x/uk
+          if git diff --cached --quiet -- assets/x/uk; then
+            echo "No UK X image changes to commit."
+          else
+            git config user.name "worth-buying-uk-bot"
+            git config user.email "worth-buying-uk-bot@users.noreply.github.com"
+            git commit -m "Update UK X article images"
             git pull --rebase origin main
             git push
           fi
