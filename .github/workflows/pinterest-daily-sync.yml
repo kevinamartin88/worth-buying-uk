@@ -1,0 +1,54 @@
+name: Pinterest daily sync
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 20 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pinterest-daily-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate Pinterest images
+        env:
+          PYTHONPATH: .
+        run: python generate_pinterest_images.py
+
+      - name: Generate Pinterest RSS feed
+        env:
+          PYTHONPATH: .
+        run: python generate_pinterest_feed.py
+
+      - name: Save Pinterest assets and feed
+        run: |
+          git add assets/pinterest pinterest-feed.xml
+          if git diff --cached --quiet -- assets/pinterest pinterest-feed.xml; then
+            echo "Pinterest is already in sync."
+            exit 0
+          fi
+          git config user.name "worth-buying-uk-bot"
+          git config user.email "worth-buying-uk-bot@users.noreply.github.com"
+          git commit -m "Sync Pinterest assets and affiliate feed"
+          git pull --rebase origin main
+          git push
