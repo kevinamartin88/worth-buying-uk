@@ -1,7 +1,7 @@
 {
   "best-apple-samsung-sony-accessories-uk-2026": {
     "post_id": "3726870883318193639",
-    "publish_fingerprint": "82d8a7ccfdf276aa7f540b8ff7f65c6a536f398aa80bb29c2562db091ff44949",
+    "publish_fingerprint": "31542caeb41bea3ae838df91b3edb63dc4801d47a627655440f91b09ae4200f7",
     "source_file": "best-apple-samsung-sony-accessories-uk-2026.json",
     "source_sha": "2026-09-14-v1",
     "status": "published",
@@ -10,7 +10,7 @@
   },
   "best-refurbished-apple-watch-uk-2026": {
     "post_id": "6958338034277175140",
-    "publish_fingerprint": "4b003e60e03e7dbf1204a21df09f01a793c9433e32f93a42f0a0a8b087dc09ab",
+    "publish_fingerprint": "e9242db7a2e6d09990d12c7feb680a072c99d4257ee325fd664cf320b4753190",
     "source_file": "best-refurbished-apple-watch-uk-2026.json",
     "source_sha": "2026-09-14-apple-watch-test-v1",
     "status": "published",
@@ -19,7 +19,7 @@
   },
   "best-refurbished-iphones-under-300-uk": {
     "post_id": "8241046611522970649",
-    "publish_fingerprint": "336baeceaefbb930ce3ca4b9ee5b6d29d83263452dade0b290665208e36a1526",
+    "publish_fingerprint": "3c21fe69db8613afd587e6e4f6606d56a0746afcde1f43e3fff43eadfd6e8fcf",
     "source_file": "best-refurbished-iphones-under-300-uk.json",
     "source_sha": "2026-09-14-v1",
     "status": "draft",
@@ -28,7 +28,7 @@
   },
   "best-refurbished-laptops-uk-2026": {
     "post_id": "7367538209967484445",
-    "publish_fingerprint": "0949d9502c8afd2d517cf41fb022bfa5d3a3d05542c48b325597b0515adaaf36",
+    "publish_fingerprint": "bc3fd5b24188c9eb5a32d0d37eed6ba3e1207d49949ebe2ec7321d56f60f6a73",
     "source_file": "best-refurbished-laptops-uk-2026.json",
     "source_sha": "2026-09-14-v1",
     "status": "published",
@@ -37,7 +37,7 @@
   },
   "best-refurbished-smartphones-uk-2026": {
     "post_id": "5773837271702338628",
-    "publish_fingerprint": "8fae2a4aaec5dda12da87e247f6380b5d0fd6e66b198f7a8ba980798b85f3d87",
+    "publish_fingerprint": "5703768dea9f20e5bfc4335eed5ba364b1c4e749e34b08036220a6c037c80860",
     "source_file": "best-refurbished-smartphones-uk-2026.json",
     "source_sha": "2026-09-14-v1",
     "status": "published",
@@ -46,7 +46,7 @@
   },
   "best-refurbished-tablets-uk-2026": {
     "post_id": "8472563570845166524",
-    "publish_fingerprint": "271cdf572412593109cae5882fd41fc863b5226402a10e7a1fe2045ac53cd6bf",
+    "publish_fingerprint": "10c62c15e24cff0eae0423d941a22a2b8491a2a9cb3f5c2cf7c77668f3c91efc",
     "source_file": "best-refurbished-tablets-uk-2026.json",
     "source_sha": "2026-09-14-v1",
     "status": "published",
@@ -55,7 +55,7 @@
   },
   "diamond-jewellery-deals-ebay-uk-2026": {
     "post_id": "5717143780323521956",
-    "publish_fingerprint": "c80793dcc9c5e98ad5233a84e48ba0f51c9d4caf74afe576cb2a3b64402c3d66",
+    "publish_fingerprint": "df082d4d68d1cbf0963e45b62aff389b8a558d0632929e9a082fbd6ddb89e6e2",
     "source_file": "diamond-jewellery-deals-ebay-uk-2026.json",
     "source_sha": "2026-09-14-diamond-jewellery-uk-v1",
     "status": "published",
@@ -64,7 +64,7 @@
   },
   "garage-equipment-tools-deals-ebay-uk-2026": {
     "post_id": "4765030648461542963",
-    "publish_fingerprint": "79c0c3d1cda1ee78b16fba17ec8729d9d372c9caeb8022707b8a8a482c392b90",
+    "publish_fingerprint": "9fcc7ff69e525629863735ba3e9438f28055ddc3fc8b426b064701810c851957",
     "source_file": "garage-equipment-tools-deals-ebay-uk-2026.json",
     "source_sha": "2026-09-14-garage-tools-ebay-uk-v1",
     "status": "published",
@@ -73,7 +73,7 @@
   },
   "kitchen-home-upgrades-worth-buying-uk-2026": {
     "post_id": "3739991226059764856",
-    "publish_fingerprint": "90dc24e02b047098b992f0f31c2eed01ead91db1506fc280462467e4fe547757",
+    "publish_fingerprint": "fcd99ab2733d5c752ed3a8e95d98dde150bdeed6e552aa32b0f05612424ad3f8",
     "source_file": "kitchen-home-upgrades-worth-buying-uk-2026.json",
     "source_sha": "2026-09-15-kitchen-home-uk-v1",
     "status": "published",
@@ -82,7 +82,7 @@
   },
   "ps5-vs-ps4-best-value-uk-2026": {
     "post_id": "432563870269042067",
-    "publish_fingerprint": "89ad8dca0560fde6838d8d41bc687cbc255290a4c4b37cd4685f98281336e296",
+    "publish_fingerprint": "11d0735f3612b5fb6281434ed5d7790eb9331a120f971389dcad92b2913ab05c",
     "source_file": "ps5-vs-ps4-best-value-uk-2026.json",
     "source_sha": "2026-09-14-v1",
     "status": "published",
