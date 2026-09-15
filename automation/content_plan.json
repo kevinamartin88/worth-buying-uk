@@ -42,6 +42,14 @@
       "Check existing articles and queued drafts to avoid duplicate topics."
     ]
   },
+  "amazon_us": {
+    "site_name": "Worth Buying USA",
+    "site_url": "https://worthbuyingusa.blogspot.com/",
+    "tracking_id": "worthbuyingus-20",
+    "account_status": "Associates application created; Amazon review follows qualifying sales.",
+    "disclosure": "As an Amazon Associate I earn from qualifying purchases.",
+    "strategy": "Mirror the high-intent launch and accessory strategy for the US market using Amazon.com Special Links with tag=worthbuyingus-20. Do not mix UK and US Amazon tracking IDs."
+  },
   "ebay": {
     "strategy": [
       "refurbished technology with strong value intent",
