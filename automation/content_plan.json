@@ -29,11 +29,14 @@
       "new iPhone, Samsung Galaxy and Google Pixel launches",
       "new consoles, handhelds, tablets, smartwatches and cameras",
       "cases, screen protectors, chargers, stands, cables, power banks and car mounts",
+      "new home and kitchen gadgets or appliances showing signs of breakout demand, strong launch interest or viral popularity",
+      "smart-home devices, robot cleaners, cordless cleaning gadgets, coffee and drinks gadgets, countertop cooking appliances, food-prep gadgets and other genuinely useful new household technology",
       "replacement or add-on products people buy immediately after a major purchase",
       "fast-rising or viral consumer products where purchase intent is clear"
     ],
     "rules": [
       "Prioritise buyer intent over generic search volume.",
+      "For home and kitchen, favour genuinely new or fast-rising gadgets with credible signs of likely popularity rather than generic evergreen commodity products.",
       "Create original, substantive guides with analysis and buying advice; avoid thin affiliate pages.",
       "Every Amazon URL must be a Special Link carrying tag=worthbuyin008-21.",
       "Include the disclosure: As an Amazon Associate I earn from qualifying purchases.",
@@ -48,7 +51,7 @@
     "tracking_id": "worthbuyingus-20",
     "account_status": "Associates application created; Amazon review follows qualifying sales.",
     "disclosure": "As an Amazon Associate I earn from qualifying purchases.",
-    "strategy": "Mirror the high-intent launch and accessory strategy for the US market using Amazon.com Special Links with tag=worthbuyingus-20. Do not mix UK and US Amazon tracking IDs."
+    "strategy": "Mirror the high-intent launch, accessory, and emerging home-and-kitchen gadget strategy for the US market using Amazon.com Special Links with tag=worthbuyingus-20. Do not mix UK and US Amazon tracking IDs."
   },
   "ebay": {
     "strategy": [
