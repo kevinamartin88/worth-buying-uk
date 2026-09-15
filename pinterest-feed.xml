@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Worth Buying UK</title>
+    <link>https://worthbuyinguk.blogspot.com/</link>
+    <description>Worth Buying UK buying guides, product finds and deals.</description>
+    <language>en-gb</language>
+    <item>
+      <title>Best Refurbished Apple Watch Models to Buy in the UK (2026)</title>
+      <link>https://worthbuyinguk.blogspot.com/2026/09/best-refurbished-apple-watch-models-to.html</link>
+      <guid isPermaLink="true">https://worthbuyinguk.blogspot.com/2026/09/best-refurbished-apple-watch-models-to.html</guid>
+      <description>Which models still offer the best value?</description>
+      <enclosure url="https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/pinterest/best-refurbished-apple-watch-uk-2026.png" type="image/png" />
+      <media:content url="https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/pinterest/best-refurbished-apple-watch-uk-2026.png" medium="image" type="image/png" />
+    </item>
+  </channel>
+</rss>
