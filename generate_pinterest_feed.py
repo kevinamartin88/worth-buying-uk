@@ -2,8 +2,6 @@ from __future__ import annotations
 
 import html
 import json
-from datetime import datetime, timezone
-from email.utils import format_datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -23,18 +21,6 @@ def load_json(path: Path) -> dict:
         return json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return {}
-
-
-def rss_date(value: str | None) -> str:
-    if value:
-        try:
-            dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
-            if dt.tzinfo is None:
-                dt = dt.replace(tzinfo=timezone.utc)
-            return format_datetime(dt)
-        except ValueError:
-            pass
-    return format_datetime(datetime.now(timezone.utc))
 
 
 def main() -> None:
@@ -62,12 +48,11 @@ def main() -> None:
                 "description": description,
                 "link": record["url"],
                 "image": f"{IMAGE_BASE}/{slug}.png",
-                "published": record.get("published") or record.get("updated"),
             }
         )
 
-    # Keep output deterministic so normal workflow reruns do not create duplicate feed changes.
-    items.sort(key=lambda item: (item.get("published") or "", item["link"]), reverse=True)
+    # Stable ordering prevents normal reruns from constantly changing the feed.
+    items.sort(key=lambda item: item["link"], reverse=True)
 
     lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
@@ -87,7 +72,6 @@ def main() -> None:
                 f'      <link>{xml(item["link"])}</link>',
                 f'      <guid isPermaLink="true">{xml(item["link"])}</guid>',
                 f'      <description>{xml(item["description"])}</description>',
-                f'      <pubDate>{xml(rss_date(item.get("published")))}</pubDate>',
                 f'      <enclosure url="{xml(item["image"])}" type="image/png" />',
                 f'      <media:content url="{xml(item["image"])}" medium="image" type="image/png" />',
                 '    </item>',
