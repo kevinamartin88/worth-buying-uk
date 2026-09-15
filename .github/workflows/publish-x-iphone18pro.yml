@@ -44,7 +44,7 @@ jobs:
           text = (
               "📱 New iPhone 18 Pro? We picked 6 Amazon UK cases to compare — "
               "clear, magnetic, matte and decorative options, plus a screen protector.\n\n"
-              f"Ad/Affiliate 🔗 {url}\n\n"
+              f"Affiliate 🔗 {url}\n\n"
               "#iPhone18Pro #AmazonUK"
           )
 
