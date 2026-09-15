@@ -81,6 +81,20 @@ def resolve_usa_blog(blogger: BloggerClient) -> None:
         if host == USA_BLOG_HOST:
             blogger.blog_id = str(blog["id"])
             print(f"[blog] Using {blog.get('name', 'Worth Buying USA')} ({url})")
+
+            # Ask Blogger for the authenticated user's per-blog permissions.
+            # This helps distinguish an OAuth/account problem from an API-side
+            # write restriction when posts.insert returns HTTP 403.
+            try:
+                info = (
+                    blogger.service.blogUserInfos()
+                    .get(userId="self", blogId=blogger.blog_id)
+                    .execute()
+                )
+                per_user = info.get("blog_user_info") or info.get("blogUserInfo") or {}
+                print(f"[blog] API admin access: {per_user.get('hasAdminAccess')}")
+            except Exception as exc:
+                print(f"[blog] Could not read API admin flag: {type(exc).__name__}: {exc}")
             return
 
     available = ", ".join(
