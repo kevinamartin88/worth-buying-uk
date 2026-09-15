@@ -1,0 +1,73 @@
+{
+  "name": "Worth Buying Deal Discovery Network",
+  "status": "active-research-only",
+  "blogger_api_must_remain_disabled_while_appeal_pending": true,
+  "objective": "Continuously identify high-intent, genuinely strong deals and emerging purchase opportunities for Worth Buying UK and Worth Buying USA, then turn only the best opportunities into original editorial content.",
+  "markets": ["UK", "US"],
+  "discovery_sources": {
+    "live_commerce": [
+      "eBay production Browse API for live listings, item details and affiliate URLs",
+      "Amazon public product, launch and deal pages using approved affiliate-link methods only",
+      "official retailer sale, clearance and launch pages",
+      "manufacturer launch pages and official product announcements"
+    ],
+    "affiliate_networks_to_add": [
+      "Awin",
+      "impact.com",
+      "CJ Affiliate",
+      "Rakuten Advertising"
+    ],
+    "demand_signals": [
+      "Google Search and Google Discover interest signals",
+      "current product-launch news and retailer visibility",
+      "fast-rising product and category searches",
+      "public deal-community activity as a demand signal only",
+      "social and creator buzz where it indicates real purchase intent"
+    ]
+  },
+  "community_rules": [
+    "Do not automate self-promotion or affiliate-link posting into deal communities that prohibit it.",
+    "Use public deal communities such as HotUKDeals or Slickdeals as trend and demand signals only unless their current rules explicitly permit a business/publisher partnership.",
+    "Never scrape or bypass access restrictions.",
+    "Do not copy another publisher's wording, ranking, images or analysis. Create original Worth Buying editorial content."
+  ],
+  "deal_score": {
+    "verified_value_or_discount": 30,
+    "buyer_demand_and_momentum": 20,
+    "retailer_or_seller_reliability": 15,
+    "purchase_intent": 15,
+    "freshness_and_timing": 10,
+    "commercial_monetisation_fit": 10,
+    "minimum_score_for_content_candidate": 70
+  },
+  "verification_rules": [
+    "Never describe a product as a deal purely because a retailer displays a crossed-out RRP.",
+    "Verify current price and availability immediately before mentioning them.",
+    "Where previous price history is unavailable, describe value without claiming a percentage saving.",
+    "Do not invent discount percentages, coupon codes, stock levels, ratings, review counts or expiry times.",
+    "Prefer deals from reputable retailers or sellers with clear returns and buyer protection.",
+    "Separate genuinely time-limited deal posts from evergreen buying guides."
+  ],
+  "content_types": [
+    "Deal Alert - one unusually strong current offer",
+    "Today's Best Deals - a tightly curated multi-product roundup",
+    "Price Drop Worth Buying - a verified material reduction on a strong product",
+    "Launch Deal - launch product plus immediate accessory or bundle opportunity",
+    "Refurbished Deal - unusually strong value with condition and seller checks",
+    "Seasonal Deal Hub - Black Friday, Prime-style events, Christmas, back-to-school, summer and other high-intent periods",
+    "Viral Product Check - whether a fast-rising product is actually worth buying"
+  ],
+  "distribution": {
+    "blogger": "Only publish after Blogger API access is restored and the site safety flag is deliberately enabled.",
+    "x": "Only promote a live article URL and mark the commercial link clearly as Affiliate.",
+    "pinterest": "Only promote a live article URL and use original Worth Buying creative.",
+    "google_discover": "Optimise timely articles for people-first Discover eligibility without clickbait or misleading urgency.",
+    "future_email": "Add an opt-in Worth Buying Deals email when there is enough recurring content and audience demand."
+  },
+  "future_network_priority": [
+    "Awin for broad UK retail coverage",
+    "impact.com for US/global brand and product discovery",
+    "CJ Affiliate for additional major brands and APIs",
+    "Rakuten Advertising for further premium retailer coverage"
+  ]
+}
