@@ -30,6 +30,24 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Generate USA Pinterest images
+        env:
+          PYTHONPATH: .
+        run: python generate_pinterest_images_us.py
+
+      - name: Save USA Pinterest images
+        run: |
+          git add assets/pinterest/us
+          if git diff --cached --quiet -- assets/pinterest/us; then
+            echo "No USA Pinterest image changes to commit."
+          else
+            git config user.name "worth-buying-usa-bot"
+            git config user.email "worth-buying-usa-bot@users.noreply.github.com"
+            git commit -m "Update USA Pinterest article images"
+            git pull --rebase origin main
+            git push
+          fi
+
       - name: Generate USA X images
         env:
           PYTHONPATH: .
@@ -58,6 +76,11 @@ jobs:
           EPN_US_CAMPAIGN_ID: ${{ secrets.EPN_US_CAMPAIGN_ID }}
         run: python publish_articles_us.py
 
+      - name: Generate USA Pinterest RSS feed
+        env:
+          PYTHONPATH: .
+        run: python generate_pinterest_feed_us.py
+
       - name: Publish new USA articles to X through Buffer
         env:
           PYTHONPATH: .
@@ -65,15 +88,15 @@ jobs:
           BUFFER_CHANNEL_NAME: "Worth Buying USA"
         run: python publish_x_us.py
 
-      - name: Save USA article and X publication state
+      - name: Save USA article, X and Pinterest publication state
         run: |
           git config user.name "worth-buying-usa-bot"
           git config user.email "worth-buying-usa-bot@users.noreply.github.com"
-          git add state/articles_us_published.json state/x_us_published.json
+          git add state/articles_us_published.json state/x_us_published.json pinterest-feed-us.xml
           if git diff --cached --quiet; then
-            echo "No USA publication state changes to commit."
+            echo "No USA publication state or Pinterest feed changes to commit."
             exit 0
           fi
-          git commit -m "Update USA article and X publication state"
+          git commit -m "Update USA article, X and Pinterest publication state"
           git pull --rebase origin main
           git push
