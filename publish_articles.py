@@ -16,11 +16,12 @@ STATE_PATH = ROOT / "state" / "articles_published.json"
 PINTEREST_DIR = ROOT / "assets" / "pinterest"
 RAW_BASE = "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/pinterest"
 
+UK_EPN_CAMPAIGN_ID = "5339209132"
 UK_EPN_PARAMS = {
     "mkcid": "1",
     "mkrid": "710-53481-19255-0",
     "siteid": "3",
-    "campid": "5339209132",
+    "campid": UK_EPN_CAMPAIGN_ID,
     "toolid": "20014",
     "customid": "",
     "mkevt": "1",
@@ -68,6 +69,29 @@ def add_uk_epn_tracking(content: str) -> str:
         return f"href={quote}{escaped_url}{quote}"
 
     return HREF_RE.sub(replace, content)
+
+
+def count_ebay_links(content: str) -> int:
+    count = 0
+    for match in HREF_RE.finditer(content):
+        raw_url = html.unescape(match.group(2))
+        parts = urlsplit(raw_url)
+        host = parts.netloc.casefold().split(":", 1)[0]
+        if host in UK_EBAY_HOSTS:
+            count += 1
+    return count
+
+
+def verify_uk_epn_tracking(content: str) -> None:
+    ebay_links = count_ebay_links(content)
+    if ebay_links == 0:
+        return
+    tracked = content.count(f"campid={UK_EPN_CAMPAIGN_ID}") + content.count(f"campid%3D{UK_EPN_CAMPAIGN_ID}")
+    if tracked < ebay_links:
+        raise RuntimeError(
+            f"EPN verification failed: found {ebay_links} eBay UK link(s) but only {tracked} "
+            f"link(s) contained campaign {UK_EPN_CAMPAIGN_ID}."
+        )
 
 
 def pinterest_image_html(article: dict) -> str:
@@ -146,6 +170,10 @@ def main() -> None:
                     is_draft=(mode != "publish"),
                 )
                 action = "created"
+
+        fetched = blogger.get_post(post["id"])
+        verify_uk_epn_tracking(str(fetched.get("content", "")))
+        print(f"[verified] {title}: UK EPN campaign {UK_EPN_CAMPAIGN_ID}")
 
         state[slug] = {
             "post_id": post["id"],
