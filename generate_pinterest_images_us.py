@@ -5,9 +5,12 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
+from src.site_config import get_site_host
+
 ROOT = Path(__file__).resolve().parent
 ARTICLES_DIR = ROOT / "articles-us"
 OUTPUT_DIR = ROOT / "assets" / "pinterest" / "us"
+SITE_HOST = get_site_host("us")
 
 WIDTH = 1000
 HEIGHT = 1500
@@ -155,7 +158,7 @@ def render_article(article: dict, output: Path) -> None:
     footer_top = 1295
     draw.rectangle((0, footer_top, WIDTH, HEIGHT), fill=DEEP_NAVY)
     draw.text((70, 1343), "Read the full guide at", font=load_font(28), fill="#B9D7E8")
-    draw.text((70, 1385), "worthbuyingusa.blogspot.com", font=load_font(34, bold=True), fill=WHITE)
+    draw.text((70, 1385), SITE_HOST, font=load_font(34, bold=True), fill=WHITE)
     draw.rounded_rectangle((70, 1442, 350, 1452), radius=5, fill=YELLOW)
     affiliate = "Some links may be affiliate links"
     a_font = load_font(20)
