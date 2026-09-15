@@ -1,0 +1,54 @@
+name: Pinterest USA daily sync
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 21 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pinterest-usa-daily-sync
+  cancel-in-progress: false
+
+jobs:
+  sync-us:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate USA Pinterest images
+        env:
+          PYTHONPATH: .
+        run: python generate_pinterest_images_us.py
+
+      - name: Generate USA Pinterest RSS feed
+        env:
+          PYTHONPATH: .
+        run: python generate_pinterest_feed_us.py
+
+      - name: Save USA Pinterest assets and feed
+        run: |
+          git add assets/pinterest/us pinterest-feed-us.xml
+          if git diff --cached --quiet -- assets/pinterest/us pinterest-feed-us.xml; then
+            echo "USA Pinterest is already in sync."
+            exit 0
+          fi
+          git config user.name "worth-buying-usa-bot"
+          git config user.email "worth-buying-usa-bot@users.noreply.github.com"
+          git commit -m "Sync USA Pinterest assets and affiliate feed"
+          git pull --rebase origin main
+          git push
