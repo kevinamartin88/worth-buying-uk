@@ -1,20 +1,9 @@
 name: Publish Blogger articles
 
+# Paused from automatic triggering while the Blogger API appeal is unresolved.
+# Keep manual dispatch only so normal code/content changes cannot call Blogger.
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - "articles/**"
-      - "publish_articles.py"
-      - "publish_x.py"
-      - "generate_pinterest_images.py"
-      - "generate_pinterest_feed.py"
-      - "generate_x_images.py"
-      - "requirements.txt"
-      - "src/blogger.py"
-      - "src/buffer.py"
 
 permissions:
   contents: write
