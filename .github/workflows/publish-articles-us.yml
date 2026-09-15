@@ -61,7 +61,7 @@ jobs:
       - name: Publish USA Blogger articles
         env:
           PYTHONPATH: .
-          BLOGGER_CLIENT_ID: "185457893332-2itnckaunkie4no7y54jjft2mi2kvu1f.apps.googleusercontent.com"
+          BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_US_CLIENT_ID || secrets.BLOGGER_CLIENT_ID }}
           BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_US_CLIENT_SECRET || secrets.BLOGGER_CLIENT_SECRET }}
           BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_US_REFRESH_TOKEN || secrets.BLOGGER_REFRESH_TOKEN }}
           BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_US_BLOG_ID }}
