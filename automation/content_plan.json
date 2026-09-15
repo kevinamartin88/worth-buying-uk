@@ -5,6 +5,7 @@
   "domain_config": "automation/domains.json",
   "custom_domain": "https://www.worthbuyinguk.co.uk/",
   "custom_domain_status": "registered-not-connected",
+  "deal_discovery_config": "automation/deal_discovery_plan.json",
   "repository": "kevinamartin88/worth-buying-uk",
   "daily_target": {
     "amazon": 2,
@@ -25,6 +26,19 @@
     "amazon": "drafts-auto/amazon",
     "ebay": "drafts-auto/ebay"
   },
+  "deal_discovery": {
+    "enabled": true,
+    "mode": "research-and-queue-only-while-blogger-disabled",
+    "strategy": [
+      "Actively search for unusually strong current deals as well as evergreen buying-guide opportunities.",
+      "Use the live eBay production Browse API for real UK listing data and affiliate URLs where applicable.",
+      "Use official retailer sale and launch pages, product-launch news, rising search interest and public deal-community activity as discovery signals.",
+      "Treat public deal communities as demand signals only; do not automate self-promotion or affiliate-link posting into communities that prohibit it.",
+      "Score opportunities using the shared automation/deal_discovery_plan.json and prioritise candidates scoring 70 or above.",
+      "Create Deal Alert, Today's Best Deals, Price Drop Worth Buying, Launch Deal, Refurbished Deal, Seasonal Deal Hub and Viral Product Check content when the evidence supports it."
+    ],
+    "future_networks": ["Awin", "impact.com", "CJ Affiliate", "Rakuten Advertising"]
+  },
   "amazon": {
     "tracking_id": "worthbuyin008-21",
     "strategy": [
@@ -34,6 +48,7 @@
       "cases, screen protectors, chargers, stands, cables, power banks and car mounts",
       "new home and kitchen gadgets or appliances showing signs of breakout demand, strong launch interest or viral popularity",
       "smart-home devices, robot cleaners, cordless cleaning gadgets, coffee and drinks gadgets, countertop cooking appliances, food-prep gadgets and other genuinely useful new household technology",
+      "verified deal opportunities and material price drops where current price evidence is available",
       "replacement or add-on products people buy immediately after a major purchase",
       "fast-rising or viral consumer products where purchase intent is clear"
     ],
@@ -44,6 +59,7 @@
       "Every Amazon URL must be a Special Link carrying tag=worthbuyin008-21.",
       "Include the disclosure: As an Amazon Associate I earn from qualifying purchases.",
       "Do not hard-code volatile prices unless verified on the same day.",
+      "Never claim a percentage saving solely from a crossed-out RRP; verify the deal independently where possible.",
       "Do not use Amazon product images or API-only product data unless permitted by Amazon's current rules and the required API/tool access is available.",
       "Check existing articles and queued drafts to avoid duplicate topics."
     ]
@@ -54,20 +70,25 @@
     "tracking_id": "worthbuyingus-20",
     "account_status": "Associates application created; Amazon review follows qualifying sales.",
     "disclosure": "As an Amazon Associate I earn from qualifying purchases.",
-    "strategy": "Mirror the high-intent launch, accessory, and emerging home-and-kitchen gadget strategy for the US market using Amazon.com Special Links with tag=worthbuyingus-20. Do not mix UK and US Amazon tracking IDs."
+    "strategy": "Mirror the high-intent launch, accessory, emerging home-and-kitchen gadget and verified-deal strategy for the US market using Amazon.com Special Links with tag=worthbuyingus-20. Do not mix UK and US Amazon tracking IDs."
   },
   "ebay": {
+    "api_environment": "production",
     "strategy": [
+      "live deal discovery using eBay Browse API listing data",
       "refurbished technology with strong value intent",
+      "verified current price-drop or unusually strong fixed-price opportunities",
       "current seasonal deal categories",
       "motoring, tools, home, kitchen, gaming and jewellery opportunities",
       "high-demand product launches where refurbished, used or accessory listings are attractive",
       "buying guides that help readers compare condition, seller quality and value"
     ],
     "rules": [
+      "Use current live listing data where possible rather than generic category assumptions.",
       "Create original, substantive guides with practical buying checks.",
-      "Use eBay UK links; the existing publisher adds and verifies the UK EPN campaign tracking.",
-      "Avoid invented prices and unverifiable deal claims.",
+      "Use eBay UK links; the existing publisher adds and verifies the UK EPN campaign tracking, while Browse API affiliate URLs may also be used when returned.",
+      "Verify prices and availability at research time and avoid invented or stale deal claims.",
+      "Do not call something a deal solely because eBay shows an RRP or seller reference price.",
       "Check existing articles and queued drafts to avoid duplicate topics."
     ]
   },
