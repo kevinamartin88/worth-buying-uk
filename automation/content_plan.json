@@ -5,7 +5,9 @@
   "repository": "kevinamartin88/worth-buying-uk",
   "daily_target": {
     "amazon": 2,
-    "ebay": 2
+    "ebay": 2,
+    "x": 4,
+    "pinterest": 4
   },
   "local_timezone": "Europe/London",
   "suggested_slots": [
@@ -57,7 +59,9 @@
   },
   "publishing": {
     "when_blogger_api_enabled_false": "Create and queue drafts only. Do not call Blogger API and do not move files into articles/.",
-    "when_blogger_api_enabled_true": "Move approved/generated article JSON into articles/ so the existing Blogger publisher can publish it. Only publish to X after a live Blogger URL exists.",
-    "x": "Use Buffer only after the Blogger article is live, with clear Ad/Affiliate disclosure in the X post."
+    "when_blogger_api_enabled_true": "Move approved/generated article JSON into articles/ so the existing Blogger publisher can publish it. Only promote on X or Pinterest after a live Blogger URL exists.",
+    "x": "Use Buffer only after the Blogger article is live. Put 'Affiliate' immediately before the destination URL and never use 'Ad/Affiliate'.",
+    "pinterest": "For every live article, set pinterest_enabled=true and provide a useful pinterest_title and pinterest_subtitle. Generate the Pinterest image and include the live article in pinterest-feed.xml. Pinterest descriptions must use 'Affiliate' only and never 'Ad/Affiliate'.",
+    "social_order": "Blogger live URL first, then Pinterest image/feed and X promotion. Never promote a draft URL."
   }
 }
