@@ -1,0 +1,63 @@
+{
+  "market": "UK",
+  "site_name": "Worth Buying UK",
+  "site_url": "https://worthbuyinguk.blogspot.com",
+  "repository": "kevinamartin88/worth-buying-uk",
+  "daily_target": {
+    "amazon": 2,
+    "ebay": 2
+  },
+  "local_timezone": "Europe/London",
+  "suggested_slots": [
+    {"time": "08:00", "source": "amazon"},
+    {"time": "11:00", "source": "ebay"},
+    {"time": "15:00", "source": "amazon"},
+    {"time": "19:00", "source": "ebay"}
+  ],
+  "blogger_api_enabled": false,
+  "blogger_api_note": "Keep false while Google's Blogger API posting restriction/appeal is unresolved. When access is restored, change this flag to true before allowing automated Blogger publishing.",
+  "draft_directories": {
+    "amazon": "drafts-auto/amazon",
+    "ebay": "drafts-auto/ebay"
+  },
+  "amazon": {
+    "tracking_id": "worthbuyin008-21",
+    "strategy": [
+      "major product launches with immediate accessory demand",
+      "new iPhone, Samsung Galaxy and Google Pixel launches",
+      "new consoles, handhelds, tablets, smartwatches and cameras",
+      "cases, screen protectors, chargers, stands, cables, power banks and car mounts",
+      "replacement or add-on products people buy immediately after a major purchase",
+      "fast-rising or viral consumer products where purchase intent is clear"
+    ],
+    "rules": [
+      "Prioritise buyer intent over generic search volume.",
+      "Create original, substantive guides with analysis and buying advice; avoid thin affiliate pages.",
+      "Every Amazon URL must be a Special Link carrying tag=worthbuyin008-21.",
+      "Include the disclosure: As an Amazon Associate I earn from qualifying purchases.",
+      "Do not hard-code volatile prices unless verified on the same day.",
+      "Do not use Amazon product images or API-only product data unless permitted by Amazon's current rules and the required API/tool access is available.",
+      "Check existing articles and queued drafts to avoid duplicate topics."
+    ]
+  },
+  "ebay": {
+    "strategy": [
+      "refurbished technology with strong value intent",
+      "current seasonal deal categories",
+      "motoring, tools, home, kitchen, gaming and jewellery opportunities",
+      "high-demand product launches where refurbished, used or accessory listings are attractive",
+      "buying guides that help readers compare condition, seller quality and value"
+    ],
+    "rules": [
+      "Create original, substantive guides with practical buying checks.",
+      "Use eBay UK links; the existing publisher adds and verifies the UK EPN campaign tracking.",
+      "Avoid invented prices and unverifiable deal claims.",
+      "Check existing articles and queued drafts to avoid duplicate topics."
+    ]
+  },
+  "publishing": {
+    "when_blogger_api_enabled_false": "Create and queue drafts only. Do not call Blogger API and do not move files into articles/.",
+    "when_blogger_api_enabled_true": "Move approved/generated article JSON into articles/ so the existing Blogger publisher can publish it. Only publish to X after a live Blogger URL exists.",
+    "x": "Use Buffer only after the Blogger article is live, with clear Ad/Affiliate disclosure in the X post."
+  }
+}
