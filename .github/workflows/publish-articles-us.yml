@@ -1,19 +1,9 @@
 name: Publish USA Blogger articles
 
+# Paused from automatic triggering while the Blogger API appeal is unresolved.
+# Keep manual dispatch only so normal code/content changes cannot call Blogger.
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - "articles-us/**"
-      - "publish_articles_us.py"
-      - "publish_x_us.py"
-      - "generate_x_images.py"
-      - "requirements.txt"
-      - "src/blogger.py"
-      - "src/buffer.py"
-      - ".github/workflows/publish-articles-us.yml"
 
 permissions:
   contents: write
