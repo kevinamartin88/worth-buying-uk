@@ -1,0 +1,82 @@
+name: Publish iPhone 18 Pro guide to X
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "x-triggers/iphone18pro.txt"
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Publish to X through Buffer
+        env:
+          PYTHONPATH: .
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          BUFFER_CHANNEL_NAME: "Worth Buying UK"
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from src.buffer import BufferClient
+
+          slug = "best-iphone-18-pro-cases-amazon-uk-2026"
+          title = "Best iPhone 18 Pro Cases on Amazon UK in 2026"
+          url = "https://worthbuyinguk.blogspot.com/2026/09/best-iphone-18-pro-cases-amazon-uk-2026.html"
+          text = (
+              "📱 New iPhone 18 Pro? We picked 6 Amazon UK cases to compare — "
+              "clear, magnetic, matte and decorative options, plus a screen protector.\n\n"
+              f"Ad/Affiliate 🔗 {url}\n\n"
+              "#iPhone18Pro #AmazonUK"
+          )
+
+          state_path = Path("state/x_published.json")
+          state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.exists() else {}
+
+          if slug in state:
+              print("[skip] already posted to X")
+          else:
+              post = BufferClient.from_env().create_post(text=text, mode="shareNow")
+              state[slug] = {
+                  "buffer_post_id": post.get("id"),
+                  "title": title,
+                  "url": url,
+                  "source_sha": "2026-09-15-amazon-iphone18pro-v1",
+              }
+              state_path.write_text(
+                  json.dumps(state, indent=2, ensure_ascii=False, sort_keys=True),
+                  encoding="utf-8",
+              )
+              print(f"[posted] {title}")
+          PY
+
+      - name: Save X publication state
+        run: |
+          if git diff --quiet -- state/x_published.json; then
+            echo "No X state changes to commit."
+            exit 0
+          fi
+          git config user.name "worth-buying-uk-bot"
+          git config user.email "worth-buying-uk-bot@users.noreply.github.com"
+          git add state/x_published.json
+          git commit -m "Record iPhone 18 Pro X post"
+          git pull --rebase origin main
+          git push
