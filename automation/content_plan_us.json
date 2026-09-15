@@ -2,6 +2,9 @@
   "market": "US",
   "site_name": "Worth Buying USA",
   "site_url": "https://worthbuyingusa.blogspot.com/",
+  "domain_config": "automation/domains.json",
+  "custom_domain": "https://www.worthbuyingusa.com/",
+  "custom_domain_status": "registered-not-connected",
   "repository": "kevinamartin88/worth-buying-uk",
   "daily_target": {
     "amazon": 2,
