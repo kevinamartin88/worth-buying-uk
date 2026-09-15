@@ -1,0 +1,54 @@
+{
+  "market": "US",
+  "site_name": "Worth Buying USA",
+  "site_url": "https://worthbuyingusa.blogspot.com/",
+  "repository": "kevinamartin88/worth-buying-uk",
+  "daily_target": {
+    "amazon": 2,
+    "x": 2,
+    "pinterest": 2
+  },
+  "local_timezone": "Europe/London",
+  "suggested_slots": [
+    {"time": "09:30", "source": "amazon"},
+    {"time": "17:30", "source": "amazon"}
+  ],
+  "blogger_api_enabled": false,
+  "blogger_api_note": "Keep false while Google's Blogger API posting restriction/appeal is unresolved. When access is restored, change this flag to true before allowing automated Blogger publishing.",
+  "draft_directory": "drafts-auto-us/amazon",
+  "publish_directory": "articles-us",
+  "amazon": {
+    "domain": "amazon.com",
+    "tracking_id": "worthbuyingus-20",
+    "disclosure": "As an Amazon Associate I earn from qualifying purchases.",
+    "strategy": [
+      "major US product launches with immediate accessory demand",
+      "new iPhone, Samsung Galaxy and Google Pixel launches",
+      "new consoles, handhelds, tablets, smartwatches, headphones and cameras",
+      "cases, screen protectors, chargers, stands, cables, power banks, car mounts and storage accessories",
+      "replacement or add-on products buyers purchase immediately after a major product launch",
+      "fast-rising, viral or seasonal consumer products where US purchase intent is clear",
+      "high-intent comparison searches such as best case for, best charger for, best accessories for and what to buy with"
+    ],
+    "rules": [
+      "Prioritize US buyer intent and launch timing over generic search volume.",
+      "Use fresh web research each run and favor products that are actually relevant to the current US market.",
+      "Check Worth Buying USA live posts, articles-us and queued US drafts before selecting a topic so the same subject is not repeated.",
+      "Create original, substantive buying guides with clear best-for recommendations, trade-offs and practical buying advice; avoid thin affiliate pages.",
+      "Every Amazon.com URL must be an Amazon US Special Link carrying tag=worthbuyingus-20.",
+      "Never use the UK tracking ID worthbuyin008-21 in a Worth Buying USA article.",
+      "Include the disclosure: As an Amazon Associate I earn from qualifying purchases.",
+      "Do not hard-code volatile prices unless verified on the same day.",
+      "Do not invent discounts, review counts, ratings, stock claims or specifications.",
+      "Do not use Amazon product images or API-only product data unless permitted by Amazon's current rules and the required API/tool access is available.",
+      "Prefer evergreen launch-support articles that can remain useful after the first news spike, while still exploiting early accessory demand."
+    ]
+  },
+  "publishing": {
+    "when_blogger_api_enabled_false": "Create and queue finished Amazon US article JSON files only in drafts-auto-us/amazon. Do not call Blogger API and do not move files into articles-us/.",
+    "when_blogger_api_enabled_true": "Move the finished article JSON into articles-us/ so the existing Worth Buying USA Blogger publisher can publish it. Publish one article at a time and persist publication state immediately after success.",
+    "x": "Only promote after a live Worth Buying USA Blogger URL exists. Use the Worth Buying USA Buffer channel and put 'Affiliate' immediately before the destination URL; never use 'Ad/Affiliate'.",
+    "pinterest": "For every live article, include pinterest_enabled=true plus a useful pinterest_title and pinterest_subtitle. Pinterest descriptions must use 'Affiliate' only and never 'Ad/Affiliate'.",
+    "social_order": "Blogger live URL first, then Pinterest and X. Never promote a draft URL."
+  }
+}
