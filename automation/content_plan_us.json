@@ -5,6 +5,7 @@
   "domain_config": "automation/domains.json",
   "custom_domain": "https://www.worthbuyingusa.com/",
   "custom_domain_status": "registered-not-connected",
+  "deal_discovery_config": "automation/deal_discovery_plan.json",
   "repository": "kevinamartin88/worth-buying-uk",
   "daily_target": {
     "amazon": 2,
@@ -20,6 +21,18 @@
   "blogger_api_note": "Keep false while Google's Blogger API posting restriction/appeal is unresolved. When access is restored, change this flag to true before allowing automated Blogger publishing.",
   "draft_directory": "drafts-auto-us/amazon",
   "publish_directory": "articles-us",
+  "deal_discovery": {
+    "enabled": true,
+    "mode": "research-and-queue-only-while-blogger-disabled",
+    "strategy": [
+      "Actively search for unusually strong current US deals as well as evergreen buying-guide opportunities.",
+      "Use official retailer sale and launch pages, product-launch news, rising search interest and public deal-community activity as discovery signals.",
+      "Treat public deal communities as demand signals only; do not automate self-promotion or affiliate-link posting into communities that prohibit it.",
+      "Score opportunities using the shared automation/deal_discovery_plan.json and prioritise candidates scoring 70 or above.",
+      "Create Deal Alert, Today's Best Deals, Price Drop Worth Buying, Launch Deal, Refurbished Deal, Seasonal Deal Hub and Viral Product Check content when the evidence supports it."
+    ],
+    "future_networks": ["impact.com", "CJ Affiliate", "Rakuten Advertising", "Awin"]
+  },
   "amazon": {
     "domain": "amazon.com",
     "tracking_id": "worthbuyingus-20",
@@ -31,6 +44,7 @@
       "cases, screen protectors, chargers, stands, cables, power banks, car mounts and storage accessories",
       "new home and kitchen gadgets or appliances showing signs of breakout demand, strong launch interest or viral popularity",
       "smart-home devices, robot cleaners, cordless cleaning gadgets, coffee and drinks gadgets, countertop cooking appliances, food-prep gadgets and other genuinely useful new household technology",
+      "verified deal opportunities and material price drops where current price evidence is available",
       "replacement or add-on products buyers purchase immediately after a major product launch",
       "fast-rising, viral or seasonal consumer products where US purchase intent is clear",
       "high-intent comparison searches such as best case for, best charger for, best accessories for and what to buy with"
@@ -45,6 +59,7 @@
       "Never use the UK tracking ID worthbuyin008-21 in a Worth Buying USA article.",
       "Include the disclosure: As an Amazon Associate I earn from qualifying purchases.",
       "Do not hard-code volatile prices unless verified on the same day.",
+      "Never claim a percentage saving solely from a crossed-out RRP or reference price; verify the deal independently where possible.",
       "Do not invent discounts, review counts, ratings, stock claims or specifications.",
       "Do not use Amazon product images or API-only product data unless permitted by Amazon's current rules and the required API/tool access is available.",
       "Prefer evergreen launch-support articles that can remain useful after the first news spike, while still exploiting early accessory demand."
