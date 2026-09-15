@@ -9,6 +9,8 @@ on:
       - "articles-us/**"
       - "publish_articles_us.py"
       - "publish_x_us.py"
+      - "generate_x_images.py"
+      - "requirements.txt"
       - "src/blogger.py"
       - "src/buffer.py"
       - ".github/workflows/publish-articles-us.yml"
@@ -37,6 +39,24 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
+
+      - name: Generate USA X images
+        env:
+          PYTHONPATH: .
+        run: python generate_x_images.py --market us
+
+      - name: Save USA X images
+        run: |
+          git add assets/x/us
+          if git diff --cached --quiet -- assets/x/us; then
+            echo "No USA X image changes to commit."
+          else
+            git config user.name "worth-buying-usa-bot"
+            git config user.email "worth-buying-usa-bot@users.noreply.github.com"
+            git commit -m "Update USA X article images"
+            git pull --rebase origin main
+            git push
+          fi
 
       - name: Publish USA Blogger articles
         env:
