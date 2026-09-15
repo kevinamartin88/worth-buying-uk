@@ -65,4 +65,5 @@ jobs:
             exit 0
           fi
           git commit -m "Update USA article and X publication state"
+          git pull --rebase origin main
           git push
