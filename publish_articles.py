@@ -3,7 +3,9 @@ from __future__ import annotations
 import hashlib
 import html
 import json
+import re
 from pathlib import Path
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 from src.blogger import BloggerClient
 
@@ -13,6 +15,18 @@ ARTICLES_DIR = ROOT / "articles"
 STATE_PATH = ROOT / "state" / "articles_published.json"
 PINTEREST_DIR = ROOT / "assets" / "pinterest"
 RAW_BASE = "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/pinterest"
+
+UK_EPN_PARAMS = {
+    "mkcid": "1",
+    "mkrid": "710-53481-19255-0",
+    "siteid": "3",
+    "campid": "5339209132",
+    "toolid": "20014",
+    "customid": "",
+    "mkevt": "1",
+}
+UK_EBAY_HOSTS = {"ebay.co.uk", "www.ebay.co.uk"}
+HREF_RE = re.compile(r'href=(["\'])(https?://[^"\']+)\1', re.IGNORECASE)
 
 
 def load_state() -> dict:
@@ -30,6 +44,30 @@ def save_state(state: dict) -> None:
         json.dumps(state, indent=2, ensure_ascii=False, sort_keys=True),
         encoding="utf-8",
     )
+
+
+def add_uk_epn_tracking(content: str) -> str:
+    """Ensure every eBay UK href carries the Worth Buying UK EPN campaign."""
+
+    def replace(match: re.Match[str]) -> str:
+        quote = match.group(1)
+        raw_url = html.unescape(match.group(2))
+        parts = urlsplit(raw_url)
+        host = parts.netloc.casefold().split(":", 1)[0]
+        if host not in UK_EBAY_HOSTS:
+            return match.group(0)
+
+        existing = parse_qsl(parts.query, keep_blank_values=True)
+        affiliate_keys = set(UK_EPN_PARAMS)
+        query = [(key, value) for key, value in existing if key not in affiliate_keys]
+        query.extend(UK_EPN_PARAMS.items())
+        tracked_url = urlunsplit(
+            (parts.scheme, parts.netloc, parts.path, urlencode(query), parts.fragment)
+        )
+        escaped_url = html.escape(tracked_url, quote=True)
+        return f"href={quote}{escaped_url}{quote}"
+
+    return HREF_RE.sub(replace, content)
 
 
 def pinterest_image_html(article: dict) -> str:
@@ -71,7 +109,8 @@ def main() -> None:
         article = json.loads(path.read_text(encoding="utf-8"))
         slug = article["slug"]
         title = article["title"]
-        content = pinterest_image_html(article) + article["content_html"]
+        article_content = add_uk_epn_tracking(article["content_html"])
+        content = pinterest_image_html(article) + article_content
         labels = article.get("labels", [])
         mode = article.get("mode", "publish").strip().lower()
         fingerprint = publish_fingerprint(article, content)
