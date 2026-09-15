@@ -53,13 +53,13 @@ def default_x_text(title: str, url: str, labels: list[str]) -> str:
         f"{emoji} {hook}\n\n"
         f"{clean_title}\n\n"
         f"Our guide focuses on value, usability and what to check before you buy.\n\n"
-        f"Ad/Affiliate 🔗 {url}\n"
+        f"Affiliate 🔗 {url}\n"
         f"{hashtags}"
     )
     if len(text) <= 280:
         return text
 
-    suffix = f"\n\nAd/Affiliate 🔗 {url}\n{hashtags}"
+    suffix = f"\n\nAffiliate 🔗 {url}\n{hashtags}"
     prefix = f"{emoji} {hook}\n\n"
     available = 280 - len(prefix) - len(suffix)
     short_title = clean_title[: max(20, available - 1)].rstrip() + "…"
@@ -67,10 +67,15 @@ def default_x_text(title: str, url: str, labels: list[str]) -> str:
 
 
 def custom_x_text(template: str, title: str, url: str) -> str:
-    text = template.format(title=title, url=url).strip()
+    normalized = (
+        template.replace("Ad/Affiliate", "Affiliate")
+        .replace("Ad / Affiliate", "Affiliate")
+        .replace("AD/Affiliate", "Affiliate")
+    )
+    text = normalized.format(title=title, url=url).strip()
     if len(text) <= 280:
         return text
-    suffix = f"\nAd/Affiliate 🔗 {url}"
+    suffix = f"\nAffiliate 🔗 {url}"
     body = text.replace(suffix, "").strip()
     max_body = max(40, 280 - len(suffix) - 1)
     return body[: max_body - 1].rstrip() + "…" + suffix
