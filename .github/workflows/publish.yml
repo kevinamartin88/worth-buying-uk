@@ -1,9 +1,9 @@
 name: Refresh affiliate pages
 
+# Scheduled Blogger refresh is paused while the Blogger API appeal is unresolved.
+# Manual dispatch is retained for later testing after access is restored.
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "17 7,19 * * *"
 
 permissions:
   contents: write
