@@ -94,10 +94,20 @@ class BufferClient:
             f"Connected X channels: {available}"
         )
 
-    def create_post(self, text: str, mode: str = "shareNow") -> dict:
+    def create_post(
+        self,
+        text: str,
+        mode: str = "shareNow",
+        image_url: str | None = None,
+    ) -> dict:
         channel_id = self.find_x_channel_id()
         safe_text = json.dumps(text, ensure_ascii=False)
         safe_channel = json.dumps(channel_id)
+        assets = ""
+        if image_url:
+            safe_image = json.dumps(image_url)
+            assets = f"assets: [{{ image: {{ url: {safe_image} }} }}]"
+
         query = f"""
         mutation CreatePost {{
           createPost(input: {{
@@ -105,9 +115,16 @@ class BufferClient:
             channelId: {safe_channel}
             schedulingType: automatic
             mode: {mode}
+            {assets}
           }}) {{
             ... on PostActionSuccess {{
-              post {{ id text status dueAt }}
+              post {{
+                id
+                text
+                status
+                dueAt
+                assets {{ id mimeType }}
+              }}
             }}
             ... on MutationError {{
               message
