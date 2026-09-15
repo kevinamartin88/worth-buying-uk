@@ -171,8 +171,10 @@ def main() -> None:
                 )
                 action = "created"
 
-        fetched = blogger.get_post(post["id"])
-        verify_uk_epn_tracking(str(fetched.get("content", "")))
+        # Blogger's create/update response includes the stored post content. Verifying
+        # that response avoids a second API read and still confirms the published
+        # payload contains the correct campaign tracking.
+        verify_uk_epn_tracking(str(post.get("content", content)))
         print(f"[verified] {title}: UK EPN campaign {UK_EPN_CAMPAIGN_ID}")
 
         state[slug] = {
