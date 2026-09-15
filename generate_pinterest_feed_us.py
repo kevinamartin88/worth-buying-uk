@@ -4,12 +4,14 @@ import html
 import json
 from pathlib import Path
 
+from src.site_config import get_site_url
+
 ROOT = Path(__file__).resolve().parent
 ARTICLES_DIR = ROOT / "articles-us"
 STATE_PATH = ROOT / "state" / "articles_us_published.json"
 OUTPUT_PATH = ROOT / "pinterest-feed-us.xml"
 IMAGE_BASE = "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/pinterest/us"
-SITE_URL = "https://worthbuyingusa.blogspot.com/"
+SITE_URL = get_site_url("us")
 
 
 def xml(value: object) -> str:
