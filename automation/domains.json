@@ -1,0 +1,19 @@
+{
+  "switch_note": "Custom domains are registered but must remain inactive until the Blogger API appeal is resolved and each Blogger custom-domain migration is deliberately completed and tested.",
+  "uk": {
+    "site_name": "Worth Buying UK",
+    "active": "blogspot",
+    "blogspot_url": "https://worthbuyinguk.blogspot.com/",
+    "custom_url": "https://www.worthbuyinguk.co.uk/",
+    "custom_domain_registered": true,
+    "custom_domain_connected_to_blogger": false
+  },
+  "us": {
+    "site_name": "Worth Buying USA",
+    "active": "blogspot",
+    "blogspot_url": "https://worthbuyingusa.blogspot.com/",
+    "custom_url": "https://www.worthbuyingusa.com/",
+    "custom_domain_registered": true,
+    "custom_domain_connected_to_blogger": false
+  }
+}
