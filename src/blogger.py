@@ -70,6 +70,13 @@ class BloggerClient:
             .execute()
         )
 
+    def get_post(self, post_id: str) -> dict:
+        return (
+            self.service.posts()
+            .get(blogId=self.blog_id, postId=post_id)
+            .execute()
+        )
+
     def publish_post(self, post_id: str) -> dict:
         return (
             self.service.posts()
