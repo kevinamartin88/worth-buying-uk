@@ -37,7 +37,7 @@ jobs:
 
       - name: Refresh Blogger pages
         env:
-          EBAY_ENV: "sandbox"
+          EBAY_ENV: "production"
           EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
           EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
           EPN_CAMPAIGN_ID: ${{ secrets.EPN_CAMPAIGN_ID }}
