@@ -2,11 +2,6 @@ name: Test eBay production API
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - ".github/workflows/test-ebay-production.yml"
 
 permissions:
   contents: read
@@ -24,74 +19,16 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: "pip"
 
-      - name: Install requests
-        run: pip install requests
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
-      - name: Test production OAuth and Browse API
+      - name: Verify OAuth, search and getItem
         env:
+          PYTHONPATH: .
+          EBAY_ENV: production
           EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
           EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
           EPN_CAMPAIGN_ID: ${{ secrets.EPN_CAMPAIGN_ID }}
-        run: |
-          python - <<'PY'
-          import base64
-          import os
-          import requests
-
-          client_id = os.environ.get("EBAY_CLIENT_ID", "")
-          client_secret = os.environ.get("EBAY_CLIENT_SECRET", "")
-          campaign_id = os.environ.get("EPN_CAMPAIGN_ID", "")
-
-          if not client_id or not client_secret:
-              raise SystemExit("Missing production EBAY_CLIENT_ID or EBAY_CLIENT_SECRET secret")
-
-          basic = base64.b64encode(f"{client_id}:{client_secret}".encode()).decode()
-          token_response = requests.post(
-              "https://api.ebay.com/identity/v1/oauth2/token",
-              headers={
-                  "Authorization": f"Basic {basic}",
-                  "Content-Type": "application/x-www-form-urlencoded",
-              },
-              data={
-                  "grant_type": "client_credentials",
-                  "scope": "https://api.ebay.com/oauth/api_scope",
-              },
-              timeout=30,
-          )
-          token_response.raise_for_status()
-          access_token = token_response.json()["access_token"]
-          print("Production OAuth: OK")
-
-          headers = {
-              "Authorization": f"Bearer {access_token}",
-              "X-EBAY-C-MARKETPLACE-ID": "EBAY_GB",
-              "Accept": "application/json",
-          }
-          if campaign_id:
-              headers["X-EBAY-C-ENDUSERCTX"] = (
-                  f"affiliateCampaignId={campaign_id},affiliateReferenceId=production-test"
-              )
-
-          browse_response = requests.get(
-              "https://api.ebay.com/buy/browse/v1/item_summary/search",
-              headers=headers,
-              params={
-                  "q": "wireless charger",
-                  "filter": "buyingOptions:{FIXED_PRICE},deliveryCountry:GB,priceCurrency:GBP",
-                  "limit": 3,
-              },
-              timeout=30,
-          )
-          browse_response.raise_for_status()
-          payload = browse_response.json()
-          items = payload.get("itemSummaries", [])
-          print(f"Production Browse API: OK ({len(items)} live listing(s) returned)")
-
-          if items:
-              first = items[0]
-              print("Sample listing title:", first.get("title", "(no title)"))
-              print("Affiliate URL returned:", bool(first.get("itemAffiliateWebUrl")))
-          else:
-              raise SystemExit("Browse API authenticated but returned no live listings for the test query")
-          PY
+        run: python scripts/test_ebay_live.py
