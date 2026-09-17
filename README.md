@@ -2,7 +2,7 @@
 
 A zero-running-cost MVP that:
 
-1. Searches eBay through the official Browse API.
+1. Searches eBay through the official Browse API and can enrich results with `getItem`.
 2. Keeps eBay's returned item order (it filters, but does not re-sort).
 3. Adds eBay Partner Network affiliate attribution using `affiliateCampaignId`
    and a niche-specific `affiliateReferenceId` / sub-ID.
@@ -122,7 +122,9 @@ EBAY_ENV=sandbox
 ```
 
 For earning affiliate commission, join EPN and apply for production access to the
-eBay Buy APIs. Once approved, use Production client credentials and set:
+eBay Buy APIs. Once approved, use the **Production App ID (Client ID)** and
+**Production Cert ID (Client Secret)**. The client-credentials token is held only
+in memory and is never written to repository files or workflow logs.
 
 ```text
 EBAY_ENV=production
@@ -144,13 +146,62 @@ add:
 EBAY_CLIENT_ID
 EBAY_CLIENT_SECRET
 EPN_CAMPAIGN_ID
+EPN_US_CAMPAIGN_ID
 BLOGGER_CLIENT_ID
 BLOGGER_CLIENT_SECRET
 BLOGGER_REFRESH_TOKEN
 BLOGGER_BLOG_ID
 ```
 
-For Sandbox tests you can leave `EPN_CAMPAIGN_ID` blank.
+The eBay values are:
+
+- `EBAY_CLIENT_ID`: the eBay production App ID (Client ID).
+- `EBAY_CLIENT_SECRET`: the matching production Cert ID (Client Secret).
+- `EPN_CAMPAIGN_ID`: the UK EPN campaign ID used to request UK affiliate URLs.
+- `EPN_US_CAMPAIGN_ID`: the USA EPN campaign ID used to request USA affiliate URLs.
+
+The UK live test requires the first three. The US campaign secret is required only
+when US live-listing generation is enabled. The same production eBay application
+credentials can be used for both marketplaces. For Sandbox tests you can leave the
+campaign IDs blank.
+
+Add them at **Repository Settings → Secrets and variables → Actions → New
+repository secret**. Do not add them as repository variables, workflow inputs, or
+plain text in a YAML file.
+
+### Safe production API check
+
+After the UK secrets are present, open **Actions → Test eBay production API → Run
+workflow**. This manual-only workflow runs `scripts/test_ebay_live.py` and verifies:
+
+1. the OAuth client-credentials flow;
+2. a live `EBAY_GB` search for `air fryers`; and
+3. a `getItem` request for one returned item.
+
+The log prints only pass/fail signals, the result count, and whether an affiliate
+URL was returned. It does not print tokens, credentials, item URLs, seller data, or
+the raw eBay response.
+
+### Live listing input for future UK/US articles
+
+Article-generation code can use the same client for either market:
+
+```python
+from src.ebay import EbayClient
+
+client = EbayClient.for_market("uk")  # or "us"
+items = client.discover(
+    query="air fryers",
+    max_price=500,
+    affiliate_reference="article-air-fryers",
+    limit=8,
+)
+```
+
+`discover()` preserves eBay's search order and enriches each result through
+`getItem`. Both calls include the market's EPN context, so returned affiliate URLs
+retain campaign and per-article reference tracking. Existing Blogger, X and
+Pinterest workflows remain unchanged.
 
 The workflow defaults to `EBAY_ENV=production`. Change it to `sandbox` until
 your eBay production access is approved.
