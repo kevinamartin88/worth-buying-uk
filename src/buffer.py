@@ -56,7 +56,7 @@ class BufferClient:
         for organization in organizations:
             org_id = json.dumps(organization["id"])
             data = self._graphql(
-                f"query {{ channels(input: {{ organizationId: {org_id} }}) {{ id name service }} }}"
+                f"query {{ channels(input: {{ organizationId: {org_id} }}) {{ id name displayName externalLink descriptor service type isDisconnected isLocked }} }}"
             )
             for channel in data.get("channels", []):
                 service = str(channel.get("service", "")).lower()
@@ -65,6 +65,20 @@ class BufferClient:
 
         if not x_channels:
             raise RuntimeError("No X/Twitter channel is connected to Buffer.")
+
+        for channel in x_channels:
+            print(
+                "[buffer-channel] "
+                f"name={channel.get('name')} "
+                f"displayName={channel.get('displayName')} "
+                f"externalLink={channel.get('externalLink')} "
+                f"descriptor={channel.get('descriptor')} "
+                f"service={channel.get('service')} "
+                f"type={channel.get('type')} "
+                f"disconnected={channel.get('isDisconnected')} "
+                f"locked={channel.get('isLocked')} "
+                f"id={channel.get('id')}"
+            )
 
         wanted = self.channel_name.casefold()
         exact = [c for c in x_channels if str(c.get("name", "")).casefold() == wanted]
@@ -95,7 +109,9 @@ class BufferClient:
             self._channel_name = str(selected.get("name", self.channel_name))
             print(
                 f"[buffer] Selected X channel: {self._channel_name} "
-                f"(service={selected.get('service')}, id={self._channel_id})"
+                f"(displayName={selected.get('displayName')}, "
+                f"externalLink={selected.get('externalLink')}, "
+                f"service={selected.get('service')}, id={self._channel_id})"
             )
             return self._channel_id
 
