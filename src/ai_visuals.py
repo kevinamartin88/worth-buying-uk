@@ -101,16 +101,20 @@ def _wrap_text(
     return lines
 
 
-def _fit_title(draw: ImageDraw.ImageDraw, title: str) -> tuple[object, list[str]]:
-    for size in range(78, 53, -2):
+def _fit_title(
+    draw: ImageDraw.ImageDraw,
+    title: str,
+    max_width: int = 620,
+) -> tuple[object, list[str]]:
+    for size in range(72, 49, -2):
         font = _load_font(size, bold=True)
-        lines = _wrap_text(draw, title, font, max_width=860, max_lines=4)
-        line_height = _measure(draw, "Ag", font)[1] + 18
-        if len(lines) <= 4 and len(lines) * line_height <= 330:
+        lines = _wrap_text(draw, title, font, max_width=max_width, max_lines=4)
+        line_height = _measure(draw, "Ag", font)[1] + 16
+        if len(lines) <= 4 and len(lines) * line_height <= 320:
             return font, lines
 
-    font = _load_font(54, bold=True)
-    return font, _wrap_text(draw, title, font, max_width=860, max_lines=4)
+    font = _load_font(50, bold=True)
+    return font, _wrap_text(draw, title, font, max_width=max_width, max_lines=4)
 
 
 def _brand_name(market: str) -> str:
@@ -412,8 +416,11 @@ def build_prompt(article: dict, market: str) -> str:
         + direction
         + " Use believable natural lighting, realistic materials, clean magazine composition, "
         "strong depth and one clear visual focal point. Make it look like genuine commercial "
-        "editorial photography. Keep the left side relatively uncluttered because accurate text "
-        "will be added there afterwards by the publishing system."
+        "editorial photography. Place the main product or visual focal point on the left or "
+        "left-centre of the frame. Keep the centre-right area relatively uncluttered because "
+        "accurate headline text will be added there afterwards by the publishing system. "
+        "Avoid placing important product details at the extreme left or right edges because "
+        "social and website thumbnails may crop the image."
     )
 
 
@@ -461,13 +468,22 @@ def _add_text_overlay(image: Image.Image, article: dict, market: str) -> Image.I
     image = image.convert("RGBA")
     overlay = Image.new("RGBA", image.size, (0, 0, 0, 0))
 
-    # Strong left-hand gradient protects headline readability while preserving
-    # the product photography on the right side of the image.
+    # Keep all important wording inside a centre-right thumbnail-safe zone.
+    # Many blog/social previews crop a 16:9 image toward the centre, so avoiding
+    # the extreme left and right edges keeps the headline readable at small sizes.
     overlay_draw = ImageDraw.Draw(overlay)
-    gradient_width = 1120
-    for x in range(gradient_width):
-        progress = x / max(gradient_width - 1, 1)
-        alpha = int(218 * (1 - progress) ** 1.65)
+    panel_left = 560
+    panel_right = 1450
+    for x in range(panel_left, panel_right):
+        progress = (x - panel_left) / max(panel_right - panel_left - 1, 1)
+        alpha = int(105 + (65 * progress))
+        overlay_draw.rectangle((x, 0, x + 1, OUTPUT_HEIGHT), fill=(3, 23, 43, alpha))
+
+    # Soft fade into the text panel from the image side.
+    fade_left = 420
+    for x in range(fade_left, panel_left):
+        progress = (x - fade_left) / max(panel_left - fade_left - 1, 1)
+        alpha = int(105 * progress)
         overlay_draw.rectangle((x, 0, x + 1, OUTPUT_HEIGHT), fill=(3, 23, 43, alpha))
 
     # A light bottom vignette keeps the lower call-to-action readable.
@@ -486,12 +502,14 @@ def _add_text_overlay(image: Image.Image, article: dict, market: str) -> Image.I
 
     brand_font = _load_font(30, bold=True)
     kicker_font = _load_font(27, bold=True)
-    title_font, title_lines = _fit_title(draw, title)
+    text_x = 620
+    text_max_width = 620
+    title_font, title_lines = _fit_title(draw, title, max_width=text_max_width)
     subtitle_font = _load_font(30)
 
     # Brand badge.
     brand_w, brand_h = _measure(draw, brand, brand_font)
-    badge_x1, badge_y1 = 82, 65
+    badge_x1, badge_y1 = text_x, 65
     badge_x2 = badge_x1 + brand_w + 54
     badge_y2 = badge_y1 + brand_h + 30
     draw.rounded_rectangle(
@@ -507,18 +525,18 @@ def _add_text_overlay(image: Image.Image, article: dict, market: str) -> Image.I
     kicker_w, kicker_h = _measure(draw, kicker, kicker_font)
     kicker_y = badge_y2 + 24
     draw.rounded_rectangle(
-        (82, kicker_y, 82 + kicker_w + 46, kicker_y + kicker_h + 25),
+        (text_x, kicker_y, text_x + kicker_w + 46, kicker_y + kicker_h + 25),
         radius=18,
         fill=(16, 183, 176, 238),
     )
-    draw.text((105, kicker_y + 10), kicker, font=kicker_font, fill=WHITE)
+    draw.text((text_x + 23, kicker_y + 10), kicker, font=kicker_font, fill=WHITE)
 
     # Main headline.
     title_y = kicker_y + kicker_h + 72
     line_height = _measure(draw, "Ag", title_font)[1] + 18
     for line in title_lines:
         draw.text(
-            (82, title_y),
+            (text_x, title_y),
             line,
             font=title_font,
             fill=WHITE,
@@ -529,19 +547,19 @@ def _add_text_overlay(image: Image.Image, article: dict, market: str) -> Image.I
 
     # Brand accent.
     accent_y = title_y + 12
-    draw.rounded_rectangle((82, accent_y, 310, accent_y + 10), radius=5, fill=YELLOW)
+    draw.rounded_rectangle((text_x, accent_y, text_x + 228, accent_y + 10), radius=5, fill=YELLOW)
 
     # Optional supporting line from the article metadata.
     if subtitle:
         sub_y = accent_y + 35
-        for line in _wrap_text(draw, subtitle, subtitle_font, max_width=820, max_lines=2):
-            draw.text((82, sub_y), line, font=subtitle_font, fill=MUTED_WHITE)
+        for line in _wrap_text(draw, subtitle, subtitle_font, max_width=text_max_width, max_lines=2):
+            draw.text((text_x, sub_y), line, font=subtitle_font, fill=MUTED_WHITE)
             sub_y += 44
 
     # Small footer prompt.
     footer_font = _load_font(25, bold=True)
-    draw.text((82, 822), "READ THE FULL GUIDE", font=footer_font, fill=WHITE)
-    draw.rounded_rectangle((82, 858, 255, 865), radius=4, fill=YELLOW)
+    draw.text((text_x, 822), "READ THE FULL GUIDE", font=footer_font, fill=WHITE)
+    draw.rounded_rectangle((text_x, 858, text_x + 173, 865), radius=4, fill=YELLOW)
 
     return image.convert("RGB")
 
@@ -611,7 +629,7 @@ def generate_image(
         headers={
             "Authorization": f"Bearer {api_token}",
             "Content-Type": "application/json",
-            "User-Agent": "WorthBuyingVisualGenerator/4.1",
+            "User-Agent": "WorthBuyingVisualGenerator/4.2",
         },
     )
     response.raise_for_status()
