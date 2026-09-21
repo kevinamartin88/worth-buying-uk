@@ -540,6 +540,7 @@ def main() -> None:
     year = now.year
     weekday = now.weekday()
     day_name = now.strftime("%A")
+    is_weekend = weekday in (5, 6)
     state = load_json(STATE_PATH)
     generated = 0
 
@@ -571,14 +572,14 @@ def main() -> None:
             "title": article["title"],
             "topic": topic[0],
             "day": day_name,
-            "weekend_priority": weekday in {5, 6},
+            "weekend_priority": is_weekend,
             "live_ebay_picks": bool(article["_generator"]["live_ebay_picks"]),
             "pick_count": int(article["_generator"]["pick_count"]),
         }
         generated += 1
         print(
             f"[daily-created] {market.upper()}: {target.relative_to(ROOT)} "
-            f"(day={day_name}, weekend_priority={weekday in {5, 6}}, "
+            f"(day={day_name}, weekend_priority={is_weekend}, "
             f"live eBay picks={article['_generator']['pick_count']})"
         )
 
