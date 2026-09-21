@@ -12,6 +12,8 @@ from pathlib import Path
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 from urllib.request import Request, urlopen
 
+from src.site_config import get_site_config, get_site_url
+
 ROOT = Path(__file__).resolve().parent
 EMAIL_STATE_PATH = ROOT / "state" / "email_published.json"
 
@@ -174,14 +176,31 @@ def find_public_post_url(site_url: str, title: str) -> str | None:
     return None
 
 
-def resolve_public_url(site_url: str, title: str, attempts: int = 12) -> str | None:
+def canonicalize_url(url: str, public_site_url: str) -> str:
+    source = urlsplit(url)
+    public = urlsplit(public_site_url)
+    return urlunsplit(
+        (public.scheme, public.netloc, source.path, source.query, source.fragment)
+    )
+
+
+def resolve_public_url(
+    lookup_urls: list[str],
+    public_site_url: str,
+    title: str,
+    attempts: int = 12,
+) -> str | None:
     for attempt in range(1, attempts + 1):
-        try:
-            url = find_public_post_url(site_url, title)
-            if url:
-                return url
-        except Exception as exc:
-            print(f"[wait] Could not read public Blogger feed: {type(exc).__name__}: {exc}")
+        for lookup_url in lookup_urls:
+            try:
+                url = find_public_post_url(lookup_url, title)
+                if url:
+                    return canonicalize_url(url, public_site_url)
+            except Exception as exc:
+                print(
+                    f"[wait] Could not read Blogger feed at {lookup_url}: "
+                    f"{type(exc).__name__}: {exc}"
+                )
         if attempt < attempts:
             print(f"[wait] Waiting for Blogger to publish '{title}' ({attempt}/{attempts})")
             time.sleep(10)
@@ -193,16 +212,19 @@ def main() -> None:
     if market not in {"uk", "us"}:
         raise ValueError("MARKET must be 'uk' or 'us'")
 
+    site_config = get_site_config(market)
+    public_site_url = get_site_url(market).rstrip("/")
+    blogspot_url = str(site_config["blogspot_url"]).rstrip("/")
+    lookup_urls = list(dict.fromkeys([public_site_url, blogspot_url]))
+
     if market == "uk":
         articles_dir = ROOT / "articles"
         target_email = os.environ["BLOGGER_UK_EMAIL_POST_ADDRESS"]
         blog_state_path = ROOT / "state" / "articles_published.json"
-        site_url = "https://worthbuyinguk.blogspot.com"
     else:
         articles_dir = ROOT / "articles-us"
         target_email = os.environ["BLOGGER_US_EMAIL_POST_ADDRESS"]
         blog_state_path = ROOT / "state" / "articles_us_published.json"
-        site_url = "https://worthbuyingusa.blogspot.com"
 
     if not articles_dir.exists():
         print(f"No article directory found: {articles_dir}")
@@ -253,7 +275,7 @@ def main() -> None:
         else:
             print(f"[resolve] {slug}: email already sent; checking public Blogger feed")
 
-        url = resolve_public_url(site_url, title)
+        url = resolve_public_url(lookup_urls, public_site_url, title)
         if not url:
             print(
                 f"[warning] Blogger email was sent for '{title}', but its public URL "
