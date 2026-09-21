@@ -15,9 +15,11 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUEST_TIMEOUT = 120
-MODEL = "@cf/stabilityai/stable-diffusion-xl-base-1.0"
-WIDTH = 1600
-HEIGHT = 900
+MODEL = "@cf/bytedance/stable-diffusion-xl-lightning"
+GEN_WIDTH = 1024
+GEN_HEIGHT = 576
+OUTPUT_WIDTH = 1600
+OUTPUT_HEIGHT = 900
 
 
 def _strip_html(value: str) -> str:
@@ -144,8 +146,8 @@ def _extract_image_bytes(response: requests.Response) -> bytes:
 def _save_as_jpeg(image_bytes: bytes, output: Path) -> None:
     with Image.open(io.BytesIO(image_bytes)) as image:
         image = image.convert("RGB")
-        if image.size != (WIDTH, HEIGHT):
-            image = image.resize((WIDTH, HEIGHT), Image.Resampling.LANCZOS)
+        if image.size != (OUTPUT_WIDTH, OUTPUT_HEIGHT):
+            image = image.resize((OUTPUT_WIDTH, OUTPUT_HEIGHT), Image.Resampling.LANCZOS)
         output.parent.mkdir(parents=True, exist_ok=True)
         image.save(output, format="JPEG", quality=90, optimize=True)
 
@@ -168,10 +170,8 @@ def generate_image(
     payload = {
         "prompt": build_prompt(article, market),
         "negative_prompt": negative_prompt(),
-        "width": WIDTH,
-        "height": HEIGHT,
-        "num_steps": 20,
-        "guidance": 7.5,
+        "width": GEN_WIDTH,
+        "height": GEN_HEIGHT,
         "seed": _seed_for(article, market),
     }
 
@@ -182,7 +182,7 @@ def generate_image(
         headers={
             "Authorization": f"Bearer {api_token}",
             "Content-Type": "application/json",
-            "User-Agent": "WorthBuyingVisualGenerator/3.0",
+            "User-Agent": "WorthBuyingVisualGenerator/3.1",
         },
     )
     response.raise_for_status()

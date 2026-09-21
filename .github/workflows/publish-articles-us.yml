@@ -55,6 +55,7 @@ jobs:
 
       - name: Save USA AI article hero images
         run: |
+          mkdir -p assets/ai/us
           git add assets/ai/us
           if git diff --cached --quiet -- assets/ai/us; then
             echo "No USA AI hero image changes to commit."
