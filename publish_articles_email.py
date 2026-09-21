@@ -38,6 +38,10 @@ US_EPN_PARAMS = {
 
 UK_EBAY_HOSTS = {"ebay.co.uk", "www.ebay.co.uk"}
 US_EBAY_HOSTS = {"ebay.com", "www.ebay.com"}
+UK_AMAZON_HOSTS = {"amazon.co.uk", "www.amazon.co.uk"}
+US_AMAZON_HOSTS = {"amazon.com", "www.amazon.com"}
+UK_AMAZON_TAG = "worthbuyin008-21"
+US_AMAZON_TAG = "worthbuyingus-20"
 HREF_RE = re.compile(r'href=(["\\\'])(https?://[^"\\\']+)\\1', re.IGNORECASE)
 ANCHOR_OPEN_RE = re.compile(
     r'(<a\\b[^>]*href=(["\\\'])(https?://[^"\\\']+)\\2[^>]*)(>)',
@@ -145,6 +149,31 @@ def add_epn_tracking(content: str, market: str) -> str:
         affiliate_keys = set(params)
         query = [(key, value) for key, value in existing if key not in affiliate_keys]
         query.extend(params.items())
+        tracked_url = urlunsplit(
+            (parts.scheme, parts.netloc, parts.path, urlencode(query), parts.fragment)
+        )
+        return f"href={quote}{html.escape(tracked_url, quote=True)}{quote}"
+
+    return HREF_RE.sub(replace, content)
+
+
+def add_amazon_tracking(content: str, market: str) -> str:
+    """Ensure every Amazon link carries the correct market-specific Associates tag."""
+
+    hosts = UK_AMAZON_HOSTS if market == "uk" else US_AMAZON_HOSTS
+    tag = UK_AMAZON_TAG if market == "uk" else US_AMAZON_TAG
+
+    def replace(match: re.Match[str]) -> str:
+        quote = match.group(1)
+        raw_url = html.unescape(match.group(2))
+        parts = urlsplit(raw_url)
+        host = parts.netloc.casefold().split(":", 1)[0]
+        if host not in hosts:
+            return match.group(0)
+
+        existing = parse_qsl(parts.query, keep_blank_values=True)
+        query = [(key, value) for key, value in existing if key.casefold() != "tag"]
+        query.append(("tag", tag))
         tracked_url = urlunsplit(
             (parts.scheme, parts.netloc, parts.path, urlencode(query), parts.fragment)
         )
@@ -326,7 +355,12 @@ def main() -> None:
             content = (
                 hero_image_html(slug, title, market)
                 + category_marker_html(category, public_site_url)
-                + style_retailer_buttons(add_epn_tracking(article["content_html"], market))
+                + style_retailer_buttons(
+                    add_amazon_tracking(
+                        add_epn_tracking(article["content_html"], market),
+                        market,
+                    )
+                )
             )
             send_email(
                 subject=title,
