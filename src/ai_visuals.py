@@ -177,9 +177,23 @@ def _overlay_kicker(article: dict) -> str:
         return "HOME & KITCHEN GUIDE"
     if _has_any(haystack, "cleaning appliance", "vacuum", "steam cleaner"):
         return "HOME CLEANING GUIDE"
-    if _has_any(haystack, "storage", "organisation", "organization", "organizer", "declutter"):
+    if _has_any(haystack, "storage", "organisation", "organization", "organizer", "declutter", "hanger"):
         return "HOME ORGANISATION GUIDE"
-    if _has_any(haystack, "diy", "home improvement", "tool kit", "drill"):
+    if _has_any(haystack, "cleaning bundle", "cleaning set"):
+        return "CLEANING BUYING GUIDE"
+    if _has_any(haystack, "portable griddle", "outdoor cooking"):
+        return "OUTDOOR COOKING GUIDE"
+    if _has_any(haystack, "smart light switch"):
+        return "SMART HOME GUIDE"
+    if _has_any(haystack, "streaming device", "fire tv", "roku"):
+        return "STREAMING DEVICE GUIDE"
+    if _has_any(haystack, "loungewear", "comfortable wear"):
+        return "LIFESTYLE BUYING GUIDE"
+    if _has_any(haystack, "beauty", "self-care", "self care"):
+        return "BEAUTY BUYING GUIDE"
+    if _has_any(haystack, "hobby", "craft kit"):
+        return "HOBBY BUYING GUIDE"
+    if _has_any(haystack, "diy", "home improvement", "tool kit", "drill", "garden tool"):
         return "DIY & HOME GUIDE"
 
     if _has_any(haystack, "diamond", "diamond jewelry", "diamond jewellery", "engagement ring"):
@@ -351,13 +365,56 @@ def _visual_direction(article: dict) -> str:
             "tools in a tidy utility room or home setting. The look should be fresh, practical and premium."
         )
 
-    if _has_any(haystack, "storage", "organisation", "organization", "organizer", "shelving", "declutter"):
+    if _has_any(haystack, "storage", "organisation", "organization", "organizer", "shelving", "declutter", "hanger"):
         return (
-            "Stage a home-organisation editorial scene with attractive unbranded storage and organisation "
-            "products in a neat modern home environment. Make it feel clean, satisfying and useful."
+            "Stage a home-organisation editorial scene with attractive unbranded storage bins, "
+            "wardrobe organisers or hangers in a neat modern home environment. Make it feel clean, "
+            "satisfying and useful."
         )
 
-    if _has_any(haystack, "diy", "home improvement", "tool kit", "drill", "decorating"):
+    if _has_any(haystack, "cleaning bundle", "cleaning set", "multi-purpose cleaning", "multipurpose cleaning"):
+        return (
+            "Stage a bright weekend-cleaning editorial with a tasteful unbranded bundle of household "
+            "cleaning tools, cloths, sprays and brushes arranged in a fresh utility-room or kitchen setting."
+        )
+
+    if _has_any(haystack, "portable griddle", "outdoor cooking"):
+        return (
+            "Stage a relaxed outdoor-cooking editorial with a compact unbranded portable griddle on a "
+            "patio or garden table, with tasteful food-preparation props and no visible logos."
+        )
+
+    if _has_any(haystack, "loungewear", "comfortable wear"):
+        return (
+            "Stage a premium lifestyle editorial with neatly folded or casually arranged comfortable "
+            "unbranded loungewear in a warm, modern bedroom or lounge setting. No models are required."
+        )
+
+    if _has_any(haystack, "beauty", "self-care", "self care"):
+        return (
+            "Stage a refined self-care editorial with a small collection of unbranded beauty and grooming "
+            "products on a clean vanity or bathroom surface, using soft natural light and premium styling."
+        )
+
+    if _has_any(haystack, "hobby", "craft kit"):
+        return (
+            "Stage a colourful but tasteful hobby-and-craft editorial with unbranded creative materials "
+            "arranged on a clean table, suggesting a relaxed weekend project without readable packaging."
+        )
+
+    if _has_any(haystack, "smart light switch"):
+        return (
+            "Stage a modern smart-home editorial showing a generic unbranded smart light switch in a "
+            "stylish contemporary room, with subtle connected-home context and no visible logos."
+        )
+
+    if _has_any(haystack, "streaming device", "fire tv", "roku"):
+        return (
+            "Stage a premium home-entertainment editorial with a modern television and a small generic "
+            "streaming device or remote in the foreground. Use abstract screen imagery only and no logos."
+        )
+
+    if _has_any(haystack, "diy", "home improvement", "tool kit", "drill", "decorating", "garden tool"):
         return (
             "Stage a home-improvement editorial scene with useful unbranded DIY tools or equipment in a "
             "smart workshop or home-renovation setting. Keep it tidy, capable and premium."
