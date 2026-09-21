@@ -300,7 +300,7 @@ def resolve_public_url(
     lookup_urls: list[str],
     public_site_url: str,
     title: str,
-    attempts: int = 12,
+    attempts: int = 18,
 ) -> str | None:
     for attempt in range(1, attempts + 1):
         for lookup_url in lookup_urls:
