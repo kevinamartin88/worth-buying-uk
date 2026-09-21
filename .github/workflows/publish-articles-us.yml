@@ -47,6 +47,7 @@ jobs:
       - name: Generate USA AI article hero images
         env:
           PYTHONPATH: .
+          POLLINATIONS_API_KEY: ${{ secrets.POLLINATIONS_API_KEY }}
         run: python generate_ai_visuals.py --market us
 
       - name: Save USA AI article hero images
