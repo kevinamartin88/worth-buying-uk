@@ -163,6 +163,237 @@ CATEGORY_CHECKS = {
 }
 
 
+SEO_STOPWORDS = {
+    "best", "buying", "worth", "guide", "guides", "current", "compare",
+    "the", "and", "for", "with", "from", "into", "your", "this", "that",
+    "uk", "usa", "2026", "home", "kitchen",
+}
+
+
+def meaningful_tokens(*values: str) -> set[str]:
+    tokens: set[str] = set()
+    for value in values:
+        for token in normalise(value).split():
+            if len(token) >= 3 and token not in SEO_STOPWORDS:
+                tokens.add(token)
+    return tokens
+
+
+def published_state_path(market: str) -> Path:
+    return ROOT / "state" / (
+        "articles_published.json" if market == "uk" else "articles_us_published.json"
+    )
+
+
+def published_article_dir(market: str) -> Path:
+    return ROOT / ("articles" if market == "uk" else "articles-us")
+
+
+def related_guides(
+    market: str,
+    current_slug: str,
+    display: str,
+    query: str,
+    category: str,
+    limit: int = 4,
+) -> list[dict]:
+    state = load_json(published_state_path(market))
+    article_dir = published_article_dir(market)
+    target_tokens = meaningful_tokens(display, query, category)
+    candidates: list[tuple[int, str, dict]] = []
+
+    for slug, entry in state.items():
+        if slug == current_slug:
+            continue
+        if entry.get("status") != "published" or not entry.get("url"):
+            continue
+
+        title = str(entry.get("title", "")).strip()
+        if not title:
+            continue
+
+        candidate_category = str(entry.get("primary_category", "")).strip()
+        source_file = str(entry.get("source_file", "")).strip()
+        if source_file:
+            source_path = article_dir / source_file
+            if source_path.exists():
+                try:
+                    source_article = json.loads(source_path.read_text(encoding="utf-8"))
+                    candidate_category = str(
+                        source_article.get("primary_category")
+                        or candidate_category
+                        or ""
+                    ).strip()
+                    title = str(source_article.get("title") or title).strip()
+                except (OSError, json.JSONDecodeError):
+                    pass
+
+        score = 0
+        if candidate_category and candidate_category == category:
+            score += 5
+
+        candidate_tokens = meaningful_tokens(title, candidate_category)
+        score += len(target_tokens & candidate_tokens) * 2
+
+        # Keep a few useful same-market fallbacks even when the topic overlap is
+        # weak, but always rank genuinely related guides first.
+        candidates.append(
+            (
+                score,
+                title.casefold(),
+                {
+                    "title": title,
+                    "url": str(entry["url"]),
+                    "category": candidate_category,
+                },
+            )
+        )
+
+    candidates.sort(key=lambda row: (-row[0], row[1]))
+    return [item for score, _, item in candidates if score > 0][:limit]
+
+
+def related_guides_html(guides: list[dict]) -> str:
+    if not guides:
+        return ""
+    items = "\n".join(
+        f'<li><a href="{html.escape(guide["url"], quote=True)}">'
+        f'{html.escape(guide["title"])}</a></li>'
+        for guide in guides
+    )
+    return (
+        "<h2>Related Worth Buying guides</h2>\n"
+        "<p>If you are still comparing options, these related guides may help:</p>\n"
+        f"<ul>{items}</ul>\n"
+    )
+
+
+def quick_picks_html(items: list[dict], market: str) -> str:
+    if not items:
+        return ""
+    rows: list[str] = []
+    for item in items:
+        title = " ".join(str(item.get("title", "")).split())
+        price = price_text(item, market) or "Check live price"
+        condition = str(item.get("condition", "")).strip()
+        detail = f" — {html.escape(price)}"
+        if condition:
+            detail += f" — {html.escape(condition)}"
+        rows.append(f"<li><strong>{html.escape(title)}</strong>{detail}</li>")
+
+    return (
+        "<h2>Current picks at a glance</h2>\n"
+        "<p>These are the current listings that passed our automated marketplace checks when this guide was generated.</p>\n"
+        f"<ul>{''.join(rows)}</ul>\n"
+    )
+
+
+def retailer_comparison_html(market: str, topic_name: str) -> str:
+    ebay = "eBay UK" if market == "uk" else "eBay"
+    amazon = "Amazon UK" if market == "uk" else "Amazon"
+    return (
+        f"<h2>{ebay} vs {amazon}: where should you compare?</h2>\n"
+        f"<p>For {html.escape(topic_name)}, it is worth checking both retailers rather than assuming one is always cheaper. "
+        f"{ebay} can be useful for new, refurbished and open-box stock and exposes seller feedback clearly. "
+        f"{amazon} can be useful for comparing new-stock availability, delivery options and retailer returns where offered. "
+        "Always compare the exact model number, condition, warranty, delivery cost and returns policy before deciding.</p>\n"
+    )
+
+
+def category_faqs(topic_name: str, category: str, market: str) -> list[tuple[str, str]]:
+    region = "UK" if market == "uk" else "USA"
+    topic = topic_name.lower()
+
+    common = [
+        (
+            f"How much should I spend on {topic}?",
+            f"There is no single right budget for {topic}. Start with the features you actually need, then compare current prices for equivalent models in the {region}. Paying more only makes sense when the extra specification, warranty or build quality is useful to you.",
+        ),
+        (
+            f"Should I buy {topic} from eBay or Amazon?",
+            "Compare both for the exact same model. Check condition, seller or retailer, warranty, delivery and returns as well as the headline price. A cheaper listing is not automatically better value if the terms are weaker.",
+        ),
+    ]
+
+    if category == "Tech":
+        common.extend([
+            (
+                f"What should I check before buying {topic}?",
+                "Confirm the exact model number or generation, compatibility, ports or connectivity, included accessories and warranty. For refurbished or open-box products, read the condition description carefully.",
+            ),
+            (
+                f"Is refurbished {topic} worth considering?",
+                "It can be, particularly when the seller has strong feedback and the listing clearly explains condition, battery or cosmetic wear where relevant, warranty and returns. Compare the saving against a new equivalent before buying.",
+            ),
+        ])
+    elif category == "Motoring":
+        common.extend([
+            (
+                f"How do I know whether {topic} will fit my car?",
+                "Check the vehicle compatibility or fitment information on the live listing and confirm dimensions, connectors and included adapters. Do not rely on a generic product title alone.",
+            ),
+            (
+                f"What matters most when comparing {topic}?",
+                "Compatibility, clear specifications, seller reputation, warranty, included accessories and returns matter more than a large claimed discount.",
+            ),
+        ])
+    elif category == "Gaming":
+        common.extend([
+            (
+                f"How do I choose compatible {topic}?",
+                "Check the exact console, PC or handheld platform supported, connection type, included cables or adapters and whether any features depend on proprietary software.",
+            ),
+            (
+                f"Are cheaper {topic} good value?",
+                "Sometimes, but compare build quality, compatibility, warranty and included accessories. A lower price can be good value when it still meets the features you need.",
+            ),
+        ])
+    else:
+        common.extend([
+            (
+                f"What should I look for when choosing {topic}?",
+                "Check dimensions, capacity or coverage, power use where relevant, cleaning or maintenance requirements, warranty and replacement parts or consumables. The most useful features depend on how often and where you will use the product.",
+            ),
+            (
+                f"Is it worth paying more for {topic}?",
+                "Only when the extra capacity, convenience, durability or warranty is useful for your needs. Compare like-for-like models and avoid paying for features you are unlikely to use.",
+            ),
+        ])
+
+    return common[:4]
+
+
+def faq_html(topic_name: str, category: str, market: str) -> str:
+    blocks = []
+    for question, answer in category_faqs(topic_name, category, market):
+        blocks.append(
+            f"<h3>{html.escape(question)}</h3>\n"
+            f"<p>{html.escape(answer)}</p>"
+        )
+    return "<h2>Frequently asked questions</h2>\n" + "\n".join(blocks) + "\n"
+
+
+def buyer_intro(display: str, region: str, year: int, live: bool) -> str:
+    topic = display.lower()
+    if live:
+        return (
+            f"If you are searching for the best {topic} in the {region} in {year}, this guide narrows the market "
+            "to a small set of current listings worth comparing. We focus on price, seller quality and practical "
+            "buying checks rather than repeating retailer marketing claims."
+        )
+    return (
+        f"If you are comparing the best {topic} in the {region} in {year}, this guide explains what to look for "
+        "and gives direct retailer searches so you can check current stock and prices without us inventing product rankings."
+    )
+
+
+def seo_description(display: str, region: str, year: int) -> str:
+    return (
+        f"Compare {display.lower()} in the {region} for {year}, with current marketplace picks, "
+        "buying advice, retailer comparison, FAQs and related Worth Buying guides."
+    )
+
+
 def load_json(path: Path) -> dict:
     if not path.exists():
         return {}
@@ -396,16 +627,21 @@ def live_sections(items: list[dict], market: str, topic_name: str, query: str) -
         title = " ".join(str(item.get("title", "")).split())
         safe_title = html.escape(title)
         price = price_text(item, market)
+        condition = str(item.get("condition", "")).strip()
+        condition_text = (
+            f" <strong>Condition shown:</strong> {html.escape(condition)}."
+            if condition else ""
+        )
         ebay_url, amazon_url = retailer_urls(item, market, query)
 
         parts.append(
-            f"<h2>{index}. {safe_title}</h2>\n"
-            f"<p><strong>Price when checked:</strong> {html.escape(price) if price else 'Check the live listing'}. "
-            f"This current listing appeared near the top of our filtered {html.escape(topic_name)} search "
-            "after basic price, fixed-price and seller-quality checks."
+            f"<h3>{index}. {safe_title}</h3>\n"
+            f"<p><strong>Price when checked:</strong> {html.escape(price) if price else 'Check the live listing'}."
+            f"{condition_text} This listing made the shortlist because it passed our automated price, "
+            f"fixed-price and seller-quality checks for {html.escape(topic_name)}."
             f"{html.escape(discount_text(item))}</p>\n"
             f"<p>{html.escape(seller_text(item))} Availability, condition and price can change quickly, "
-            "so verify the exact model, specification, warranty and returns on the retailer page.</p>\n"
+            "so verify the exact model, specification, warranty, delivery and returns on the retailer page.</p>\n"
             f'<p><a href="{html.escape(ebay_url, quote=True)}" rel="sponsored nofollow">'
             f"View on {retailer}</a>\n"
             f'<a href="{html.escape(amazon_url, quote=True)}" rel="sponsored nofollow">'
@@ -433,7 +669,7 @@ def fallback_sections(market: str, topic_name: str, query: str) -> str:
         ebay_url = f"{ebay_base}?_nkw={quote_plus(search_query)}&_sop=15"
         amazon_url = f"{amazon_base}?k={quote_plus(search_query)}"
         parts.append(
-            f"<h2>{index}. {html.escape(heading)}</h2>\n"
+            f"<h3>{index}. {html.escape(heading)}</h3>\n"
             f"<p>Compare current {html.escape(topic_name)} listings in this part of the market. "
             "The live retailer pages are the best place to check current models, prices, seller details "
             "and availability.</p>\n"
@@ -467,12 +703,28 @@ def build_article(topic: tuple, market: str, year: int) -> dict:
 
     checks = CATEGORY_CHECKS.get(category, CATEGORY_CHECKS["Home & Kitchen"])
     check_html = "\n".join(f"<li>{html.escape(check)}</li>" for check in checks)
+    guides = related_guides(
+        market=market,
+        current_slug=slug,
+        display=display,
+        query=query,
+        category=category,
+        limit=4,
+    )
 
     title = f"Best {display} Worth Buying in the {region} ({year})"
-    source_sha = f"{datetime.now(timezone.utc).date().isoformat()}-{key}-{market}-daily-v1"
+    source_sha = f"{datetime.now(timezone.utc).date().isoformat()}-{key}-{market}-daily-v2"
+    primary_keyword = f"best {display.lower()} {region.lower()} {year}"
+    secondary_keywords = [
+        f"{display.lower()} buying guide {region.lower()}",
+        f"{display.lower()} worth buying {year}",
+        f"compare {display.lower()} {region.lower()}",
+    ]
+    description = seo_description(display, region, year)
+    checked_date = datetime.now(timezone.utc).strftime("%d %B %Y").lstrip("0")
 
     methodology = (
-        f"For this daily guide, our automation searched current {('eBay UK' if market == 'uk' else 'eBay')} "
+        f"For this guide, our automation searched current {('eBay UK' if market == 'uk' else 'eBay')} "
         f"listings for {html.escape(display)} and applied basic fixed-price, price-ceiling and seller-feedback checks. "
         "These are current marketplace picks rather than hands-on laboratory test results."
         if live
@@ -482,18 +734,27 @@ def build_article(topic: tuple, market: str, year: int) -> dict:
     )
 
     content = (
-        f"<p>{html.escape(display)} can vary widely in price and specification, so the best value depends on "
-        "the features you will actually use, the exact model and the retailer terms available today.</p>\n"
+        f"<p><strong>{html.escape(buyer_intro(display, region, year, live))}</strong></p>\n"
         "<p><em>Some links in this article are affiliate links. We may earn a commission if you make a purchase, "
         "at no extra cost to you.</em></p>\n"
         f"<p>{methodology} Prices and availability can change after publication, so always verify the live listing.</p>\n"
+        f"<p><strong>Last checked:</strong> {html.escape(checked_date)}.</p>\n"
+        f"{quick_picks_html(picks, market) if live else ''}"
+        f"<h2>{'Current picks worth comparing' if live else 'Current retailer searches worth checking'}</h2>\n"
         f"{sections}\n"
-        "<h2>What to check before you buy</h2>\n"
+        "<h2>How to choose the right option</h2>\n"
+        f"<p>The best {html.escape(display.lower())} for you depends on your budget, how often you will use it "
+        "and which features genuinely matter. Use the checks below to compare equivalent models rather than choosing "
+        "only on headline price or a claimed discount.</p>\n"
         f"<ul>{check_html}</ul>\n"
-        "<h2>How we use these daily picks</h2>\n"
-        "<p>We use retailer data to narrow down products worth comparing, but we do not treat seller marketing claims "
-        "or a displayed discount as proof that a product is objectively the best. Check independent reviews for the exact "
-        "model if performance, safety or long-term reliability is especially important to your purchase.</p>\n"
+        f"{retailer_comparison_html(market, display)}"
+        "<h2>How we choose these daily picks</h2>\n"
+        "<p>We use current retailer data to narrow down products worth comparing, but we do not treat seller marketing claims "
+        "or a displayed discount as proof that a product is objectively the best. We have not carried out hands-on laboratory "
+        "testing of these specific listings. Check independent reviews for the exact model when performance, safety or long-term "
+        "reliability is especially important.</p>\n"
+        f"{faq_html(display, category, market)}"
+        f"{related_guides_html(guides)}"
         "<p><em>Prices, promotions, seller feedback and availability change regularly. Always check the live retailer page "
         "before purchasing.</em></p>\n"
         "<hr>\n"
@@ -524,6 +785,14 @@ def build_article(topic: tuple, market: str, year: int) -> dict:
             "#BuyingGuide #WorthBuying"
         ),
         "content_html": content,
+        "_seo": {
+            "version": "daily-seo-v2",
+            "primary_keyword": primary_keyword,
+            "secondary_keywords": secondary_keywords,
+            "description": description,
+            "search_intent": "commercial investigation",
+            "related_guide_count": len(guides),
+        },
         "_generator": {
             "market": market,
             "topic": key,
