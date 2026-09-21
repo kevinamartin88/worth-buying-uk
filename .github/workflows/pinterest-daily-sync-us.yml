@@ -9,7 +9,9 @@ permissions:
   contents: write
 
 concurrency:
-  group: pinterest-usa-daily-sync
+  # All workflows that can push back to main share one queue. This avoids
+  # simultaneous bot pushes racing and causing non-fast-forward failures.
+  group: worth-buying-repo-writes
   cancel-in-progress: false
 
 jobs:
