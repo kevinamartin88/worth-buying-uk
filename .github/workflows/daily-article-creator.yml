@@ -1,0 +1,78 @@
+name: Daily UK and USA article creator
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 6 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - "generate_daily_articles.py"
+      - ".github/workflows/daily-article-creator.yml"
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: worth-buying-repo-writes
+  cancel-in-progress: false
+
+jobs:
+  create-daily-articles:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Create one UK and one USA article
+        env:
+          PYTHONPATH: .
+          EBAY_ENV: production
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+          EPN_CAMPAIGN_ID: ${{ secrets.EPN_CAMPAIGN_ID }}
+          EPN_US_CAMPAIGN_ID: ${{ secrets.EPN_US_CAMPAIGN_ID }}
+        run: python generate_daily_articles.py
+
+      - name: Save new daily articles
+        id: save
+        shell: bash
+        run: |
+          git add articles articles-us state/daily_article_generator.json
+          if git diff --cached --quiet; then
+            echo "No new daily articles to commit."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git config user.name "worth-buying-daily-bot"
+          git config user.email "worth-buying-daily-bot@users.noreply.github.com"
+          git commit -m "Add daily UK and USA buying guides"
+          git pull --rebase origin main
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Start UK publishing workflow
+        if: steps.save.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run publish-articles.yml --ref main
+
+      - name: Start USA publishing workflow
+        if: steps.save.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run publish-articles-us.yml --ref main
