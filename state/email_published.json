@@ -59,6 +59,14 @@
     "title": "Best Toasters Worth Buying in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/09/best-toasters-worth-buying-in-usa-2026.html"
   },
+  "us:best-tvs-worth-buying-us-2026": {
+    "market": "us",
+    "primary_category": "Tech",
+    "sent": true,
+    "source_file": "best-tvs-worth-buying-us-2026.json",
+    "source_sha": "2026-09-21-tvs-us-daily-v1",
+    "title": "Best TVs Worth Buying in the USA (2026)"
+  },
   "us:car-accessories-garage-tools-worth-buying-us-2026": {
     "market": "us",
     "sent": true,
