@@ -127,6 +127,18 @@ def _overlay_title(article: dict) -> str:
     ).strip()
 
 
+def _topic_haystack(article: dict) -> str:
+    bits = [str(article.get("title", ""))]
+    bits.extend(str(x) for x in article.get("labels", []))
+    bits.append(str(article.get("hero_image_kicker", "")))
+    bits.append(str(article.get("hero_image_subtitle", "")))
+    return " ".join(bits).casefold()
+
+
+def _has_any(haystack: str, *terms: str) -> bool:
+    return any(term.casefold() in haystack for term in terms)
+
+
 def _overlay_kicker(article: dict) -> str:
     explicit = str(
         article.get("hero_image_kicker")
@@ -137,21 +149,62 @@ def _overlay_kicker(article: dict) -> str:
     if explicit:
         return explicit.upper()
 
-    title = str(article.get("title", "")).casefold()
-    labels = {str(label).casefold() for label in article.get("labels", [])}
+    haystack = _topic_haystack(article)
 
-    if any(word in title for word in ("deal", "sale", "off")) or "deals" in labels:
-        return "DEALS & BUYING ADVICE"
-    if {"kitchen", "home", "appliances"} & labels:
+    if _has_any(haystack, "garage tools", "workshop equipment", "socket set", "tyre inflator"):
+        return "GARAGE TOOLS GUIDE"
+    if _has_any(haystack, "car accessories", "phone mount", "seat organiser", "seat organizer", "dash cam"):
+        return "CAR ACCESSORIES GUIDE"
+    if _has_any(haystack, "car cleaning", "detailing", "car care"):
+        return "CAR CARE GUIDE"
+    if _has_any(haystack, "breakdown", "emergency kit", "jump starter", "roadside"):
+        return "EMERGENCY GEAR GUIDE"
+
+    if _has_any(haystack, "ipad", "tablet", "iphone", "smartphone", "refurbished phone", "refurbished ipad"):
+        return "MOBILE TECH GUIDE"
+    if _has_any(haystack, "laptop", "computer accessories", "monitor", "workspace"):
+        return "WORKSPACE TECH GUIDE"
+    if _has_any(haystack, "headphones", "earbuds", "speakers", "audio"):
+        return "AUDIO TECH GUIDE"
+    if _has_any(haystack, "smart home", "home tech", "security camera", "video doorbell"):
+        return "SMART HOME GUIDE"
+
+    if _has_any(haystack, "kitchen gadgets", "kitchen appliance", "air fryer", "coffee maker", "stand mixer", "cookware"):
         return "HOME & KITCHEN GUIDE"
-    if {"motoring", "cars", "garage tools", "workshop equipment"} & labels:
-        return "MOTORING BUYING GUIDE"
-    if {"gaming", "playstation", "xbox", "nintendo"} & labels:
-        return "GAMING BUYING GUIDE"
-    if {"jewellery", "jewelry", "diamond jewelry"} & labels:
+    if _has_any(haystack, "cleaning appliance", "vacuum", "steam cleaner"):
+        return "HOME CLEANING GUIDE"
+    if _has_any(haystack, "storage", "organisation", "organization", "organizer", "declutter"):
+        return "HOME ORGANISATION GUIDE"
+    if _has_any(haystack, "diy", "home improvement", "tool kit", "drill"):
+        return "DIY & HOME GUIDE"
+
+    if _has_any(haystack, "diamond", "diamond jewelry", "diamond jewellery", "engagement ring"):
         return "JEWELLERY BUYING GUIDE"
-    if {"tech", "technology", "apple", "samsung", "smartphones", "tablets"} & labels:
+    if _has_any(haystack, "watch", "watches", "timepiece"):
+        return "WATCH BUYING GUIDE"
+    if _has_any(haystack, "bag", "handbag", "wallet", "fashion accessory"):
+        return "FASHION ACCESSORIES GUIDE"
+
+    if _has_any(haystack, "console accessories", "controller", "charging dock", "gaming headset"):
+        return "GAMING ACCESSORIES GUIDE"
+    if _has_any(haystack, "gaming setup", "gaming desk", "streaming setup", "rgb"):
+        return "GAMING SETUP GUIDE"
+    if _has_any(haystack, "portable gaming", "handheld gaming"):
+        return "PORTABLE GAMING GUIDE"
+
+    if _has_any(haystack, "motoring", "automotive", "car", "garage", "workshop"):
+        return "MOTORING BUYING GUIDE"
+    if _has_any(haystack, "gaming", "playstation", "xbox", "nintendo"):
+        return "GAMING BUYING GUIDE"
+    if _has_any(haystack, "jewellery", "jewelry", "fashion"):
+        return "JEWELLERY BUYING GUIDE"
+    if _has_any(haystack, "tech", "technology", "electronics", "gadgets"):
         return "TECH BUYING GUIDE"
+    if _has_any(haystack, "home", "kitchen", "appliance"):
+        return "HOME & KITCHEN GUIDE"
+    if _has_any(haystack, "deal", "sale", "discount", "off"):
+        return "DEALS & BUYING ADVICE"
+
     return "SMARTER SHOPPING GUIDE"
 
 
@@ -183,52 +236,163 @@ def _write_style_marker(output: Path) -> None:
 
 
 def _visual_direction(article: dict) -> str:
-    haystack = " ".join(
-        [str(article.get("title", ""))]
-        + [str(x) for x in article.get("labels", [])]
-    ).casefold()
+    haystack = _topic_haystack(article)
 
-    if any(word in haystack for word in ("jewellery", "jewelry", "diamond")):
+    # Motoring
+    if _has_any(haystack, "garage tools", "workshop equipment", "socket set", "tool chest", "tyre inflator"):
         return (
-            "Stage an elegant luxury jewellery editorial: a small selection of unbranded "
-            "diamond-style rings, earrings or a pendant on a refined neutral surface, subtle "
-            "velvet or stone textures, crisp macro detail and realistic sparkle. Keep it tasteful "
-            "and premium rather than flashy."
+            "Stage a clean modern garage workshop editorial scene with a sturdy workbench, "
+            "tool chest, socket set, tyre inflator or inspection light, and a partial car softly "
+            "in the background. The image should feel practical, premium and useful rather than messy."
         )
 
-    if any(word in haystack for word in ("kitchen", "home", "appliance", "cookware")):
+    if _has_any(haystack, "car accessories", "phone mount", "car organiser", "car organizer", "seat organiser", "seat organizer", "dash cam", "interior accessories"):
         return (
-            "Stage a bright modern kitchen or utility-room editorial with three or four relevant "
-            "unbranded household products arranged naturally, such as an air fryer, coffee maker, "
-            "stand mixer or compact cleaning appliance. The scene should feel lived-in but tidy, "
-            "not like a catalogue grid."
+            "Stage a premium car-accessories editorial scene inside a modern vehicle interior, "
+            "showing useful unbranded accessories such as a phone mount, organiser, charger or "
+            "storage solution. Keep it realistic, tidy and visually appealing."
         )
 
-    if any(word in haystack for word in ("motoring", "garage", "car accessories", "workshop", "tools")):
+    if _has_any(haystack, "car cleaning", "detailing", "car care", "wash kit", "microfiber", "microfibre", "polish"):
         return (
-            "Stage a clean modern garage/workshop scene with a partial car softly in the background "
-            "and a curated set of useful unbranded accessories or tools on a workbench, such as a "
-            "socket set, tyre inflator, inspection light or detailing equipment."
+            "Stage a polished car-detailing editorial scene with a clean vehicle, detailing sprays, "
+            "microfibre cloths, brushes or wash accessories arranged neatly. Use glossy reflections "
+            "and premium automotive lifestyle styling."
         )
 
-    if any(word in haystack for word in ("iphone", "ipad", "samsung", "smartphone", "phone", "tablet", "refurbished", "tech")):
+    if _has_any(haystack, "breakdown", "emergency kit", "jump starter", "roadside", "safety kit"):
         return (
-            "Stage a premium consumer-tech editorial with two or three pristine generic devices on "
-            "a clean desk or studio surface. Screens should show only abstract colour gradients with "
-            "no readable interface text. Do not copy any recognisable manufacturer logo or exact "
-            "trademarked product design."
+            "Stage a roadside-emergency motoring editorial scene with useful unbranded items such as "
+            "a jump starter, torch, safety vest, tyre inflator or compact emergency kit. Make it feel "
+            "reassuring, practical and high quality."
         )
 
-    if any(word in haystack for word in ("gaming", "playstation", "xbox", "nintendo")):
+    if _has_any(haystack, "motoring", "automotive", "car", "garage", "workshop"):
         return (
-            "Stage a modern gaming setup with generic unbranded controller-shaped accessories, "
-            "headphones and atmospheric desk lighting. Avoid recognisable console logos, game art "
-            "or copyrighted characters."
+            "Stage a clean modern motoring editorial scene with a partial car in the background and "
+            "a curated set of useful unbranded motoring tools or accessories arranged naturally. "
+            "Make it feel premium, practical and believable."
+        )
+
+    # Technology
+    if _has_any(haystack, "ipad", "tablet", "iphone", "samsung phone", "smartphone", "refurbished phone", "refurbished ipad"):
+        return (
+            "Stage a premium consumer-tech editorial with two or three pristine generic mobile devices "
+            "on a clean desk or studio surface. Screens should show only soft abstract colour gradients. "
+            "Avoid recognisable logos, interfaces or exact trademarked product designs."
+        )
+
+    if _has_any(haystack, "laptop", "computer accessories", "monitor", "keyboard", "mouse", "workspace"):
+        return (
+            "Stage a clean modern workspace editorial scene with a generic laptop or monitor setup, "
+            "plus tasteful accessories such as keyboard, mouse or desk essentials. Make it look sleek, "
+            "productive and premium."
+        )
+
+    if _has_any(haystack, "headphones", "earbuds", "speakers", "audio", "sound"):
+        return (
+            "Stage a premium audio-tech editorial with unbranded headphones, earbuds or speakers in a "
+            "clean listening setup. The scene should feel stylish, minimal and high-end."
+        )
+
+    if _has_any(haystack, "smart home", "home tech", "smart plug", "security camera", "video doorbell"):
+        return (
+            "Stage a smart-home editorial scene in a bright modern home environment, featuring generic "
+            "smart-home devices such as plugs, lights, cameras or doorbell-style products. Keep it polished and realistic."
+        )
+
+    if _has_any(haystack, "tech", "technology", "electronics", "gadgets"):
+        return (
+            "Stage a premium consumer-tech editorial with a small curated set of generic modern devices "
+            "in a clean, stylish environment. The image should feel contemporary, crisp and trustworthy."
+        )
+
+    # Gaming
+    if _has_any(haystack, "console accessories", "controller", "charging dock", "gaming headset"):
+        return (
+            "Stage a gaming-accessories editorial with generic controller-shaped accessories, charging "
+            "dock or headset items in a stylish desk setup with atmospheric lighting. Avoid all logos "
+            "and copyrighted game imagery."
+        )
+
+    if _has_any(haystack, "gaming setup", "rgb", "gaming desk", "streaming setup"):
+        return (
+            "Stage a modern gaming-desk editorial with a stylish setup, ambient lighting, peripherals "
+            "and a premium enthusiast feel. Keep the hardware generic and unbranded."
+        )
+
+    if _has_any(haystack, "portable gaming", "handheld gaming", "travel gaming"):
+        return (
+            "Stage a portable-gaming editorial showing generic handheld-gaming style accessories in a "
+            "clean compact setup. Keep it modern, sleek and unbranded."
+        )
+
+    if _has_any(haystack, "gaming", "playstation", "xbox", "nintendo"):
+        return (
+            "Stage a modern gaming editorial with generic accessories, headphones and moody desk lighting. "
+            "Avoid recognisable console logos, game art or copyrighted characters."
+        )
+
+    # Home and kitchen
+    if _has_any(haystack, "kitchen gadgets", "kitchen appliance", "air fryer", "coffee maker", "stand mixer", "cookware"):
+        return (
+            "Stage a bright modern kitchen editorial with three or four relevant unbranded kitchen products "
+            "such as an air fryer, coffee maker, mixer or cookware item arranged naturally. The scene should "
+            "feel aspirational but real."
+        )
+
+    if _has_any(haystack, "cleaning appliance", "vacuum", "steam cleaner", "floor cleaner", "cleaning tools"):
+        return (
+            "Stage a clean home-care editorial scene featuring useful unbranded cleaning appliances or "
+            "tools in a tidy utility room or home setting. The look should be fresh, practical and premium."
+        )
+
+    if _has_any(haystack, "storage", "organisation", "organization", "organizer", "shelving", "declutter"):
+        return (
+            "Stage a home-organisation editorial scene with attractive unbranded storage and organisation "
+            "products in a neat modern home environment. Make it feel clean, satisfying and useful."
+        )
+
+    if _has_any(haystack, "diy", "home improvement", "tool kit", "drill", "decorating"):
+        return (
+            "Stage a home-improvement editorial scene with useful unbranded DIY tools or equipment in a "
+            "smart workshop or home-renovation setting. Keep it tidy, capable and premium."
+        )
+
+    if _has_any(haystack, "home", "kitchen", "appliance", "cookware"):
+        return (
+            "Stage a bright modern kitchen or utility-room editorial with a curated group of useful "
+            "unbranded household products. Make the scene feel realistic, tidy and premium."
+        )
+
+    # Jewellery and fashion
+    if _has_any(haystack, "diamond", "diamond jewelry", "diamond jewellery", "engagement ring"):
+        return (
+            "Stage an elegant luxury jewellery editorial with unbranded diamond-style rings, earrings or "
+            "a pendant on a refined neutral surface, with subtle velvet or stone textures and realistic sparkle."
+        )
+
+    if _has_any(haystack, "watch", "watches", "timepiece"):
+        return (
+            "Stage a refined luxury-watch editorial with one or two elegant unbranded watches on a tasteful "
+            "surface, using premium lighting and crisp product detail."
+        )
+
+    if _has_any(haystack, "bag", "handbag", "fashion accessory", "wallet"):
+        return (
+            "Stage a stylish fashion-accessories editorial with elegant unbranded bags or small accessories "
+            "in a premium lifestyle setting. Keep it polished and modern."
+        )
+
+    if _has_any(haystack, "jewellery", "jewelry", "fashion", "accessories"):
+        return (
+            "Stage an elegant fashion or jewellery editorial with refined styling, premium lighting and a "
+            "small curated set of unbranded accessories."
         )
 
     return (
-        "Stage a believable editorial scene with a small, curated selection of products directly "
-        "relevant to the article. Prefer one coherent environment over a collage or product grid."
+        "Stage a believable editorial scene with a small, curated selection of products directly relevant "
+        "to the article. Prefer one coherent environment over a collage or product grid."
     )
 
 
@@ -447,7 +611,7 @@ def generate_image(
         headers={
             "Authorization": f"Bearer {api_token}",
             "Content-Type": "application/json",
-            "User-Agent": "WorthBuyingVisualGenerator/4.0",
+            "User-Agent": "WorthBuyingVisualGenerator/4.1",
         },
     )
     response.raise_for_status()
