@@ -47,6 +47,10 @@ ANCHOR_OPEN_RE = re.compile(
     r'(<a\\b[^>]*href=(["\\\'])(https?://[^"\\\']+)\\2[^>]*)(>)',
     re.IGNORECASE,
 )
+FULL_ANCHOR_RE = re.compile(
+    r'(<a\\b[^>]*href=(["\\\'])(https?://[^"\\\']+)\\2[^>]*>.*?</a>)',
+    re.IGNORECASE | re.DOTALL,
+)
 
 PRIMARY_CATEGORIES = ("Tech", "Home & Kitchen", "Motoring", "Gaming", "Deals")
 CATEGORY_ALIASES = {
@@ -155,6 +159,51 @@ def add_epn_tracking(content: str, market: str) -> str:
         return f"href={quote}{html.escape(tracked_url, quote=True)}{quote}"
 
     return HREF_RE.sub(replace, content)
+
+
+def add_amazon_search_alternatives(content: str, market: str) -> str:
+    """Add a matching Amazon search button beside each eBay search link."""
+
+    ebay_hosts = UK_EBAY_HOSTS if market == "uk" else US_EBAY_HOSTS
+    amazon_hosts = UK_AMAZON_HOSTS if market == "uk" else US_AMAZON_HOSTS
+    amazon_base = "https://www.amazon.co.uk/s" if market == "uk" else "https://www.amazon.com/s"
+    amazon_label = "Compare on Amazon UK" if market == "uk" else "Compare on Amazon"
+
+    # Respect any Amazon links already supplied for the same search term.
+    existing_amazon_queries: set[str] = set()
+    for anchor_match in FULL_ANCHOR_RE.finditer(content):
+        raw_url = html.unescape(anchor_match.group(3))
+        parts = urlsplit(raw_url)
+        host = parts.netloc.casefold().split(":", 1)[0]
+        if host not in amazon_hosts:
+            continue
+        params = dict(parse_qsl(parts.query, keep_blank_values=True))
+        query = str(params.get("k", "")).strip().casefold()
+        if query:
+            existing_amazon_queries.add(query)
+
+    def replace(match: re.Match[str]) -> str:
+        anchor = match.group(1)
+        raw_url = html.unescape(match.group(3))
+        parts = urlsplit(raw_url)
+        host = parts.netloc.casefold().split(":", 1)[0]
+        if host not in ebay_hosts:
+            return anchor
+
+        params = dict(parse_qsl(parts.query, keep_blank_values=True))
+        query = str(params.get("_nkw", "")).strip()
+        if not query or query.casefold() in existing_amazon_queries:
+            return anchor
+
+        amazon_url = f"{amazon_base}?{urlencode({'k': query})}"
+        safe_url = html.escape(amazon_url, quote=True)
+        amazon_anchor = (
+            f'<a href="{safe_url}" rel="sponsored nofollow">{amazon_label}</a>'
+        )
+        existing_amazon_queries.add(query.casefold())
+        return anchor + "\n" + amazon_anchor
+
+    return FULL_ANCHOR_RE.sub(replace, content)
 
 
 def add_amazon_tracking(content: str, market: str) -> str:
@@ -373,7 +422,13 @@ def main() -> None:
                 + category_marker_html(category, public_site_url)
                 + style_retailer_buttons(
                     add_amazon_tracking(
-                        add_epn_tracking(article["content_html"], market),
+                        add_epn_tracking(
+                            add_amazon_search_alternatives(
+                                article["content_html"],
+                                market,
+                            ),
+                            market,
+                        ),
                         market,
                     )
                 )
