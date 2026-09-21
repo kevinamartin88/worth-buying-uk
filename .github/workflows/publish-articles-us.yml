@@ -1,9 +1,21 @@
 name: Publish USA Blogger articles
 
-# Paused from automatic triggering while the Blogger API appeal is unresolved.
-# Keep manual dispatch only so normal code/content changes cannot call Blogger.
+# Temporary Mail2Blogger fallback while the Blogger API appeal is unresolved.
+# New USA article files automatically publish by email, then continue to X/Pinterest.
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "articles-us/**"
+      - "publish_articles_email.py"
+      - "publish_x_us.py"
+      - "generate_pinterest_images_us.py"
+      - "generate_pinterest_feed_us.py"
+      - "generate_x_images.py"
+      - "requirements.txt"
+      - "src/buffer.py"
 
 permissions:
   contents: write
@@ -15,7 +27,7 @@ concurrency:
 jobs:
   publish-us:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     steps:
       - name: Check out repository
@@ -66,15 +78,14 @@ jobs:
             git push
           fi
 
-      - name: Publish USA Blogger articles
+      - name: Publish USA Blogger articles by email
         env:
           PYTHONPATH: .
-          BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_US_CLIENT_ID || secrets.BLOGGER_CLIENT_ID }}
-          BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_US_CLIENT_SECRET || secrets.BLOGGER_CLIENT_SECRET }}
-          BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_US_REFRESH_TOKEN || secrets.BLOGGER_REFRESH_TOKEN }}
-          BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_US_BLOG_ID }}
-          EPN_US_CAMPAIGN_ID: ${{ secrets.EPN_US_CAMPAIGN_ID }}
-        run: python publish_articles_us.py
+          MARKET: "us"
+          SMTP_EMAIL: ${{ secrets.SMTP_EMAIL }}
+          SMTP_APP_PASSWORD: ${{ secrets.SMTP_APP_PASSWORD }}
+          BLOGGER_US_EMAIL_POST_ADDRESS: ${{ secrets.BLOGGER_US_EMAIL_POST_ADDRESS }}
+        run: python publish_articles_email.py
 
       - name: Generate USA Pinterest RSS feed
         env:
@@ -92,11 +103,11 @@ jobs:
         run: |
           git config user.name "worth-buying-usa-bot"
           git config user.email "worth-buying-usa-bot@users.noreply.github.com"
-          git add state/articles_us_published.json state/x_us_published.json pinterest-feed-us.xml
+          git add state/articles_us_published.json state/email_published.json state/x_us_published.json pinterest-feed-us.xml
           if git diff --cached --quiet; then
             echo "No USA publication state or Pinterest feed changes to commit."
             exit 0
           fi
-          git commit -m "Update USA article, X and Pinterest publication state"
+          git commit -m "Update USA email publication state and Pinterest feed"
           git pull --rebase origin main
           git push
