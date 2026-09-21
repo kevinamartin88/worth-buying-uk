@@ -1,9 +1,21 @@
 name: Publish Blogger articles
 
-# Paused from automatic triggering while the Blogger API appeal is unresolved.
-# Keep manual dispatch only so normal code/content changes cannot call Blogger.
+# Temporary Mail2Blogger fallback while the Blogger API appeal is unresolved.
+# New UK article files automatically publish by email, then continue to X/Pinterest.
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "articles/**"
+      - "publish_articles_email.py"
+      - "publish_x.py"
+      - "generate_pinterest_images.py"
+      - "generate_pinterest_feed.py"
+      - "generate_x_images.py"
+      - "requirements.txt"
+      - "src/buffer.py"
 
 permissions:
   contents: write
@@ -15,7 +27,7 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     steps:
       - name: Check out repository
@@ -66,14 +78,14 @@ jobs:
             git push
           fi
 
-      - name: Publish Blogger articles
+      - name: Publish UK Blogger articles by email
         env:
           PYTHONPATH: .
-          BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_CLIENT_ID }}
-          BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_CLIENT_SECRET }}
-          BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
-          BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
-        run: python publish_articles.py
+          MARKET: "uk"
+          SMTP_EMAIL: ${{ secrets.SMTP_EMAIL }}
+          SMTP_APP_PASSWORD: ${{ secrets.SMTP_APP_PASSWORD }}
+          BLOGGER_UK_EMAIL_POST_ADDRESS: ${{ secrets.BLOGGER_UK_EMAIL_POST_ADDRESS }}
+        run: python publish_articles_email.py
 
       - name: Generate Pinterest RSS feed
         env:
@@ -89,13 +101,13 @@ jobs:
 
       - name: Save publication state and Pinterest feed
         run: |
-          git add state/articles_published.json state/x_published.json pinterest-feed.xml
-          if git diff --cached --quiet -- state/articles_published.json state/x_published.json pinterest-feed.xml; then
+          git add state/articles_published.json state/email_published.json state/x_published.json pinterest-feed.xml
+          if git diff --cached --quiet -- state/articles_published.json state/email_published.json state/x_published.json pinterest-feed.xml; then
             echo "No publication state or Pinterest feed changes to commit."
             exit 0
           fi
           git config user.name "worth-buying-uk-bot"
           git config user.email "worth-buying-uk-bot@users.noreply.github.com"
-          git commit -m "Update publication state and Pinterest feed"
+          git commit -m "Update UK email publication state and Pinterest feed"
           git pull --rebase origin main
           git push
