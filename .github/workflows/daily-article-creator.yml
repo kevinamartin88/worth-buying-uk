@@ -16,7 +16,7 @@ permissions:
   actions: write
 
 concurrency:
-  group: worth-buying-repo-writes
+  group: worth-buying-daily-creator
   cancel-in-progress: false
 
 jobs:
@@ -66,13 +66,14 @@ jobs:
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
       - name: Start UK publishing workflow
-        if: steps.save.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run publish-articles.yml --ref main
 
+      - name: Give UK publisher time to claim the shared queue
+        run: sleep 8
+
       - name: Start USA publishing workflow
-        if: steps.save.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run publish-articles-us.yml --ref main
