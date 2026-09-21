@@ -215,27 +215,43 @@ def style_retailer_buttons(content: str) -> str:
 
 
 def hero_image_html(slug: str, title: str, market: str) -> str:
+    """Prefer a wide AI editorial hero, falling back to the Pinterest artwork."""
+
+    ai_path = ROOT / "assets" / "ai" / market / f"{slug}.jpg"
+    ai_url = (
+        "https://raw.githubusercontent.com/kevinamartin88/"
+        f"worth-buying-uk/main/assets/ai/{market}/{slug}.jpg"
+    )
+
     if market == "uk":
-        image_path = ROOT / "assets" / "pinterest" / f"{slug}.png"
-        image_url = (
+        fallback_path = ROOT / "assets" / "pinterest" / f"{slug}.png"
+        fallback_url = (
             "https://raw.githubusercontent.com/kevinamartin88/"
             f"worth-buying-uk/main/assets/pinterest/{slug}.png"
         )
     else:
-        image_path = ROOT / "assets" / "pinterest" / "us" / f"{slug}.png"
-        image_url = (
+        fallback_path = ROOT / "assets" / "pinterest" / "us" / f"{slug}.png"
+        fallback_url = (
             "https://raw.githubusercontent.com/kevinamartin88/"
             f"worth-buying-uk/main/assets/pinterest/us/{slug}.png"
         )
 
-    if not image_path.exists():
+    if ai_path.exists():
+        image_url = ai_url
+        max_width = "900px"
+    elif fallback_path.exists():
+        image_url = fallback_url
+        max_width = "460px"
+    else:
         return ""
 
     alt = html.escape(title, quote=True)
     return (
-        f'<p style="text-align:center;"><img src="{image_url}" alt="{alt}" '
-        'style="width:100%;max-width:460px;height:auto;display:block;'
-        'margin:0 auto 24px auto;" /></p>\n'
+        '<div class="wb-article-hero" style="margin:0 0 26px 0;text-align:center;">'
+        f'<img src="{image_url}" alt="{alt}" loading="eager" '
+        f'style="width:100%;max-width:{max_width};height:auto;display:block;'
+        'margin:0 auto;border-radius:16px;box-shadow:0 10px 30px rgba(8,47,91,.14);" />'
+        '</div>\n'
     )
 
 
