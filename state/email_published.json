@@ -25,6 +25,14 @@
     "title": "Best Toasters Worth Buying in the UK (2026)",
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-toasters-worth-buying-in-uk-2026.html"
   },
+  "uk:best-tvs-worth-buying-uk-2026": {
+    "market": "uk",
+    "primary_category": "Tech",
+    "sent": true,
+    "source_file": "best-tvs-worth-buying-uk-2026.json",
+    "source_sha": "2026-09-21-tvs-uk-daily-v1",
+    "title": "Best TVs Worth Buying in the UK (2026)"
+  },
   "uk:small-home-upgrades-worth-buying-uk-september-2026": {
     "market": "uk",
     "sent": true,
