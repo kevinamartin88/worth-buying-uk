@@ -91,14 +91,42 @@ def main() -> None:
     buffer = BufferClient.from_env()
 
     posted = 0
+    verified = 0
+
     for slug, item in sorted(blog_state.items()):
         if item.get("status") != "published":
             continue
+
         url = item.get("url")
         title = item.get("title")
         if not url or not title:
             continue
-        if slug in x_state:
+
+        existing_x = x_state.get(slug)
+        if existing_x and existing_x.get("buffer_post_id"):
+            post_id = str(existing_x["buffer_post_id"])
+            current = buffer.get_post(post_id)
+            status = str(current.get("status", "")).lower()
+            print(
+                f"[buffer-status] {title}: id={post_id} status={status} "
+                f"sentAt={current.get('sentAt')} sharedNow={current.get('sharedNow')}"
+            )
+            existing_x["buffer_status"] = status
+            existing_x["buffer_sent_at"] = current.get("sentAt")
+            existing_x["buffer_channel_id"] = current.get("channelId")
+
+            if status == "sent":
+                verified += 1
+                continue
+            if status in {"scheduled", "sending"}:
+                continue
+            if status == "error":
+                print(f"[retry] {title}: previous Buffer post is in error state")
+                x_state.pop(slug, None)
+            else:
+                continue
+        elif slug in x_state:
+            # Pre-existing markers have no Buffer post ID and should not be reposted.
             continue
 
         article_path = ROOT / "articles" / item.get("source_file", "")
@@ -117,19 +145,45 @@ def main() -> None:
 
         image_path = X_IMAGE_DIR / f"{slug}.png"
         image_url = f"{X_IMAGE_BASE}/{slug}.png" if image_path.exists() else None
-        post = buffer.create_post(text=text, mode="shareNow", image_url=image_url)
+
+        created = buffer.create_post(text=text, mode="shareNow", image_url=image_url)
+        post_id = str(created["id"])
+        final = buffer.wait_for_post(post_id, timeout_seconds=90)
+        status = str(final.get("status", "")).lower()
+
         x_state[slug] = {
-            "buffer_post_id": post.get("id"),
+            "buffer_post_id": post_id,
+            "buffer_status": status,
+            "buffer_sent_at": final.get("sentAt"),
+            "buffer_channel_id": final.get("channelId"),
             "title": title,
             "url": url,
             "source_sha": item.get("source_sha"),
             "image_url": image_url,
         }
+        save_json(X_STATE, x_state)
+
+        if status == "error":
+            raise RuntimeError(
+                f"Buffer created post {post_id} for '{title}' but X publishing failed."
+            )
+        if status != "sent":
+            raise RuntimeError(
+                f"Buffer created post {post_id} for '{title}', but it did not reach "
+                f"'sent' status within 90 seconds (status={status!r})."
+            )
+
         posted += 1
-        print(f"[posted] {title}{' with image' if image_url else ''}")
+        print(
+            f"[posted-and-verified] {title}{' with image' if image_url else ''} "
+            f"(Buffer id={post_id}, sentAt={final.get('sentAt')})"
+        )
 
     save_json(X_STATE, x_state)
-    print(f"X publishing complete: {posted} new post(s).")
+    print(
+        f"X publishing complete: {posted} new post(s), "
+        f"{verified} existing Buffer post(s) verified as sent."
+    )
 
 
 if __name__ == "__main__":
