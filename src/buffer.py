@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import time
 
 import requests
 
@@ -14,6 +15,7 @@ class BufferClient:
         self.api_key = api_key
         self.channel_name = channel_name
         self._channel_id: str | None = None
+        self._channel_name: str | None = None
 
     @classmethod
     def from_env(cls) -> "BufferClient":
@@ -66,26 +68,35 @@ class BufferClient:
 
         wanted = self.channel_name.casefold()
         exact = [c for c in x_channels if str(c.get("name", "")).casefold() == wanted]
+
+        selected: dict | None = None
         if exact:
-            self._channel_id = exact[0]["id"]
-            return self._channel_id
+            selected = exact[0]
+        else:
+            wanted_normalised = self._normalise_name(self.channel_name)
+            normalised = [
+                c for c in x_channels
+                if self._normalise_name(str(c.get("name", ""))) == wanted_normalised
+            ]
+            if normalised:
+                selected = normalised[0]
+            else:
+                partial = [
+                    c for c in x_channels
+                    if wanted in str(c.get("name", "")).casefold()
+                ]
+                if partial:
+                    selected = partial[0]
+                elif len(x_channels) == 1:
+                    selected = x_channels[0]
 
-        wanted_normalised = self._normalise_name(self.channel_name)
-        normalised = [
-            c for c in x_channels
-            if self._normalise_name(str(c.get("name", ""))) == wanted_normalised
-        ]
-        if normalised:
-            self._channel_id = normalised[0]["id"]
-            return self._channel_id
-
-        partial = [c for c in x_channels if wanted in str(c.get("name", "")).casefold()]
-        if partial:
-            self._channel_id = partial[0]["id"]
-            return self._channel_id
-
-        if len(x_channels) == 1:
-            self._channel_id = x_channels[0]["id"]
+        if selected:
+            self._channel_id = str(selected["id"])
+            self._channel_name = str(selected.get("name", self.channel_name))
+            print(
+                f"[buffer] Selected X channel: {self._channel_name} "
+                f"(service={selected.get('service')}, id={self._channel_id})"
+            )
             return self._channel_id
 
         available = ", ".join(str(c.get("name", c.get("id"))) for c in x_channels)
@@ -93,6 +104,41 @@ class BufferClient:
             f"Could not uniquely identify Buffer channel '{self.channel_name}'. "
             f"Connected X channels: {available}"
         )
+
+    def get_post(self, post_id: str) -> dict:
+        safe_id = json.dumps(post_id)
+        data = self._graphql(
+            f"""
+            query GetPost {{
+              post(input: {{ id: {safe_id} }}) {{
+                id
+                text
+                status
+                channelId
+                dueAt
+                sentAt
+                sharedNow
+                shareMode
+                assets {{ id mimeType }}
+              }}
+            }}
+            """
+        )
+        post = data.get("post")
+        if not post:
+            raise RuntimeError(f"Buffer post {post_id} was not found.")
+        return post
+
+    def wait_for_post(self, post_id: str, timeout_seconds: int = 90) -> dict:
+        deadline = time.time() + timeout_seconds
+        last: dict = {}
+        while time.time() < deadline:
+            last = self.get_post(post_id)
+            status = str(last.get("status", "")).lower()
+            if status in {"sent", "error"}:
+                return last
+            time.sleep(3)
+        return last
 
     def create_post(
         self,
@@ -122,7 +168,11 @@ class BufferClient:
                 id
                 text
                 status
+                channelId
                 dueAt
+                sentAt
+                sharedNow
+                shareMode
                 assets {{ id mimeType }}
               }}
             }}
