@@ -23,6 +23,8 @@ US_EPN_PARAMS = {
     "mkevt": "1",
 }
 US_EBAY_HOSTS = {"ebay.com", "www.ebay.com"}
+US_AMAZON_HOSTS = {"amazon.com", "www.amazon.com"}
+US_AMAZON_TAG = "worthbuyingus-20"
 HREF_RE = re.compile(r'href=(["\'])(https?://[^"\']+)\1', re.IGNORECASE)
 
 
@@ -63,6 +65,28 @@ def add_us_epn_tracking(content: str) -> str:
         )
         escaped_url = html.escape(tracked_url, quote=True)
         return f"href={quote}{escaped_url}{quote}"
+
+    return HREF_RE.sub(replace, content)
+
+
+def add_us_amazon_tracking(content: str) -> str:
+    """Ensure every Amazon US href carries the Worth Buying USA Associates tag."""
+
+    def replace(match: re.Match[str]) -> str:
+        quote = match.group(1)
+        raw_url = html.unescape(match.group(2))
+        parts = urlsplit(raw_url)
+        host = parts.netloc.casefold().split(":", 1)[0]
+        if host not in US_AMAZON_HOSTS:
+            return match.group(0)
+
+        existing = parse_qsl(parts.query, keep_blank_values=True)
+        query = [(key, value) for key, value in existing if key.casefold() != "tag"]
+        query.append(("tag", US_AMAZON_TAG))
+        tracked_url = urlunsplit(
+            (parts.scheme, parts.netloc, parts.path, urlencode(query), parts.fragment)
+        )
+        return f"href={quote}{html.escape(tracked_url, quote=True)}{quote}"
 
     return HREF_RE.sub(replace, content)
 
@@ -120,7 +144,9 @@ def main() -> None:
         article = json.loads(path.read_text(encoding="utf-8"))
         slug = article["slug"]
         title = article["title"]
-        content = add_us_epn_tracking(article["content_html"])
+        content = add_us_amazon_tracking(
+            add_us_epn_tracking(article["content_html"])
+        )
         labels = article.get("labels", [])
         mode = article.get("mode", "publish").strip().lower()
 
