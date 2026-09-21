@@ -37,6 +37,10 @@ US_EPN_PARAMS = {
 UK_EBAY_HOSTS = {"ebay.co.uk", "www.ebay.co.uk"}
 US_EBAY_HOSTS = {"ebay.com", "www.ebay.com"}
 HREF_RE = re.compile(r'href=(["\\\'])(https?://[^"\\\']+)\\1', re.IGNORECASE)
+ANCHOR_OPEN_RE = re.compile(
+    r'(<a\\b[^>]*href=(["\\\'])(https?://[^"\\\']+)\\2[^>]*)(>)',
+    re.IGNORECASE,
+)
 
 
 def load_json(path: Path) -> dict:
@@ -78,6 +82,38 @@ def add_epn_tracking(content: str, market: str) -> str:
         return f"href={quote}{html.escape(tracked_url, quote=True)}{quote}"
 
     return HREF_RE.sub(replace, content)
+
+
+def style_retailer_buttons(content: str) -> str:
+    """Render eBay and Amazon affiliate links as matching CTA buttons."""
+
+    retailer_hosts = {
+        "ebay.co.uk",
+        "www.ebay.co.uk",
+        "ebay.com",
+        "www.ebay.com",
+        "amazon.co.uk",
+        "www.amazon.co.uk",
+        "amazon.com",
+        "www.amazon.com",
+    }
+    button_style = (
+        "display:inline-block;padding:11px 16px;margin:6px 8px 6px 0;"
+        "background:#0f766e;color:#ffffff;text-decoration:none;"
+        "font-weight:700;border-radius:7px;line-height:1.25;"
+    )
+
+    def replace(match: re.Match[str]) -> str:
+        opening = match.group(1)
+        raw_url = html.unescape(match.group(3))
+        host = urlsplit(raw_url).netloc.casefold().split(":", 1)[0]
+        if host not in retailer_hosts:
+            return match.group(0)
+        if re.search(r"\\bstyle\\s*=", opening, re.IGNORECASE):
+            return match.group(0)
+        return f'{opening} style="{button_style}">'
+
+    return ANCHOR_OPEN_RE.sub(replace, content)
 
 
 def hero_image_html(slug: str, title: str, market: str) -> str:
@@ -197,8 +233,8 @@ def main() -> None:
 
         emailed = email_state.get(state_key)
         if not emailed:
-            content = hero_image_html(slug, title, market) + add_epn_tracking(
-                article["content_html"], market
+            content = hero_image_html(slug, title, market) + style_retailer_buttons(
+                add_epn_tracking(article["content_html"], market)
             )
             send_email(
                 subject=title,
