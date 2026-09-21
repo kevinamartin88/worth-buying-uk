@@ -68,12 +68,4 @@ jobs:
       - name: Start UK publishing workflow
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh workflow run publish-articles.yml --ref main
-
-      - name: Give UK publisher time to claim the shared queue
-        run: sleep 8
-
-      - name: Start USA publishing workflow
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh workflow run publish-articles-us.yml --ref main
+        run: gh workflow run publish-articles.yml --ref main -f chain_usa=true
