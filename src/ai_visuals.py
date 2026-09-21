@@ -1,19 +1,23 @@
 from __future__ import annotations
 
+import base64
 import hashlib
 import html
+import io
 import json
 import os
 import re
 from pathlib import Path
-from urllib.parse import quote
 
 import requests
+from PIL import Image
 
 
 ROOT = Path(__file__).resolve().parents[1]
-REQUEST_TIMEOUT = 75
-MODEL = "black-forest-labs/flux.1-schnell"
+REQUEST_TIMEOUT = 120
+MODEL = "@cf/stabilityai/stable-diffusion-xl-base-1.0"
+WIDTH = 1600
+HEIGHT = 900
 
 
 def _strip_html(value: str) -> str:
@@ -23,7 +27,6 @@ def _strip_html(value: str) -> str:
 
 def _seed_for(article: dict, market: str) -> int:
     raw = f"{market}:{article.get('slug','')}:{article.get('title','')}".encode("utf-8")
-    # Pollinations currently accepts seeds up to 2,147,483,647.
     return int(hashlib.sha256(raw).hexdigest()[:8], 16) % 2_147_483_647
 
 
@@ -80,58 +83,112 @@ def _visual_direction(article: dict) -> str:
 def build_prompt(article: dict, market: str) -> str:
     title = str(article.get("title", "Worth Buying guide")).strip()
     labels = ", ".join(str(x) for x in article.get("labels", []) if str(x).strip())
-    summary = _strip_html(str(article.get("content_html", "")))[:500]
+    summary = _strip_html(str(article.get("content_html", "")))[:450]
     region = "United Kingdom" if market == "uk" else "United States"
     direction = _visual_direction(article)
 
     return (
-        "Create a premium, photorealistic 16:9 editorial hero photograph for an independent "
+        "Premium photorealistic 16:9 editorial hero photograph for an independent "
         f"consumer buying guide in the {region}. "
         f"Article topic: {title}. "
         + (f"Relevant categories: {labels}. " if labels else "")
         + (f"Context: {summary}. " if summary else "")
         + direction
-        + " Use natural believable lighting, realistic materials, clean magazine composition, "
+        + " Use believable natural lighting, realistic materials, clean magazine composition, "
         "strong depth and one clear visual focal point. Make it look like genuine commercial "
-        "editorial photography rather than obvious AI art. Leave some uncluttered negative space "
-        "near one side for responsive web cropping. No people unless genuinely useful to the scene. "
-        "Do not include text, prices, sale badges, logos, trademarks, watermarks, brand names, "
-        "screenshots, QR codes, distorted lettering, extra limbs, malformed products or impossible "
-        "object geometry."
+        "editorial photography. Leave some uncluttered negative space near one side for responsive "
+        "web cropping."
     )
 
 
-def generate_image(article: dict, market: str, output: Path, api_key: str, force: bool = False) -> bool:
+def negative_prompt() -> str:
+    return (
+        "text, words, prices, sale badges, logos, trademarks, watermarks, brand names, QR codes, "
+        "screenshots, distorted lettering, malformed products, impossible geometry, extra limbs, "
+        "extra fingers, duplicate objects, low resolution, blurry, oversaturated, cartoon, CGI, "
+        "plastic-looking materials"
+    )
+
+
+def _extract_image_bytes(response: requests.Response) -> bytes:
+    content_type = response.headers.get("content-type", "").lower()
+
+    if "image/" in content_type or "application/octet-stream" in content_type:
+        return response.content
+
+    try:
+        payload = response.json()
+    except ValueError as exc:
+        raise RuntimeError(
+            f"Cloudflare returned unexpected content type: {content_type or 'unknown'}"
+        ) from exc
+
+    result = payload.get("result")
+    encoded = None
+
+    if isinstance(result, dict):
+        encoded = result.get("image") or result.get("image_b64")
+    elif isinstance(result, str):
+        encoded = result
+
+    if not encoded:
+        errors = payload.get("errors") or []
+        raise RuntimeError(f"Cloudflare did not return image data. Errors: {errors}")
+
+    try:
+        return base64.b64decode(encoded)
+    except Exception as exc:
+        raise RuntimeError("Cloudflare returned image data that could not be decoded") from exc
+
+
+def _save_as_jpeg(image_bytes: bytes, output: Path) -> None:
+    with Image.open(io.BytesIO(image_bytes)) as image:
+        image = image.convert("RGB")
+        if image.size != (WIDTH, HEIGHT):
+            image = image.resize((WIDTH, HEIGHT), Image.Resampling.LANCZOS)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        image.save(output, format="JPEG", quality=90, optimize=True)
+
+
+def generate_image(
+    article: dict,
+    market: str,
+    output: Path,
+    account_id: str,
+    api_token: str,
+    force: bool = False,
+) -> bool:
     if output.exists() and not force:
         return False
 
-    prompt = build_prompt(article, market)
-    seed = _seed_for(article, market)
-    endpoint = "https://gen.pollinations.ai/image/" + quote(prompt, safe="")
-    params = {
-        "width": 1600,
-        "height": 900,
-        "seed": seed,
-        "model": MODEL,
-        "safe": "true",
+    endpoint = (
+        f"https://api.cloudflare.com/client/v4/accounts/{account_id}"
+        f"/ai/run/{MODEL}"
+    )
+    payload = {
+        "prompt": build_prompt(article, market),
+        "negative_prompt": negative_prompt(),
+        "width": WIDTH,
+        "height": HEIGHT,
+        "num_steps": 20,
+        "guidance": 7.5,
+        "seed": _seed_for(article, market),
     }
 
-    response = requests.get(
+    response = requests.post(
         endpoint,
-        params=params,
+        json=payload,
         timeout=REQUEST_TIMEOUT,
         headers={
-            "Authorization": f"Bearer {api_key}",
-            "User-Agent": "WorthBuyingVisualGenerator/2.0",
+            "Authorization": f"Bearer {api_token}",
+            "Content-Type": "application/json",
+            "User-Agent": "WorthBuyingVisualGenerator/3.0",
         },
     )
     response.raise_for_status()
-    content_type = response.headers.get("content-type", "").lower()
-    if "image" not in content_type:
-        raise RuntimeError(f"Image service returned unexpected content type: {content_type}")
 
-    output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_bytes(response.content)
+    image_bytes = _extract_image_bytes(response)
+    _save_as_jpeg(image_bytes, output)
     return True
 
 
@@ -139,11 +196,12 @@ def generate_market(market: str, force: bool = False) -> int:
     if market not in {"uk", "us"}:
         raise ValueError("market must be 'uk' or 'us'")
 
-    api_key = os.getenv("POLLINATIONS_API_KEY", "").strip()
-    if not api_key:
+    account_id = os.getenv("CLOUDFLARE_ACCOUNT_ID", "").strip()
+    api_token = os.getenv("CLOUDFLARE_API_TOKEN", "").strip()
+    if not account_id or not api_token:
         print(
-            "[ai-visual-skip] POLLINATIONS_API_KEY is not configured. "
-            "Keeping the existing Pinterest artwork as the Blogger fallback."
+            "[ai-visual-skip] CLOUDFLARE_ACCOUNT_ID and/or CLOUDFLARE_API_TOKEN "
+            "is not configured. Keeping the existing Pinterest artwork as the Blogger fallback."
         )
         return 0
 
@@ -167,7 +225,8 @@ def generate_market(market: str, force: bool = False) -> int:
                 article,
                 market,
                 target,
-                api_key=api_key,
+                account_id=account_id,
+                api_token=api_token,
                 force=force,
             )
         except Exception as exc:
