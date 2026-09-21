@@ -10,9 +10,10 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parent
-STATE_PATH = ROOT / "state" / "email_published.json"
+EMAIL_STATE_PATH = ROOT / "state" / "email_published.json"
 
 UK_EPN_PARAMS = {
     "mkcid": "1",
@@ -38,19 +39,19 @@ US_EBAY_HOSTS = {"ebay.com", "www.ebay.com"}
 HREF_RE = re.compile(r'href=(["\\\'])(https?://[^"\\\']+)\\1', re.IGNORECASE)
 
 
-def load_state() -> dict:
-    if not STATE_PATH.exists():
+def load_json(path: Path) -> dict:
+    if not path.exists():
         return {}
     try:
-        return json.loads(STATE_PATH.read_text(encoding="utf-8"))
+        return json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return {}
 
 
-def save_state(state: dict) -> None:
-    STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    STATE_PATH.write_text(
-        json.dumps(state, indent=2, ensure_ascii=False, sort_keys=True),
+def save_json(path: Path, data: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
+        json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True),
         encoding="utf-8",
     )
 
@@ -79,6 +80,31 @@ def add_epn_tracking(content: str, market: str) -> str:
     return HREF_RE.sub(replace, content)
 
 
+def hero_image_html(slug: str, title: str, market: str) -> str:
+    if market == "uk":
+        image_path = ROOT / "assets" / "pinterest" / f"{slug}.png"
+        image_url = (
+            "https://raw.githubusercontent.com/kevinamartin88/"
+            f"worth-buying-uk/main/assets/pinterest/{slug}.png"
+        )
+    else:
+        image_path = ROOT / "assets" / "pinterest" / "us" / f"{slug}.png"
+        image_url = (
+            "https://raw.githubusercontent.com/kevinamartin88/"
+            f"worth-buying-uk/main/assets/pinterest/us/{slug}.png"
+        )
+
+    if not image_path.exists():
+        return ""
+
+    alt = html.escape(title, quote=True)
+    return (
+        f'<p style="text-align:center;"><img src="{image_url}" alt="{alt}" '
+        'style="width:100%;max-width:460px;height:auto;display:block;'
+        'margin:0 auto 24px auto;" /></p>\n'
+    )
+
+
 def send_email(subject: str, html_content: str, to_address: str) -> None:
     smtp_email = os.environ["SMTP_EMAIL"]
     smtp_password = os.environ["SMTP_APP_PASSWORD"]
@@ -94,6 +120,38 @@ def send_email(subject: str, html_content: str, to_address: str) -> None:
         server.sendmail(smtp_email, [to_address], msg.as_string())
 
 
+def find_public_post_url(site_url: str, title: str) -> str | None:
+    feed_url = f"{site_url.rstrip('/')}/feeds/posts/default?alt=json&max-results=50"
+    req = Request(feed_url, headers={"User-Agent": "WorthBuyingPublisher/1.0"})
+    with urlopen(req, timeout=30) as response:
+        payload = json.loads(response.read().decode("utf-8"))
+
+    entries = payload.get("feed", {}).get("entry", [])
+    wanted = " ".join(title.split())
+    for entry in entries:
+        entry_title = " ".join(str(entry.get("title", {}).get("$t", "")).split())
+        if entry_title != wanted:
+            continue
+        for link in entry.get("link", []):
+            if link.get("rel") == "alternate" and link.get("href"):
+                return str(link["href"])
+    return None
+
+
+def resolve_public_url(site_url: str, title: str, attempts: int = 12) -> str | None:
+    for attempt in range(1, attempts + 1):
+        try:
+            url = find_public_post_url(site_url, title)
+            if url:
+                return url
+        except Exception as exc:
+            print(f"[wait] Could not read public Blogger feed: {type(exc).__name__}: {exc}")
+        if attempt < attempts:
+            print(f"[wait] Waiting for Blogger to publish '{title}' ({attempt}/{attempts})")
+            time.sleep(10)
+    return None
+
+
 def main() -> None:
     market = os.getenv("MARKET", "uk").strip().lower()
     if market not in {"uk", "us"}:
@@ -102,15 +160,20 @@ def main() -> None:
     if market == "uk":
         articles_dir = ROOT / "articles"
         target_email = os.environ["BLOGGER_UK_EMAIL_POST_ADDRESS"]
+        blog_state_path = ROOT / "state" / "articles_published.json"
+        site_url = "https://worthbuyinguk.blogspot.com"
     else:
         articles_dir = ROOT / "articles-us"
         target_email = os.environ["BLOGGER_US_EMAIL_POST_ADDRESS"]
+        blog_state_path = ROOT / "state" / "articles_us_published.json"
+        site_url = "https://worthbuyingusa.blogspot.com"
 
     if not articles_dir.exists():
         print(f"No article directory found: {articles_dir}")
         return
 
-    state = load_state()
+    email_state = load_json(EMAIL_STATE_PATH)
+    blog_state = load_json(blog_state_path)
 
     for path in sorted(articles_dir.glob("*.json")):
         article = json.loads(path.read_text(encoding="utf-8"))
@@ -124,29 +187,58 @@ def main() -> None:
         source_sha = article.get("source_sha")
         state_key = f"{market}:{slug}"
 
-        existing = state.get(state_key)
-        if existing and existing.get("source_sha") == source_sha:
-            print(f"[skip] {slug}: already emailed")
+        # Mail2Blogger is a create-only fallback. Never email an article that
+        # already exists in the normal Blogger publication state, otherwise an
+        # edit could accidentally create a duplicate public post.
+        existing_blog = blog_state.get(slug)
+        if existing_blog and existing_blog.get("status") == "published":
+            print(f"[skip] {slug}: already exists on Blogger")
             continue
 
-        content = add_epn_tracking(article["content_html"], market)
+        emailed = email_state.get(state_key)
+        if not emailed:
+            content = hero_image_html(slug, title, market) + add_epn_tracking(
+                article["content_html"], market
+            )
+            send_email(
+                subject=title,
+                html_content=content,
+                to_address=target_email,
+            )
+            email_state[state_key] = {
+                "title": title,
+                "source_sha": source_sha,
+                "source_file": path.name,
+                "market": market,
+                "sent": True,
+            }
+            save_json(EMAIL_STATE_PATH, email_state)
+            print(f"[sent] {title}")
+        else:
+            print(f"[resolve] {slug}: email already sent; checking public Blogger feed")
 
-        send_email(
-            subject=title,
-            html_content=content,
-            to_address=target_email,
-        )
+        url = resolve_public_url(site_url, title)
+        if not url:
+            print(
+                f"[warning] Blogger email was sent for '{title}', but its public URL "
+                "could not yet be resolved. A later workflow run will retry without "
+                "sending the email again."
+            )
+            continue
 
-        state[state_key] = {
+        blog_state[slug] = {
+            "post_id": None,
+            "url": url,
             "title": title,
+            "status": "published",
             "source_sha": source_sha,
             "source_file": path.name,
-            "market": market,
+            "publisher": "email",
         }
-        save_state(state)
-
-        print(f"[sent] {title}")
-        time.sleep(5)
+        save_json(blog_state_path, blog_state)
+        email_state[state_key]["url"] = url
+        save_json(EMAIL_STATE_PATH, email_state)
+        print(f"[published] {title}: {url}")
 
 
 if __name__ == "__main__":
