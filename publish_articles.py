@@ -27,6 +27,8 @@ UK_EPN_PARAMS = {
     "mkevt": "1",
 }
 UK_EBAY_HOSTS = {"ebay.co.uk", "www.ebay.co.uk"}
+UK_AMAZON_HOSTS = {"amazon.co.uk", "www.amazon.co.uk"}
+UK_AMAZON_TAG = "worthbuyin008-21"
 HREF_RE = re.compile(r'href=(["\'])(https?://[^"\']+)\1', re.IGNORECASE)
 
 
@@ -67,6 +69,28 @@ def add_uk_epn_tracking(content: str) -> str:
         )
         escaped_url = html.escape(tracked_url, quote=True)
         return f"href={quote}{escaped_url}{quote}"
+
+    return HREF_RE.sub(replace, content)
+
+
+def add_uk_amazon_tracking(content: str) -> str:
+    """Ensure every Amazon UK href carries the Worth Buying UK Associates tag."""
+
+    def replace(match: re.Match[str]) -> str:
+        quote = match.group(1)
+        raw_url = html.unescape(match.group(2))
+        parts = urlsplit(raw_url)
+        host = parts.netloc.casefold().split(":", 1)[0]
+        if host not in UK_AMAZON_HOSTS:
+            return match.group(0)
+
+        existing = parse_qsl(parts.query, keep_blank_values=True)
+        query = [(key, value) for key, value in existing if key.casefold() != "tag"]
+        query.append(("tag", UK_AMAZON_TAG))
+        tracked_url = urlunsplit(
+            (parts.scheme, parts.netloc, parts.path, urlencode(query), parts.fragment)
+        )
+        return f"href={quote}{html.escape(tracked_url, quote=True)}{quote}"
 
     return HREF_RE.sub(replace, content)
 
@@ -133,7 +157,9 @@ def main() -> None:
         article = json.loads(path.read_text(encoding="utf-8"))
         slug = article["slug"]
         title = article["title"]
-        article_content = add_uk_epn_tracking(article["content_html"])
+        article_content = add_uk_amazon_tracking(
+            add_uk_epn_tracking(article["content_html"])
+        )
         content = pinterest_image_html(article) + article_content
         labels = article.get("labels", [])
         mode = article.get("mode", "publish").strip().lower()
