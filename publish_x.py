@@ -89,6 +89,7 @@ def main() -> None:
     blog_state = load_json(BLOG_STATE)
     x_state = load_json(X_STATE)
     buffer = BufferClient.from_env()
+    buffer.find_x_channel_id()
 
     posted = 0
     verified = 0
