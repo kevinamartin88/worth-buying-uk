@@ -10,6 +10,8 @@ from src.buffer import BufferClient
 ROOT = Path(__file__).resolve().parent
 BLOG_STATE = ROOT / "state" / "articles_published.json"
 X_STATE = ROOT / "state" / "x_published.json"
+AI_IMAGE_DIR = ROOT / "assets" / "ai" / "uk"
+AI_IMAGE_BASE = "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/uk"
 X_IMAGE_DIR = ROOT / "assets" / "x" / "uk"
 X_IMAGE_BASE = "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/x/uk"
 
@@ -144,8 +146,14 @@ def main() -> None:
         else:
             text = default_x_text(title, url, list(article.get("labels", [])))
 
-        image_path = X_IMAGE_DIR / f"{slug}.png"
-        image_url = f"{X_IMAGE_BASE}/{slug}.png" if image_path.exists() else None
+        ai_image_path = AI_IMAGE_DIR / f"{slug}.jpg"
+        fallback_image_path = X_IMAGE_DIR / f"{slug}.png"
+        if ai_image_path.exists():
+            image_url = f"{AI_IMAGE_BASE}/{slug}.jpg"
+        elif fallback_image_path.exists():
+            image_url = f"{X_IMAGE_BASE}/{slug}.png"
+        else:
+            image_url = None
 
         created = buffer.create_post(text=text, mode="shareNow", image_url=image_url)
         post_id = str(created["id"])
