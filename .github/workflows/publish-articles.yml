@@ -4,6 +4,12 @@ name: Publish Blogger articles
 # New UK article files automatically publish by email, then continue to X/Pinterest.
 on:
   workflow_dispatch:
+    inputs:
+      chain_usa:
+        description: "Start the USA publisher after UK completes"
+        required: false
+        default: false
+        type: boolean
   push:
     branches:
       - main
@@ -21,6 +27,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   # All workflows that can push back to main share one queue. This avoids
@@ -136,3 +143,9 @@ jobs:
           git commit -m "Update UK email publication state and Pinterest feed"
           git pull --rebase origin main
           git push
+
+      - name: Start USA publisher after daily UK run
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.chain_usa }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run publish-articles-us.yml --ref main
