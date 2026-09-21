@@ -82,7 +82,58 @@ TOPICS = [
     ("leaf-blowers", "Leaf Blowers", "leaf blower", 450, 500, "Home & Kitchen", "LEAF BLOWER GUIDE"),
     ("hedge-trimmers", "Hedge Trimmers", "hedge trimmer", 450, 500, "Home & Kitchen", "HEDGE TRIMMER GUIDE"),
     ("lawn-mowers", "Lawn Mowers", "lawn mower", 900, 1000, "Home & Kitchen", "LAWN MOWER GUIDE"),
+    ("storage-bins", "Storage Bins & Organisers", "storage bins organizer", 180, 220, "Home & Kitchen", "HOME ORGANISATION GUIDE"),
+    ("non-slip-hangers", "Non-Slip Hangers", "non slip hangers", 120, 150, "Home & Kitchen", "HOME ORGANISATION GUIDE"),
+    ("cleaning-bundles", "Multi-Purpose Cleaning Bundles", "household cleaning bundle", 180, 220, "Home & Kitchen", "CLEANING BUYING GUIDE"),
+    ("portable-griddles", "Portable Griddles", "portable griddle", 700, 800, "Home & Kitchen", "OUTDOOR COOKING GUIDE"),
+    ("smart-light-switches", "Smart Light Switches", "smart light switch", 220, 260, "Tech", "SMART HOME GUIDE"),
+    ("apple-watches", "Apple Watches", "Apple Watch", 900, 1000, "Tech", "APPLE WATCH BUYING GUIDE"),
+    ("airpods", "AirPods & Wireless Earbuds", "Apple AirPods wireless earbuds", 450, 500, "Tech", "EARBUDS BUYING GUIDE"),
+    ("streaming-devices", "Streaming Devices", "Fire TV Roku streaming device", 220, 250, "Tech", "STREAMING DEVICE GUIDE"),
+    ("portable-gaming-systems", "Portable Gaming Systems", "handheld gaming console", 900, 1000, "Gaming", "PORTABLE GAMING GUIDE"),
+    ("loungewear", "Comfortable Loungewear", "loungewear set", 220, 250, "Home & Kitchen", "LIFESTYLE BUYING GUIDE"),
+    ("beauty-sets", "Beauty & Self-Care Sets", "beauty self care set", 220, 250, "Home & Kitchen", "BEAUTY BUYING GUIDE"),
+    ("seasonal-hobby-kits", "Seasonal Hobby & Craft Kits", "craft hobby kit", 220, 250, "Home & Kitchen", "HOBBY BUYING GUIDE"),
+    ("garden-tool-sets", "Garden Tool Sets", "garden tool set", 300, 350, "Home & Kitchen", "GARDEN TOOL GUIDE"),
 ]
+
+SATURDAY_PRIORITY = (
+    "storage-bins",
+    "cleaning-bundles",
+    "non-slip-hangers",
+    "cordless-vacuums",
+    "robot-vacuums",
+    "steam-mops",
+    "carpet-cleaners",
+    "pressure-washers",
+    "cordless-drills",
+    "tool-sets",
+    "garden-tool-sets",
+    "lawn-mowers",
+    "hedge-trimmers",
+    "leaf-blowers",
+    "portable-griddles",
+    "smart-light-switches",
+)
+
+SUNDAY_PRIORITY = (
+    "storage-bins",
+    "non-slip-hangers",
+    "cleaning-bundles",
+    "robot-vacuums",
+    "air-purifiers",
+    "apple-watches",
+    "airpods",
+    "streaming-devices",
+    "portable-gaming-systems",
+    "gaming-headsets",
+    "bluetooth-speakers",
+    "loungewear",
+    "beauty-sets",
+    "seasonal-hobby-kits",
+    "smart-light-switches",
+)
+
 
 CATEGORY_CHECKS = {
     "Tech": [
@@ -146,10 +197,28 @@ def topic_already_covered(article_dir: Path, display: str, year: int) -> bool:
     return False
 
 
-def pick_topic(article_dir: Path, year: int) -> tuple:
+def pick_topic(article_dir: Path, year: int, weekday: int) -> tuple:
+    topic_by_key = {topic[0]: topic for topic in TOPICS}
+
+    # Saturday/Sunday prioritise leisure-hour shopping themes: cleaning,
+    # organisation, DIY, yard care, entertainment and lifestyle.
+    weekend_priority = ()
+    if weekday == 5:
+        weekend_priority = SATURDAY_PRIORITY
+    elif weekday == 6:
+        weekend_priority = SUNDAY_PRIORITY
+
+    for key in weekend_priority:
+        topic = topic_by_key.get(key)
+        if topic and not topic_already_covered(article_dir, topic[1], year):
+            return topic
+
+    # Once the weekend-priority pool is exhausted, or on weekdays, continue
+    # through the normal high-intent rotation.
     for topic in TOPICS:
         if not topic_already_covered(article_dir, topic[1], year):
             return topic
+
     raise RuntimeError(
         "The curated daily-topic pool has been exhausted for this year. "
         "Add more topics before continuing automated publication."
@@ -469,6 +538,8 @@ def main() -> None:
     now = datetime.now(timezone.utc)
     today = now.date().isoformat()
     year = now.year
+    weekday = now.weekday()
+    day_name = now.strftime("%A")
     state = load_json(STATE_PATH)
     generated = 0
 
@@ -484,7 +555,7 @@ def main() -> None:
         article_dir = ROOT / ("articles" if market == "uk" else "articles-us")
         article_dir.mkdir(parents=True, exist_ok=True)
 
-        topic = pick_topic(article_dir, year)
+        topic = pick_topic(article_dir, year, weekday)
         article = build_article(topic, market, year)
         target = article_dir / f"{article['slug']}.json"
         if target.exists():
@@ -499,13 +570,16 @@ def main() -> None:
             "slug": article["slug"],
             "title": article["title"],
             "topic": topic[0],
+            "day": day_name,
+            "weekend_priority": weekday in {5, 6},
             "live_ebay_picks": bool(article["_generator"]["live_ebay_picks"]),
             "pick_count": int(article["_generator"]["pick_count"]),
         }
         generated += 1
         print(
             f"[daily-created] {market.upper()}: {target.relative_to(ROOT)} "
-            f"(live eBay picks={article['_generator']['pick_count']})"
+            f"(day={day_name}, weekend_priority={weekday in {5, 6}}, "
+            f"live eBay picks={article['_generator']['pick_count']})"
         )
 
     save_json(STATE_PATH, state)
