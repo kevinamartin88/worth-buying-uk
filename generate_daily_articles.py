@@ -250,20 +250,7 @@ def related_guides(
         )
 
     candidates.sort(key=lambda row: (-row[0], row[1]))
-    strongly_related = [item for score, _, item in candidates if score > 0]
-    if len(strongly_related) >= limit:
-        return strongly_related[:limit]
-
-    chosen = list(strongly_related)
-    chosen_urls = {item["url"] for item in chosen}
-    for _, _, item in candidates:
-        if item["url"] in chosen_urls:
-            continue
-        chosen.append(item)
-        chosen_urls.add(item["url"])
-        if len(chosen) >= limit:
-            break
-    return chosen
+    return [item for score, _, item in candidates if score > 0][:limit]
 
 
 def related_guides_html(guides: list[dict]) -> str:
@@ -682,7 +669,7 @@ def fallback_sections(market: str, topic_name: str, query: str) -> str:
         ebay_url = f"{ebay_base}?_nkw={quote_plus(search_query)}&_sop=15"
         amazon_url = f"{amazon_base}?k={quote_plus(search_query)}"
         parts.append(
-            f"<h2>{index}. {html.escape(heading)}</h2>\n"
+            f"<h3>{index}. {html.escape(heading)}</h3>\n"
             f"<p>Compare current {html.escape(topic_name)} listings in this part of the market. "
             "The live retailer pages are the best place to check current models, prices, seller details "
             "and availability.</p>\n"
@@ -728,7 +715,13 @@ def build_article(topic: tuple, market: str, year: int) -> dict:
     title = f"Best {display} Worth Buying in the {region} ({year})"
     source_sha = f"{datetime.now(timezone.utc).date().isoformat()}-{key}-{market}-daily-v2"
     primary_keyword = f"best {display.lower()} {region.lower()} {year}"
+    secondary_keywords = [
+        f"{display.lower()} buying guide {region.lower()}",
+        f"{display.lower()} worth buying {year}",
+        f"compare {display.lower()} {region.lower()}",
+    ]
     description = seo_description(display, region, year)
+    checked_date = datetime.now(timezone.utc).strftime("%d %B %Y").lstrip("0")
 
     methodology = (
         f"For this guide, our automation searched current {('eBay UK' if market == 'uk' else 'eBay')} "
@@ -745,6 +738,7 @@ def build_article(topic: tuple, market: str, year: int) -> dict:
         "<p><em>Some links in this article are affiliate links. We may earn a commission if you make a purchase, "
         "at no extra cost to you.</em></p>\n"
         f"<p>{methodology} Prices and availability can change after publication, so always verify the live listing.</p>\n"
+        f"<p><strong>Last checked:</strong> {html.escape(checked_date)}.</p>\n"
         f"{quick_picks_html(picks, market) if live else ''}"
         f"<h2>{'Current picks worth comparing' if live else 'Current retailer searches worth checking'}</h2>\n"
         f"{sections}\n"
@@ -794,6 +788,7 @@ def build_article(topic: tuple, market: str, year: int) -> dict:
         "_seo": {
             "version": "daily-seo-v2",
             "primary_keyword": primary_keyword,
+            "secondary_keywords": secondary_keywords,
             "description": description,
             "search_intent": "commercial investigation",
             "related_guide_count": len(guides),
