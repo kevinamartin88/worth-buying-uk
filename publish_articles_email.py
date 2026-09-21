@@ -44,6 +44,73 @@ ANCHOR_OPEN_RE = re.compile(
     re.IGNORECASE,
 )
 
+PRIMARY_CATEGORIES = ("Tech", "Home & Kitchen", "Motoring", "Gaming", "Deals")
+CATEGORY_ALIASES = {
+    "tech": "Tech",
+    "technology": "Tech",
+    "apple": "Tech",
+    "samsung": "Tech",
+    "wearables": "Tech",
+    "smartphones": "Tech",
+    "phones": "Tech",
+    "laptops": "Tech",
+    "tablets": "Tech",
+    "refurbished": "Tech",
+    "home": "Home & Kitchen",
+    "kitchen": "Home & Kitchen",
+    "appliances": "Home & Kitchen",
+    "cookware": "Home & Kitchen",
+    "motoring": "Motoring",
+    "cars": "Motoring",
+    "car accessories": "Motoring",
+    "auto": "Motoring",
+    "auto accessories": "Motoring",
+    "garage tools": "Motoring",
+    "workshop equipment": "Motoring",
+    "gaming": "Gaming",
+    "playstation": "Gaming",
+    "xbox": "Gaming",
+    "nintendo": "Gaming",
+    "deals": "Deals",
+    "ebay deals": "Deals",
+}
+
+
+def primary_category(article: dict) -> str:
+    explicit = " ".join(str(article.get("primary_category", "")).split())
+    if explicit in PRIMARY_CATEGORIES:
+        return explicit
+
+    labels = [" ".join(str(label).split()) for label in article.get("labels", [])]
+    for label in labels:
+        mapped = CATEGORY_ALIASES.get(label.casefold())
+        if mapped:
+            return mapped
+
+    title = str(article.get("title", "")).casefold()
+    for alias, mapped in CATEGORY_ALIASES.items():
+        if alias in title:
+            return mapped
+
+    return "Deals"
+
+
+def category_marker_html(category: str, public_site_url: str) -> str:
+    query = urlencode({"q": category})
+    href = f"{public_site_url.rstrip('/')}/search?{query}"
+    safe_category = html.escape(category)
+    safe_href = html.escape(href, quote=True)
+    return (
+        '<div class="wb-article-category" '
+        'style="margin:0 0 16px 0;text-align:left;">'
+        f'<a href="{safe_href}" rel="tag" '
+        'style="display:inline-block;background:#edf7f6;color:#0f766e;'
+        'border:1px solid #cde8e5;border-radius:999px;padding:6px 11px;'
+        'font-size:12px;font-weight:800;letter-spacing:.35px;'
+        'text-decoration:none;">'
+        f'{safe_category}</a></div>\n'
+    )
+
 
 def load_json(path: Path) -> dict:
     if not path.exists():
@@ -243,6 +310,7 @@ def main() -> None:
         slug = article["slug"]
         title = article["title"]
         source_sha = article.get("source_sha")
+        category = primary_category(article)
         state_key = f"{market}:{slug}"
 
         # Mail2Blogger is a create-only fallback. Never email an article that
@@ -255,8 +323,10 @@ def main() -> None:
 
         emailed = email_state.get(state_key)
         if not emailed:
-            content = hero_image_html(slug, title, market) + style_retailer_buttons(
-                add_epn_tracking(article["content_html"], market)
+            content = (
+                hero_image_html(slug, title, market)
+                + category_marker_html(category, public_site_url)
+                + style_retailer_buttons(add_epn_tracking(article["content_html"], market))
             )
             send_email(
                 subject=title,
@@ -268,6 +338,7 @@ def main() -> None:
                 "source_sha": source_sha,
                 "source_file": path.name,
                 "market": market,
+                "primary_category": category,
                 "sent": True,
             }
             save_json(EMAIL_STATE_PATH, email_state)
@@ -292,6 +363,7 @@ def main() -> None:
             "source_sha": source_sha,
             "source_file": path.name,
             "publisher": "email",
+            "primary_category": category,
         }
         save_json(blog_state_path, blog_state)
         email_state[state_key]["url"] = url
