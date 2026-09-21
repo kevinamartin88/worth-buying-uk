@@ -44,6 +44,24 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Generate AI article hero images
+        env:
+          PYTHONPATH: .
+        run: python generate_ai_visuals.py --market uk
+
+      - name: Save AI article hero images
+        run: |
+          git add assets/ai/uk
+          if git diff --cached --quiet -- assets/ai/uk; then
+            echo "No UK AI hero image changes to commit."
+          else
+            git config user.name "worth-buying-uk-bot"
+            git config user.email "worth-buying-uk-bot@users.noreply.github.com"
+            git commit -m "Add UK AI article hero images"
+            git pull --rebase origin main
+            git push
+          fi
+
       - name: Generate Pinterest images
         env:
           PYTHONPATH: .
