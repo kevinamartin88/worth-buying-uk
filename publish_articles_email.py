@@ -6,6 +6,7 @@ import os
 import re
 import smtplib
 import time
+from datetime import datetime, timedelta, timezone
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
@@ -16,6 +17,8 @@ from src.site_config import get_site_config, get_site_url
 
 ROOT = Path(__file__).resolve().parent
 EMAIL_STATE_PATH = ROOT / "state" / "email_published.json"
+EMAIL_RETRY_AFTER_HOURS = 6
+EMAIL_MAX_SEND_ATTEMPTS = 2
 
 UK_EPN_PARAMS = {
     "mkcid": "1",
@@ -135,6 +138,30 @@ def save_json(path: Path, data: dict) -> None:
         json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True),
         encoding="utf-8",
     )
+
+
+def utc_now_iso() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def email_retry_due(record: dict | None) -> bool:
+    if not record or record.get("url"):
+        return False
+
+    attempts = int(record.get("send_attempts", 1 if record.get("sent") else 0))
+    if attempts >= EMAIL_MAX_SEND_ATTEMPTS:
+        return False
+
+    last_sent_at = str(record.get("last_sent_at", "")).strip()
+    if not last_sent_at:
+        return False
+
+    try:
+        sent_at = datetime.fromisoformat(last_sent_at.replace("Z", "+00:00"))
+    except ValueError:
+        return False
+
+    return datetime.now(timezone.utc) - sent_at >= timedelta(hours=EMAIL_RETRY_AFTER_HOURS)
 
 
 def add_epn_tracking(content: str, market: str) -> str:
@@ -416,7 +443,8 @@ def main() -> None:
             continue
 
         emailed = email_state.get(state_key)
-        if not emailed:
+        retrying = email_retry_due(emailed)
+        if not emailed or retrying:
             content = (
                 hero_image_html(slug, title, market)
                 + category_marker_html(category, public_site_url)
@@ -438,6 +466,7 @@ def main() -> None:
                 html_content=content,
                 to_address=target_email,
             )
+            previous_attempts = int((emailed or {}).get("send_attempts", 0))
             email_state[state_key] = {
                 "title": title,
                 "source_sha": source_sha,
@@ -445,9 +474,13 @@ def main() -> None:
                 "market": market,
                 "primary_category": category,
                 "sent": True,
+                "send_attempts": previous_attempts + 1,
+                "last_sent_at": utc_now_iso(),
+                "delivery_status": "awaiting_public_url",
             }
             save_json(EMAIL_STATE_PATH, email_state)
-            print(f"[sent] {title}")
+            action = "resent" if retrying else "sent"
+            print(f"[{action}] {title}")
         else:
             print(f"[resolve] {slug}: email already sent; checking public Blogger feed")
 
@@ -472,6 +505,7 @@ def main() -> None:
         }
         save_json(blog_state_path, blog_state)
         email_state[state_key]["url"] = url
+        email_state[state_key]["delivery_status"] = "published"
         save_json(EMAIL_STATE_PATH, email_state)
         print(f"[published] {title}: {url}")
 
