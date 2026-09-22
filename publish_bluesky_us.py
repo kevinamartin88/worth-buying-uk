@@ -53,13 +53,12 @@ def initialize_baseline(blog_state: dict) -> None:
 
 
 def build_text(title: str, url: str) -> str:
-    text = (
-        f"🔎 {title}\n\n"
-        "Our latest USA buying guide compares current options, value and practical buying checks.\n\n"
-        f"Affiliate 🔗 {url}\n"
-        "#WorthBuying #BuyingGuide"
-    )
-    return text[:300]
+    suffix = f"\n\nAffiliate 🔗 {url}\n#WorthBuying #BuyingGuide"
+    intro = f"🔎 {title}\n\nOur latest USA buying guide compares current options, value and practical buying checks."
+    available = max(40, 300 - len(suffix))
+    if len(intro) > available:
+        intro = intro[: available - 1].rstrip() + "…"
+    return intro + suffix
 
 
 def main() -> None:
