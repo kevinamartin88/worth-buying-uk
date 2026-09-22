@@ -20,6 +20,7 @@ on:
       - "generate_ai_visuals.py"
       - "src/ai_visuals.py"
       - "publish_x.py"
+      - "publish_bluesky.py"
       - "generate_pinterest_images.py"
       - "generate_pinterest_feed.py"
       - "generate_x_images.py"
@@ -133,10 +134,17 @@ jobs:
           BUFFER_CHANNEL_NAME: "Worth Buying UK"
         run: python publish_x.py
 
+      - name: Publish new articles to Bluesky through Buffer
+        env:
+          PYTHONPATH: .
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          BUFFER_CHANNEL_NAME: "Worth Buying UK"
+        run: python publish_bluesky.py
+
       - name: Save publication state and Pinterest feed
         run: |
-          git add state/articles_published.json state/email_published.json state/x_published.json pinterest-feed.xml
-          if git diff --cached --quiet -- state/articles_published.json state/email_published.json state/x_published.json pinterest-feed.xml; then
+          git add state/articles_published.json state/email_published.json state/x_published.json state/bluesky_published.json pinterest-feed.xml
+          if git diff --cached --quiet -- state/articles_published.json state/email_published.json state/x_published.json state/bluesky_published.json pinterest-feed.xml; then
             echo "No publication state or Pinterest feed changes to commit."
             exit 0
           fi
