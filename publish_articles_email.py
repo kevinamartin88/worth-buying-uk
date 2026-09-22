@@ -144,7 +144,11 @@ def utc_now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
-def email_retry_due(record: dict | None) -> bool:
+def email_retry_due(record: dict | None, delivery_mode: str) -> bool:
+    # Manual-review emails are intentionally sent once per source version. We do
+    # not want a scheduled reconciliation run repeatedly emailing the same draft.
+    if delivery_mode == "manual":
+        return False
     if not record or record.get("url"):
         return False
 
@@ -332,6 +336,8 @@ def hero_image_html(slug: str, title: str, market: str) -> str:
 
 
 def send_email(subject: str, html_content: str, to_address: str) -> None:
+    """Send the HTML body directly, used only for Mail2Blogger mode."""
+
     smtp_email = os.environ["SMTP_EMAIL"]
     smtp_password = os.environ["SMTP_APP_PASSWORD"]
 
@@ -340,6 +346,81 @@ def send_email(subject: str, html_content: str, to_address: str) -> None:
     msg["From"] = smtp_email
     msg["To"] = to_address
     msg.attach(MIMEText(html_content, "html", "utf-8"))
+
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=30) as server:
+        server.login(smtp_email, smtp_password)
+        server.sendmail(smtp_email, [to_address], msg.as_string())
+
+
+def send_ready_to_publish_email(
+    *,
+    market: str,
+    slug: str,
+    title: str,
+    labels: list[str],
+    category: str,
+    html_content: str,
+    to_address: str,
+) -> None:
+    """Email a human-ready Blogger package without posting to Blogger."""
+
+    smtp_email = os.environ["SMTP_EMAIL"]
+    smtp_password = os.environ["SMTP_APP_PASSWORD"]
+    market_name = "Worth Buying UK" if market == "uk" else "Worth Buying USA"
+    labels_text = ", ".join(str(label) for label in labels if str(label).strip()) or "None"
+
+    instructions_html = f"""
+    <div style="font-family:Arial,sans-serif;max-width:900px;margin:0 auto;line-height:1.5">
+      <h2>READY TO PUBLISH - {html.escape(market_name)}</h2>
+      <p>This article is prepared but has <strong>not</strong> been sent to Blogger automatically.</p>
+      <ol>
+        <li>Open Blogger and create a new post on <strong>{html.escape(market_name)}</strong>.</li>
+        <li>Use the title below.</li>
+        <li>Switch the Blogger editor to <strong>HTML view</strong>.</li>
+        <li>Copy the HTML from the attached <strong>{html.escape(slug)}.html</strong> file and paste it into Blogger.</li>
+        <li>Add the labels shown below, then publish normally.</li>
+      </ol>
+      <p><strong>Title:</strong> {html.escape(title)}</p>
+      <p><strong>Primary category:</strong> {html.escape(category)}</p>
+      <p><strong>Labels:</strong> {html.escape(labels_text)}</p>
+      <p>After you publish it, the scheduled automation will detect the public Blogger URL and continue the existing X/Buffer and Pinterest-feed steps automatically.</p>
+      <hr>
+      <h3>Article preview</h3>
+      {html_content}
+    </div>
+    """
+
+    msg = MIMEMultipart("mixed")
+    msg["Subject"] = f"[READY TO PUBLISH][{market.upper()}] {title}"
+    msg["From"] = smtp_email
+    msg["To"] = to_address
+
+    body = MIMEMultipart("alternative")
+    body.attach(
+        MIMEText(
+            (
+                f"READY TO PUBLISH - {market_name}\n\n"
+                f"Title: {title}\n"
+                f"Primary category: {category}\n"
+                f"Labels: {labels_text}\n\n"
+                "Open Blogger, create a new post, switch to HTML view, paste the "
+                f"contents of the attached {slug}.html file, add the labels, and publish.\n\n"
+                "The automation will detect the published URL and continue the social steps."
+            ),
+            "plain",
+            "utf-8",
+        )
+    )
+    body.attach(MIMEText(instructions_html, "html", "utf-8"))
+    msg.attach(body)
+
+    attachment = MIMEText(html_content, "html", "utf-8")
+    attachment.add_header(
+        "Content-Disposition",
+        "attachment",
+        filename=f"{slug}.html",
+    )
+    msg.attach(attachment)
 
     with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=30) as server:
         server.login(smtp_email, smtp_password)
@@ -405,14 +486,30 @@ def main() -> None:
     blogspot_url = str(site_config["blogspot_url"]).rstrip("/")
     lookup_urls = list(dict.fromkeys([public_site_url, blogspot_url]))
 
+    delivery_mode = os.getenv("BLOGGER_EMAIL_DELIVERY_MODE", "manual").strip().lower()
+    if delivery_mode not in {"manual", "mail2blogger"}:
+        raise ValueError("BLOGGER_EMAIL_DELIVERY_MODE must be 'manual' or 'mail2blogger'")
+
     if market == "uk":
         articles_dir = ROOT / "articles"
-        target_email = os.environ["BLOGGER_UK_EMAIL_POST_ADDRESS"]
+        blogger_email_env = "BLOGGER_UK_EMAIL_POST_ADDRESS"
         blog_state_path = ROOT / "state" / "articles_published.json"
     else:
         articles_dir = ROOT / "articles-us"
-        target_email = os.environ["BLOGGER_US_EMAIL_POST_ADDRESS"]
+        blogger_email_env = "BLOGGER_US_EMAIL_POST_ADDRESS"
         blog_state_path = ROOT / "state" / "articles_us_published.json"
+
+    if delivery_mode == "manual":
+        target_email = (
+            os.getenv("READY_TO_PUBLISH_EMAIL", "").strip()
+            or os.environ["SMTP_EMAIL"].strip()
+        )
+    else:
+        target_email = os.getenv(blogger_email_env, "").strip()
+        if not target_email:
+            raise RuntimeError(
+                f"{blogger_email_env} is required when BLOGGER_EMAIL_DELIVERY_MODE=mail2blogger"
+            )
 
     if not articles_dir.exists():
         print(f"No article directory found: {articles_dir}")
@@ -443,8 +540,22 @@ def main() -> None:
             continue
 
         emailed = email_state.get(state_key)
-        retrying = email_retry_due(emailed)
-        if not emailed or retrying:
+        retrying = email_retry_due(emailed, delivery_mode)
+        source_changed = bool(emailed) and emailed.get("source_sha") != source_sha
+        needs_manual_package = (
+            delivery_mode == "manual"
+            and (
+                not emailed
+                or source_changed
+                or emailed.get("delivery_status")
+                not in {"awaiting_manual_publish", "published"}
+            )
+        )
+        needs_mail2blogger_send = (
+            delivery_mode == "mail2blogger" and (not emailed or source_changed or retrying)
+        )
+
+        if needs_manual_package or needs_mail2blogger_send:
             content = (
                 hero_image_html(slug, title, market)
                 + category_marker_html(category, public_site_url)
@@ -461,11 +572,27 @@ def main() -> None:
                     )
                 )
             )
-            send_email(
-                subject=title,
-                html_content=content,
-                to_address=target_email,
-            )
+            if delivery_mode == "manual":
+                send_ready_to_publish_email(
+                    market=market,
+                    slug=slug,
+                    title=title,
+                    labels=list(article.get("labels", [])),
+                    category=category,
+                    html_content=content,
+                    to_address=target_email,
+                )
+                delivery_status = "awaiting_manual_publish"
+                action = "ready-email-sent"
+            else:
+                send_email(
+                    subject=title,
+                    html_content=content,
+                    to_address=target_email,
+                )
+                delivery_status = "awaiting_public_url"
+                action = "resent" if retrying or source_changed else "sent"
+
             previous_attempts = int((emailed or {}).get("send_attempts", 0))
             email_state[state_key] = {
                 "title": title,
@@ -476,21 +603,36 @@ def main() -> None:
                 "sent": True,
                 "send_attempts": previous_attempts + 1,
                 "last_sent_at": utc_now_iso(),
-                "delivery_status": "awaiting_public_url",
+                "delivery_status": delivery_status,
+                "delivery_mode": delivery_mode,
             }
             save_json(EMAIL_STATE_PATH, email_state)
-            action = "resent" if retrying else "sent"
             print(f"[{action}] {title}")
         else:
-            print(f"[resolve] {slug}: email already sent; checking public Blogger feed")
-
-        url = resolve_public_url(lookup_urls, public_site_url, title)
-        if not url:
             print(
-                f"[warning] Blogger email was sent for '{title}', but its public URL "
-                "could not yet be resolved. A later workflow run will retry without "
-                "sending the email again."
+                f"[resolve] {slug}: publication package already sent; "
+                "checking public Blogger feed"
             )
+
+        url = resolve_public_url(
+            lookup_urls,
+            public_site_url,
+            title,
+            attempts=1 if delivery_mode == "manual" else 18,
+        )
+        if not url:
+            if delivery_mode == "manual":
+                print(
+                    f"[waiting] '{title}' has not appeared on the public Blogger feed yet. "
+                    "Publish it manually from the READY TO PUBLISH email; a scheduled "
+                    "reconciliation run will pick it up afterwards."
+                )
+            else:
+                print(
+                    f"[warning] Blogger email was sent for '{title}', but its public URL "
+                    "could not yet be resolved. A later workflow run will retry without "
+                    "sending the email again."
+                )
             continue
 
         blog_state[slug] = {
@@ -500,7 +642,7 @@ def main() -> None:
             "status": "published",
             "source_sha": source_sha,
             "source_file": path.name,
-            "publisher": "email",
+            "publisher": "manual" if delivery_mode == "manual" else "email",
             "primary_category": category,
         }
         save_json(blog_state_path, blog_state)
