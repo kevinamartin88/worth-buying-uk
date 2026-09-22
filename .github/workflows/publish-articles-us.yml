@@ -14,6 +14,7 @@ on:
       - "generate_ai_visuals.py"
       - "src/ai_visuals.py"
       - "publish_x_us.py"
+      - "publish_bluesky_us.py"
       - "generate_pinterest_images_us.py"
       - "generate_pinterest_feed_us.py"
       - "generate_x_images.py"
@@ -126,11 +127,18 @@ jobs:
           BUFFER_CHANNEL_NAME: "Worth Buying USA"
         run: python publish_x_us.py
 
-      - name: Save USA article, X and Pinterest publication state
+      - name: Publish new USA articles to Bluesky through Buffer
+        env:
+          PYTHONPATH: .
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          BUFFER_CHANNEL_NAME: "Worth Buying USA"
+        run: python publish_bluesky_us.py
+
+      - name: Save USA article, X, Bluesky and Pinterest publication state
         run: |
           git config user.name "worth-buying-usa-bot"
           git config user.email "worth-buying-usa-bot@users.noreply.github.com"
-          git add state/articles_us_published.json state/email_published.json state/x_us_published.json pinterest-feed-us.xml
+          git add state/articles_us_published.json state/email_published.json state/x_us_published.json state/bluesky_us_published.json pinterest-feed-us.xml
           if git diff --cached --quiet; then
             echo "No USA publication state or Pinterest feed changes to commit."
             exit 0
