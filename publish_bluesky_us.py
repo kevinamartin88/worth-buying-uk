@@ -53,7 +53,7 @@ def main() -> None:
     handle = os.getenv("BLUESKY_US_HANDLE", "").strip()
     app_password = os.getenv("BLUESKY_US_APP_PASSWORD", "").strip()
     if not handle or not app_password:
-        print("[skip] BLUESKY_UK_HANDLE or BLUESKY_UK_APP_PASSWORD is not configured")
+        print("[skip] BLUESKY_US_HANDLE or BLUESKY_US_APP_PASSWORD is not configured")
         return
 
     blog_state = load_json(BLOG_STATE)
