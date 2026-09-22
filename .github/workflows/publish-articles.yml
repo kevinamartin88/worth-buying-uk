@@ -1,7 +1,8 @@
 name: Publish Blogger articles
 
-# Temporary Mail2Blogger fallback while the Blogger API appeal is unresolved.
-# New UK article files automatically publish by email, then continue to X/Pinterest.
+# Temporary manual-publish fallback while the Blogger API appeal is unresolved.
+# New UK article files are emailed to the owner ready to paste into Blogger.
+# A separate reconciliation workflow detects the published URL and resumes X/Pinterest.
 on:
   workflow_dispatch:
     inputs:
@@ -110,13 +111,14 @@ jobs:
             git push
           fi
 
-      - name: Publish UK Blogger articles by email
+      - name: Email UK article ready for manual Blogger publishing
         env:
           PYTHONPATH: .
           MARKET: "uk"
+          BLOGGER_EMAIL_DELIVERY_MODE: "manual"
           SMTP_EMAIL: ${{ secrets.SMTP_EMAIL }}
           SMTP_APP_PASSWORD: ${{ secrets.SMTP_APP_PASSWORD }}
-          BLOGGER_UK_EMAIL_POST_ADDRESS: ${{ secrets.BLOGGER_UK_EMAIL_POST_ADDRESS }}
+          READY_TO_PUBLISH_EMAIL: ${{ secrets.READY_TO_PUBLISH_EMAIL }}
         run: python publish_articles_email.py
 
       - name: Generate Pinterest RSS feed
