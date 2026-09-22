@@ -5,3 +5,4 @@ google-auth>=2.34,<3
 google-auth-oauthlib>=1.2,<2
 Pillow>=10,<12
 pytest>=8,<9
+atproto==0.0.72

@@ -20,6 +20,7 @@ on:
       - "generate_x_images.py"
       - "requirements.txt"
       - "src/buffer.py"
+      - "src/bluesky.py"
 
 permissions:
   contents: write
@@ -127,11 +128,11 @@ jobs:
           BUFFER_CHANNEL_NAME: "Worth Buying USA"
         run: python publish_x_us.py
 
-      - name: Publish new USA articles to Bluesky through Buffer
+      - name: Publish new USA articles directly to Bluesky
         env:
           PYTHONPATH: .
-          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
-          BUFFER_CHANNEL_NAME: "Worth Buying USA"
+          BLUESKY_US_HANDLE: ${{ secrets.BLUESKY_US_HANDLE }}
+          BLUESKY_US_APP_PASSWORD: ${{ secrets.BLUESKY_US_APP_PASSWORD }}
         run: python publish_bluesky_us.py
 
       - name: Save USA article, X, Bluesky and Pinterest publication state
