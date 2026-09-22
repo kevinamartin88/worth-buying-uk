@@ -1,18 +1,22 @@
 {
   "uk": {
-    "date": "2026-09-21",
+    "date": "2026-09-22",
+    "day": "Tuesday",
     "live_ebay_picks": true,
     "pick_count": 4,
-    "slug": "best-tvs-worth-buying-uk-2026",
-    "title": "Best TVs Worth Buying in the UK (2026)",
-    "topic": "tvs"
+    "slug": "best-cordless-vacuums-worth-buying-uk-2026",
+    "title": "Best Cordless Vacuum Cleaners Worth Buying in the UK (2026)",
+    "topic": "cordless-vacuums",
+    "weekend_priority": false
   },
   "us": {
-    "date": "2026-09-21",
+    "date": "2026-09-22",
+    "day": "Tuesday",
     "live_ebay_picks": true,
     "pick_count": 4,
-    "slug": "best-tvs-worth-buying-us-2026",
-    "title": "Best TVs Worth Buying in the USA (2026)",
-    "topic": "tvs"
+    "slug": "best-cordless-vacuums-worth-buying-us-2026",
+    "title": "Best Cordless Vacuum Cleaners Worth Buying in the USA (2026)",
+    "topic": "cordless-vacuums",
+    "weekend_priority": false
   }
 }
