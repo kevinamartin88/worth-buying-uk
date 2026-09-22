@@ -4,16 +4,14 @@ import json
 import os
 from pathlib import Path
 
-from src.buffer import BufferClient
+from src.bluesky import BlueskyClient
 
 
 ROOT = Path(__file__).resolve().parent
 BLOG_STATE = ROOT / "state" / "articles_us_published.json"
 STATE = ROOT / "state" / "bluesky_us_published.json"
 AI_IMAGE_DIR = ROOT / "assets" / "ai" / "us"
-AI_IMAGE_BASE = "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us"
 FALLBACK_IMAGE_DIR = ROOT / "assets" / "x" / "us"
-FALLBACK_IMAGE_BASE = "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/x/us"
 
 
 def load_json(path: Path) -> dict:
@@ -39,31 +37,23 @@ def initialize_baseline(blog_state: dict) -> None:
         if item.get("status") != "published":
             continue
         baseline[slug] = {
-            "buffer_post_id": None,
+            "baseline": True,
             "title": item.get("title"),
             "url": item.get("url"),
             "source_sha": item.get("source_sha"),
-            "baseline": True,
         }
     save_json(STATE, baseline)
     print(
         f"Initialized USA Bluesky publication baseline with {len(baseline)} existing article(s); "
-        "no Bluesky posts sent."
+        "no historical Bluesky posts sent."
     )
 
 
-def build_text(title: str, url: str) -> str:
-    suffix = f"\n\nAffiliate 🔗 {url}\n#WorthBuying #BuyingGuide"
-    intro = f"🔎 {title}\n\nOur latest USA buying guide compares current options, value and practical buying checks."
-    available = max(40, 300 - len(suffix))
-    if len(intro) > available:
-        intro = intro[: available - 1].rstrip() + "…"
-    return intro + suffix
-
-
 def main() -> None:
-    if not os.getenv("BUFFER_API_KEY"):
-        print("[skip] BUFFER_API_KEY is not configured")
+    handle = os.getenv("BLUESKY_US_HANDLE", "").strip()
+    app_password = os.getenv("BLUESKY_US_APP_PASSWORD", "").strip()
+    if not handle or not app_password:
+        print("[skip] BLUESKY_UK_HANDLE or BLUESKY_UK_APP_PASSWORD is not configured")
         return
 
     blog_state = load_json(BLOG_STATE)
@@ -72,13 +62,7 @@ def main() -> None:
         return
 
     state = load_json(STATE)
-    buffer = BufferClient.from_env()
-
-    try:
-        channel_id = buffer.find_bluesky_channel_id()
-    except RuntimeError as exc:
-        print(f"[skip] {exc}")
-        return
+    bluesky = BlueskyClient(handle=handle, app_password=app_password, language="en-US")
 
     posted = 0
     for slug, item in sorted(blog_state.items()):
@@ -93,49 +77,31 @@ def main() -> None:
         ai_image_path = AI_IMAGE_DIR / f"{slug}.jpg"
         fallback_image_path = FALLBACK_IMAGE_DIR / f"{slug}.png"
         if ai_image_path.exists():
-            image_url = f"{AI_IMAGE_BASE}/{slug}.jpg"
+            image_path = ai_image_path
         elif fallback_image_path.exists():
-            image_url = f"{FALLBACK_IMAGE_BASE}/{slug}.png"
+            image_path = fallback_image_path
         else:
-            image_url = None
+            image_path = None
 
-        created = buffer.create_post(
-            text=build_text(title, url),
-            mode="shareNow",
-            image_url=image_url,
-            channel_id=channel_id,
+        result = bluesky.publish(
+            title=title,
+            url=url,
+            market_name="USA",
+            image_path=image_path,
         )
-        post_id = str(created["id"])
-        final = buffer.wait_for_post(post_id, timeout_seconds=90)
-        status = str(final.get("status", "")).lower()
-
         state[slug] = {
-            "buffer_post_id": post_id,
-            "buffer_status": status,
-            "buffer_sent_at": final.get("sentAt"),
-            "buffer_channel_id": final.get("channelId"),
+            "status": "published",
+            "bluesky_uri": result["uri"],
+            "bluesky_cid": result["cid"],
+            "bluesky_url": result["web_url"],
             "title": title,
             "url": url,
             "source_sha": item.get("source_sha"),
-            "image_url": image_url,
+            "image_path": str(image_path.relative_to(ROOT)) if image_path else None,
         }
         save_json(STATE, state)
-
-        if status == "error":
-            raise RuntimeError(
-                f"Buffer created Bluesky post {post_id} for '{title}' but publishing failed."
-            )
-        if status != "sent":
-            raise RuntimeError(
-                f"Buffer created Bluesky post {post_id} for '{title}', but it did not reach "
-                f"'sent' status within 90 seconds (status={status!r})."
-            )
-
         posted += 1
-        print(
-            f"[bluesky-posted] {title}{' with image' if image_url else ''} "
-            f"(Buffer id={post_id}, sentAt={final.get('sentAt')})"
-        )
+        print(f"[bluesky-posted] {title}: {result['web_url']}")
 
     save_json(STATE, state)
     print(f"USA Bluesky publishing complete: {posted} new post(s).")
