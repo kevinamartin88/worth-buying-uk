@@ -43,30 +43,28 @@ class BufferClient:
             raise RuntimeError(f"Buffer API error: {payload['errors']}")
         return payload.get("data", {})
 
-    def find_x_channel_id(self) -> str:
-        if self._channel_id:
-            return self._channel_id
-
+    def find_channel_id(self, services: set[str], label: str) -> str:
         account = self._graphql(
             "query { account { organizations { id name } } }"
         )
         organizations = account.get("account", {}).get("organizations", [])
-        x_channels: list[dict] = []
+        channels: list[dict] = []
 
+        wanted_services = {service.casefold() for service in services}
         for organization in organizations:
             org_id = json.dumps(organization["id"])
             data = self._graphql(
                 f"query {{ channels(input: {{ organizationId: {org_id} }}) {{ id name displayName externalLink descriptor service type isDisconnected isLocked }} }}"
             )
             for channel in data.get("channels", []):
-                service = str(channel.get("service", "")).lower()
-                if service in {"twitter", "x"}:
-                    x_channels.append(channel)
+                service = str(channel.get("service", "")).casefold()
+                if service in wanted_services:
+                    channels.append(channel)
 
-        if not x_channels:
-            raise RuntimeError("No X/Twitter channel is connected to Buffer.")
+        if not channels:
+            raise RuntimeError(f"No {label} channel is connected to Buffer.")
 
-        for channel in x_channels:
+        for channel in channels:
             print(
                 "[buffer-channel] "
                 f"name={channel.get('name')} "
@@ -81,7 +79,7 @@ class BufferClient:
             )
 
         wanted = self.channel_name.casefold()
-        exact = [c for c in x_channels if str(c.get("name", "")).casefold() == wanted]
+        exact = [c for c in channels if str(c.get("name", "")).casefold() == wanted]
 
         selected: dict | None = None
         if exact:
@@ -89,37 +87,46 @@ class BufferClient:
         else:
             wanted_normalised = self._normalise_name(self.channel_name)
             normalised = [
-                c for c in x_channels
+                c for c in channels
                 if self._normalise_name(str(c.get("name", ""))) == wanted_normalised
             ]
             if normalised:
                 selected = normalised[0]
             else:
                 partial = [
-                    c for c in x_channels
+                    c for c in channels
                     if wanted in str(c.get("name", "")).casefold()
                 ]
                 if partial:
                     selected = partial[0]
-                elif len(x_channels) == 1:
-                    selected = x_channels[0]
+                elif len(channels) == 1:
+                    selected = channels[0]
 
         if selected:
-            self._channel_id = str(selected["id"])
-            self._channel_name = str(selected.get("name", self.channel_name))
+            selected_id = str(selected["id"])
+            selected_name = str(selected.get("name", self.channel_name))
             print(
-                f"[buffer] Selected X channel: {self._channel_name} "
+                f"[buffer] Selected {label} channel: {selected_name} "
                 f"(displayName={selected.get('displayName')}, "
                 f"externalLink={selected.get('externalLink')}, "
-                f"service={selected.get('service')}, id={self._channel_id})"
+                f"service={selected.get('service')}, id={selected_id})"
             )
-            return self._channel_id
+            return selected_id
 
-        available = ", ".join(str(c.get("name", c.get("id"))) for c in x_channels)
+        available = ", ".join(str(c.get("name", c.get("id"))) for c in channels)
         raise RuntimeError(
             f"Could not uniquely identify Buffer channel '{self.channel_name}'. "
-            f"Connected X channels: {available}"
+            f"Connected {label} channels: {available}"
         )
+
+    def find_x_channel_id(self) -> str:
+        if self._channel_id:
+            return self._channel_id
+        self._channel_id = self.find_channel_id({"twitter", "x"}, "X/Twitter")
+        return self._channel_id
+
+    def find_bluesky_channel_id(self) -> str:
+        return self.find_channel_id({"bluesky"}, "Bluesky")
 
     def get_post(self, post_id: str) -> dict:
         safe_id = json.dumps(post_id)
@@ -161,8 +168,9 @@ class BufferClient:
         text: str,
         mode: str = "shareNow",
         image_url: str | None = None,
+        channel_id: str | None = None,
     ) -> dict:
-        channel_id = self.find_x_channel_id()
+        channel_id = channel_id or self.find_x_channel_id()
         safe_text = json.dumps(text, ensure_ascii=False)
         safe_channel = json.dumps(channel_id)
         assets = ""
