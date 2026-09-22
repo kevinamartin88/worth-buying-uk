@@ -1,0 +1,98 @@
+name: Reconcile manually published Blogger articles
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: worth-buying-repo-writes
+  cancel-in-progress: false
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Detect manually published UK articles
+        env:
+          PYTHONPATH: .
+          MARKET: "uk"
+          BLOGGER_EMAIL_DELIVERY_MODE: "manual"
+          SMTP_EMAIL: ${{ secrets.SMTP_EMAIL }}
+          SMTP_APP_PASSWORD: ${{ secrets.SMTP_APP_PASSWORD }}
+          READY_TO_PUBLISH_EMAIL: ${{ secrets.READY_TO_PUBLISH_EMAIL }}
+        run: python publish_articles_email.py
+
+      - name: Detect manually published USA articles
+        env:
+          PYTHONPATH: .
+          MARKET: "us"
+          BLOGGER_EMAIL_DELIVERY_MODE: "manual"
+          SMTP_EMAIL: ${{ secrets.SMTP_EMAIL }}
+          SMTP_APP_PASSWORD: ${{ secrets.SMTP_APP_PASSWORD }}
+          READY_TO_PUBLISH_EMAIL: ${{ secrets.READY_TO_PUBLISH_EMAIL }}
+        run: python publish_articles_email.py
+
+      - name: Refresh UK Pinterest feed
+        env:
+          PYTHONPATH: .
+        run: python generate_pinterest_feed.py
+
+      - name: Refresh USA Pinterest feed
+        env:
+          PYTHONPATH: .
+        run: python generate_pinterest_feed_us.py
+
+      - name: Publish detected UK articles to X through Buffer
+        env:
+          PYTHONPATH: .
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          BUFFER_CHANNEL_NAME: "Worth Buying UK"
+        run: python publish_x.py
+
+      - name: Publish detected USA articles to X through Buffer
+        env:
+          PYTHONPATH: .
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          BUFFER_CHANNEL_NAME: "Worth Buying USA"
+        run: python publish_x_us.py
+
+      - name: Save reconciled publication state and feeds
+        shell: bash
+        run: |
+          git add \
+            state/articles_published.json \
+            state/articles_us_published.json \
+            state/email_published.json \
+            state/x_published.json \
+            state/x_us_published.json \
+            pinterest-feed.xml \
+            pinterest-feed-us.xml
+
+          if git diff --cached --quiet; then
+            echo "No reconciled publication changes to commit."
+            exit 0
+          fi
+
+          git config user.name "worth-buying-reconcile-bot"
+          git config user.email "worth-buying-reconcile-bot@users.noreply.github.com"
+          git commit -m "Reconcile manually published Blogger articles"
+          git pull --rebase origin main
+          git push
