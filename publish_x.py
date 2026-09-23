@@ -4,6 +4,8 @@ import json
 import os
 from pathlib import Path
 
+from requests.exceptions import HTTPError
+
 from src.buffer import BufferClient
 
 
@@ -90,47 +92,35 @@ def main() -> None:
 
     blog_state = load_json(BLOG_STATE)
     x_state = load_json(X_STATE)
-    buffer = BufferClient.from_env()
-    buffer.find_x_channel_id()
 
-    posted = 0
-    verified = 0
-
+    pending = []
     for slug, item in sorted(blog_state.items()):
         if item.get("status") != "published":
             continue
-
-        url = item.get("url")
-        title = item.get("title")
-        if not url or not title:
+        if not item.get("url") or not item.get("title"):
             continue
-
-        existing_x = x_state.get(slug)
-        if existing_x and existing_x.get("buffer_post_id"):
-            post_id = str(existing_x["buffer_post_id"])
-            current = buffer.get_post(post_id)
-            status = str(current.get("status", "")).lower()
-            print(
-                f"[buffer-status] {title}: id={post_id} status={status} "
-                f"sentAt={current.get('sentAt')} sharedNow={current.get('sharedNow')}"
-            )
-            existing_x["buffer_status"] = status
-            existing_x["buffer_sent_at"] = current.get("sentAt")
-            existing_x["buffer_channel_id"] = current.get("channelId")
-
-            if status == "sent":
-                verified += 1
-                continue
-            if status in {"scheduled", "sending"}:
-                continue
-            if status == "error":
-                print(f"[retry] {title}: previous Buffer post is in error state")
-                x_state.pop(slug, None)
-            else:
-                continue
-        elif slug in x_state:
-            # Pre-existing markers have no Buffer post ID and should not be reposted.
+        if slug in x_state:
             continue
+        pending.append((slug, item))
+
+    if not pending:
+        print("[skip] No new UK articles need X publishing; Buffer API was not called.")
+        return
+
+    buffer = BufferClient.from_env()
+    try:
+        buffer.find_x_channel_id()
+    except HTTPError as exc:
+        if exc.response is not None and exc.response.status_code == 429:
+            print("[rate-limit] Buffer returned HTTP 429. UK X publishing will retry on the next reconciliation run.")
+            return
+        raise
+
+    posted = 0
+
+    for slug, item in pending:
+        url = item["url"]
+        title = item["title"]
 
         article_path = ROOT / "articles" / item.get("source_file", "")
         article: dict = {}
@@ -155,21 +145,43 @@ def main() -> None:
         else:
             image_url = None
 
-        created = buffer.create_post(text=text, mode="shareNow", image_url=image_url)
-        post_id = str(created["id"])
-        final = buffer.wait_for_post(post_id, timeout_seconds=90)
-        status = str(final.get("status", "")).lower()
+        try:
+            created = buffer.create_post(text=text, mode="shareNow", image_url=image_url)
+        except HTTPError as exc:
+            if exc.response is not None and exc.response.status_code == 429:
+                print("[rate-limit] Buffer returned HTTP 429. UK X publishing will retry on the next reconciliation run.")
+                save_json(X_STATE, x_state)
+                return
+            raise
 
+        post_id = str(created["id"])
         x_state[slug] = {
             "buffer_post_id": post_id,
-            "buffer_status": status,
-            "buffer_sent_at": final.get("sentAt"),
-            "buffer_channel_id": final.get("channelId"),
+            "buffer_status": str(created.get("status", "submitted")).lower(),
+            "buffer_sent_at": created.get("sentAt"),
+            "buffer_channel_id": created.get("channelId"),
             "title": title,
             "url": url,
             "source_sha": item.get("source_sha"),
             "image_url": image_url,
         }
+        save_json(X_STATE, x_state)
+
+        try:
+            final = buffer.wait_for_post(post_id, timeout_seconds=90)
+        except HTTPError as exc:
+            if exc.response is not None and exc.response.status_code == 429:
+                print(
+                    f"[rate-limit] Buffer accepted '{title}' (id={post_id}) but rate-limited status checks. "
+                    "The workflow will not fail or duplicate the post."
+                )
+                return
+            raise
+
+        status = str(final.get("status", "")).lower()
+        x_state[slug]["buffer_status"] = status
+        x_state[slug]["buffer_sent_at"] = final.get("sentAt")
+        x_state[slug]["buffer_channel_id"] = final.get("channelId")
         save_json(X_STATE, x_state)
 
         if status == "error":
@@ -189,10 +201,7 @@ def main() -> None:
         )
 
     save_json(X_STATE, x_state)
-    print(
-        f"X publishing complete: {posted} new post(s), "
-        f"{verified} existing Buffer post(s) verified as sent."
-    )
+    print(f"X publishing complete: {posted} new post(s).")
 
 
 if __name__ == "__main__":
