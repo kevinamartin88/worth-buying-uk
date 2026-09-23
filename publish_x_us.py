@@ -4,6 +4,8 @@ import json
 import os
 from pathlib import Path
 
+from requests.exceptions import HTTPError
+
 from src.buffer import BufferClient
 
 
@@ -114,18 +116,27 @@ def main() -> None:
         return
 
     x_state = load_json(X_STATE)
-    buffer = BufferClient.from_env()
 
-    posted = 0
+    pending = []
     for slug, item in sorted(blog_state.items()):
         if item.get("status") != "published":
             continue
-        url = item.get("url")
-        title = item.get("title")
-        if not url or not title:
+        if not item.get("url") or not item.get("title"):
             continue
         if slug in x_state:
             continue
+        pending.append((slug, item))
+
+    if not pending:
+        print("[skip] No new USA articles need X publishing; Buffer API was not called.")
+        return
+
+    buffer = BufferClient.from_env()
+
+    posted = 0
+    for slug, item in pending:
+        url = item["url"]
+        title = item["title"]
 
         article_path = ROOT / "articles-us" / item.get("source_file", "")
         article: dict = {}
@@ -149,14 +160,26 @@ def main() -> None:
             image_url = f"{X_IMAGE_BASE}/{slug}.png"
         else:
             image_url = None
-        post = buffer.create_post(text=text, mode="shareNow", image_url=image_url)
+        try:
+            post = buffer.create_post(text=text, mode="shareNow", image_url=image_url)
+        except HTTPError as exc:
+            if exc.response is not None and exc.response.status_code == 429:
+                print("[rate-limit] Buffer returned HTTP 429. USA X publishing will retry on the next reconciliation run.")
+                save_json(X_STATE, x_state)
+                return
+            raise
+
         x_state[slug] = {
             "buffer_post_id": post.get("id"),
+            "buffer_status": str(post.get("status", "submitted")).lower(),
+            "buffer_sent_at": post.get("sentAt"),
+            "buffer_channel_id": post.get("channelId"),
             "title": title,
             "url": url,
             "source_sha": item.get("source_sha"),
             "image_url": image_url,
         }
+        save_json(X_STATE, x_state)
         posted += 1
         print(f"[posted] {title}{' with image' if image_url else ''}")
 
