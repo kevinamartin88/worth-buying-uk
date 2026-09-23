@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parent
 ARTICLES_DIR = ROOT / "articles"
 STATE_PATH = ROOT / "state" / "articles_published.json"
 OUTPUT_PATH = ROOT / "pinterest-feed.xml"
-IMAGE_BASE = "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/pinterest"
+IMAGE_BASE = "https://cdn.jsdelivr.net/gh/kevinamartin88/worth-buying-uk@main/assets/pinterest"
 SITE_URL = get_site_url("uk")
 
 
@@ -81,8 +81,10 @@ def main() -> None:
                 f'      <link>{xml(item["link"])}</link>',
                 f'      <guid isPermaLink="true">{xml(item["link"])}</guid>',
                 f'      <description>{xml(item["description"])}</description>',
+                f'      <image>{xml(item["image"])}</image>',
                 f'      <enclosure url="{xml(item["image"])}" type="image/png" />',
                 f'      <media:content url="{xml(item["image"])}" medium="image" type="image/png" />',
+                f'      <media:thumbnail url="{xml(item["image"])}" />',
                 '    </item>',
             ]
         )
