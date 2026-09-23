@@ -540,17 +540,56 @@ def main() -> None:
             continue
 
         emailed = email_state.get(state_key)
+
+        # Before sending any manual READY TO PUBLISH email, check whether the
+        # article is already live. This prevents a new workflow run (for
+        # example after an unrelated code merge) from emailing a draft that has
+        # already been published manually.
+        if delivery_mode == "manual":
+            existing_url = resolve_public_url(
+                lookup_urls,
+                public_site_url,
+                title,
+                attempts=1,
+            )
+            if existing_url:
+                blog_state[slug] = {
+                    "post_id": None,
+                    "url": existing_url,
+                    "title": title,
+                    "status": "published",
+                    "source_sha": source_sha,
+                    "source_file": path.name,
+                    "publisher": "manual",
+                    "primary_category": category,
+                }
+                save_json(blog_state_path, blog_state)
+
+                previous = emailed or {}
+                email_state[state_key] = {
+                    **previous,
+                    "title": title,
+                    "source_sha": source_sha,
+                    "source_file": path.name,
+                    "market": market,
+                    "primary_category": category,
+                    "sent": bool(previous.get("sent", False)),
+                    "delivery_status": "published",
+                    "delivery_mode": "manual",
+                    "url": existing_url,
+                }
+                save_json(EMAIL_STATE_PATH, email_state)
+                print(f"[published] {title}: {existing_url}")
+                continue
+
         retrying = email_retry_due(emailed, delivery_mode)
         source_changed = bool(emailed) and emailed.get("source_sha") != source_sha
-        needs_manual_package = (
-            delivery_mode == "manual"
-            and (
-                not emailed
-                or source_changed
-                or emailed.get("delivery_status")
-                not in {"awaiting_manual_publish", "published"}
-            )
-        )
+
+        # Manual packages are deliberately one-shot per market + slug. Once a
+        # READY TO PUBLISH email has been sent for an article, later workflow
+        # runs only check Blogger for the public URL; they never send the same
+        # article again automatically, even if source metadata changes.
+        needs_manual_package = delivery_mode == "manual" and not emailed
         needs_mail2blogger_send = (
             delivery_mode == "mail2blogger" and (not emailed or source_changed or retrying)
         )
