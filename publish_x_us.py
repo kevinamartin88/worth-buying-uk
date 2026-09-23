@@ -168,6 +168,16 @@ def main() -> None:
                 save_json(X_STATE, x_state)
                 return
             raise
+        except RuntimeError as exc:
+            message = str(exc).casefold()
+            if "already got this one scheduled or posted" in message:
+                print(
+                    f"[duplicate-suppressed] Buffer reports '{title}' is already scheduled or posted. "
+                    "Treating this as successful and allowing repository state to reconcile on the next run."
+                )
+                save_json(X_STATE, x_state)
+                return
+            raise
 
         x_state[slug] = {
             "buffer_post_id": post.get("id"),
