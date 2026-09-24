@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -77,22 +79,59 @@ jobs:
       - name: Save reconciled publication state and feeds
         shell: bash
         run: |
-          git add \
-            state/articles_published.json \
-            state/articles_us_published.json \
-            state/email_published.json \
-            state/x_published.json \
-            state/x_us_published.json \
-            pinterest-feed.xml \
-            pinterest-feed-us.xml
+          set -euo pipefail
 
-          if git diff --cached --quiet; then
-            echo "No reconciled publication changes to commit."
-            exit 0
-          fi
+          SNAPSHOT_DIR="$(mktemp -d)"
+          mkdir -p "$SNAPSHOT_DIR/state"
+          cp state/articles_published.json "$SNAPSHOT_DIR/state/articles_published.json" 2>/dev/null || true
+          cp state/articles_us_published.json "$SNAPSHOT_DIR/state/articles_us_published.json" 2>/dev/null || true
+          cp state/email_published.json "$SNAPSHOT_DIR/state/email_published.json" 2>/dev/null || true
+          cp state/x_published.json "$SNAPSHOT_DIR/state/x_published.json" 2>/dev/null || true
+          cp state/x_us_published.json "$SNAPSHOT_DIR/state/x_us_published.json" 2>/dev/null || true
 
           git config user.name "worth-buying-reconcile-bot"
           git config user.email "worth-buying-reconcile-bot@users.noreply.github.com"
-          git commit -m "Reconcile manually published Blogger articles"
-          git pull --rebase origin main
-          git push
+
+          for attempt in 1 2 3; do
+            echo "State save attempt $attempt/3"
+
+            git fetch origin main
+            git reset --hard origin/main
+
+            python merge_workflow_state.py \
+              --snapshot-dir "$SNAPSHOT_DIR" \
+              state/articles_published.json \
+              state/articles_us_published.json \
+              state/email_published.json \
+              state/x_published.json \
+              state/x_us_published.json
+
+            PYTHONPATH=. python generate_pinterest_feed.py
+            PYTHONPATH=. python generate_pinterest_feed_us.py
+
+            git add \
+              state/articles_published.json \
+              state/articles_us_published.json \
+              state/email_published.json \
+              state/x_published.json \
+              state/x_us_published.json \
+              pinterest-feed.xml \
+              pinterest-feed-us.xml
+
+            if git diff --cached --quiet; then
+              echo "No reconciled publication changes to commit."
+              exit 0
+            fi
+
+            git commit -m "Reconcile manually published Blogger articles"
+
+            if git push origin HEAD:main; then
+              echo "Reconciled publication state saved successfully."
+              exit 0
+            fi
+
+            echo "Main changed before push; safely merging state and retrying."
+          done
+
+          echo "Could not save reconciled state after 3 attempts."
+          exit 1
