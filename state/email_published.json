@@ -53,7 +53,7 @@
   },
   "uk:best-robot-vacuum-cleaners-worth-buying-uk-2026": {
     "delivery_mode": "manual",
-    "delivery_status": "awaiting_manual_publish",
+    "delivery_status": "published",
     "last_sent_at": "2026-09-24T07:28:50.144180+00:00",
     "market": "uk",
     "primary_category": "Home & Kitchen",
@@ -61,7 +61,8 @@
     "sent": true,
     "source_file": "best-robot-vacuum-cleaners-worth-buying-uk-2026.json",
     "source_sha": "2026-09-24-robot-vacuums-uk-extra-v1",
-    "title": "Best Robot Vacuum Cleaners Worth Buying in the UK (2026)"
+    "title": "Best Robot Vacuum Cleaners Worth Buying in the UK (2026)",
+    "url": "https://www.worthbuyinguk.co.uk/2026/09/best-robot-vacuum-cleaners-worth-buying.html"
   },
   "uk:best-toasters-worth-buying-uk-2026": {
     "market": "uk",
@@ -146,7 +147,7 @@
   },
   "us:best-robot-vacuum-cleaners-worth-buying-us-2026": {
     "delivery_mode": "manual",
-    "delivery_status": "awaiting_manual_publish",
+    "delivery_status": "published",
     "last_sent_at": "2026-09-24T07:46:27.434961+00:00",
     "market": "us",
     "primary_category": "Home & Kitchen",
@@ -154,7 +155,8 @@
     "sent": true,
     "source_file": "best-robot-vacuum-cleaners-worth-buying-us-2026.json",
     "source_sha": "2026-09-24-robot-vacuums-us-extra-v2",
-    "title": "Best Robot Vacuum Cleaners Worth Buying in the USA (2026)"
+    "title": "Best Robot Vacuum Cleaners Worth Buying in the USA (2026)",
+    "url": "https://www.worthbuyingusa.com/2026/09/best-robot-vacuum-cleaners-worth-buying.html"
   },
   "us:best-toasters-worth-buying-us-2026": {
     "market": "us",
