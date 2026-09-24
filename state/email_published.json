@@ -112,6 +112,18 @@
     "title": "Best Cordless Vacuum Cleaners Worth Buying in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/09/best-cordless-vacuum-cleaners-worth.html"
   },
+  "us:best-dehumidifiers-worth-buying-us-2026": {
+    "delivery_mode": "manual",
+    "delivery_status": "awaiting_manual_publish",
+    "last_sent_at": "2026-09-24T06:42:59.880269+00:00",
+    "market": "us",
+    "primary_category": "Home & Kitchen",
+    "send_attempts": 1,
+    "sent": true,
+    "source_file": "best-dehumidifiers-worth-buying-us-2026.json",
+    "source_sha": "2026-09-24-dehumidifiers-us-daily-v2",
+    "title": "Best Dehumidifiers Worth Buying in the USA (2026)"
+  },
   "us:best-refurbished-ipads-ebay-us-2026": {
     "market": "us",
     "sent": true,
