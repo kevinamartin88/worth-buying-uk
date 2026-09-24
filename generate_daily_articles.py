@@ -572,9 +572,52 @@ def current_picks(market: str, query: str, max_price: float, slug: str) -> list[
     return [item for _, item in scored[:4]]
 
 
-def retailer_urls(item: dict, market: str, fallback_query: str) -> tuple[str, str]:
+def amazon_model_query(title: str, fallback_query: str) -> tuple[str, bool]:
+    """Build a tighter Amazon search using brand + model number when available."""
+
+    clean = " ".join(title.split())
+    tokens = re.findall(r"[A-Za-z0-9][A-Za-z0-9._/-]*", clean)
+
+    model = ""
+    for token in tokens:
+        compact = re.sub(r"[^A-Za-z0-9]", "", token)
+        if len(compact) < 5:
+            continue
+        if len(re.findall(r"[A-Za-z]", compact)) < 2:
+            continue
+        if len(re.findall(r"\d", compact)) < 2:
+            continue
+
+        lower = compact.casefold()
+        # Skip capacity / electrical / dimension-style tokens rather than
+        # mistaking them for a manufacturer model number.
+        if re.fullmatch(r"\d+(?:ml|l|w|v|db|hz|mah|gb|tb|inch|cm|mm)", lower):
+            continue
+        if re.fullmatch(r"\d+(?:pint|pin|sqft)", lower):
+            continue
+
+        model = compact
+        break
+
+    if model:
+        brand = tokens[0] if tokens else ""
+        if brand and brand.casefold() not in {
+            "the", "new", "best", "refurbished", "certified", "portable",
+            "electric", "dehumidifier", "vacuum", "cleaner",
+        }:
+            return f"{brand} {model}", True
+        return model, True
+
+    # No reliable model number: use a concise version of the listing title.
+    # This is still narrower than a category-only search.
+    words = clean.split()
+    concise = " ".join(words[:10]).strip()
+    return (concise or fallback_query), False
+
+
+def retailer_urls(item: dict, market: str, fallback_query: str) -> tuple[str, str, bool]:
     title = " ".join(str(item.get("title", "")).split())
-    query = title[:120] or fallback_query
+    amazon_query, exact_model_search = amazon_model_query(title, fallback_query)
 
     ebay_url = str(item.get("itemAffiliateWebUrl") or item.get("itemWebUrl") or "").strip()
     if not ebay_url:
@@ -582,8 +625,8 @@ def retailer_urls(item: dict, market: str, fallback_query: str) -> tuple[str, st
         ebay_url = f"{base}?_nkw={quote_plus(fallback_query)}&_sop=15"
 
     amazon_base = "https://www.amazon.co.uk/s" if market == "uk" else "https://www.amazon.com/s"
-    amazon_url = f"{amazon_base}?k={quote_plus(query)}"
-    return ebay_url, amazon_url
+    amazon_url = f"{amazon_base}?k={quote_plus(amazon_query)}"
+    return ebay_url, amazon_url, exact_model_search
 
 
 def seller_text(item: dict) -> str:
@@ -632,7 +675,12 @@ def live_sections(items: list[dict], market: str, topic_name: str, query: str) -
             f" <strong>Condition shown:</strong> {html.escape(condition)}."
             if condition else ""
         )
-        ebay_url, amazon_url = retailer_urls(item, market, query)
+        ebay_url, amazon_url, exact_model_search = retailer_urls(item, market, query)
+        amazon_link_label = (
+            f"Search {amazon} for this model"
+            if exact_model_search
+            else f"Search {amazon} for this product"
+        )
 
         parts.append(
             f"<h3>{index}. {safe_title}</h3>\n"
@@ -645,7 +693,7 @@ def live_sections(items: list[dict], market: str, topic_name: str, query: str) -
             f'<p><a href="{html.escape(ebay_url, quote=True)}" rel="sponsored nofollow">'
             f"View on {retailer}</a>\n"
             f'<a href="{html.escape(amazon_url, quote=True)}" rel="sponsored nofollow">'
-            f"Compare on {amazon}</a></p>\n"
+            f"{amazon_link_label}</a></p>\n"
         )
 
     return "\n".join(parts)
