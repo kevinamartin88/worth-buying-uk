@@ -46,6 +46,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -143,17 +145,54 @@ jobs:
         run: python publish_bluesky.py
 
       - name: Save publication state and Pinterest feed
+        shell: bash
         run: |
-          git add state/articles_published.json state/email_published.json state/x_published.json state/bluesky_published.json pinterest-feed.xml
-          if git diff --cached --quiet -- state/articles_published.json state/email_published.json state/x_published.json state/bluesky_published.json pinterest-feed.xml; then
-            echo "No publication state or Pinterest feed changes to commit."
-            exit 0
-          fi
+          set -euo pipefail
+
+          SNAPSHOT_DIR="$(mktemp -d)"
+          mkdir -p "$SNAPSHOT_DIR/state"
+          cp state/articles_published.json "$SNAPSHOT_DIR/state/articles_published.json" 2>/dev/null || true
+          cp state/email_published.json "$SNAPSHOT_DIR/state/email_published.json" 2>/dev/null || true
+          cp state/x_published.json "$SNAPSHOT_DIR/state/x_published.json" 2>/dev/null || true
+          cp state/bluesky_published.json "$SNAPSHOT_DIR/state/bluesky_published.json" 2>/dev/null || true
+
           git config user.name "worth-buying-uk-bot"
           git config user.email "worth-buying-uk-bot@users.noreply.github.com"
-          git commit -m "Update UK email publication state and Pinterest feed"
-          git pull --rebase origin main
-          git push
+
+          for attempt in 1 2 3; do
+            echo "UK state save attempt $attempt/3"
+
+            git fetch origin main
+            git reset --hard origin/main
+
+            python merge_workflow_state.py \
+              --snapshot-dir "$SNAPSHOT_DIR" \
+              state/articles_published.json \
+              state/email_published.json \
+              state/x_published.json \
+              state/bluesky_published.json
+
+            PYTHONPATH=. python generate_pinterest_feed.py
+
+            git add state/articles_published.json state/email_published.json state/x_published.json state/bluesky_published.json pinterest-feed.xml
+
+            if git diff --cached --quiet; then
+              echo "No publication state or Pinterest feed changes to commit."
+              exit 0
+            fi
+
+            git commit -m "Update UK email publication state and Pinterest feed"
+
+            if git push origin HEAD:main; then
+              echo "UK publication state saved successfully."
+              exit 0
+            fi
+
+            echo "Main changed before UK push; safely merging state and retrying."
+          done
+
+          echo "Could not save UK publication state after 3 attempts."
+          exit 1
 
       - name: Start USA publisher after daily UK run
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.chain_usa }}
