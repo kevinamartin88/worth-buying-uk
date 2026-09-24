@@ -427,6 +427,37 @@ def send_ready_to_publish_email(
         server.sendmail(smtp_email, [to_address], msg.as_string())
 
 
+def title_tokens(value: str) -> list[str]:
+    """Normalise a Blogger/article title for safe near-exact matching."""
+    return re.findall(r"[a-z0-9]+", " ".join(str(value).casefold().split()))
+
+
+def titles_match(wanted_title: str, entry_title: str) -> bool:
+    """Allow small human title edits without matching unrelated articles.
+
+    Exact normalised titles always match. Otherwise one title must contain all
+    tokens from the other, with no more than four additional tokens. This
+    safely handles edits such as adding "for Winter" while remaining strict
+    enough to avoid broad keyword matching.
+    """
+    wanted_tokens = title_tokens(wanted_title)
+    entry_tokens = title_tokens(entry_title)
+    if not wanted_tokens or not entry_tokens:
+        return False
+
+    if wanted_tokens == entry_tokens:
+        return True
+
+    wanted_set = set(wanted_tokens)
+    entry_set = set(entry_tokens)
+    token_gap = abs(len(entry_tokens) - len(wanted_tokens))
+
+    return token_gap <= 4 and (
+        wanted_set.issubset(entry_set)
+        or entry_set.issubset(wanted_set)
+    )
+
+
 def find_public_post_url(site_url: str, title: str) -> str | None:
     feed_url = f"{site_url.rstrip('/')}/feeds/posts/default?alt=json&max-results=50"
     req = Request(feed_url, headers={"User-Agent": "WorthBuyingPublisher/1.0"})
@@ -434,11 +465,15 @@ def find_public_post_url(site_url: str, title: str) -> str | None:
         payload = json.loads(response.read().decode("utf-8"))
 
     entries = payload.get("feed", {}).get("entry", [])
-    wanted = " ".join(title.split())
     for entry in entries:
         entry_title = " ".join(str(entry.get("title", {}).get("$t", "")).split())
-        if entry_title != wanted:
+        if not titles_match(title, entry_title):
             continue
+        if entry_title != " ".join(title.split()):
+            print(
+                f"[title-match] Matched expected title '{title}' to Blogger title "
+                f"'{entry_title}'."
+            )
         for link in entry.get("link", []):
             if link.get("rel") == "alternate" and link.get("href"):
                 return str(link["href"])
