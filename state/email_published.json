@@ -41,15 +41,16 @@
   },
   "uk:best-dehumidifiers-worth-buying-uk-2026": {
     "delivery_mode": "manual",
-    "delivery_status": "awaiting_manual_publish",
+    "delivery_status": "published",
     "last_sent_at": "2026-09-24T06:42:22.765967+00:00",
     "market": "uk",
     "primary_category": "Home & Kitchen",
     "send_attempts": 1,
     "sent": true,
     "source_file": "best-dehumidifiers-worth-buying-uk-2026.json",
-    "source_sha": "2026-09-24-dehumidifiers-uk-daily-v2",
-    "title": "Best Dehumidifiers Worth Buying in the UK (2026)"
+    "source_sha": "2026-09-24-dehumidifiers-uk-daily-v3",
+    "title": "Best Dehumidifiers Worth Buying for Winter in the UK (2026)",
+    "url": "https://www.worthbuyinguk.co.uk/2026/09/best-dehumidifiers-worth-buying-for.html"
   },
   "uk:best-robot-vacuum-cleaners-worth-buying-uk-2026": {
     "delivery_mode": "manual",
