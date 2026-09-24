@@ -39,6 +39,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -136,14 +138,51 @@ jobs:
         run: python publish_bluesky_us.py
 
       - name: Save USA article, X, Bluesky and Pinterest publication state
+        shell: bash
         run: |
+          set -euo pipefail
+
+          SNAPSHOT_DIR="$(mktemp -d)"
+          mkdir -p "$SNAPSHOT_DIR/state"
+          cp state/articles_us_published.json "$SNAPSHOT_DIR/state/articles_us_published.json" 2>/dev/null || true
+          cp state/email_published.json "$SNAPSHOT_DIR/state/email_published.json" 2>/dev/null || true
+          cp state/x_us_published.json "$SNAPSHOT_DIR/state/x_us_published.json" 2>/dev/null || true
+          cp state/bluesky_us_published.json "$SNAPSHOT_DIR/state/bluesky_us_published.json" 2>/dev/null || true
+
           git config user.name "worth-buying-usa-bot"
           git config user.email "worth-buying-usa-bot@users.noreply.github.com"
-          git add state/articles_us_published.json state/email_published.json state/x_us_published.json state/bluesky_us_published.json pinterest-feed-us.xml
-          if git diff --cached --quiet; then
-            echo "No USA publication state or Pinterest feed changes to commit."
-            exit 0
-          fi
-          git commit -m "Update USA email publication state and Pinterest feed"
-          git pull --rebase origin main
-          git push
+
+          for attempt in 1 2 3; do
+            echo "USA state save attempt $attempt/3"
+
+            git fetch origin main
+            git reset --hard origin/main
+
+            python merge_workflow_state.py \
+              --snapshot-dir "$SNAPSHOT_DIR" \
+              state/articles_us_published.json \
+              state/email_published.json \
+              state/x_us_published.json \
+              state/bluesky_us_published.json
+
+            PYTHONPATH=. python generate_pinterest_feed_us.py
+
+            git add state/articles_us_published.json state/email_published.json state/x_us_published.json state/bluesky_us_published.json pinterest-feed-us.xml
+
+            if git diff --cached --quiet; then
+              echo "No USA publication state or Pinterest feed changes to commit."
+              exit 0
+            fi
+
+            git commit -m "Update USA email publication state and Pinterest feed"
+
+            if git push origin HEAD:main; then
+              echo "USA publication state saved successfully."
+              exit 0
+            fi
+
+            echo "Main changed before USA push; safely merging state and retrying."
+          done
+
+          echo "Could not save USA publication state after 3 attempts."
+          exit 1
