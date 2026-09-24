@@ -583,7 +583,9 @@ def amazon_model_query(title: str, fallback_query: str) -> tuple[str, bool]:
         compact = re.sub(r"[^A-Za-z0-9]", "", token)
         if len(compact) < 5:
             continue
-        if not (re.search(r"[A-Za-z]", compact) and re.search(r"\d", compact)):
+        if len(re.findall(r"[A-Za-z]", compact)) < 2:
+            continue
+        if len(re.findall(r"\d", compact)) < 2:
             continue
 
         lower = compact.casefold()
