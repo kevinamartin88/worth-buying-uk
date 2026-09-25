@@ -4,6 +4,8 @@ import math
 import re
 import urllib.request
 import xml.etree.ElementTree as ET
+from datetime import datetime, timedelta, timezone
+from email.utils import parsedate_to_datetime
 
 
 RSS_URL = "https://trends.google.com/trending/rss?geo={geo}"
@@ -103,12 +105,20 @@ PRETTY_WORDS = {
 
 
 def normalise(value: str) -> str:
-    return re.sub(r"[^a-z0-9]+", " ", str(value).casefold()).strip()
+    value = re.sub(r"\bair\s*fryers?\b", "air fryer", str(value).casefold())
+    return re.sub(r"[^a-z0-9]+", " ", value).strip()
 
 
 def tokens(value: str) -> set[str]:
+    def singular(token: str) -> str:
+        if token.endswith("ies") and len(token) > 4:
+            return token[:-3] + "y"
+        if token.endswith("s") and not token.endswith("ss") and len(token) > 4:
+            return token[:-1]
+        return token
+
     return {
-        token
+        singular(token)
         for token in normalise(value).split()
         if len(token) >= 3 and token not in GENERIC_TOPIC_TOKENS
     }
@@ -145,9 +155,17 @@ def fetch_trending_searches(market: str, timeout: int = 8) -> list[dict]:
         return []
 
     rows: list[dict] = []
+    now = datetime.now(timezone.utc)
     for item in root.findall("./channel/item"):
         title = " ".join((item.findtext("title") or "").split()).strip()
         if not title:
+            continue
+        published_raw = item.findtext("pubDate")
+        try:
+            published = parsedate_to_datetime(published_raw).astimezone(timezone.utc)
+        except (TypeError, ValueError, IndexError, OverflowError):
+            continue
+        if not now - timedelta(hours=24) <= published <= now + timedelta(minutes=10):
             continue
         traffic_raw = item.findtext("{*}approx_traffic") or ""
         rows.append(
@@ -157,6 +175,7 @@ def fetch_trending_searches(market: str, timeout: int = 8) -> list[dict]:
                 "traffic_label": traffic_raw.strip(),
                 "source": "google-trends-trending-now-rss",
                 "geo": geo,
+                "published_at": published.isoformat(),
             }
         )
 

@@ -4,23 +4,13 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "30 6 * * *"
-  push:
-    branches:
-      - main
-    paths:
-      - "generate_daily_articles.py"
-      - "src/google_trends.py"
-      - "src/search_console.py"
-      - "tests/test_google_trends.py"
-      - "tests/test_search_console.py"
-      - ".github/workflows/daily-article-creator.yml"
 
 permissions:
   contents: write
   actions: write
 
 concurrency:
-  group: worth-buying-daily-creator
+  group: worth-buying-repo-writes
   cancel-in-progress: false
 
 jobs:

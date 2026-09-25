@@ -1,0 +1,63 @@
+name: Promote relevant published guides from fresh Google trends
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Preview matches without posting"
+        type: boolean
+        default: true
+  schedule:
+    - cron: "0 6,20 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: worth-buying-repo-writes
+  cancel-in-progress: false
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+      - run: pip install -r requirements.txt
+      - name: Test matching and repeat safeguards
+        env:
+          PYTHONPATH: .
+        run: pytest -q tests/test_google_trends.py tests/test_trend_promotions.py
+      - name: Promote matching published guides
+        env:
+          PYTHONPATH: .
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" = "true" ]; then
+            python promote_trending_guides.py --dry-run
+          else
+            python promote_trending_guides.py
+          fi
+      - name: Save promotion history
+        if: ${{ github.event_name == 'schedule' || inputs.dry_run == false }}
+        run: |
+          if [ ! -f state/trend_promotions.json ]; then
+            echo "No promotions to record."
+            exit 0
+          fi
+          git add state/trend_promotions.json
+          if git diff --cached --quiet; then
+            echo "No promotions to record."
+            exit 0
+          fi
+          git config user.name "worth-buying-trends-bot"
+          git config user.email "worth-buying-trends-bot@users.noreply.github.com"
+          git commit -m "Record Google trend guide promotions"
+          git pull --rebase origin main
+          git push

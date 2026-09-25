@@ -17,6 +17,8 @@ ROOT = Path(__file__).resolve().parent
 STATE_PATH = ROOT / "state" / "daily_article_generator.json"
 
 TOPICS = [
+    ("air-fryers", "Air Fryers", "air fryer", 450, 500, "Home & Kitchen", "AIR FRYER GUIDE"),
+    ("large-capacity-air-fryers", "Large Capacity Air Fryers", "large family air fryer", 550, 600, "Home & Kitchen", "FAMILY AIR FRYER GUIDE"),
     ("tvs", "TVs", "4K smart TV", 1400, 1800, "Tech", "TV BUYING GUIDE"),
     ("cordless-vacuums", "Cordless Vacuum Cleaners", "cordless vacuum cleaner", 600, 700, "Home & Kitchen", "VACUUM BUYING GUIDE"),
     ("coffee-machines", "Coffee Machines", "coffee machine", 900, 1000, "Home & Kitchen", "COFFEE MACHINE GUIDE"),
@@ -464,6 +466,13 @@ def pick_topic(
     trend_ranked = rank_topics_by_trends(available, market)
     gsc_by_key = {topic[0]: signal for topic, signal in gsc_ranked}
     trend_by_key = {topic[0]: signal for topic, signal in trend_ranked}
+
+    # A strong, fresh Google-wide product trend should determine today's new
+    # guide even when older first-party Search Console queries rank differently.
+    if trend_ranked and float(trend_ranked[0][1].get("score") or 0) >= 55:
+        topic, trend_signal = trend_ranked[0]
+        print(f"[fresh-trend-pick] {market.upper()}: {topic[1]} matched {trend_signal['query']!r}")
+        return topic, trend_signal, gsc_by_key.get(topic[0]), float(trend_signal["score"])
 
     if gsc_ranked:
         combined: list[tuple[float, tuple, dict | None, dict | None]] = []
