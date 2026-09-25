@@ -42,7 +42,7 @@ jobs:
       - name: Test Google Trends selection safeguards
         env:
           PYTHONPATH: .
-        run: python -m unittest tests.test_google_trends
+        run: python -m unittest discover -s tests -p "test_google_trends.py"
 
       - name: Create one UK and one USA article
         env:
