@@ -278,7 +278,18 @@ def _visual_direction(article: dict) -> str:
             "and premium automotive lifestyle styling."
         )
 
-    if _has_any(haystack, "breakdown", "emergency kit", "jump starter", "roadside", "safety kit"):
+    if _has_any(haystack, "jump starter", "car jump starter", "battery booster"):
+        return (
+            "The HERO PRODUCT MUST be a large portable lithium car jump starter in the foreground, "
+            "clearly visible and unmistakable, with heavy-duty red and black battery clamps/cables "
+            "beside it. The jump starter must occupy roughly one third of the frame. A modern car may "
+            "appear only as secondary background context, ideally with the bonnet/hood open or parked "
+            "beside the product. Do not create a car-only image. Do not make the vehicle the main focal "
+            "point. Use a cold-weather roadside or garage setting with subtle winter cues, realistic "
+            "materials and premium automotive editorial lighting."
+        )
+
+    if _has_any(haystack, "breakdown", "emergency kit", "roadside", "safety kit"):
         return (
             "Stage a roadside-emergency motoring editorial scene with useful unbranded items such as "
             "a jump starter, torch, safety vest, tyre inflator or compact emergency kit. Make it feel "
