@@ -9,6 +9,7 @@ on:
       - main
     paths:
       - "generate_daily_articles.py"
+      - "src/google_trends.py"
       - ".github/workflows/daily-article-creator.yml"
 
 permissions:
