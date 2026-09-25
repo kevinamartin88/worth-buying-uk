@@ -9,6 +9,7 @@ from pathlib import Path
 from urllib.parse import quote_plus
 
 from src.ebay import EbayClient
+from src.google_trends import rank_topics_by_trends
 
 
 ROOT = Path(__file__).resolve().parent
@@ -415,24 +416,54 @@ def normalise(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", " ", value.casefold()).strip()
 
 
-def topic_already_covered(article_dir: Path, display: str, year: int) -> bool:
+def topic_already_covered(article_dir: Path, topic: tuple, year: int) -> bool:
+    key, display = topic[0], topic[1]
     wanted = normalise(display)
     for path in article_dir.glob("*.json"):
         try:
             article = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
             continue
+
+        generator_topic = normalise(str((article.get("_generator") or {}).get("topic", "")))
+        if generator_topic and generator_topic == normalise(key):
+            return True
+
         title = str(article.get("title", ""))
         if str(year) in title and wanted and wanted in normalise(title):
             return True
     return False
 
 
-def pick_topic(article_dir: Path, year: int, weekday: int) -> tuple:
+def pick_topic(article_dir: Path, year: int, weekday: int, market: str) -> tuple[tuple, dict | None]:
     topic_by_key = {topic[0]: topic for topic in TOPICS}
 
-    # Saturday/Sunday prioritise leisure-hour shopping themes: cleaning,
-    # organisation, DIY, yard care, entertainment and lifestyle.
+    available = [
+        topic for topic in TOPICS
+        if not topic_already_covered(article_dir, topic, year)
+    ]
+    if not available:
+        raise RuntimeError(
+            "The curated daily-topic pool has been exhausted for this year. "
+            "Add more topics before continuing automated publication."
+        )
+
+    # Google Trends is a demand signal, not the sole source of truth. We only
+    # rank topics already in the curated buying-guide pool, which prevents the
+    # automation from chasing unrelated news or celebrity searches.
+    ranked = rank_topics_by_trends(available, market)
+    if ranked:
+        topic, signal = ranked[0]
+        if float(signal.get("score") or 0) >= 35:
+            print(
+                f"[trends-pick] {market.upper()}: {topic[1]} matched "
+                f"'{signal.get('query')}' (score={signal.get('score')}, "
+                f"traffic={signal.get('traffic_label') or signal.get('traffic')})"
+            )
+            return topic, signal
+
+    # Saturday/Sunday still prioritise leisure-hour shopping themes when there
+    # is no strong current Trends match.
     weekend_priority = ()
     if weekday == 5:
         weekend_priority = SATURDAY_PRIORITY
@@ -441,19 +472,10 @@ def pick_topic(article_dir: Path, year: int, weekday: int) -> tuple:
 
     for key in weekend_priority:
         topic = topic_by_key.get(key)
-        if topic and not topic_already_covered(article_dir, topic[1], year):
-            return topic
+        if topic and topic in available:
+            return topic, None
 
-    # Once the weekend-priority pool is exhausted, or on weekdays, continue
-    # through the normal high-intent rotation.
-    for topic in TOPICS:
-        if not topic_already_covered(article_dir, topic[1], year):
-            return topic
-
-    raise RuntimeError(
-        "The curated daily-topic pool has been exhausted for this year. "
-        "Add more topics before continuing automated publication."
-    )
+    return available[0], None
 
 
 def safe_float(value):
@@ -729,7 +751,7 @@ def fallback_sections(market: str, topic_name: str, query: str) -> str:
     return "\n".join(parts)
 
 
-def build_article(topic: tuple, market: str, year: int) -> dict:
+def build_article(topic: tuple, market: str, year: int, trend_signal: dict | None = None) -> dict:
     key, display, query, max_uk, max_us, category, kicker = topic
     region = "UK" if market == "uk" else "USA"
     directory_name = "articles" if market == "uk" else "articles-us"
@@ -761,13 +783,16 @@ def build_article(topic: tuple, market: str, year: int) -> dict:
     )
 
     title = f"Best {display} Worth Buying in the {region} ({year})"
-    source_sha = f"{datetime.now(timezone.utc).date().isoformat()}-{key}-{market}-daily-v2"
+    source_sha = f"{datetime.now(timezone.utc).date().isoformat()}-{key}-{market}-daily-v3"
     primary_keyword = f"best {display.lower()} {region.lower()} {year}"
     secondary_keywords = [
         f"{display.lower()} buying guide {region.lower()}",
         f"{display.lower()} worth buying {year}",
         f"compare {display.lower()} {region.lower()}",
     ]
+    if trend_signal and trend_signal.get("query"):
+        trend_query = " ".join(str(trend_signal["query"]).split())
+        secondary_keywords.insert(0, trend_query)
     description = seo_description(display, region, year)
     checked_date = datetime.now(timezone.utc).strftime("%d %B %Y").lstrip("0")
 
@@ -837,12 +862,13 @@ def build_article(topic: tuple, market: str, year: int) -> dict:
         ),
         "content_html": content,
         "_seo": {
-            "version": "daily-seo-v2",
+            "version": "daily-seo-v3-trends",
             "primary_keyword": primary_keyword,
             "secondary_keywords": secondary_keywords,
             "description": description,
             "search_intent": "commercial investigation",
             "related_guide_count": len(guides),
+            "trend_signal": trend_signal,
         },
         "_generator": {
             "market": market,
@@ -876,8 +902,8 @@ def main() -> None:
         article_dir = ROOT / ("articles" if market == "uk" else "articles-us")
         article_dir.mkdir(parents=True, exist_ok=True)
 
-        topic = pick_topic(article_dir, year, weekday)
-        article = build_article(topic, market, year)
+        topic, trend_signal = pick_topic(article_dir, year, weekday, market)
+        article = build_article(topic, market, year, trend_signal=trend_signal)
         target = article_dir / f"{article['slug']}.json"
         if target.exists():
             raise RuntimeError(f"Refusing to overwrite existing article: {target}")
@@ -891,6 +917,9 @@ def main() -> None:
             "slug": article["slug"],
             "title": article["title"],
             "topic": topic[0],
+            "trend_query": (trend_signal or {}).get("query"),
+            "trend_score": (trend_signal or {}).get("score"),
+            "trend_traffic": (trend_signal or {}).get("traffic"),
             "day": day_name,
             "weekend_priority": is_weekend,
             "live_ebay_picks": bool(article["_generator"]["live_ebay_picks"]),
