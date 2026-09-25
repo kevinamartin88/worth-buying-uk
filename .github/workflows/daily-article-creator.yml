@@ -10,6 +10,7 @@ on:
     paths:
       - "generate_daily_articles.py"
       - "src/google_trends.py"
+      - "tests/test_google_trends.py"
       - ".github/workflows/daily-article-creator.yml"
 
 permissions:
@@ -37,6 +38,11 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
+
+      - name: Test Google Trends selection safeguards
+        env:
+          PYTHONPATH: .
+        run: python -m unittest tests.test_google_trends
 
       - name: Create one UK and one USA article
         env:
