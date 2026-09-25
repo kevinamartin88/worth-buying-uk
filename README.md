@@ -111,7 +111,55 @@ The helper prints:
 
 Copy those values into GitHub Actions secrets.
 
-## 4. eBay setup
+## 4. Connect Google Search Console for first-party SEO signals
+
+The daily article creator can combine Google Trends with your own Search Console
+query data. Search Console is read-only in this workflow and is used only to
+identify product topics already earning impressions/clicks for WorthBuying.
+
+In the same Google Cloud project (or another project you control):
+
+1. Enable **Google Search Console API**.
+2. Create or reuse an OAuth Client ID for a **Desktop app**.
+3. Download the client secrets JSON as `client_secret.json`.
+4. Do not commit that file.
+
+Run:
+
+```bash
+python setup_search_console_auth.py --client-secrets client_secret.json
+```
+
+Sign in with the Google account that has access to the Worth Buying UK and USA
+Search Console properties. The helper requests only
+`https://www.googleapis.com/auth/webmasters.readonly`.
+
+Save the printed values as GitHub Actions secrets:
+
+```text
+GSC_CLIENT_ID
+GSC_CLIENT_SECRET
+GSC_REFRESH_TOKEN
+```
+
+The automation normally auto-detects verified properties containing
+`worthbuyinguk.co.uk` and `worthbuyingusa.com`. If your Search Console property
+uses a different exact property URL, optionally add:
+
+```text
+GSC_UK_SITE_URL
+GSC_US_SITE_URL
+```
+
+Examples include `sc-domain:worthbuyinguk.co.uk` or an exact URL-prefix property.
+
+The topic selector uses Search Console queries from the recent 28-day window with
+a small reporting lag. When relevant first-party data exists, Search Console is
+weighted more heavily than Google Trends. If Search Console is unavailable or has
+too little data, the automation falls back safely to Trends and the existing
+curated topic rotation.
+
+## 5. eBay setup
 
 Create eBay Developer credentials.
 
@@ -132,7 +180,7 @@ EBAY_ENV=production
 
 Your EPN campaign ID is the 10-digit campaign ID supplied by EPN.
 
-## 5. GitHub Actions secrets
+## 6. GitHub Actions secrets
 
 Create a GitHub repository and upload this project.
 
