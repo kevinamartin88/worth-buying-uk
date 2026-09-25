@@ -251,4 +251,12 @@ def trend_keyword_for_title(topic: tuple, signal: dict | None) -> str | None:
     if not strong_match:
         return None
 
+    # A headline must stay broader than a specific brand/model unless that
+    # brand/model is already part of the curated topic itself. This stops a
+    # generic comparison from masquerading as a review of a trending model.
+    if any(char.isdigit() for char in query):
+        return None
+    if trend_tokens - topic_tokens:
+        return None
+
     return pretty_phrase(query)
