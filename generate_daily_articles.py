@@ -10,6 +10,7 @@ from urllib.parse import quote_plus
 
 from src.ebay import EbayClient
 from src.google_trends import rank_topics_by_trends, trend_keyword_for_title
+from src.search_console import rank_topics_by_search_console
 
 
 ROOT = Path(__file__).resolve().parent
@@ -438,7 +439,12 @@ def topic_already_covered(article_dir: Path, topic: tuple, year: int) -> bool:
     return False
 
 
-def pick_topic(article_dir: Path, year: int, weekday: int, market: str) -> tuple[tuple, dict | None]:
+def pick_topic(
+    article_dir: Path,
+    year: int,
+    weekday: int,
+    market: str,
+) -> tuple[tuple, dict | None, dict | None, float | None]:
     topic_by_key = {topic[0]: topic for topic in TOPICS}
 
     available = [
@@ -451,22 +457,50 @@ def pick_topic(article_dir: Path, year: int, weekday: int, market: str) -> tuple
             "Add more topics before continuing automated publication."
         )
 
-    # Google Trends is a demand signal, not the sole source of truth. We only
-    # rank topics already in the curated buying-guide pool, which prevents the
-    # automation from chasing unrelated news or celebrity searches.
-    ranked = rank_topics_by_trends(available, market)
-    if ranked:
-        topic, signal = ranked[0]
-        if float(signal.get("score") or 0) >= 35:
+    # First-party Search Console data is the strongest demand signal because it
+    # reflects queries already showing WorthBuying in Google. Trends adds fresh
+    # market momentum. Both are restricted to the curated product-topic pool.
+    gsc_ranked = rank_topics_by_search_console(available, market)
+    trend_ranked = rank_topics_by_trends(available, market)
+    gsc_by_key = {topic[0]: signal for topic, signal in gsc_ranked}
+    trend_by_key = {topic[0]: signal for topic, signal in trend_ranked}
+
+    if gsc_ranked:
+        combined: list[tuple[float, tuple, dict | None, dict | None]] = []
+        for topic in available:
+            gsc_signal = gsc_by_key.get(topic[0])
+            trend_signal = trend_by_key.get(topic[0])
+            gsc_score = float((gsc_signal or {}).get("score") or 0)
+            trend_score = min(100.0, float((trend_signal or {}).get("score") or 0))
+            combined_score = round((gsc_score * 0.70) + (trend_score * 0.30), 2)
+            combined.append((combined_score, topic, gsc_signal, trend_signal))
+
+        combined.sort(key=lambda row: (-row[0], str(row[1][0])))
+        best_score, topic, gsc_signal, trend_signal = combined[0]
+        if best_score >= 30:
+            print(
+                f"[demand-pick] {market.upper()}: {topic[1]} "
+                f"(combined={best_score}, gsc={float((gsc_signal or {}).get('score') or 0):.2f}, "
+                f"trends={float((trend_signal or {}).get('score') or 0):.2f}, "
+                f"gsc_query='{(gsc_signal or {}).get('query', '')}', "
+                f"trend_query='{(trend_signal or {}).get('query', '')}')"
+            )
+            return topic, trend_signal, gsc_signal, best_score
+
+    # If Search Console is not configured, has too little data, or has no
+    # relevant product query yet, retain the existing Google Trends behaviour.
+    if trend_ranked:
+        topic, trend_signal = trend_ranked[0]
+        if float(trend_signal.get("score") or 0) >= 35:
             print(
                 f"[trends-pick] {market.upper()}: {topic[1]} matched "
-                f"'{signal.get('query')}' (score={signal.get('score')}, "
-                f"traffic={signal.get('traffic_label') or signal.get('traffic')})"
+                f"'{trend_signal.get('query')}' (score={trend_signal.get('score')}, "
+                f"traffic={trend_signal.get('traffic_label') or trend_signal.get('traffic')})"
             )
-            return topic, signal
+            return topic, trend_signal, None, float(trend_signal.get("score") or 0)
 
     # Saturday/Sunday still prioritise leisure-hour shopping themes when there
-    # is no strong current Trends match.
+    # is no strong first-party or current-trend signal.
     weekend_priority = ()
     if weekday == 5:
         weekend_priority = SATURDAY_PRIORITY
@@ -476,9 +510,9 @@ def pick_topic(article_dir: Path, year: int, weekday: int, market: str) -> tuple
     for key in weekend_priority:
         topic = topic_by_key.get(key)
         if topic and topic in available:
-            return topic, None
+            return topic, None, None, None
 
-    return available[0], None
+    return available[0], None, None, None
 
 
 def safe_float(value):
@@ -754,7 +788,14 @@ def fallback_sections(market: str, topic_name: str, query: str) -> str:
     return "\n".join(parts)
 
 
-def build_article(topic: tuple, market: str, year: int, trend_signal: dict | None = None) -> dict:
+def build_article(
+    topic: tuple,
+    market: str,
+    year: int,
+    trend_signal: dict | None = None,
+    gsc_signal: dict | None = None,
+    demand_score: float | None = None,
+) -> dict:
     key, display, query, max_uk, max_us, category, kicker = topic
     region = "UK" if market == "uk" else "USA"
     directory_name = "articles" if market == "uk" else "articles-us"
@@ -785,10 +826,11 @@ def build_article(topic: tuple, market: str, year: int, trend_signal: dict | Non
         limit=4,
     )
 
+    gsc_title_phrase = trend_keyword_for_title(topic, gsc_signal)
     trend_title_phrase = trend_keyword_for_title(topic, trend_signal)
-    title_subject = trend_title_phrase or display
+    title_subject = gsc_title_phrase or trend_title_phrase or display
     title = f"Best {title_subject} Worth Buying in the {region} ({year})"
-    source_sha = f"{datetime.now(timezone.utc).date().isoformat()}-{key}-{market}-daily-v3"
+    source_sha = f"{datetime.now(timezone.utc).date().isoformat()}-{key}-{market}-daily-v4"
     primary_keyword = f"best {title_subject.lower()} {region.lower()} {year}"
     secondary_keywords = [
         f"{display.lower()} buying guide {region.lower()}",
@@ -798,6 +840,9 @@ def build_article(topic: tuple, market: str, year: int, trend_signal: dict | Non
     if trend_signal and trend_signal.get("query"):
         trend_query = " ".join(str(trend_signal["query"]).split())
         secondary_keywords.insert(0, trend_query)
+    if gsc_signal and gsc_signal.get("query"):
+        gsc_query = " ".join(str(gsc_signal["query"]).split())
+        secondary_keywords.insert(0, gsc_query)
     description = seo_description(display, region, year)
     checked_date = datetime.now(timezone.utc).strftime("%d %B %Y").lstrip("0")
 
@@ -867,14 +912,17 @@ def build_article(topic: tuple, market: str, year: int, trend_signal: dict | Non
         ),
         "content_html": content,
         "_seo": {
-            "version": "daily-seo-v3-trends",
+            "version": "daily-seo-v4-gsc-trends",
             "primary_keyword": primary_keyword,
             "secondary_keywords": secondary_keywords,
             "description": description,
             "search_intent": "commercial investigation",
             "related_guide_count": len(guides),
+            "search_console_signal": gsc_signal,
+            "search_console_title_phrase": gsc_title_phrase,
             "trend_signal": trend_signal,
             "trend_title_phrase": trend_title_phrase,
+            "demand_score": demand_score,
         },
         "_generator": {
             "market": market,
@@ -908,8 +956,17 @@ def main() -> None:
         article_dir = ROOT / ("articles" if market == "uk" else "articles-us")
         article_dir.mkdir(parents=True, exist_ok=True)
 
-        topic, trend_signal = pick_topic(article_dir, year, weekday, market)
-        article = build_article(topic, market, year, trend_signal=trend_signal)
+        topic, trend_signal, gsc_signal, demand_score = pick_topic(
+            article_dir, year, weekday, market
+        )
+        article = build_article(
+            topic,
+            market,
+            year,
+            trend_signal=trend_signal,
+            gsc_signal=gsc_signal,
+            demand_score=demand_score,
+        )
         target = article_dir / f"{article['slug']}.json"
         if target.exists():
             raise RuntimeError(f"Refusing to overwrite existing article: {target}")
@@ -923,6 +980,12 @@ def main() -> None:
             "slug": article["slug"],
             "title": article["title"],
             "topic": topic[0],
+            "demand_score": demand_score,
+            "gsc_query": (gsc_signal or {}).get("query"),
+            "gsc_score": (gsc_signal or {}).get("score"),
+            "gsc_impressions": (gsc_signal or {}).get("impressions"),
+            "gsc_clicks": (gsc_signal or {}).get("clicks"),
+            "gsc_position": (gsc_signal or {}).get("position"),
             "trend_query": (trend_signal or {}).get("query"),
             "trend_score": (trend_signal or {}).get("score"),
             "trend_traffic": (trend_signal or {}).get("traffic"),

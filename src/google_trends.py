@@ -48,6 +48,20 @@ WEAK_SINGLE_TOKENS = {
     "gaming",
 }
 
+TITLE_DROP_TOKENS = {
+    "best",
+    "top",
+    "buy",
+    "buying",
+    "guide",
+    "guides",
+    "worth",
+    "uk",
+    "usa",
+    "us",
+    "2026",
+}
+
 BLOCKED_TITLE_TOKENS = {
     "vs",
     "score",
@@ -235,12 +249,22 @@ def trend_keyword_for_title(topic: tuple, signal: dict | None) -> str | None:
     if set(query_words) & BLOCKED_TITLE_TOKENS:
         return None
 
-    trend_tokens = tokens(query)
+    # Remove generic SEO wrappers before turning a real search query into the
+    # article subject. The template already adds "Best", market and year.
+    cleaned_words = [
+        word for word in query_words
+        if word not in TITLE_DROP_TOKENS and not re.fullmatch(r"20\\d{2}", word)
+    ]
+    if not cleaned_words:
+        return None
+    cleaned_query = " ".join(cleaned_words)
+
+    trend_tokens = tokens(cleaned_query)
     topic_tokens = _topic_tokens(topic)
     overlap = trend_tokens & topic_tokens
     query_norm = normalise(topic[2])
     key_norm = normalise(str(topic[0]).replace("-", " "))
-    trend_norm = normalise(query)
+    trend_norm = normalise(cleaned_query)
 
     strong_match = (
         bool(query_norm and query_norm in trend_norm)
@@ -254,9 +278,9 @@ def trend_keyword_for_title(topic: tuple, signal: dict | None) -> str | None:
     # A headline must stay broader than a specific brand/model unless that
     # brand/model is already part of the curated topic itself. This stops a
     # generic comparison from masquerading as a review of a trending model.
-    if any(char.isdigit() for char in query):
+    if any(char.isdigit() for char in cleaned_query):
         return None
     if trend_tokens - topic_tokens:
         return None
 
-    return pretty_phrase(query)
+    return pretty_phrase(cleaned_query)

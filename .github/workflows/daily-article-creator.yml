@@ -10,7 +10,9 @@ on:
     paths:
       - "generate_daily_articles.py"
       - "src/google_trends.py"
+      - "src/search_console.py"
       - "tests/test_google_trends.py"
+      - "tests/test_search_console.py"
       - ".github/workflows/daily-article-creator.yml"
 
 permissions:
@@ -39,10 +41,10 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Test Google Trends selection safeguards
+      - name: Test search-demand selection safeguards
         env:
           PYTHONPATH: .
-        run: python -m unittest discover -s tests -p "test_google_trends.py"
+        run: pytest -q tests/test_google_trends.py tests/test_search_console.py
 
       - name: Create one UK and one USA article
         env:
@@ -52,6 +54,11 @@ jobs:
           EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
           EPN_CAMPAIGN_ID: ${{ secrets.EPN_CAMPAIGN_ID }}
           EPN_US_CAMPAIGN_ID: ${{ secrets.EPN_US_CAMPAIGN_ID }}
+          GSC_CLIENT_ID: ${{ secrets.GSC_CLIENT_ID }}
+          GSC_CLIENT_SECRET: ${{ secrets.GSC_CLIENT_SECRET }}
+          GSC_REFRESH_TOKEN: ${{ secrets.GSC_REFRESH_TOKEN }}
+          GSC_UK_SITE_URL: ${{ secrets.GSC_UK_SITE_URL }}
+          GSC_US_SITE_URL: ${{ secrets.GSC_US_SITE_URL }}
         run: python generate_daily_articles.py
 
       - name: Save new daily articles
