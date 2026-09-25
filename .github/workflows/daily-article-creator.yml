@@ -9,6 +9,8 @@ on:
       - main
     paths:
       - "generate_daily_articles.py"
+      - "src/google_trends.py"
+      - "tests/test_google_trends.py"
       - ".github/workflows/daily-article-creator.yml"
 
 permissions:
@@ -36,6 +38,11 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
+
+      - name: Test Google Trends selection safeguards
+        env:
+          PYTHONPATH: .
+        run: python -m unittest discover -s tests -p "test_google_trends.py"
 
       - name: Create one UK and one USA article
         env:
@@ -66,6 +73,7 @@ jobs:
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
       - name: Start UK publishing workflow
+        if: steps.save.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run publish-articles.yml --ref main -f chain_usa=true
