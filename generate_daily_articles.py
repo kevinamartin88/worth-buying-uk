@@ -9,7 +9,7 @@ from pathlib import Path
 from urllib.parse import quote_plus
 
 from src.ebay import EbayClient
-from src.google_trends import rank_topics_by_trends
+from src.google_trends import rank_topics_by_trends, trend_keyword_for_title
 
 
 ROOT = Path(__file__).resolve().parent
@@ -782,7 +782,9 @@ def build_article(topic: tuple, market: str, year: int, trend_signal: dict | Non
         limit=4,
     )
 
-    title = f"Best {display} Worth Buying in the {region} ({year})"
+    trend_title_phrase = trend_keyword_for_title(topic, trend_signal)
+    title_subject = trend_title_phrase or display
+    title = f"Best {title_subject} Worth Buying in the {region} ({year})"
     source_sha = f"{datetime.now(timezone.utc).date().isoformat()}-{key}-{market}-daily-v3"
     primary_keyword = f"best {display.lower()} {region.lower()} {year}"
     secondary_keywords = [
@@ -869,6 +871,7 @@ def build_article(topic: tuple, market: str, year: int, trend_signal: dict | Non
             "search_intent": "commercial investigation",
             "related_guide_count": len(guides),
             "trend_signal": trend_signal,
+            "trend_title_phrase": trend_title_phrase,
         },
         "_generator": {
             "market": market,
