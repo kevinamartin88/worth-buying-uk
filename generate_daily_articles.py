@@ -426,10 +426,13 @@ def topic_already_covered(article_dir: Path, topic: tuple, year: int) -> bool:
             continue
 
         generator_topic = normalise(str((article.get("_generator") or {}).get("topic", "")))
-        if generator_topic and generator_topic == normalise(key):
+        title = str(article.get("title", ""))
+        slug = str(article.get("slug", path.stem))
+        source_sha = str(article.get("source_sha", ""))
+        same_year = str(year) in title or str(year) in slug or str(year) in source_sha
+        if same_year and generator_topic and generator_topic == normalise(key):
             return True
 
-        title = str(article.get("title", ""))
         if str(year) in title and wanted and wanted in normalise(title):
             return True
     return False
@@ -786,7 +789,7 @@ def build_article(topic: tuple, market: str, year: int, trend_signal: dict | Non
     title_subject = trend_title_phrase or display
     title = f"Best {title_subject} Worth Buying in the {region} ({year})"
     source_sha = f"{datetime.now(timezone.utc).date().isoformat()}-{key}-{market}-daily-v3"
-    primary_keyword = f"best {display.lower()} {region.lower()} {year}"
+    primary_keyword = f"best {title_subject.lower()} {region.lower()} {year}"
     secondary_keywords = [
         f"{display.lower()} buying guide {region.lower()}",
         f"{display.lower()} worth buying {year}",
