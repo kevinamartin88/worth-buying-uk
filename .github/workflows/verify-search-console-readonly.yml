@@ -1,0 +1,37 @@
+name: Verify Search Console access
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Query UK and USA Search Console properties
+        env:
+          PYTHONPATH: .
+          GSC_CLIENT_ID: ${{ secrets.GSC_CLIENT_ID }}
+          GSC_CLIENT_SECRET: ${{ secrets.GSC_CLIENT_SECRET }}
+          GSC_REFRESH_TOKEN: ${{ secrets.GSC_REFRESH_TOKEN }}
+          GSC_UK_SITE_URL: ${{ secrets.GSC_UK_SITE_URL }}
+          GSC_US_SITE_URL: ${{ secrets.GSC_US_SITE_URL }}
+        run: |
+          python - <<'PY'
+          from src.search_console import fetch_query_rows
+
+          for market in ('uk', 'us'):
+              site, rows = fetch_query_rows(market, row_limit=1)
+              if not site:
+                  raise SystemExit(f'{market.upper()}: Search Console access failed')
+              print(f'{market.upper()}: read-only query succeeded for {site}; rows={len(rows)}')
+          PY
