@@ -58,6 +58,10 @@ class GoogleTrendsTests(unittest.TestCase):
         signal = {"query": "dash cam", "traffic": 100_000, "score": 70}
         self.assertEqual(trend_keyword_for_title(DASH_CAMS, signal), "Dash Cam")
 
+    def test_search_style_wrappers_are_removed_from_title_phrase(self):
+        signal = {"query": "best dash cam uk 2026", "traffic": 100_000, "score": 70}
+        self.assertEqual(trend_keyword_for_title(DASH_CAMS, signal), "Dash Cam")
+
     def test_brand_specific_vacuum_query_cannot_rewrite_generic_title(self):
         signal = {"query": "Shark cordless vacuum", "traffic": 100_000, "score": 70}
         self.assertIsNone(trend_keyword_for_title(VACUUMS, signal))
