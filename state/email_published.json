@@ -222,6 +222,18 @@
     "title": "Best Soundbars Worth Buying in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/09/best-soundbars-worth-buying-in-usa-2026.html"
   },
+  "us:best-storage-bins-worth-buying-us-2026": {
+    "delivery_mode": "manual",
+    "delivery_status": "awaiting_manual_publish",
+    "last_sent_at": "2026-09-26T06:42:28.539505+00:00",
+    "market": "us",
+    "primary_category": "Home & Kitchen",
+    "send_attempts": 1,
+    "sent": true,
+    "source_file": "best-storage-bins-worth-buying-us-2026.json",
+    "source_sha": "2026-09-26-storage-bins-us-daily-v4",
+    "title": "Best Storage Bins & Organisers Worth Buying in the USA (2026)"
+  },
   "us:best-toasters-worth-buying-us-2026": {
     "market": "us",
     "primary_category": "Home & Kitchen",
