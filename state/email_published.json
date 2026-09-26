@@ -203,7 +203,7 @@
   },
   "us:best-iphone-18-accessories-worth-buying-us-2026": {
     "delivery_mode": "manual",
-    "delivery_status": "awaiting_manual_publish",
+    "delivery_status": "published",
     "last_sent_at": "2026-09-26T06:57:49.210542+00:00",
     "market": "us",
     "primary_category": "Tech",
@@ -211,7 +211,8 @@
     "sent": true,
     "source_file": "best-iphone-18-accessories-worth-buying-us-2026.json",
     "source_sha": "2026-09-26-iphone-18-accessories-us-extra-v1",
-    "title": "Best iPhone 18 Accessories Worth Buying in the USA (2026)"
+    "title": "Best iPhone 18 Accessories Worth Buying in the USA (2026)",
+    "url": "https://www.worthbuyingusa.com/2026/09/best-iphone-18-accessories-worth-buying.html"
   },
   "us:best-refurbished-ipads-ebay-us-2026": {
     "market": "us",
@@ -249,7 +250,7 @@
   },
   "us:best-storage-bins-worth-buying-us-2026": {
     "delivery_mode": "manual",
-    "delivery_status": "awaiting_manual_publish",
+    "delivery_status": "published",
     "last_sent_at": "2026-09-26T06:42:28.539505+00:00",
     "market": "us",
     "primary_category": "Home & Kitchen",
@@ -257,7 +258,8 @@
     "sent": true,
     "source_file": "best-storage-bins-worth-buying-us-2026.json",
     "source_sha": "2026-09-26-storage-bins-us-daily-v4",
-    "title": "Best Storage Bins & Organisers Worth Buying in the USA (2026)"
+    "title": "Best Storage Bins & Organisers Worth Buying in the USA (2026)",
+    "url": "https://www.worthbuyingusa.com/2026/09/best-storage-bins-organisers-worth.html"
   },
   "us:best-toasters-worth-buying-us-2026": {
     "market": "us",
