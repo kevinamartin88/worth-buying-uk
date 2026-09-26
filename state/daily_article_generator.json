@@ -1,22 +1,40 @@
 {
   "uk": {
-    "date": "2026-09-25",
-    "day": "Friday",
+    "date": "2026-09-26",
+    "day": "Saturday",
+    "demand_score": null,
+    "gsc_clicks": null,
+    "gsc_impressions": null,
+    "gsc_position": null,
+    "gsc_query": null,
+    "gsc_score": null,
     "live_ebay_picks": true,
     "pick_count": 4,
-    "slug": "best-soundbars-worth-buying-uk-2026",
-    "title": "Best Soundbars Worth Buying in the UK (2026)",
-    "topic": "soundbars",
-    "weekend_priority": false
+    "slug": "best-storage-bins-worth-buying-uk-2026",
+    "title": "Best Storage Bins & Organisers Worth Buying in the UK (2026)",
+    "topic": "storage-bins",
+    "trend_query": null,
+    "trend_score": null,
+    "trend_traffic": null,
+    "weekend_priority": true
   },
   "us": {
-    "date": "2026-09-25",
-    "day": "Friday",
+    "date": "2026-09-26",
+    "day": "Saturday",
+    "demand_score": null,
+    "gsc_clicks": null,
+    "gsc_impressions": null,
+    "gsc_position": null,
+    "gsc_query": null,
+    "gsc_score": null,
     "live_ebay_picks": true,
     "pick_count": 4,
-    "slug": "best-soundbars-worth-buying-us-2026",
-    "title": "Best Soundbars Worth Buying in the USA (2026)",
-    "topic": "soundbars",
-    "weekend_priority": false
+    "slug": "best-storage-bins-worth-buying-us-2026",
+    "title": "Best Storage Bins & Organisers Worth Buying in the USA (2026)",
+    "topic": "storage-bins",
+    "trend_query": null,
+    "trend_score": null,
+    "trend_traffic": null,
+    "weekend_priority": true
   }
 }
