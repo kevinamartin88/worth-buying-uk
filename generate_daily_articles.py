@@ -92,6 +92,7 @@ TOPICS = [
     ("portable-griddles", "Portable Griddles", "portable griddle", 700, 800, "Home & Kitchen", "OUTDOOR COOKING GUIDE"),
     ("smart-light-switches", "Smart Light Switches", "smart light switch", 220, 260, "Tech", "SMART HOME GUIDE"),
     ("apple-watches", "Apple Watches", "Apple Watch", 900, 1000, "Tech", "APPLE WATCH BUYING GUIDE"),
+    ("iphone-18-accessories", "iPhone 18 Accessories", "iPhone 18 Pro MagSafe accessories", 350, 400, "Tech", "IPHONE ACCESSORIES GUIDE"),
     ("airpods", "AirPods & Wireless Earbuds", "Apple AirPods wireless earbuds", 450, 500, "Tech", "EARBUDS BUYING GUIDE"),
     ("streaming-devices", "Streaming Devices", "Fire TV Roku streaming device", 220, 250, "Tech", "STREAMING DEVICE GUIDE"),
     ("portable-gaming-systems", "Portable Gaming Systems", "handheld gaming console", 900, 1000, "Gaming", "PORTABLE GAMING GUIDE"),
