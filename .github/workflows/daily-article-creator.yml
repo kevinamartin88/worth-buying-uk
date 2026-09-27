@@ -34,7 +34,7 @@ jobs:
       - name: Test search-demand selection safeguards
         env:
           PYTHONPATH: .
-        run: pytest -q tests/test_google_trends.py tests/test_search_console.py
+        run: pytest -q tests/test_google_trends.py tests/test_search_console.py tests/test_daily_demand_gate.py
 
       - name: Create one UK and one USA article
         env:

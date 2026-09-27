@@ -16,6 +16,14 @@ from src.search_console import rank_topics_by_search_console
 ROOT = Path(__file__).resolve().parent
 STATE_PATH = ROOT / "state" / "daily_article_generator.json"
 
+# Do not publish a daily article merely because it is next in a curated list.
+# At least one current Google-derived demand signal must clear these thresholds.
+MIN_FRESH_TREND_SCORE = 55.0
+MIN_TREND_DEMAND_SCORE = 40.0
+MIN_GSC_DEMAND_SCORE = 50.0
+MIN_GSC_IMPRESSIONS = 10.0
+MIN_COMBINED_DEMAND_SCORE = 40.0
+
 TOPICS = [
     ("air-fryers", "Air Fryers", "air fryer", 450, 500, "Home & Kitchen", "AIR FRYER GUIDE"),
     ("large-capacity-air-fryers", "Large Capacity Air Fryers", "large family air fryer", 550, 600, "Home & Kitchen", "FAMILY AIR FRYER GUIDE"),
@@ -447,9 +455,7 @@ def pick_topic(
     year: int,
     weekday: int,
     market: str,
-) -> tuple[tuple, dict | None, dict | None, float | None]:
-    topic_by_key = {topic[0]: topic for topic in TOPICS}
-
+) -> tuple[tuple | None, dict | None, dict | None, float | None]:
     available = [
         topic for topic in TOPICS
         if not topic_already_covered(article_dir, topic, year)
@@ -460,69 +466,98 @@ def pick_topic(
             "Add more topics before continuing automated publication."
         )
 
-    # First-party Search Console data is the strongest demand signal because it
-    # reflects queries already showing WorthBuying in Google. Trends adds fresh
-    # market momentum. Both are restricted to the curated product-topic pool.
+    # Search Console reflects queries that already expose WorthBuying in Google.
+    # Google Trends RSS reflects fresh Google-wide search momentum. A topic now
+    # has to pass a demand threshold; weekend rotation is no longer allowed to
+    # create an article with no supporting Google-derived signal.
     gsc_ranked = rank_topics_by_search_console(available, market)
     trend_ranked = rank_topics_by_trends(available, market)
     gsc_by_key = {topic[0]: signal for topic, signal in gsc_ranked}
     trend_by_key = {topic[0]: signal for topic, signal in trend_ranked}
 
-    # A strong, fresh Google-wide product trend should determine today's new
-    # guide even when older first-party Search Console queries rank differently.
-    if trend_ranked and float(trend_ranked[0][1].get("score") or 0) >= 55:
+    # A very strong fresh trend wins immediately.
+    if trend_ranked:
         topic, trend_signal = trend_ranked[0]
-        print(f"[fresh-trend-pick] {market.upper()}: {topic[1]} matched {trend_signal['query']!r}")
-        return topic, trend_signal, gsc_by_key.get(topic[0]), float(trend_signal["score"])
+        trend_score = float(trend_signal.get("score") or 0)
+        if trend_score >= MIN_FRESH_TREND_SCORE:
+            print(
+                f"[fresh-trend-pick] {market.upper()}: {topic[1]} matched "
+                f"{trend_signal.get('query')!r} "
+                f"(score={trend_score:.2f}, "
+                f"traffic={trend_signal.get('traffic_label') or trend_signal.get('traffic')})"
+            )
+            return topic, trend_signal, gsc_by_key.get(topic[0]), trend_score
 
+    # Strong first-party demand can also qualify on its own, provided the query
+    # has more than a tiny sample of impressions.
     if gsc_ranked:
-        combined: list[tuple[float, tuple, dict | None, dict | None]] = []
-        for topic in available:
-            gsc_signal = gsc_by_key.get(topic[0])
+        topic, gsc_signal = gsc_ranked[0]
+        gsc_score = float(gsc_signal.get("score") or 0)
+        impressions = float(gsc_signal.get("impressions") or 0)
+        if gsc_score >= MIN_GSC_DEMAND_SCORE and impressions >= MIN_GSC_IMPRESSIONS:
             trend_signal = trend_by_key.get(topic[0])
-            gsc_score = float((gsc_signal or {}).get("score") or 0)
             trend_score = min(100.0, float((trend_signal or {}).get("score") or 0))
             combined_score = round((gsc_score * 0.70) + (trend_score * 0.30), 2)
-            combined.append((combined_score, topic, gsc_signal, trend_signal))
+            print(
+                f"[gsc-demand-pick] {market.upper()}: {topic[1]} matched "
+                f"{gsc_signal.get('query')!r} "
+                f"(gsc={gsc_score:.2f}, impressions={impressions:.0f}, "
+                f"trends={trend_score:.2f}, combined={combined_score:.2f})"
+            )
+            return topic, trend_signal, gsc_signal, max(gsc_score, combined_score)
 
-        combined.sort(key=lambda row: (-row[0], str(row[1][0])))
+    # Two moderate signals can qualify together.
+    combined: list[tuple[float, tuple, dict | None, dict | None]] = []
+    for topic in available:
+        gsc_signal = gsc_by_key.get(topic[0])
+        trend_signal = trend_by_key.get(topic[0])
+        gsc_score = float((gsc_signal or {}).get("score") or 0)
+        trend_score = min(100.0, float((trend_signal or {}).get("score") or 0))
+        impressions = float((gsc_signal or {}).get("impressions") or 0)
+
+        # Ignore weak/tiny GSC evidence in the combined calculation.
+        if impressions < MIN_GSC_IMPRESSIONS:
+            gsc_score = 0.0
+
+        combined_score = round((gsc_score * 0.70) + (trend_score * 0.30), 2)
+        combined.append((combined_score, topic, gsc_signal, trend_signal))
+
+    combined.sort(key=lambda row: (-row[0], str(row[1][0])))
+    if combined:
         best_score, topic, gsc_signal, trend_signal = combined[0]
-        if best_score >= 30:
+        gsc_score = float((gsc_signal or {}).get("score") or 0)
+        trend_score = float((trend_signal or {}).get("score") or 0)
+        if best_score >= MIN_COMBINED_DEMAND_SCORE:
             print(
                 f"[demand-pick] {market.upper()}: {topic[1]} "
-                f"(combined={best_score}, gsc={float((gsc_signal or {}).get('score') or 0):.2f}, "
-                f"trends={float((trend_signal or {}).get('score') or 0):.2f}, "
+                f"(combined={best_score:.2f}, gsc={gsc_score:.2f}, "
+                f"trends={trend_score:.2f}, "
                 f"gsc_query='{(gsc_signal or {}).get('query', '')}', "
                 f"trend_query='{(trend_signal or {}).get('query', '')}')"
             )
             return topic, trend_signal, gsc_signal, best_score
 
-    # If Search Console is not configured, has too little data, or has no
-    # relevant product query yet, retain the existing Google Trends behaviour.
+    # Trends can qualify without Search Console, but only above the stricter
+    # current-demand threshold. This is important while the sites are too new
+    # to have meaningful first-party Search Console query history.
     if trend_ranked:
         topic, trend_signal = trend_ranked[0]
-        if float(trend_signal.get("score") or 0) >= 35:
+        trend_score = float(trend_signal.get("score") or 0)
+        if trend_score >= MIN_TREND_DEMAND_SCORE:
             print(
                 f"[trends-pick] {market.upper()}: {topic[1]} matched "
-                f"'{trend_signal.get('query')}' (score={trend_signal.get('score')}, "
+                f"'{trend_signal.get('query')}' "
+                f"(score={trend_score:.2f}, "
                 f"traffic={trend_signal.get('traffic_label') or trend_signal.get('traffic')})"
             )
-            return topic, trend_signal, None, float(trend_signal.get("score") or 0)
+            return topic, trend_signal, None, trend_score
 
-    # Saturday/Sunday still prioritise leisure-hour shopping themes when there
-    # is no strong first-party or current-trend signal.
-    weekend_priority = ()
-    if weekday == 5:
-        weekend_priority = SATURDAY_PRIORITY
-    elif weekday == 6:
-        weekend_priority = SUNDAY_PRIORITY
-
-    for key in weekend_priority:
-        topic = topic_by_key.get(key)
-        if topic and topic in available:
-            return topic, None, None, None
-
-    return available[0], None, None, None
+    print(
+        f"[daily-no-demand] {market.upper()}: no available product topic passed "
+        "the current Google Trends/Search Console demand thresholds. "
+        "No fallback article will be created."
+    )
+    return None, None, None, None
 
 
 def safe_float(value):
@@ -969,6 +1004,13 @@ def main() -> None:
         topic, trend_signal, gsc_signal, demand_score = pick_topic(
             article_dir, year, weekday, market
         )
+        if topic is None:
+            print(
+                f"[daily-skip-no-demand] {market.upper()}: no article created today "
+                "because no current search-demand signal cleared the publishing gate."
+            )
+            continue
+
         article = build_article(
             topic,
             market,
@@ -1000,14 +1042,15 @@ def main() -> None:
             "trend_score": (trend_signal or {}).get("score"),
             "trend_traffic": (trend_signal or {}).get("traffic"),
             "day": day_name,
-            "weekend_priority": is_weekend,
+            "weekend_priority": False,
+            "selection_basis": "current-search-demand",
             "live_ebay_picks": bool(article["_generator"]["live_ebay_picks"]),
             "pick_count": int(article["_generator"]["pick_count"]),
         }
         generated += 1
         print(
             f"[daily-created] {market.upper()}: {target.relative_to(ROOT)} "
-            f"(day={day_name}, weekend_priority={is_weekend}, "
+            f"(day={day_name}, selection_basis=current-search-demand, "
             f"live eBay picks={article['_generator']['pick_count']})"
         )
 
