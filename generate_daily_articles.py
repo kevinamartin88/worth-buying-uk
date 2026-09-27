@@ -24,6 +24,47 @@ MIN_GSC_DEMAND_SCORE = 50.0
 MIN_GSC_IMPRESSIONS = 10.0
 MIN_COMBINED_DEMAND_SCORE = 40.0
 
+
+# If live Google signals are weak or unavailable, we still publish every day.
+# The fallback order is seasonal first, then evergreen high-intent shopping.
+SEASONAL_FALLBACKS = {
+    1: ("portable-heaters", "electric-blankets", "dehumidifiers", "air-purifiers", "coffee-machines", "slow-cookers", "jump-starters", "battery-chargers"),
+    2: ("portable-heaters", "electric-blankets", "dehumidifiers", "air-purifiers", "coffee-machines", "jump-starters", "battery-chargers", "robot-vacuums"),
+    3: ("pressure-washers", "garden-tool-sets", "cordless-drills", "storage-bins", "steam-mops", "carpet-cleaners", "air-purifiers", "robot-vacuums"),
+    4: ("lawn-mowers", "garden-tool-sets", "hedge-trimmers", "pressure-washers", "cordless-drills", "storage-bins", "carpet-cleaners", "robot-vacuums"),
+    5: ("lawn-mowers", "hedge-trimmers", "garden-tool-sets", "pressure-washers", "portable-griddles", "tower-fans", "luggage", "power-banks"),
+    6: ("tower-fans", "portable-griddles", "luggage", "power-banks", "bluetooth-speakers", "car-phone-mounts", "dash-cams", "portable-gaming-systems"),
+    7: ("tower-fans", "portable-griddles", "luggage", "power-banks", "bluetooth-speakers", "car-phone-mounts", "dash-cams", "portable-gaming-systems"),
+    8: ("tower-fans", "luggage", "power-banks", "backpacks", "printers", "tablets", "laptops", "wireless-earbuds"),
+    9: ("dehumidifiers", "portable-heaters", "electric-blankets", "dash-cams", "jump-starters", "battery-chargers", "air-purifiers", "coffee-machines", "slow-cookers"),
+    10: ("dehumidifiers", "portable-heaters", "electric-blankets", "jump-starters", "battery-chargers", "dash-cams", "air-purifiers", "coffee-machines", "slow-cookers"),
+    11: ("portable-heaters", "electric-blankets", "dehumidifiers", "jump-starters", "battery-chargers", "air-fryers", "large-capacity-air-fryers", "coffee-machines", "gaming-headsets"),
+    12: ("portable-heaters", "electric-blankets", "dehumidifiers", "air-fryers", "large-capacity-air-fryers", "coffee-machines", "gaming-headsets", "bluetooth-speakers", "streaming-devices"),
+}
+
+EVERGREEN_HIGH_INTENT = (
+    "air-fryers",
+    "large-capacity-air-fryers",
+    "cordless-vacuums",
+    "robot-vacuums",
+    "coffee-machines",
+    "tvs",
+    "soundbars",
+    "wireless-earbuds",
+    "smartwatches",
+    "tablets",
+    "dash-cams",
+    "power-banks",
+    "security-cameras",
+    "video-doorbells",
+    "pressure-washers",
+    "cordless-drills",
+    "tyre-inflators",
+    "jump-starters",
+    "battery-chargers",
+    "gaming-headsets",
+)
+
 TOPICS = [
     ("air-fryers", "Air Fryers", "air fryer", 450, 500, "Home & Kitchen", "AIR FRYER GUIDE"),
     ("large-capacity-air-fryers", "Large Capacity Air Fryers", "large family air fryer", 550, 600, "Home & Kitchen", "FAMILY AIR FRYER GUIDE"),
@@ -450,12 +491,35 @@ def topic_already_covered(article_dir: Path, topic: tuple, year: int) -> bool:
     return False
 
 
+def _fallback_topic(
+    available: list[tuple],
+    month: int,
+) -> tuple:
+    by_key = {topic[0]: topic for topic in available}
+
+    for key in SEASONAL_FALLBACKS.get(month, ()):
+        topic = by_key.get(key)
+        if topic:
+            return topic
+
+    for key in EVERGREEN_HIGH_INTENT:
+        topic = by_key.get(key)
+        if topic:
+            return topic
+
+    # Absolute last resort: publish the next available curated product topic.
+    # This keeps the daily cadence intact even when stronger seasonal options
+    # have already been covered.
+    return available[0]
+
+
 def pick_topic(
     article_dir: Path,
     year: int,
     weekday: int,
     market: str,
-) -> tuple[tuple | None, dict | None, dict | None, float | None]:
+    month: int | None = None,
+) -> tuple[tuple, dict | None, dict | None, float | None]:
     available = [
         topic for topic in TOPICS
         if not topic_already_covered(article_dir, topic, year)
@@ -466,16 +530,18 @@ def pick_topic(
             "Add more topics before continuing automated publication."
         )
 
+    if month is None:
+        month = datetime.now(timezone.utc).month
+
     # Search Console reflects queries that already expose WorthBuying in Google.
-    # Google Trends RSS reflects fresh Google-wide search momentum. A topic now
-    # has to pass a demand threshold; weekend rotation is no longer allowed to
-    # create an article with no supporting Google-derived signal.
+    # Google Trends RSS reflects fresh Google-wide search momentum. Strong live
+    # demand always wins; weaker live evidence is still preferred to a blind
+    # rotation because the site must publish every day.
     gsc_ranked = rank_topics_by_search_console(available, market)
     trend_ranked = rank_topics_by_trends(available, market)
     gsc_by_key = {topic[0]: signal for topic, signal in gsc_ranked}
     trend_by_key = {topic[0]: signal for topic, signal in trend_ranked}
 
-    # A very strong fresh trend wins immediately.
     if trend_ranked:
         topic, trend_signal = trend_ranked[0]
         trend_score = float(trend_signal.get("score") or 0)
@@ -488,8 +554,6 @@ def pick_topic(
             )
             return topic, trend_signal, gsc_by_key.get(topic[0]), trend_score
 
-    # Strong first-party demand can also qualify on its own, provided the query
-    # has more than a tiny sample of impressions.
     if gsc_ranked:
         topic, gsc_signal = gsc_ranked[0]
         gsc_score = float(gsc_signal.get("score") or 0)
@@ -506,7 +570,6 @@ def pick_topic(
             )
             return topic, trend_signal, gsc_signal, max(gsc_score, combined_score)
 
-    # Two moderate signals can qualify together.
     combined: list[tuple[float, tuple, dict | None, dict | None]] = []
     for topic in available:
         gsc_signal = gsc_by_key.get(topic[0])
@@ -515,7 +578,6 @@ def pick_topic(
         trend_score = min(100.0, float((trend_signal or {}).get("score") or 0))
         impressions = float((gsc_signal or {}).get("impressions") or 0)
 
-        # Ignore weak/tiny GSC evidence in the combined calculation.
         if impressions < MIN_GSC_IMPRESSIONS:
             gsc_score = 0.0
 
@@ -537,27 +599,33 @@ def pick_topic(
             )
             return topic, trend_signal, gsc_signal, best_score
 
-    # Trends can qualify without Search Console, but only above the stricter
-    # current-demand threshold. This is important while the sites are too new
-    # to have meaningful first-party Search Console query history.
     if trend_ranked:
         topic, trend_signal = trend_ranked[0]
         trend_score = float(trend_signal.get("score") or 0)
-        if trend_score >= MIN_TREND_DEMAND_SCORE:
-            print(
-                f"[trends-pick] {market.upper()}: {topic[1]} matched "
-                f"'{trend_signal.get('query')}' "
-                f"(score={trend_score:.2f}, "
-                f"traffic={trend_signal.get('traffic_label') or trend_signal.get('traffic')})"
-            )
-            return topic, trend_signal, None, trend_score
+        print(
+            f"[best-available-trend-pick] {market.upper()}: {topic[1]} matched "
+            f"'{trend_signal.get('query')}' "
+            f"(score={trend_score:.2f}, "
+            f"traffic={trend_signal.get('traffic_label') or trend_signal.get('traffic')})"
+        )
+        return topic, trend_signal, gsc_by_key.get(topic[0]), trend_score
 
+    if gsc_ranked:
+        topic, gsc_signal = gsc_ranked[0]
+        gsc_score = float(gsc_signal.get("score") or 0)
+        print(
+            f"[best-available-gsc-pick] {market.upper()}: {topic[1]} matched "
+            f"'{gsc_signal.get('query')}' "
+            f"(score={gsc_score:.2f}, impressions={float(gsc_signal.get('impressions') or 0):.0f})"
+        )
+        return topic, None, gsc_signal, gsc_score
+
+    topic = _fallback_topic(available, month)
     print(
-        f"[daily-no-demand] {market.upper()}: no available product topic passed "
-        "the current Google Trends/Search Console demand thresholds. "
-        "No fallback article will be created."
+        f"[seasonal-fallback-pick] {market.upper()}: {topic[1]} "
+        f"(month={month}; no usable Google Trends/Search Console topic match today)"
     )
-    return None, None, None, None
+    return topic, None, None, None
 
 
 def safe_float(value):
@@ -1002,14 +1070,8 @@ def main() -> None:
         article_dir.mkdir(parents=True, exist_ok=True)
 
         topic, trend_signal, gsc_signal, demand_score = pick_topic(
-            article_dir, year, weekday, market
+            article_dir, year, weekday, market, month=now.month
         )
-        if topic is None:
-            print(
-                f"[daily-skip-no-demand] {market.upper()}: no article created today "
-                "because no current search-demand signal cleared the publishing gate."
-            )
-            continue
 
         article = build_article(
             topic,
@@ -1043,14 +1105,20 @@ def main() -> None:
             "trend_traffic": (trend_signal or {}).get("traffic"),
             "day": day_name,
             "weekend_priority": False,
-            "selection_basis": "current-search-demand",
+            "selection_basis": (
+                "google-trends"
+                if trend_signal
+                else "search-console"
+                if gsc_signal
+                else "seasonal-commercial-fallback"
+            ),
             "live_ebay_picks": bool(article["_generator"]["live_ebay_picks"]),
             "pick_count": int(article["_generator"]["pick_count"]),
         }
         generated += 1
         print(
             f"[daily-created] {market.upper()}: {target.relative_to(ROOT)} "
-            f"(day={day_name}, selection_basis=current-search-demand, "
+            f"(day={day_name}, selection_basis={state[market]['selection_basis']}, "
             f"live eBay picks={article['_generator']['pick_count']})"
         )
 
