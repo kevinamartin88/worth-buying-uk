@@ -78,7 +78,7 @@
   },
   "uk:best-non-slip-hangers-worth-buying-uk-2026": {
     "delivery_mode": "manual",
-    "delivery_status": "awaiting_manual_publish",
+    "delivery_status": "published",
     "last_sent_at": "2026-09-27T06:42:16.396303+00:00",
     "market": "uk",
     "primary_category": "Home & Kitchen",
@@ -86,7 +86,8 @@
     "sent": true,
     "source_file": "best-non-slip-hangers-worth-buying-uk-2026.json",
     "source_sha": "2026-09-27-non-slip-hangers-uk-daily-v4",
-    "title": "Best Non-Slip Hangers Worth Buying in the UK (2026)"
+    "title": "Best Non-Slip Hangers Worth Buying in the UK (2026)",
+    "url": "https://www.worthbuyinguk.co.uk/2026/09/best-non-slip-hangers-worth-buying-in.html"
   },
   "uk:best-robot-vacuum-cleaners-worth-buying-uk-2026": {
     "delivery_mode": "manual",
@@ -228,7 +229,7 @@
   },
   "us:best-non-slip-hangers-worth-buying-us-2026": {
     "delivery_mode": "manual",
-    "delivery_status": "awaiting_manual_publish",
+    "delivery_status": "published",
     "last_sent_at": "2026-09-27T06:43:02.797139+00:00",
     "market": "us",
     "primary_category": "Home & Kitchen",
@@ -236,7 +237,8 @@
     "sent": true,
     "source_file": "best-non-slip-hangers-worth-buying-us-2026.json",
     "source_sha": "2026-09-27-non-slip-hangers-us-daily-v4",
-    "title": "Best Non-Slip Hangers Worth Buying in the USA (2026)"
+    "title": "Best Non-Slip Hangers Worth Buying in the USA (2026)",
+    "url": "https://www.worthbuyingusa.com/2026/09/best-non-slip-hangers-worth-buying-in.html"
   },
   "us:best-refurbished-ipads-ebay-us-2026": {
     "market": "us",
