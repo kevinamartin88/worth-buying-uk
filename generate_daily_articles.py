@@ -926,9 +926,8 @@ def build_article(
         limit=4,
     )
 
-    gsc_title_phrase = trend_keyword_for_title(topic, gsc_signal)
     trend_title_phrase = trend_keyword_for_title(topic, trend_signal)
-    title_subject = gsc_title_phrase or trend_title_phrase or display
+    title_subject = trend_title_phrase or display
     title = f"Best {title_subject} Worth Buying in the {region} ({year})"
     source_sha = f"{datetime.now(timezone.utc).date().isoformat()}-{key}-{market}-daily-v4"
     primary_keyword = f"best {title_subject.lower()} {region.lower()} {year}"
@@ -940,9 +939,6 @@ def build_article(
     if trend_signal and trend_signal.get("query"):
         trend_query = " ".join(str(trend_signal["query"]).split())
         secondary_keywords.insert(0, trend_query)
-    if gsc_signal and gsc_signal.get("query"):
-        gsc_query = " ".join(str(gsc_signal["query"]).split())
-        secondary_keywords.insert(0, gsc_query)
     description = seo_description(display, region, year)
     checked_date = datetime.now(timezone.utc).strftime("%d %B %Y").lstrip("0")
 
@@ -1012,16 +1008,14 @@ def build_article(
         ),
         "content_html": content,
         "_seo": {
-            "version": "daily-seo-v4-gsc-trends",
+            "version": "daily-seo-v5-google-shopping",
             "primary_keyword": primary_keyword,
             "secondary_keywords": secondary_keywords,
             "description": description,
             "search_intent": "commercial investigation",
             "related_guide_count": len(guides),
-            "search_console_signal": gsc_signal,
-            "search_console_title_phrase": gsc_title_phrase,
-            "trend_signal": trend_signal,
-            "trend_title_phrase": trend_title_phrase,
+            "google_demand_signal": trend_signal,
+            "google_demand_title_phrase": trend_title_phrase,
             "demand_score": demand_score,
         },
         "_generator": {
@@ -1082,13 +1076,12 @@ def main() -> None:
             "title": article["title"],
             "topic": topic[0],
             "demand_score": demand_score,
-            "gsc_query": (gsc_signal or {}).get("query"),
-            "gsc_score": (gsc_signal or {}).get("score"),
-            "gsc_impressions": (gsc_signal or {}).get("impressions"),
-            "gsc_clicks": (gsc_signal or {}).get("clicks"),
-            "gsc_position": (gsc_signal or {}).get("position"),
-            "trend_query": (trend_signal or {}).get("query"),
-            "trend_score": (trend_signal or {}).get("score"),
+            "google_query": (trend_signal or {}).get("query"),
+            "google_score": (trend_signal or {}).get("score"),
+            "google_source": (trend_signal or {}).get("source"),
+            "shopping_current": (trend_signal or {}).get("shopping_current"),
+            "shopping_momentum": (trend_signal or {}).get("shopping_momentum"),
+            "shopping_relative_to_anchor": (trend_signal or {}).get("shopping_relative_to_anchor"),
             "trend_traffic": (trend_signal or {}).get("traffic"),
             "day": day_name,
             "weekend_priority": False,
