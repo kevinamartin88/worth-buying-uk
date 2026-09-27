@@ -10,7 +10,7 @@ from urllib.parse import quote_plus
 
 from src.ebay import EbayClient
 from src.google_trends import rank_topics_by_trends, trend_keyword_for_title
-from src.search_console import rank_topics_by_search_console
+from src.google_shopping_trends import rank_topics_by_google_shopping
 
 
 ROOT = Path(__file__).resolve().parent
@@ -64,6 +64,38 @@ EVERGREEN_HIGH_INTENT = (
     "battery-chargers",
     "gaming-headsets",
 )
+
+def shopping_candidate_topics(
+    available: list[tuple],
+    month: int,
+    limit: int = 24,
+) -> list[tuple]:
+    """Shortlist commercial product topics for external Google Shopping research."""
+    by_key = {topic[0]: topic for topic in available}
+    chosen: list[tuple] = []
+    seen: set[str] = set()
+
+    def add(key: str) -> None:
+        topic = by_key.get(key)
+        if topic and key not in seen and len(chosen) < limit:
+            chosen.append(topic)
+            seen.add(key)
+
+    for key in SEASONAL_FALLBACKS.get(month, ()):
+        add(key)
+    for key in EVERGREEN_HIGH_INTENT:
+        add(key)
+
+    # Keep broad coverage after seasonal + proven commercial-intent topics.
+    for topic in available:
+        if len(chosen) >= limit:
+            break
+        if topic[0] not in seen:
+            chosen.append(topic)
+            seen.add(topic[0])
+
+    return chosen
+
 
 TOPICS = [
     ("air-fryers", "Air Fryers", "air fryer", 450, 500, "Home & Kitchen", "AIR FRYER GUIDE"),
@@ -533,97 +565,52 @@ def pick_topic(
     if month is None:
         month = datetime.now(timezone.utc).month
 
-    # Search Console reflects queries that already expose WorthBuying in Google.
-    # Google Trends RSS reflects fresh Google-wide search momentum. Strong live
-    # demand always wins; weaker live evidence is still preferred to a blind
-    # rotation because the site must publish every day.
-    gsc_ranked = rank_topics_by_search_console(available, market)
+    # Primary signal: external Google Shopping search interest in GB/US.
+    # This measures what people are searching for on Google Shopping and does
+    # not use WorthBuying Search Console or any traffic from our own sites.
+    shopping_candidates = shopping_candidate_topics(available, month)
+    shopping_ranked = rank_topics_by_google_shopping(
+        shopping_candidates,
+        market,
+    )
+    if shopping_ranked:
+        topic, shopping_signal = shopping_ranked[0]
+        print(
+            f"[google-shopping-pick] {market.upper()}: {topic[1]} "
+            f"(query='{shopping_signal.get('query')}', "
+            f"score={float(shopping_signal.get('score') or 0):.2f}, "
+            f"current={float(shopping_signal.get('shopping_current') or 0):.2f}, "
+            f"momentum={float(shopping_signal.get('shopping_momentum') or 0):.3f}, "
+            f"vs_air_fryer={float(shopping_signal.get('shopping_relative_to_anchor') or 0):.3f})"
+        )
+        return (
+            topic,
+            shopping_signal,
+            None,
+            float(shopping_signal.get("score") or 0),
+        )
+
+    # Secondary external signal: Google's Trending Now feed. This is broader
+    # than shopping intent and is often news/sport-led, so it is used only if
+    # the Shopping comparison endpoint is unavailable or returns no product data.
     trend_ranked = rank_topics_by_trends(available, market)
-    gsc_by_key = {topic[0]: signal for topic, signal in gsc_ranked}
-    trend_by_key = {topic[0]: signal for topic, signal in trend_ranked}
-
-    if trend_ranked:
-        topic, trend_signal = trend_ranked[0]
-        trend_score = float(trend_signal.get("score") or 0)
-        if trend_score >= MIN_FRESH_TREND_SCORE:
-            print(
-                f"[fresh-trend-pick] {market.upper()}: {topic[1]} matched "
-                f"{trend_signal.get('query')!r} "
-                f"(score={trend_score:.2f}, "
-                f"traffic={trend_signal.get('traffic_label') or trend_signal.get('traffic')})"
-            )
-            return topic, trend_signal, gsc_by_key.get(topic[0]), trend_score
-
-    if gsc_ranked:
-        topic, gsc_signal = gsc_ranked[0]
-        gsc_score = float(gsc_signal.get("score") or 0)
-        impressions = float(gsc_signal.get("impressions") or 0)
-        if gsc_score >= MIN_GSC_DEMAND_SCORE and impressions >= MIN_GSC_IMPRESSIONS:
-            trend_signal = trend_by_key.get(topic[0])
-            trend_score = min(100.0, float((trend_signal or {}).get("score") or 0))
-            combined_score = round((gsc_score * 0.70) + (trend_score * 0.30), 2)
-            print(
-                f"[gsc-demand-pick] {market.upper()}: {topic[1]} matched "
-                f"{gsc_signal.get('query')!r} "
-                f"(gsc={gsc_score:.2f}, impressions={impressions:.0f}, "
-                f"trends={trend_score:.2f}, combined={combined_score:.2f})"
-            )
-            return topic, trend_signal, gsc_signal, max(gsc_score, combined_score)
-
-    combined: list[tuple[float, tuple, dict | None, dict | None]] = []
-    for topic in available:
-        gsc_signal = gsc_by_key.get(topic[0])
-        trend_signal = trend_by_key.get(topic[0])
-        gsc_score = float((gsc_signal or {}).get("score") or 0)
-        trend_score = min(100.0, float((trend_signal or {}).get("score") or 0))
-        impressions = float((gsc_signal or {}).get("impressions") or 0)
-
-        if impressions < MIN_GSC_IMPRESSIONS:
-            gsc_score = 0.0
-
-        combined_score = round((gsc_score * 0.70) + (trend_score * 0.30), 2)
-        combined.append((combined_score, topic, gsc_signal, trend_signal))
-
-    combined.sort(key=lambda row: (-row[0], str(row[1][0])))
-    if combined:
-        best_score, topic, gsc_signal, trend_signal = combined[0]
-        gsc_score = float((gsc_signal or {}).get("score") or 0)
-        trend_score = float((trend_signal or {}).get("score") or 0)
-        if best_score >= MIN_COMBINED_DEMAND_SCORE:
-            print(
-                f"[demand-pick] {market.upper()}: {topic[1]} "
-                f"(combined={best_score:.2f}, gsc={gsc_score:.2f}, "
-                f"trends={trend_score:.2f}, "
-                f"gsc_query='{(gsc_signal or {}).get('query', '')}', "
-                f"trend_query='{(trend_signal or {}).get('query', '')}')"
-            )
-            return topic, trend_signal, gsc_signal, best_score
-
     if trend_ranked:
         topic, trend_signal = trend_ranked[0]
         trend_score = float(trend_signal.get("score") or 0)
         print(
-            f"[best-available-trend-pick] {market.upper()}: {topic[1]} matched "
+            f"[google-web-trend-pick] {market.upper()}: {topic[1]} matched "
             f"'{trend_signal.get('query')}' "
             f"(score={trend_score:.2f}, "
             f"traffic={trend_signal.get('traffic_label') or trend_signal.get('traffic')})"
         )
-        return topic, trend_signal, gsc_by_key.get(topic[0]), trend_score
+        return topic, trend_signal, None, trend_score
 
-    if gsc_ranked:
-        topic, gsc_signal = gsc_ranked[0]
-        gsc_score = float(gsc_signal.get("score") or 0)
-        print(
-            f"[best-available-gsc-pick] {market.upper()}: {topic[1]} matched "
-            f"'{gsc_signal.get('query')}' "
-            f"(score={gsc_score:.2f}, impressions={float(gsc_signal.get('impressions') or 0):.0f})"
-        )
-        return topic, None, gsc_signal, gsc_score
-
+    # Never skip a day. If Google cannot provide a usable live product signal,
+    # use a seasonal commercial-intent fallback, then evergreen high-intent.
     topic = _fallback_topic(available, month)
     print(
         f"[seasonal-fallback-pick] {market.upper()}: {topic[1]} "
-        f"(month={month}; no usable Google Trends/Search Console topic match today)"
+        f"(month={month}; external Google Shopping/Trends data unavailable today)"
     )
     return topic, None, None, None
 
@@ -939,9 +926,8 @@ def build_article(
         limit=4,
     )
 
-    gsc_title_phrase = trend_keyword_for_title(topic, gsc_signal)
     trend_title_phrase = trend_keyword_for_title(topic, trend_signal)
-    title_subject = gsc_title_phrase or trend_title_phrase or display
+    title_subject = trend_title_phrase or display
     title = f"Best {title_subject} Worth Buying in the {region} ({year})"
     source_sha = f"{datetime.now(timezone.utc).date().isoformat()}-{key}-{market}-daily-v4"
     primary_keyword = f"best {title_subject.lower()} {region.lower()} {year}"
@@ -953,9 +939,6 @@ def build_article(
     if trend_signal and trend_signal.get("query"):
         trend_query = " ".join(str(trend_signal["query"]).split())
         secondary_keywords.insert(0, trend_query)
-    if gsc_signal and gsc_signal.get("query"):
-        gsc_query = " ".join(str(gsc_signal["query"]).split())
-        secondary_keywords.insert(0, gsc_query)
     description = seo_description(display, region, year)
     checked_date = datetime.now(timezone.utc).strftime("%d %B %Y").lstrip("0")
 
@@ -1025,16 +1008,14 @@ def build_article(
         ),
         "content_html": content,
         "_seo": {
-            "version": "daily-seo-v4-gsc-trends",
+            "version": "daily-seo-v5-google-shopping",
             "primary_keyword": primary_keyword,
             "secondary_keywords": secondary_keywords,
             "description": description,
             "search_intent": "commercial investigation",
             "related_guide_count": len(guides),
-            "search_console_signal": gsc_signal,
-            "search_console_title_phrase": gsc_title_phrase,
-            "trend_signal": trend_signal,
-            "trend_title_phrase": trend_title_phrase,
+            "google_demand_signal": trend_signal,
+            "google_demand_title_phrase": trend_title_phrase,
             "demand_score": demand_score,
         },
         "_generator": {
@@ -1095,21 +1076,20 @@ def main() -> None:
             "title": article["title"],
             "topic": topic[0],
             "demand_score": demand_score,
-            "gsc_query": (gsc_signal or {}).get("query"),
-            "gsc_score": (gsc_signal or {}).get("score"),
-            "gsc_impressions": (gsc_signal or {}).get("impressions"),
-            "gsc_clicks": (gsc_signal or {}).get("clicks"),
-            "gsc_position": (gsc_signal or {}).get("position"),
-            "trend_query": (trend_signal or {}).get("query"),
-            "trend_score": (trend_signal or {}).get("score"),
+            "google_query": (trend_signal or {}).get("query"),
+            "google_score": (trend_signal or {}).get("score"),
+            "google_source": (trend_signal or {}).get("source"),
+            "shopping_current": (trend_signal or {}).get("shopping_current"),
+            "shopping_momentum": (trend_signal or {}).get("shopping_momentum"),
+            "shopping_relative_to_anchor": (trend_signal or {}).get("shopping_relative_to_anchor"),
             "trend_traffic": (trend_signal or {}).get("traffic"),
             "day": day_name,
             "weekend_priority": False,
             "selection_basis": (
-                "google-trends"
+                "google-shopping-trends"
+                if (trend_signal or {}).get("source") == "google-trends-google-shopping"
+                else "google-trending-now"
                 if trend_signal
-                else "search-console"
-                if gsc_signal
                 else "seasonal-commercial-fallback"
             ),
             "live_ebay_picks": bool(article["_generator"]["live_ebay_picks"]),

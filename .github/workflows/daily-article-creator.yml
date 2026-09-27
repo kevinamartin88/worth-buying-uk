@@ -34,7 +34,7 @@ jobs:
       - name: Test search-demand selection safeguards
         env:
           PYTHONPATH: .
-        run: pytest -q tests/test_google_trends.py tests/test_search_console.py tests/test_daily_demand_gate.py
+        run: pytest -q tests/test_google_trends.py tests/test_google_shopping_trends.py tests/test_daily_demand_gate.py
 
       - name: Create one UK and one USA article
         env:
@@ -44,11 +44,6 @@ jobs:
           EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
           EPN_CAMPAIGN_ID: ${{ secrets.EPN_CAMPAIGN_ID }}
           EPN_US_CAMPAIGN_ID: ${{ secrets.EPN_US_CAMPAIGN_ID }}
-          GSC_CLIENT_ID: ${{ secrets.GSC_CLIENT_ID }}
-          GSC_CLIENT_SECRET: ${{ secrets.GSC_CLIENT_SECRET }}
-          GSC_REFRESH_TOKEN: ${{ secrets.GSC_REFRESH_TOKEN }}
-          GSC_UK_SITE_URL: ${{ secrets.GSC_UK_SITE_URL }}
-          GSC_US_SITE_URL: ${{ secrets.GSC_US_SITE_URL }}
         run: python generate_daily_articles.py
 
       - name: Save new daily articles
