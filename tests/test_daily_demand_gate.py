@@ -7,113 +7,75 @@ DASH_CAMS = next(topic for topic in daily.TOPICS if topic[0] == "dash-cams")
 DEHUMIDIFIERS = next(topic for topic in daily.TOPICS if topic[0] == "dehumidifiers")
 
 
-def test_no_google_demand_uses_seasonal_fallback(monkeypatch, tmp_path):
-    monkeypatch.setattr(daily, "rank_topics_by_search_console", lambda topics, market: [])
+def test_google_shopping_is_primary_signal(monkeypatch, tmp_path):
+    shopping = {
+        "query": "dash cam",
+        "source": "google-trends-google-shopping",
+        "score": 72,
+        "shopping_current": 64,
+        "shopping_momentum": 1.4,
+        "shopping_relative_to_anchor": 1.1,
+    }
+    monkeypatch.setattr(
+        daily,
+        "rank_topics_by_google_shopping",
+        lambda topics, market: [(DASH_CAMS, shopping)],
+    )
     monkeypatch.setattr(daily, "rank_topics_by_trends", lambda topics, market: [])
 
-    topic, trend, gsc, score = daily.pick_topic(
+    topic, signal, gsc, score = daily.pick_topic(
+        tmp_path, year=2026, weekday=2, market="uk", month=9
+    )
+
+    assert topic == DASH_CAMS
+    assert signal == shopping
+    assert gsc is None
+    assert score == 72
+
+
+def test_google_web_trend_is_secondary_when_shopping_unavailable(monkeypatch, tmp_path):
+    trend = {
+        "query": "dash cam",
+        "traffic": 10000,
+        "traffic_label": "10K+",
+        "score": 45,
+        "source": "google-trends-trending-now-rss",
+    }
+    monkeypatch.setattr(daily, "rank_topics_by_google_shopping", lambda topics, market: [])
+    monkeypatch.setattr(
+        daily,
+        "rank_topics_by_trends",
+        lambda topics, market: [(DASH_CAMS, trend)],
+    )
+
+    topic, signal, gsc, score = daily.pick_topic(
+        tmp_path, year=2026, weekday=2, market="uk", month=9
+    )
+
+    assert topic == DASH_CAMS
+    assert signal == trend
+    assert gsc is None
+    assert score == 45
+
+
+def test_no_external_google_signal_still_publishes_seasonal_fallback(monkeypatch, tmp_path):
+    monkeypatch.setattr(daily, "rank_topics_by_google_shopping", lambda topics, market: [])
+    monkeypatch.setattr(daily, "rank_topics_by_trends", lambda topics, market: [])
+
+    topic, signal, gsc, score = daily.pick_topic(
         tmp_path, year=2026, weekday=6, market="uk", month=9
     )
 
     assert topic == DEHUMIDIFIERS
-    assert trend is None
+    assert signal is None
     assert gsc is None
     assert score is None
 
 
-def test_weak_live_trend_beats_blind_fallback(monkeypatch, tmp_path):
-    weak = {
-        "query": "dash cam",
-        "traffic": 1000,
-        "traffic_label": "1K+",
-        "score": daily.MIN_TREND_DEMAND_SCORE - 0.01,
-    }
-    monkeypatch.setattr(daily, "rank_topics_by_search_console", lambda topics, market: [])
-    monkeypatch.setattr(
-        daily,
-        "rank_topics_by_trends",
-        lambda topics, market: [(DASH_CAMS, weak)],
-    )
+def test_shopping_candidate_list_is_limited_and_commercial():
+    available = list(daily.TOPICS)
+    candidates = daily.shopping_candidate_topics(available, month=9, limit=10)
 
-    topic, trend, gsc, score = daily.pick_topic(
-        tmp_path, year=2026, weekday=6, market="uk", month=9
-    )
-
-    assert topic == DASH_CAMS
-    assert trend == weak
-    assert gsc is None
-    assert score == weak["score"]
-
-
-def test_current_trend_can_qualify_topic(monkeypatch, tmp_path):
-    signal = {
-        "query": "dash cam",
-        "traffic": 10000,
-        "traffic_label": "10K+",
-        "score": daily.MIN_TREND_DEMAND_SCORE + 5,
-    }
-    monkeypatch.setattr(daily, "rank_topics_by_search_console", lambda topics, market: [])
-    monkeypatch.setattr(
-        daily,
-        "rank_topics_by_trends",
-        lambda topics, market: [(DASH_CAMS, signal)],
-    )
-
-    topic, trend, gsc, score = daily.pick_topic(
-        tmp_path, year=2026, weekday=1, market="uk", month=9
-    )
-
-    assert topic == DASH_CAMS
-    assert trend == signal
-    assert gsc is None
-    assert score == signal["score"]
-
-
-def test_strong_gsc_query_can_qualify_topic(monkeypatch, tmp_path):
-    signal = {
-        "query": "best dash cams uk",
-        "impressions": 120,
-        "clicks": 3,
-        "position": 12,
-        "score": daily.MIN_GSC_DEMAND_SCORE + 5,
-    }
-    monkeypatch.setattr(
-        daily,
-        "rank_topics_by_search_console",
-        lambda topics, market: [(DASH_CAMS, signal)],
-    )
-    monkeypatch.setattr(daily, "rank_topics_by_trends", lambda topics, market: [])
-
-    topic, trend, gsc, score = daily.pick_topic(
-        tmp_path, year=2026, weekday=2, market="uk", month=9
-    )
-
-    assert topic == DASH_CAMS
-    assert trend is None
-    assert gsc == signal
-    assert score >= signal["score"]
-
-
-def test_tiny_gsc_sample_is_best_available_before_seasonal_fallback(monkeypatch, tmp_path):
-    signal = {
-        "query": "best dash cams uk",
-        "impressions": daily.MIN_GSC_IMPRESSIONS - 1,
-        "clicks": 1,
-        "position": 9,
-        "score": 95,
-    }
-    monkeypatch.setattr(
-        daily,
-        "rank_topics_by_search_console",
-        lambda topics, market: [(DASH_CAMS, signal)],
-    )
-    monkeypatch.setattr(daily, "rank_topics_by_trends", lambda topics, market: [])
-
-    topic, trend, gsc, score = daily.pick_topic(
-        tmp_path, year=2026, weekday=2, market="uk", month=9
-    )
-
-    assert topic == DASH_CAMS
-    assert trend is None
-    assert gsc == signal
-    assert score == signal["score"]
+    assert len(candidates) == 10
+    assert candidates[0][0] == "dehumidifiers"
+    assert all(topic in available for topic in candidates)
