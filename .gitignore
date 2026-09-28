@@ -2,3 +2,6 @@ __pycache__/
 *.py[cod]
 .pip-tmp/
 .test-deps/
+.tmp/
+.venv/
+.venv2/

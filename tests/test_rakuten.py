@@ -2,9 +2,7 @@ from __future__ import annotations
 
 import requests
 
-import generate_daily_articles as daily
 from src.rakuten import RakutenClient
-from src.rakuten import RakutenProduct
 
 
 class FakeResponse:
@@ -96,23 +94,16 @@ def test_usa_client_accepts_usd(monkeypatch):
     assert client.search_one("air fryer") is not None
 
 
-def test_rakuten_section_adds_exactly_one_disclosed_sponsored_link():
-    product = RakutenProduct(
-        name="Example & Safe Air Fryer",
-        merchant="Example UK",
-        url="https://click.linksynergy.com/deeplink?id=abc&mid=123",
-        price="99.00",
-        currency="GBP",
+def test_search_returns_unique_products():
+    duplicate_items = (
+        product_xml("https://click.linksynergy.com/deeplink?id=abc&mid=53591")
+        .replace("<result>", "")
+        .replace("</result>", "")
     )
+    session = FakeSession(f"<result>{duplicate_items}{duplicate_items}</result>")
+    client = RakutenClient("client-id", "super-secret", "uk-account", "GBP", session=session)
 
-    section = daily.rakuten_section(product, "uk")
+    products = client.search("air fryers", limit=5)
 
-    assert section.count("href=") == 1
-    assert 'rel="sponsored nofollow"' in section
-    assert "(Ad)" in section
-    assert "£99.00" in section
-    assert "Example &amp; Safe Air Fryer" in section
-
-
-def test_missing_rakuten_product_does_not_change_article():
-    assert daily.rakuten_section(None, "uk") == ""
+    assert len(products) == 1
+    assert products[0].name == "Example Air Fryer"

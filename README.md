@@ -235,14 +235,21 @@ RAKUTEN_US_ACCOUNT_ID
 
 These are the application credentials and account IDs from Rakuten Advertising's
 Developer Portal for the Worth Buying UK and Worth Buying USA publisher accounts.
-The daily creator exchanges each three-part set for a short-lived access token and
-uses it only for that account's Product Search. Credentials and access tokens are
-never written to files or logs, and the accounts are never crossed.
+The separate Rakuten article creator exchanges each three-part set for a short-lived
+access token and uses it only for that account's Product Search. Credentials and
+access tokens are never written to files or logs, and the accounts are never crossed.
 
-Rakuten is optional: if a complete regional credential set is absent, token
-creation or the API is unavailable, or no approved advertiser returns a valid
-product in GBP/UK or USD/USA, the existing Amazon and eBay links are published
-unchanged. Pending or unapproved advertisers are never forced into an article.
+Rakuten runs as a separate daily publishing stream at 08:15 UTC. It requires at
+least three relevant, region-appropriate products from approved advertiser feeds
+before creating a standalone retailer roundup. If credentials are absent, the API
+is unavailable, or the feed is too limited, the Rakuten article is skipped. The
+normal Amazon/eBay article continues unchanged and never receives a Rakuten link.
+
+New Rakuten roundups are saved in the existing regional article directories so the
+established Blogger, X, Bluesky and Pinterest publishing chain can process them.
+Recent-topic history prevents near-duplicate roundups, while all outbound Rakuten
+links remain the tracking URLs returned by Product Search and are marked
+`sponsored nofollow`.
 
 After saving the secret, open **Actions → Test Rakuten production API → Run
 workflow**. The test searches both accounts for `air fryer` and reports only

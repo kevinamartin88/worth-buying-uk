@@ -106,10 +106,10 @@ class RakutenClient:
         self._access_token = token
         return token
 
-    def search_one(self, query: str) -> RakutenProduct | None:
+    def search(self, query: str, limit: int = 5) -> list[RakutenProduct]:
         clean_query = _normalise_query(query)
-        if not clean_query:
-            return None
+        if not clean_query or limit < 1:
+            return []
 
         response = self.session.get(
             PRODUCT_SEARCH_URL,
@@ -120,11 +120,13 @@ class RakutenClient:
         response.raise_for_status()
         root = ET.fromstring(response.content)
 
+        products: list[RakutenProduct] = []
+        seen_urls: set[str] = set()
         for item in root.findall(".//item") + root.findall(".//{*}item"):
             url = _safe_tracking_url(_text(item, "linkurl"))
             name = _text(item, "productname")
             merchant = _text(item, "merchantname")
-            if not url or not name or not merchant:
+            if not url or not name or not merchant or url in seen_urls:
                 continue
 
             price_node = item.find("price")
@@ -138,12 +140,21 @@ class RakutenClient:
             if currency and currency != self.currency:
                 continue
 
-            return RakutenProduct(
-                name=name,
-                merchant=merchant,
-                url=url,
-                price=price,
-                currency=currency,
-                advertiser_id=_text(item, "mid"),
+            seen_urls.add(url)
+            products.append(
+                RakutenProduct(
+                    name=name,
+                    merchant=merchant,
+                    url=url,
+                    price=price,
+                    currency=currency,
+                    advertiser_id=_text(item, "mid"),
+                )
             )
-        return None
+            if len(products) >= limit:
+                break
+        return products
+
+    def search_one(self, query: str) -> RakutenProduct | None:
+        products = self.search(query, limit=1)
+        return products[0] if products else None
