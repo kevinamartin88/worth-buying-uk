@@ -92,6 +92,20 @@ jobs:
           BUFFER_CHANNEL_NAME: "Worth Buying USA"
         run: python publish_x_us.py
 
+      - name: Publish detected UK articles directly to Bluesky
+        env:
+          PYTHONPATH: .
+          BLUESKY_UK_HANDLE: ${{ secrets.BLUESKY_UK_HANDLE }}
+          BLUESKY_UK_APP_PASSWORD: ${{ secrets.BLUESKY_UK_APP_PASSWORD }}
+        run: python publish_bluesky.py
+
+      - name: Publish detected USA articles directly to Bluesky
+        env:
+          PYTHONPATH: .
+          BLUESKY_US_HANDLE: ${{ secrets.BLUESKY_US_HANDLE }}
+          BLUESKY_US_APP_PASSWORD: ${{ secrets.BLUESKY_US_APP_PASSWORD }}
+        run: python publish_bluesky_us.py
+
       - name: Save reconciled publication state and feeds
         shell: bash
         run: |
@@ -104,6 +118,8 @@ jobs:
           cp state/email_published.json "$SNAPSHOT_DIR/state/email_published.json" 2>/dev/null || true
           cp state/x_published.json "$SNAPSHOT_DIR/state/x_published.json" 2>/dev/null || true
           cp state/x_us_published.json "$SNAPSHOT_DIR/state/x_us_published.json" 2>/dev/null || true
+          cp state/bluesky_published.json "$SNAPSHOT_DIR/state/bluesky_published.json" 2>/dev/null || true
+          cp state/bluesky_us_published.json "$SNAPSHOT_DIR/state/bluesky_us_published.json" 2>/dev/null || true
 
           git config user.name "worth-buying-reconcile-bot"
           git config user.email "worth-buying-reconcile-bot@users.noreply.github.com"
@@ -120,7 +136,9 @@ jobs:
               state/articles_us_published.json \
               state/email_published.json \
               state/x_published.json \
-              state/x_us_published.json
+              state/x_us_published.json \
+              state/bluesky_published.json \
+              state/bluesky_us_published.json
 
             PYTHONPATH=. python generate_pinterest_feed.py
             PYTHONPATH=. python generate_pinterest_feed_us.py
@@ -131,6 +149,8 @@ jobs:
               state/email_published.json \
               state/x_published.json \
               state/x_us_published.json \
+              state/bluesky_published.json \
+              state/bluesky_us_published.json \
               pinterest-feed.xml \
               pinterest-feed-us.xml
 
