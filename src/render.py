@@ -4,6 +4,12 @@ import html
 from datetime import datetime
 
 
+MARKET_COPY = {
+    "EBAY_GB": {"country": "UK", "ebay_name": "eBay UK", "shipping": "delivery and returns"},
+    "EBAY_US": {"country": "US", "ebay_name": "eBay", "shipping": "shipping and returns"},
+}
+
+
 def render_post(
     title: str,
     niche: dict,
@@ -12,14 +18,22 @@ def render_post(
     generated_at: datetime,
     marketplace: str,
 ) -> str:
+    market = MARKET_COPY.get(marketplace, MARKET_COPY["EBAY_GB"])
+    topic = html.escape(niche["name"])
     bits = [
         '<div style="max-width:900px;margin:0 auto;line-height:1.55">',
         f'<p><strong>Affiliate disclosure:</strong> {html.escape(disclosure)}</p>',
-        f'<p>Updated {generated_at.strftime("%d %B %Y")} using current eBay search results. '
-        'Prices and availability can change after publication, so always confirm the final price on eBay.</p>',
-        f'<p><strong>What this page does:</strong> it filters current fixed-price UK listings for '
-        f'{html.escape(niche["name"])}. Listings stay in eBay&apos;s returned order; this page does not '
-        'claim that every item is the cheapest on the internet.</p>',
+        f'<p><strong>Last checked:</strong> {generated_at.strftime("%d %B %Y")}. We reviewed current '
+        f'{html.escape(market["ebay_name"])} results for {topic}, then removed listings that did not '
+        'meet the price and seller-quality rules below. Prices and availability can change, so confirm '
+        f'the final price, {html.escape(market["shipping"])}, and item condition before buying.</p>',
+        f'<p><strong>Our quick verdict:</strong> these are the current {html.escape(market["country"])} '
+        f'listings for {topic} that best matched our published checks. This is a filtered shortlist, not '
+        'a claim that every item is the cheapest or best choice for every buyer.</p>',
+        '<h2>How to choose</h2>',
+        f'<p>Compare the exact specification and condition you need, the seller&apos;s recent feedback, '
+        f'total delivered cost, and the return window. For {topic}, a lower headline price is only useful '
+        'when the listing includes the features and accessories you actually need.</p>',
     ]
 
     if not items:
@@ -28,21 +42,26 @@ def render_post(
             'Rather than filling the page with weak offers, this page will be checked again automatically.</p>'
         )
     else:
+        bits.append('<h2>Current shortlist</h2>')
         for idx, item in enumerate(items, start=1):
-            bits.append(render_item(idx, item))
+            bits.append(render_item(idx, item, marketplace))
 
     bits.extend([
-        '<hr>',
-        '<p style="font-size:0.9em"><strong>How items are filtered:</strong> price ceiling, '
+        '<h2>How we made this shortlist</h2>',
+        '<p>We use live marketplace data as a discovery tool, then apply a price ceiling, '
         'seller feedback, genuine eBay-returned promotional information when available, and '
         'our own observations of the same listing over time. Seller-provided or eBay-displayed '
-        'reference prices are not presented as independently verified market prices.</p>',
+        'reference prices are not presented as independently verified market prices. We do not '
+        'accept payment from sellers for inclusion.</p>',
+        '<p><strong>What to check before ordering:</strong> read the full listing, confirm compatibility '
+        'and condition, and review the seller&apos;s latest feedback and returns terms. If those details do '
+        'not suit you, skip the listing even if its price looks attractive.</p>',
         '</div>',
     ])
     return "\n".join(bits)
 
 
-def render_item(idx: int, item: dict) -> str:
+def render_item(idx: int, item: dict, marketplace: str = "EBAY_GB") -> str:
     title = html.escape(item.get("title", "eBay listing"))
     price = item.get("price") or {}
     price_text = money(price.get("value"), price.get("currency"))
@@ -56,10 +75,11 @@ def render_item(idx: int, item: dict) -> str:
 
     original = marketing.get("originalPrice") or {}
     discount = evaluation.get("discount_percentage")
+    market = MARKET_COPY.get(marketplace, MARKET_COPY["EBAY_GB"])
 
     parts = [
         '<section style="margin:28px 0;padding-bottom:24px;border-bottom:1px solid #ddd">',
-        f"<h2>{idx}. {title}</h2>",
+        f"<h3>{idx}. {title}</h3>",
     ]
 
     if image:
@@ -99,7 +119,7 @@ def render_item(idx: int, item: dict) -> str:
             + ".</p>"
         )
 
-    link_label = f"Check current price and availability on eBay"
+    link_label = f"Check current price and availability on {market['ebay_name']}"
     parts.append(
         f'<p><a rel="sponsored nofollow" href="{html.escape(url, quote=True)}">'
         f"<strong>{html.escape(link_label)}</strong></a></p>"
@@ -113,5 +133,6 @@ def money(value, currency) -> str:
         number = float(value)
     except (TypeError, ValueError):
         return "See listing"
-    symbol = "£" if currency == "GBP" else f"{currency or ''} "
+    symbols = {"GBP": "£", "USD": "$", "EUR": "€"}
+    symbol = symbols.get(currency, f"{currency or ''} ")
     return f"{symbol}{number:,.2f}"
