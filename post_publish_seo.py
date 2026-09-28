@@ -162,8 +162,8 @@ def search_console(market: str, urls: list[str], sitemap: str) -> None:
             token=None,
             refresh_token=os.environ["GSC_WRITE_REFRESH_TOKEN"],
             token_uri=TOKEN_URI,
-            client_id=os.environ["GSC_CLIENT_ID"],
-            client_secret=os.environ["GSC_CLIENT_SECRET"],
+            client_id=os.getenv("GSC_WRITE_CLIENT_ID") or os.environ["GSC_CLIENT_ID"],
+            client_secret=os.getenv("GSC_WRITE_CLIENT_SECRET") or os.environ["GSC_CLIENT_SECRET"],
             scopes=[WRITE_SCOPE],
         )
         writer = build("searchconsole", "v1", credentials=credentials, cache_discovery=False)

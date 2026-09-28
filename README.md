@@ -15,9 +15,9 @@ Sitemap submission is optional. To enable it, run
 `python setup_search_console_auth.py --client-secrets client_secret.json --write-sitemaps`
 using an account with access to the UK and USA Search Console properties, then
 save the resulting `GSC_WRITE_REFRESH_TOKEN` as a GitHub Actions secret. The
-existing `GSC_CLIENT_ID` and `GSC_CLIENT_SECRET` are reused. Keep the existing
-`GSC_REFRESH_TOKEN` for read-only inspection. If the sites use different Google
-accounts or OAuth clients, each site's credentials must be arranged accordingly.
+also save `GSC_WRITE_CLIENT_ID` and `GSC_WRITE_CLIENT_SECRET` from that same
+helper run. Keep the existing `GSC_CLIENT_ID`, `GSC_CLIENT_SECRET`, and
+`GSC_REFRESH_TOKEN` for read-only inspection.
 `GSC_UK_SITE_URL` and `GSC_US_SITE_URL` remain optional property overrides.
 
 The checks are advisory and do not block Blogger publication, X, Bluesky, or state

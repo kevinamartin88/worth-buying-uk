@@ -69,6 +69,8 @@ jobs:
           GSC_CLIENT_ID: ${{ secrets.GSC_CLIENT_ID }}
           GSC_CLIENT_SECRET: ${{ secrets.GSC_CLIENT_SECRET }}
           GSC_REFRESH_TOKEN: ${{ secrets.GSC_REFRESH_TOKEN }}
+          GSC_WRITE_CLIENT_ID: ${{ secrets.GSC_WRITE_CLIENT_ID }}
+          GSC_WRITE_CLIENT_SECRET: ${{ secrets.GSC_WRITE_CLIENT_SECRET }}
           GSC_WRITE_REFRESH_TOKEN: ${{ secrets.GSC_WRITE_REFRESH_TOKEN }}
           GSC_UK_SITE_URL: ${{ secrets.GSC_UK_SITE_URL }}
           GSC_US_SITE_URL: ${{ secrets.GSC_US_SITE_URL }}

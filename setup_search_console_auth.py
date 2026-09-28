@@ -68,8 +68,9 @@ def main() -> None:
     sites = service.sites().list().execute().get("siteEntry", [])
 
     print("\n=== Save these as GitHub Actions secrets ===")
-    print("GSC_CLIENT_ID=" + str(desktop["client_id"]))
-    print("GSC_CLIENT_SECRET=" + str(desktop["client_secret"]))
+    prefix = "GSC_WRITE" if args.write_sitemaps else "GSC"
+    print(prefix + "_CLIENT_ID=" + str(desktop["client_id"]))
+    print(prefix + "_CLIENT_SECRET=" + str(desktop["client_secret"]))
     token_name = "GSC_WRITE_REFRESH_TOKEN" if args.write_sitemaps else "GSC_REFRESH_TOKEN"
     print(token_name + "=" + str(credentials.refresh_token))
 
