@@ -62,6 +62,20 @@ jobs:
           PYTHONPATH: .
         run: python generate_pinterest_feed_us.py
 
+      - name: Check manually published article discovery
+        continue-on-error: true
+        env:
+          PYTHONPATH: .
+          GSC_CLIENT_ID: ${{ secrets.GSC_CLIENT_ID }}
+          GSC_CLIENT_SECRET: ${{ secrets.GSC_CLIENT_SECRET }}
+          GSC_REFRESH_TOKEN: ${{ secrets.GSC_REFRESH_TOKEN }}
+          GSC_WRITE_REFRESH_TOKEN: ${{ secrets.GSC_WRITE_REFRESH_TOKEN }}
+          GSC_UK_SITE_URL: ${{ secrets.GSC_UK_SITE_URL }}
+          GSC_US_SITE_URL: ${{ secrets.GSC_US_SITE_URL }}
+        run: |
+          python post_publish_seo.py --market uk
+          python post_publish_seo.py --market us
+
       - name: Publish detected UK articles to X through Buffer
         env:
           PYTHONPATH: .

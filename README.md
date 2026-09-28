@@ -1,5 +1,31 @@
 # Zero-Cost Affiliate Engine
 
+## Post-publish SEO checks
+
+The UK and USA Blogger publishing workflows now run `post_publish_seo.py` after a
+new or changed article gets a live URL. The manual Blogger reconciliation workflow
+runs the same check when it discovers a newly published article. The check verifies
+that the public page responds, reports its canonical URL and JSON-LD validity,
+looks for its URL in Blogger's `sitemap.xml`, and (when the existing read-only
+Search Console secrets are present) reports Google's latest URL Inspection status.
+The daily article generator already adds relevant links to published guides, and
+the publisher workflows already send live URLs to X and Bluesky when configured.
+
+Sitemap submission is optional. To enable it, run
+`python setup_search_console_auth.py --client-secrets client_secret.json --write-sitemaps`
+using an account with access to the UK and USA Search Console properties, then
+save the resulting `GSC_WRITE_REFRESH_TOKEN` as a GitHub Actions secret. The
+existing `GSC_CLIENT_ID` and `GSC_CLIENT_SECRET` are reused. Keep the existing
+`GSC_REFRESH_TOKEN` for read-only inspection. If the sites use different Google
+accounts or OAuth clients, each site's credentials must be arranged accordingly.
+`GSC_UK_SITE_URL` and `GSC_US_SITE_URL` remain optional property overrides.
+
+The checks are advisory and do not block Blogger publication, X, Bluesky, or state
+saving. Search Console reports the version Google knows about, so a newly
+published page may show as undiscovered until Google crawls it. Sitemap submission
+does not guarantee indexing. These buying guides are not eligible for Google's
+restricted Indexing API; the workflow uses standard sitemaps instead.
+
 A zero-running-cost MVP that:
 
 1. Searches eBay through the official Browse API and can enrich results with `getItem`.
