@@ -8,6 +8,7 @@ import yaml
 
 from src.ebay import EbayClient
 from src.render import render_post
+from src.seo import audit_post, meta_description
 from src.scoring import evaluate_item
 from src.state import JsonState
 
@@ -98,6 +99,12 @@ def main() -> None:
             marketplace=cfg["site"]["marketplace"],
         )
 
+        description = meta_description(title, html, cfg["site"]["marketplace"])
+        if selected:
+            seo_problems = audit_post(html)
+            if seo_problems:
+                raise ValueError(f"SEO checks failed for {slug}: {', '.join(seo_problems)}")
+
         if dry_run:
             out_dir = ROOT / "out"
             out_dir.mkdir(exist_ok=True)
@@ -135,6 +142,7 @@ def main() -> None:
             "title": title,
             "last_updated_utc": now.isoformat(),
             "qualifying_items": len(selected),
+            "seo_description": description,
         }
         print(f"[{action}] {title} -> {post.get('url', post['id'])}")
         generated += 1
