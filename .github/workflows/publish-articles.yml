@@ -1,7 +1,7 @@
 name: Publish Blogger articles
 
-# Publishes new and changed UK article files directly through the verified Blogger API.
-# The saved Blogger URL then feeds the existing X, Bluesky and Pinterest automation.
+# Temporary manual-publish fallback because Blogger write access still returns HTTP 403.
+# Reconciliation detects the live Blogger URL and then resumes X, Bluesky and Pinterest.
 on:
   workflow_dispatch:
     inputs:
@@ -15,8 +15,7 @@ on:
       - main
     paths:
       - "articles/**"
-      - "publish_articles.py"
-      - "src/blogger.py"
+      - "publish_articles_email.py"
       - "generate_ai_visuals.py"
       - "src/ai_visuals.py"
       - "publish_x.py"
@@ -115,14 +114,15 @@ jobs:
             git push
           fi
 
-      - name: Publish UK articles directly to Blogger
+      - name: Email UK article ready for manual Blogger publishing
         env:
           PYTHONPATH: .
-          BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_CLIENT_ID }}
-          BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_CLIENT_SECRET }}
-          BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
-          BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
-        run: python publish_articles.py
+          MARKET: "uk"
+          BLOGGER_EMAIL_DELIVERY_MODE: "manual"
+          SMTP_EMAIL: ${{ secrets.SMTP_EMAIL }}
+          SMTP_APP_PASSWORD: ${{ secrets.SMTP_APP_PASSWORD }}
+          READY_TO_PUBLISH_EMAIL: ${{ secrets.READY_TO_PUBLISH_EMAIL }}
+        run: python publish_articles_email.py
 
       - name: Generate Pinterest RSS feed
         env:
