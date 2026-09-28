@@ -1,8 +1,7 @@
 name: Publish Blogger articles
 
-# Temporary manual-publish fallback while the Blogger API appeal is unresolved.
-# New UK article files are emailed to the owner ready to paste into Blogger.
-# A separate reconciliation workflow detects the published URL and resumes X/Pinterest.
+# Publishes new and changed UK article files directly through the verified Blogger API.
+# The saved Blogger URL then feeds the existing X, Bluesky and Pinterest automation.
 on:
   workflow_dispatch:
     inputs:
@@ -16,7 +15,8 @@ on:
       - main
     paths:
       - "articles/**"
-      - "publish_articles_email.py"
+      - "publish_articles.py"
+      - "src/blogger.py"
       - "generate_ai_visuals.py"
       - "src/ai_visuals.py"
       - "publish_x.py"
@@ -115,15 +115,14 @@ jobs:
             git push
           fi
 
-      - name: Email UK article ready for manual Blogger publishing
+      - name: Publish UK articles directly to Blogger
         env:
           PYTHONPATH: .
-          MARKET: "uk"
-          BLOGGER_EMAIL_DELIVERY_MODE: "manual"
-          SMTP_EMAIL: ${{ secrets.SMTP_EMAIL }}
-          SMTP_APP_PASSWORD: ${{ secrets.SMTP_APP_PASSWORD }}
-          READY_TO_PUBLISH_EMAIL: ${{ secrets.READY_TO_PUBLISH_EMAIL }}
-        run: python publish_articles_email.py
+          BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_CLIENT_ID }}
+          BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_CLIENT_SECRET }}
+          BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
+          BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
+        run: python publish_articles.py
 
       - name: Generate Pinterest RSS feed
         env:
@@ -181,7 +180,7 @@ jobs:
               exit 0
             fi
 
-            git commit -m "Update UK email publication state and Pinterest feed"
+            git commit -m "Update UK publication state and Pinterest feed"
 
             if git push origin HEAD:main; then
               echo "UK publication state saved successfully."
