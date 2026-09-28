@@ -44,6 +44,12 @@ jobs:
           EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
           EPN_CAMPAIGN_ID: ${{ secrets.EPN_CAMPAIGN_ID }}
           EPN_US_CAMPAIGN_ID: ${{ secrets.EPN_US_CAMPAIGN_ID }}
+          RAKUTEN_UK_CLIENT_ID: ${{ secrets.RAKUTEN_UK_CLIENT_ID }}
+          RAKUTEN_UK_CLIENT_SECRET: ${{ secrets.RAKUTEN_UK_CLIENT_SECRET }}
+          RAKUTEN_UK_ACCOUNT_ID: ${{ secrets.RAKUTEN_UK_ACCOUNT_ID }}
+          RAKUTEN_US_CLIENT_ID: ${{ secrets.RAKUTEN_US_CLIENT_ID }}
+          RAKUTEN_US_CLIENT_SECRET: ${{ secrets.RAKUTEN_US_CLIENT_SECRET }}
+          RAKUTEN_US_ACCOUNT_ID: ${{ secrets.RAKUTEN_US_ACCOUNT_ID }}
         run: python generate_daily_articles.py
 
       - name: Save new daily articles

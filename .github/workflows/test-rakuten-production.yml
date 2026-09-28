@@ -1,0 +1,33 @@
+name: Test Rakuten production API
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-rakuten:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Verify UK Rakuten Product Search
+        env:
+          PYTHONPATH: .
+          RAKUTEN_UK_CLIENT_ID: ${{ secrets.RAKUTEN_UK_CLIENT_ID }}
+          RAKUTEN_UK_CLIENT_SECRET: ${{ secrets.RAKUTEN_UK_CLIENT_SECRET }}
+          RAKUTEN_UK_ACCOUNT_ID: ${{ secrets.RAKUTEN_UK_ACCOUNT_ID }}
+        run: python scripts/test_rakuten_live.py --market uk
+      - name: Verify USA Rakuten Product Search
+        env:
+          PYTHONPATH: .
+          RAKUTEN_US_CLIENT_ID: ${{ secrets.RAKUTEN_US_CLIENT_ID }}
+          RAKUTEN_US_CLIENT_SECRET: ${{ secrets.RAKUTEN_US_CLIENT_SECRET }}
+          RAKUTEN_US_ACCOUNT_ID: ${{ secrets.RAKUTEN_US_ACCOUNT_ID }}
+        run: python scripts/test_rakuten_live.py --market us
