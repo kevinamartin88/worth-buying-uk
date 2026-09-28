@@ -1,0 +1,97 @@
+from __future__ import annotations
+
+import argparse
+import os
+from urllib.parse import urlsplit
+
+from google.oauth2.credentials import Credentials
+from googleapiclient.discovery import build
+
+
+BLOGGER_SCOPE = "https://www.googleapis.com/auth/blogger"
+TOKEN_URI = "https://oauth2.googleapis.com/token"
+
+
+def required_env(name: str) -> str:
+    value = os.getenv(name, "").strip()
+    if not value:
+        raise RuntimeError(f"Missing required environment variable: {name}")
+    return value
+
+
+def normalise_host(url: str) -> str:
+    return urlsplit(url).netloc.casefold().split(":", 1)[0]
+
+
+def verify_connection(market: str, expected_host: str) -> None:
+    prefix = "BLOGGER" if market == "uk" else "BLOGGER_US"
+    client_id = required_env(f"{prefix}_CLIENT_ID")
+    client_secret = required_env(f"{prefix}_CLIENT_SECRET")
+    refresh_token = required_env(f"{prefix}_REFRESH_TOKEN")
+    expected_blog_id = required_env(f"{prefix}_BLOG_ID")
+
+    credentials = Credentials(
+        token=None,
+        refresh_token=refresh_token,
+        token_uri=TOKEN_URI,
+        client_id=client_id,
+        client_secret=client_secret,
+        scopes=[BLOGGER_SCOPE],
+    )
+    service = build("blogger", "v3", credentials=credentials, cache_discovery=False)
+    blogs = service.blogs().listByUser(userId="self").execute().get("items", [])
+
+    matching_blog = next(
+        (blog for blog in blogs if normalise_host(str(blog.get("url", ""))) == expected_host),
+        None,
+    )
+    if not matching_blog:
+        visible_hosts = sorted(
+            host
+            for blog in blogs
+            if (host := normalise_host(str(blog.get("url", ""))))
+        )
+        raise RuntimeError(
+            f"{market.upper()} token cannot see {expected_host}. "
+            f"Visible blog hosts: {', '.join(visible_hosts) or 'none'}"
+        )
+
+    actual_blog_id = str(matching_blog.get("id", ""))
+    if actual_blog_id != expected_blog_id:
+        raise RuntimeError(
+            f"{market.upper()} blog ID secret does not match the {expected_host} blog."
+        )
+
+    user_info = (
+        service.blogUserInfos()
+        .get(userId="self", blogId=actual_blog_id)
+        .execute()
+    )
+    per_blog = user_info.get("blog_user_info") or user_info.get("blogUserInfo") or {}
+    has_admin_access = per_blog.get("hasAdminAccess")
+    if has_admin_access is False:
+        raise RuntimeError(f"{market.upper()} token does not have admin access to {expected_host}.")
+
+    print(
+        f"[ok] {market.upper()} Blogger OAuth connected to {expected_host}; "
+        f"admin_access={has_admin_access}"
+    )
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Verify a Blogger OAuth token and blog target without creating or editing posts."
+    )
+    parser.add_argument("--market", choices=("uk", "us"), required=True)
+    args = parser.parse_args()
+
+    expected_host = (
+        "worthbuyinguk.blogspot.com"
+        if args.market == "uk"
+        else "worthbuyingusa.blogspot.com"
+    )
+    verify_connection(args.market, expected_host)
+
+
+if __name__ == "__main__":
+    main()
