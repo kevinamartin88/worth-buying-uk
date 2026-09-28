@@ -122,6 +122,17 @@ jobs:
           PYTHONPATH: .
         run: python generate_pinterest_feed_us.py
 
+      - name: Check USA article discovery and Search Console
+        continue-on-error: true
+        env:
+          PYTHONPATH: .
+          GSC_CLIENT_ID: ${{ secrets.GSC_CLIENT_ID }}
+          GSC_CLIENT_SECRET: ${{ secrets.GSC_CLIENT_SECRET }}
+          GSC_REFRESH_TOKEN: ${{ secrets.GSC_REFRESH_TOKEN }}
+          GSC_WRITE_REFRESH_TOKEN: ${{ secrets.GSC_WRITE_REFRESH_TOKEN }}
+          GSC_US_SITE_URL: ${{ secrets.GSC_US_SITE_URL }}
+        run: python post_publish_seo.py --market us
+
       - name: Publish new USA articles to X through Buffer
         env:
           PYTHONPATH: .

@@ -8,13 +8,14 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 
 
-SCOPES = ["https://www.googleapis.com/auth/webmasters.readonly"]
+READ_SCOPE = "https://www.googleapis.com/auth/webmasters.readonly"
+WRITE_SCOPE = "https://www.googleapis.com/auth/webmasters"
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(
         description=(
-            "Create a read-only Google Search Console OAuth refresh token and "
+            "Create a Google Search Console OAuth refresh token and "
             "show the verified properties visible to the authenticated account."
         )
     )
@@ -22,6 +23,11 @@ def main() -> None:
         "--client-secrets",
         required=True,
         help="Path to an OAuth Desktop client JSON downloaded from Google Cloud Console.",
+    )
+    parser.add_argument(
+        "--write-sitemaps",
+        action="store_true",
+        help="Request a separate write-scoped token for optional sitemap submission.",
     )
     args = parser.parse_args()
 
@@ -35,7 +41,7 @@ def main() -> None:
 
     flow = InstalledAppFlow.from_client_secrets_file(
         str(secrets_path),
-        scopes=SCOPES,
+        scopes=[WRITE_SCOPE if args.write_sitemaps else READ_SCOPE],
     )
     credentials = flow.run_local_server(
         host="localhost",
@@ -64,7 +70,8 @@ def main() -> None:
     print("\n=== Save these as GitHub Actions secrets ===")
     print("GSC_CLIENT_ID=" + str(desktop["client_id"]))
     print("GSC_CLIENT_SECRET=" + str(desktop["client_secret"]))
-    print("GSC_REFRESH_TOKEN=" + str(credentials.refresh_token))
+    token_name = "GSC_WRITE_REFRESH_TOKEN" if args.write_sitemaps else "GSC_REFRESH_TOKEN"
+    print(token_name + "=" + str(credentials.refresh_token))
 
     print("\n=== Search Console properties visible to this account ===")
     if not sites:
