@@ -25,6 +25,8 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - name: Run Rakuten unit and integration safeguards
+        env:
+          PYTHONPATH: .
         run: pytest -q tests/test_rakuten.py tests/test_daily_demand_gate.py
       - name: Verify UK Rakuten Product Search
         if: github.event_name == 'workflow_dispatch'
