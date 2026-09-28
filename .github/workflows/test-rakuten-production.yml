@@ -2,6 +2,13 @@ name: Test Rakuten production API
 
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - "src/rakuten.py"
+      - "generate_daily_articles.py"
+      - "scripts/test_rakuten_live.py"
+      - "tests/test_rakuten.py"
+      - ".github/workflows/test-rakuten-production.yml"
 
 permissions:
   contents: read
@@ -17,7 +24,10 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: pip install -r requirements.txt
+      - name: Run Rakuten unit and integration safeguards
+        run: pytest -q tests/test_rakuten.py tests/test_daily_demand_gate.py
       - name: Verify UK Rakuten Product Search
+        if: github.event_name == 'workflow_dispatch'
         env:
           PYTHONPATH: .
           RAKUTEN_UK_CLIENT_ID: ${{ secrets.RAKUTEN_UK_CLIENT_ID }}
@@ -25,6 +35,7 @@ jobs:
           RAKUTEN_UK_ACCOUNT_ID: ${{ secrets.RAKUTEN_UK_ACCOUNT_ID }}
         run: python scripts/test_rakuten_live.py --market uk
       - name: Verify USA Rakuten Product Search
+        if: github.event_name == 'workflow_dispatch'
         env:
           PYTHONPATH: .
           RAKUTEN_US_CLIENT_ID: ${{ secrets.RAKUTEN_US_CLIENT_ID }}
