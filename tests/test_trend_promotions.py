@@ -47,11 +47,10 @@ def test_plural_air_fryer_match():
     assert score_topic_against_trend(topic, {"query": "large family airfryers", "traffic": 100_000}) >= 45
 
 
-def test_fresh_trend_controls_new_guide_when_search_console_ranks_other_topic():
+def test_fresh_trend_controls_new_guide_when_shopping_data_unavailable():
     family = next(topic for topic in TOPICS if topic[0] == "large-capacity-air-fryers")
-    television = next(topic for topic in TOPICS if topic[0] == "tvs")
     with patch("generate_daily_articles.topic_already_covered", return_value=False), patch(
-        "generate_daily_articles.rank_topics_by_search_console", return_value=[(television, {"score": 99})]
+        "generate_daily_articles.rank_topics_by_google_shopping", return_value=[]
     ), patch(
         "generate_daily_articles.rank_topics_by_trends",
         return_value=[(family, {"query": "large family airfryers", "score": 75, "traffic": 100_000})],
