@@ -11,6 +11,7 @@ from urllib.parse import quote_plus
 from src.ebay import EbayClient
 from src.google_trends import rank_topics_by_trends, trend_keyword_for_title
 from src.google_shopping_trends import rank_topics_by_google_shopping
+from src.rakuten import RakutenClient, RakutenProduct
 
 
 ROOT = Path(__file__).resolve().parent
@@ -820,6 +821,23 @@ def discount_text(item: dict) -> str:
     return ""
 
 
+def rakuten_section(product: RakutenProduct | None, market: str) -> str:
+    if product is None:
+        return ""
+    price = ""
+    if product.price:
+        symbol = "£" if market == "uk" else "$"
+        price = f" (listed at {symbol}{html.escape(product.price)} when checked)"
+    return (
+        '<h2>Another approved retailer worth comparing</h2>\n'
+        f'<p><strong>{html.escape(product.merchant)}:</strong> '
+        f'{html.escape(product.name)}{price}. Check the current price, specification, delivery and returns '
+        'on the retailer page.</p>\n'
+        f'<p><a href="{html.escape(product.url, quote=True)}" rel="sponsored nofollow">'
+        f'View at {html.escape(product.merchant)} (Ad)</a></p>\n'
+    )
+
+
 def live_sections(items: list[dict], market: str, topic_name: str, query: str) -> str:
     parts: list[str] = []
     retailer = "eBay UK" if market == "uk" else "eBay"
@@ -908,6 +926,17 @@ def build_article(
         print(f"[daily-warning] {market.upper()} eBay lookup failed for {display}: {type(exc).__name__}: {exc}")
         picks = []
 
+    rakuten_product = None
+    try:
+        rakuten = RakutenClient.for_market(market)
+        if rakuten is not None:
+            rakuten_product = rakuten.search_one(query)
+    except Exception as exc:
+        # Rakuten is an optional third retailer. Its outage, a pending
+        # advertiser relationship or an expired token must never block the
+        # established Amazon/eBay publishing path.
+        print(f"[daily-warning] {market.upper()} Rakuten lookup skipped: {type(exc).__name__}: {exc}")
+
     live = len(picks) >= 3
     sections = (
         live_sections(picks, market, display, query)
@@ -961,6 +990,7 @@ def build_article(
         f"{quick_picks_html(picks, market) if live else ''}"
         f"<h2>{'Current picks worth comparing' if live else 'Current retailer searches worth checking'}</h2>\n"
         f"{sections}\n"
+        f"{rakuten_section(rakuten_product, market)}"
         "<h2>How to choose the right option</h2>\n"
         f"<p>The best {html.escape(display.lower())} for you depends on your budget, how often you will use it "
         "and which features genuinely matter. Use the checks below to compare equivalent models rather than choosing "
@@ -1023,6 +1053,8 @@ def build_article(
             "topic": key,
             "live_ebay_picks": live,
             "pick_count": len(picks),
+            "rakuten_link_added": rakuten_product is not None,
+            "rakuten_merchant": rakuten_product.merchant if rakuten_product else None,
             "article_directory": directory_name,
         },
     }

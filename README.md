@@ -225,7 +225,30 @@ BLOGGER_CLIENT_ID
 BLOGGER_CLIENT_SECRET
 BLOGGER_REFRESH_TOKEN
 BLOGGER_BLOG_ID
+RAKUTEN_UK_CLIENT_ID
+RAKUTEN_UK_CLIENT_SECRET
+RAKUTEN_UK_ACCOUNT_ID
+RAKUTEN_US_CLIENT_ID
+RAKUTEN_US_CLIENT_SECRET
+RAKUTEN_US_ACCOUNT_ID
 ```
+
+These are the application credentials and account IDs from Rakuten Advertising's
+Developer Portal for the Worth Buying UK and Worth Buying USA publisher accounts.
+The daily creator exchanges each three-part set for a short-lived access token and
+uses it only for that account's Product Search. Credentials and access tokens are
+never written to files or logs, and the accounts are never crossed.
+
+Rakuten is optional: if a complete regional credential set is absent, token
+creation or the API is unavailable, or no approved advertiser returns a valid
+product in GBP/UK or USD/USA, the existing Amazon and eBay links are published
+unchanged. Pending or unapproved advertisers are never forced into an article.
+
+After saving the secret, open **Actions → Test Rakuten production API → Run
+workflow**. The test searches both accounts for `air fryer` and reports only
+whether a fresh access token worked and a valid tracked product in the correct
+currency was returned. It prints only the advertiser name—not credentials,
+access tokens, link URLs, SKUs or the raw API response.
 
 The eBay values are:
 
