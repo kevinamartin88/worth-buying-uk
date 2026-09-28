@@ -1,0 +1,65 @@
+name: Weekly Savvy Buyer Saturday articles
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 07:30 UTC each Saturday, after the normal 06:30 daily buying-guide run.
+    - cron: "30 7 * * 6"
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: worth-buying-repo-writes
+  cancel-in-progress: false
+
+jobs:
+  create-savvy-buyer-articles:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Test the 52-week article rotation
+        env:
+          PYTHONPATH: .
+        run: pytest -q tests/test_weekly_savvy_articles.py
+
+      - name: Create one UK and one USA Savvy Buyer article
+        run: python generate_weekly_savvy_articles.py
+
+      - name: Save the weekly articles
+        id: save
+        shell: bash
+        run: |
+          git add articles articles-us state/weekly_savvy_buyer.json
+          if git diff --cached --quiet; then
+            echo "No new weekly articles to commit."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git config user.name "worth-buying-savvy-buyer-bot"
+          git config user.email "worth-buying-savvy-buyer-bot@users.noreply.github.com"
+          git commit -m "Add weekly UK and USA Savvy Buyer articles"
+          git pull --rebase origin main
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Start UK and USA publishing workflows
+        if: steps.save.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run publish-articles.yml --ref main -f chain_usa=true
