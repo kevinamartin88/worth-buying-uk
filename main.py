@@ -8,6 +8,7 @@ import yaml
 
 from src.ebay import EbayClient
 from src.render import render_post
+from src.seo import audit_post, meta_description
 from src.scoring import evaluate_item
 from src.state import JsonState
 
@@ -97,6 +98,14 @@ def main() -> None:
             generated_at=now,
             marketplace=cfg["site"]["marketplace"],
         )
+        should_publish = bool(selected) or bool(cfg["publishing"].get("publish_when_no_items", True))
+        if not dry_run and not should_publish:
+            print(f"[skip] {slug}: no qualifying items")
+            continue
+        seo_problems = audit_post(html)
+        if seo_problems:
+            raise ValueError(f"SEO checks failed for {slug}: {', '.join(seo_problems)}")
+        description = meta_description(title, html, cfg["site"]["marketplace"])
 
         if dry_run:
             out_dir = ROOT / "out"
@@ -108,11 +117,6 @@ def main() -> None:
             )
             print(f"[dry-run] wrote {out_path}")
             generated += 1
-            continue
-
-        should_publish = bool(selected) or bool(cfg["publishing"].get("publish_when_no_items", True))
-        if not should_publish:
-            print(f"[skip] {slug}: no qualifying items")
             continue
 
         known_post_id = publish_state.data.get(slug, {}).get("post_id")
@@ -135,6 +139,7 @@ def main() -> None:
             "title": title,
             "last_updated_utc": now.isoformat(),
             "qualifying_items": len(selected),
+            "seo_description": description,
         }
         print(f"[{action}] {title} -> {post.get('url', post['id'])}")
         generated += 1
