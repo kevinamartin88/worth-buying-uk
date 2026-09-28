@@ -86,9 +86,9 @@ def main() -> None:
     args = parser.parse_args()
 
     expected_host = (
-        "worthbuyinguk.blogspot.com"
+        "www.worthbuyinguk.co.uk"
         if args.market == "uk"
-        else "worthbuyingusa.blogspot.com"
+        else "www.worthbuyingusa.com"
     )
     verify_connection(args.market, expected_host)
 
