@@ -14,6 +14,7 @@ from googleapiclient.http import MediaFileUpload
 
 
 YOUTUBE_UPLOAD_SCOPE = "https://www.googleapis.com/auth/youtube.upload"
+YOUTUBE_READONLY_SCOPE = "https://www.googleapis.com/auth/youtube.readonly"
 TOKEN_URI = "https://oauth2.googleapis.com/token"
 RETRIABLE_STATUS_CODES = {500, 502, 503, 504}
 
@@ -35,7 +36,7 @@ class YouTubeClient:
             token_uri=TOKEN_URI,
             client_id=auth.client_id,
             client_secret=auth.client_secret,
-            scopes=[YOUTUBE_UPLOAD_SCOPE],
+            scopes=[YOUTUBE_UPLOAD_SCOPE, YOUTUBE_READONLY_SCOPE],
         )
         credentials.refresh(Request())
         self.service = build(
