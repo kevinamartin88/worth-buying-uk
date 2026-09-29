@@ -15,6 +15,7 @@ ARTICLES_DIR = ROOT / "articles"
 STATE_PATH = ROOT / "state" / "articles_published.json"
 PINTEREST_DIR = ROOT / "assets" / "pinterest"
 RAW_BASE = "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/pinterest"
+UK_BLOG_HOSTS = {"www.worthbuyinguk.co.uk", "worthbuyinguk.blogspot.com"}
 
 UK_EPN_CAMPAIGN_ID = "5339209132"
 UK_EPN_PARAMS = {
@@ -152,6 +153,7 @@ def main() -> None:
 
     state = load_state()
     blogger = BloggerClient.from_env()
+    blogger.resolve_blog(UK_BLOG_HOSTS, "Worth Buying UK")
 
     for path in sorted(ARTICLES_DIR.glob("*.json")):
         article = json.loads(path.read_text(encoding="utf-8"))
@@ -189,12 +191,16 @@ def main() -> None:
                 if mode == "publish" and str(found.get("status", "")).upper() != "LIVE":
                     post = blogger.publish_post(post_id)
             else:
-                post = blogger.create_post(
-                    title=title,
-                    content=content,
-                    labels=labels,
-                    is_draft=(mode != "publish"),
-                )
+                try:
+                    post = blogger.create_post(
+                        title=title,
+                        content=content,
+                        labels=labels,
+                        is_draft=(mode != "publish"),
+                    )
+                except Exception:
+                    print(f"[blogger-error] Could not create UK article: {title}")
+                    raise
                 action = "created"
 
         # Blogger's create/update response includes the stored post content. Verifying
