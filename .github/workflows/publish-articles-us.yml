@@ -109,6 +109,8 @@ jobs:
           fi
 
       - name: Verify USA Blogger OAuth and blog target
+        id: blogger_preflight
+        continue-on-error: true
         env:
           PYTHONPATH: .
           BLOGGER_US_CLIENT_ID: ${{ secrets.BLOGGER_US_CLIENT_ID }}
@@ -118,6 +120,7 @@ jobs:
         run: python scripts/test_blogger_live.py --market us
 
       - name: Publish USA articles to Blogger
+        if: steps.blogger_preflight.outcome == 'success'
         env:
           PYTHONPATH: .
           BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_US_CLIENT_ID }}
@@ -131,9 +134,17 @@ jobs:
           if python publish_articles_us.py; then
             echo "USA articles published through the Blogger API."
           else
-            echo "Blogger API creation was unavailable; using the secure Mail2Blogger fallback."
-            MARKET=us BLOGGER_EMAIL_DELIVERY_MODE=mail2blogger python publish_articles_email.py
+            echo "Blogger API creation was unavailable; preparing a manual publishing package."
+            MARKET=us BLOGGER_EMAIL_DELIVERY_MODE=manual python publish_articles_email.py
           fi
+
+      - name: Prepare USA manual publishing package when Blogger is restricted
+        if: steps.blogger_preflight.outcome == 'failure'
+        env:
+          PYTHONPATH: .
+          SMTP_EMAIL: ${{ secrets.SMTP_EMAIL }}
+          SMTP_APP_PASSWORD: ${{ secrets.SMTP_APP_PASSWORD }}
+        run: MARKET=us BLOGGER_EMAIL_DELIVERY_MODE=manual python publish_articles_email.py
 
       - name: Generate USA Pinterest RSS feed
         env:
