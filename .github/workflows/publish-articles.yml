@@ -27,6 +27,10 @@ on:
       - "requirements.txt"
       - "src/buffer.py"
       - "src/bluesky.py"
+      - "publish_youtube_shorts.py"
+      - "src/youtube.py"
+      - "src/youtube_shorts.py"
+      - "assets/brand/**"
 
 permissions:
   contents: write
@@ -41,7 +45,7 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
 
     steps:
       - name: Check out repository
@@ -57,6 +61,13 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
+
+      - name: Ensure FFmpeg is available for YouTube Shorts
+        run: |
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq ffmpeg
+          fi
 
       - name: Generate AI article hero images
         env:
@@ -153,6 +164,16 @@ jobs:
           SMTP_APP_PASSWORD: ${{ secrets.SMTP_APP_PASSWORD }}
         run: MARKET=uk BLOGGER_EMAIL_DELIVERY_MODE=manual python publish_articles_email.py
 
+      - name: Publish matching UK YouTube Shorts
+        continue-on-error: true
+        env:
+          PYTHONPATH: .
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_UK_REFRESH_TOKEN: ${{ secrets.YOUTUBE_UK_REFRESH_TOKEN }}
+          YOUTUBE_PRIVACY_STATUS: public
+        run: python publish_youtube_shorts.py --market uk
+
       - name: Generate Pinterest RSS feed
         env:
           PYTHONPATH: .
@@ -196,6 +217,7 @@ jobs:
           cp state/email_published.json "$SNAPSHOT_DIR/state/email_published.json" 2>/dev/null || true
           cp state/x_published.json "$SNAPSHOT_DIR/state/x_published.json" 2>/dev/null || true
           cp state/bluesky_published.json "$SNAPSHOT_DIR/state/bluesky_published.json" 2>/dev/null || true
+          cp state/youtube_uk_published.json "$SNAPSHOT_DIR/state/youtube_uk_published.json" 2>/dev/null || true
 
           git config user.name "worth-buying-uk-bot"
           git config user.email "worth-buying-uk-bot@users.noreply.github.com"
@@ -211,11 +233,12 @@ jobs:
               state/articles_published.json \
               state/email_published.json \
               state/x_published.json \
-              state/bluesky_published.json
+              state/bluesky_published.json \
+              state/youtube_uk_published.json
 
             PYTHONPATH=. python generate_pinterest_feed.py
 
-            git add state/articles_published.json state/email_published.json state/x_published.json state/bluesky_published.json pinterest-feed.xml
+            git add state/articles_published.json state/email_published.json state/x_published.json state/bluesky_published.json state/youtube_uk_published.json pinterest-feed.xml
 
             if git diff --cached --quiet; then
               echo "No publication state or Pinterest feed changes to commit."
