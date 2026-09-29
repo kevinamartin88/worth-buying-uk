@@ -9,6 +9,7 @@ from googleapiclient.discovery import build
 
 BLOGGER_SCOPE = "https://www.googleapis.com/auth/blogger"
 TOKEN_URI = "https://oauth2.googleapis.com/token"
+API_RETRIES = 4
 
 
 class BloggerClient:
@@ -55,7 +56,7 @@ class BloggerClient:
         blogs = (
             self.service.blogs()
             .listByUser(userId="self")
-            .execute()
+            .execute(num_retries=API_RETRIES)
             .get("items", [])
         )
 
@@ -88,7 +89,7 @@ class BloggerClient:
         info = (
             self.service.blogUserInfos()
             .get(userId="self", blogId=self.blog_id)
-            .execute()
+            .execute(num_retries=API_RETRIES)
         )
         per_user = info.get("blog_user_info") or info.get("blogUserInfo") or {}
         if per_user.get("hasAdminAccess") is False:
@@ -116,7 +117,7 @@ class BloggerClient:
         post = (
             self.service.posts()
             .insert(blogId=self.blog_id, body=body, isDraft=True)
-            .execute()
+            .execute(num_retries=API_RETRIES)
         )
         if is_draft:
             return post
@@ -135,21 +136,21 @@ class BloggerClient:
         return (
             self.service.posts()
             .patch(blogId=self.blog_id, postId=post_id, body=body)
-            .execute()
+            .execute(num_retries=API_RETRIES)
         )
 
     def get_post(self, post_id: str) -> dict:
         return (
             self.service.posts()
             .get(blogId=self.blog_id, postId=post_id)
-            .execute()
+            .execute(num_retries=API_RETRIES)
         )
 
     def publish_post(self, post_id: str) -> dict:
         return (
             self.service.posts()
             .publish(blogId=self.blog_id, postId=post_id)
-            .execute()
+            .execute(num_retries=API_RETRIES)
         )
 
     def find_post_by_exact_title(self, title: str):
@@ -157,7 +158,7 @@ class BloggerClient:
         result = (
             self.service.posts()
             .search(blogId=self.blog_id, q=title, fetchBodies=False)
-            .execute()
+            .execute(num_retries=API_RETRIES)
         )
         for post in result.get("items", []):
             if post.get("title") == title:
@@ -169,11 +170,11 @@ class BloggerClient:
             self.service.posts()
             .list(
                 blogId=self.blog_id,
-                status="draft",
+                status="DRAFT",
                 fetchBodies=False,
                 maxResults=50,
             )
-            .execute()
+            .execute(num_retries=API_RETRIES)
         )
         for post in drafts.get("items", []):
             if post.get("title") == title:
