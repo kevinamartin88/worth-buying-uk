@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "30 6 * * *"
+    # Backup run. The generator is date-idempotent, so this safely covers a
+    # delayed or dropped primary GitHub schedule without producing duplicates.
+    - cron: "30 7 * * *"
 
 permissions:
   contents: write

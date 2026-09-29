@@ -11,7 +11,7 @@ from src.blogger import BloggerClient
 ROOT = Path(__file__).resolve().parent
 ARTICLES_DIR = ROOT / "articles-us"
 STATE_PATH = ROOT / "state" / "articles_us_published.json"
-USA_BLOG_HOST = "worthbuyingusa.blogspot.com"
+USA_BLOG_HOSTS = {"www.worthbuyingusa.com", "worthbuyingusa.blogspot.com"}
 
 US_EPN_PARAMS = {
     "mkcid": "1",
@@ -92,43 +92,7 @@ def add_us_amazon_tracking(content: str) -> str:
 
 
 def resolve_usa_blog(blogger: BloggerClient) -> None:
-    """Resolve the USA blog from the authenticated Google account by URL.
-
-    This avoids publishing failures caused by a stale or incorrect numeric
-    BLOGGER_US_BLOG_ID secret while still ensuring we only target Worth Buying USA.
-    """
-    blogs = blogger.service.blogs().listByUser(userId="self").execute().get("items", [])
-
-    for blog in blogs:
-        url = str(blog.get("url", ""))
-        host = urlsplit(url).netloc.casefold().split(":", 1)[0]
-        if host == USA_BLOG_HOST:
-            blogger.blog_id = str(blog["id"])
-            print(f"[blog] Using {blog.get('name', 'Worth Buying USA')} ({url})")
-
-            # Ask Blogger for the authenticated user's per-blog permissions.
-            # This helps distinguish an OAuth/account problem from an API-side
-            # write restriction when posts.insert returns HTTP 403.
-            try:
-                info = (
-                    blogger.service.blogUserInfos()
-                    .get(userId="self", blogId=blogger.blog_id)
-                    .execute()
-                )
-                per_user = info.get("blog_user_info") or info.get("blogUserInfo") or {}
-                print(f"[blog] API admin access: {per_user.get('hasAdminAccess')}")
-            except Exception as exc:
-                print(f"[blog] Could not read API admin flag: {type(exc).__name__}: {exc}")
-            return
-
-    available = ", ".join(
-        f"{blog.get('name', 'Unnamed')} ({blog.get('url', 'no URL')})" for blog in blogs
-    ) or "none"
-    raise RuntimeError(
-        "The authenticated Google account cannot see Worth Buying USA. "
-        f"Blogs visible to this token: {available}. "
-        "A Blogger OAuth token from an owner/admin of worthbuyingusa.blogspot.com is required."
-    )
+    blogger.resolve_blog(USA_BLOG_HOSTS, "Worth Buying USA")
 
 
 def main() -> None:
@@ -169,12 +133,16 @@ def main() -> None:
                 if mode == "publish" and str(found.get("status", "")).upper() != "LIVE":
                     post = blogger.publish_post(post_id)
             else:
-                post = blogger.create_post(
-                    title,
-                    content,
-                    labels,
-                    is_draft=(mode != "publish"),
-                )
+                try:
+                    post = blogger.create_post(
+                        title,
+                        content,
+                        labels,
+                        is_draft=(mode != "publish"),
+                    )
+                except Exception:
+                    print(f"[blogger-error] Could not create USA article: {title}")
+                    raise
                 action = "created"
 
         state[slug] = {
