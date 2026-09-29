@@ -92,8 +92,8 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-non-slip-hangers-worth-buying-in.html"
   },
   "uk:best-portable-heaters-worth-buying-uk-2026": {
-    "delivery_mode": "mail2blogger",
-    "delivery_status": "awaiting_public_url",
+    "delivery_mode": "manual",
+    "delivery_status": "published",
     "last_sent_at": "2026-09-29T07:59:36.543978+00:00",
     "market": "uk",
     "primary_category": "Home & Kitchen",
@@ -101,7 +101,8 @@
     "sent": true,
     "source_file": "best-portable-heaters-worth-buying-uk-2026.json",
     "source_sha": "2026-09-29-portable-heaters-uk-daily-v4",
-    "title": "Best Portable Heaters Worth Buying in the UK (2026)"
+    "title": "Best Portable Heaters Worth Buying in the UK (2026)",
+    "url": "https://www.worthbuyinguk.co.uk/2026/09/best-portable-heaters-worth-buying-in.html"
   },
   "uk:best-robot-vacuum-cleaners-worth-buying-uk-2026": {
     "delivery_mode": "manual",
