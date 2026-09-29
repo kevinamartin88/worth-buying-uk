@@ -117,14 +117,23 @@ jobs:
           BLOGGER_US_BLOG_ID: ${{ secrets.BLOGGER_US_BLOG_ID }}
         run: python scripts/test_blogger_live.py --market us
 
-      - name: Publish USA articles directly to Blogger
+      - name: Publish USA articles to Blogger
         env:
           PYTHONPATH: .
           BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_US_CLIENT_ID }}
           BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_US_CLIENT_SECRET }}
           BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_US_REFRESH_TOKEN }}
           BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_US_BLOG_ID }}
-        run: python publish_articles_us.py
+          SMTP_EMAIL: ${{ secrets.SMTP_EMAIL }}
+          SMTP_APP_PASSWORD: ${{ secrets.SMTP_APP_PASSWORD }}
+          BLOGGER_US_EMAIL_POST_ADDRESS: ${{ secrets.BLOGGER_US_EMAIL_POST_ADDRESS }}
+        run: |
+          if python publish_articles_us.py; then
+            echo "USA articles published through the Blogger API."
+          else
+            echo "Blogger API creation was unavailable; using the secure Mail2Blogger fallback."
+            MARKET=us BLOGGER_EMAIL_DELIVERY_MODE=mail2blogger python publish_articles_email.py
+          fi
 
       - name: Generate USA Pinterest RSS feed
         env:
