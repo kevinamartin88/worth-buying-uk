@@ -1,7 +1,7 @@
 name: Publish USA Blogger articles
 
-# Temporary manual-publish fallback because Blogger write access is not yet available.
-# Reconciliation detects the live Blogger URL and then resumes X, Bluesky and Pinterest.
+# Publishes new and changed USA article files directly through the verified Blogger API.
+# Posts are staged as drafts before going live, then feed X, Bluesky and Pinterest.
 on:
   workflow_dispatch:
   push:
@@ -9,7 +9,8 @@ on:
       - main
     paths:
       - "articles-us/**"
-      - "publish_articles_email.py"
+      - "publish_articles_us.py"
+      - "src/blogger.py"
       - "generate_ai_visuals.py"
       - "src/ai_visuals.py"
       - "publish_x_us.py"
@@ -107,15 +108,23 @@ jobs:
             git push
           fi
 
-      - name: Email USA article ready for manual Blogger publishing
+      - name: Verify USA Blogger OAuth and blog target
         env:
           PYTHONPATH: .
-          MARKET: "us"
-          BLOGGER_EMAIL_DELIVERY_MODE: "manual"
-          SMTP_EMAIL: ${{ secrets.SMTP_EMAIL }}
-          SMTP_APP_PASSWORD: ${{ secrets.SMTP_APP_PASSWORD }}
-          READY_TO_PUBLISH_EMAIL: ${{ secrets.READY_TO_PUBLISH_EMAIL }}
-        run: python publish_articles_email.py
+          BLOGGER_US_CLIENT_ID: ${{ secrets.BLOGGER_US_CLIENT_ID }}
+          BLOGGER_US_CLIENT_SECRET: ${{ secrets.BLOGGER_US_CLIENT_SECRET }}
+          BLOGGER_US_REFRESH_TOKEN: ${{ secrets.BLOGGER_US_REFRESH_TOKEN }}
+          BLOGGER_US_BLOG_ID: ${{ secrets.BLOGGER_US_BLOG_ID }}
+        run: python scripts/test_blogger_live.py --market us
+
+      - name: Publish USA articles directly to Blogger
+        env:
+          PYTHONPATH: .
+          BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_US_CLIENT_ID }}
+          BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_US_CLIENT_SECRET }}
+          BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_US_REFRESH_TOKEN }}
+          BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_US_BLOG_ID }}
+        run: python publish_articles_us.py
 
       - name: Generate USA Pinterest RSS feed
         env:

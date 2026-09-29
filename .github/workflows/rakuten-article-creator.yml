@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "15 8 * * *"
+    # Backup run; the generator skips markets already completed for the day.
+    - cron: "15 9 * * *"
 
 permissions:
   contents: write
