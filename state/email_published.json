@@ -17,16 +17,17 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-air-fryers-worth-buying-in-uk-2026.html"
   },
   "uk:best-car-jump-starters-before-winter-uk-2026": {
-    "delivery_mode": "manual",
-    "delivery_status": "awaiting_manual_publish",
-    "last_sent_at": "2026-09-25T07:35:35.803221+00:00",
+    "delivery_mode": "mail2blogger",
+    "delivery_status": "published",
+    "last_sent_at": "2026-09-29T07:59:13.085588+00:00",
     "market": "uk",
     "primary_category": "Motoring",
-    "send_attempts": 1,
+    "send_attempts": 2,
     "sent": true,
     "source_file": "best-car-jump-starters-before-winter-uk-2026.json",
-    "source_sha": "2026-09-25-car-jump-starters-uk-extra-v1",
-    "title": "Best Car Jump Starters Worth Buying Before Winter in the UK (2026)"
+    "source_sha": "2026-09-25-car-jump-starters-uk-extra-v2",
+    "title": "Best Car Jump Starters Worth Buying Before Winter in the UK (2026)",
+    "url": "https://www.worthbuyinguk.co.uk/2026/09/best-car-jump-starters-worth-buying.html"
   },
   "uk:best-coffee-machines-worth-buying-uk-2026": {
     "delivery_mode": "manual",
@@ -65,16 +66,17 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-dehumidifiers-worth-buying-for.html"
   },
   "uk:best-fans-worth-buying-for-2027-uk-heatwave": {
-    "delivery_mode": "manual",
-    "delivery_status": "awaiting_manual_publish",
-    "last_sent_at": "2026-09-26T06:58:29.453932+00:00",
+    "delivery_mode": "mail2blogger",
+    "delivery_status": "published",
+    "last_sent_at": "2026-09-29T07:59:24.937680+00:00",
     "market": "uk",
     "primary_category": "Home & Kitchen",
-    "send_attempts": 1,
+    "send_attempts": 2,
     "sent": true,
     "source_file": "best-fans-worth-buying-for-2027-uk-heatwave.json",
     "source_sha": "2026-09-26-tower-fans-uk-2027-heatwave-extra-v1",
-    "title": "Best Fans Worth Buying for the 2027 UK Heatwave"
+    "title": "Best Fans Worth Buying for the 2027 UK Heatwave",
+    "url": "https://www.worthbuyinguk.co.uk/2026/09/best-fans-worth-buying-for-2027-uk.html"
   },
   "uk:best-non-slip-hangers-worth-buying-uk-2026": {
     "delivery_mode": "manual",
@@ -88,6 +90,18 @@
     "source_sha": "2026-09-27-non-slip-hangers-uk-daily-v4",
     "title": "Best Non-Slip Hangers Worth Buying in the UK (2026)",
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-non-slip-hangers-worth-buying-in.html"
+  },
+  "uk:best-portable-heaters-worth-buying-uk-2026": {
+    "delivery_mode": "mail2blogger",
+    "delivery_status": "awaiting_public_url",
+    "last_sent_at": "2026-09-29T07:59:36.543978+00:00",
+    "market": "uk",
+    "primary_category": "Home & Kitchen",
+    "send_attempts": 1,
+    "sent": true,
+    "source_file": "best-portable-heaters-worth-buying-uk-2026.json",
+    "source_sha": "2026-09-29-portable-heaters-uk-daily-v4",
+    "title": "Best Portable Heaters Worth Buying in the UK (2026)"
   },
   "uk:best-robot-vacuum-cleaners-worth-buying-uk-2026": {
     "delivery_mode": "manual",
