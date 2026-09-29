@@ -192,16 +192,17 @@
     "url": "https://www.worthbuyingusa.com/2026/09/best-air-fryers-worth-buying-in-usa-2026.html"
   },
   "us:best-car-jump-starters-before-winter-us-2026": {
-    "delivery_mode": "manual",
-    "delivery_status": "awaiting_manual_publish",
-    "last_sent_at": "2026-09-25T07:36:18.011063+00:00",
+    "delivery_mode": "mail2blogger",
+    "delivery_status": "published",
+    "last_sent_at": "2026-09-29T08:03:40.721982+00:00",
     "market": "us",
     "primary_category": "Motoring",
-    "send_attempts": 1,
+    "send_attempts": 2,
     "sent": true,
     "source_file": "best-car-jump-starters-before-winter-us-2026.json",
-    "source_sha": "2026-09-25-car-jump-starters-us-extra-v1",
-    "title": "Best Car Jump Starters Worth Buying Before Winter in the USA (2026)"
+    "source_sha": "2026-09-25-car-jump-starters-us-extra-v2",
+    "title": "Best Car Jump Starters Worth Buying Before Winter in the USA (2026)",
+    "url": "https://www.worthbuyingusa.com/2026/09/best-car-jump-starters-worth-buying.html"
   },
   "us:best-coffee-machines-worth-buying-us-2026": {
     "delivery_mode": "manual",
@@ -240,6 +241,19 @@
     "source_sha": "2026-09-24-dehumidifiers-us-daily-v3",
     "title": "Best Dehumidifiers Worth Buying for Winter in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/09/best-dehumidifiers-worth-buying-for.html"
+  },
+  "us:best-electric-blankets-worth-buying-us-2026": {
+    "delivery_mode": "mail2blogger",
+    "delivery_status": "published",
+    "last_sent_at": "2026-09-29T08:03:52.669760+00:00",
+    "market": "us",
+    "primary_category": "Home & Kitchen",
+    "send_attempts": 1,
+    "sent": true,
+    "source_file": "best-electric-blankets-worth-buying-us-2026.json",
+    "source_sha": "2026-09-29-electric-blankets-us-daily-v4",
+    "title": "Best Electric Blankets Worth Buying in the USA (2026)",
+    "url": "https://www.worthbuyingusa.com/2026/09/best-electric-blankets-worth-buying-in.html"
   },
   "us:best-iphone-18-accessories-worth-buying-us-2026": {
     "delivery_mode": "manual",
