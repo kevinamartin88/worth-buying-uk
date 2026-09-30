@@ -211,3 +211,19 @@ class BloggerClient:
             .insert(blogId=self.blog_id, body=body, isDraft=False)
             .execute(num_retries=API_RETRIES)
         )
+
+    def upsert_post(
+        self,
+        title: str,
+        content: str,
+        labels: list[str] | None = None,
+    ) -> dict:
+        """Maintain one stable post when a Blogger account cannot create Pages."""
+        existing = self.find_post_by_exact_title(title)
+        if not existing:
+            return self.create_post(title, content, labels=labels)
+        result = self.update_post(str(existing["id"]), title, content, labels=labels)
+        status = str(result.get("status") or existing.get("status") or "").casefold()
+        if status == "draft":
+            return self.publish_post(str(existing["id"]))
+        return result

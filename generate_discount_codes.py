@@ -8,6 +8,8 @@ from dataclasses import dataclass
 from datetime import date, datetime, timezone
 from urllib.parse import urlsplit
 
+from googleapiclient.errors import HttpError
+
 from generate_daily_articles import EVERGREEN_HIGH_INTENT, TOPICS
 from src.blogger import BloggerClient
 from src.ebay import EbayClient
@@ -253,10 +255,29 @@ def refresh_market(market: str) -> dict:
     offers = select_offers(collect_offers(market), today)
     blogger = BloggerClient.from_env()
     blogger.resolve_blog(EXPECTED_HOSTS[market], f"Worth Buying {market.upper()}")
-    result = blogger.upsert_page(PAGE_TITLE, render_page(offers, market, today))
+    content = render_page(offers, market, today)
+    try:
+        result = blogger.upsert_page(PAGE_TITLE, content)
+        content_type = "page"
+    except HttpError as exc:
+        if getattr(exc.resp, "status", None) != 403:
+            raise
+        # Some otherwise-admin Blogger accounts can publish Posts but Google
+        # rejects Pages API writes. Keep one stable, updateable post instead of
+        # failing the autonomous weekly refresh or generating duplicates.
+        print(
+            f"[discount-codes] {market.upper()}: Blogger Pages write was forbidden; "
+            "using one stable Discount Codes post"
+        )
+        result = blogger.upsert_post(
+            PAGE_TITLE,
+            content,
+            labels=["Discount Codes", "Deals"],
+        )
+        content_type = "post"
     print(
         f"[discount-codes] {market.upper()}: refreshed {len(offers)} verified offer(s); "
-        f"page={result.get('url', 'created/updated')}"
+        f"{content_type}={result.get('url', 'created/updated')}"
     )
     return result
 
