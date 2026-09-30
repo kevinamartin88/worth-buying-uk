@@ -187,6 +187,16 @@ def selected_topic(week: int) -> tuple[dict, tuple[str, str, str]]:
     return THEMES[index // 4], ANGLES[index % 4]
 
 
+def selected_topic_for_date(publish_date: date) -> tuple[dict, tuple[str, str, str]]:
+    """Return a different rotation entry for Monday and Saturday each week."""
+    weekday_slot = {0: 0, 5: 1}.get(publish_date.weekday())
+    if weekday_slot is None:
+        raise ValueError("Savvy Buyer articles are scheduled only for Monday and Saturday")
+    _, week, _ = publish_date.isocalendar()
+    index = (((week - 1) * 2) + weekday_slot) % 52
+    return THEMES[index // 4], ANGLES[index % 4]
+
+
 def market_details(market: str) -> dict[str, str]:
     if market == "uk":
         return {
@@ -215,14 +225,15 @@ def build_article(market: str, publish_date: date) -> dict:
     if market not in {"uk", "us"}:
         raise ValueError(f"Unsupported market: {market}")
 
-    iso_year, week, _ = publish_date.isocalendar()
-    theme, angle = selected_topic(week)
+    theme, angle = selected_topic_for_date(publish_date)
     angle_slug, angle_title, angle_promise = angle
     details = market_details(market)
     region = details["region"]
-    title = f"Savvy Buyer Saturday: {angle_title} for {theme['name'].title()} ({region})"
+    edition = publish_date.strftime("%A")
+    edition_slug = edition.casefold()
+    title = f"Savvy Buyer {edition}: {angle_title} for {theme['name'].title()} ({region})"
     slug = slugify(
-        f"savvy-buyer-{theme['slug']}-{angle_slug}-{market}-{iso_year}-week-{week:02d}"
+        f"savvy-buyer-{edition_slug}-{theme['slug']}-{angle_slug}-{market}-{publish_date.isoformat()}"
     )
     checks = theme["checks"]
     final_checks = (
@@ -233,7 +244,7 @@ def build_article(market: str, publish_date: date) -> dict:
         "I would still choose this product without the countdown, badge or claimed saving.",
     )
     content = f"""
-<p><strong>Savvy Buyer Saturday</strong> is {html.escape(details['name'])}'s weekly guide to making calmer, better-informed purchases. This week focuses on <strong>{html.escape(theme['name'])}</strong>: how to {html.escape(theme['promise'])}.</p>
+<p><strong>Savvy Buyer {html.escape(edition)}</strong> is one of {html.escape(details['name'])}'s twice-weekly guides to making calmer, better-informed purchases. This edition focuses on <strong>{html.escape(theme['name'])}</strong>: how to {html.escape(theme['promise'])}.</p>
 <p>The aim is not to find the cheapest listing at any cost. A savvy purchase balances price, suitability, seller reliability, support and the likely cost of owning the product. Use this guide as a practical framework and always check the live product information and current policies before paying.</p>
 <h2>This week's buying lesson</h2>
 <p>{html.escape(angle_promise.capitalize())}. Start by writing down what evidence would make the purchase sensible and what information would make you walk away. This small pause makes it easier to compare offers on their merits rather than reacting to urgency.</p>
@@ -264,18 +275,18 @@ def build_article(market: str, publish_date: date) -> dict:
 
     return {
         "slug": slug,
-        "source_sha": f"savvy-{iso_year}-w{week:02d}-{market}-v1",
+        "source_sha": f"savvy-{publish_date.isoformat()}-{edition_slug}-{market}-v2",
         "mode": "publish",
         "title": title,
         "labels": ["Savvy Buyer", "Buying Advice", "Consumer Tips", region],
         "pinterest_enabled": True,
         "pinterest_title": title,
-        "pinterest_subtitle": f"A practical weekly checklist for {theme['name']}",
+        "pinterest_subtitle": f"A practical buying checklist for {theme['name']}",
         "x_image_title": f"Savvy Buyer: {angle_title}",
-        "x_kicker": "SAVVY BUYER SATURDAY",
+        "x_kicker": f"SAVVY BUYER {edition.upper()}",
         "x_subtitle": f"This week's guide to {theme['name']}",
         "x_text": (
-            f"🛒 Savvy Buyer Saturday: {angle_title}\n\n"
+            f"🛒 Savvy Buyer {edition}: {angle_title}\n\n"
             f"A practical guide to {theme['name']}—what to check, warning signs to notice, "
             f"and a five-minute checklist before you buy.\n\nRead the full guide 👇\n{{url}}\n"
             "#BuyingTips #SavvyShopping"
@@ -304,12 +315,17 @@ def save_state(state: dict) -> None:
 def generate(run_date: date) -> int:
     iso_year, week, _ = run_date.isocalendar()
     key = f"{iso_year}-W{week:02d}"
+    date_key = run_date.isoformat()
     state = load_state()
     generated = 0
 
     for market in ("uk", "us"):
-        if state.get(market, {}).get("week") == key:
-            print(f"[savvy-skip] {market.upper()}: article already generated for {key}")
+        market_state = state.get(market, {})
+        generated_dates = set(market_state.get("dates", []))
+        if market_state.get("date"):
+            generated_dates.add(market_state["date"])
+        if date_key in generated_dates:
+            print(f"[savvy-skip] {market.upper()}: article already generated for {date_key}")
             continue
 
         article = build_article(market, run_date)
@@ -322,9 +338,11 @@ def generate(run_date: date) -> int:
             json.dumps(article, indent=2, ensure_ascii=False) + "\n",
             encoding="utf-8",
         )
+        generated_dates.add(date_key)
         state[market] = {
             "week": key,
-            "date": run_date.isoformat(),
+            "date": date_key,
+            "dates": sorted(generated_dates)[-104:],
             "slug": article["slug"],
             "title": article["title"],
         }

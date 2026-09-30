@@ -1,10 +1,11 @@
-name: Weekly Savvy Buyer Saturday articles
+name: Monday and Saturday Savvy Buyer articles
 
 on:
   workflow_dispatch:
   schedule:
-    # 07:30 UTC each Saturday, after the normal 06:30 daily buying-guide run.
-    - cron: "30 7 * * 6"
+    # 07:30 UTC every Monday and Saturday. This is additional to the normal
+    # daily affiliate buying-guide run, so both article types publish.
+    - cron: "30 7 * * 1,6"
 
 permissions:
   contents: write
@@ -32,12 +33,12 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Test the 52-week article rotation
+      - name: Test the twice-weekly article rotation
         env:
           PYTHONPATH: .
         run: pytest -q tests/test_weekly_savvy_articles.py
 
-      - name: Create one UK and one USA Savvy Buyer article
+      - name: Create one UK and one USA Savvy Buyer advice article
         run: python generate_weekly_savvy_articles.py
 
       - name: Save the weekly articles
@@ -53,7 +54,7 @@ jobs:
 
           git config user.name "worth-buying-savvy-buyer-bot"
           git config user.email "worth-buying-savvy-buyer-bot@users.noreply.github.com"
-          git commit -m "Add weekly UK and USA Savvy Buyer articles"
+          git commit -m "Add UK and USA Savvy Buyer advice articles"
           git pull --rebase origin main
           git push
           echo "changed=true" >> "$GITHUB_OUTPUT"
