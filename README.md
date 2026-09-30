@@ -285,6 +285,13 @@ titled **Discount Codes** and updates that same post every week. It does not cre
 a new weekly post. This preserves the permanent navigation target while avoiding
 duplicate content.
 
+While Google's service restriction blocks both Page and Post writes, the regional
+job emails the configured publishing address a ready-to-paste HTML attachment named
+`discount-codes-uk.html` or `discount-codes-us.html`. The email explains how to
+create or update the same Blogger Page manually. The job still retries the APIs on
+every Friday run, so automatic in-place updates resume without a code change when
+Google restores write access.
+
 After saving the secret, open **Actions → Test Rakuten production API → Run
 workflow**. The test searches both accounts for `air fryer` and reports only
 whether a fresh access token worked and a valid tracked product in the correct
