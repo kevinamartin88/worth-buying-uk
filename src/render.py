@@ -14,7 +14,6 @@ def render_post(
     title: str,
     niche: dict,
     items: list[dict],
-    disclosure: str,
     generated_at: datetime,
     marketplace: str,
 ) -> str:
@@ -22,7 +21,6 @@ def render_post(
     topic = html.escape(niche["name"])
     bits = [
         '<div style="max-width:900px;margin:0 auto;line-height:1.55">',
-        f'<p><strong>Affiliate disclosure:</strong> {html.escape(disclosure)}</p>',
         f'<p><strong>Last checked:</strong> {generated_at.strftime("%d %B %Y")}. We reviewed current '
         f'{html.escape(market["ebay_name"])} results for {topic}, then removed listings that did not '
         'meet the price and seller-quality rules below. Prices and availability can change, so confirm '

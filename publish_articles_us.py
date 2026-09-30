@@ -1,11 +1,13 @@
 from __future__ import annotations
 
+import hashlib
 import html
 import json
 import re
 from pathlib import Path
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
+from src.article_copy import clean_article_disclosures
 from src.blogger import BloggerClient
 
 ROOT = Path(__file__).resolve().parent
@@ -95,6 +97,18 @@ def resolve_usa_blog(blogger: BloggerClient) -> None:
     blogger.resolve_blog(USA_BLOG_HOSTS, "Worth Buying USA")
 
 
+def publish_fingerprint(article: dict, content: str) -> str:
+    payload = {
+        "title": article["title"],
+        "content": content,
+        "labels": article.get("labels", []),
+        "mode": article.get("mode", "publish").strip().lower(),
+        "source_sha": article.get("source_sha"),
+    }
+    raw = json.dumps(payload, sort_keys=True, ensure_ascii=False).encode("utf-8")
+    return hashlib.sha256(raw).hexdigest()
+
+
 def main() -> None:
     if not ARTICLES_DIR.exists():
         print("No US articles directory found.")
@@ -108,14 +122,15 @@ def main() -> None:
         article = json.loads(path.read_text(encoding="utf-8"))
         slug = article["slug"]
         title = article["title"]
-        content = add_us_amazon_tracking(
-            add_us_epn_tracking(article["content_html"])
+        content = clean_article_disclosures(
+            add_us_amazon_tracking(add_us_epn_tracking(article["content_html"]))
         )
         labels = article.get("labels", [])
         mode = article.get("mode", "publish").strip().lower()
+        fingerprint = publish_fingerprint(article, content)
 
         existing = state.get(slug)
-        if existing and existing.get("source_sha") == article.get("source_sha"):
+        if existing and existing.get("publish_fingerprint") == fingerprint:
             print(f"[skip] {slug}: unchanged")
             continue
 
@@ -151,6 +166,7 @@ def main() -> None:
             "title": title,
             "status": "published" if mode == "publish" else "draft",
             "source_sha": article.get("source_sha"),
+            "publish_fingerprint": fingerprint,
             "source_file": path.name,
         }
         print(f"[{action}] {title} ({state[slug]['status']})")

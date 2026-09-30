@@ -221,6 +221,9 @@ EBAY_CLIENT_ID
 EBAY_CLIENT_SECRET
 EPN_CAMPAIGN_ID
 EPN_US_CAMPAIGN_ID
+AMAZON_CREATORS_CLIENT_ID
+AMAZON_CREATORS_CLIENT_SECRET
+AMAZON_CREATORS_CREDENTIAL_VERSION
 BLOGGER_CLIENT_ID
 BLOGGER_CLIENT_SECRET
 BLOGGER_REFRESH_TOKEN
@@ -245,11 +248,36 @@ before creating a standalone retailer roundup. If credentials are absent, the AP
 is unavailable, or the feed is too limited, the Rakuten article is skipped. The
 normal Amazon/eBay article continues unchanged and never receives a Rakuten link.
 
+Worth Buying USA currently gives approved Sharper Image products priority when
+they are relevant to the selected topic. Other approved US retailers remain valid
+fallbacks, so the autonomous stream does not depend on a single advertiser feed.
+
 New Rakuten roundups are saved in the existing regional article directories so the
 established Blogger, X, Bluesky and Pinterest publishing chain can process them.
 Recent-topic history prevents near-duplicate roundups, while all outbound Rakuten
 links remain the tracking URLs returned by Product Search and are marked
 `sponsored nofollow`.
+
+### Weekly Discount Codes pages
+
+The **Weekly discount codes pages** workflow runs every Friday at 06:30 UTC and
+can also be started manually. It uses the existing regional Rakuten, eBay and
+Blogger secrets listed above, so no additional secret is required. It combines
+the official Rakuten Coupon Feed for approved advertisers (network 3 for the UK
+and network 1 for the USA) with discounted eBay listings returned by the existing
+production Browse API and EPN tracking setup.
+
+Each run creates or refreshes one permanent Blogger Page titled **Discount Codes**
+on each regional site. It never creates a blog post. Expired and not-yet-live
+offers are removed, genuine coupon codes are listed before no-code promotions,
+and no retailer can occupy more than three of the 30 available positions. The
+outbound URLs are validated regional Rakuten or eBay tracking links and retain
+`sponsored nofollow`. General voucher websites are not scraped or treated as
+confirmation; a code must come from an authorised feed or a retailer-owned source.
+If the feed is successfully checked but contains no current approved offers, the
+page shows a clear empty-state message instead of leaving expired codes visible.
+API or credential failures stop that regional job and leave the existing page
+untouched.
 
 After saving the secret, open **Actions → Test Rakuten production API → Run
 workflow**. The test searches both accounts for `air fryer` and reports only
@@ -263,6 +291,17 @@ The eBay values are:
 - `EBAY_CLIENT_SECRET`: the matching production Cert ID (Client Secret).
 - `EPN_CAMPAIGN_ID`: the UK EPN campaign ID used to request UK affiliate URLs.
 - `EPN_US_CAMPAIGN_ID`: the USA EPN campaign ID used to request USA affiliate URLs.
+
+The optional Amazon Creators API values are:
+
+- `AMAZON_CREATORS_CLIENT_ID`: the Credential ID created in Associates Central.
+- `AMAZON_CREATORS_CLIENT_SECRET`: the matching credential secret.
+- `AMAZON_CREATORS_CREDENTIAL_VERSION`: `3.1`, `3.2` or `3.3` as shown with the credential.
+
+When these three secrets are present, daily guides request Amazon's current featured-offer
+price and show it beside the eBay price only when the exact model number also matches the
+Amazon result. If access is unavailable or the model cannot be verified, generation continues
+with the eBay price and the normal Amazon search link. Credentials and tokens are never logged.
 
 The UK live test requires the first three. The US campaign secret is required only
 when US live-listing generation is enabled. The same production eBay application
@@ -365,7 +404,9 @@ If there are too few good items, the page says so instead of fabricating bargain
 
 ## Affiliate disclosure
 
-Every page includes a clear disclosure before any affiliate links:
+The Blogger themes carry a clear, site-wide affiliate disclosure. Generated
+article bodies do not repeat that wording on every post, but retailer links
+remain marked with `rel="sponsored nofollow"` and retain the correct tracking.
 
 > This page contains affiliate links. If you buy through them, I may earn a
 > commission at no extra cost to you.

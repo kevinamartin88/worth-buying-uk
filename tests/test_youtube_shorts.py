@@ -1,4 +1,5 @@
 from src.youtube_shorts import (
+    article_short_points,
     extract_short_points,
     publication_fingerprint,
     short_description,
@@ -31,8 +32,19 @@ def test_short_metadata_is_regional_and_within_youtube_limits():
         "Read the complete guide: https://www.worthbuyinguk.co.uk/post"
     )
     assert "worthbuyinguk.co.uk/post" in description
-    assert "affiliate links" in description
+    assert "affiliate" not in description.casefold()
     assert "#Shorts" in description
+
+
+def test_generated_price_points_take_priority_over_headings():
+    article = {
+        "title": "Air fryers",
+        "content_html": "<h3>Fallback heading</h3>",
+        "youtube_short_points": ["New with tags — eBay £89.99 — Amazon £99.99"],
+    }
+    assert article_short_points(article) == [
+        "New with tags — eBay £89.99 — Amazon £99.99"
+    ]
 
 
 def test_publication_fingerprint_changes_with_blogger_url():

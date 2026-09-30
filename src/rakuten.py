@@ -11,6 +11,7 @@ import requests
 
 
 PRODUCT_SEARCH_URL = "https://api.linksynergy.com/productsearch/1.0"
+COUPON_FEED_URL = "https://api.linksynergy.com/coupon/1.0"
 TOKEN_URL = "https://api.linksynergy.com/token"
 TRACKING_HOST_SUFFIXES = (".linksynergy.com", ".rakutenadvertising.com")
 
@@ -25,11 +26,39 @@ class RakutenProduct:
     advertiser_id: str = ""
 
 
+@dataclass(frozen=True)
+class RakutenCoupon:
+    advertiser: str
+    advertiser_id: str
+    description: str
+    url: str
+    code: str = ""
+    restriction: str = ""
+    start_date: str = ""
+    end_date: str = ""
+    categories: tuple[str, ...] = ()
+    promotion_types: tuple[str, ...] = ()
+
+
 def _text(element: ET.Element, name: str) -> str:
     child = element.find(name)
     if child is None:
         child = element.find(f"{{*}}{name}")
     return " ".join((child.text or "").split()) if child is not None else ""
+
+
+def _texts(element: ET.Element, container_name: str) -> tuple[str, ...]:
+    container = element.find(container_name)
+    if container is None:
+        container = element.find(f"{{*}}{container_name}")
+    if container is None:
+        return ()
+    values: list[str] = []
+    for child in list(container):
+        value = " ".join("".join(child.itertext()).split())
+        if value and value not in values:
+            values.append(value)
+    return tuple(values)
 
 
 def _safe_tracking_url(value: str) -> str:
@@ -158,3 +187,60 @@ class RakutenClient:
     def search_one(self, query: str) -> RakutenProduct | None:
         products = self.search(query, limit=1)
         return products[0] if products else None
+
+    def coupons(self, network: int, limit: int = 100) -> list[RakutenCoupon]:
+        """Return approved-advertiser promotions from Rakuten's Coupon Feed.
+
+        Network 1 is the US and network 3 is the UK. Links that are not Rakuten
+        tracking URLs are discarded so a malformed feed cannot inject arbitrary
+        destinations into either site.
+        """
+        if network not in {1, 3}:
+            raise ValueError("Rakuten coupon network must be 1 (US) or 3 (UK)")
+        if limit < 1:
+            return []
+
+        response = self.session.get(
+            COUPON_FEED_URL,
+            headers={"Authorization": f"Bearer {self._token()}"},
+            params={
+                "network": network,
+                "resultsperpage": min(limit, 500),
+                "pagenumber": 1,
+            },
+            timeout=30,
+        )
+        response.raise_for_status()
+        root = ET.fromstring(response.content)
+
+        offers: list[RakutenCoupon] = []
+        seen: set[tuple[str, str, str]] = set()
+        links = root.findall(".//link") + root.findall(".//{*}link")
+        for item in links:
+            url = _safe_tracking_url(_text(item, "clickurl"))
+            advertiser = _text(item, "advertisername")
+            description = _text(item, "offerdescription")
+            code = _text(item, "couponcode")
+            if code.casefold() in {"n/a", "na", "none", "no code required"}:
+                code = ""
+            key = (advertiser.casefold(), description.casefold(), code.casefold())
+            if not url or not advertiser or not description or key in seen:
+                continue
+            seen.add(key)
+            offers.append(
+                RakutenCoupon(
+                    advertiser=advertiser,
+                    advertiser_id=_text(item, "advertiserid"),
+                    description=description,
+                    url=url,
+                    code=code,
+                    restriction=_text(item, "couponrestriction"),
+                    start_date=_text(item, "offerstartdate"),
+                    end_date=_text(item, "offerenddate"),
+                    categories=_texts(item, "categories"),
+                    promotion_types=_texts(item, "promotiontypes"),
+                )
+            )
+            if len(offers) >= limit:
+                break
+        return offers

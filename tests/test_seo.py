@@ -20,7 +20,6 @@ def render(marketplace="EBAY_GB", currency="GBP"):
         title="Best air fryers",
         niche={"name": "air fryers"},
         items=[sample_item(currency)],
-        disclosure="We may earn a commission.",
         generated_at=datetime(2026, 9, 27, tzinfo=timezone.utc),
         marketplace=marketplace,
     )

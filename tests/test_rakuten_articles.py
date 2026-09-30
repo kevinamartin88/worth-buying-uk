@@ -72,3 +72,21 @@ def test_offer_gate_requires_three_relevant_products():
     assert topic is None
     assert matches == []
     assert len(client.queries) <= generator.MAX_SEARCHES_PER_MARKET
+
+
+def test_sharper_image_is_prioritized_for_usa_roundups():
+    offers = products(5) + [
+        RakutenProduct(
+            name="Example Air Fryer Sharper",
+            merchant="Sharper Image",
+            url="https://click.linksynergy.com/deeplink?id=sharper&mid=456",
+            price="129.00",
+            currency="USD",
+            advertiser_id="456",
+        )
+    ]
+
+    ranked = generator.prioritize_products(offers, "us")
+
+    assert ranked[0].merchant == "Sharper Image"
+    assert len(ranked[: generator.MAX_PRODUCTS]) == generator.MAX_PRODUCTS

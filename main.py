@@ -94,7 +94,6 @@ def main() -> None:
             title=title,
             niche=niche,
             items=selected,
-            disclosure=cfg["site"]["affiliate_disclosure"],
             generated_at=now,
             marketplace=cfg["site"]["marketplace"],
         )

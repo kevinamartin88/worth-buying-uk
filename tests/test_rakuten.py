@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import requests
+import pytest
 
 from src.rakuten import RakutenClient
 
@@ -107,3 +108,43 @@ def test_search_returns_unique_products():
 
     assert len(products) == 1
     assert products[0].name == "Example Air Fryer"
+
+
+def test_coupon_feed_returns_code_and_no_code_offers():
+    body = """<couponfeed><link>
+      <advertiserid>53731</advertiserid><advertisername>Example UK</advertisername>
+      <offerdescription>Save 20% on selected home products</offerdescription>
+      <couponcode>HOME20</couponcode><couponrestriction>Selected products only</couponrestriction>
+      <offerstartdate>2026-09-01</offerstartdate><offerenddate>2026-10-31</offerenddate>
+      <clickurl>https://click.linksynergy.com/deeplink?id=abc&amp;mid=53731</clickurl>
+      <categories><category>Home</category></categories>
+      <promotiontypes><promotiontype>Coupon Code</promotiontype></promotiontypes>
+    </link><link>
+      <advertiserid>52994</advertiserid><advertisername>Second Shop</advertisername>
+      <offerdescription>Free delivery this week</offerdescription><couponcode>N/A</couponcode>
+      <clickurl>https://click.linksynergy.com/deeplink?id=def&amp;mid=52994</clickurl>
+    </link></couponfeed>"""
+    session = FakeSession(body)
+    client = RakutenClient("client-id", "super-secret", "uk-account", "GBP", session=session)
+
+    offers = client.coupons(network=3, limit=100)
+
+    assert len(offers) == 2
+    assert offers[0].code == "HOME20"
+    assert offers[0].categories == ("Home",)
+    assert offers[0].promotion_types == ("Coupon Code",)
+    assert offers[1].code == ""
+    coupon_call = session.calls[1]
+    assert coupon_call[2]["params"] == {"network": 3, "resultsperpage": 100, "pagenumber": 1}
+    assert "super-secret" not in str(coupon_call)
+
+
+def test_coupon_feed_rejects_untrusted_links_and_invalid_network():
+    body = """<couponfeed><link><advertisername>Bad Shop</advertisername>
+      <offerdescription>Suspicious offer</offerdescription>
+      <clickurl>https://example.com/not-rakuten</clickurl></link></couponfeed>"""
+    client = RakutenClient("id", "secret", "account", "GBP", session=FakeSession(body))
+
+    assert client.coupons(network=3) == []
+    with pytest.raises(ValueError, match="network"):
+        client.coupons(network=2)

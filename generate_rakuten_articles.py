@@ -22,6 +22,10 @@ MAX_PRODUCTS = 5
 MAX_SEARCHES_PER_MARKET = 24
 RECENT_TOPIC_WINDOW = 45
 QUERY_STOPWORDS = {"and", "best", "for", "home", "inch", "pro", "smart", "the", "with"}
+PREFERRED_MERCHANTS = {
+    "uk": (),
+    "us": ("Sharper Image",),
+}
 
 
 def load_state() -> dict:
@@ -77,25 +81,32 @@ def relevant_products(products: list[RakutenProduct], query: str) -> list[Rakute
         if len(token) >= 3 and token.casefold() not in QUERY_STOPWORDS
     }
     if not tokens:
-        return products[:MAX_PRODUCTS]
+        return products
 
     matches: list[RakutenProduct] = []
     for product in products:
         name = product.name.casefold()
         if any(token in name for token in tokens):
             matches.append(product)
-    return matches[:MAX_PRODUCTS]
+    return matches
+
+
+def prioritize_products(products: list[RakutenProduct], market: str) -> list[RakutenProduct]:
+    """Put approved preferred retailers first without excluding other good offers."""
+    preferred = {name.casefold() for name in PREFERRED_MERCHANTS.get(market, ())}
+    return sorted(products, key=lambda product: product.merchant.casefold() not in preferred)
 
 
 def find_offer_set(
     client: RakutenClient,
     month: int,
     recent_topics: list[str],
+    market: str = "",
 ) -> tuple[tuple | None, list[RakutenProduct]]:
     for topic in candidate_topics(month, recent_topics)[:MAX_SEARCHES_PER_MARKET]:
         products = relevant_products(client.search(topic[2], limit=12), topic[2])
         if len(products) >= MIN_PRODUCTS:
-            return topic, products
+            return topic, prioritize_products(products, market)[:MAX_PRODUCTS]
     return None, []
 
 
@@ -140,8 +151,7 @@ def build_article(topic: tuple, products: list[RakutenProduct], market: str, now
     content = (
         f"<p><strong>We checked approved retailer feeds for current {html.escape(display.lower())} "
         f"offers available to {region} shoppers.</strong></p>\n"
-        "<p><em>This is a separate Rakuten Advertising retailer roundup. Every product link below is "
-        "an affiliate link, so Worth Buying may earn a commission if you purchase, at no extra cost to you.</em></p>\n"
+        "<p><em>This is a separate Rakuten Advertising retailer roundup.</em></p>\n"
         f"<p><strong>Last checked:</strong> {html.escape(checked_date)}. The shortlist contains "
         f"{len(products)} live feed results from {html.escape(merchants)}. Prices and stock can change "
         "after publication.</p>\n"
@@ -159,10 +169,7 @@ def build_article(topic: tuple, products: list[RakutenProduct], market: str, now
         "before creating this article. It did not copy recommendations from the separate Amazon and eBay guide, "
         "and it did not create an article when the feed was too limited.</p>\n"
         "<p>Feed inclusion is not the same as hands-on testing or a guarantee that a product is right for every "
-        "buyer. Check independent reviews where performance, safety or durability is important.</p>\n"
-        "<hr>\n"
-        f"<p><strong>Affiliate disclosure:</strong> Worth Buying {region} may receive commission from qualifying "
-        "purchases made through the sponsored retailer links in this article.</p>"
+        "buyer. Check independent reviews where performance, safety or durability is important.</p>"
     )
 
     return {
@@ -184,7 +191,7 @@ def build_article(topic: tuple, products: list[RakutenProduct], market: str, now
             f"🔎 New retailer roundup: {display}\n\n"
             f"We checked approved {region} retailer feeds and found current offers worth comparing.\n\n"
             "See the separate roundup 👇\n"
-            "Affiliate 🔗 {url}\n"
+            "Read the guide 🔗 {url}\n"
             "#Shopping #WorthBuying"
         ),
         "content_html": content,
@@ -233,7 +240,7 @@ def main() -> None:
 
         recent_topics = list(market_state.get("recent_topics", []))
         try:
-            topic, products = find_offer_set(client, now.month, recent_topics)
+            topic, products = find_offer_set(client, now.month, recent_topics, market)
         except Exception as exc:
             print(f"[rakuten-skip] {market.upper()}: product search failed: {type(exc).__name__}: {exc}")
             continue

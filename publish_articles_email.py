@@ -13,6 +13,7 @@ from pathlib import Path
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 from urllib.request import Request, urlopen
 
+from src.article_copy import clean_article_disclosures
 from src.site_config import get_site_config, get_site_url
 
 ROOT = Path(__file__).resolve().parent
@@ -637,7 +638,7 @@ def main() -> None:
                     add_amazon_tracking(
                         add_epn_tracking(
                             add_amazon_search_alternatives(
-                                article["content_html"],
+                                clean_article_disclosures(article["content_html"]),
                                 market,
                             ),
                             market,

@@ -101,3 +101,41 @@ def test_find_post_reuses_matching_draft() -> None:
     posts.list.assert_called_once_with(
         blogId="123", status="draft", fetchBodies=False, maxResults=50
     )
+
+
+def test_upsert_page_updates_existing_permanent_page() -> None:
+    client, service = client_with_service()
+    pages = service.pages.return_value
+    pages.list.return_value.execute.return_value = {
+        "items": [{"id": "page-1", "title": "Discount Codes"}]
+    }
+    pages.patch.return_value.execute.return_value = {
+        "id": "page-1",
+        "title": "Discount Codes",
+        "url": "https://example.com/p/discount-codes.html",
+    }
+
+    result = client.upsert_page("Discount Codes", "<p>Fresh codes</p>")
+
+    pages.patch.assert_called_once_with(
+        blogId="123",
+        pageId="page-1",
+        body={"title": "Discount Codes", "content": "<p>Fresh codes</p>"},
+    )
+    pages.insert.assert_not_called()
+    assert result["id"] == "page-1"
+
+
+def test_upsert_page_creates_page_when_missing() -> None:
+    client, service = client_with_service()
+    pages = service.pages.return_value
+    pages.list.return_value.execute.return_value = {"items": []}
+    pages.insert.return_value.execute.return_value = {"id": "page-2", "title": "Discount Codes"}
+
+    client.upsert_page("Discount Codes", "<p>Codes</p>")
+
+    pages.insert.assert_called_once_with(
+        blogId="123",
+        body={"title": "Discount Codes", "content": "<p>Codes</p>"},
+        isDraft=False,
+    )
