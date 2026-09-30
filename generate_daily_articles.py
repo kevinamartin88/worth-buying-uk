@@ -1018,8 +1018,6 @@ def build_article(
 
     content = (
         f"<p><strong>{html.escape(buyer_intro(display, region, year, live))}</strong></p>\n"
-        "<p><em>Some links in this article are affiliate links. We may earn a commission if you make a purchase, "
-        "at no extra cost to you.</em></p>\n"
         f"<p>{methodology} Prices and availability can change after publication, so always verify the live listing.</p>\n"
         f"<p><strong>Last checked:</strong> {html.escape(checked_date)}.</p>\n"
         f"{quick_picks_html(picks, market) if live else ''}"
@@ -1042,10 +1040,7 @@ def build_article(
         f"{faq_html(display, category, market)}"
         f"{related_guides_html(guides)}"
         "<p><em>Prices, promotions, seller feedback and availability change regularly. Always check the live retailer page "
-        "before purchasing.</em></p>\n"
-        "<hr>\n"
-        f"<p><strong>Affiliate disclosure:</strong> This article contains affiliate links. If you buy through one of these "
-        f"links, Worth Buying {region} may earn a commission at no extra cost to you.</p>"
+        "before purchasing.</em></p>"
     )
 
     return {

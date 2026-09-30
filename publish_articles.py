@@ -7,6 +7,7 @@ import re
 from pathlib import Path
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
+from src.article_copy import clean_article_disclosures
 from src.blogger import BloggerClient
 
 
@@ -159,8 +160,8 @@ def main() -> None:
         article = json.loads(path.read_text(encoding="utf-8"))
         slug = article["slug"]
         title = article["title"]
-        article_content = add_uk_amazon_tracking(
-            add_uk_epn_tracking(article["content_html"])
+        article_content = clean_article_disclosures(
+            add_uk_amazon_tracking(add_uk_epn_tracking(article["content_html"]))
         )
         content = pinterest_image_html(article) + article_content
         labels = article.get("labels", [])

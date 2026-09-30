@@ -379,7 +379,9 @@ If there are too few good items, the page says so instead of fabricating bargain
 
 ## Affiliate disclosure
 
-Every page includes a clear disclosure before any affiliate links:
+The Blogger themes carry a clear, site-wide affiliate disclosure. Generated
+article bodies do not repeat that wording on every post, but retailer links
+remain marked with `rel="sponsored nofollow"` and retain the correct tracking.
 
 > This page contains affiliate links. If you buy through them, I may earn a
 > commission at no extra cost to you.

@@ -140,8 +140,7 @@ def build_article(topic: tuple, products: list[RakutenProduct], market: str, now
     content = (
         f"<p><strong>We checked approved retailer feeds for current {html.escape(display.lower())} "
         f"offers available to {region} shoppers.</strong></p>\n"
-        "<p><em>This is a separate Rakuten Advertising retailer roundup. Every product link below is "
-        "an affiliate link, so Worth Buying may earn a commission if you purchase, at no extra cost to you.</em></p>\n"
+        "<p><em>This is a separate Rakuten Advertising retailer roundup.</em></p>\n"
         f"<p><strong>Last checked:</strong> {html.escape(checked_date)}. The shortlist contains "
         f"{len(products)} live feed results from {html.escape(merchants)}. Prices and stock can change "
         "after publication.</p>\n"
@@ -159,10 +158,7 @@ def build_article(topic: tuple, products: list[RakutenProduct], market: str, now
         "before creating this article. It did not copy recommendations from the separate Amazon and eBay guide, "
         "and it did not create an article when the feed was too limited.</p>\n"
         "<p>Feed inclusion is not the same as hands-on testing or a guarantee that a product is right for every "
-        "buyer. Check independent reviews where performance, safety or durability is important.</p>\n"
-        "<hr>\n"
-        f"<p><strong>Affiliate disclosure:</strong> Worth Buying {region} may receive commission from qualifying "
-        "purchases made through the sponsored retailer links in this article.</p>"
+        "buyer. Check independent reviews where performance, safety or durability is important.</p>"
     )
 
     return {
