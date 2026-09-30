@@ -2,10 +2,13 @@ from __future__ import annotations
 
 import argparse
 import html
+import os
 import re
+import smtplib
 from collections import Counter
 from dataclasses import dataclass
 from datetime import date, datetime, timezone
+from email.message import EmailMessage
 from urllib.parse import urlsplit
 
 from googleapiclient.errors import HttpError
@@ -38,6 +41,44 @@ class DiscountOffer:
     restriction: str = ""
     start_date: str = ""
     end_date: str = ""
+
+
+def send_manual_package(market: str, content: str, offer_count: int) -> dict:
+    """Email a ready-to-paste Page when Google's Blogger write API is restricted."""
+    smtp_email = os.environ["SMTP_EMAIL"].strip()
+    smtp_password = os.environ["SMTP_APP_PASSWORD"]
+    market_name = "Worth Buying UK" if market == "uk" else "Worth Buying USA"
+    filename = f"discount-codes-{market}.html"
+
+    message = EmailMessage()
+    message["Subject"] = f"[READY TO PUBLISH][{market.upper()}] Discount Codes"
+    message["From"] = smtp_email
+    message["To"] = smtp_email
+    message.set_content(
+        f"Google is still blocking Blogger API writes for {market_name}, so the weekly "
+        "Discount Codes refresh has been prepared for manual publishing.\n\n"
+        "In Blogger, open Pages and either create or edit the page named 'Discount Codes'. "
+        "Switch the editor to HTML view, replace its contents with the attached HTML, and "
+        "publish/update the page. Keep the same page rather than creating a new one each week.\n\n"
+        f"Verified offers in this refresh: {offer_count}\n"
+        "Suggested menu label: Discount Codes\n"
+    )
+    message.add_attachment(
+        content.encode("utf-8"),
+        maintype="text",
+        subtype="html",
+        filename=filename,
+    )
+
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=30) as server:
+        server.login(smtp_email, smtp_password)
+        server.send_message(message)
+
+    print(
+        f"[discount-codes] {market.upper()}: Blogger writes remain restricted; "
+        f"emailed {filename} to the configured publishing address"
+    )
+    return {"status": "MANUAL_PACKAGE", "url": f"email:{filename}"}
 
 
 def parse_feed_date(value: str) -> date | None:
@@ -269,12 +310,18 @@ def refresh_market(market: str) -> dict:
             f"[discount-codes] {market.upper()}: Blogger Pages write was forbidden; "
             "using one stable Discount Codes post"
         )
-        result = blogger.upsert_post(
-            PAGE_TITLE,
-            content,
-            labels=["Discount Codes", "Deals"],
-        )
-        content_type = "post"
+        try:
+            result = blogger.upsert_post(
+                PAGE_TITLE,
+                content,
+                labels=["Discount Codes", "Deals"],
+            )
+            content_type = "post"
+        except HttpError as post_exc:
+            if getattr(post_exc.resp, "status", None) != 403:
+                raise
+            result = send_manual_package(market, content, len(offers))
+            content_type = "manual package"
     print(
         f"[discount-codes] {market.upper()}: refreshed {len(offers)} verified offer(s); "
         f"{content_type}={result.get('url', 'created/updated')}"

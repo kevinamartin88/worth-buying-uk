@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 from datetime import date
+from unittest.mock import MagicMock
 
 import generate_discount_codes as discounts
+from googleapiclient.errors import HttpError
 from generate_discount_codes import DiscountOffer, render_page, select_offers
 
 
@@ -105,3 +107,25 @@ def test_ebay_offers_require_real_api_discount_and_regional_link(monkeypatch):
     assert offers[0].advertiser == "eBay"
     assert "20% off" in offers[0].description
     assert offers[0].source == "eBay Browse API"
+
+
+def forbidden_error() -> HttpError:
+    response = MagicMock(status=403, reason="Forbidden")
+    return HttpError(response, b'{"error":{"message":"forbidden"}}')
+
+
+def test_refresh_emails_manual_package_when_all_blogger_writes_are_forbidden(monkeypatch):
+    blogger = MagicMock()
+    blogger.upsert_page.side_effect = forbidden_error()
+    blogger.upsert_post.side_effect = forbidden_error()
+    monkeypatch.setattr(discounts, "collect_offers", lambda _market: [offer("Shop", "Deal")])
+    monkeypatch.setattr(discounts.BloggerClient, "from_env", lambda: blogger)
+    emailed = MagicMock(return_value={"status": "MANUAL_PACKAGE", "url": "email:test.html"})
+    monkeypatch.setattr(discounts, "send_manual_package", emailed)
+
+    result = discounts.refresh_market("uk")
+
+    emailed.assert_called_once()
+    assert emailed.call_args.args[0] == "uk"
+    assert emailed.call_args.args[2] == 1
+    assert result["status"] == "MANUAL_PACKAGE"
