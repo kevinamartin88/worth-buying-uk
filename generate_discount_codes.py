@@ -169,7 +169,7 @@ def render_page(offers: list[DiscountOffer], market: str, today: date) -> str:
             f"{code_block}{restriction}"
             f'<p class="wb-code-small"><strong>Ends:</strong> {html.escape(expiry)}</p>'
             f'<p><a class="wb-code-button" href="{html.escape(offer.url, quote=True)}" '
-            'rel="sponsored nofollow">View offer</a></p>'
+            'rel="sponsored nofollow" style="color:#fff!important">View offer</a></p>'
             "</article>"
         )
 
@@ -180,7 +180,7 @@ def render_page(offers: list[DiscountOffer], market: str, today: date) -> str:
 .wb-code-card h2{margin:0 0 10px;color:#082b63;font-size:1.25rem}.wb-code{background:#f1f7fa;border-radius:9px;padding:10px 12px}
 .wb-code code{font-size:1.05rem;font-weight:700;color:#082b63;user-select:all}.wb-code-small{font-size:.9rem;color:#526274}
 .wb-code-source{font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:#087f78;font-weight:700}
-.wb-code-button{display:inline-block;background:#087f78;color:#fff!important;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:700}
+.post-body a.wb-code-button,.post-body a.wb-code-button:link,.post-body a.wb-code-button:visited{display:inline-block;background:#087f78;color:#fff!important;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:700}
 .wb-code-button:hover{background:#066760}.wb-code-empty{background:#f1f7fa;border-radius:12px;padding:22px}
 </style>"""
     return intro + styles + '<div class="wb-code-grid">' + "".join(cards) + "</div>"

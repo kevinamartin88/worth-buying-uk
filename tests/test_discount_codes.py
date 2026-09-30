@@ -56,6 +56,8 @@ def test_render_page_contains_clean_codes_tracking_and_region():
     assert "SAVE20" in content
     assert "Verified source: Test feed" in content
     assert 'rel="sponsored nofollow"' in content
+    assert 'style="color:#fff!important">View offer</a>' in content
+    assert ".post-body a.wb-code-button:visited" in content
     assert "30 September 2026" in content
 
 
