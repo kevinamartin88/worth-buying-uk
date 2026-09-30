@@ -99,7 +99,7 @@ def test_find_post_reuses_matching_draft() -> None:
 
     assert found == {"id": "draft-1", "title": "Existing draft", "status": "DRAFT"}
     posts.list.assert_called_once_with(
-        blogId="123", status="draft", fetchBodies=False, maxResults=50
+        blogId="123", status="DRAFT", fetchBodies=False, maxResults=50
     )
 
 

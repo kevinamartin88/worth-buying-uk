@@ -170,7 +170,7 @@ class BloggerClient:
             self.service.posts()
             .list(
                 blogId=self.blog_id,
-                status="draft",
+                status="DRAFT",
                 fetchBodies=False,
                 maxResults=50,
             )
