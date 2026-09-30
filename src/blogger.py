@@ -170,7 +170,7 @@ class BloggerClient:
             self.service.posts()
             .list(
                 blogId=self.blog_id,
-                status="DRAFT",
+                status="draft",
                 fetchBodies=False,
                 maxResults=50,
             )
@@ -180,3 +180,34 @@ class BloggerClient:
             if post.get("title") == title:
                 return post
         return None
+
+    def find_page_by_exact_title(self, title: str):
+        result = (
+            self.service.pages()
+            .list(blogId=self.blog_id, fetchBodies=False, maxResults=500)
+            .execute(num_retries=API_RETRIES)
+        )
+        return next(
+            (page for page in result.get("items", []) if page.get("title") == title),
+            None,
+        )
+
+    def upsert_page(self, title: str, content: str) -> dict:
+        """Create a Blogger Page once, then refresh that same permanent Page."""
+        existing = self.find_page_by_exact_title(title)
+        body = {"title": title, "content": content}
+        if existing:
+            return (
+                self.service.pages()
+                .patch(
+                    blogId=self.blog_id,
+                    pageId=str(existing["id"]),
+                    body=body,
+                )
+                .execute(num_retries=API_RETRIES)
+            )
+        return (
+            self.service.pages()
+            .insert(blogId=self.blog_id, body=body, isDraft=False)
+            .execute(num_retries=API_RETRIES)
+        )

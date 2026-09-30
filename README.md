@@ -258,6 +258,27 @@ Recent-topic history prevents near-duplicate roundups, while all outbound Rakute
 links remain the tracking URLs returned by Product Search and are marked
 `sponsored nofollow`.
 
+### Weekly Discount Codes pages
+
+The **Weekly discount codes pages** workflow runs every Friday at 06:30 UTC and
+can also be started manually. It uses the existing regional Rakuten, eBay and
+Blogger secrets listed above, so no additional secret is required. It combines
+the official Rakuten Coupon Feed for approved advertisers (network 3 for the UK
+and network 1 for the USA) with discounted eBay listings returned by the existing
+production Browse API and EPN tracking setup.
+
+Each run creates or refreshes one permanent Blogger Page titled **Discount Codes**
+on each regional site. It never creates a blog post. Expired and not-yet-live
+offers are removed, genuine coupon codes are listed before no-code promotions,
+and no retailer can occupy more than three of the 30 available positions. The
+outbound URLs are validated regional Rakuten or eBay tracking links and retain
+`sponsored nofollow`. General voucher websites are not scraped or treated as
+confirmation; a code must come from an authorised feed or a retailer-owned source.
+If the feed is successfully checked but contains no current approved offers, the
+page shows a clear empty-state message instead of leaving expired codes visible.
+API or credential failures stop that regional job and leave the existing page
+untouched.
+
 After saving the secret, open **Actions → Test Rakuten production API → Run
 workflow**. The test searches both accounts for `air fryer` and reports only
 whether a fresh access token worked and a valid tracked product in the correct
