@@ -97,6 +97,41 @@ class YouTubeClient:
             )
         return channel
 
+    def find_uploaded_video(self, *, title: str, blog_url: str) -> dict | None:
+        """Return a matching recent upload so workflow retries cannot create duplicates."""
+        channel_response = self.service.channels().list(
+            part="contentDetails",
+            mine=True,
+        ).execute()
+        channels = channel_response.get("items", [])
+        if len(channels) != 1:
+            return None
+        uploads_playlist = (
+            channels[0]
+            .get("contentDetails", {})
+            .get("relatedPlaylists", {})
+            .get("uploads")
+        )
+        if not uploads_playlist:
+            return None
+
+        response = self.service.playlistItems().list(
+            part="snippet,contentDetails",
+            playlistId=uploads_playlist,
+            maxResults=50,
+        ).execute()
+        expected_title = title[:100].strip()
+        for item in response.get("items", []):
+            snippet = item.get("snippet", {})
+            if str(snippet.get("title", "")).strip() != expected_title:
+                continue
+            if blog_url not in str(snippet.get("description", "")):
+                continue
+            video_id = str(item.get("contentDetails", {}).get("videoId", "")).strip()
+            if video_id:
+                return {"id": video_id, "snippet": snippet}
+        return None
+
     def upload_video(
         self,
         video_path: Path,
