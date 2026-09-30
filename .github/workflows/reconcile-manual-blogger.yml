@@ -52,6 +52,33 @@ jobs:
           READY_TO_PUBLISH_EMAIL: ${{ secrets.READY_TO_PUBLISH_EMAIL }}
         run: python publish_articles_email.py
 
+      - name: Ensure FFmpeg is available for YouTube Shorts
+        run: |
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq ffmpeg
+          fi
+
+      - name: Publish matching UK YouTube Shorts
+        continue-on-error: true
+        env:
+          PYTHONPATH: .
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_UK_REFRESH_TOKEN: ${{ secrets.YOUTUBE_UK_REFRESH_TOKEN }}
+          YOUTUBE_PRIVACY_STATUS: public
+        run: python publish_youtube_shorts.py --market uk
+
+      - name: Publish matching USA YouTube Shorts
+        continue-on-error: true
+        env:
+          PYTHONPATH: .
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_US_REFRESH_TOKEN: ${{ secrets.YOUTUBE_US_REFRESH_TOKEN }}
+          YOUTUBE_PRIVACY_STATUS: public
+        run: python publish_youtube_shorts.py --market us
+
       - name: Refresh UK Pinterest feed
         env:
           PYTHONPATH: .
@@ -120,6 +147,8 @@ jobs:
           cp state/x_us_published.json "$SNAPSHOT_DIR/state/x_us_published.json" 2>/dev/null || true
           cp state/bluesky_published.json "$SNAPSHOT_DIR/state/bluesky_published.json" 2>/dev/null || true
           cp state/bluesky_us_published.json "$SNAPSHOT_DIR/state/bluesky_us_published.json" 2>/dev/null || true
+          cp state/youtube_uk_published.json "$SNAPSHOT_DIR/state/youtube_uk_published.json" 2>/dev/null || true
+          cp state/youtube_us_published.json "$SNAPSHOT_DIR/state/youtube_us_published.json" 2>/dev/null || true
 
           git config user.name "worth-buying-reconcile-bot"
           git config user.email "worth-buying-reconcile-bot@users.noreply.github.com"
@@ -138,7 +167,9 @@ jobs:
               state/x_published.json \
               state/x_us_published.json \
               state/bluesky_published.json \
-              state/bluesky_us_published.json
+              state/bluesky_us_published.json \
+              state/youtube_uk_published.json \
+              state/youtube_us_published.json
 
             PYTHONPATH=. python generate_pinterest_feed.py
             PYTHONPATH=. python generate_pinterest_feed_us.py
@@ -151,6 +182,8 @@ jobs:
               state/x_us_published.json \
               state/bluesky_published.json \
               state/bluesky_us_published.json \
+              state/youtube_uk_published.json \
+              state/youtube_us_published.json \
               pinterest-feed.xml \
               pinterest-feed-us.xml
 
