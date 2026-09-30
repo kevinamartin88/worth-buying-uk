@@ -268,7 +268,7 @@ and network 1 for the USA) with discounted eBay listings returned by the existin
 production Browse API and EPN tracking setup.
 
 Each run creates or refreshes one permanent Blogger Page titled **Discount Codes**
-on each regional site. It never creates a blog post. Expired and not-yet-live
+on each regional site when Blogger permits Pages API writes. Expired and not-yet-live
 offers are removed, genuine coupon codes are listed before no-code promotions,
 and no retailer can occupy more than three of the 30 available positions. The
 outbound URLs are validated regional Rakuten or eBay tracking links and retain
@@ -278,6 +278,12 @@ If the feed is successfully checked but contains no current approved offers, the
 page shows a clear empty-state message instead of leaving expired codes visible.
 API or credential failures stop that regional job and leave the existing page
 untouched.
+
+If Google permits normal post publishing but rejects Blogger Pages API writes for
+an otherwise verified admin account, the workflow falls back to one stable post
+titled **Discount Codes** and updates that same post every week. It does not create
+a new weekly post. This preserves the permanent navigation target while avoiding
+duplicate content.
 
 After saving the secret, open **Actions → Test Rakuten production API → Run
 workflow**. The test searches both accounts for `air fryer` and reports only

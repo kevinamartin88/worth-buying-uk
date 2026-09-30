@@ -139,3 +139,22 @@ def test_upsert_page_creates_page_when_missing() -> None:
         body={"title": "Discount Codes", "content": "<p>Codes</p>"},
         isDraft=False,
     )
+
+
+def test_upsert_post_updates_existing_live_fallback() -> None:
+    client, _service = client_with_service()
+    client.find_post_by_exact_title = MagicMock(
+        return_value={"id": "post-1", "title": "Discount Codes", "status": "LIVE"}
+    )
+    client.update_post = MagicMock(
+        return_value={"id": "post-1", "status": "LIVE", "url": "https://example.com/codes"}
+    )
+    client.publish_post = MagicMock()
+
+    result = client.upsert_post("Discount Codes", "<p>Fresh</p>", ["Discount Codes", "Deals"])
+
+    client.update_post.assert_called_once_with(
+        "post-1", "Discount Codes", "<p>Fresh</p>", labels=["Discount Codes", "Deals"]
+    )
+    client.publish_post.assert_not_called()
+    assert result["status"] == "LIVE"
