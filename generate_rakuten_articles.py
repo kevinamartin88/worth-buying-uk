@@ -184,7 +184,7 @@ def build_article(topic: tuple, products: list[RakutenProduct], market: str, now
             f"🔎 New retailer roundup: {display}\n\n"
             f"We checked approved {region} retailer feeds and found current offers worth comparing.\n\n"
             "See the separate roundup 👇\n"
-            "Affiliate 🔗 {url}\n"
+            "Read the guide 🔗 {url}\n"
             "#Shopping #WorthBuying"
         ),
         "content_html": content,

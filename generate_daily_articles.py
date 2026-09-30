@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import quote_plus
 
+from src.amazon_creators import AmazonCreatorsClient
 from src.ebay import EbayClient
 from src.google_trends import rank_topics_by_trends, trend_keyword_for_title
 from src.google_shopping_trends import rank_topics_by_google_shopping
@@ -810,6 +811,56 @@ def price_text(item: dict, market: str) -> str:
     return f"{symbol}{price:,.2f}"
 
 
+def money_text(price: float, currency: str) -> str:
+    symbol = {"GBP": "£", "USD": "$", "EUR": "€"}.get(currency, f"{currency} ")
+    return f"{symbol}{price:,.2f}"
+
+
+def _model_token(title: str, fallback_query: str) -> str:
+    query, exact = amazon_model_query(title, fallback_query)
+    if not exact:
+        return ""
+    tokens = query.split()
+    return re.sub(r"[^A-Za-z0-9]", "", tokens[-1]).casefold()
+
+
+def add_amazon_prices(items: list[dict], market: str, fallback_query: str) -> None:
+    """Attach a verified Amazon offer when Creators API access is configured."""
+    client = AmazonCreatorsClient.from_env(market)
+    if client is None:
+        print(f"[amazon-skip] {market.upper()} Creators API credentials are not configured")
+        return
+
+    for item in items:
+        title = " ".join(str(item.get("title", "")).split())
+        search_query, exact_model_search = amazon_model_query(title, fallback_query)
+        model = _model_token(title, fallback_query)
+        try:
+            offers = client.search_offers(search_query)
+        except Exception as exc:
+            print(
+                f"[amazon-warning] {market.upper()} price lookup failed: "
+                f"{type(exc).__name__}: {exc}"
+            )
+            return
+
+        for offer in offers:
+            normal_title = re.sub(r"[^a-z0-9]", "", offer.title.casefold())
+            if exact_model_search and model and model not in normal_title:
+                continue
+            if not exact_model_search:
+                # A category or generic search is not sufficient evidence that the
+                # Amazon result is the same product as the eBay listing.
+                continue
+            item["_amazon_offer"] = {
+                "title": offer.title,
+                "price": offer.price,
+                "currency": offer.currency,
+                "url": offer.url,
+            }
+            break
+
+
 def discount_text(item: dict) -> str:
     discount = safe_float((item.get("marketingPrice") or {}).get("discountPercentage"))
     if discount and discount > 0:
@@ -835,6 +886,16 @@ def live_sections(items: list[dict], market: str, topic_name: str, query: str) -
             if condition else ""
         )
         ebay_url, amazon_url, exact_model_search = retailer_urls(item, market, query)
+        amazon_offer = item.get("_amazon_offer") or {}
+        if amazon_offer.get("url"):
+            amazon_url = str(amazon_offer["url"])
+        price_parts = [f"eBay {price}" if price else "eBay: check the live listing"]
+        if amazon_offer.get("price") and amazon_offer.get("currency"):
+            price_parts.append(
+                "Amazon "
+                + money_text(float(amazon_offer["price"]), str(amazon_offer["currency"]))
+            )
+        prices = "; ".join(price_parts)
         amazon_link_label = (
             f"Search {amazon} for this model"
             if exact_model_search
@@ -843,7 +904,7 @@ def live_sections(items: list[dict], market: str, topic_name: str, query: str) -
 
         parts.append(
             f"<h3>{index}. {safe_title}</h3>\n"
-            f"<p><strong>Price when checked:</strong> {html.escape(price) if price else 'Check the live listing'}."
+            f"<p><strong>Prices when checked:</strong> {html.escape(prices)}."
             f"{condition_text} This listing made the shortlist because it passed our automated price, "
             f"fixed-price and seller-quality checks for {html.escape(topic_name)}."
             f"{html.escape(discount_text(item))}</p>\n"
@@ -907,6 +968,9 @@ def build_article(
     except Exception as exc:
         print(f"[daily-warning] {market.upper()} eBay lookup failed for {display}: {type(exc).__name__}: {exc}")
         picks = []
+
+    if picks:
+        add_amazon_prices(picks, market, query)
 
     live = len(picks) >= 3
     sections = (
@@ -1003,7 +1067,7 @@ def build_article(
             f"🔎 Looking for {display.lower()} worth comparing?\n\n"
             f"Our latest {region} guide checks current marketplace options, seller details and value.\n\n"
             "See the full guide 👇\n"
-            "Ad/Affiliate 🔗 {url}\n"
+            "Read the guide 🔗 {url}\n"
             "#BuyingGuide #WorthBuying"
         ),
         "content_html": content,
@@ -1025,6 +1089,27 @@ def build_article(
             "pick_count": len(picks),
             "article_directory": directory_name,
         },
+        "youtube_short_points": [
+            " — ".join(
+                part
+                for part in (
+                    str(item.get("condition") or "Current listing").strip(),
+                    f"eBay {price_text(item, market)}" if price_text(item, market) else "",
+                    (
+                        "Amazon "
+                        + money_text(
+                            float((item.get("_amazon_offer") or {})["price"]),
+                            str((item.get("_amazon_offer") or {})["currency"]),
+                        )
+                        if (item.get("_amazon_offer") or {}).get("price")
+                        and (item.get("_amazon_offer") or {}).get("currency")
+                        else ""
+                    ),
+                )
+                if part
+            )
+            for item in picks[:3]
+        ],
     }
 
 

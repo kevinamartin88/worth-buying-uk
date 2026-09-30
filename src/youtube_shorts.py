@@ -93,6 +93,14 @@ def extract_short_points(content_html: str, limit: int = 3) -> list[str]:
     return points
 
 
+def article_short_points(article: dict, limit: int = 3) -> list[str]:
+    supplied = article.get("youtube_short_points") or []
+    points = [str(point).strip() for point in supplied if str(point).strip()]
+    if points:
+        return points[:limit]
+    return extract_short_points(str(article.get("content_html", "")), limit=limit)
+
+
 def short_title(article: dict) -> str:
     title = re.sub(r"\s+", " ", str(article.get("title", "Worth Buying guide"))).strip()
     suffix = " #Shorts"
@@ -109,8 +117,7 @@ def short_description(article: dict, blog_url: str, market: str) -> str:
     return (
         f"Read the complete guide: {blog_url}\n\n{summary}\n\n"
         "Prices, availability and product details can change. Check the full guide and "
-        "retailer listing before buying. Some links on our website are affiliate links; "
-        "we may earn a commission at no extra cost to you.\n\n"
+        "retailer listing before buying.\n\n"
         f"#{config['brand'].replace(' ', '')} #BuyingGuide #Shorts"
     )
 
@@ -253,7 +260,7 @@ def build_short_video(
     if not ffmpeg:
         raise RuntimeError("ffmpeg is required to render YouTube Shorts")
     config = MARKET_CONFIG[market]
-    points = extract_short_points(str(article.get("content_html", "")))
+    points = article_short_points(article)
     fallback = [
         "Compare the exact model and specification",
         "Check warranty, condition and returns",

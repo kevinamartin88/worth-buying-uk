@@ -7,6 +7,7 @@ from pathlib import Path
 from requests.exceptions import HTTPError
 
 from src.buffer import BufferClient
+from src.social_copy import clean_social_template
 
 
 ROOT = Path(__file__).resolve().parent
@@ -57,13 +58,13 @@ def default_x_text(title: str, url: str, labels: list[str]) -> str:
         f"{emoji} {hook}\n\n"
         f"{clean_title}\n\n"
         f"Our guide focuses on value, usability and what to check before you buy.\n\n"
-        f"Affiliate 🔗 {url}\n"
+        f"Read the guide 🔗 {url}\n"
         f"{hashtags}"
     )
     if len(text) <= 280:
         return text
 
-    suffix = f"\n\nAffiliate 🔗 {url}\n{hashtags}"
+    suffix = f"\n\nRead the guide 🔗 {url}\n{hashtags}"
     prefix = f"{emoji} {hook}\n\n"
     available = 280 - len(prefix) - len(suffix)
     short_title = clean_title[: max(20, available - 1)].rstrip() + "…"
@@ -71,15 +72,11 @@ def default_x_text(title: str, url: str, labels: list[str]) -> str:
 
 
 def custom_x_text(template: str, title: str, url: str) -> str:
-    normalized = (
-        template.replace("Ad/Affiliate", "Affiliate")
-        .replace("Ad / Affiliate", "Affiliate")
-        .replace("AD/Affiliate", "Affiliate")
-    )
+    normalized = clean_social_template(template)
     text = normalized.format(title=title, url=url).strip()
     if len(text) <= 280:
         return text
-    suffix = f"\nAffiliate 🔗 {url}"
+    suffix = f"\nRead the guide 🔗 {url}"
     body = text.replace(suffix, "").strip()
     max_body = max(40, 280 - len(suffix) - 1)
     return body[: max_body - 1].rstrip() + "…" + suffix

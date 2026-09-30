@@ -221,6 +221,9 @@ EBAY_CLIENT_ID
 EBAY_CLIENT_SECRET
 EPN_CAMPAIGN_ID
 EPN_US_CAMPAIGN_ID
+AMAZON_CREATORS_CLIENT_ID
+AMAZON_CREATORS_CLIENT_SECRET
+AMAZON_CREATORS_CREDENTIAL_VERSION
 BLOGGER_CLIENT_ID
 BLOGGER_CLIENT_SECRET
 BLOGGER_REFRESH_TOKEN
@@ -263,6 +266,17 @@ The eBay values are:
 - `EBAY_CLIENT_SECRET`: the matching production Cert ID (Client Secret).
 - `EPN_CAMPAIGN_ID`: the UK EPN campaign ID used to request UK affiliate URLs.
 - `EPN_US_CAMPAIGN_ID`: the USA EPN campaign ID used to request USA affiliate URLs.
+
+The optional Amazon Creators API values are:
+
+- `AMAZON_CREATORS_CLIENT_ID`: the Credential ID created in Associates Central.
+- `AMAZON_CREATORS_CLIENT_SECRET`: the matching credential secret.
+- `AMAZON_CREATORS_CREDENTIAL_VERSION`: `3.1`, `3.2` or `3.3` as shown with the credential.
+
+When these three secrets are present, daily guides request Amazon's current featured-offer
+price and show it beside the eBay price only when the exact model number also matches the
+Amazon result. If access is unavailable or the model cannot be verified, generation continues
+with the eBay price and the normal Amazon search link. Credentials and tokens are never logged.
 
 The UK live test requires the first three. The US campaign secret is required only
 when US live-listing generation is enabled. The same production eBay application
