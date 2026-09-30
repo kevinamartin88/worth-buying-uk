@@ -44,13 +44,13 @@ def image_revision(image_path: Path) -> str:
             cwd=ROOT,
             text=True,
             stderr=subprocess.DEVNULL,
-         ).strip()
+        ).strip()
     except (OSError, subprocess.CalledProcessError, ValueError):
         return "main"
     return revision if re.fullmatch(r"[0-9a-f]{40}", revision) else "main"
 
 
-def imae_url(slug: str, image_path: Path) -> str:
+def image_url(slug: str, image_path: Path) -> str:
     revision = image_revision(image_path)
     return f"{IMAGE_BASE}@{revision}/assets/pinterest/{slug}.png"
 
@@ -119,4 +119,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
