@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import html
 import json
+import re
+import subprocess
 from pathlib import Path
 
 from src.site_config import get_site_url
@@ -10,7 +12,7 @@ ROOT = Path(__file__).resolve().parent
 ARTICLES_DIR = ROOT / "articles-us"
 STATE_PATH = ROOT / "state" / "articles_us_published.json"
 OUTPUT_PATH = ROOT / "pinterest-feed-us.xml"
-IMAGE_BASE = "https://cdn.jsdelivr.net/gh/kevinamartin88/worth-buying-uk@main/assets/pinterest/us"
+IMAGE_BASE = "https://cdn.jsdelivr.net/gh/kevinamartin88/worth-buying-uk"
 SITE_URL = get_site_url("us")
 
 
@@ -30,6 +32,27 @@ def affiliate_description(value: object) -> str:
     if "affiliate" not in description.casefold():
         description = f"{description} • Affiliate"
     return description
+
+
+def image_revision(image_path: Path) -> str:
+    """Return the immutable commit that most recently changed an image."""
+    try:
+        resolved_path = image_path if image_path.is_absolute() else ROOT / image_path
+        relative_path = resolved_path.relative_to(ROOT).as_posix()
+        revision = subprocess.check_output(
+            ["git", "log", "-1", "--format=%H", "--", relative_path],
+            cwd=ROOT,
+            text=True,
+            stderr=subprocess.DEVNULL,
+        ).strip()
+    except (OSError, subprocess.CalledProcessError, ValueError):
+        return "main"
+    return revision if re.fullmatch(r"[0-9a-f]{40}", revision) else "main"
+
+
+def image_url(slug: str, image_path: Path) -> str:
+    revision = image_revision(image_path)
+    return f"{IMAGE_BASE}@{revision}/assets/pinterest/us/{slug}.png"
 
 
 def main() -> None:
@@ -52,7 +75,7 @@ def main() -> None:
             "title": title,
             "description": description,
             "link": record["url"],
-            "image": f"{IMAGE_BASE}/{slug}.png",
+            "image": image_url(slug, image_path),
         })
 
     items.sort(key=lambda item: item["link"], reverse=True)
@@ -72,8 +95,10 @@ def main() -> None:
             f'      <link>{xml(item["link"])}</link>',
             f'      <guid isPermaLink="true">{xml(item["link"])}</guid>',
             f'      <description>{xml(item["description"])}</description>',
+            f'      <image>{xml(item["image"])}</image>',
             f'      <enclosure url="{xml(item["image"])}" type="image/png" />',
             f'      <media:content url="{xml(item["image"])}" medium="image" type="image/png" />',
+            f'      <media:thumbnail url="{xml(item["image"])}" />',
             '    </item>',
         ])
     lines.extend(['  </channel>', '</rss>', ''])

@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import html
 import json
+import re
+import subprocess
 from pathlib import Path
 
 from src.site_config import get_site_url
@@ -10,7 +12,7 @@ ROOT = Path(__file__).resolve().parent
 ARTICLES_DIR = ROOT / "articles"
 STATE_PATH = ROOT / "state" / "articles_published.json"
 OUTPUT_PATH = ROOT / "pinterest-feed.xml"
-IMAGE_BASE = "https://cdn.jsdelivr.net/gh/kevinamartin88/worth-buying-uk@main/assets/pinterest"
+IMAGE_BASE = "https://cdn.jsdelivr.net/gh/kevinamartin88/worth-buying-uk"
 SITE_URL = get_site_url("uk")
 
 
@@ -30,6 +32,27 @@ def affiliate_description(value: object) -> str:
     if "affiliate" not in description.casefold():
         description = f"{description} • Affiliate"
     return description
+
+
+def image_revision(image_path: Path) -> str:
+    """Return the immutable commit that most recently changed an image."""
+    try:
+        resolved_path = image_path if image_path.is_absolute() else ROOT / image_path
+        relative_path = resolved_path.relative_to(ROOT).as_posix()
+        revision = subprocess.check_output(
+            ["git", "log", "-1", "--format=%H", "--", relative_path],
+            cwd=ROOT,
+            text=True,
+            stderr=subprocess.DEVNULL,
+         ).strip()
+    except (OSError, subprocess.CalledProcessError, ValueError):
+        return "main"
+    return revision if re.fullmatch(r"[0-9a-f]{40}", revision) else "main"
+
+
+def imae_url(slug: str, image_path: Path) -> str:
+    revision = image_revision(image_path)
+    return f"{IMAGE_BASE}@{revision}/assets/pinterest/{slug}.png"
 
 
 def main() -> None:
@@ -56,7 +79,7 @@ def main() -> None:
                 "title": title,
                 "description": description,
                 "link": record["url"],
-                "image": f"{IMAGE_BASE}/{slug}.png",
+                "image": image_url(slug, image_path),
             }
         )
 
@@ -96,3 +119,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
