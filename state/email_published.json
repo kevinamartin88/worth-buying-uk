@@ -67,7 +67,7 @@
   },
   "uk:best-electric-blankets-worth-buying-uk-2026": {
     "delivery_mode": "manual",
-    "delivery_status": "awaiting_manual_publish",
+    "delivery_status": "published",
     "last_sent_at": "2026-09-30T07:39:02.565828+00:00",
     "market": "uk",
     "primary_category": "Home & Kitchen",
@@ -75,7 +75,8 @@
     "sent": true,
     "source_file": "best-electric-blankets-worth-buying-uk-2026.json",
     "source_sha": "2026-09-30-electric-blankets-uk-daily-v4",
-    "title": "Best Electric Blankets Worth Buying in the UK (2026)"
+    "title": "Best Electric Blankets Worth Buying in the UK (2026)",
+    "url": "https://www.worthbuyinguk.co.uk/2026/09/best-electric-blankets-worth-buying-in.html"
   },
   "uk:best-fans-worth-buying-for-2027-uk-heatwave": {
     "delivery_mode": "mail2blogger",
@@ -244,7 +245,7 @@
   },
   "us:best-dash-cams-worth-buying-us-2026": {
     "delivery_mode": "manual",
-    "delivery_status": "awaiting_manual_publish",
+    "delivery_status": "published",
     "last_sent_at": "2026-09-30T07:40:20.359913+00:00",
     "market": "us",
     "primary_category": "Motoring",
@@ -252,7 +253,8 @@
     "sent": true,
     "source_file": "best-dash-cams-worth-buying-us-2026.json",
     "source_sha": "2026-09-30-dash-cams-us-daily-v4",
-    "title": "Best Dash Cams Worth Buying in the USA (2026)"
+    "title": "Best Dash Cams Worth Buying in the USA (2026)",
+    "url": "https://www.worthbuyingusa.com/2026/09/best-dash-cams-worth-buying-in-usa-2026.html"
   },
   "us:best-dehumidifiers-worth-buying-us-2026": {
     "delivery_mode": "manual",
