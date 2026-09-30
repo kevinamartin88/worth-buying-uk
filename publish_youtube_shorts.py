@@ -137,6 +137,28 @@ def main() -> None:
             print(f"[youtube-skip] {slug}: unchanged")
             continue
 
+        title = short_title(article)
+        if client:
+            existing = client.find_uploaded_video(title=title, blog_url=blog_url)
+            if existing:
+                video_id = existing["id"]
+                state[slug] = {
+                    "status": "published",
+                    "video_id": video_id,
+                    "video_url": f"https://www.youtube.com/shorts/{video_id}",
+                    "blog_url": blog_url,
+                    "publication_fingerprint": fingerprint,
+                    "uploaded_at": datetime.now(timezone.utc).isoformat(),
+                    "reconciled_from_channel": True,
+                }
+                state.setdefault("_meta", {"initialized": True, "version": 1})
+                save_json(config["youtube_state"], state)
+                print(
+                    f"[youtube-existing] {slug}: "
+                    f"https://www.youtube.com/shorts/{video_id}"
+                )
+                continue
+
         hero_path = config["hero_dir"] / f"{slug}.jpg"
         if not hero_path.exists():
             print(f"[youtube-skip] {slug}: no generated hero image")
@@ -173,7 +195,7 @@ def main() -> None:
             )[:30]
             response = client.upload_video(
                 video_path,
-                title=short_title(article),
+                title=title,
                 description=short_description(article, blog_url, market),
                 tags=tags,
                 privacy_status=privacy,
