@@ -65,6 +65,18 @@
     "title": "Best Dehumidifiers Worth Buying for Winter in the UK (2026)",
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-dehumidifiers-worth-buying-for.html"
   },
+  "uk:best-electric-blankets-worth-buying-uk-2026": {
+    "delivery_mode": "manual",
+    "delivery_status": "awaiting_manual_publish",
+    "last_sent_at": "2026-09-30T07:39:02.565828+00:00",
+    "market": "uk",
+    "primary_category": "Home & Kitchen",
+    "send_attempts": 1,
+    "sent": true,
+    "source_file": "best-electric-blankets-worth-buying-uk-2026.json",
+    "source_sha": "2026-09-30-electric-blankets-uk-daily-v4",
+    "title": "Best Electric Blankets Worth Buying in the UK (2026)"
+  },
   "uk:best-fans-worth-buying-for-2027-uk-heatwave": {
     "delivery_mode": "mail2blogger",
     "delivery_status": "published",
