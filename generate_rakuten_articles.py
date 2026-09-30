@@ -22,6 +22,10 @@ MAX_PRODUCTS = 5
 MAX_SEARCHES_PER_MARKET = 24
 RECENT_TOPIC_WINDOW = 45
 QUERY_STOPWORDS = {"and", "best", "for", "home", "inch", "pro", "smart", "the", "with"}
+PREFERRED_MERCHANTS = {
+    "uk": (),
+    "us": ("Sharper Image",),
+}
 
 
 def load_state() -> dict:
@@ -77,25 +81,32 @@ def relevant_products(products: list[RakutenProduct], query: str) -> list[Rakute
         if len(token) >= 3 and token.casefold() not in QUERY_STOPWORDS
     }
     if not tokens:
-        return products[:MAX_PRODUCTS]
+        return products
 
     matches: list[RakutenProduct] = []
     for product in products:
         name = product.name.casefold()
         if any(token in name for token in tokens):
             matches.append(product)
-    return matches[:MAX_PRODUCTS]
+    return matches
+
+
+def prioritize_products(products: list[RakutenProduct], market: str) -> list[RakutenProduct]:
+    """Put approved preferred retailers first without excluding other good offers."""
+    preferred = {name.casefold() for name in PREFERRED_MERCHANTS.get(market, ())}
+    return sorted(products, key=lambda product: product.merchant.casefold() not in preferred)
 
 
 def find_offer_set(
     client: RakutenClient,
     month: int,
     recent_topics: list[str],
+    market: str = "",
 ) -> tuple[tuple | None, list[RakutenProduct]]:
     for topic in candidate_topics(month, recent_topics)[:MAX_SEARCHES_PER_MARKET]:
         products = relevant_products(client.search(topic[2], limit=12), topic[2])
         if len(products) >= MIN_PRODUCTS:
-            return topic, products
+            return topic, prioritize_products(products, market)[:MAX_PRODUCTS]
     return None, []
 
 
@@ -229,7 +240,7 @@ def main() -> None:
 
         recent_topics = list(market_state.get("recent_topics", []))
         try:
-            topic, products = find_offer_set(client, now.month, recent_topics)
+            topic, products = find_offer_set(client, now.month, recent_topics, market)
         except Exception as exc:
             print(f"[rakuten-skip] {market.upper()}: product search failed: {type(exc).__name__}: {exc}")
             continue

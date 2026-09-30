@@ -248,6 +248,10 @@ before creating a standalone retailer roundup. If credentials are absent, the AP
 is unavailable, or the feed is too limited, the Rakuten article is skipped. The
 normal Amazon/eBay article continues unchanged and never receives a Rakuten link.
 
+Worth Buying USA currently gives approved Sharper Image products priority when
+they are relevant to the selected topic. Other approved US retailers remain valid
+fallbacks, so the autonomous stream does not depend on a single advertiser feed.
+
 New Rakuten roundups are saved in the existing regional article directories so the
 established Blogger, X, Bluesky and Pinterest publishing chain can process them.
 Recent-topic history prevents near-duplicate roundups, while all outbound Rakuten
