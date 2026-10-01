@@ -90,3 +90,29 @@ def test_sharper_image_is_prioritized_for_usa_roundups():
 
     assert ranked[0].merchant == "Sharper Image"
     assert len(ranked[: generator.MAX_PRODUCTS]) == generator.MAX_PRODUCTS
+
+
+def test_single_sharper_image_roundup_adds_title_image_branding():
+    topic = next(topic for topic in generator.TOPICS if topic[0] == "dehumidifiers")
+    offers = [
+        RakutenProduct(
+            name=f"Sharper Image Dehumidifier {index}",
+            merchant="Sharper Image",
+            url=f"https://click.linksynergy.com/deeplink?id={index}&mid=456",
+            price="129.00",
+            currency="USD",
+            advertiser_id="456",
+        )
+        for index in range(1, 4)
+    ]
+
+    article = generator.build_article(
+        topic,
+        offers,
+        "us",
+        datetime(2026, 10, 1, tzinfo=timezone.utc),
+    )
+
+    assert article["featured_retailer"] == "Sharper Image"
+    assert article["retailer_logo_asset"] == "assets/retailers/sharper-image.svg"
+    assert article["_generator"]["featured_retailer"] == "Sharper Image"
