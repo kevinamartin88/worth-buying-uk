@@ -3,10 +3,10 @@ name: Daily UK and USA article creator
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 7 * * *"
+    - cron: "10 6 * * *"
     # Backup run. The generator is date-idempotent, so this safely covers a
     # delayed or dropped primary GitHub schedule without producing duplicates.
-    - cron: "0 8 * * *"
+    - cron: "10 7 * * *"
 
 permissions:
   contents: write
