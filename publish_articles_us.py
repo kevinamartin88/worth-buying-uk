@@ -143,7 +143,10 @@ def main() -> None:
             found = blogger.find_post_by_exact_title(title)
             if found and found.get("id"):
                 post_id = found["id"]
-                post = blogger.update_post(post_id, title, content, labels)
+                # Preserve posts created or edited manually in Blogger. Reconciliation
+                # records the existing post in local state, but must not replace its
+                # body, images, title or labels with the generated payload.
+                post = blogger.get_post(post_id)
                 action = "reconciled"
                 if mode == "publish" and str(found.get("status", "")).upper() != "LIVE":
                     post = blogger.publish_post(post_id)

@@ -187,7 +187,11 @@ def main() -> None:
             found = blogger.find_post_by_exact_title(title)
             if found and found.get("id"):
                 post_id = found["id"]
-                post = blogger.update_post(post_id, title, content, labels)
+                # The post may have been created or edited manually in Blogger.
+                # Reconciliation should only attach it to local publication state;
+                # replacing its body here would remove Blogger-hosted images and
+                # any other manual improvements.
+                post = blogger.get_post(post_id)
                 action = "reconciled"
                 if mode == "publish" and str(found.get("status", "")).upper() != "LIVE":
                     post = blogger.publish_post(post_id)
