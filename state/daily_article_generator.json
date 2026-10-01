@@ -1,7 +1,7 @@
 {
   "uk": {
-    "date": "2026-09-30",
-    "day": "Wednesday",
+    "date": "2026-10-01",
+    "day": "Thursday",
     "demand_score": null,
     "google_query": null,
     "google_score": null,
@@ -12,15 +12,15 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-electric-blankets-worth-buying-uk-2026",
-    "title": "Best Electric Blankets Worth Buying in the UK (2026)",
-    "topic": "electric-blankets",
+    "slug": "best-battery-chargers-worth-buying-uk-2026",
+    "title": "Best Car Battery Chargers Worth Buying in the UK (2026)",
+    "topic": "battery-chargers",
     "trend_traffic": null,
     "weekend_priority": false
   },
   "us": {
-    "date": "2026-09-30",
-    "day": "Wednesday",
+    "date": "2026-10-01",
+    "day": "Thursday",
     "demand_score": null,
     "google_query": null,
     "google_score": null,
@@ -31,9 +31,9 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-dash-cams-worth-buying-us-2026",
-    "title": "Best Dash Cams Worth Buying in the USA (2026)",
-    "topic": "dash-cams",
+    "slug": "best-battery-chargers-worth-buying-us-2026",
+    "title": "Best Car Battery Chargers Worth Buying in the USA (2026)",
+    "topic": "battery-chargers",
     "trend_traffic": null,
     "weekend_priority": false
   }
