@@ -299,7 +299,7 @@ def _load_retailer_logo(
 
 
 def _article_style_version(article: dict) -> str:
-    return STYLE_VERSION + ("+retailer-logo-v1" if _featured_retailer(article) else "")
+    return STYLE_VERSION + ("+retailer-logo-v2" if _featured_retailer(article) else "")
 
 
 def _style_marker(output: Path) -> Path:
