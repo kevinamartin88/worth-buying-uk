@@ -1,10 +1,28 @@
+import wave
+
 from src.youtube_shorts import (
+    SHORT_SECONDS,
+    SLIDE_DURATIONS,
+    _write_retro_mall_music,
     article_short_points,
     extract_short_points,
     publication_fingerprint,
     short_description,
     short_title,
 )
+
+
+def test_short_timing_is_ten_seconds_across_three_clean_scenes():
+    assert len(SLIDE_DURATIONS) == 3
+    assert SHORT_SECONDS == 10
+
+
+def test_retro_mall_music_is_a_valid_ten_second_wav(tmp_path):
+    path = _write_retro_mall_music(tmp_path / "retro-mall.wav", SHORT_SECONDS)
+    with wave.open(str(path), "rb") as audio:
+        assert audio.getnchannels() == 1
+        assert audio.getframerate() == 44_100
+        assert audio.getnframes() == 441_000
 
 
 def test_extract_short_points_ignores_boilerplate_sections():

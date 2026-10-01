@@ -3,10 +3,12 @@ from __future__ import annotations
 import html
 import hashlib
 import json
+import math
 import re
 import shutil
 import subprocess
 import textwrap
+import wave
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -15,7 +17,9 @@ from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps
 
 WIDTH = 1080
 HEIGHT = 1920
-SLIDE_SECONDS = 5
+SLIDE_DURATIONS = (3.0, 3.5, 3.5)
+SHORT_SECONDS = sum(SLIDE_DURATIONS)
+MUSIC_SAMPLE_RATE = 44_100
 MARKET_CONFIG = {
     "uk": {
         "brand": "Worth Buying UK",
@@ -167,17 +171,34 @@ def _fit_font(draw: ImageDraw.ImageDraw, text: str, max_width: int, max_lines: i
     return font, _wrapped_lines(draw, text, font, max_width)[:max_lines]
 
 
-def _base_slide(hero_path: Path, logo_path: Path, accent: str) -> Image.Image:
+def _base_slide(
+    hero_path: Path,
+    logo_path: Path,
+    accent: str,
+    *,
+    image_first: bool = False,
+) -> Image.Image:
     hero = _cover(Image.open(hero_path), (WIDTH, HEIGHT))
-    hero = ImageEnhance.Brightness(hero).enhance(0.50).filter(ImageFilter.GaussianBlur(2))
-    overlay = Image.new("RGBA", (WIDTH, HEIGHT), (4, 23, 56, 120))
+    if image_first:
+        hero = ImageEnhance.Brightness(hero).enhance(0.92)
+        overlay = Image.new("RGBA", (WIDTH, HEIGHT), (4, 23, 56, 0))
+        overlay_draw = ImageDraw.Draw(overlay)
+        for y in range(HEIGHT):
+            alpha = max(0, min(205, int((y - 760) / 980 * 205)))
+            overlay_draw.line((0, y, WIDTH, y), fill=(4, 23, 56, alpha))
+    else:
+        hero = ImageEnhance.Brightness(hero).enhance(0.48).filter(
+            ImageFilter.GaussianBlur(2)
+        )
+        overlay = Image.new("RGBA", (WIDTH, HEIGHT), (4, 23, 56, 130))
     canvas = Image.alpha_composite(hero.convert("RGBA"), overlay)
     draw = ImageDraw.Draw(canvas)
-    draw.rounded_rectangle((64, 62, WIDTH - 64, 238), radius=34, fill=(255, 255, 255, 242))
+    draw.rounded_rectangle(
+        (72, 70, WIDTH - 72, 214), radius=30, fill=(255, 255, 255, 240)
+    )
     logo = Image.open(logo_path).convert("RGBA")
-    logo.thumbnail((WIDTH - 220, 130), Image.Resampling.LANCZOS)
-    canvas.alpha_composite(logo, ((WIDTH - logo.width) // 2, 85))
-    draw.rectangle((64, 274, 210, 288), fill=accent)
+    logo.thumbnail((WIDTH - 270, 104), Image.Resampling.LANCZOS)
+    canvas.alpha_composite(logo, ((WIDTH - logo.width) // 2, 90))
     return canvas
 
 
@@ -209,40 +230,69 @@ def create_slide(
     subtext: str,
     slide_number: int,
     slide_count: int,
+    image_first: bool = False,
 ) -> Image.Image:
-    canvas = _base_slide(hero_path, logo_path, accent)
+    canvas = _base_slide(hero_path, logo_path, accent, image_first=image_first)
     draw = ImageDraw.Draw(canvas)
-    kicker_font = _font(42, bold=True)
-    kicker_text = kicker.upper()[:54]
+    kicker_font = _font(36, bold=True)
+    kicker_text = kicker.upper()[:38]
     kicker_box = draw.textbbox((0, 0), kicker_text, font=kicker_font)
     draw.rounded_rectangle(
-        (74, 338, 114 + kicker_box[2], 410), radius=30, fill=accent
-    )
-    draw.text((94, 349), kicker_text, font=kicker_font, fill="white")
-
-    headline_font, headline_lines = _fit_font(draw, headline, WIDTH - 150, 5, 90)
-    y = _draw_centered_lines(draw, headline_lines, headline_font, 520, spacing=26)
-    y += 62
-    sub_font = _font(46)
-    sub_lines = _wrapped_lines(draw, subtext, sub_font, WIDTH - 190)[:5]
-    _draw_centered_lines(draw, sub_lines, sub_font, y, fill="#f3f6fb", spacing=18)
-
-    progress_left = 76
-    progress_width = WIDTH - 152
-    segment = progress_width / slide_count
-    draw.rounded_rectangle((progress_left, 1776, WIDTH - 76, 1792), radius=8, fill="#8a9bb7")
-    draw.rounded_rectangle(
-        (progress_left, 1776, int(progress_left + segment * slide_number), 1792),
-        radius=8,
+        (74, 286 if image_first else 330, 110 + kicker_box[2], 348 if image_first else 392),
+        radius=26,
         fill=accent,
     )
     draw.text(
-        (76, 1817),
-        f"{slide_number}/{slide_count}",
-        font=_font(34, bold=True),
+        (92, 296 if image_first else 340),
+        kicker_text,
+        font=kicker_font,
         fill="white",
     )
+
+    max_lines = 3 if image_first else 4
+    headline_font, headline_lines = _fit_font(
+        draw, headline, WIDTH - 170, max_lines, 84
+    )
+    headline_top = 1110 if image_first else 540
+    y = _draw_centered_lines(draw, headline_lines, headline_font, headline_top, spacing=24)
+    y += 40
+    sub_font = _font(42)
+    sub_lines = _wrapped_lines(draw, subtext, sub_font, WIDTH - 210)[:3]
+    _draw_centered_lines(draw, sub_lines, sub_font, y, fill="#f3f6fb", spacing=16)
     return canvas.convert("RGB")
+
+
+def _write_retro_mall_music(path: Path, duration: float) -> Path:
+    """Create a quiet, original lounge loop without external music licensing."""
+    sample_count = int(MUSIC_SAMPLE_RATE * duration)
+    chord_progression = (
+        (261.63, 329.63, 392.00, 493.88),  # Cmaj7
+        (220.00, 261.63, 329.63, 392.00),  # Am7
+        (293.66, 349.23, 440.00, 523.25),  # Dm7
+        (196.00, 246.94, 293.66, 349.23),  # G7
+    )
+    beat_seconds = 0.625
+    frames = bytearray()
+    for index in range(sample_count):
+        t = index / MUSIC_SAMPLE_RATE
+        chord = chord_progression[int(t / (beat_seconds * 2)) % len(chord_progression)]
+        pad = sum(math.sin(2 * math.pi * frequency * t) for frequency in chord) / 4
+        bass = math.sin(2 * math.pi * (chord[0] / 2) * t)
+        beat_phase = t % beat_seconds
+        bell_envelope = math.exp(-7.0 * beat_phase)
+        bell = math.sin(2 * math.pi * chord[2] * 2 * t) * bell_envelope
+        fade = min(1.0, t / 0.45, max(0.0, (duration - t) / 0.65))
+        sample = (0.10 * pad + 0.045 * bass + 0.025 * bell) * fade
+        value = max(-32767, min(32767, int(sample * 32767)))
+        frames.extend(value.to_bytes(2, byteorder="little", signed=True))
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with wave.open(str(path), "wb") as audio:
+        audio.setnchannels(1)
+        audio.setsampwidth(2)
+        audio.setframerate(MUSIC_SAMPLE_RATE)
+        audio.writeframes(frames)
+    return path
 
 
 def build_short_video(
@@ -266,7 +316,7 @@ def build_short_video(
         "Check warranty, condition and returns",
         "Verify the live price before you buy",
     ]
-    points = (points + fallback)[:3]
+    points = (points + fallback)[:2]
     hook = str(
         article.get("x_subtitle")
         or article.get("pinterest_subtitle")
@@ -278,9 +328,11 @@ def build_short_video(
             str(article.get("title", "Worth Buying guide")),
             hook,
         ),
-        ("QUICK CHECK 1", points[0], "Focus on the features you will genuinely use."),
-        ("QUICK CHECK 2", points[1], "Compare like-for-like models, warranty and condition."),
-        ("QUICK CHECK 3", points[2], "Check the current retailer details before deciding."),
+        (
+            "TWO QUICK CHECKS",
+            points[0],
+            points[1],
+        ),
         (
             "FULL GUIDE",
             "See every pick and buying check",
@@ -299,6 +351,7 @@ def build_short_video(
             subtext=subtext,
             slide_number=index,
             slide_count=len(slides),
+            image_first=index == 1,
         )
         slide_path = work_dir / f"slide-{index:02d}.png"
         slide.save(slide_path, optimize=True)
@@ -306,11 +359,12 @@ def build_short_video(
 
     manifest = work_dir / "slides.txt"
     manifest_lines: list[str] = []
-    for slide_path in slide_paths:
+    for slide_path, duration in zip(slide_paths, SLIDE_DURATIONS, strict=True):
         safe_path = slide_path.resolve().as_posix().replace("'", "'\\''")
-        manifest_lines.extend([f"file '{safe_path}'", f"duration {SLIDE_SECONDS}"])
+        manifest_lines.extend([f"file '{safe_path}'", f"duration {duration}"])
     manifest_lines.append(f"file '{slide_paths[-1].resolve().as_posix()}'")
     manifest.write_text("\n".join(manifest_lines) + "\n", encoding="utf-8")
+    music_path = _write_retro_mall_music(work_dir / "retro-mall.wav", SHORT_SECONDS)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     command = [
@@ -322,8 +376,14 @@ def build_short_video(
         "0",
         "-i",
         str(manifest),
+        "-i",
+        str(music_path),
+        "-map",
+        "0:v:0",
+        "-map",
+        "1:a:0",
         "-vf",
-        "fps=30,format=yuv420p",
+        "fps=30,fade=t=in:st=0:d=0.25,fade=t=out:st=9.6:d=0.4,format=yuv420p",
         "-c:v",
         "libx264",
         "-preset",
@@ -332,7 +392,12 @@ def build_short_video(
         "20",
         "-movflags",
         "+faststart",
-        "-an",
+        "-c:a",
+        "aac",
+        "-b:a",
+        "128k",
+        "-t",
+        str(SHORT_SECONDS),
         str(output_path),
     ]
     subprocess.run(command, check=True, capture_output=True, text=True)
