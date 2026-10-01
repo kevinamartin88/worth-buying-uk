@@ -751,13 +751,6 @@ def _save_generated_image(
         _save_branded_image(image, output, article, market)
 
 
-def _brand_existing_image(output: Path, article: dict, market: str) -> None:
-    with Image.open(output) as image:
-        # Existing Cloudflare backgrounds can be upgraded locally without using
-        # another AI generation request.
-        _save_branded_image(image.copy(), output, article, market)
-
-
 def generate_image(
     article: dict,
     market: str,
@@ -769,8 +762,9 @@ def generate_image(
     if output.exists() and not force:
         if _is_current_style(output, article):
             return False
-        _brand_existing_image(output, article, market)
-        return True
+        # The saved JPG already contains its previous text overlay. Regenerate
+        # the clean AI background before applying a changed layout, otherwise
+        # old and new headlines would be layered on top of one another.
 
     if not account_id or not api_token:
         raise RuntimeError(
