@@ -10,6 +10,10 @@ import re
 from pathlib import Path
 
 import requests
+try:
+    import cairosvg
+except (ImportError, OSError):
+    cairosvg = None
 from PIL import Image, ImageDraw, ImageFont
 
 
@@ -28,6 +32,10 @@ TEAL = (16, 183, 176)
 YELLOW = (253, 189, 32)
 WHITE = (255, 255, 255)
 MUTED_WHITE = (225, 235, 241)
+
+RETAILER_LOGOS = {
+    "sharper image": ROOT / "assets" / "retailers" / "sharper-image.svg",
+}
 
 FONT_REGULAR_CANDIDATES = (
     "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
@@ -235,22 +243,81 @@ def _overlay_subtitle(article: dict) -> str:
     ).strip()
 
 
+def _featured_retailer(article: dict) -> str:
+    explicit = str(article.get("featured_retailer") or "").strip()
+    if explicit:
+        return explicit
+
+    generator = article.get("_generator") or {}
+    explicit = str(generator.get("featured_retailer") or "").strip()
+    if explicit:
+        return explicit
+
+    merchants = [str(value).strip() for value in generator.get("merchants", []) if str(value).strip()]
+    return merchants[0] if len(merchants) == 1 else ""
+
+
+def _retailer_logo_path(article: dict) -> Path | None:
+    retailer = _featured_retailer(article)
+    explicit = str(
+        article.get("retailer_logo_asset")
+        or (article.get("_generator") or {}).get("retailer_logo_asset")
+        or ""
+    ).strip()
+    candidate = ROOT / explicit if explicit else RETAILER_LOGOS.get(retailer.casefold())
+    if candidate is None:
+        return None
+    try:
+        resolved = candidate.resolve()
+        resolved.relative_to(ROOT.resolve())
+    except (OSError, ValueError):
+        return None
+    return resolved if resolved.is_file() else None
+
+
+def _load_retailer_logo(
+    article: dict,
+    max_width: int = 520,
+    max_height: int = 42,
+) -> Image.Image | None:
+    path = _retailer_logo_path(article)
+    if path is None:
+        return None
+    try:
+        if path.suffix.casefold() == ".svg":
+            if cairosvg is None:
+                return None
+            image_bytes = cairosvg.svg2png(bytestring=path.read_bytes(), output_width=max_width)
+            logo = Image.open(io.BytesIO(image_bytes)).convert("RGBA")
+        else:
+            logo = Image.open(path).convert("RGBA")
+        logo.thumbnail((max_width, max_height), Image.Resampling.LANCZOS)
+        return logo.copy()
+    except Exception:
+        # A retailer logo problem must never stop the article or hero image.
+        return None
+
+
+def _article_style_version(article: dict) -> str:
+    return STYLE_VERSION + ("+retailer-logo-v1" if _featured_retailer(article) else "")
+
+
 def _style_marker(output: Path) -> Path:
     return output.with_name(output.name + ".style")
 
 
-def _is_current_style(output: Path) -> bool:
+def _is_current_style(output: Path, article: dict) -> bool:
     marker = _style_marker(output)
     if not output.exists() or not marker.exists():
         return False
     try:
-        return marker.read_text(encoding="utf-8").strip() == STYLE_VERSION
+        return marker.read_text(encoding="utf-8").strip() == _article_style_version(article)
     except OSError:
         return False
 
 
-def _write_style_marker(output: Path) -> None:
-    _style_marker(output).write_text(STYLE_VERSION + "\n", encoding="utf-8")
+def _write_style_marker(output: Path, article: dict) -> None:
+    _style_marker(output).write_text(_article_style_version(article) + "\n", encoding="utf-8")
 
 
 def _visual_direction(article: dict) -> str:
@@ -589,9 +656,41 @@ def _add_text_overlay(image: Image.Image, article: dict, market: str) -> Image.I
     )
     draw.text((badge_x1 + 27, badge_y1 + 13), brand, font=brand_font, fill=WHITE)
 
+    # A single-retailer Rakuten roundup gets an immediately visible retailer card.
+    retailer = _featured_retailer(article)
+    retailer_card_bottom = badge_y2
+    if retailer:
+        card_y1 = badge_y2 + 18
+        card_y2 = card_y1 + 104
+        draw.rounded_rectangle(
+            (text_x, card_y1, text_x + text_max_width, card_y2),
+            radius=18,
+            fill=(255, 255, 255, 246),
+            outline=(16, 183, 176, 255),
+            width=3,
+        )
+        label_font = _load_font(16, bold=True)
+        draw.text((text_x + 22, card_y1 + 10), "FEATURED RETAILER", font=label_font, fill=DEEP_NAVY)
+        retailer_logo = _load_retailer_logo(article)
+        if retailer_logo is not None:
+            logo_x = text_x + (text_max_width - retailer_logo.width) // 2
+            logo_y = card_y1 + 48
+            image.alpha_composite(retailer_logo, (logo_x, logo_y))
+            draw = ImageDraw.Draw(image)
+        else:
+            retailer_font = _load_font(34, bold=True)
+            retailer_w, retailer_h = _measure(draw, retailer, retailer_font)
+            draw.text(
+                (text_x + (text_max_width - retailer_w) // 2, card_y1 + 48 - retailer_h // 4),
+                retailer,
+                font=retailer_font,
+                fill=DEEP_NAVY,
+            )
+        retailer_card_bottom = card_y2
+
     # Kicker pill.
     kicker_w, kicker_h = _measure(draw, kicker, kicker_font)
-    kicker_y = badge_y2 + 24
+    kicker_y = retailer_card_bottom + 24
     draw.rounded_rectangle(
         (text_x, kicker_y, text_x + kicker_w + 46, kicker_y + kicker_h + 25),
         radius=18,
@@ -639,7 +738,7 @@ def _save_branded_image(image: Image.Image, output: Path, article: dict, market:
     image = _add_text_overlay(image, article, market)
     output.parent.mkdir(parents=True, exist_ok=True)
     image.save(output, format="JPEG", quality=91, optimize=True)
-    _write_style_marker(output)
+    _write_style_marker(output, article)
 
 
 def _save_generated_image(
@@ -668,7 +767,7 @@ def generate_image(
     force: bool = False,
 ) -> bool:
     if output.exists() and not force:
-        if _is_current_style(output):
+        if _is_current_style(output, article):
             return False
         _brand_existing_image(output, article, market)
         return True
