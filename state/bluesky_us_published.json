@@ -1,4 +1,14 @@
 {
+  "approved-retailer-dehumidifiers-us-2026-10-01": {
+    "bluesky_cid": "bafyreib7rxzp4v3saefupz4e6mgbbixu5os2djpxqbnqwi6n33qez4wz7m",
+    "bluesky_uri": "at://did:plc:3rwb32szw2cj6zi5ajiup5hv/app.bsky.feed.post/3mwtiozp5pq2m",
+    "bluesky_url": "https://bsky.app/profile/worthbuyingusa.bsky.social/post/3mwtiozp5pq2m",
+    "image_path": "assets/ai/us/approved-retailer-dehumidifiers-us-2026-10-01.jpg",
+    "source_sha": "2026-10-01-dehumidifiers-us-rakuten-v2",
+    "status": "published",
+    "title": "Current Dehumidifiers Offers from Approved USA Retailers (October 2026)",
+    "url": "https://www.worthbuyingusa.com/2026/10/current-dehumidifiers-offers-from.html"
+  },
   "best-air-fryers-worth-buying-us-2026": {
     "baseline": true,
     "buffer_post_id": null,
