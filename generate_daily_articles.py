@@ -184,6 +184,46 @@ TOPICS = [
     ("garden-tool-sets", "Garden Tool Sets", "garden tool set", 300, 350, "Home & Kitchen", "GARDEN TOOL GUIDE"),
 ]
 
+
+US_TOPIC_COPY = {
+    "coffee-machines": ("Coffee Makers", "coffee maker", "COFFEE MAKER GUIDE"),
+    "cordless-vacuums": ("Cordless Vacuums", "cordless vacuum", "VACUUM BUYING GUIDE"),
+    "robot-vacuums": ("Robot Vacuums", "robot vacuum", "ROBOT VACUUM GUIDE"),
+    "tyre-inflators": ("Tire Inflators", "tire inflator", "TIRE INFLATOR GUIDE"),
+    "car-vacuums": ("Car Vacuums", "car vacuum", "CAR VACUUM GUIDE"),
+    "storage-bins": ("Storage Bins & Organizers", "storage bins organizer", "HOME ORGANIZATION GUIDE"),
+}
+
+US_ENGLISH_REPLACEMENTS = (
+    ("organisers", "organizers"),
+    ("organiser", "organizer"),
+    ("prioritise", "prioritize"),
+    ("tyres", "tires"),
+    ("tyre", "tire"),
+    ("colour", "color"),
+    ("centre", "center"),
+)
+
+
+def localise_topic(topic: tuple, market: str) -> tuple:
+    """Use natural US product names and search terms for USA articles."""
+    if market != "us":
+        return topic
+    key, display, query, max_uk, max_us, category, kicker = topic
+    us_copy = US_TOPIC_COPY.get(key)
+    if us_copy:
+        display, query, kicker = us_copy
+    return key, display, query, max_uk, max_us, category, kicker
+
+
+def localise_template_text(value: str, market: str) -> str:
+    if market != "us":
+        return value
+    result = value
+    for british, american in US_ENGLISH_REPLACEMENTS:
+        result = result.replace(british, american).replace(british.title(), american.title())
+    return result
+
 SATURDAY_PRIORITY = (
     "storage-bins",
     "cleaning-bundles",
@@ -957,6 +997,7 @@ def build_article(
     gsc_signal: dict | None = None,
     demand_score: float | None = None,
 ) -> dict:
+    topic = localise_topic(topic, market)
     key, display, query, max_uk, max_us, category, kicker = topic
     region = "UK" if market == "uk" else "USA"
     directory_name = "articles" if market == "uk" else "articles-us"
@@ -979,7 +1020,10 @@ def build_article(
         else fallback_sections(market, display, query)
     )
 
-    checks = CATEGORY_CHECKS.get(category, CATEGORY_CHECKS["Home & Kitchen"])
+    checks = [
+        localise_template_text(check, market)
+        for check in CATEGORY_CHECKS.get(category, CATEGORY_CHECKS["Home & Kitchen"])
+    ]
     check_html = "\n".join(f"<li>{html.escape(check)}</li>" for check in checks)
     guides = related_guides(
         market=market,
@@ -993,7 +1037,7 @@ def build_article(
     trend_title_phrase = trend_keyword_for_title(topic, trend_signal)
     title_subject = trend_title_phrase or display
     title = f"Best {title_subject} Worth Buying in the {region} ({year})"
-    source_sha = f"{datetime.now(timezone.utc).date().isoformat()}-{key}-{market}-daily-v4"
+    source_sha = f"{datetime.now(timezone.utc).date().isoformat()}-{key}-{market}-daily-v5"
     primary_keyword = f"best {title_subject.lower()} {region.lower()} {year}"
     secondary_keywords = [
         f"{display.lower()} buying guide {region.lower()}",
@@ -1004,7 +1048,12 @@ def build_article(
         trend_query = " ".join(str(trend_signal["query"]).split())
         secondary_keywords.insert(0, trend_query)
     description = seo_description(display, region, year)
-    checked_date = datetime.now(timezone.utc).strftime("%d %B %Y").lstrip("0")
+    checked_at = datetime.now(timezone.utc)
+    checked_date = (
+        checked_at.strftime("%d %B %Y").lstrip("0")
+        if market == "uk"
+        else f"{checked_at.strftime('%B')} {checked_at.day}, {checked_at.year}"
+    )
 
     methodology = (
         f"For this guide, our automation searched current {('eBay UK' if market == 'uk' else 'eBay')} "
@@ -1067,7 +1116,9 @@ def build_article(
         ),
         "content_html": content,
         "_seo": {
-            "version": "daily-seo-v5-google-shopping",
+            "version": "daily-seo-v6-us-localisation",
+            "target_country": "GB" if market == "uk" else "US",
+            "language": "en-GB" if market == "uk" else "en-US",
             "primary_keyword": primary_keyword,
             "secondary_keywords": secondary_keywords,
             "description": description,
