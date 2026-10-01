@@ -26,6 +26,9 @@ PREFERRED_MERCHANTS = {
     "uk": (),
     "us": ("Sharper Image",),
 }
+RETAILER_LOGO_ASSETS = {
+    "sharper image": "assets/retailers/sharper-image.svg",
+}
 
 
 def load_state() -> dict:
@@ -145,6 +148,8 @@ def build_article(topic: tuple, products: list[RakutenProduct], market: str, now
     check_html = "\n".join(f"<li>{html.escape(check)}</li>" for check in checks)
     merchant_names = sorted({product.merchant for product in products})
     merchants = ", ".join(merchant_names)
+    featured_retailer = merchant_names[0] if len(merchant_names) == 1 else ""
+    retailer_logo_asset = RETAILER_LOGO_ASSETS.get(featured_retailer.casefold(), "")
     title = f"Current {display} Offers from Approved {region} Retailers ({month_year})"
     checked_date = now.strftime("%d %B %Y").lstrip("0")
 
@@ -182,6 +187,8 @@ def build_article(topic: tuple, products: list[RakutenProduct], market: str, now
         "ai_visual_enabled": True,
         "pinterest_enabled": True,
         "hero_image_kicker": f"{kicker} · RETAILER OFFERS",
+        "featured_retailer": featured_retailer,
+        "retailer_logo_asset": retailer_logo_asset,
         "pinterest_title": title,
         "pinterest_subtitle": "Approved retailer offers and practical checks before you buy",
         "x_image_title": f"Current {display} Offers",
@@ -216,6 +223,8 @@ def build_article(topic: tuple, products: list[RakutenProduct], market: str, now
             "query": query,
             "offer_count": len(products),
             "merchants": merchant_names,
+            "featured_retailer": featured_retailer,
+            "retailer_logo_asset": retailer_logo_asset,
             "article_directory": "articles" if market == "uk" else "articles-us",
         },
     }
