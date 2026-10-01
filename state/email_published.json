@@ -18,7 +18,7 @@
   },
   "uk:best-battery-chargers-worth-buying-uk-2026": {
     "delivery_mode": "manual",
-    "delivery_status": "awaiting_manual_publish",
+    "delivery_status": "published",
     "last_sent_at": "2026-10-01T07:36:52.158102+00:00",
     "market": "uk",
     "primary_category": "Motoring",
@@ -26,7 +26,8 @@
     "sent": true,
     "source_file": "best-battery-chargers-worth-buying-uk-2026.json",
     "source_sha": "2026-10-01-battery-chargers-uk-daily-v4",
-    "title": "Best Car Battery Chargers Worth Buying in the UK (2026)"
+    "title": "Best Car Battery Chargers Worth Buying in the UK (2026)",
+    "url": "https://www.worthbuyinguk.co.uk/2026/10/best-car-battery-chargers-worth-buying.html"
   },
   "uk:best-car-jump-starters-before-winter-uk-2026": {
     "delivery_mode": "mail2blogger",
@@ -219,7 +220,7 @@
   },
   "us:best-battery-chargers-worth-buying-us-2026": {
     "delivery_mode": "manual",
-    "delivery_status": "awaiting_manual_publish",
+    "delivery_status": "published",
     "last_sent_at": "2026-10-01T07:38:10.640939+00:00",
     "market": "us",
     "primary_category": "Motoring",
@@ -227,7 +228,8 @@
     "sent": true,
     "source_file": "best-battery-chargers-worth-buying-us-2026.json",
     "source_sha": "2026-10-01-battery-chargers-us-daily-v4",
-    "title": "Best Car Battery Chargers Worth Buying in the USA (2026)"
+    "title": "Best Car Battery Chargers Worth Buying in the USA (2026)",
+    "url": "https://www.worthbuyingusa.com/2026/10/best-car-battery-chargers-worth-buying.html"
   },
   "us:best-car-jump-starters-before-winter-us-2026": {
     "delivery_mode": "mail2blogger",
