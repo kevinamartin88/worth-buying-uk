@@ -243,6 +243,18 @@
     "title": "Best Air Fryers Worth Buying in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/09/best-air-fryers-worth-buying-in-usa-2026.html"
   },
+  "us:best-air-purifiers-worth-buying-us-2026": {
+    "delivery_mode": "manual",
+    "delivery_status": "awaiting_manual_publish",
+    "last_sent_at": "2026-10-02T07:22:50.063813+00:00",
+    "market": "us",
+    "primary_category": "Home & Kitchen",
+    "send_attempts": 1,
+    "sent": true,
+    "source_file": "best-air-purifiers-worth-buying-us-2026.json",
+    "source_sha": "2026-10-02-air-purifiers-us-daily-v5",
+    "title": "Best Air Purifiers Worth Buying in the USA (2026)"
+  },
   "us:best-battery-chargers-worth-buying-us-2026": {
     "delivery_mode": "manual",
     "delivery_status": "published",
