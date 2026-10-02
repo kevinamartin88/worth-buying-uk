@@ -92,6 +92,36 @@ def test_sharper_image_is_prioritized_for_usa_roundups():
     assert len(ranked[: generator.MAX_PRODUCTS]) == generator.MAX_PRODUCTS
 
 
+def test_choice_furniture_is_prioritized_for_uk_roundups():
+    offers = products(5) + [
+        RakutenProduct(
+            name="Oak Dining Table",
+            merchant="Choice Furniture Superstore",
+            url="https://click.linksynergy.com/deeplink?id=choice&mid=789",
+            price="599.00",
+            currency="GBP",
+            advertiser_id="789",
+        )
+    ]
+
+    ranked = generator.prioritize_products(offers, "uk")
+
+    assert ranked[0].merchant == "Choice Furniture Superstore"
+    assert len(ranked[: generator.MAX_PRODUCTS]) == generator.MAX_PRODUCTS
+
+
+def test_choice_furniture_topics_are_searched_first_for_uk():
+    topics = generator.candidate_topics(10, [], "uk")
+
+    assert [topic[0] for topic in topics[:5]] == [
+        "dining-tables",
+        "coffee-tables",
+        "bed-frames",
+        "wardrobes",
+        "sideboards",
+    ]
+
+
 def test_single_sharper_image_roundup_adds_title_image_branding():
     topic = next(topic for topic in generator.TOPICS if topic[0] == "dehumidifiers")
     offers = [

@@ -23,8 +23,19 @@ MAX_SEARCHES_PER_MARKET = 24
 RECENT_TOPIC_WINDOW = 45
 QUERY_STOPWORDS = {"and", "best", "for", "home", "inch", "pro", "smart", "the", "with"}
 PREFERRED_MERCHANTS = {
-    "uk": (),
+    "uk": ("Choice Furniture Superstore", "Choice Furniture Supersto"),
     "us": ("Sharper Image",),
+}
+RAKUTEN_ONLY_TOPICS = [
+    ("dining-tables", "Dining Tables", "dining table", 1800, 2000, "Home & Kitchen", "DINING TABLE GUIDE"),
+    ("coffee-tables", "Coffee Tables", "coffee table", 900, 1000, "Home & Kitchen", "COFFEE TABLE GUIDE"),
+    ("bed-frames", "Bed Frames", "bed frame", 1600, 1800, "Home & Kitchen", "BED BUYING GUIDE"),
+    ("wardrobes", "Wardrobes", "wardrobe", 1800, 2000, "Home & Kitchen", "WARDROBE GUIDE"),
+    ("sideboards", "Sideboards", "sideboard", 1400, 1600, "Home & Kitchen", "SIDEBOARD GUIDE"),
+]
+RAKUTEN_TOPICS = [*RAKUTEN_ONLY_TOPICS, *TOPICS]
+PREFERRED_TOPIC_KEYS = {
+    "uk": tuple(topic[0] for topic in RAKUTEN_ONLY_TOPICS),
 }
 RETAILER_LOGO_ASSETS = {
     "sharper image": "assets/retailers/sharper-image.svg",
@@ -48,12 +59,13 @@ def save_state(state: dict) -> None:
     )
 
 
-def candidate_topics(month: int, recent_topics: list[str]) -> list[tuple]:
-    by_key = {topic[0]: topic for topic in TOPICS}
+def candidate_topics(month: int, recent_topics: list[str], market: str = "") -> list[tuple]:
+    by_key = {topic[0]: topic for topic in RAKUTEN_TOPICS}
     priority_keys = [
+        *PREFERRED_TOPIC_KEYS.get(market, ()),
         *SEASONAL_FALLBACKS.get(month, ()),
         *EVERGREEN_HIGH_INTENT,
-        *(topic[0] for topic in TOPICS),
+        *(topic[0] for topic in RAKUTEN_TOPICS),
     ]
     recent = set(recent_topics[-RECENT_TOPIC_WINDOW:])
     ordered: list[tuple] = []
@@ -71,7 +83,7 @@ def candidate_topics(month: int, recent_topics: list[str]) -> list[tuple]:
             if key in by_key and key not in seen:
                 ordered.append(by_key[key])
                 seen.add(key)
-        for topic in TOPICS:
+        for topic in RAKUTEN_TOPICS:
             if topic[0] not in seen:
                 ordered.append(topic)
     return ordered
@@ -96,8 +108,13 @@ def relevant_products(products: list[RakutenProduct], query: str) -> list[Rakute
 
 def prioritize_products(products: list[RakutenProduct], market: str) -> list[RakutenProduct]:
     """Put approved preferred retailers first without excluding other good offers."""
-    preferred = {name.casefold() for name in PREFERRED_MERCHANTS.get(market, ())}
-    return sorted(products, key=lambda product: product.merchant.casefold() not in preferred)
+    preferred = tuple(name.casefold() for name in PREFERRED_MERCHANTS.get(market, ()))
+
+    def is_preferred(product: RakutenProduct) -> bool:
+        merchant = product.merchant.casefold()
+        return any(merchant == name or merchant.startswith(name) for name in preferred)
+
+    return sorted(products, key=lambda product: not is_preferred(product))
 
 
 def find_offer_set(
@@ -106,7 +123,7 @@ def find_offer_set(
     recent_topics: list[str],
     market: str = "",
 ) -> tuple[tuple | None, list[RakutenProduct]]:
-    for topic in candidate_topics(month, recent_topics)[:MAX_SEARCHES_PER_MARKET]:
+    for topic in candidate_topics(month, recent_topics, market)[:MAX_SEARCHES_PER_MARKET]:
         products = relevant_products(client.search(topic[2], limit=12), topic[2])
         if len(products) >= MIN_PRODUCTS:
             return topic, prioritize_products(products, market)[:MAX_PRODUCTS]

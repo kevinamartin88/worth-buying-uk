@@ -252,6 +252,12 @@ Worth Buying USA currently gives approved Sharper Image products priority when
 they are relevant to the selected topic. Other approved US retailers remain valid
 fallbacks, so the autonomous stream does not depend on a single advertiser feed.
 
+Worth Buying UK gives approved Choice Furniture Superstore products priority for
+relevant furniture topics such as dining tables, coffee tables, beds, wardrobes
+and sideboards. The three-product relevance gate remains in place, and other
+approved UK retailers remain valid fallbacks when the Choice Furniture feed does
+not contain enough suitable live products.
+
 New Rakuten roundups are saved in the existing regional article directories so the
 established Blogger, X, Bluesky and Pinterest publishing chain can process them.
 Recent-topic history prevents near-duplicate roundups, while all outbound Rakuten
