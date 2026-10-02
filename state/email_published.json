@@ -1,7 +1,7 @@
 {
   "uk:approved-retailer-dining-tables-uk-2026-10-02": {
     "delivery_mode": "manual",
-    "delivery_status": "awaiting_manual_publish",
+    "delivery_status": "published",
     "last_sent_at": "2026-10-02T14:44:20.228957+00:00",
     "market": "uk",
     "primary_category": "Home & Kitchen",
@@ -9,7 +9,8 @@
     "sent": true,
     "source_file": "approved-retailer-dining-tables-uk-2026-10-02.json",
     "source_sha": "2026-10-02-dining-tables-uk-rakuten-v1",
-    "title": "Current Dining Tables Offers from Approved UK Retailers (October 2026)"
+    "title": "Current Dining Tables Offers from Approved UK Retailers (October 2026)",
+    "url": "https://www.worthbuyinguk.co.uk/2026/10/current-dining-tables-offers-from.html"
   },
   "uk:autumn-car-essentials-worth-buying-uk-2026": {
     "market": "uk",
