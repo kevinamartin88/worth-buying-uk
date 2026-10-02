@@ -1,14 +1,27 @@
 {
+  "uk": {
+    "date": "2026-10-02",
+    "merchants": [
+      "Choice Furniture Supersto"
+    ],
+    "offer_count": 5,
+    "recent_topics": [
+      "dining-tables"
+    ],
+    "slug": "approved-retailer-dining-tables-uk-2026-10-02",
+    "topic": "dining-tables"
+  },
   "us": {
-    "date": "2026-10-01",
+    "date": "2026-10-02",
     "merchants": [
       "Sharper Image"
     ],
     "offer_count": 4,
     "recent_topics": [
-      "dehumidifiers"
+      "dehumidifiers",
+      "dash-cams"
     ],
-    "slug": "approved-retailer-dehumidifiers-us-2026-10-01",
-    "topic": "dehumidifiers"
+    "slug": "approved-retailer-dash-cams-us-2026-10-02",
+    "topic": "dash-cams"
   }
 }
