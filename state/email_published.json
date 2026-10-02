@@ -130,6 +130,18 @@
     "title": "Best Portable Heaters Worth Buying in the UK (2026)",
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-portable-heaters-worth-buying-in.html"
   },
+  "uk:best-power-banks-worth-buying-uk-2026": {
+    "delivery_mode": "manual",
+    "delivery_status": "awaiting_manual_publish",
+    "last_sent_at": "2026-10-02T07:21:14.541046+00:00",
+    "market": "uk",
+    "primary_category": "Tech",
+    "send_attempts": 1,
+    "sent": true,
+    "source_file": "best-power-banks-worth-buying-uk-2026.json",
+    "source_sha": "2026-10-02-power-banks-uk-daily-v5",
+    "title": "Best Power Banks Worth Buying in the UK (2026)"
+  },
   "uk:best-robot-vacuum-cleaners-worth-buying-uk-2026": {
     "delivery_mode": "manual",
     "delivery_status": "published",
