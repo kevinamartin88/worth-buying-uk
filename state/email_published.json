@@ -237,7 +237,7 @@
   },
   "us:approved-retailer-dash-cams-us-2026-10-02": {
     "delivery_mode": "manual",
-    "delivery_status": "awaiting_manual_publish",
+    "delivery_status": "published",
     "last_sent_at": "2026-10-02T14:45:40.289090+00:00",
     "market": "us",
     "primary_category": "Motoring",
@@ -245,7 +245,8 @@
     "sent": true,
     "source_file": "approved-retailer-dash-cams-us-2026-10-02.json",
     "source_sha": "2026-10-02-dash-cams-us-rakuten-v1",
-    "title": "Current Dash Cams Offers from Approved USA Retailers (October 2026)"
+    "title": "Current Dash Cams Offers from Approved USA Retailers (October 2026)",
+    "url": "https://www.worthbuyingusa.com/2026/10/current-dash-cams-offers-from-approved.html"
   },
   "us:approved-retailer-dehumidifiers-us-2026-10-01": {
     "delivery_mode": "manual",
