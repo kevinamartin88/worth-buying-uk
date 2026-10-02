@@ -26,6 +26,10 @@ PREFERRED_MERCHANTS = {
     "uk": ("Choice Furniture Superstore", "Choice Furniture Supersto"),
     "us": ("Sharper Image",),
 }
+RETAILER_DISPLAY_NAMES = {
+    # Rakuten shortens this advertiser name in some product-feed responses.
+    "choice furniture supersto": "Choice Furniture Superstore",
+}
 RAKUTEN_ONLY_TOPICS = [
     ("dining-tables", "Dining Tables", "dining table", 1800, 2000, "Home & Kitchen", "DINING TABLE GUIDE"),
     ("coffee-tables", "Coffee Tables", "coffee table", 900, 1000, "Home & Kitchen", "COFFEE TABLE GUIDE"),
@@ -139,18 +143,24 @@ def display_price(product: RakutenProduct, market: str) -> str:
     return f"{'£' if market == 'uk' else '$'}{raw}"
 
 
+def retailer_display_name(name: str) -> str:
+    clean = " ".join(str(name).split())
+    return RETAILER_DISPLAY_NAMES.get(clean.casefold(), clean)
+
+
 def product_sections(products: list[RakutenProduct], market: str) -> str:
     sections: list[str] = []
     for index, product in enumerate(products, start=1):
+        merchant = retailer_display_name(product.merchant)
         sections.append(
             f"<h3>{index}. {html.escape(product.name)}</h3>\n"
-            f"<p><strong>Retailer:</strong> {html.escape(product.merchant)}. "
+            f"<p><strong>Retailer:</strong> {html.escape(merchant)}. "
             f"<strong>Price when checked:</strong> {html.escape(display_price(product, market))}. "
             "This product appeared in the approved retailer feed when this article was prepared. "
             "Check the exact model, specification, availability, delivery charge, warranty and returns "
             "on the live retailer page before ordering.</p>\n"
             f'<p><a href="{html.escape(product.url, quote=True)}" rel="sponsored nofollow">'
-            f"View this offer at {html.escape(product.merchant)} (Ad)</a></p>"
+            f"View this offer at {html.escape(merchant)} (Ad)</a></p>"
         )
     return "\n".join(sections)
 
@@ -163,7 +173,7 @@ def build_article(topic: tuple, products: list[RakutenProduct], market: str, now
     slug = f"approved-retailer-{key}-{market}-{date_key}"
     checks = CATEGORY_CHECKS.get(category, CATEGORY_CHECKS["Home & Kitchen"])
     check_html = "\n".join(f"<li>{html.escape(check)}</li>" for check in checks)
-    merchant_names = sorted({product.merchant for product in products})
+    merchant_names = sorted({retailer_display_name(product.merchant) for product in products})
     merchants = ", ".join(merchant_names)
     featured_retailer = merchant_names[0] if len(merchant_names) == 1 else ""
     retailer_logo_asset = RETAILER_LOGO_ASSETS.get(featured_retailer.casefold(), "")

@@ -122,6 +122,32 @@ def test_choice_furniture_topics_are_searched_first_for_uk():
     ]
 
 
+def test_truncated_choice_furniture_name_is_displayed_in_full():
+    topic = next(topic for topic in generator.RAKUTEN_TOPICS if topic[0] == "dining-tables")
+    offers = [
+        RakutenProduct(
+            name=f"Oak Dining Table {index}",
+            merchant="Choice Furniture Supersto",
+            url=f"https://click.linksynergy.com/deeplink?id={index}&mid=789",
+            price="599.00",
+            currency="GBP",
+            advertiser_id="789",
+        )
+        for index in range(1, 4)
+    ]
+
+    article = generator.build_article(
+        topic,
+        offers,
+        "uk",
+        datetime(2026, 10, 2, tzinfo=timezone.utc),
+    )
+
+    assert article["featured_retailer"] == "Choice Furniture Superstore"
+    assert "Choice Furniture Superstore" in article["content_html"]
+    assert "Choice Furniture Supersto (Ad)" not in article["content_html"]
+
+
 def test_single_sharper_image_roundup_adds_title_image_branding():
     topic = next(topic for topic in generator.TOPICS if topic[0] == "dehumidifiers")
     offers = [

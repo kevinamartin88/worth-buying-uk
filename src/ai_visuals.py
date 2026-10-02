@@ -70,6 +70,21 @@ def _measure(draw: ImageDraw.ImageDraw, text: str, font) -> tuple[int, int]:
     return box[2] - box[0], box[3] - box[1]
 
 
+def _fit_single_line_font(
+    draw: ImageDraw.ImageDraw,
+    text: str,
+    max_width: int,
+    start_size: int,
+    minimum_size: int,
+):
+    """Keep long retailer names inside their card without changing short names."""
+    for size in range(start_size, minimum_size - 1, -1):
+        font = _load_font(size, bold=True)
+        if _measure(draw, text, font)[0] <= max_width:
+            return font
+    return _load_font(minimum_size, bold=True)
+
+
 def _wrap_text(
     draw: ImageDraw.ImageDraw,
     text: str,
@@ -678,7 +693,13 @@ def _add_text_overlay(image: Image.Image, article: dict, market: str) -> Image.I
             image.alpha_composite(retailer_logo, (logo_x, logo_y))
             draw = ImageDraw.Draw(image)
         else:
-            retailer_font = _load_font(34, bold=True)
+            retailer_font = _fit_single_line_font(
+                draw,
+                retailer,
+                max_width=text_max_width - 44,
+                start_size=34,
+                minimum_size=22,
+            )
             retailer_w, retailer_h = _measure(draw, retailer, retailer_font)
             draw.text(
                 (text_x + (text_max_width - retailer_w) // 2, card_y1 + 48 - retailer_h // 4),
