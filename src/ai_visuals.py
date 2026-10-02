@@ -36,6 +36,9 @@ MUTED_WHITE = (225, 235, 241)
 RETAILER_LOGOS = {
     "sharper image": ROOT / "assets" / "retailers" / "sharper-image.svg",
 }
+RETAILER_DISPLAY_NAMES = {
+    "choice furniture supersto": "Choice Furniture Superstore",
+}
 
 FONT_REGULAR_CANDIDATES = (
     "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
@@ -259,17 +262,21 @@ def _overlay_subtitle(article: dict) -> str:
 
 
 def _featured_retailer(article: dict) -> str:
+    def display_name(value: object) -> str:
+        clean = " ".join(str(value or "").split())
+        return RETAILER_DISPLAY_NAMES.get(clean.casefold(), clean)
+
     explicit = str(article.get("featured_retailer") or "").strip()
     if explicit:
-        return explicit
+        return display_name(explicit)
 
     generator = article.get("_generator") or {}
     explicit = str(generator.get("featured_retailer") or "").strip()
     if explicit:
-        return explicit
+        return display_name(explicit)
 
     merchants = [str(value).strip() for value in generator.get("merchants", []) if str(value).strip()]
-    return merchants[0] if len(merchants) == 1 else ""
+    return display_name(merchants[0]) if len(merchants) == 1 else ""
 
 
 def _retailer_logo_path(article: dict) -> Path | None:
@@ -314,7 +321,11 @@ def _load_retailer_logo(
 
 
 def _article_style_version(article: dict) -> str:
-    return STYLE_VERSION + ("+retailer-logo-v2" if _featured_retailer(article) else "")
+    retailer = _featured_retailer(article)
+    if retailer.casefold() == "choice furniture superstore":
+        # Regenerate the already-published image that used Rakuten's shortened name.
+        return STYLE_VERSION + "+choice-furniture-name-fit-v1"
+    return STYLE_VERSION + ("+retailer-logo-v2" if retailer else "")
 
 
 def _style_marker(output: Path) -> Path:
