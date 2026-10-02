@@ -132,7 +132,7 @@
   },
   "uk:best-power-banks-worth-buying-uk-2026": {
     "delivery_mode": "manual",
-    "delivery_status": "awaiting_manual_publish",
+    "delivery_status": "published",
     "last_sent_at": "2026-10-02T07:21:14.541046+00:00",
     "market": "uk",
     "primary_category": "Tech",
@@ -140,7 +140,8 @@
     "sent": true,
     "source_file": "best-power-banks-worth-buying-uk-2026.json",
     "source_sha": "2026-10-02-power-banks-uk-daily-v5",
-    "title": "Best Power Banks Worth Buying in the UK (2026)"
+    "title": "Best Power Banks Worth Buying in the UK (2026)",
+    "url": "https://www.worthbuyinguk.co.uk/2026/10/best-power-banks-worth-buying-in-uk-2026.html"
   },
   "uk:best-robot-vacuum-cleaners-worth-buying-uk-2026": {
     "delivery_mode": "manual",
@@ -245,7 +246,7 @@
   },
   "us:best-air-purifiers-worth-buying-us-2026": {
     "delivery_mode": "manual",
-    "delivery_status": "awaiting_manual_publish",
+    "delivery_status": "published",
     "last_sent_at": "2026-10-02T07:22:50.063813+00:00",
     "market": "us",
     "primary_category": "Home & Kitchen",
@@ -253,7 +254,8 @@
     "sent": true,
     "source_file": "best-air-purifiers-worth-buying-us-2026.json",
     "source_sha": "2026-10-02-air-purifiers-us-daily-v5",
-    "title": "Best Air Purifiers Worth Buying in the USA (2026)"
+    "title": "Best Air Purifiers Worth Buying in the USA (2026)",
+    "url": "https://www.worthbuyingusa.com/2026/10/best-air-purifiers-worth-buying-in-usa.html"
   },
   "us:best-battery-chargers-worth-buying-us-2026": {
     "delivery_mode": "manual",
