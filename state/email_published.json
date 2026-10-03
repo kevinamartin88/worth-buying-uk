@@ -272,6 +272,18 @@
     "title": "3 Small Home Upgrades Worth Buying in the UK This September",
     "url": "https://www.worthbuyinguk.co.uk/2026/09/3-small-home-upgrades-worth-buying-in.html"
   },
+  "us:approved-retailer-air-purifiers-us-2026-10-03": {
+    "delivery_mode": "manual",
+    "delivery_status": "awaiting_manual_publish",
+    "last_sent_at": "2026-10-03T13:23:53.077042+00:00",
+    "market": "us",
+    "primary_category": "Home & Kitchen",
+    "send_attempts": 1,
+    "sent": true,
+    "source_file": "approved-retailer-air-purifiers-us-2026-10-03.json",
+    "source_sha": "2026-10-03-air-purifiers-us-rakuten-v1",
+    "title": "Current Air Purifiers Offers from Approved USA Retailers (October 2026)"
+  },
   "us:approved-retailer-dash-cams-us-2026-10-02": {
     "delivery_mode": "manual",
     "delivery_status": "published",
