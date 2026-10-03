@@ -254,7 +254,7 @@
   },
   "uk:savvy-buyer-saturday-specifications-final-checklist-uk-2026-10-03": {
     "delivery_mode": "manual",
-    "delivery_status": "awaiting_manual_publish",
+    "delivery_status": "published",
     "last_sent_at": "2026-10-03T12:41:15.511088+00:00",
     "market": "uk",
     "primary_category": "Deals",
@@ -262,7 +262,8 @@
     "sent": true,
     "source_file": "savvy-buyer-saturday-specifications-final-checklist-uk-2026-10-03.json",
     "source_sha": "savvy-2026-10-03-saturday-uk-v2",
-    "title": "Savvy Buyer Saturday: The Final Five-Minute Checklist for Comparing Specifications That Matter (UK)"
+    "title": "Savvy Buyer Saturday: The Final Five-Minute Checklist for Comparing Specifications That Matter (UK)",
+    "url": "https://www.worthbuyinguk.co.uk/2026/10/savvy-buyer-saturday-final-five-minute.html"
   },
   "uk:small-home-upgrades-worth-buying-uk-september-2026": {
     "market": "uk",
@@ -550,7 +551,7 @@
   },
   "us:savvy-buyer-saturday-specifications-final-checklist-us-2026-10-03": {
     "delivery_mode": "manual",
-    "delivery_status": "awaiting_manual_publish",
+    "delivery_status": "published",
     "last_sent_at": "2026-10-03T12:42:50.519133+00:00",
     "market": "us",
     "primary_category": "Deals",
@@ -558,6 +559,7 @@
     "sent": true,
     "source_file": "savvy-buyer-saturday-specifications-final-checklist-us-2026-10-03.json",
     "source_sha": "savvy-2026-10-03-saturday-us-v2",
-    "title": "Savvy Buyer Saturday: The Final Five-Minute Checklist for Comparing Specifications That Matter (US)"
+    "title": "Savvy Buyer Saturday: The Final Five-Minute Checklist for Comparing Specifications That Matter (US)",
+    "url": "https://www.worthbuyingusa.com/2026/10/savvy-buyer-saturday-final-five-minute.html"
   }
 }
