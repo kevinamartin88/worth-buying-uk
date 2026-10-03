@@ -11,9 +11,13 @@ These one-time Blogger changes complement the repository's publishing checks.
 
 ## Worth Buying USA
 
-- Blog language: English (United States), so the document language is `en-US`.
+- Blogger blog language: English. Blogger does not currently expose a separate
+  English (United States) choice, so set the theme document language to `en-US`.
 - Search description: `US buying guides, product comparisons and genuine deals across technology, home, motoring and more. Discover what is really worth buying.`
 - Footer About link: `/p/about-worth-buying-usa.html`.
+- Homepage regional alternates: self-reference as `en-US`, reference the UK
+  homepage as `en-GB`, and provide an `x-default` homepage.
+- Social links: use the US/global Pinterest hostname rather than `uk.pinterest.com`.
 - Theme: use the post title as the only `h1` on item pages; use the homepage hero heading as the only `h1` on the homepage.
 - Theme structured data: publisher name `Worth Buying USA`, not `Blogger`.
 
