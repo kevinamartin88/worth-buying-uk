@@ -1,15 +1,57 @@
 import wave
 
+from PIL import Image, ImageDraw
+
 from src.youtube_shorts import (
+    HEIGHT,
     SHORT_SECONDS,
     SLIDE_DURATIONS,
+    WIDTH,
+    _short_background,
+    _trim_logo,
     _write_retro_mall_music,
     article_short_points,
+    deal_teaser,
     extract_short_points,
     publication_fingerprint,
+    short_headline,
     short_description,
     short_title,
 )
+
+
+def test_landscape_hero_uses_image_side_instead_of_embedded_text_panel():
+    source = Image.new("RGB", (1600, 900), "red")
+    draw = ImageDraw.Draw(source)
+    draw.rectangle((600, 0, 1599, 899), fill="blue")
+
+    portrait = _short_background(source)
+
+    assert portrait.size == (WIDTH, HEIGHT)
+    assert portrait.getpixel((WIDTH // 2, HEIGHT // 2))[0] > 200
+    assert portrait.getpixel((WIDTH // 2, HEIGHT // 2))[2] < 50
+
+
+def test_clean_landscape_background_uses_product_centre():
+    source = Image.new("RGB", (1600, 900), "red")
+    draw = ImageDraw.Draw(source)
+    draw.rectangle((650, 0, 950, 899), fill="green")
+
+    portrait = _short_background(source, clean_source=True)
+
+    centre = portrait.getpixel((WIDTH // 2, HEIGHT // 2))
+    assert centre[1] > centre[0]
+
+
+def test_logo_padding_is_trimmed_before_short_layout():
+    logo = Image.new("RGBA", (1000, 1000), "white")
+    draw = ImageDraw.Draw(logo)
+    draw.rectangle((100, 430, 900, 570), fill="navy")
+
+    trimmed = _trim_logo(logo)
+
+    assert trimmed.width < 900
+    assert trimmed.height < 300
 
 
 def test_short_timing_is_ten_seconds_across_three_clean_scenes():
@@ -52,6 +94,25 @@ def test_short_metadata_is_regional_and_within_youtube_limits():
     assert "worthbuyinguk.co.uk/post" in description
     assert "affiliate" not in description.casefold()
     assert "#Shorts" in description
+
+
+def test_short_headline_removes_clutter_from_rakuten_title():
+    article = {
+        "title": "Current Dash Cams Offers from Approved USA Retailers (October 2026)"
+    }
+
+    assert short_headline(article) == "Dash Cams Deals Worth Checking"
+
+
+def test_deal_teaser_uses_lowest_live_regional_price():
+    article = {
+        "content_html": (
+            "<p>Price when checked: £139.99</p>"
+            "<p>Price when checked: £119.99</p>"
+        )
+    }
+
+    assert deal_teaser(article, "uk") == "Live offers from £119.99 when checked"
 
 
 def test_generated_price_points_take_priority_over_headings():

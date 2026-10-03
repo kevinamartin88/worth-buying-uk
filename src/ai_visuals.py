@@ -773,6 +773,20 @@ def _save_branded_image(image: Image.Image, output: Path, article: dict, market:
     _write_style_marker(output, article)
 
 
+def _youtube_background_path(output: Path, market: str) -> Path:
+    return ROOT / "assets" / "ai-backgrounds" / market / output.name
+
+
+def _save_youtube_background(image: Image.Image, output: Path, market: str) -> Path:
+    background = image.convert("RGB")
+    if background.size != (OUTPUT_WIDTH, OUTPUT_HEIGHT):
+        background = background.resize((OUTPUT_WIDTH, OUTPUT_HEIGHT), Image.Resampling.LANCZOS)
+    target = _youtube_background_path(output, market)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    background.save(target, format="JPEG", quality=91, optimize=True)
+    return target
+
+
 def _save_generated_image(
     image_bytes: bytes,
     output: Path,
@@ -780,6 +794,7 @@ def _save_generated_image(
     market: str,
 ) -> None:
     with Image.open(io.BytesIO(image_bytes)) as image:
+        _save_youtube_background(image, output, market)
         _save_branded_image(image, output, article, market)
 
 
@@ -791,8 +806,10 @@ def generate_image(
     api_token: str,
     force: bool = False,
 ) -> bool:
+    clean_background = _youtube_background_path(output, market)
     if output.exists() and not force:
-        if _is_current_style(output, article):
+        needs_clean_background = bool(article.get("youtube_clean_background")) and not clean_background.exists()
+        if _is_current_style(output, article) and not needs_clean_background:
             return False
         # The saved JPG already contains its previous text overlay. Regenerate
         # the clean AI background before applying a changed layout, otherwise
