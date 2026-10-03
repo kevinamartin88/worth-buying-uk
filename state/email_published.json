@@ -117,6 +117,18 @@
     "title": "Best Fans Worth Buying for the 2027 UK Heatwave",
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-fans-worth-buying-for-2027-uk.html"
   },
+  "uk:best-food-processors-worth-buying-uk-2026": {
+    "delivery_mode": "manual",
+    "delivery_status": "awaiting_manual_publish",
+    "last_sent_at": "2026-10-03T07:11:56.776625+00:00",
+    "market": "uk",
+    "primary_category": "Home & Kitchen",
+    "send_attempts": 1,
+    "sent": true,
+    "source_file": "best-food-processors-worth-buying-uk-2026.json",
+    "source_sha": "2026-10-03-food-processors-uk-daily-v5",
+    "title": "Best Food Processors Worth Buying in the UK (2026)"
+  },
   "uk:best-non-slip-hangers-worth-buying-uk-2026": {
     "delivery_mode": "manual",
     "delivery_status": "published",
