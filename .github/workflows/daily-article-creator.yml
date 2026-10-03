@@ -2,13 +2,20 @@ name: Daily UK and USA article creator
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "state/manual-daily-kick.txt"
   schedule:
-    # GitHub cron is UTC-only. These three triggers cover both GMT and BST;
-    # the schedule gate below selects the two that correspond to 06:10 and
-    # 07:10 Europe/London on the day of the run.
-    - cron: "10 5 * * *"
-    - cron: "10 6 * * *"
-    - cron: "10 7 * * *"
+    # GitHub cron is UTC-only. Use three UK-local attempts at 07:23, 07:53
+    # and 08:23 each day. The schedule gate below selects the correct UTC
+    # triggers for BST or GMT. Off-peak minute values reduce scheduler load.
+    - cron: "23 6 * * *"
+    - cron: "53 6 * * *"
+    - cron: "23 7 * * *"
+    - cron: "53 7 * * *"
+    - cron: "23 8 * * *"
 
 permissions:
   contents: write
@@ -41,13 +48,17 @@ jobs:
 
           uk_offset="$(TZ=Europe/London date +%z)"
           case "${EVENT_SCHEDULE}:${uk_offset}" in
-            "10 5 * * *:+0100"|"10 6 * * *:+0000")
+            "23 6 * * *:+0100"|"23 7 * * *:+0000")
               echo "run=true" >> "$GITHUB_OUTPUT"
-              echo "slot=06:10 UK primary" >> "$GITHUB_OUTPUT"
+              echo "slot=07:23 UK primary" >> "$GITHUB_OUTPUT"
               ;;
-            "10 6 * * *:+0100"|"10 7 * * *:+0000")
+            "53 6 * * *:+0100"|"53 7 * * *:+0000")
               echo "run=true" >> "$GITHUB_OUTPUT"
-              echo "slot=07:10 UK fallback" >> "$GITHUB_OUTPUT"
+              echo "slot=07:53 UK retry" >> "$GITHUB_OUTPUT"
+              ;;
+            "23 7 * * *:+0100"|"23 8 * * *:+0000")
+              echo "run=true" >> "$GITHUB_OUTPUT"
+              echo "slot=08:23 UK fallback" >> "$GITHUB_OUTPUT"
               ;;
             *)
               echo "run=false" >> "$GITHUB_OUTPUT"
@@ -67,21 +78,41 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Check whether today's UK and USA pair already exists
+        id: daily
+        shell: bash
+        run: |
+          today="$(date -u +%F)"
+          uk_date="$(jq -r '.uk.date // ""' state/daily_article_generator.json 2>/dev/null || true)"
+          us_date="$(jq -r '.us.date // ""' state/daily_article_generator.json 2>/dev/null || true)"
+
+          if [ "$uk_date" = "$today" ] && [ "$us_date" = "$today" ]; then
+            echo "Today's UK and USA articles already exist; keeping this retry lightweight."
+            echo "needed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "At least one market still needs today's article."
+            echo "needed=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Set up Python
+        if: steps.daily.outputs.needed == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: "pip"
 
       - name: Install dependencies
+        if: steps.daily.outputs.needed == 'true'
         run: pip install -r requirements.txt
 
       - name: Test search-demand selection safeguards
+        if: steps.daily.outputs.needed == 'true'
         env:
           PYTHONPATH: .
         run: pytest -q tests/test_google_trends.py tests/test_google_shopping_trends.py tests/test_daily_demand_gate.py
 
       - name: Create one UK and one USA article
+        if: steps.daily.outputs.needed == 'true'
         env:
           PYTHONPATH: .
           EBAY_ENV: production
@@ -98,6 +129,12 @@ jobs:
         id: save
         shell: bash
         run: |
+          if [ "${{ steps.daily.outputs.needed }}" != "true" ]; then
+            echo "No generation work needed in this retry."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
           git add articles articles-us state/daily_article_generator.json
           if git diff --cached --quiet; then
             echo "No new daily articles to commit."
