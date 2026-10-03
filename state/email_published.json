@@ -119,7 +119,7 @@
   },
   "uk:best-food-processors-worth-buying-uk-2026": {
     "delivery_mode": "manual",
-    "delivery_status": "awaiting_manual_publish",
+    "delivery_status": "published",
     "last_sent_at": "2026-10-03T07:11:56.776625+00:00",
     "market": "uk",
     "primary_category": "Home & Kitchen",
@@ -127,7 +127,8 @@
     "sent": true,
     "source_file": "best-food-processors-worth-buying-uk-2026.json",
     "source_sha": "2026-10-03-food-processors-uk-daily-v5",
-    "title": "Best Food Processors Worth Buying in the UK (2026)"
+    "title": "Best Food Processors Worth Buying in the UK (2026)",
+    "url": "https://www.worthbuyinguk.co.uk/2026/10/best-food-processors-worth-buying-in-uk.html"
   },
   "uk:best-non-slip-hangers-worth-buying-uk-2026": {
     "delivery_mode": "manual",
@@ -387,7 +388,7 @@
   },
   "us:best-game-controllers-worth-buying-us-2026": {
     "delivery_mode": "manual",
-    "delivery_status": "awaiting_manual_publish",
+    "delivery_status": "published",
     "last_sent_at": "2026-10-03T07:13:42.511513+00:00",
     "market": "us",
     "primary_category": "Gaming",
@@ -395,7 +396,8 @@
     "sent": true,
     "source_file": "best-game-controllers-worth-buying-us-2026.json",
     "source_sha": "2026-10-03-game-controllers-us-daily-v5",
-    "title": "Best Game Controllers Worth Buying in the USA (2026)"
+    "title": "Best Game Controllers Worth Buying in the USA (2026)",
+    "url": "https://www.worthbuyingusa.com/2026/10/best-game-controllers-worth-buying-in.html"
   },
   "us:best-iphone-18-accessories-worth-buying-us-2026": {
     "delivery_mode": "manual",
