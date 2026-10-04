@@ -1,0 +1,68 @@
+name: Weekly authority support articles
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Midweek supporting content, separate from the early-morning daily guide.
+    - cron: "17 11 * * 3"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: worth-buying-repo-writes
+  cancel-in-progress: false
+
+jobs:
+  create-support:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Test authority-support generator
+        env:
+          PYTHONPATH: .
+        run: |
+          python -m py_compile generate_supporting_articles.py
+          pytest -q tests/test_supporting_articles.py
+
+      - name: Generate UK and USA supporting money pages
+        env:
+          PYTHONPATH: .
+          EBAY_ENV: production
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+          EPN_CAMPAIGN_ID: ${{ secrets.EPN_CAMPAIGN_ID }}
+          EPN_US_CAMPAIGN_ID: ${{ secrets.EPN_US_CAMPAIGN_ID }}
+          AMAZON_CREATORS_CLIENT_ID: ${{ secrets.AMAZON_CREATORS_CLIENT_ID }}
+          AMAZON_CREATORS_CLIENT_SECRET: ${{ secrets.AMAZON_CREATORS_CLIENT_SECRET }}
+          AMAZON_CREATORS_CREDENTIAL_VERSION: ${{ secrets.AMAZON_CREATORS_CREDENTIAL_VERSION }}
+        run: python generate_supporting_articles.py
+
+      - name: Save supporting articles and price history
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add articles articles-us state/authority_support.json state/daily_price_history.json
+          if git diff --cached --quiet; then
+            echo "No supporting article changes to commit."
+            exit 0
+          fi
+          git config user.name "worth-buying-authority-bot"
+          git config user.email "worth-buying-authority-bot@users.noreply.github.com"
+          git commit -m "Add weekly authority supporting guides"
+          git pull --rebase origin main
+          git push
