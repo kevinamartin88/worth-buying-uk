@@ -1,19 +1,20 @@
 {
   "uk": {
-    "date": "2026-10-03",
+    "date": "2026-10-04",
     "merchants": [
       "Choice Furniture Superstore"
     ],
     "offer_count": 5,
     "recent_topics": [
       "dining-tables",
-      "coffee-tables"
+      "coffee-tables",
+      "bed-frames"
     ],
-    "slug": "approved-retailer-coffee-tables-uk-2026-10-03",
-    "topic": "coffee-tables"
+    "slug": "approved-retailer-bed-frames-uk-2026-10-04",
+    "topic": "bed-frames"
   },
   "us": {
-    "date": "2026-10-03",
+    "date": "2026-10-04",
     "merchants": [
       "Sharper Image"
     ],
@@ -21,9 +22,10 @@
     "recent_topics": [
       "dehumidifiers",
       "dash-cams",
-      "air-purifiers"
+      "air-purifiers",
+      "coffee-machines"
     ],
-    "slug": "approved-retailer-air-purifiers-us-2026-10-03",
-    "topic": "air-purifiers"
+    "slug": "approved-retailer-coffee-machines-us-2026-10-04",
+    "topic": "coffee-machines"
   }
 }
