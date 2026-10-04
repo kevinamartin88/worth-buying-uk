@@ -135,3 +135,9 @@ def test_price_watch_requires_repeat_observations(monkeypatch, tmp_path):
     assert "Example Product" in page["content"]
     assert "20% below observed median" in page["content"]
     assert "https://example.com/guide" in page["content"]
+
+
+
+def test_cluster_page_key_matches_authority_state_key():
+    page = site_pages.cluster_page("Cleaning & Home Climate", [], "uk")
+    assert page["key"] == "cluster-cleaning-and-home-climate"

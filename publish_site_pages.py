@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 from googleapiclient.errors import HttpError
 
 from src.blogger import BloggerClient
-from src.site_pages import MARKET, build_pages
+from src.site_pages import MARKET, build_pages, load_catalog
 
 
 EXPECTED_HOSTS = {
@@ -63,6 +63,62 @@ def main() -> None:
             f"[authority-page] {market.upper()} {page['title']} -> "
             f"{result.get('url') or result.get('id')}"
         )
+
+    # Strengthen internal linking immediately instead of waiting for every
+    # evergreen money page to reach its next refresh cycle. Only append links;
+    # preserve the existing article body and affiliate URLs exactly as stored.
+    published_state_path = (
+        MARKET[market]["published"]
+    )
+    try:
+        published_state = json.loads(
+            published_state_path.read_text(encoding="utf-8")
+        )
+    except (OSError, json.JSONDecodeError):
+        published_state = {}
+
+    methodology_url = str((page_state.get("methodology") or {}).get("url") or "")
+    backfilled = 0
+    for row in load_catalog(market):
+        slug = str(row.get("slug") or "")
+        cluster = str(row.get("cluster") or "")
+        cluster_key = "cluster-" + cluster.casefold().replace("&", "and").replace(" ", "-")
+        hub_url = str((page_state.get(cluster_key) or {}).get("url") or "")
+        post_id = str((published_state.get(slug) or {}).get("post_id") or "")
+        if not post_id or not hub_url:
+            continue
+
+        post = client.get_post_or_none(post_id)
+        if not post:
+            continue
+        content = str(post.get("content") or "")
+        if hub_url in content and (not methodology_url or methodology_url in content):
+            continue
+
+        links = []
+        if hub_url and hub_url not in content:
+            links.append(
+                f'<a href="{hub_url}">{cluster} buying guides</a>'
+            )
+        if methodology_url and methodology_url not in content:
+            links.append(
+                f'<a href="{methodology_url}">How Worth Buying chooses products</a>'
+            )
+        if not links:
+            continue
+
+        appendix = (
+            '<aside class="wb-authority-links" '
+            'style="margin:28px 0;padding:16px 18px;background:#f6f8fb;'
+            'border-left:4px solid #082f5b">'
+            '<strong>More from Worth Buying:</strong> '
+            + " · ".join(links)
+            + '</aside>'
+        )
+        client.update_post_content(post_id, content + appendix)
+        backfilled += 1
+
+    print(f"[authority-backfill] {market.upper()}: updated {backfilled} article(s)")
 
     path = MARKET[market]["page_state"]
     path.parent.mkdir(parents=True, exist_ok=True)
