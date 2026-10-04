@@ -185,9 +185,27 @@ def main() -> None:
         fingerprint = publish_fingerprint(article, legacy_fingerprint_content)
 
         existing = state.get(slug)
+        current_post = None
+        if existing and existing.get("post_id"):
+            current_post = blogger.get_post_or_none(str(existing["post_id"]))
+            if current_post is None:
+                found_by_title = blogger.find_post_by_exact_title(title)
+                if found_by_title and found_by_title.get("id"):
+                    existing["post_id"] = str(found_by_title["id"])
+                    current_post = blogger.get_post(str(found_by_title["id"]))
+                    print(
+                        f"[state-repaired] UK {slug}: replaced stale Blogger post ID "
+                        f"with {found_by_title['id']}"
+                    )
+                else:
+                    print(
+                        f"[state-stale] UK {slug}: no live post matched the saved state; "
+                        "treating it as unpublished."
+                    )
+                    existing = None
 
-        if existing and existing.get("publish_fingerprint") == fingerprint and existing.get("post_id"):
-            post = blogger.get_post(str(existing["post_id"]))
+        if existing and existing.get("publish_fingerprint") == fingerprint and current_post:
+            post = current_post
             repaired_content, hero_url, repaired = backfill_hero_if_missing(
                 str(post.get("content", "")),
                 market="uk",
@@ -208,7 +226,7 @@ def main() -> None:
             continue
 
         body_replaced = False
-        if existing and existing.get("post_id"):
+        if existing and current_post:
             post = blogger.update_post(
                 post_id=existing["post_id"],
                 title=title,

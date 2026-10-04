@@ -5,6 +5,7 @@ from urllib.parse import urlsplit
 
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 
 
 BLOGGER_SCOPE = "https://www.googleapis.com/auth/blogger"
@@ -157,6 +158,16 @@ class BloggerClient:
             .get(blogId=self.blog_id, postId=post_id)
             .execute(num_retries=API_RETRIES)
         )
+
+    def get_post_or_none(self, post_id: str) -> dict | None:
+        """Return a Blogger post, treating a stale/deleted post ID as absent."""
+        try:
+            return self.get_post(post_id)
+        except HttpError as exc:
+            if getattr(exc.resp, "status", None) == 404:
+                print(f"[blogger-stale-id] Post {post_id} no longer exists; re-resolving by title.")
+                return None
+            raise
 
     def publish_post(self, post_id: str) -> dict:
         return (
