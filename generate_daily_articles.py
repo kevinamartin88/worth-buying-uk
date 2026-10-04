@@ -246,22 +246,68 @@ SATURDAY_PRIORITY = (
 )
 
 SUNDAY_PRIORITY = (
+    # Sunday is deliberately home-only. Google demand can rank products inside
+    # this pool, but it must not move the daily guide into tech, gaming or motoring.
     "storage-bins",
     "non-slip-hangers",
     "cleaning-bundles",
+    "cordless-vacuums",
     "robot-vacuums",
+    "steam-mops",
+    "carpet-cleaners",
     "air-purifiers",
-    "apple-watches",
-    "airpods",
-    "streaming-devices",
-    "portable-gaming-systems",
-    "gaming-headsets",
-    "bluetooth-speakers",
+    "dehumidifiers",
+    "air-fryers",
+    "large-capacity-air-fryers",
+    "coffee-machines",
+    "slow-cookers",
+    "blenders",
+    "kettles",
+    "microwaves",
+    "stand-mixers",
+    "food-processors",
+    "rice-cookers",
+    "multicookers",
+    "juicers",
+    "ice-makers",
+    "bread-makers",
+    "electric-blankets",
+    "office-chairs",
     "loungewear",
     "beauty-sets",
     "seasonal-hobby-kits",
-    "smart-light-switches",
 )
+
+
+def weekend_candidate_topics(available: list[tuple], weekday: int) -> list[tuple]:
+    """Restrict weekend selection before applying Google demand ranking.
+
+    Saturday favours practical home/DIY topics. Sunday is strictly home-focused.
+    If the named priority list has been exhausted for the year, Sunday falls back
+    to any remaining Home & Kitchen topic before the absolute never-skip fallback.
+    """
+    if weekday == 5:
+        priority = SATURDAY_PRIORITY
+    elif weekday == 6:
+        priority = SUNDAY_PRIORITY
+    else:
+        return available
+
+    by_key = {topic[0]: topic for topic in available}
+    focused = [by_key[key] for key in priority if key in by_key]
+    if focused:
+        return focused
+
+    if weekday == 6:
+        home_only = [
+            topic
+            for topic in available
+            if len(topic) > 5 and topic[5] == "Home & Kitchen"
+        ]
+        if home_only:
+            return home_only
+
+    return available
 
 
 CATEGORY_CHECKS = {
@@ -608,10 +654,22 @@ def pick_topic(
     if month is None:
         month = datetime.now(LONDON_TZ).month
 
+    candidate_pool = weekend_candidate_topics(available, weekday)
+    if weekday == 5:
+        print(
+            f"[weekend-focus] {market.upper()}: Saturday home/DIY pool "
+            f"({len(candidate_pool)} available topic(s))"
+        )
+    elif weekday == 6:
+        print(
+            f"[weekend-focus] {market.upper()}: Sunday home-only pool "
+            f"({len(candidate_pool)} available topic(s))"
+        )
+
     # Primary signal: external Google Shopping search interest in GB/US.
     # This measures what people are searching for on Google Shopping and does
     # not use WorthBuying Search Console or any traffic from our own sites.
-    shopping_candidates = shopping_candidate_topics(available, month)
+    shopping_candidates = shopping_candidate_topics(candidate_pool, month)
     shopping_ranked = rank_topics_by_google_shopping(
         shopping_candidates,
         market,
@@ -636,7 +694,7 @@ def pick_topic(
     # Secondary external signal: Google's Trending Now feed. This is broader
     # than shopping intent and is often news/sport-led, so it is used only if
     # the Shopping comparison endpoint is unavailable or returns no product data.
-    trend_ranked = rank_topics_by_trends(available, market)
+    trend_ranked = rank_topics_by_trends(candidate_pool, market)
     if trend_ranked:
         topic, trend_signal = trend_ranked[0]
         trend_score = float(trend_signal.get("score") or 0)
@@ -650,7 +708,7 @@ def pick_topic(
 
     # Never skip a day. If Google cannot provide a usable live product signal,
     # use a seasonal commercial-intent fallback, then evergreen high-intent.
-    topic = _fallback_topic(available, month)
+    topic = _fallback_topic(candidate_pool, month)
     print(
         f"[seasonal-fallback-pick] {market.upper()}: {topic[1]} "
         f"(month={month}; external Google Shopping/Trends data unavailable today)"
@@ -1217,7 +1275,14 @@ def main() -> None:
             "shopping_relative_to_anchor": (trend_signal or {}).get("shopping_relative_to_anchor"),
             "trend_traffic": (trend_signal or {}).get("traffic"),
             "day": day_name,
-            "weekend_priority": False,
+            "weekend_priority": is_weekend,
+            "weekend_focus": (
+                "sunday-home"
+                if weekday == 6
+                else "saturday-home-diy"
+                if weekday == 5
+                else None
+            ),
             "selection_basis": (
                 "google-shopping-trends"
                 if (trend_signal or {}).get("source") == "google-trends-google-shopping"
