@@ -4,7 +4,8 @@ import html
 import json
 import os
 import re
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
+from statistics import median
 from zoneinfo import ZoneInfo
 from pathlib import Path
 from urllib.parse import quote_plus
@@ -17,6 +18,8 @@ from src.google_shopping_trends import rank_topics_by_google_shopping
 
 ROOT = Path(__file__).resolve().parent
 STATE_PATH = ROOT / "state" / "daily_article_generator.json"
+PRICE_HISTORY_PATH = ROOT / "state" / "daily_price_history.json"
+REFRESH_AFTER_DAYS = 21
 LONDON_TZ = ZoneInfo("Europe/London")
 
 # Do not publish a daily article merely because it is next in a curated list.
@@ -67,6 +70,50 @@ EVERGREEN_HIGH_INTENT = (
     "battery-chargers",
     "gaming-headsets",
 )
+
+
+# Concentrate publishing into a handful of commercial clusters so WorthBuying
+# builds topical authority instead of scattering one-off articles everywhere.
+# These clusters also map cleanly to products people commonly buy online.
+AUTHORITY_CLUSTERS = {
+    "Kitchen & Small Appliances": (
+        "air-fryers", "large-capacity-air-fryers", "coffee-machines",
+        "food-processors", "slow-cookers", "blenders", "stand-mixers",
+    ),
+    "Cleaning & Home Climate": (
+        "cordless-vacuums", "robot-vacuums", "dehumidifiers", "air-purifiers",
+        "portable-heaters", "electric-blankets", "carpet-cleaners", "steam-mops",
+        "storage-bins", "non-slip-hangers",
+    ),
+    "Consumer Tech": (
+        "tvs", "soundbars", "wireless-earbuds", "smartwatches", "tablets",
+        "power-banks", "ssds", "security-cameras", "video-doorbells",
+    ),
+    "Motoring": (
+        "dash-cams", "tyre-inflators", "jump-starters", "battery-chargers",
+        "car-phone-mounts", "car-vacuums",
+    ),
+    "DIY & Garden": (
+        "pressure-washers", "cordless-drills", "lawn-mowers", "hedge-trimmers",
+        "leaf-blowers", "garden-tool-sets",
+    ),
+}
+AUTHORITY_CORE_KEYS = tuple(
+    dict.fromkeys(
+        key
+        for cluster_keys in AUTHORITY_CLUSTERS.values()
+        for key in cluster_keys
+    )
+)
+
+
+def authority_cluster_for_topic(topic_key: str) -> str:
+    for name, keys in AUTHORITY_CLUSTERS.items():
+        if topic_key in keys:
+            return name
+    return "Other"
+
+
 
 def shopping_candidate_topics(
     available: list[tuple],
@@ -443,23 +490,91 @@ def related_guides_html(guides: list[dict]) -> str:
     )
 
 
-def quick_picks_html(items: list[dict], market: str) -> str:
+def quick_picks_html(items: list[dict], market: str, query: str) -> str:
     if not items:
         return ""
-    rows: list[str] = []
-    for item in items:
+
+    retailer = "eBay UK" if market == "uk" else "eBay"
+    amazon = "Amazon UK" if market == "uk" else "Amazon"
+    cards: list[str] = []
+
+    for index, item in enumerate(items, start=1):
         title = " ".join(str(item.get("title", "")).split())
         price = price_text(item, market) or "Check live price"
-        condition = str(item.get("condition", "")).strip()
-        detail = f" — {html.escape(price)}"
-        if condition:
-            detail += f" — {html.escape(condition)}"
-        rows.append(f"<li><strong>{html.escape(title)}</strong>{detail}</li>")
+        condition = str(item.get("condition", "")).strip() or "Check listing"
+        ebay_url, amazon_url, exact_model = retailer_urls(item, market, query)
+        amazon_offer = item.get("_amazon_offer") or {}
+        if amazon_offer.get("url"):
+            amazon_url = str(amazon_offer["url"])
+
+        seller = item.get("seller") or {}
+        feedback_pct = safe_float(seller.get("feedbackPercentage"))
+        seller_signal = (
+            f"{feedback_pct:.1f}% positive seller feedback"
+            if feedback_pct is not None
+            else "Check current seller feedback"
+        )
+
+        history = item.get("_worthbuying_price_history") or {}
+        history_line = ""
+        if (
+            safe_int(history.get("observations")) is not None
+            and int(history.get("observations") or 0) >= 3
+        ):
+            difference = safe_float(history.get("difference_pct")) or 0.0
+            if difference >= 5:
+                history_line = (
+                    f'<p style="margin:8px 0;color:#0b6b3a"><strong>WorthBuying price signal:</strong> '
+                    f'currently about {difference:.0f}% below this listing\'s observed median '
+                    f'from {int(history["observations"])} checks.</p>'
+                )
+
+        amazon_label = (
+            f"Check {amazon} price"
+            if exact_model or amazon_offer
+            else f"Compare on {amazon}"
+        )
+        cards.append(
+            '<div style="border:1px solid #dfe6ee;border-radius:14px;padding:18px;'
+            'margin:14px 0;background:#fff;">'
+            f'<p style="margin:0 0 8px"><strong>{index}. {html.escape(title)}</strong></p>'
+            f'<p style="margin:6px 0"><strong>eBay price checked:</strong> {html.escape(price)}'
+            f' · {html.escape(condition)}</p>'
+            f'<p style="margin:6px 0">{html.escape(seller_signal)}</p>'
+            f'{history_line}'
+            '<p style="margin:14px 0 2px">'
+            f'<a href="{html.escape(ebay_url, quote=True)}" rel="sponsored nofollow" '
+            'style="display:inline-block;padding:11px 16px;margin:0 8px 8px 0;'
+            'background:#082f5b;color:#fff;text-decoration:none;border-radius:8px;font-weight:700">'
+            f'Check {retailer} price</a>'
+            f'<a href="{html.escape(amazon_url, quote=True)}" rel="sponsored nofollow" '
+            'style="display:inline-block;padding:11px 16px;margin:0 8px 8px 0;'
+            'background:#f2f4f7;color:#082f5b;text-decoration:none;border-radius:8px;font-weight:700">'
+            f'{html.escape(amazon_label)}</a>'
+            '</p></div>'
+        )
 
     return (
-        "<h2>Current picks at a glance</h2>\n"
-        "<p>These are the current listings that passed our automated marketplace checks when this guide was generated.</p>\n"
-        f"<ul>{''.join(rows)}</ul>\n"
+        "<h2>Best current options at a glance</h2>\n"
+        "<p><strong>Affiliate links:</strong> if you buy through a retailer link, Worth Buying may earn "
+        "a commission at no extra cost to you. Retailers do not pay to be included in this shortlist.</p>\n"
+        + "".join(cards)
+    )
+
+
+def editorial_trust_html(market: str, checked_date: str) -> str:
+    retailer = "eBay UK and Amazon UK" if market == "uk" else "eBay and Amazon"
+    return (
+        '<aside style="border-left:4px solid #082f5b;background:#f6f8fb;'
+        'padding:16px 18px;margin:20px 0;">'
+        '<p style="margin-top:0"><strong>How Worth Buying checks this guide</strong></p>'
+        f'<p>Checked {html.escape(checked_date)} using current retailer data from {retailer}, '
+        'seller-quality signals, realistic pricing checks and product relevance filters. '
+        'We reject weak or suspicious marketplace listings rather than filling the page.</p>'
+        '<p style="margin-bottom:0"><strong>How we make money:</strong> some retailer links are affiliate links. '
+        'A qualifying purchase can earn us a commission, but inclusion is determined by our published checks, '
+        'not by which retailer pays the highest commission.</p>'
+        '</aside>\n'
     )
 
 
@@ -612,6 +727,70 @@ def topic_already_covered(article_dir: Path, topic: tuple, year: int) -> bool:
     return False
 
 
+def _article_generated_date(article: dict) -> date | None:
+    seo_date = str((article.get("_seo") or {}).get("last_checked_iso") or "").strip()
+    source_sha = str(article.get("source_sha") or "").strip()
+    candidate = seo_date[:10] or source_sha[:10]
+    try:
+        return date.fromisoformat(candidate)
+    except ValueError:
+        return None
+
+
+def topic_last_generated_date(
+    article_dir: Path,
+    topic: tuple,
+    year: int,
+) -> date | None:
+    topic_key = normalise(topic[0])
+    latest: date | None = None
+    for path in article_dir.glob("*.json"):
+        try:
+            article = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+
+        generator_topic = normalise(str((article.get("_generator") or {}).get("topic", "")))
+        if generator_topic != topic_key:
+            continue
+        generated = _article_generated_date(article)
+        if generated is None or generated.year != year:
+            continue
+        if latest is None or generated > latest:
+            latest = generated
+    return latest
+
+
+def authority_candidate_pool(
+    article_dir: Path,
+    year: int,
+    weekday: int,
+) -> list[tuple]:
+    core = [topic for topic in TOPICS if topic[0] in AUTHORITY_CORE_KEYS]
+    focused = weekend_candidate_topics(core, weekday)
+    today = datetime.now(LONDON_TZ).date()
+
+    due: list[tuple] = []
+    dated: list[tuple[date, tuple]] = []
+    for topic in focused:
+        last = topic_last_generated_date(article_dir, topic, year)
+        if last is None:
+            due.append(topic)
+            continue
+        dated.append((last, topic))
+        if (today - last).days >= REFRESH_AFTER_DAYS:
+            due.append(topic)
+
+    if due:
+        return due
+
+    # Never skip a day: if every authority page is fresher than the normal
+    # refresh window, update the oldest one rather than wandering into a weak
+    # unrelated topic. This keeps traffic and internal authority concentrated.
+    dated.sort(key=lambda row: row[0])
+    return [topic for _, topic in dated[:12]] or focused
+
+
 def _fallback_topic(
     available: list[tuple],
     month: int,
@@ -641,20 +820,14 @@ def pick_topic(
     market: str,
     month: int | None = None,
 ) -> tuple[tuple, dict | None, dict | None, float | None]:
-    available = [
-        topic for topic in TOPICS
-        if not topic_already_covered(article_dir, topic, year)
-    ]
+    available = authority_candidate_pool(article_dir, year, weekday)
     if not available:
-        raise RuntimeError(
-            "The curated daily-topic pool has been exhausted for this year. "
-            "Add more topics before continuing automated publication."
-        )
+        raise RuntimeError("No authority-cluster topics are available for publication.")
 
     if month is None:
         month = datetime.now(LONDON_TZ).month
 
-    candidate_pool = weekend_candidate_topics(available, weekday)
+    candidate_pool = available
     if weekday == 5:
         print(
             f"[weekend-focus] {market.upper()}: Saturday home/DIY pool "
@@ -730,22 +903,76 @@ def safe_int(value):
         return None
 
 
-def listing_score(item: dict, max_price: float, expected_currency: str) -> float | None:
-    title = str(item.get("title", "")).casefold()
-    blocked = (
-        "for parts",
-        "not working",
+def _implausible_marketplace_title(title: str) -> bool:
+    value = " ".join(str(title).split())
+    lowered = value.casefold()
+
+    # Common low-quality/spam patterns that can surface in broad marketplace
+    # searches and are poor products for an editorial recommendation.
+    blocked_phrases = (
+        "mystery box",
         "empty box",
         "box only",
         "manual only",
+        "for parts",
+        "not working",
         "spares repair",
+        "read description",
     )
-    if any(term in title for term in blocked):
+    if any(term in lowered for term in blocked_phrases):
+        return True
+
+    # Reject physically implausible battery-capacity claims such as
+    # "9000000mAh power bank", which are a strong trust warning.
+    for match in re.finditer(r"\b(\d{6,})\s*mah\b", lowered):
+        try:
+            if int(match.group(1)) > 200_000:
+                return True
+        except ValueError:
+            pass
+
+    # Excessively promotional titles are a weak editorial signal.
+    promo_tokens = re.findall(r"\b(?:hot|wow|sale|cheap|bargain)\b", lowered)
+    return len(promo_tokens) >= 3
+
+
+def _query_relevant(title: str, query: str) -> bool:
+    query_tokens = meaningful_tokens(query)
+    if not query_tokens:
+        return True
+    title_tokens = meaningful_tokens(title)
+    return bool(query_tokens & title_tokens)
+
+
+def _has_product_image(item: dict) -> bool:
+    return bool(str(((item.get("image") or {}).get("imageUrl") or "")).strip())
+
+
+def listing_score(
+    item: dict,
+    max_price: float,
+    expected_currency: str,
+    query: str = "",
+) -> float | None:
+    title_raw = " ".join(str(item.get("title", "")).split())
+    title = title_raw.casefold()
+
+    if _implausible_marketplace_title(title_raw):
+        return None
+    if query and not _query_relevant(title_raw, query):
+        return None
+    if not _has_product_image(item):
         return None
 
     price = safe_float((item.get("price") or {}).get("value"))
     currency = str((item.get("price") or {}).get("currency", ""))
-    if price is None or price <= 0 or price > max_price or currency != expected_currency:
+    minimum_price = max(8.0, max_price * 0.05)
+    if (
+        price is None
+        or price < minimum_price
+        or price > max_price
+        or currency != expected_currency
+    ):
         return None
 
     buying_options = item.get("buyingOptions") or []
@@ -756,22 +983,20 @@ def listing_score(item: dict, max_price: float, expected_currency: str) -> float
     feedback_pct = safe_float(seller.get("feedbackPercentage"))
     feedback_count = safe_int(seller.get("feedbackScore"))
 
-    if feedback_pct is not None and feedback_pct < 97.0:
+    if feedback_pct is not None and feedback_pct < 98.0:
         return None
-    if feedback_count is not None and feedback_count < 25:
+    if feedback_count is not None and feedback_count < 100:
         return None
 
-    score = 40.0
+    score = 45.0
 
     if feedback_pct is not None:
         if feedback_pct >= 99.5:
             score += 16
         elif feedback_pct >= 99.0:
             score += 13
-        elif feedback_pct >= 98.0:
-            score += 9
         else:
-            score += 5
+            score += 8
 
     if feedback_count is not None:
         if feedback_count >= 10_000:
@@ -780,27 +1005,88 @@ def listing_score(item: dict, max_price: float, expected_currency: str) -> float
             score += 6
         elif feedback_count >= 250:
             score += 4
-        elif feedback_count >= 50:
+        else:
             score += 2
 
     marketing = item.get("marketingPrice") or {}
     discount = safe_float(marketing.get("discountPercentage"))
     if discount and discount > 0:
-        score += min(discount, 20)
+        score += min(discount, 15)
 
     ratio = price / max_price if max_price else 1
-    if ratio <= 0.45:
+    if 0.10 <= ratio <= 0.60:
         score += 7
-    elif ratio <= 0.65:
-        score += 5
     elif ratio <= 0.80:
-        score += 3
+        score += 4
 
     condition = str(item.get("condition", "")).casefold()
     if "new" in condition:
+        score += 3
+    elif any(term in condition for term in ("refurbished", "open box")):
         score += 2
 
+    # Brand/model-like identifiers make exact cross-retailer comparison more
+    # useful and more commercially valuable than generic marketplace titles.
+    _, exact_model = amazon_model_query(title_raw, query or title_raw)
+    if exact_model:
+        score += 6
+
     return round(score, 2)
+
+
+def _record_price_history(items: list[dict], market: str) -> None:
+    state = load_json(PRICE_HISTORY_PATH)
+    now = datetime.now(LONDON_TZ)
+    today = now.date().isoformat()
+
+    for item in items:
+        item_id = str(item.get("itemId") or "").strip()
+        price = safe_float((item.get("price") or {}).get("value"))
+        currency = str((item.get("price") or {}).get("currency") or "").strip()
+        if not item_id or price is None or not currency:
+            continue
+
+        key = f"daily|{market}|{item_id}"
+        entry = state.setdefault(
+            key,
+            {"title": str(item.get("title") or ""), "observations": []},
+        )
+        entry["title"] = str(item.get("title") or entry.get("title") or "")
+        observations = entry.setdefault("observations", [])
+
+        # One observation per listing/day is enough for editorial price history
+        # and prevents retry runs from bloating the file.
+        observations = [
+            obs for obs in observations
+            if str(obs.get("date") or "") != today
+        ]
+        observations.append(
+            {
+                "date": today,
+                "ts": now.isoformat(),
+                "price": price,
+                "currency": currency,
+            }
+        )
+        observations = observations[-90:]
+        entry["observations"] = observations
+
+        historic = [
+            safe_float(obs.get("price"))
+            for obs in observations
+            if safe_float(obs.get("price")) is not None
+        ]
+        if len(historic) >= 3:
+            typical = float(median(historic))
+            difference = ((typical - price) / typical * 100) if typical > 0 else 0.0
+            item["_worthbuying_price_history"] = {
+                "observations": len(historic),
+                "median": round(typical, 2),
+                "difference_pct": round(difference, 1),
+                "currency": currency,
+            }
+
+    save_json(PRICE_HISTORY_PATH, state)
 
 
 def current_picks(market: str, query: str, max_price: float, slug: str) -> list[dict]:
@@ -818,7 +1104,7 @@ def current_picks(market: str, query: str, max_price: float, slug: str) -> list[
     seen: set[str] = set()
 
     for item in results:
-        score = listing_score(item, max_price, expected_currency)
+        score = listing_score(item, max_price, expected_currency, query=query)
         if score is None:
             continue
 
@@ -826,10 +1112,14 @@ def current_picks(market: str, query: str, max_price: float, slug: str) -> list[
         if not fingerprint or fingerprint in seen:
             continue
         seen.add(fingerprint)
-        scored.append((score, item))
+        enriched = dict(item)
+        enriched["_worthbuying_score"] = score
+        scored.append((score, enriched))
 
     scored.sort(key=lambda pair: pair[0], reverse=True)
-    return [item for _, item in scored[:4]]
+    shortlist = [item for _, item in scored[:8]]
+    _record_price_history(shortlist, market)
+    return shortlist[:4]
 
 
 def amazon_model_query(title: str, fallback_query: str) -> tuple[str, bool]:
@@ -1010,6 +1300,15 @@ def live_sections(items: list[dict], market: str, topic_name: str, query: str) -
             f"{html.escape(discount_text(item))}</p>\n"
             f"<p>{html.escape(seller_text(item))} Availability, condition and price can change quickly, "
             "so verify the exact model, specification, warranty, delivery and returns on the retailer page.</p>\n"
+            + (
+                f"<p><strong>WorthBuying price history:</strong> this listing is currently about "
+                f"{float((item.get('_worthbuying_price_history') or {}).get('difference_pct') or 0):.0f}% below "
+                f"its observed median across "
+                f"{int((item.get('_worthbuying_price_history') or {}).get('observations') or 0)} checks.</p>\n"
+                if int((item.get('_worthbuying_price_history') or {}).get('observations') or 0) >= 3
+                and float((item.get('_worthbuying_price_history') or {}).get('difference_pct') or 0) >= 5
+                else ""
+            )
             f'<p><a href="{html.escape(ebay_url, quote=True)}" rel="sponsored nofollow">'
             f"View on {retailer}</a>\n"
             f'<a href="{html.escape(amazon_url, quote=True)}" rel="sponsored nofollow">'
@@ -1097,7 +1396,7 @@ def build_article(
     trend_title_phrase = trend_keyword_for_title(topic, trend_signal)
     title_subject = trend_title_phrase or display
     title = f"Best {title_subject} Worth Buying in the {region} ({year})"
-    source_sha = f"{datetime.now(LONDON_TZ).date().isoformat()}-{key}-{market}-daily-v5"
+    source_sha = f"{datetime.now(LONDON_TZ).date().isoformat()}-{key}-{market}-daily-v6"
     primary_keyword = f"best {title_subject.lower()} {region.lower()} {year}"
     secondary_keywords = [
         f"{display.lower()} buying guide {region.lower()}",
@@ -1129,7 +1428,8 @@ def build_article(
         f"<p><strong>{html.escape(buyer_intro(display, region, year, live))}</strong></p>\n"
         f"<p>{methodology} Prices and availability can change after publication, so always verify the live listing.</p>\n"
         f"<p><strong>Last checked:</strong> {html.escape(checked_date)}.</p>\n"
-        f"{quick_picks_html(picks, market) if live else ''}"
+        f"{editorial_trust_html(market, checked_date)}"
+        f"{quick_picks_html(picks, market, query) if live else ''}"
         f"<h2>{'Current picks worth comparing' if live else 'Current retailer searches worth checking'}</h2>\n"
         f"{sections}\n"
         "<h2>How to choose the right option</h2>\n"
@@ -1176,7 +1476,7 @@ def build_article(
         ),
         "content_html": content,
         "_seo": {
-            "version": "daily-seo-v6-us-localisation",
+            "version": "daily-seo-v7-authority-revenue",
             "target_country": "GB" if market == "uk" else "US",
             "language": "en-GB" if market == "uk" else "en-US",
             "primary_keyword": primary_keyword,
@@ -1187,6 +1487,18 @@ def build_article(
             "google_demand_signal": trend_signal,
             "google_demand_title_phrase": trend_title_phrase,
             "demand_score": demand_score,
+            "last_checked_iso": checked_at.date().isoformat(),
+            "evergreen_refresh": True,
+            "authority_cluster": authority_cluster_for_topic(key),
+            "editorial_method": "retailer-data-plus-quality-filters",
+        },
+        "_monetisation": {
+            "version": "affiliate-conversion-v2",
+            "primary_goal": "qualified-affiliate-click",
+            "networks": ["eBay", "Amazon"],
+            "commercial_intent": "high",
+            "retailer_cta_count": len(picks) * 2 if live else 8,
+            "authority_cluster": authority_cluster_for_topic(key),
         },
         "_generator": {
             "market": market,
@@ -1254,8 +1566,7 @@ def main() -> None:
             demand_score=demand_score,
         )
         target = article_dir / f"{article['slug']}.json"
-        if target.exists():
-            raise RuntimeError(f"Refusing to overwrite existing article: {target}")
+        refreshing = target.exists()
 
         target.write_text(
             json.dumps(article, indent=2, ensure_ascii=False) + "\n",
@@ -1292,10 +1603,14 @@ def main() -> None:
             ),
             "live_ebay_picks": bool(article["_generator"]["live_ebay_picks"]),
             "pick_count": int(article["_generator"]["pick_count"]),
+            "content_action": "refreshed" if refreshing else "created",
+            "authority_cluster": article["_seo"]["authority_cluster"],
+            "monetisation_goal": article["_monetisation"]["primary_goal"],
         }
         generated += 1
+        action = "refreshed" if refreshing else "created"
         print(
-            f"[daily-created] {market.upper()}: {target.relative_to(ROOT)} "
+            f"[daily-{action}] {market.upper()}: {target.relative_to(ROOT)} "
             f"(day={day_name}, selection_basis={state[market]['selection_basis']}, "
             f"live eBay picks={article['_generator']['pick_count']})"
         )

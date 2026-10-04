@@ -117,3 +117,62 @@ def test_sunday_fallback_remains_home_only(monkeypatch, tmp_path):
     assert topic[0] in daily.SUNDAY_PRIORITY
     assert topic[5] == "Home & Kitchen"
     assert signal is None
+
+
+
+def test_weekday_pool_stays_inside_authority_clusters(monkeypatch, tmp_path):
+    seen = {}
+
+    def fake_shopping(topics, market):
+        seen["keys"] = [topic[0] for topic in topics]
+        return [(topics[0], {
+            "query": topics[0][2],
+            "source": "google-trends-google-shopping",
+            "score": 70,
+        })]
+
+    monkeypatch.setattr(daily, "rank_topics_by_google_shopping", fake_shopping)
+    monkeypatch.setattr(daily, "rank_topics_by_trends", lambda topics, market: [])
+
+    daily.pick_topic(tmp_path, year=2026, weekday=2, market="uk", month=10)
+
+    assert seen["keys"]
+    assert set(seen["keys"]).issubset(set(daily.AUTHORITY_CORE_KEYS))
+
+
+def test_listing_score_rejects_implausible_power_bank_claim():
+    item = {
+        "title": "9000000mAh Power Bank 4 USB Fast Charger HOT",
+        "price": {"value": "24.99", "currency": "GBP"},
+        "buyingOptions": ["FIXED_PRICE"],
+        "seller": {"feedbackPercentage": "99.8", "feedbackScore": 5000},
+        "image": {"imageUrl": "https://example.com/powerbank.jpg"},
+    }
+    assert daily.listing_score(item, 180, "GBP", query="USB C power bank") is None
+
+
+def test_listing_score_rejects_unrelated_marketplace_accessory():
+    item = {
+        "title": "Universal replacement remote control",
+        "price": {"value": "19.99", "currency": "GBP"},
+        "buyingOptions": ["FIXED_PRICE"],
+        "seller": {"feedbackPercentage": "99.8", "feedbackScore": 5000},
+        "image": {"imageUrl": "https://example.com/remote.jpg"},
+    }
+    assert daily.listing_score(item, 1400, "GBP", query="4K smart TV") is None
+
+
+def test_quick_picks_puts_affiliate_ctas_near_top(monkeypatch):
+    item = {
+        "title": "Example Air Fryer AF400",
+        "price": {"value": "99.99", "currency": "GBP"},
+        "condition": "New",
+        "seller": {"feedbackPercentage": "99.9", "feedbackScore": 10000},
+        "itemWebUrl": "https://www.ebay.co.uk/itm/123",
+        "image": {"imageUrl": "https://example.com/fryer.jpg"},
+    }
+    html = daily.quick_picks_html([item], "uk", "air fryer")
+    assert "Affiliate links" in html
+    assert "Check eBay UK price" in html
+    assert "Amazon UK" in html
+    assert 'rel="sponsored nofollow"' in html

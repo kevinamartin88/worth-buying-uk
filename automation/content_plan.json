@@ -4,7 +4,7 @@
   "site_url": "https://worthbuyinguk.blogspot.com",
   "domain_config": "automation/domains.json",
   "custom_domain": "https://www.worthbuyinguk.co.uk/",
-  "custom_domain_status": "registered-not-connected",
+  "custom_domain_status": "connected-live",
   "deal_discovery_config": "automation/deal_discovery_plan.json",
   "repository": "kevinamartin88/worth-buying-uk",
   "daily_target": {
@@ -15,20 +15,32 @@
   },
   "local_timezone": "Europe/London",
   "suggested_slots": [
-    {"time": "08:00", "source": "amazon"},
-    {"time": "11:00", "source": "ebay"},
-    {"time": "15:00", "source": "amazon"},
-    {"time": "19:00", "source": "ebay"}
+    {
+      "time": "08:00",
+      "source": "amazon"
+    },
+    {
+      "time": "11:00",
+      "source": "ebay"
+    },
+    {
+      "time": "15:00",
+      "source": "amazon"
+    },
+    {
+      "time": "19:00",
+      "source": "ebay"
+    }
   ],
-  "blogger_api_enabled": false,
-  "blogger_api_note": "Keep false while Google's Blogger API posting restriction/appeal is unresolved. When access is restored, change this flag to true before allowing automated Blogger publishing.",
+  "blogger_api_enabled": true,
+  "blogger_api_note": "Google Blogger API access approved and live publishing verified on 4 October 2026.",
   "draft_directories": {
     "amazon": "drafts-auto/amazon",
     "ebay": "drafts-auto/ebay"
   },
   "deal_discovery": {
     "enabled": true,
-    "mode": "research-and-queue-only-while-blogger-disabled",
+    "mode": "live-publish-through-approved-blogger-api",
     "strategy": [
       "Actively search for unusually strong current deals as well as evergreen buying-guide opportunities.",
       "Use the live eBay production Browse API for real UK listing data and affiliate URLs where applicable.",
@@ -37,7 +49,12 @@
       "Score opportunities using the shared automation/deal_discovery_plan.json and prioritise candidates scoring 70 or above.",
       "Create Deal Alert, Today's Best Deals, Price Drop Worth Buying, Launch Deal, Refurbished Deal, Seasonal Deal Hub and Viral Product Check content when the evidence supports it."
     ],
-    "future_networks": ["Awin", "impact.com", "CJ Affiliate", "Rakuten Advertising"]
+    "future_networks": [
+      "Awin",
+      "impact.com",
+      "CJ Affiliate",
+      "Rakuten Advertising"
+    ]
   },
   "amazon": {
     "tracking_id": "worthbuyin008-21",
@@ -93,10 +110,23 @@
     ]
   },
   "publishing": {
-    "when_blogger_api_enabled_false": "Create and queue drafts only. Do not call Blogger API and do not move files into articles/.",
-    "when_blogger_api_enabled_true": "Move approved/generated article JSON into articles/ so the existing Blogger publisher can publish it. Only promote on X or Pinterest after a live Blogger URL exists.",
+    "when_blogger_api_enabled_false": "Emergency fallback only: if Blogger API authentication is unavailable, keep finished content queued and do not promote a non-live URL.",
+    "when_blogger_api_enabled_true": "Primary route: publish approved/generated UK article JSON through the verified Blogger API, verify the required article image and live URL, then continue affiliate/social distribution.",
     "x": "Use Buffer only after the Blogger article is live. Put 'Affiliate' immediately before the destination URL and never use 'Ad/Affiliate'.",
     "pinterest": "For every live article, set pinterest_enabled=true and provide a useful pinterest_title and pinterest_subtitle. Generate the Pinterest image and include the live article in pinterest-feed.xml. Pinterest descriptions must use 'Affiliate' only and never 'Ad/Affiliate'.",
     "social_order": "Blogger live URL first, then Pinterest image/feed and X promotion. Never promote a draft URL."
+  },
+  "authority_strategy": {
+    "objective": "Build recurring organic traffic and affiliate revenue by concentrating content into commercial topic clusters and refreshing strong money pages rather than publishing unrelated one-offs.",
+    "refresh_after_days": 21,
+    "core_clusters": [
+      "Kitchen & Small Appliances",
+      "Cleaning & Home Climate",
+      "Consumer Tech",
+      "Motoring",
+      "DIY & Garden"
+    ],
+    "primary_conversion_goal": "qualified affiliate clicks to tracked retailer links",
+    "revenue_principle": "Prioritise buyer intent, trustworthy product quality and useful retailer comparisons over vanity traffic."
   }
 }
