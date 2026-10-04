@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+# Image-gated Blogger publisher.
+
 import hashlib
 import html
 import json
