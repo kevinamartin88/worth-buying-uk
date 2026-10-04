@@ -24,6 +24,7 @@ CONFIG = {
         "blogger_state": ROOT / "state" / "articles_published.json",
         "youtube_state": ROOT / "state" / "youtube_uk_published.json",
         "hero_dir": ROOT / "assets" / "ai" / "uk",
+        "clean_hero_dir": ROOT / "assets" / "ai-backgrounds" / "uk",
         "channel_id": "UCqa0qql1Rrj8okQnTPgTT5Q",
     },
     "us": {
@@ -31,6 +32,7 @@ CONFIG = {
         "blogger_state": ROOT / "state" / "articles_us_published.json",
         "youtube_state": ROOT / "state" / "youtube_us_published.json",
         "hero_dir": ROOT / "assets" / "ai" / "us",
+        "clean_hero_dir": ROOT / "assets" / "ai-backgrounds" / "us",
         "channel_id": "UCJb8X5WBYyfc71IX5fn1zrw",
     },
 }
@@ -159,7 +161,12 @@ def main() -> None:
                 )
                 continue
 
-        hero_path = config["hero_dir"] / f"{slug}.jpg"
+        clean_hero_path = config["clean_hero_dir"] / f"{slug}.jpg"
+        hero_path = (
+            clean_hero_path
+            if clean_hero_path.exists()
+            else config["hero_dir"] / f"{slug}.jpg"
+        )
         if not hero_path.exists():
             print(f"[youtube-skip] {slug}: no generated hero image")
             continue

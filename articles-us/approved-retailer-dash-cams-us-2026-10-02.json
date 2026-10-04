@@ -13,6 +13,7 @@
   ],
   "ai_visual_enabled": true,
   "pinterest_enabled": true,
+  "youtube_clean_background": true,
   "hero_image_kicker": "DASH CAM BUYING GUIDE · RETAILER OFFERS",
   "featured_retailer": "Sharper Image",
   "retailer_logo_asset": "assets/retailers/sharper-image.svg",

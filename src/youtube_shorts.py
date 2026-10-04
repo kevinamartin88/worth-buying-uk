@@ -12,7 +12,7 @@ import wave
 from html.parser import HTMLParser
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps
+from PIL import Image, ImageChops, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps
 
 
 WIDTH = 1080
@@ -105,6 +105,34 @@ def article_short_points(article: dict, limit: int = 3) -> list[str]:
     return extract_short_points(str(article.get("content_html", "")), limit=limit)
 
 
+def short_headline(article: dict) -> str:
+    title = re.sub(r"\s+", " ", str(article.get("title", "Today's offers"))).strip()
+    title = re.sub(
+        r"^Current\s+|\s+from Approved (?:UK|USA) Retailers.*$|\s*\((?:19|20)\d{2}\)\s*$",
+        "",
+        title,
+        flags=re.IGNORECASE,
+    ).strip(" -|:")
+    title = re.sub(r"\bOffers\b", "Deals Worth Checking", title, flags=re.IGNORECASE)
+    return title or "Today's Deals Worth Checking"
+
+
+def deal_teaser(article: dict, market: str) -> str:
+    content = html.unescape(str(article.get("content_html", "")))
+    symbol = "£" if market == "uk" else "$"
+    prices: list[tuple[float, str]] = []
+    for match in re.finditer(rf"{re.escape(symbol)}\s?([0-9][0-9,]*(?:\.\d{{1,2}})?)", content):
+        try:
+            amount = float(match.group(1).replace(",", ""))
+        except ValueError:
+            continue
+        if amount > 0:
+            prices.append((amount, f"{symbol}{match.group(1)}"))
+    if prices:
+        return f"Live offers from {min(prices)[1]} when checked"
+    return "Fresh value picks and live offers worth checking"
+
+
 def short_title(article: dict) -> str:
     title = re.sub(r"\s+", " ", str(article.get("title", "Worth Buying guide"))).strip()
     suffix = " #Shorts"
@@ -144,6 +172,48 @@ def _cover(image: Image.Image, size: tuple[int, int]) -> Image.Image:
     return ImageOps.fit(image.convert("RGB"), size, method=Image.Resampling.LANCZOS)
 
 
+def _short_background(image: Image.Image, *, clean_source: bool = False) -> Image.Image:
+    """Create a portrait crop from the image-only side of a branded 16:9 hero."""
+    source = image.convert("RGB")
+    width, height = source.size
+    target_ratio = WIDTH / HEIGHT
+    source_ratio = width / max(height, 1)
+    if source_ratio <= target_ratio * 1.08:
+        return _cover(source, (WIDTH, HEIGHT))
+
+    crop_width = max(1, int(height * target_ratio))
+    # Article hero wording occupies the centre-right panel. The left-hand crop
+    # preserves the product photography and prevents old text being enlarged
+    # underneath the Short's own title layer.
+    if clean_source:
+        left = max(0, (width - crop_width) // 2)
+    else:
+        left = min(max(0, int(width * 0.04)), max(0, width - crop_width))
+    crop = source.crop((left, 0, left + crop_width, height))
+    return crop.resize((WIDTH, HEIGHT), Image.Resampling.LANCZOS)
+
+
+def _trim_logo(image: Image.Image) -> Image.Image:
+    """Remove transparent or near-white padding from supplied brand artwork."""
+    logo = image.convert("RGBA")
+    rgb = logo.convert("RGB")
+    white = Image.new("RGB", rgb.size, "white")
+    difference = ImageChops.difference(rgb, white).convert("L")
+    alpha = logo.getchannel("A")
+    visible_colour = difference.point(lambda value: 255 if value > 14 else 0)
+    visible_alpha = alpha.point(lambda value: 255 if value > 14 else 0)
+    mask = ImageChops.multiply(visible_colour, visible_alpha)
+    box = mask.getbbox()
+    if box is None:
+        return logo
+    padding = max(8, int(min(logo.size) * 0.015))
+    left = max(0, box[0] - padding)
+    top = max(0, box[1] - padding)
+    right = min(logo.width, box[2] + padding)
+    bottom = min(logo.height, box[3] + padding)
+    return logo.crop((left, top, right, bottom))
+
+
 def _wrapped_lines(draw: ImageDraw.ImageDraw, text: str, font, max_width: int) -> list[str]:
     words = text.split()
     lines: list[str] = []
@@ -171,6 +241,15 @@ def _fit_font(draw: ImageDraw.ImageDraw, text: str, max_width: int, max_lines: i
     return font, _wrapped_lines(draw, text, font, max_width)[:max_lines]
 
 
+def _fit_single_line_font(draw: ImageDraw.ImageDraw, text: str, max_width: int, start: int):
+    for size in range(start, 21, -2):
+        font = _font(size, bold=True)
+        box = draw.textbbox((0, 0), text, font=font)
+        if box[2] - box[0] <= max_width:
+            return font
+    return _font(20, bold=True)
+
+
 def _base_slide(
     hero_path: Path,
     logo_path: Path,
@@ -178,13 +257,14 @@ def _base_slide(
     *,
     image_first: bool = False,
 ) -> Image.Image:
-    hero = _cover(Image.open(hero_path), (WIDTH, HEIGHT))
+    clean_source = "ai-backgrounds" in {part.casefold() for part in hero_path.parts}
+    hero = _short_background(Image.open(hero_path), clean_source=clean_source)
     if image_first:
         hero = ImageEnhance.Brightness(hero).enhance(0.92)
         overlay = Image.new("RGBA", (WIDTH, HEIGHT), (4, 23, 56, 0))
         overlay_draw = ImageDraw.Draw(overlay)
         for y in range(HEIGHT):
-            alpha = max(0, min(205, int((y - 760) / 980 * 205)))
+            alpha = max(0, min(220, int((y - 780) / 900 * 220)))
             overlay_draw.line((0, y, WIDTH, y), fill=(4, 23, 56, alpha))
     else:
         hero = ImageEnhance.Brightness(hero).enhance(0.48).filter(
@@ -194,11 +274,11 @@ def _base_slide(
     canvas = Image.alpha_composite(hero.convert("RGBA"), overlay)
     draw = ImageDraw.Draw(canvas)
     draw.rounded_rectangle(
-        (72, 70, WIDTH - 72, 214), radius=30, fill=(255, 255, 255, 240)
+        (72, 92, WIDTH - 72, 242), radius=30, fill=(255, 255, 255, 246)
     )
-    logo = Image.open(logo_path).convert("RGBA")
-    logo.thumbnail((WIDTH - 270, 104), Image.Resampling.LANCZOS)
-    canvas.alpha_composite(logo, ((WIDTH - logo.width) // 2, 90))
+    logo = _trim_logo(Image.open(logo_path))
+    logo.thumbnail((WIDTH - 250, 112), Image.Resampling.LANCZOS)
+    canvas.alpha_composite(logo, ((WIDTH - logo.width) // 2, 111 + (112 - logo.height) // 2))
     return canvas
 
 
@@ -234,16 +314,18 @@ def create_slide(
 ) -> Image.Image:
     canvas = _base_slide(hero_path, logo_path, accent, image_first=image_first)
     draw = ImageDraw.Draw(canvas)
-    kicker_font = _font(36, bold=True)
-    kicker_text = kicker.upper()[:38]
+    kicker_text = re.sub(r"\s+", " ", kicker.upper()).strip()
+    kicker_font = _fit_single_line_font(draw, kicker_text, WIDTH - 190, 36)
     kicker_box = draw.textbbox((0, 0), kicker_text, font=kicker_font)
+    kicker_y = 286 if image_first else 300
+    kicker_height = max(64, kicker_box[3] - kicker_box[1] + 28)
     draw.rounded_rectangle(
-        (74, 286 if image_first else 330, 110 + kicker_box[2], 348 if image_first else 392),
+        (74, kicker_y, 110 + kicker_box[2], kicker_y + kicker_height),
         radius=26,
         fill=accent,
     )
     draw.text(
-        (92, 296 if image_first else 340),
+        (92, kicker_y + 12),
         kicker_text,
         font=kicker_font,
         fill="white",
@@ -253,12 +335,77 @@ def create_slide(
     headline_font, headline_lines = _fit_font(
         draw, headline, WIDTH - 170, max_lines, 84
     )
-    headline_top = 1110 if image_first else 540
+    headline_top = 1110 if image_first else 535
+    if image_first:
+        draw.rounded_rectangle(
+            (58, 1050, WIDTH - 58, 1690),
+            radius=34,
+            fill=(4, 23, 56, 196),
+        )
     y = _draw_centered_lines(draw, headline_lines, headline_font, headline_top, spacing=24)
     y += 40
     sub_font = _font(42)
     sub_lines = _wrapped_lines(draw, subtext, sub_font, WIDTH - 210)[:3]
     _draw_centered_lines(draw, sub_lines, sub_font, y, fill="#f3f6fb", spacing=16)
+    return canvas.convert("RGB")
+
+
+def create_end_slide(
+    hero_path: Path,
+    logo_path: Path,
+    *,
+    site: str,
+) -> Image.Image:
+    clean_source = "ai-backgrounds" in {part.casefold() for part in hero_path.parts}
+    background = _short_background(Image.open(hero_path), clean_source=clean_source)
+    background = ImageEnhance.Brightness(background).enhance(0.28).filter(
+        ImageFilter.GaussianBlur(5)
+    )
+    canvas = Image.alpha_composite(
+        background.convert("RGBA"),
+        Image.new("RGBA", (WIDTH, HEIGHT), (4, 23, 56, 176)),
+    )
+    draw = ImageDraw.Draw(canvas)
+    draw.rounded_rectangle(
+        (70, 520, WIDTH - 70, 1035),
+        radius=48,
+        fill=(255, 255, 255, 248),
+        outline=(16, 183, 176, 255),
+        width=6,
+    )
+    logo = _trim_logo(Image.open(logo_path))
+    logo.thumbnail((WIDTH - 190, 360), Image.Resampling.LANCZOS)
+    canvas.alpha_composite(
+        logo,
+        ((WIDTH - logo.width) // 2, 610 + (300 - logo.height) // 2),
+    )
+    draw = ImageDraw.Draw(canvas)
+    label_font = _font(42, bold=True)
+    label = "FULL SHORTLIST ONLY AT"
+    label_box = draw.textbbox((0, 0), label, font=label_font)
+    draw.text(
+        ((WIDTH - (label_box[2] - label_box[0])) // 2, 1135),
+        label,
+        font=label_font,
+        fill="#ffffff",
+    )
+    site_font = _fit_single_line_font(draw, site, WIDTH - 130, 70)
+    site_box = draw.textbbox((0, 0), site, font=site_font)
+    draw.text(
+        ((WIDTH - (site_box[2] - site_box[0])) // 2, 1215),
+        site,
+        font=site_font,
+        fill="#19c7bd",
+    )
+    prompt_font = _font(34)
+    prompt = "Independent buying checks • updated offers"
+    prompt_box = draw.textbbox((0, 0), prompt, font=prompt_font)
+    draw.text(
+        ((WIDTH - (prompt_box[2] - prompt_box[0])) // 2, 1345),
+        prompt,
+        font=prompt_font,
+        fill="#e7eef5",
+    )
     return canvas.convert("RGB")
 
 
@@ -317,26 +464,17 @@ def build_short_video(
         "Verify the live price before you buy",
     ]
     points = (points + fallback)[:2]
-    hook = str(
-        article.get("x_subtitle")
-        or article.get("pinterest_subtitle")
-        or "A quick buyer-first comparison"
-    )
+    hook = deal_teaser(article, market)
     slides = [
         (
-            str(article.get("hero_image_kicker") or "BUYING GUIDE"),
-            str(article.get("title", "Worth Buying guide")),
+            "TODAY'S DEAL WATCH",
+            short_headline(article),
             hook,
         ),
         (
-            "TWO QUICK CHECKS",
+            "WHY IT'S WORTH A LOOK",
             points[0],
-            points[1],
-        ),
-        (
-            "FULL GUIDE",
-            "See every pick and buying check",
-            f"Visit {config['site']} — link in the description.",
+            f"{points[1]} • Full shortlist only at {config['site']}",
         ),
     ]
     work_dir.mkdir(parents=True, exist_ok=True)
@@ -350,12 +488,21 @@ def build_short_video(
             headline=headline,
             subtext=subtext,
             slide_number=index,
-            slide_count=len(slides),
+            slide_count=3,
             image_first=index == 1,
         )
         slide_path = work_dir / f"slide-{index:02d}.png"
         slide.save(slide_path, optimize=True)
         slide_paths.append(slide_path)
+
+    end_slide = create_end_slide(
+        hero_path,
+        logo_path,
+        site=config["site"],
+    )
+    end_slide_path = work_dir / "slide-03.png"
+    end_slide.save(end_slide_path, optimize=True)
+    slide_paths.append(end_slide_path)
 
     manifest = work_dir / "slides.txt"
     manifest_lines: list[str] = []
