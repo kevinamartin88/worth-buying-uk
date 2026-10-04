@@ -199,6 +199,7 @@ jobs:
 
       - name: Check UK article discovery and Search Console
         continue-on-error: true
+        timeout-minutes: 4
         env:
           PYTHONPATH: .
           GSC_CLIENT_ID: ${{ secrets.GSC_CLIENT_ID }}
