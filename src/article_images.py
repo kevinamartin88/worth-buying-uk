@@ -31,13 +31,37 @@ def hero_image_url(market: str, slug: str) -> str:
 
 
 def require_hero_image(market: str, slug: str) -> str:
-    path = hero_image_path(market, slug)
-    if not path.is_file() or path.stat().st_size <= 0:
-        raise RuntimeError(
-            f"Publish blocked: required {market.upper()} hero image is missing: "
-            f"{path.relative_to(ROOT)}"
+    """Return a required public article image, preferring the generated AI hero.
+
+    This mirrors the proven email/manual route: use the wide AI hero when it
+    exists, otherwise fall back to the Pinterest artwork. Publishing is blocked
+    only when neither image exists.
+    """
+    market = _validate_market(market)
+    ai_path = hero_image_path(market, slug)
+    if ai_path.is_file() and ai_path.stat().st_size > 0:
+        return hero_image_url(market, slug)
+
+    if market == "uk":
+        fallback_path = ROOT / "assets" / "pinterest" / f"{slug}.png"
+        fallback_url = (
+            "https://raw.githubusercontent.com/kevinamartin88/"
+            f"worth-buying-uk/main/assets/pinterest/{slug}.png"
         )
-    return hero_image_url(market, slug)
+    else:
+        fallback_path = ROOT / "assets" / "pinterest" / "us" / f"{slug}.png"
+        fallback_url = (
+            "https://raw.githubusercontent.com/kevinamartin88/"
+            f"worth-buying-uk/main/assets/pinterest/us/{slug}.png"
+        )
+
+    if fallback_path.is_file() and fallback_path.stat().st_size > 0:
+        return fallback_url
+
+    raise RuntimeError(
+        f"Publish blocked: no required {market.upper()} article image exists for {slug} "
+        "(AI hero and Pinterest fallback are both missing)."
+    )
 
 
 def hero_image_html(market: str, slug: str, title: str) -> tuple[str, str]:
@@ -73,7 +97,7 @@ def backfill_hero_if_missing(
 ) -> tuple[str, str, bool]:
     content = str(content or "")
     markup, image_url = hero_image_html(market, slug, title)
-    if has_any_image(content):
+    if image_url in content:
         return content, image_url, False
     return markup + content, image_url, True
 

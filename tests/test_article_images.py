@@ -33,18 +33,40 @@ def test_add_required_hero_prepends_expected_image(monkeypatch):
     assert content.index("<img") < content.index("Article text")
 
 
-def test_backfill_preserves_existing_image(monkeypatch):
+def test_backfill_requires_the_expected_article_image(monkeypatch):
+    expected = "https://images.example/us/test-slug.jpg"
     monkeypatch.setattr(
         article_images,
         "require_hero_image",
-        lambda market, slug: f"https://images.example/{market}/{slug}.jpg",
+        lambda market, slug: expected,
     )
-    original = '<p><img src="legacy.jpg" alt="legacy"></p><p>Body</p>'
-    content, _, changed = article_images.backfill_hero_if_missing(
+    legacy = '<p><img src="legacy.jpg" alt="legacy"></p><p>Body</p>'
+    content, image_url, changed = article_images.backfill_hero_if_missing(
+        legacy,
+        "us",
+        "test-slug",
+        "Test article",
+    )
+    assert changed is True
+    assert image_url == expected
+    assert expected in content
+    assert content.index(expected) < content.index("legacy.jpg")
+
+
+def test_backfill_preserves_expected_article_image(monkeypatch):
+    expected = "https://images.example/us/test-slug.jpg"
+    monkeypatch.setattr(
+        article_images,
+        "require_hero_image",
+        lambda market, slug: expected,
+    )
+    original = f'<p><img src="{expected}" alt="hero"></p><p>Body</p>'
+    content, image_url, changed = article_images.backfill_hero_if_missing(
         original,
         "us",
         "test-slug",
         "Test article",
     )
     assert content == original
+    assert image_url == expected
     assert changed is False
