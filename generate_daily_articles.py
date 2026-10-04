@@ -594,15 +594,31 @@ def quick_picks_html(items: list[dict], market: str, query: str) -> str:
     )
 
 
+def _site_page_url(market: str, key: str) -> str:
+    state_path = ROOT / "state" / (
+        "site_pages_uk.json" if market == "uk" else "site_pages_us.json"
+    )
+    state = load_json(state_path)
+    return str((state.get(key) or {}).get("url") or "").strip()
+
+
 def editorial_trust_html(market: str, checked_date: str) -> str:
     retailer = "eBay UK and Amazon UK" if market == "uk" else "eBay and Amazon"
+    methodology_url = _site_page_url(market, "methodology")
+    methodology_link = (
+        f'<a href="{html.escape(methodology_url, quote=True)}">our product-selection methodology</a>'
+        if methodology_url
+        else "our published product-selection methodology"
+    )
     return (
         '<aside style="border-left:4px solid #082f5b;background:#f6f8fb;'
         'padding:16px 18px;margin:20px 0;">'
-        '<p style="margin-top:0"><strong>How Worth Buying checks this guide</strong></p>'
+        '<p style="margin-top:0"><strong>Worth Buying Editorial Team</strong></p>'
         f'<p>Checked {html.escape(checked_date)} using current retailer data from {retailer}, '
         'seller-quality signals, realistic pricing checks and product relevance filters. '
         'We reject weak or suspicious marketplace listings rather than filling the page.</p>'
+        f'<p>These are data-led comparisons rather than claims of hands-on laboratory testing. '
+        f'Read {methodology_link} for the checks, limitations and update process.</p>'
         '<p style="margin-bottom:0"><strong>How we make money:</strong> some retailer links are affiliate links. '
         'A qualifying purchase can earn us a commission, but inclusion is determined by our published checks, '
         'not by which retailer pays the highest commission.</p>'

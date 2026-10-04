@@ -214,3 +214,18 @@ def test_quick_pick_card_uses_verified_marketplace_image():
     assert "https://i.ebayimg.com/example.jpg" in rendered
     assert 'loading="lazy"' in rendered
     assert 'alt="Example Air Fryer AF400"' in rendered
+
+
+
+def test_editorial_trust_box_is_transparent(monkeypatch):
+    monkeypatch.setattr(
+        daily,
+        "_site_page_url",
+        lambda market, key: "https://example.com/methodology",
+    )
+    rendered = daily.editorial_trust_html("uk", "4 October 2026")
+    assert "Worth Buying Editorial Team" in rendered
+    assert "data-led comparisons" in rendered
+    assert "hands-on laboratory testing" in rendered
+    assert "https://example.com/methodology" in rendered
+    assert "affiliate links" in rendered
