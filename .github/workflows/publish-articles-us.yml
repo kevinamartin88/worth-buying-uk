@@ -227,6 +227,7 @@ jobs:
           cp state/x_us_published.json "$SNAPSHOT_DIR/state/x_us_published.json" 2>/dev/null || true
           cp state/bluesky_us_published.json "$SNAPSHOT_DIR/state/bluesky_us_published.json" 2>/dev/null || true
           cp state/youtube_us_published.json "$SNAPSHOT_DIR/state/youtube_us_published.json" 2>/dev/null || true
+          cp state/site_pages_us.json "$SNAPSHOT_DIR/state/site_pages_us.json" 2>/dev/null || true
 
           git config user.name "worth-buying-usa-bot"
           git config user.email "worth-buying-usa-bot@users.noreply.github.com"
@@ -243,7 +244,8 @@ jobs:
               state/email_published.json \
               state/x_us_published.json \
               state/bluesky_us_published.json \
-              state/youtube_us_published.json
+              state/youtube_us_published.json \
+              state/site_pages_us.json
 
             PYTHONPATH=. python generate_pinterest_feed_us.py
 
