@@ -67,7 +67,7 @@ jobs:
       - name: Test publishing and Shorts safeguards
         env:
           PYTHONPATH: .
-        run: pytest -q tests/test_article_images.py tests/test_youtube_shorts.py
+        run: pytest -q tests/test_article_images.py tests/test_youtube_shorts.py tests/test_site_pages.py
 
       - name: Ensure FFmpeg is available for YouTube Shorts
         run: |
@@ -161,6 +161,17 @@ jobs:
           SMTP_APP_PASSWORD: ${{ secrets.SMTP_APP_PASSWORD }}
           BLOGGER_UK_EMAIL_POST_ADDRESS: ${{ secrets.BLOGGER_UK_EMAIL_POST_ADDRESS }}
         run: python publish_articles.py
+      - name: Refresh UK authority hub pages
+        if: steps.blogger_preflight.outcome == 'success'
+        continue-on-error: true
+        env:
+          PYTHONPATH: .
+          BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_CLIENT_ID }}
+          BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_CLIENT_SECRET }}
+          BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
+          BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
+        run: python publish_site_pages.py --market uk
+
       - name: Prepare UK manual publishing package when Blogger is restricted
         if: steps.blogger_preflight.outcome == 'failure'
         env:
@@ -243,7 +254,7 @@ jobs:
 
             PYTHONPATH=. python generate_pinterest_feed.py
 
-            git add state/articles_published.json state/email_published.json state/x_published.json state/bluesky_published.json state/youtube_uk_published.json pinterest-feed.xml
+            git add state/articles_published.json state/email_published.json state/x_published.json state/bluesky_published.json state/youtube_uk_published.json state/site_pages_uk.json pinterest-feed.xml
 
             if git diff --cached --quiet; then
               echo "No publication state or Pinterest feed changes to commit."
