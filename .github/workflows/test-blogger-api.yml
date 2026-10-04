@@ -2,6 +2,11 @@ name: Test Blogger API connections
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "state/blogger-api-test-trigger.txt"
 
 permissions:
   contents: read
@@ -30,7 +35,7 @@ jobs:
           BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_CLIENT_SECRET }}
           BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
           BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
-        run: python scripts/test_blogger_live.py --market uk
+        run: python scripts/test_blogger_live.py --market uk --write-test
 
       - name: Verify USA Blogger OAuth and blog target
         env:
@@ -38,4 +43,4 @@ jobs:
           BLOGGER_US_CLIENT_SECRET: ${{ secrets.BLOGGER_US_CLIENT_SECRET }}
           BLOGGER_US_REFRESH_TOKEN: ${{ secrets.BLOGGER_US_REFRESH_TOKEN }}
           BLOGGER_US_BLOG_ID: ${{ secrets.BLOGGER_US_BLOG_ID }}
-        run: python scripts/test_blogger_live.py --market us
+        run: python scripts/test_blogger_live.py --market us --write-test
