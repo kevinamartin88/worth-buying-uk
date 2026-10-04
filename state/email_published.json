@@ -1,4 +1,15 @@
 {
+  "uk:approved-retailer-bed-frames-uk-2026-10-04": {
+    "delivery_mode": "manual",
+    "delivery_status": "published",
+    "market": "uk",
+    "primary_category": "Home & Kitchen",
+    "sent": false,
+    "source_file": "approved-retailer-bed-frames-uk-2026-10-04.json",
+    "source_sha": "2026-10-04-bed-frames-uk-rakuten-v1",
+    "title": "Current Bed Frames Offers from Approved UK Retailers (October 2026)",
+    "url": "https://www.worthbuyinguk.co.uk/2026/10/current-bed-frames-offers-from-approved.html"
+  },
   "uk:approved-retailer-coffee-tables-uk-2026-10-03": {
     "delivery_mode": "manual",
     "delivery_status": "published",
