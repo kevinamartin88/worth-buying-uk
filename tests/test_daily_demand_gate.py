@@ -79,3 +79,41 @@ def test_shopping_candidate_list_is_limited_and_commercial():
     assert len(candidates) == 10
     assert candidates[0][0] == "dehumidifiers"
     assert all(topic in available for topic in candidates)
+
+
+def test_sunday_google_ranking_is_restricted_to_home_pool(monkeypatch, tmp_path):
+    seen = {}
+
+    def fake_shopping(topics, market):
+        seen["keys"] = [topic[0] for topic in topics]
+        return [(topics[0], {
+            "query": topics[0][2],
+            "source": "google-trends-google-shopping",
+            "score": 70,
+        })]
+
+    monkeypatch.setattr(daily, "rank_topics_by_google_shopping", fake_shopping)
+    monkeypatch.setattr(daily, "rank_topics_by_trends", lambda topics, market: [])
+
+    topic, signal, _, _ = daily.pick_topic(
+        tmp_path, year=2026, weekday=6, market="us", month=10
+    )
+
+    assert topic[0] in daily.SUNDAY_PRIORITY
+    assert set(seen["keys"]).issubset(set(daily.SUNDAY_PRIORITY))
+    assert "ssds" not in seen["keys"]
+    assert "apple-watches" not in seen["keys"]
+    assert topic[5] == "Home & Kitchen"
+
+
+def test_sunday_fallback_remains_home_only(monkeypatch, tmp_path):
+    monkeypatch.setattr(daily, "rank_topics_by_google_shopping", lambda topics, market: [])
+    monkeypatch.setattr(daily, "rank_topics_by_trends", lambda topics, market: [])
+
+    topic, signal, _, _ = daily.pick_topic(
+        tmp_path, year=2026, weekday=6, market="uk", month=10
+    )
+
+    assert topic[0] in daily.SUNDAY_PRIORITY
+    assert topic[5] == "Home & Kitchen"
+    assert signal is None
