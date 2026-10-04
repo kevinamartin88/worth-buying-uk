@@ -198,3 +198,19 @@ def test_evergreen_slug_reuses_existing_pillar(monkeypatch, tmp_path):
 def test_new_pillar_gets_yearless_slug(monkeypatch, tmp_path):
     monkeypatch.setattr(daily, "published_article_dir", lambda market: tmp_path)
     assert daily.evergreen_article_slug("air-purifiers", "uk") == "best-air-purifiers-worth-buying-uk"
+
+
+
+def test_quick_pick_card_uses_verified_marketplace_image():
+    item = {
+        "title": "Example Air Fryer AF400",
+        "price": {"value": "99.99", "currency": "GBP"},
+        "condition": "New",
+        "seller": {"feedbackPercentage": "99.9", "feedbackScore": 10000},
+        "itemWebUrl": "https://www.ebay.co.uk/itm/123",
+        "image": {"imageUrl": "https://i.ebayimg.com/example.jpg"},
+    }
+    rendered = daily.quick_picks_html([item], "uk", "air fryer")
+    assert "https://i.ebayimg.com/example.jpg" in rendered
+    assert 'loading="lazy"' in rendered
+    assert 'alt="Example Air Fryer AF400"' in rendered

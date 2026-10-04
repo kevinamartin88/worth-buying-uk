@@ -528,6 +528,8 @@ def quick_picks_html(items: list[dict], market: str, query: str) -> str:
         if amazon_offer.get("url"):
             amazon_url = str(amazon_offer["url"])
 
+        image_url = str(((item.get("image") or {}).get("imageUrl") or "")).strip()
+
         seller = item.get("seller") or {}
         feedback_pct = safe_float(seller.get("feedbackPercentage"))
         seller_signal = (
@@ -555,9 +557,18 @@ def quick_picks_html(items: list[dict], market: str, query: str) -> str:
             if exact_model or amazon_offer
             else f"Compare on {amazon}"
         )
+        image_html = (
+            f'<div style="text-align:center;margin:0 0 14px">'
+            f'<img src="{html.escape(image_url, quote=True)}" '
+            f'alt="{html.escape(title, quote=True)}" loading="lazy" '
+            'style="max-width:280px;width:100%;height:auto;object-fit:contain;border-radius:10px"></div>'
+            if image_url
+            else ""
+        )
         cards.append(
             '<div style="border:1px solid #dfe6ee;border-radius:14px;padding:18px;'
             'margin:14px 0;background:#fff;">'
+            f'{image_html}'
             f'<p style="margin:0 0 8px"><strong>{index}. {html.escape(title)}</strong></p>'
             f'<p style="margin:6px 0"><strong>eBay price checked:</strong> {html.escape(price)}'
             f' · {html.escape(condition)}</p>'
