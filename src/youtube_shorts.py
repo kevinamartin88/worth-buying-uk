@@ -154,33 +154,6 @@ def _cover(image: Image.Image, size: tuple[int, int]) -> Image.Image:
     return ImageOps.fit(image.convert("RGB"), size, method=Image.Resampling.LANCZOS)
 
 
-def _wrapped_lines(draw: ImageDraw.ImageDraw, text: str, font, max_width: int) -> list[str]:
-    words = text.split()
-    lines: list[str] = []
-    current = ""
-    for word in words:
-        candidate = f"{current} {word}".strip()
-        if draw.textbbox((0, 0), candidate, font=font)[2] <= max_width:
-            current = candidate
-        else:
-            if current:
-                lines.append(current)
-            current = word
-    if current:
-        lines.append(current)
-    return lines
-
-
-def _fit_font(draw: ImageDraw.ImageDraw, text: str, max_width: int, max_lines: int, start: int):
-    for size in range(start, 43, -4):
-        font = _font(size, bold=True)
-        lines = _wrapped_lines(draw, text, font, max_width)
-        if len(lines) <= max_lines:
-            return font, lines
-    font = _font(42, bold=True)
-    return font, _wrapped_lines(draw, text, font, max_width)[:max_lines]
-
-
 def _rounded_image(image: Image.Image, size: tuple[int, int], radius: int) -> Image.Image:
     fitted = ImageOps.fit(image.convert("RGB"), size, method=Image.Resampling.LANCZOS)
     rounded = fitted.convert("RGBA")
