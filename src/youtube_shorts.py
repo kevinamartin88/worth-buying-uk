@@ -18,6 +18,16 @@ from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps
 WIDTH = 1080
 HEIGHT = 1920
 SLIDE_DURATIONS = (3.0, 3.5, 3.5)
+
+# YouTube Shorts overlays controls along the right and lower edges. Keep all
+# essential wording well inside this mobile-safe zone.
+SAFE_LEFT = 90
+SAFE_RIGHT = 90
+SAFE_TOP = 70
+SAFE_BOTTOM = 280
+TEXT_MAX_WIDTH = 790
+HERO_FRAME = (100, 300, 980, 795)  # centred 16:9 image, no vertical crop
+SHORT_LAYOUT_VERSION = "centered-safe-v2"
 SHORT_SECONDS = sum(SLIDE_DURATIONS)
 MUSIC_SAMPLE_RATE = 44_100
 MARKET_CONFIG = {
@@ -171,6 +181,16 @@ def _fit_font(draw: ImageDraw.ImageDraw, text: str, max_width: int, max_lines: i
     return font, _wrapped_lines(draw, text, font, max_width)[:max_lines]
 
 
+def _rounded_image(image: Image.Image, size: tuple[int, int], radius: int) -> Image.Image:
+    fitted = ImageOps.fit(image.convert("RGB"), size, method=Image.Resampling.LANCZOS)
+    rounded = fitted.convert("RGBA")
+    mask = Image.new("L", size, 0)
+    mask_draw = ImageDraw.Draw(mask)
+    mask_draw.rounded_rectangle((0, 0, size[0], size[1]), radius=radius, fill=255)
+    rounded.putalpha(mask)
+    return rounded
+
+
 def _base_slide(
     hero_path: Path,
     logo_path: Path,
@@ -178,28 +198,89 @@ def _base_slide(
     *,
     image_first: bool = False,
 ) -> Image.Image:
-    hero = _cover(Image.open(hero_path), (WIDTH, HEIGHT))
-    if image_first:
-        hero = ImageEnhance.Brightness(hero).enhance(0.92)
-        overlay = Image.new("RGBA", (WIDTH, HEIGHT), (4, 23, 56, 0))
-        overlay_draw = ImageDraw.Draw(overlay)
-        for y in range(HEIGHT):
-            alpha = max(0, min(205, int((y - 760) / 980 * 205)))
-            overlay_draw.line((0, y, WIDTH, y), fill=(4, 23, 56, alpha))
-    else:
-        hero = ImageEnhance.Brightness(hero).enhance(0.48).filter(
-            ImageFilter.GaussianBlur(2)
-        )
-        overlay = Image.new("RGBA", (WIDTH, HEIGHT), (4, 23, 56, 130))
-    canvas = Image.alpha_composite(hero.convert("RGBA"), overlay)
+    # The source hero already contains branded wording. Using it as a full
+    # vertical background makes that wording crop and clash with Short text.
+    # Instead, turn it into a deliberately unreadable ambient background and
+    # show the original hero separately in a centred 16:9 frame on slide one.
+    background = _cover(Image.open(hero_path), (WIDTH, HEIGHT))
+    background = (
+        ImageEnhance.Brightness(background)
+        .enhance(0.28)
+        .filter(ImageFilter.GaussianBlur(14))
+    )
+    veil = Image.new("RGBA", (WIDTH, HEIGHT), (4, 18, 43, 170))
+    canvas = Image.alpha_composite(background.convert("RGBA"), veil)
     draw = ImageDraw.Draw(canvas)
+
+    # Stable header area.
     draw.rounded_rectangle(
-        (72, 70, WIDTH - 72, 214), radius=30, fill=(255, 255, 255, 240)
+        (SAFE_LEFT, SAFE_TOP, WIDTH - SAFE_RIGHT, 220),
+        radius=34,
+        fill=(255, 255, 255, 245),
     )
     logo = Image.open(logo_path).convert("RGBA")
-    logo.thumbnail((WIDTH - 270, 104), Image.Resampling.LANCZOS)
-    canvas.alpha_composite(logo, ((WIDTH - logo.width) // 2, 90))
+    logo.thumbnail((620, 105), Image.Resampling.LANCZOS)
+    canvas.alpha_composite(logo, ((WIDTH - logo.width) // 2, 92))
+
+    if image_first:
+        x1, y1, x2, y2 = HERO_FRAME
+        draw.rounded_rectangle(
+            (x1 - 8, y1 - 8, x2 + 8, y2 + 8),
+            radius=34,
+            fill=(255, 255, 255, 235),
+        )
+        hero = Image.open(hero_path).convert("RGB")
+        framed = _rounded_image(hero, (x2 - x1, y2 - y1), radius=28)
+        canvas.alpha_composite(framed, (x1, y1))
+
     return canvas
+
+
+def _text_width(draw: ImageDraw.ImageDraw, text: str, font) -> int:
+    box = draw.textbbox((0, 0), text, font=font)
+    return box[2] - box[0]
+
+
+def _wrapped_lines(draw: ImageDraw.ImageDraw, text: str, font, max_width: int) -> list[str]:
+    words = text.split()
+    lines: list[str] = []
+    current = ""
+    for word in words:
+        candidate = f"{current} {word}".strip()
+        if _text_width(draw, candidate, font) <= max_width:
+            current = candidate
+        else:
+            if current:
+                lines.append(current)
+            current = word
+    if current:
+        lines.append(current)
+    return lines
+
+
+def _fit_font(
+    draw: ImageDraw.ImageDraw,
+    text: str,
+    max_width: int,
+    max_lines: int,
+    start: int,
+    minimum: int = 44,
+):
+    for size in range(start, minimum - 1, -3):
+        font = _font(size, bold=True)
+        lines = _wrapped_lines(draw, text, font, max_width)
+        if len(lines) <= max_lines:
+            return font, lines
+
+    font = _font(minimum, bold=True)
+    lines = _wrapped_lines(draw, text, font, max_width)
+    if len(lines) > max_lines:
+        lines = lines[:max_lines]
+        last = lines[-1].rstrip()
+        while last and _text_width(draw, last + "…", font) > max_width:
+            last = last[:-1].rstrip()
+        lines[-1] = (last or lines[-1]) + "…"
+    return font, lines
 
 
 def _draw_centered_lines(
@@ -209,15 +290,68 @@ def _draw_centered_lines(
     top: int,
     *,
     fill: str = "white",
-    spacing: int = 22,
+    spacing: int = 18,
+    stroke_width: int = 3,
+    stroke_fill: str = "#08182f",
 ) -> int:
     y = top
     for line in lines:
-        box = draw.textbbox((0, 0), line, font=font)
-        x = (WIDTH - (box[2] - box[0])) // 2
-        draw.text((x, y), line, font=font, fill=fill)
-        y += box[3] - box[1] + spacing
+        box = draw.textbbox((0, 0), line, font=font, stroke_width=stroke_width)
+        line_width = box[2] - box[0]
+        line_height = box[3] - box[1]
+        x = (WIDTH - line_width) // 2
+        draw.text(
+            (x, y),
+            line,
+            font=font,
+            fill=fill,
+            stroke_width=stroke_width,
+            stroke_fill=stroke_fill,
+        )
+        y += line_height + spacing
     return y
+
+
+def _centered_pill(
+    draw: ImageDraw.ImageDraw,
+    text: str,
+    font,
+    y: int,
+    fill: str,
+) -> int:
+    box = draw.textbbox((0, 0), text, font=font)
+    width = box[2] - box[0]
+    height = box[3] - box[1]
+    x1 = (WIDTH - width) // 2 - 28
+    x2 = (WIDTH + width) // 2 + 28
+    draw.rounded_rectangle(
+        (x1, y, x2, y + height + 24),
+        radius=22,
+        fill=fill,
+    )
+    draw.text(
+        ((WIDTH - width) // 2, y + 8),
+        text,
+        font=font,
+        fill="white",
+        stroke_width=1,
+        stroke_fill="#08182f",
+    )
+    return y + height + 24
+
+
+def _draw_text_panel(
+    draw: ImageDraw.ImageDraw,
+    top: int,
+    bottom: int,
+) -> None:
+    draw.rounded_rectangle(
+        (SAFE_LEFT, top, WIDTH - SAFE_RIGHT, bottom),
+        radius=42,
+        fill=(3, 18, 43, 235),
+        outline=(255, 255, 255, 48),
+        width=2,
+    )
 
 
 def create_slide(
@@ -233,34 +367,91 @@ def create_slide(
     image_first: bool = False,
 ) -> Image.Image:
     canvas = _base_slide(hero_path, logo_path, accent, image_first=image_first)
-    draw = ImageDraw.Draw(canvas)
-    kicker_font = _font(36, bold=True)
-    kicker_text = kicker.upper()[:38]
-    kicker_box = draw.textbbox((0, 0), kicker_text, font=kicker_font)
-    draw.rounded_rectangle(
-        (74, 286 if image_first else 330, 110 + kicker_box[2], 348 if image_first else 392),
-        radius=26,
-        fill=accent,
-    )
-    draw.text(
-        (92, 296 if image_first else 340),
-        kicker_text,
-        font=kicker_font,
-        fill="white",
-    )
+    draw = ImageDraw.Draw(canvas, "RGBA")
 
-    max_lines = 3 if image_first else 4
+    # Centre the section label instead of anchoring it to the left.
+    kicker_font = _font(32, bold=True)
+    kicker_text = re.sub(r"\s+", " ", kicker.upper()).strip()[:42]
+    kicker_y = 835 if image_first else 330
+    _centered_pill(draw, kicker_text, kicker_font, kicker_y, accent)
+
+    # Text lives on its own opaque panel, never directly over source-image text.
+    panel_top = 905 if image_first else 430
+    panel_bottom = 1515 if image_first else 1435
+    _draw_text_panel(draw, panel_top, panel_bottom)
+
     headline_font, headline_lines = _fit_font(
-        draw, headline, WIDTH - 170, max_lines, 84
+        draw,
+        headline,
+        TEXT_MAX_WIDTH,
+        max_lines=3,
+        start=78 if image_first else 82,
+        minimum=48,
     )
-    headline_top = 1110 if image_first else 540
-    y = _draw_centered_lines(draw, headline_lines, headline_font, headline_top, spacing=24)
-    y += 40
-    sub_font = _font(42)
-    sub_lines = _wrapped_lines(draw, subtext, sub_font, WIDTH - 210)[:3]
-    _draw_centered_lines(draw, sub_lines, sub_font, y, fill="#f3f6fb", spacing=16)
-    return canvas.convert("RGB")
+    headline_top = panel_top + 70
+    y = _draw_centered_lines(
+        draw,
+        headline_lines,
+        headline_font,
+        headline_top,
+        spacing=22,
+        stroke_width=4,
+    )
 
+    # Supporting copy is deliberately shorter and never allowed to become a
+    # paragraph. This keeps it readable on phones and away from Shorts controls.
+    clean_subtext = re.sub(r"\s+", " ", str(subtext)).strip()
+    sub_font = _font(39, bold=True)
+    sub_lines = _wrapped_lines(draw, clean_subtext, sub_font, 760)
+    if len(sub_lines) > 2:
+        sub_lines = sub_lines[:2]
+        last = sub_lines[-1]
+        while last and _text_width(draw, last + "…", sub_font) > 760:
+            last = last[:-1].rstrip()
+        sub_lines[-1] = (last or sub_lines[-1]) + "…"
+
+    y = max(y + 42, panel_top + 300)
+    _draw_centered_lines(
+        draw,
+        sub_lines,
+        sub_font,
+        y,
+        fill="#f5f7fb",
+        spacing=18,
+        stroke_width=3,
+    )
+
+    # Bottom CTA is kept above the lower YouTube caption/navigation overlays.
+    cta_top = HEIGHT - SAFE_BOTTOM - 165
+    cta_bottom = HEIGHT - SAFE_BOTTOM - 45
+    draw.rounded_rectangle(
+        (170, cta_top, WIDTH - 170, cta_bottom),
+        radius=32,
+        fill=(255, 255, 255, 238),
+    )
+    cta_font = _font(30, bold=True)
+    cta = (
+        "FULL GUIDE IN DESCRIPTION"
+        if slide_number < slide_count
+        else "READ THE FULL BUYING GUIDE"
+    )
+    cta_box = draw.textbbox((0, 0), cta, font=cta_font)
+    cta_x = (WIDTH - (cta_box[2] - cta_box[0])) // 2
+    cta_y = cta_top + ((cta_bottom - cta_top) - (cta_box[3] - cta_box[1])) // 2 - 2
+    draw.text((cta_x, cta_y), cta, font=cta_font, fill="#08182f")
+
+    # Small progress marker gives the three scenes a consistent visual rhythm.
+    dot_y = HEIGHT - SAFE_BOTTOM + 12
+    dot_gap = 34
+    total_width = (slide_count - 1) * dot_gap
+    first_x = WIDTH // 2 - total_width // 2
+    for index in range(slide_count):
+        x = first_x + index * dot_gap
+        radius = 7 if index + 1 == slide_number else 5
+        fill = accent if index + 1 == slide_number else (255, 255, 255, 130)
+        draw.ellipse((x - radius, dot_y - radius, x + radius, dot_y + radius), fill=fill)
+
+    return canvas.convert("RGB")
 
 def _write_retro_mall_music(path: Path, duration: float) -> Path:
     """Create a quiet, original lounge loop without external music licensing."""

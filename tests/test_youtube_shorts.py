@@ -1,8 +1,15 @@
 import wave
 
 from src.youtube_shorts import (
+    HEIGHT,
     SHORT_SECONDS,
     SLIDE_DURATIONS,
+    TEXT_MAX_WIDTH,
+    WIDTH,
+    _fit_font,
+    _font,
+    _wrapped_lines,
+    create_slide,
     _write_retro_mall_music,
     article_short_points,
     extract_short_points,
@@ -70,3 +77,55 @@ def test_publication_fingerprint_changes_with_blogger_url():
     first = publication_fingerprint(article, "https://example.com/one")
     second = publication_fingerprint(article, "https://example.com/two")
     assert first != second
+
+
+
+def test_headline_fit_never_exceeds_three_lines():
+    from PIL import Image, ImageDraw
+
+    canvas = Image.new("RGB", (WIDTH, HEIGHT), "black")
+    draw = ImageDraw.Draw(canvas)
+    headline = (
+        "Best Extremely Long Product Title Worth Buying in the UK "
+        "for Families Who Want Better Value in 2026"
+    )
+    font, lines = _fit_font(
+        draw,
+        headline,
+        TEXT_MAX_WIDTH,
+        max_lines=3,
+        start=78,
+        minimum=48,
+    )
+    assert len(lines) <= 3
+    assert all(
+        draw.textbbox((0, 0), line, font=font)[2] <= TEXT_MAX_WIDTH
+        for line in lines
+    )
+
+
+def test_short_slide_renders_centered_mobile_safe_layout(tmp_path):
+    from PIL import Image, ImageDraw
+
+    hero = tmp_path / "hero.jpg"
+    logo = tmp_path / "logo.png"
+
+    Image.new("RGB", (1600, 900), (120, 130, 140)).save(hero)
+    logo_image = Image.new("RGBA", (600, 100), (255, 255, 255, 0))
+    logo_draw = ImageDraw.Draw(logo_image)
+    logo_draw.rectangle((10, 15, 590, 85), fill=(8, 47, 91, 255))
+    logo_image.save(logo)
+
+    slide = create_slide(
+        hero,
+        logo,
+        accent="#ef233c",
+        kicker="BUYING GUIDE",
+        headline="Best Air Fryers Worth Buying in the UK",
+        subtext="Compare the features that matter before you buy.",
+        slide_number=1,
+        slide_count=3,
+        image_first=True,
+    )
+
+    assert slide.size == (1080, 1920)
