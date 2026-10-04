@@ -8,14 +8,13 @@ on:
     paths:
       - "state/manual-daily-kick.txt"
   schedule:
-    # GitHub cron is UTC-only. Use three UK-local attempts at 07:23, 07:53
-    # and 08:23 each day. The schedule gate below selects the correct UTC
-    # triggers for BST or GMT. Off-peak minute values reduce scheduler load.
-    - cron: "23 6 * * *"
-    - cron: "53 6 * * *"
-    - cron: "23 7 * * *"
-    - cron: "53 7 * * *"
-    - cron: "23 8 * * *"
+    # Start shortly after midnight and retry hourly through the early morning.
+    # GitHub cron is UTC-only, so including 23:07 plus 00:07-06:07 gives us
+    # a useful 00:07 UK attempt in BST and GMT. Later attempts are lightweight
+    # because the state check exits as soon as today's UK/USA pair exists.
+    # This gives GitHub several chances to recover from scheduler delays while
+    # targeting completion well before 07:00 UK time.
+    - cron: "7 23,0-6 * * *"
 
 permissions:
   contents: write
@@ -46,26 +45,10 @@ jobs:
             exit 0
           fi
 
-          uk_offset="$(TZ=Europe/London date +%z)"
-          case "${EVENT_SCHEDULE}:${uk_offset}" in
-            "23 6 * * *:+0100"|"23 7 * * *:+0000")
-              echo "run=true" >> "$GITHUB_OUTPUT"
-              echo "slot=07:23 UK primary" >> "$GITHUB_OUTPUT"
-              ;;
-            "53 6 * * *:+0100"|"53 7 * * *:+0000")
-              echo "run=true" >> "$GITHUB_OUTPUT"
-              echo "slot=07:53 UK retry" >> "$GITHUB_OUTPUT"
-              ;;
-            "23 7 * * *:+0100"|"23 8 * * *:+0000")
-              echo "run=true" >> "$GITHUB_OUTPUT"
-              echo "slot=08:23 UK fallback" >> "$GITHUB_OUTPUT"
-              ;;
-            *)
-              echo "run=false" >> "$GITHUB_OUTPUT"
-              echo "slot=inactive DST coverage trigger" >> "$GITHUB_OUTPUT"
-              ;;
-          esac
-
+          # Every scheduled trigger is a valid retry. The article-state check
+          # below makes repeat attempts cheap once both daily guides exist.
+          echo "run=true" >> "$GITHUB_OUTPUT"
+          echo "slot=$(TZ=Europe/London date '+%H:%M UK retry')" >> "$GITHUB_OUTPUT"
           echo "UK schedule selection: $(cat "$GITHUB_OUTPUT" | tr '\n' ' ')"
 
   create-daily-articles:
@@ -82,7 +65,7 @@ jobs:
         id: daily
         shell: bash
         run: |
-          today="$(date -u +%F)"
+          today="$(TZ=Europe/London date +%F)"
           uk_date="$(jq -r '.uk.date // ""' state/daily_article_generator.json 2>/dev/null || true)"
           us_date="$(jq -r '.us.date // ""' state/daily_article_generator.json 2>/dev/null || true)"
 
