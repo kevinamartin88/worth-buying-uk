@@ -1,7 +1,8 @@
 {
   "approved-retailer-bed-frames-uk-2026-10-04": {
-    "post_id": null,
+    "post_id": "6284172629084728525",
     "primary_category": "Home & Kitchen",
+    "publish_fingerprint": "96b9a351aa34202f5a4471e97875dd8d53105eb102b81e062db2eae8cc81fc7a",
     "publisher": "manual",
     "source_file": "approved-retailer-bed-frames-uk-2026-10-04.json",
     "source_sha": "2026-10-04-bed-frames-uk-rakuten-v1",
@@ -10,8 +11,9 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/10/current-bed-frames-offers-from-approved.html"
   },
   "approved-retailer-coffee-tables-uk-2026-10-03": {
-    "post_id": null,
+    "post_id": "457691809853147489",
     "primary_category": "Home & Kitchen",
+    "publish_fingerprint": "36224f5616b92109ec552425235782d4acdb8147c524a1f366a4dd9ef3615deb",
     "publisher": "manual",
     "source_file": "approved-retailer-coffee-tables-uk-2026-10-03.json",
     "source_sha": "2026-10-03-coffee-tables-uk-rakuten-v1",
@@ -20,8 +22,9 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/10/current-coffee-tables-offers-from.html"
   },
   "approved-retailer-dining-tables-uk-2026-10-02": {
-    "post_id": null,
+    "post_id": "4033273578425694722",
     "primary_category": "Home & Kitchen",
+    "publish_fingerprint": "258c47915664ee444d62e9181e9e4b0b17a288f24d04f20a77f11ce777821a60",
     "publisher": "manual",
     "source_file": "approved-retailer-dining-tables-uk-2026-10-02.json",
     "source_sha": "2026-10-02-dining-tables-uk-rakuten-v1",
@@ -30,7 +33,8 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/10/current-dining-tables-offers-from.html"
   },
   "autumn-car-essentials-worth-buying-uk-2026": {
-    "post_id": null,
+    "post_id": "8863034322435938222",
+    "publish_fingerprint": "325d6b647d01529fed4e9f13d7e416d20fef2f2a4aceac41fcebb79515321f3e",
     "publisher": "email",
     "source_file": "autumn-car-essentials-worth-buying-uk-2026.json",
     "source_sha": "2026-09-21-autumn-car-essentials-uk-v1",
@@ -39,8 +43,9 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/09/5-autumn-car-essentials-worth-buying-in.html"
   },
   "best-air-fryers-worth-buying-uk-2026": {
-    "post_id": null,
+    "post_id": "6294365731579288367",
     "primary_category": "Home & Kitchen",
+    "publish_fingerprint": "a95300b33eadaca5ea593c5df5a75921dac897e8819340d628345a8c72447133",
     "publisher": "email",
     "source_file": "best-air-fryers-worth-buying-uk-2026.json",
     "source_sha": "2026-09-21-best-air-fryers-uk-v1",
@@ -50,7 +55,7 @@
   },
   "best-apple-samsung-sony-accessories-uk-2026": {
     "post_id": "3726870883318193639",
-    "publish_fingerprint": "31542caeb41bea3ae838df91b3edb63dc4801d47a627655440f91b09ae4200f7",
+    "publish_fingerprint": "ec6b1be214f98928df0e0fccaa19c6eeb4d31cfddd6d6e39d0e1b7241d46e6f7",
     "source_file": "best-apple-samsung-sony-accessories-uk-2026.json",
     "source_sha": "2026-09-14-v1",
     "status": "published",
@@ -58,8 +63,9 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-apple-samsung-and-sony-accessories_0759385986.html"
   },
   "best-battery-chargers-worth-buying-uk-2026": {
-    "post_id": null,
+    "post_id": "3428828378470208762",
     "primary_category": "Motoring",
+    "publish_fingerprint": "db2676d0e6382fb3441177e3304d6d0d8c5808e56c203481e94a3fbf2726cd40",
     "publisher": "manual",
     "source_file": "best-battery-chargers-worth-buying-uk-2026.json",
     "source_sha": "2026-10-01-battery-chargers-uk-daily-v4",
@@ -68,8 +74,9 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/10/best-car-battery-chargers-worth-buying.html"
   },
   "best-car-jump-starters-before-winter-uk-2026": {
-    "post_id": null,
+    "post_id": "4823670867055094452",
     "primary_category": "Motoring",
+    "publish_fingerprint": "a313d88e08bb804aab4788ab14d679d1e3b8661d48d9b0e106dfc01d2a73d76d",
     "publisher": "email",
     "source_file": "best-car-jump-starters-before-winter-uk-2026.json",
     "source_sha": "2026-09-25-car-jump-starters-uk-extra-v2",
@@ -78,8 +85,9 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-car-jump-starters-worth-buying.html"
   },
   "best-coffee-machines-worth-buying-uk-2026": {
-    "post_id": null,
+    "post_id": "2792170399174727483",
     "primary_category": "Home & Kitchen",
+    "publish_fingerprint": "fc1f9c48c5b1c1b7c5de18e0fccbcd5a45982cc42503e288bf6402cb127b59cf",
     "publisher": "manual",
     "source_file": "best-coffee-machines-worth-buying-uk-2026.json",
     "source_sha": "2026-09-23-coffee-machines-uk-daily-v2",
@@ -88,8 +96,9 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-coffee-machines-worth-buying-in-uk.html"
   },
   "best-cordless-vacuums-worth-buying-uk-2026": {
-    "post_id": null,
+    "post_id": "5472577159110526143",
     "primary_category": "Home & Kitchen",
+    "publish_fingerprint": "bf6f661aaaab5985e013a05c69561278bec3cb28b20feab99707948062a4483d",
     "publisher": "email",
     "source_file": "best-cordless-vacuums-worth-buying-uk-2026.json",
     "source_sha": "2026-09-22-cordless-vacuums-uk-daily-v2",
@@ -98,8 +107,9 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-cordless-vacuum-cleaners-worth.html"
   },
   "best-dash-cams-worth-buying-uk-2026": {
-    "post_id": null,
+    "post_id": "2725675357553595575",
     "primary_category": "Motoring",
+    "publish_fingerprint": "a36d88536a246d5b20406d6ac0eae7a2caa8071367ff0e20def3111a838f8b51",
     "publisher": "manual",
     "source_file": "best-dash-cams-worth-buying-uk-2026.json",
     "source_sha": "2026-10-04-dash-cams-uk-daily-v5",
@@ -108,18 +118,20 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/10/best-dash-cams-worth-buying-in-uk-2026.html"
   },
   "best-dehumidifiers-worth-buying-uk-2026": {
-    "post_id": null,
+    "post_id": "297378384775230602",
     "primary_category": "Home & Kitchen",
+    "publish_fingerprint": "37abaf752ff4a6cef02c9d5600dfaae25de20ce72f35d8607c2a230b22c7f71c",
     "publisher": "manual",
     "source_file": "best-dehumidifiers-worth-buying-uk-2026.json",
     "source_sha": "2026-09-24-dehumidifiers-uk-daily-v3",
     "status": "published",
     "title": "Best Dehumidifiers Worth Buying for Winter in the UK (2026)",
-    "url": "https://www.worthbuyinguk.co.uk/2026/09/best-dehumidifiers-worth-buying-for.html"
+    "url": "https://www.worthbuyinguk.co.uk/2026/10/best-dehumidifiers-worth-buying-for.html"
   },
   "best-electric-blankets-worth-buying-uk-2026": {
-    "post_id": null,
+    "post_id": "7401225891350291667",
     "primary_category": "Home & Kitchen",
+    "publish_fingerprint": "318009854fc4e6f5377693768a85d2409e5b3380f84d22e0ccf6c039d9859ca5",
     "publisher": "manual",
     "source_file": "best-electric-blankets-worth-buying-uk-2026.json",
     "source_sha": "2026-09-30-electric-blankets-uk-daily-v4",
@@ -128,8 +140,9 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-electric-blankets-worth-buying-in.html"
   },
   "best-fans-worth-buying-for-2027-uk-heatwave": {
-    "post_id": null,
+    "post_id": "3045222167873143557",
     "primary_category": "Home & Kitchen",
+    "publish_fingerprint": "1e58bb532093590e1555ac1d76cde2531cbf5f9c9220eea7ce7b18ea84cbc0ab",
     "publisher": "email",
     "source_file": "best-fans-worth-buying-for-2027-uk-heatwave.json",
     "source_sha": "2026-09-26-tower-fans-uk-2027-heatwave-extra-v1",
@@ -138,8 +151,9 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-fans-worth-buying-for-2027-uk.html"
   },
   "best-food-processors-worth-buying-uk-2026": {
-    "post_id": null,
+    "post_id": "262872887716605267",
     "primary_category": "Home & Kitchen",
+    "publish_fingerprint": "d8751d01f394d47b14bd2ae1b2d7b0f71131c4606603ca21098996ed8d68c3c4",
     "publisher": "manual",
     "source_file": "best-food-processors-worth-buying-uk-2026.json",
     "source_sha": "2026-10-03-food-processors-uk-daily-v5",
@@ -148,8 +162,9 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/10/best-food-processors-worth-buying-in-uk.html"
   },
   "best-non-slip-hangers-worth-buying-uk-2026": {
-    "post_id": null,
+    "post_id": "8049373780180202523",
     "primary_category": "Home & Kitchen",
+    "publish_fingerprint": "a9907bb7177ec7bfef281d31b88fef75e4e9b81acc4f5dc64b1552df029c541a",
     "publisher": "manual",
     "source_file": "best-non-slip-hangers-worth-buying-uk-2026.json",
     "source_sha": "2026-09-27-non-slip-hangers-uk-daily-v4",
@@ -158,8 +173,9 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-non-slip-hangers-worth-buying-in.html"
   },
   "best-portable-heaters-worth-buying-uk-2026": {
-    "post_id": null,
+    "post_id": "3540963103578969734",
     "primary_category": "Home & Kitchen",
+    "publish_fingerprint": "cc6d7c7c70fded5a7bfd01a35d3eb87ee56002f5f5580549c2716673dba29ae1",
     "publisher": "manual",
     "source_file": "best-portable-heaters-worth-buying-uk-2026.json",
     "source_sha": "2026-09-29-portable-heaters-uk-daily-v4",
@@ -168,8 +184,9 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-portable-heaters-worth-buying-in.html"
   },
   "best-power-banks-worth-buying-uk-2026": {
-    "post_id": null,
+    "post_id": "8606866282462180968",
     "primary_category": "Tech",
+    "publish_fingerprint": "e7458fc39ae06632383481aeb0347a1368b4cf53ca9d8306c670bfe275221190",
     "publisher": "manual",
     "source_file": "best-power-banks-worth-buying-uk-2026.json",
     "source_sha": "2026-10-02-power-banks-uk-daily-v5",
@@ -179,7 +196,7 @@
   },
   "best-refurbished-apple-watch-uk-2026": {
     "post_id": "6958338034277175140",
-    "publish_fingerprint": "e9242db7a2e6d09990d12c7feb680a072c99d4257ee325fd664cf320b4753190",
+    "publish_fingerprint": "4764d9c89f108f4244293687fd2ac3e84e38eb8c476be22e27987c100c313983",
     "source_file": "best-refurbished-apple-watch-uk-2026.json",
     "source_sha": "2026-09-14-apple-watch-test-v1",
     "status": "published",
@@ -188,7 +205,7 @@
   },
   "best-refurbished-iphones-under-300-uk": {
     "post_id": "8241046611522970649",
-    "publish_fingerprint": "3c21fe69db8613afd587e6e4f6606d56a0746afcde1f43e3fff43eadfd6e8fcf",
+    "publish_fingerprint": "672e54df78a261902fc09bbfcb195a5103a45ae6b79c1242774f5afb3a3fe48b",
     "source_file": "best-refurbished-iphones-under-300-uk.json",
     "source_sha": "2026-09-14-v1",
     "status": "draft",
@@ -197,7 +214,7 @@
   },
   "best-refurbished-laptops-uk-2026": {
     "post_id": "7367538209967484445",
-    "publish_fingerprint": "bc3fd5b24188c9eb5a32d0d37eed6ba3e1207d49949ebe2ec7321d56f60f6a73",
+    "publish_fingerprint": "8e1fd8cfa6f000c9027b92b7ae6e4c853738bca91c3457399259c338280b103b",
     "source_file": "best-refurbished-laptops-uk-2026.json",
     "source_sha": "2026-09-14-v1",
     "status": "published",
@@ -206,7 +223,7 @@
   },
   "best-refurbished-smartphones-uk-2026": {
     "post_id": "5773837271702338628",
-    "publish_fingerprint": "5703768dea9f20e5bfc4335eed5ba364b1c4e749e34b08036220a6c037c80860",
+    "publish_fingerprint": "6ddf9f3175897e4616992c82b450cfdaa3260bf44687afb0dd7b75fc6d28b932",
     "source_file": "best-refurbished-smartphones-uk-2026.json",
     "source_sha": "2026-09-14-v1",
     "status": "published",
@@ -215,7 +232,7 @@
   },
   "best-refurbished-tablets-uk-2026": {
     "post_id": "8472563570845166524",
-    "publish_fingerprint": "10c62c15e24cff0eae0423d941a22a2b8491a2a9cb3f5c2cf7c77668f3c91efc",
+    "publish_fingerprint": "d212110d430461ee2a3050e6bbef6e79696bfc289b5d27722d48d445bd893f9a",
     "source_file": "best-refurbished-tablets-uk-2026.json",
     "source_sha": "2026-09-14-v1",
     "status": "published",
@@ -223,8 +240,9 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-refurbished-tablets-to-buy-in-uk_0629064872.html"
   },
   "best-robot-vacuum-cleaners-worth-buying-uk-2026": {
-    "post_id": null,
+    "post_id": "7066665454084266261",
     "primary_category": "Home & Kitchen",
+    "publish_fingerprint": "14823312cfd5ba3161226f1b7e92a26076a2602131db8b4a5e8bca49a3c38933",
     "publisher": "manual",
     "source_file": "best-robot-vacuum-cleaners-worth-buying-uk-2026.json",
     "source_sha": "2026-09-24-robot-vacuums-uk-extra-v1",
@@ -233,8 +251,9 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-robot-vacuum-cleaners-worth-buying.html"
   },
   "best-soundbars-worth-buying-uk-2026": {
-    "post_id": null,
+    "post_id": "389493596232247950",
     "primary_category": "Tech",
+    "publish_fingerprint": "66154398b5b317376f6cefa61b6d3182db819c233210615ca4be6fe7fbfd425f",
     "publisher": "manual",
     "source_file": "best-soundbars-worth-buying-uk-2026.json",
     "source_sha": "2026-09-25-soundbars-uk-daily-v2",
@@ -243,8 +262,9 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-soundbars-worth-buying-in-uk-2026.html"
   },
   "best-storage-bins-worth-buying-uk-2026": {
-    "post_id": null,
+    "post_id": "7613129089381135328",
     "primary_category": "Home & Kitchen",
+    "publish_fingerprint": "227902fc773e5488371244959f5872f16033b8032f48e4be648365678c8a5c08",
     "publisher": "manual",
     "source_file": "best-storage-bins-worth-buying-uk-2026.json",
     "source_sha": "2026-09-26-storage-bins-uk-daily-v4",
@@ -253,8 +273,9 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-storage-bins-organisers-worth.html"
   },
   "best-toasters-worth-buying-uk-2026": {
-    "post_id": null,
+    "post_id": "6042724790243292105",
     "primary_category": "Home & Kitchen",
+    "publish_fingerprint": "84d106dc6c180056a2456391431349aa0bb9593d9d815d29f6631514e25e4be9",
     "publisher": "email",
     "source_file": "best-toasters-worth-buying-uk-2026.json",
     "source_sha": "2026-09-21-best-toasters-uk-v1",
@@ -263,8 +284,9 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-toasters-worth-buying-in-uk-2026.html"
   },
   "best-tvs-worth-buying-uk-2026": {
-    "post_id": null,
+    "post_id": "4064744471392522144",
     "primary_category": "Tech",
+    "publish_fingerprint": "fa6bf4cfa15c724cfd17fe1429f24be93e452d6fb9407a0a40594e4c5e83d10b",
     "publisher": "email",
     "source_file": "best-tvs-worth-buying-uk-2026.json",
     "source_sha": "2026-09-21-tvs-uk-daily-v1",
@@ -273,8 +295,9 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-tvs-worth-buying-in-uk-2026.html"
   },
   "best-video-doorbells-worth-buying-uk-2026": {
-    "post_id": null,
+    "post_id": "3462830217281522117",
     "primary_category": "Tech",
+    "publish_fingerprint": "fc21cd8746b057d111bbf3fe5c984964b4330dc684a48c944fc7021faccf8644",
     "publisher": "manual",
     "source_file": "best-video-doorbells-worth-buying-uk-2026.json",
     "source_sha": "2026-09-28-video-doorbells-uk-daily-v4",
@@ -284,7 +307,7 @@
   },
   "diamond-jewellery-deals-ebay-uk-2026": {
     "post_id": "5717143780323521956",
-    "publish_fingerprint": "df082d4d68d1cbf0963e45b62aff389b8a558d0632929e9a082fbd6ddb89e6e2",
+    "publish_fingerprint": "48f8f91b33ce9c16406d8fc040ae8d5af5425f3c1a2f9c2adfc84a43baaff3a6",
     "source_file": "diamond-jewellery-deals-ebay-uk-2026.json",
     "source_sha": "2026-09-14-diamond-jewellery-uk-v1",
     "status": "published",
@@ -293,7 +316,7 @@
   },
   "garage-equipment-tools-deals-ebay-uk-2026": {
     "post_id": "4765030648461542963",
-    "publish_fingerprint": "9fcc7ff69e525629863735ba3e9438f28055ddc3fc8b426b064701810c851957",
+    "publish_fingerprint": "6b8f07d3f1d51101dc6f7fb7eb3da5ccdc05401832d7f1786b327c63e52a2071",
     "source_file": "garage-equipment-tools-deals-ebay-uk-2026.json",
     "source_sha": "2026-09-14-garage-tools-ebay-uk-v1",
     "status": "published",
@@ -302,7 +325,7 @@
   },
   "kitchen-home-upgrades-worth-buying-uk-2026": {
     "post_id": "3739991226059764856",
-    "publish_fingerprint": "fcd99ab2733d5c752ed3a8e95d98dde150bdeed6e552aa32b0f05612424ad3f8",
+    "publish_fingerprint": "d693e38d9daddf0bab0ba05cb57b73bf422709a3c198a2ba606e526faca86efe",
     "source_file": "kitchen-home-upgrades-worth-buying-uk-2026.json",
     "source_sha": "2026-09-15-kitchen-home-uk-v1",
     "status": "published",
@@ -311,7 +334,7 @@
   },
   "ps5-vs-ps4-best-value-uk-2026": {
     "post_id": "432563870269042067",
-    "publish_fingerprint": "11d0735f3612b5fb6281434ed5d7790eb9331a120f971389dcad92b2913ab05c",
+    "publish_fingerprint": "da794da2f8e39a7840781e77789e619cfffa5119a520a814549d5ba10ae9b3d1",
     "source_file": "ps5-vs-ps4-best-value-uk-2026.json",
     "source_sha": "2026-09-14-v1",
     "status": "published",
@@ -319,8 +342,9 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/09/ps5-vs-ps4-in-2026-which-playstation_01374417595.html"
   },
   "savvy-buyer-saturday-specifications-final-checklist-uk-2026-10-03": {
-    "post_id": null,
+    "post_id": "2861916789775926813",
     "primary_category": "Deals",
+    "publish_fingerprint": "81010dcae31ac67d4c5cadc320a50c28a33ce0a4a994f20418328c1346f08611",
     "publisher": "manual",
     "source_file": "savvy-buyer-saturday-specifications-final-checklist-uk-2026-10-03.json",
     "source_sha": "savvy-2026-10-03-saturday-uk-v2",
@@ -329,7 +353,8 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/10/savvy-buyer-saturday-final-five-minute.html"
   },
   "small-home-upgrades-worth-buying-uk-september-2026": {
-    "post_id": null,
+    "post_id": "2488778146665428896",
+    "publish_fingerprint": "f53435aac64051e23d97a7db7d1321c1870166e1a5467535af550c2cbc4a88a7",
     "publisher": "email",
     "source_file": "small-home-upgrades-worth-buying-uk-september-2026.json",
     "source_sha": "2026-09-21-small-home-upgrades-uk-v1",
