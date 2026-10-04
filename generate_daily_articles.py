@@ -5,6 +5,7 @@ import json
 import os
 import re
 from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 from pathlib import Path
 from urllib.parse import quote_plus
 
@@ -16,6 +17,7 @@ from src.google_shopping_trends import rank_topics_by_google_shopping
 
 ROOT = Path(__file__).resolve().parent
 STATE_PATH = ROOT / "state" / "daily_article_generator.json"
+LONDON_TZ = ZoneInfo("Europe/London")
 
 # Do not publish a daily article merely because it is next in a curated list.
 # At least one current Google-derived demand signal must clear these thresholds.
@@ -604,7 +606,7 @@ def pick_topic(
         )
 
     if month is None:
-        month = datetime.now(timezone.utc).month
+        month = datetime.now(LONDON_TZ).month
 
     # Primary signal: external Google Shopping search interest in GB/US.
     # This measures what people are searching for on Google Shopping and does
@@ -1037,7 +1039,7 @@ def build_article(
     trend_title_phrase = trend_keyword_for_title(topic, trend_signal)
     title_subject = trend_title_phrase or display
     title = f"Best {title_subject} Worth Buying in the {region} ({year})"
-    source_sha = f"{datetime.now(timezone.utc).date().isoformat()}-{key}-{market}-daily-v5"
+    source_sha = f"{datetime.now(LONDON_TZ).date().isoformat()}-{key}-{market}-daily-v5"
     primary_keyword = f"best {title_subject.lower()} {region.lower()} {year}"
     secondary_keywords = [
         f"{display.lower()} buying guide {region.lower()}",
@@ -1048,7 +1050,7 @@ def build_article(
         trend_query = " ".join(str(trend_signal["query"]).split())
         secondary_keywords.insert(0, trend_query)
     description = seo_description(display, region, year)
-    checked_at = datetime.now(timezone.utc)
+    checked_at = datetime.now(LONDON_TZ)
     checked_date = (
         checked_at.strftime("%d %B %Y").lstrip("0")
         if market == "uk"
@@ -1160,7 +1162,7 @@ def build_article(
 
 
 def main() -> None:
-    now = datetime.now(timezone.utc)
+    now = datetime.now(LONDON_TZ)
     today = now.date().isoformat()
     year = now.year
     weekday = now.weekday()
