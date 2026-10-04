@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import os
+from datetime import datetime, timezone
 from urllib.parse import urlsplit
 
 from google.oauth2.credentials import Credentials
@@ -23,7 +24,7 @@ def normalise_host(url: str) -> str:
     return urlsplit(url).netloc.casefold().split(":", 1)[0]
 
 
-def verify_connection(market: str, expected_host: str) -> None:
+def verify_connection(market: str, expected_host: str, write_test: bool = False) -> None:
     prefix = "BLOGGER" if market == "uk" else "BLOGGER_US"
     client_id = required_env(f"{prefix}_CLIENT_ID")
     client_secret = required_env(f"{prefix}_CLIENT_SECRET")
@@ -77,12 +78,39 @@ def verify_connection(market: str, expected_host: str) -> None:
         f"admin_access={has_admin_access}"
     )
 
+    if write_test:
+        title = (
+            f"WorthBuying API write test {market.upper()} "
+            f"{datetime.now(timezone.utc).strftime('%Y%m%d-%H%M%S')}"
+        )
+        draft = (
+            service.posts()
+            .insert(
+                blogId=actual_blog_id,
+                body={
+                    "title": title,
+                    "content": "<p>Temporary automated Blogger API write test. Safe to delete.</p>",
+                },
+                isDraft=True,
+            )
+            .execute(num_retries=4)
+        )
+        post_id = str(draft["id"])
+        print(f"[write-ok] {market.upper()} temporary draft created: {post_id}")
+        service.posts().delete(blogId=actual_blog_id, postId=post_id).execute(num_retries=4)
+        print(f"[delete-ok] {market.upper()} temporary draft deleted")
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Verify a Blogger OAuth token and blog target without creating or editing posts."
     )
     parser.add_argument("--market", choices=("uk", "us"), required=True)
+    parser.add_argument(
+        "--write-test",
+        action="store_true",
+        help="Create and immediately delete a temporary Blogger draft to verify write access.",
+    )
     args = parser.parse_args()
 
     expected_host = (
@@ -90,7 +118,7 @@ def main() -> None:
         if args.market == "uk"
         else "www.worthbuyingusa.com"
     )
-    verify_connection(args.market, expected_host)
+    verify_connection(args.market, expected_host, write_test=args.write_test)
 
 
 if __name__ == "__main__":
