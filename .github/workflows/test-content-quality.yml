@@ -11,6 +11,8 @@ on:
       - "tests/test_supporting_articles.py"
       - "src/site_pages.py"
       - "tests/test_site_pages.py"
+      - "generate_market_watch.py"
+      - "tests/test_market_watch.py"
       - "tests/test_daily_demand_gate.py"
       - "state/content-quality-test-trigger.txt"
 
@@ -39,4 +41,4 @@ jobs:
           PYTHONPATH: .
         run: |
           python -m py_compile generate_daily_articles.py
-          pytest -q tests/test_google_trends.py tests/test_google_shopping_trends.py tests/test_daily_demand_gate.py tests/test_supporting_articles.py tests/test_site_pages.py
+          pytest -q tests/test_google_trends.py tests/test_google_shopping_trends.py tests/test_daily_demand_gate.py tests/test_supporting_articles.py tests/test_site_pages.py tests/test_market_watch.py
