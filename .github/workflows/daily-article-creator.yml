@@ -118,7 +118,7 @@ jobs:
             exit 0
           fi
 
-          git add articles articles-us state/daily_article_generator.json
+          git add articles articles-us state/daily_article_generator.json state/daily_price_history.json
           if git diff --cached --quiet; then
             echo "No new daily articles to commit."
             echo "changed=false" >> "$GITHUB_OUTPUT"
@@ -127,7 +127,7 @@ jobs:
 
           git config user.name "worth-buying-daily-bot"
           git config user.email "worth-buying-daily-bot@users.noreply.github.com"
-          git commit -m "Add daily UK and USA buying guides"
+          git commit -m "Create or refresh daily UK and USA buying guides"
           git pull --rebase origin main
           git push
           echo "changed=true" >> "$GITHUB_OUTPUT"

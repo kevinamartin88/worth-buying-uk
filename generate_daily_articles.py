@@ -1309,7 +1309,7 @@ def live_sections(items: list[dict], market: str, topic_name: str, query: str) -
                 and float((item.get('_worthbuying_price_history') or {}).get('difference_pct') or 0) >= 5
                 else ""
             )
-            f'<p><a href="{html.escape(ebay_url, quote=True)}" rel="sponsored nofollow">'
+            + f'<p><a href="{html.escape(ebay_url, quote=True)}" rel="sponsored nofollow">'
             f"View on {retailer}</a>\n"
             f'<a href="{html.escape(amazon_url, quote=True)}" rel="sponsored nofollow">'
             f"{amazon_link_label}</a></p>\n"
