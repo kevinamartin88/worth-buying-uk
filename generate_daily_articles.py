@@ -475,6 +475,27 @@ def related_guides(
     return [item for score, _, item in candidates if score > 0][:limit]
 
 
+def _authority_page_key(cluster: str) -> str:
+    return "cluster-" + cluster.casefold().replace("&", "and").replace(" ", "-")
+
+
+def authority_hub_html(market: str, topic_key: str) -> str:
+    cluster = authority_cluster_for_topic(topic_key)
+    state_path = ROOT / "state" / (
+        "site_pages_uk.json" if market == "uk" else "site_pages_us.json"
+    )
+    state = load_json(state_path)
+    page = state.get(_authority_page_key(cluster)) or {}
+    url = str(page.get("url") or "").strip()
+    if not url:
+        return ""
+    return (
+        '<p style="margin:18px 0"><strong>Explore this topic:</strong> '
+        f'<a href="{html.escape(url, quote=True)}">'
+        f'{html.escape(cluster)} buying guides</a></p>\n'
+    )
+
+
 def related_guides_html(guides: list[dict]) -> str:
     if not guides:
         return ""
@@ -1034,7 +1055,7 @@ def listing_score(
     return round(score, 2)
 
 
-def _record_price_history(items: list[dict], market: str) -> None:
+def _record_price_history(items: list[dict], market: str, article_slug: str) -> None:
     state = load_json(PRICE_HISTORY_PATH)
     now = datetime.now(LONDON_TZ)
     today = now.date().isoformat()
@@ -1052,6 +1073,7 @@ def _record_price_history(items: list[dict], market: str) -> None:
             {"title": str(item.get("title") or ""), "observations": []},
         )
         entry["title"] = str(item.get("title") or entry.get("title") or "")
+        entry["article_slug"] = article_slug
         observations = entry.setdefault("observations", [])
 
         # One observation per listing/day is enough for editorial price history
@@ -1118,7 +1140,7 @@ def current_picks(market: str, query: str, max_price: float, slug: str) -> list[
 
     scored.sort(key=lambda pair: pair[0], reverse=True)
     shortlist = [item for _, item in scored[:8]]
-    _record_price_history(shortlist, market)
+    _record_price_history(shortlist, market, slug)
     return shortlist[:4]
 
 
@@ -1447,6 +1469,7 @@ def build_article(
         "performance, safety or durability are especially important, we also encourage checking independent reviews of the "
         "exact model.</p>\n"
         f"{faq_html(display, category, market)}"
+        f"{authority_hub_html(market, key)}"
         f"{related_guides_html(guides)}"
         "<p><em>Prices, promotions, seller feedback and availability change regularly. Always check the live retailer page "
         "before purchasing.</em></p>"

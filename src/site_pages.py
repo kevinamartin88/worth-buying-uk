@@ -3,6 +3,7 @@ from __future__ import annotations
 import html
 import json
 from datetime import date
+from statistics import median
 from pathlib import Path
 
 
@@ -206,11 +207,105 @@ def cluster_page(cluster: str, rows: list[dict], market: str) -> dict:
     }
 
 
+def _money(value: float, currency: str) -> str:
+    symbol = {"GBP": "£", "USD": "$", "EUR": "€"}.get(currency, f"{currency} ")
+    return f"{symbol}{value:,.2f}"
+
+
+def price_watch_page(market: str) -> dict:
+    cfg = MARKET[market]
+    history = _load_json(ROOT / "state" / "daily_price_history.json")
+    published = _load_json(cfg["published"])
+    rows: list[dict] = []
+
+    prefix = f"daily|{market}|"
+    for key, entry in history.items():
+        if not str(key).startswith(prefix) or not isinstance(entry, dict):
+            continue
+        observations = entry.get("observations") or []
+        prices = []
+        currency = ""
+        for obs in observations:
+            try:
+                prices.append(float(obs.get("price")))
+            except (TypeError, ValueError):
+                continue
+            currency = str(obs.get("currency") or currency)
+
+        if len(prices) < 3:
+            continue
+        current = prices[-1]
+        typical = float(median(prices))
+        if typical <= 0:
+            continue
+        drop = ((typical - current) / typical) * 100
+        if drop < 5:
+            continue
+
+        slug = str(entry.get("article_slug") or "")
+        article_url = str((published.get(slug) or {}).get("url") or "")
+        rows.append(
+            {
+                "title": str(entry.get("title") or "Product listing"),
+                "current": current,
+                "median": typical,
+                "drop": drop,
+                "currency": currency,
+                "checks": len(prices),
+                "article_url": article_url,
+            }
+        )
+
+    rows.sort(key=lambda row: row["drop"], reverse=True)
+    rows = rows[:20]
+
+    if rows:
+        items = []
+        for row in rows:
+            title = html.escape(row["title"])
+            if row["article_url"]:
+                title = (
+                    f'<a href="{html.escape(row["article_url"], quote=True)}">'
+                    f'{title}</a>'
+                )
+            items.append(
+                '<li style="margin:0 0 16px">'
+                f'<strong>{title}</strong><br>'
+                f'Current observed price: {_money(row["current"], row["currency"])} · '
+                f'Observed median: {_money(row["median"], row["currency"])} · '
+                f'<strong>{row["drop"]:.0f}% below observed median</strong> '
+                f'({row["checks"]} checks)</li>'
+            )
+        body = '<ul>' + "".join(items) + '</ul>'
+    else:
+        body = (
+            '<p>WorthBuying is building its own price history as listings are rechecked. '
+            'Meaningful observed price drops will appear here once enough repeat observations exist.</p>'
+        )
+
+    content = (
+        '<div style="max-width:900px;margin:0 auto;line-height:1.65">'
+        '<p><strong>WorthBuying Price Watch</strong> uses our own repeat observations of the same '
+        'marketplace listings. It is not based on a retailer\'s crossed-out RRP.</p>'
+        '<p>We only show an observed drop after at least three price checks and when the current '
+        'price is at least 5% below the median of our observations. Prices can change at any time.</p>'
+        f'{body}'
+        '<p><a href="/p/how-worth-buying-chooses-products.html">'
+        'Read our full product-selection and affiliate methodology</a></p>'
+        '</div>'
+    )
+    return {
+        "key": "price-watch",
+        "title": "WorthBuying Price Watch",
+        "content": content,
+    }
+
+
 def build_pages(market: str) -> list[dict]:
     if market not in MARKET:
         raise ValueError("market must be uk or us")
     catalog = load_catalog(market)
-    pages = [methodology_page(market)]
+    pages = [methodology_page(market), price_watch_page(market)]
     for cluster in AUTHORITY_CLUSTERS:
         rows = [row for row in catalog if row["cluster"] == cluster]
         pages.append(cluster_page(cluster, rows, market))

@@ -78,3 +78,58 @@ def test_load_catalog_groups_existing_published_article(monkeypatch, tmp_path):
     assert len(catalog) == 1
     assert catalog[0]["cluster"] == "Kitchen & Small Appliances"
     assert catalog[0]["url"] == "https://example.com/air"
+
+
+
+def test_price_watch_requires_repeat_observations(monkeypatch, tmp_path):
+    history = tmp_path / "daily_price_history.json"
+    published = tmp_path / "published.json"
+    articles = tmp_path / "articles"
+    articles.mkdir()
+    pages = tmp_path / "pages.json"
+
+    history.write_text(
+        json.dumps(
+            {
+                "daily|uk|123": {
+                    "title": "Example Product",
+                    "article_slug": "best-example",
+                    "observations": [
+                        {"price": 100, "currency": "GBP"},
+                        {"price": 100, "currency": "GBP"},
+                        {"price": 80, "currency": "GBP"},
+                    ],
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    published.write_text(
+        json.dumps(
+            {
+                "best-example": {
+                    "status": "published",
+                    "url": "https://example.com/guide",
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(site_pages, "ROOT", tmp_path)
+    monkeypatch.setitem(
+        site_pages.MARKET,
+        "uk",
+        {
+            "site": "Worth Buying UK",
+            "region": "UK",
+            "articles": articles,
+            "published": published,
+            "page_state": pages,
+        },
+    )
+
+    page = site_pages.price_watch_page("uk")
+    assert "Example Product" in page["content"]
+    assert "20% below observed median" in page["content"]
+    assert "https://example.com/guide" in page["content"]
