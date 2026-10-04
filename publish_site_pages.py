@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+# Authority hub publisher trigger.
+
 import argparse
 import json
 from datetime import datetime, timezone
