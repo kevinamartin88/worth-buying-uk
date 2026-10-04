@@ -1370,6 +1370,26 @@ def fallback_sections(market: str, topic_name: str, query: str) -> str:
     return "\n".join(parts)
 
 
+def evergreen_article_slug(topic_key: str, market: str) -> str:
+    """Reuse an existing topic slug so annual refreshes keep the same URL authority."""
+    article_dir = published_article_dir(market)
+    wanted = normalise(topic_key)
+    for path in article_dir.glob("*.json"):
+        try:
+            article = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        generator = article.get("_generator") or {}
+        if normalise(str(generator.get("topic") or "")) != wanted:
+            continue
+        if str(generator.get("content_type") or "") == "authority-support":
+            continue
+        slug = str(article.get("slug") or path.stem).strip()
+        if slug:
+            return slug
+    return f"best-{topic_key}-worth-buying-{market}"
+
+
 def build_article(
     topic: tuple,
     market: str,
@@ -1383,7 +1403,7 @@ def build_article(
     region = "UK" if market == "uk" else "USA"
     directory_name = "articles" if market == "uk" else "articles-us"
     max_price = float(max_uk if market == "uk" else max_us)
-    slug = f"best-{key}-worth-buying-{market}-{year}"
+    slug = evergreen_article_slug(key, market)
 
     try:
         picks = current_picks(market, query, max_price, slug)
@@ -1512,6 +1532,7 @@ def build_article(
             "demand_score": demand_score,
             "last_checked_iso": checked_at.date().isoformat(),
             "evergreen_refresh": True,
+            "stable_slug": True,
             "authority_cluster": authority_cluster_for_topic(key),
             "editorial_method": "retailer-data-plus-quality-filters",
         },

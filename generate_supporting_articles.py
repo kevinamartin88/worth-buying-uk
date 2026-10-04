@@ -89,9 +89,23 @@ def _pillar_url(base_key: str, market: str, year: int) -> str:
     state_path = ROOT / "state" / (
         "articles_published.json" if market == "uk" else "articles_us_published.json"
     )
+    article_dir = ROOT / ("articles" if market == "uk" else "articles-us")
     state = _load_json(state_path)
-    slug = f"best-{base_key}-worth-buying-{market}-{year}"
-    return str((state.get(slug) or {}).get("url") or "")
+
+    for slug, published in state.items():
+        if not isinstance(published, dict) or published.get("status") != "published":
+            continue
+        source_file = str(published.get("source_file") or f"{slug}.json")
+        article = _load_json(article_dir / source_file)
+        generator = article.get("_generator") or {}
+        if str(generator.get("topic") or "") != base_key:
+            continue
+        if str(generator.get("content_type") or "") == "authority-support":
+            continue
+        url = str(published.get("url") or "")
+        if url:
+            return url
+    return ""
 
 
 def build_support_article(base: tuple, market: str, year: int, iso_week: int) -> dict:

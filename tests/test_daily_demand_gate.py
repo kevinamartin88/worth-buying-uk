@@ -176,3 +176,25 @@ def test_quick_picks_puts_affiliate_ctas_near_top(monkeypatch):
     assert "Check eBay UK price" in html
     assert "Amazon UK" in html
     assert 'rel="sponsored nofollow"' in html
+
+
+
+def test_evergreen_slug_reuses_existing_pillar(monkeypatch, tmp_path):
+    article = {
+        "slug": "best-air-fryers-worth-buying-uk-2026",
+        "_generator": {"topic": "air-fryers"},
+    }
+    (tmp_path / "existing.json").write_text(
+        __import__("json").dumps(article),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(daily, "published_article_dir", lambda market: tmp_path)
+    assert (
+        daily.evergreen_article_slug("air-fryers", "uk")
+        == "best-air-fryers-worth-buying-uk-2026"
+    )
+
+
+def test_new_pillar_gets_yearless_slug(monkeypatch, tmp_path):
+    monkeypatch.setattr(daily, "published_article_dir", lambda market: tmp_path)
+    assert daily.evergreen_article_slug("air-purifiers", "uk") == "best-air-purifiers-worth-buying-uk"
