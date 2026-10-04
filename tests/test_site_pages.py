@@ -82,7 +82,9 @@ def test_load_catalog_groups_existing_published_article(monkeypatch, tmp_path):
 
 
 def test_price_watch_requires_repeat_observations(monkeypatch, tmp_path):
-    history = tmp_path / "daily_price_history.json"
+    state_dir = tmp_path / "state"
+    state_dir.mkdir()
+    history = state_dir / "daily_price_history.json"
     published = tmp_path / "published.json"
     articles = tmp_path / "articles"
     articles.mkdir()
