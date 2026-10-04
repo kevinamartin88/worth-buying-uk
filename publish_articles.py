@@ -8,6 +8,12 @@ from pathlib import Path
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 from src.article_copy import clean_article_disclosures
+from src.article_images import (
+    add_required_hero,
+    backfill_hero_if_missing,
+    verify_any_image,
+    verify_required_hero,
+)
 from src.blogger import BloggerClient
 
 
@@ -163,16 +169,45 @@ def main() -> None:
         article_content = clean_article_disclosures(
             add_uk_amazon_tracking(add_uk_epn_tracking(article["content_html"]))
         )
-        content = pinterest_image_html(article) + article_content
+
+        # Preserve the historical UK fingerprint calculation so adding the
+        # mandatory AI hero does not force a full-body rewrite of every legacy
+        # Blogger post. Missing images are repaired separately and safely.
+        legacy_fingerprint_content = pinterest_image_html(article) + article_content
+        content, hero_url = add_required_hero(
+            article_content,
+            market="uk",
+            slug=slug,
+            title=title,
+        )
         labels = article.get("labels", [])
         mode = article.get("mode", "publish").strip().lower()
-        fingerprint = publish_fingerprint(article, content)
+        fingerprint = publish_fingerprint(article, legacy_fingerprint_content)
 
         existing = state.get(slug)
-        if existing and existing.get("publish_fingerprint") == fingerprint:
-            print(f"[skip] {slug}: unchanged")
+
+        if existing and existing.get("publish_fingerprint") == fingerprint and existing.get("post_id"):
+            post = blogger.get_post(str(existing["post_id"]))
+            repaired_content, hero_url, repaired = backfill_hero_if_missing(
+                str(post.get("content", "")),
+                market="uk",
+                slug=slug,
+                title=title,
+            )
+            if repaired:
+                post = blogger.update_post_content(str(existing["post_id"]), repaired_content)
+                stored = blogger.get_post(str(existing["post_id"]))
+                verify_required_hero(str(stored.get("content", "")), hero_url, title)
+                print(f"[image-backfilled] {title}: required UK hero image added")
+            else:
+                verify_any_image(str(post.get("content", "")), title)
+                print(f"[skip] {slug}: unchanged and image already present")
+
+            existing["hero_image_url"] = hero_url
+            existing["image_required"] = True
             continue
 
+        body_replaced = False
         if existing and existing.get("post_id"):
             post = blogger.update_post(
                 post_id=existing["post_id"],
@@ -181,18 +216,25 @@ def main() -> None:
                 labels=labels,
             )
             action = "updated"
+            body_replaced = True
             if mode == "publish" and existing.get("status") != "published":
                 post = blogger.publish_post(existing["post_id"])
         else:
             found = blogger.find_post_by_exact_title(title)
             if found and found.get("id"):
-                post_id = found["id"]
-                # The post may have been created or edited manually in Blogger.
-                # Reconciliation should only attach it to local publication state;
-                # replacing its body here would remove Blogger-hosted images and
-                # any other manual improvements.
+                post_id = str(found["id"])
                 post = blogger.get_post(post_id)
-                action = "reconciled"
+                repaired_content, hero_url, repaired = backfill_hero_if_missing(
+                    str(post.get("content", "")),
+                    market="uk",
+                    slug=slug,
+                    title=title,
+                )
+                if repaired:
+                    post = blogger.update_post_content(post_id, repaired_content)
+                    action = "reconciled-image-backfilled"
+                else:
+                    action = "reconciled"
                 if mode == "publish" and str(found.get("status", "")).upper() != "LIVE":
                     post = blogger.publish_post(post_id)
             else:
@@ -207,25 +249,27 @@ def main() -> None:
                     print(f"[blogger-error] Could not create UK article: {title}")
                     raise
                 action = "created"
+                body_replaced = True
 
-        # Only enforce affiliate-link verification when this automation has
-        # created or updated the Blogger body. Reconciled posts are deliberately
-        # preserved exactly as they exist in Blogger, so legacy/manual content
-        # must not be treated as an API publishing failure.
-        if action != "reconciled":
-            verify_uk_epn_tracking(str(post.get("content", content)))
-            print(f"[verified] {title}: UK EPN campaign {UK_EPN_CAMPAIGN_ID}")
+        stored = blogger.get_post(str(post["id"]))
+        if body_replaced:
+            verify_required_hero(str(stored.get("content", "")), hero_url, title)
+            verify_uk_epn_tracking(str(stored.get("content", "")))
+            print(f"[verified] {title}: hero image + UK EPN campaign {UK_EPN_CAMPAIGN_ID}")
         else:
-            print(f"[reconciled-preserved] {title}: existing Blogger body left unchanged")
+            verify_any_image(str(stored.get("content", "")), title)
+            print(f"[verified] {title}: Blogger article image present")
 
         state[slug] = {
-            "post_id": post["id"],
-            "url": post.get("url"),
+            "post_id": stored["id"],
+            "url": stored.get("url") or post.get("url"),
             "title": title,
             "status": "published" if mode == "publish" else "draft",
             "source_sha": article.get("source_sha"),
             "publish_fingerprint": fingerprint,
             "source_file": path.name,
+            "hero_image_url": hero_url,
+            "image_required": True,
         }
         print(f"[{action}] {title} ({state[slug]['status']})")
 

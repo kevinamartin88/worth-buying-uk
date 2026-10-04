@@ -19,6 +19,8 @@ on:
       - "src/blogger.py"
       - "generate_ai_visuals.py"
       - "src/ai_visuals.py"
+      - "src/article_images.py"
+      - "scripts/verify_article_images.py"
       - "publish_x.py"
       - "publish_bluesky.py"
       - "generate_pinterest_images.py"
@@ -62,6 +64,11 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Test Blogger image safeguards
+        env:
+          PYTHONPATH: .
+        run: pytest -q tests/test_article_images.py
+
       - name: Ensure FFmpeg is available for YouTube Shorts
         run: |
           if ! command -v ffmpeg >/dev/null 2>&1; then
@@ -89,6 +96,11 @@ jobs:
             git pull --rebase origin main
             git push
           fi
+
+      - name: Verify required UK hero images
+        env:
+          PYTHONPATH: .
+        run: python scripts/verify_article_images.py --market uk
 
       - name: Generate Pinterest images
         env:
@@ -148,14 +160,7 @@ jobs:
           SMTP_EMAIL: ${{ secrets.SMTP_EMAIL }}
           SMTP_APP_PASSWORD: ${{ secrets.SMTP_APP_PASSWORD }}
           BLOGGER_UK_EMAIL_POST_ADDRESS: ${{ secrets.BLOGGER_UK_EMAIL_POST_ADDRESS }}
-        run: |
-          if python publish_articles.py; then
-            echo "UK articles published through the Blogger API."
-          else
-            echo "Blogger API creation was unavailable; preparing a manual publishing package."
-            MARKET=uk BLOGGER_EMAIL_DELIVERY_MODE=manual python publish_articles_email.py
-          fi
-
+        run: python publish_articles.py
       - name: Prepare UK manual publishing package when Blogger is restricted
         if: steps.blogger_preflight.outcome == 'failure'
         env:

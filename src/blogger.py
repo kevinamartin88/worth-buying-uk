@@ -139,6 +139,18 @@ class BloggerClient:
             .execute(num_retries=API_RETRIES)
         )
 
+    def update_post_content(self, post_id: str, content: str) -> dict:
+        """Patch only a post body, preserving any manually edited title and labels."""
+        return (
+            self.service.posts()
+            .patch(
+                blogId=self.blog_id,
+                postId=post_id,
+                body={"content": content},
+            )
+            .execute(num_retries=API_RETRIES)
+        )
+
     def get_post(self, post_id: str) -> dict:
         return (
             self.service.posts()

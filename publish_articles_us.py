@@ -8,6 +8,12 @@ from pathlib import Path
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 from src.article_copy import clean_article_disclosures
+from src.article_images import (
+    add_required_hero,
+    backfill_hero_if_missing,
+    verify_any_image,
+    verify_required_hero,
+)
 from src.blogger import BloggerClient
 
 ROOT = Path(__file__).resolve().parent
@@ -122,32 +128,69 @@ def main() -> None:
         article = json.loads(path.read_text(encoding="utf-8"))
         slug = article["slug"]
         title = article["title"]
-        content = clean_article_disclosures(
+        article_content = clean_article_disclosures(
             add_us_amazon_tracking(add_us_epn_tracking(article["content_html"]))
+        )
+        content, hero_url = add_required_hero(
+            article_content,
+            market="us",
+            slug=slug,
+            title=title,
         )
         labels = article.get("labels", [])
         mode = article.get("mode", "publish").strip().lower()
-        fingerprint = publish_fingerprint(article, content)
+
+        # Keep the historical USA fingerprint based on the article body alone.
+        # The mandatory hero is verified independently so legacy state remains
+        # stable while image-less API posts can be safely repaired.
+        fingerprint = publish_fingerprint(article, article_content)
 
         existing = state.get(slug)
-        if existing and existing.get("publish_fingerprint") == fingerprint:
-            print(f"[skip] {slug}: unchanged")
+
+        if existing and existing.get("publish_fingerprint") == fingerprint and existing.get("post_id"):
+            post = blogger.get_post(str(existing["post_id"]))
+            repaired_content, hero_url, repaired = backfill_hero_if_missing(
+                str(post.get("content", "")),
+                market="us",
+                slug=slug,
+                title=title,
+            )
+            if repaired:
+                post = blogger.update_post_content(str(existing["post_id"]), repaired_content)
+                stored = blogger.get_post(str(existing["post_id"]))
+                verify_required_hero(str(stored.get("content", "")), hero_url, title)
+                print(f"[image-backfilled] {title}: required USA hero image added")
+            else:
+                verify_any_image(str(post.get("content", "")), title)
+                print(f"[skip] {slug}: unchanged and image already present")
+
+            existing["hero_image_url"] = hero_url
+            existing["image_required"] = True
             continue
 
+        body_replaced = False
         if existing and existing.get("post_id"):
-            post = blogger.update_post(existing["post_id"], title, content, labels)
+            post = blogger.update_post(str(existing["post_id"]), title, content, labels)
             action = "updated"
+            body_replaced = True
             if mode == "publish" and existing.get("status") != "published":
-                post = blogger.publish_post(existing["post_id"])
+                post = blogger.publish_post(str(existing["post_id"]))
         else:
             found = blogger.find_post_by_exact_title(title)
             if found and found.get("id"):
-                post_id = found["id"]
-                # Preserve posts created or edited manually in Blogger. Reconciliation
-                # records the existing post in local state, but must not replace its
-                # body, images, title or labels with the generated payload.
+                post_id = str(found["id"])
                 post = blogger.get_post(post_id)
-                action = "reconciled"
+                repaired_content, hero_url, repaired = backfill_hero_if_missing(
+                    str(post.get("content", "")),
+                    market="us",
+                    slug=slug,
+                    title=title,
+                )
+                if repaired:
+                    post = blogger.update_post_content(post_id, repaired_content)
+                    action = "reconciled-image-backfilled"
+                else:
+                    action = "reconciled"
                 if mode == "publish" and str(found.get("status", "")).upper() != "LIVE":
                     post = blogger.publish_post(post_id)
             else:
@@ -162,15 +205,26 @@ def main() -> None:
                     print(f"[blogger-error] Could not create USA article: {title}")
                     raise
                 action = "created"
+                body_replaced = True
+
+        stored = blogger.get_post(str(post["id"]))
+        if body_replaced:
+            verify_required_hero(str(stored.get("content", "")), hero_url, title)
+            print(f"[verified] {title}: required USA hero image stored by Blogger")
+        else:
+            verify_any_image(str(stored.get("content", "")), title)
+            print(f"[verified] {title}: Blogger article image present")
 
         state[slug] = {
-            "post_id": post["id"],
-            "url": post.get("url"),
+            "post_id": stored["id"],
+            "url": stored.get("url") or post.get("url"),
             "title": title,
             "status": "published" if mode == "publish" else "draft",
             "source_sha": article.get("source_sha"),
             "publish_fingerprint": fingerprint,
             "source_file": path.name,
+            "hero_image_url": hero_url,
+            "image_required": True,
         }
         print(f"[{action}] {title} ({state[slug]['status']})")
 
