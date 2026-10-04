@@ -10,6 +10,8 @@ on:
     paths:
       - "articles-us/**"
       - "publish_articles_us.py"
+      - "publish_site_pages.py"
+      - "src/site_pages.py"
       - "src/blogger.py"
       - "generate_ai_visuals.py"
       - "src/ai_visuals.py"
