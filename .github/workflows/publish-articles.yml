@@ -69,7 +69,7 @@ jobs:
       - name: Test publishing and Shorts safeguards
         env:
           PYTHONPATH: .
-        run: pytest -q tests/test_article_images.py tests/test_youtube_shorts.py tests/test_site_pages.py
+        run: pytest -q tests/test_article_images.py tests/test_youtube_shorts.py tests/test_site_pages.py tests/test_affiliate_tracking.py
 
       - name: Ensure FFmpeg is available for YouTube Shorts
         run: |

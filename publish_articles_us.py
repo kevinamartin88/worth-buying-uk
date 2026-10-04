@@ -55,7 +55,7 @@ def save_state(state: dict) -> None:
     )
 
 
-def add_us_epn_tracking(content: str) -> str:
+def add_us_epn_tracking(content: str, custom_id: str = "") -> str:
     """Ensure every eBay US href carries the Worth Buying USA EPN campaign."""
 
     def replace(match: re.Match[str]) -> str:
@@ -67,9 +67,10 @@ def add_us_epn_tracking(content: str) -> str:
             return match.group(0)
 
         existing = parse_qsl(parts.query, keep_blank_values=True)
-        affiliate_keys = set(US_EPN_PARAMS)
+        tracking_params = {**US_EPN_PARAMS, "customid": custom_id[:256]}
+        affiliate_keys = set(tracking_params)
         query = [(key, value) for key, value in existing if key not in affiliate_keys]
-        query.extend(US_EPN_PARAMS.items())
+        query.extend(tracking_params.items())
         tracked_url = urlunsplit(
             (parts.scheme, parts.netloc, parts.path, urlencode(query), parts.fragment)
         )
@@ -131,7 +132,9 @@ def main() -> None:
         slug = article["slug"]
         title = article["title"]
         article_content = clean_article_disclosures(
-            add_us_amazon_tracking(add_us_epn_tracking(article["content_html"]))
+            add_us_amazon_tracking(
+                add_us_epn_tracking(article["content_html"], custom_id=slug)
+            )
         )
         content, hero_url = add_required_hero(
             article_content,
