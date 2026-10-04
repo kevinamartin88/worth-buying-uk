@@ -10,7 +10,7 @@ RAW_AI_BASE = (
     "https://raw.githubusercontent.com/kevinamartin88/"
     "worth-buying-uk/main/assets/ai"
 )
-IMG_RE = re.compile(r"<img\\b", re.IGNORECASE)
+IMG_RE = re.compile(r"<img\b", re.IGNORECASE)
 
 
 def _validate_market(market: str) -> str:
