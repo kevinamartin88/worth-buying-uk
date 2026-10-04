@@ -208,11 +208,15 @@ def main() -> None:
                     raise
                 action = "created"
 
-        # Blogger's create/update response includes the stored post content. Verifying
-        # that response avoids a second API read and still confirms the published
-        # payload contains the correct campaign tracking.
-        verify_uk_epn_tracking(str(post.get("content", content)))
-        print(f"[verified] {title}: UK EPN campaign {UK_EPN_CAMPAIGN_ID}")
+        # Only enforce affiliate-link verification when this automation has
+        # created or updated the Blogger body. Reconciled posts are deliberately
+        # preserved exactly as they exist in Blogger, so legacy/manual content
+        # must not be treated as an API publishing failure.
+        if action != "reconciled":
+            verify_uk_epn_tracking(str(post.get("content", content)))
+            print(f"[verified] {title}: UK EPN campaign {UK_EPN_CAMPAIGN_ID}")
+        else:
+            print(f"[reconciled-preserved] {title}: existing Blogger body left unchanged")
 
         state[slug] = {
             "post_id": post["id"],
