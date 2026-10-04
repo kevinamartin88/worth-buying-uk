@@ -50,6 +50,11 @@ jobs:
           AMAZON_CREATORS_CLIENT_ID: ${{ secrets.AMAZON_CREATORS_CLIENT_ID }}
           AMAZON_CREATORS_CLIENT_SECRET: ${{ secrets.AMAZON_CREATORS_CLIENT_SECRET }}
           AMAZON_CREATORS_CREDENTIAL_VERSION: ${{ secrets.AMAZON_CREATORS_CREDENTIAL_VERSION }}
+          GSC_CLIENT_ID: ${{ secrets.GSC_CLIENT_ID }}
+          GSC_CLIENT_SECRET: ${{ secrets.GSC_CLIENT_SECRET }}
+          GSC_REFRESH_TOKEN: ${{ secrets.GSC_REFRESH_TOKEN }}
+          GSC_UK_SITE_URL: ${{ secrets.GSC_UK_SITE_URL }}
+          GSC_US_SITE_URL: ${{ secrets.GSC_US_SITE_URL }}
         run: python generate_supporting_articles.py
 
       - name: Save supporting articles and price history

@@ -3,7 +3,8 @@ from __future__ import annotations
 import generate_supporting_articles as support
 
 
-def test_weekly_base_topic_is_always_core_authority_topic():
+def test_weekly_base_topic_is_always_core_authority_topic(monkeypatch):
+    monkeypatch.setattr(support, "rank_topics_by_search_console", lambda topics, market: [])
     for market in ("uk", "us"):
         for week in (1, 2, 10, 25, 52):
             topic = support.base_topic_for_week(week, market)
@@ -45,3 +46,39 @@ def test_support_article_retains_parent_cluster(monkeypatch):
     assert article["_seo"]["authority_cluster"] == "Motoring"
     assert article["_generator"]["parent_topic"] == "dash-cams"
     assert "https://example.com/pillar" in article["content_html"]
+
+
+
+def test_gsc_can_prioritise_existing_near_page_one_money_topic(monkeypatch):
+    dash = next(topic for topic in support.daily.TOPICS if topic[0] == "dash-cams")
+    signal = {
+        "query": "best dash cam uk",
+        "score": 78,
+        "impressions": 120,
+        "position": 9.4,
+    }
+    monkeypatch.setattr(
+        support,
+        "rank_topics_by_search_console",
+        lambda topics, market: [(dash, signal)],
+    )
+    assert support.base_topic_for_week(40, "uk") == dash
+
+
+def test_weak_gsc_signal_falls_back_to_authority_rotation(monkeypatch):
+    dash = next(topic for topic in support.daily.TOPICS if topic[0] == "dash-cams")
+    weak = {
+        "query": "dash cam",
+        "score": 40,
+        "impressions": 8,
+        "position": 50,
+    }
+    monkeypatch.setattr(
+        support,
+        "rank_topics_by_search_console",
+        lambda topics, market: [(dash, weak)],
+    )
+    assert (
+        support.base_topic_for_week(1, "uk")
+        == support.rotation_topic_for_week(1, "uk")
+    )

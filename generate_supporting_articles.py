@@ -6,6 +6,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import generate_daily_articles as daily
+from src.search_console import rank_topics_by_search_console
 
 
 ROOT = Path(__file__).resolve().parent
@@ -31,15 +32,43 @@ def _save_json(path: Path, value: dict) -> None:
     )
 
 
-def base_topic_for_week(iso_week: int, market: str) -> tuple:
+def rotation_topic_for_week(iso_week: int, market: str) -> tuple:
     clusters = list(daily.AUTHORITY_CLUSTERS.items())
     offset = 0 if market == "uk" else 1
     cluster_index = (iso_week - 1 + offset) % len(clusters)
-    cluster_name, keys = clusters[cluster_index]
+    _, keys = clusters[cluster_index]
 
     cycle = (iso_week - 1) // len(clusters)
     key = keys[cycle % len(keys)]
-    topic = next(topic for topic in daily.TOPICS if topic[0] == key)
+    return next(topic for topic in daily.TOPICS if topic[0] == key)
+
+
+def base_topic_for_week(iso_week: int, market: str) -> tuple:
+    """Use GSC only to exploit proven site visibility, never as market-demand data."""
+    authority_topics = [
+        topic for topic in daily.TOPICS
+        if topic[0] in daily.AUTHORITY_CORE_KEYS
+    ]
+    ranked = rank_topics_by_search_console(authority_topics, market)
+    if ranked:
+        topic, signal = ranked[0]
+        score = float(signal.get("score") or 0)
+        impressions = float(signal.get("impressions") or 0)
+        position = float(signal.get("position") or 0)
+        if score >= 55 and impressions >= 10 and 3 <= position <= 35:
+            print(
+                f"[support-gsc-opportunity] {market.upper()}: {topic[1]} "
+                f"matched '{signal.get('query')}' "
+                f"(score={score:.2f}, impressions={impressions:.0f}, "
+                f"position={position:.1f})"
+            )
+            return topic
+
+    topic = rotation_topic_for_week(iso_week, market)
+    print(
+        f"[support-rotation] {market.upper()}: {topic[1]} "
+        "(no strong Search Console opportunity; using authority rotation)"
+    )
     return topic
 
 
@@ -169,6 +198,7 @@ def main() -> None:
             "parent_topic": base[0],
             "authority_cluster": article["_seo"]["authority_cluster"],
             "support_angle": article["_seo"]["support_angle"],
+            "selection_basis": "gsc-opportunity-or-authority-rotation",
             "action": "refreshed" if refreshing else "created",
         }
         created += 1
