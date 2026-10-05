@@ -158,3 +158,16 @@ def test_upsert_post_updates_existing_live_fallback() -> None:
     )
     client.publish_post.assert_not_called()
     assert result["status"] == "LIVE"
+
+
+def test_get_post_can_verify_unpublished_draft():
+    client, service = client_with_service()
+    draft = {"id": "draft-1", "status": "DRAFT", "content": "<p>Held for review</p>"}
+    def get_post(**kwargs):
+        if kwargs.get("view") != "ADMIN":
+            raise RuntimeError("Draft is not available through reader view")
+        response = MagicMock()
+        response.execute.return_value = draft
+        return response
+    service.posts.return_value.get.side_effect = get_post
+    assert client.get_post("draft-1") == draft
