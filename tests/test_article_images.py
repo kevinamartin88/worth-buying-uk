@@ -3,6 +3,22 @@ from __future__ import annotations
 from src import article_images
 
 
+def test_hero_quality_gate_rejects_corrupt_or_small_images(tmp_path):
+    import pytest
+    from PIL import Image
+    broken = tmp_path / "broken.jpg"
+    broken.write_bytes(b"not a jpeg")
+    with pytest.raises(RuntimeError, match="invalid hero image"):
+        article_images.validate_hero_file(broken)
+    small = tmp_path / "small.jpg"
+    Image.new("RGB", (225, 225)).save(small)
+    with pytest.raises(RuntimeError, match="need at least 900x450"):
+        article_images.validate_hero_file(small)
+    valid = tmp_path / "valid.jpg"
+    Image.new("RGB", (1600, 900)).save(valid)
+    article_images.validate_hero_file(valid)
+
+
 def test_hero_image_url_uses_market_and_slug():
     assert article_images.hero_image_url("uk", "example-guide").endswith(
         "/assets/ai/uk/example-guide.jpg"
@@ -70,3 +86,5 @@ def test_backfill_preserves_expected_article_image(monkeypatch):
     assert content == original
     assert image_url == expected
     assert changed is False
+
+

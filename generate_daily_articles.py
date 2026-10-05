@@ -12,6 +12,7 @@ from urllib.parse import quote_plus
 
 from src.amazon_creators import AmazonCreatorsClient
 from src.ebay import EbayClient
+from src.product_image_quality import product_image_html
 from src.price_tracking import refresh_tracked_prices
 from src.google_trends import rank_topics_by_trends, trend_keyword_for_title
 from src.google_shopping_trends import rank_topics_by_google_shopping
@@ -558,14 +559,7 @@ def quick_picks_html(items: list[dict], market: str, query: str) -> str:
             if exact_model or amazon_offer
             else f"Compare on {amazon}"
         )
-        image_html = (
-            f'<div style="text-align:center;margin:0 0 14px">'
-            f'<img src="{html.escape(image_url, quote=True)}" '
-            f'alt="{html.escape(title, quote=True)}" loading="lazy" '
-            'style="max-width:280px;width:100%;height:auto;object-fit:contain;border-radius:10px"></div>'
-            if image_url
-            else ""
-        )
+        image_html = product_image_html(image_url, title) if image_url else ""
         cards.append(
             '<div style="border:1px solid #dfe6ee;border-radius:14px;padding:18px;'
             'margin:14px 0;background:#fff;">'
@@ -1702,3 +1696,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
