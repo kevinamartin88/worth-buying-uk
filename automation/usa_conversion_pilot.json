@@ -1,0 +1,12 @@
+{
+  "experiment_id": "usa-buying-cards-v1",
+  "market": "us",
+  "topics": ["cordless-vacuums", "ssds", "slow-cookers", "air-fryers", "coffee-machines"],
+  "ga4_measurement_id": "",
+  "event": "wb_retailer_click",
+  "primary_metric": "US sessions viewing a pilot article with at least one direct retailer click / US sessions viewing a pilot article",
+  "exclude_placements": ["search-alternative"],
+  "breakdowns": ["article", "source/medium", "device", "retailer"],
+  "evaluation_days_after_verified_publication": 30,
+  "baseline_status": "Analytics connection and USA Measurement ID needed; no historical baseline available to this chat"
+}
