@@ -1,0 +1,129 @@
+name: Deploy Bedfordshire SEO edge
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "cloudflare/bedfordshire-seo-edge.js"
+      - "wrangler.bedfordshire.toml"
+      - ".github/workflows/deploy-bedfordshire-seo-edge.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate Cloudflare credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "${CLOUDFLARE_API_TOKEN:-}"
+          test -n "${CLOUDFLARE_ACCOUNT_ID:-}"
+
+      - name: Preserve Bedford theme park contact Worker route
+        shell: bash
+        run: |
+          set -euo pipefail
+          auth=(-H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json")
+          zone_json="$(curl -fsS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones?name=bedfordthemeparkstays.com")"
+          zone_id="$(echo "$zone_json" | jq -r '.result[0].id // empty')"
+          test -n "$zone_id"
+          routes="$(curl -fsS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones/$zone_id/workers/routes")"
+          echo "$routes" | jq '{success,errors,result:[.result[] | {pattern,script}]}'
+          echo "$routes" | jq -e '.result[] | select(.pattern=="bedfordthemeparkstays.com/contact*" and .script=="bedfordshire-enquiries")' >/dev/null
+          echo "Confirmed bedfordshire-enquiries remains assigned to bedfordthemeparkstays.com/contact*"
+
+      - name: Ensure staycloseto.com apex is proxied
+        shell: bash
+        run: |
+          set -euo pipefail
+          auth=(-H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json")
+          zone_json="$(curl -fsS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones?name=staycloseto.com")"
+          zone_id="$(echo "$zone_json" | jq -r '.result[0].id // empty')"
+          test -n "$zone_id"
+
+          records="$(curl -fsS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones/$zone_id/dns_records?name=staycloseto.com&per_page=100")"
+          count="$(echo "$records" | jq '.result | length')"
+
+          if [ "$count" -eq 0 ]; then
+            echo "No apex DNS record exists; creating a proxied placeholder record for the Worker route."
+            curl -fsS -X POST "${auth[@]}"               "https://api.cloudflare.com/client/v4/zones/$zone_id/dns_records"               --data '{"type":"AAAA","name":"staycloseto.com","content":"100::","ttl":1,"proxied":true}'               | jq -e '.success == true' >/dev/null
+          elif echo "$records" | jq -e '.result[] | select(.proxied==true)' >/dev/null; then
+            echo "A proxied apex DNS record already exists."
+          else
+            record_id="$(echo "$records" | jq -r '.result[0].id')"
+            payload="$(echo "$records" | jq -c '.result[0] | {type,name,content,ttl,proxied:true} + (if .priority != null then {priority:.priority} else {} end)')"
+            echo "Apex record exists but is not proxied; enabling Cloudflare proxy so the Worker route can run."
+            curl -fsS -X PUT "${auth[@]}"               "https://api.cloudflare.com/client/v4/zones/$zone_id/dns_records/$record_id"               --data "$payload"               | jq -e '.success == true' >/dev/null
+          fi
+
+      - name: Deploy SEO Worker and routes
+        shell: bash
+        run: npx --yes wrangler@4 deploy --config wrangler.bedfordshire.toml
+
+      - name: Verify Worker routes and protected contact route
+        shell: bash
+        run: |
+          set -euo pipefail
+          auth=(-H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json")
+
+          for zone in bedfordthemeparkstays.com bedfordstayfinder.com stayinbedfordshire.com staycloseto.com; do
+            zone_json="$(curl -fsS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones?name=$zone")"
+            zone_id="$(echo "$zone_json" | jq -r '.result[0].id // empty')"
+            test -n "$zone_id"
+            routes="$(curl -fsS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones/$zone_id/workers/routes")"
+            echo "===== $zone routes ====="
+            echo "$routes" | jq '{success,errors,result:[.result[] | {pattern,script}]}'
+            echo "$routes" | jq -e --arg p "$zone/*" '.result[] | select(.pattern==$p and .script=="bedfordshire-seo-edge")' >/dev/null
+          done
+
+          zone_json="$(curl -fsS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones?name=bedfordthemeparkstays.com")"
+          zone_id="$(echo "$zone_json" | jq -r '.result[0].id // empty')"
+          routes="$(curl -fsS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones/$zone_id/workers/routes")"
+          echo "$routes" | jq -e '.result[] | select(.pattern=="bedfordthemeparkstays.com/contact*" and .script=="bedfordshire-enquiries")' >/dev/null
+          echo "Protected contact route verified after deploy."
+
+      - name: Verify public SEO endpoints
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          retry_fetch() {
+            url="$1"
+            out="$2"
+            for n in 1 2 3 4 5 6; do
+              if curl -fsSL --connect-timeout 10 --max-time 25 "$url" -o "$out"; then
+                return 0
+              fi
+              sleep 10
+            done
+            return 1
+          }
+
+          retry_fetch "https://bedfordthemeparkstays.com/" /tmp/theme.html
+          grep -F "Bedford Theme Park Stays | Hotels &amp; Family Accommodation in Bedford" /tmp/theme.html
+
+          retry_fetch "https://bedfordstayfinder.com/" /tmp/finder.html
+          grep -F "Bedford Stay Finder | Hotels, Holiday Lets &amp; Apartments in Bedford" /tmp/finder.html
+
+          retry_fetch "https://stayinbedfordshire.com/" /tmp/county.html
+          grep -F "Stay in Bedfordshire | Hotels, Cottages, B&amp;Bs &amp; Places to Stay" /tmp/county.html
+
+          retry_fetch "https://staycloseto.com/" /tmp/close.html
+          grep -F "Stay Close To | Accommodation Near Attractions, Events &amp; Destinations" /tmp/close.html
+
+          for url in             "https://bedfordthemeparkstays.com/robots.txt"             "https://bedfordthemeparkstays.com/sitemap.xml"             "https://bedfordstayfinder.com/robots.txt"             "https://bedfordstayfinder.com/sitemap.xml"             "https://stayinbedfordshire.com/robots.txt"             "https://stayinbedfordshire.com/sitemap.xml"             "https://staycloseto.com/robots.txt"             "https://staycloseto.com/sitemap.xml"; do
+            echo "===== $url ====="
+            curl -fsSL --connect-timeout 10 --max-time 25 "$url" | head -c 1000
+            echo
+          done
