@@ -1,0 +1,78 @@
+[
+  {
+    "key": "air-fryers-for-students", "parent": "air-fryers", "review_by": "2027-04-01",
+    "title_uk": "Air Fryers for University Students: Small-Kitchen Buying Guide",
+    "title_us": "Air Fryers for College Students: Apartment-Kitchen Buying Guide",
+    "intro_uk": "Buying an air fryer for university starts with permission, counter space and the meals you actually cook. This guide compares current small-capacity listings for permitted shared kitchens, not bedroom cooking.",
+    "intro_us": "An air fryer can be an option for a college apartment kitchen, but it is not automatically allowed in a dorm. Start with housing rules, available counter space and how many people you cook for.",
+    "sections": [
+      ["Check permission before spending anything", "Read your own accommodation agreement and ask the housing team if the position is unclear. Rules differ between institutions and between bedrooms, communal kitchens and apartments. A retailer calling an appliance suitable for students does not override those rules. If cooking appliances are prohibited, use the supplied kitchen equipment instead of buying something you cannot use."],
+      ["Buy for ordinary meals, not the biggest litre or quart number", "Make a short list of the meals you expect to cook. A small single basket may be enough for one portion, but check whether its usable base accommodates the food without excessive stacking. Capacity alone does not establish how many complete meals fit. Two students sharing meals may prefer a larger basket, but should first agree where it will live, who cleans it and who owns it when moving out."],
+      ["Measure the full working space", "Check the exact model's external dimensions, drawer opening and manufacturer-required ventilation clearances. A unit that fits on a shelf when stored may not fit safely when operating. Follow its instructions for positioning and electrical supply; keep the working area clear and do not cook in an unapproved room. Small capacity does not necessarily mean low power consumption."],
+      ["Keep the real budget in view", "Compare item price plus delivery, missing accessories and replacement basket availability. A cheaper used appliance needs a clear condition description, return policy and warranty information. Do not assume a higher-priced model pays for itself in electricity savings: that depends on cooking time, power use, your tariff and what appliance it replaces. Avoid paying for functions you will not use."],
+      ["A practical decision", "Choose the least complicated option that meets your permitted kitchen space and normal portion needs. Check how its controls work, whether the basket can be handled comfortably and what the manual says about cleaning. If the accommodation already provides suitable equipment or you rarely cook, postponing the purchase may offer better value than any discounted model."]
+    ],
+    "sources": [["Example UK accommodation rules: University of Bath", "https://reslife.bath.ac.uk/story/29102166/faqs-electrical-items-in-halls"], ["Example US room-versus-apartment rules: Illinois State University", "https://housing.illinoisstate.edu/student-life/move-in/not-bring/"]],
+    "groups": [
+      {"label": "Smaller single-basket shortlist", "query": "air fryer 2L 3L", "query_us": "air fryer 2 quart 3 quart", "match": "air.?fryer", "capacity": true, "ceiling": {"uk": 80, "us": 90}, "decision": "Compare this listing if you cook small portions and want to keep the initial spend down. Its title states a small capacity; that is not a verified serving count.", "check": "Confirm the exact dimensions, basket shape and housing permission before buying."},
+      {"label": "More basket space to compare", "query": "air fryer 4L", "query_us": "air fryer 4 quart", "match": "air.?fryer", "capacity": true, "ceiling": {"uk": 110, "us": 120}, "decision": "Compare this option if a smaller basket would make your normal meals awkward. Check that the extra space justifies the price and counter footprint.", "check": "Check the usable basket base and ventilation clearance, not just the capacity label."}
+    ]
+  },
+  {
+    "key": "affordable-homeware-for-students", "parent": "storage-boxes", "review_by": "2027-04-01",
+    "title_uk": "Affordable Homeware for University Students: What to Buy First",
+    "title_us": "Affordable Home Essentials for College Students: What to Buy First",
+    "intro_uk": "A useful university room does not need a giant starter bundle. Prioritise the essentials your accommodation does not provide and choose items that fit both the room and the journey home.",
+    "intro_us": "Outfitting a college room on a budget starts with the housing inventory and room measurements. Buy for daily routines rather than filling the room with a large matching bundle.",
+    "sections": [
+      ["Check what is already included", "Read the room inventory before placing an order. Confirm the bed and mattress dimensions, available storage and kitchen equipment. Agree shared purchases with housemates so that several people do not buy the same bulky item. Keep the first order small until you know the room layout."],
+      ["Choose storage that fits the journey as well as the room", "Measure under-bed clearance and cupboard openings before choosing boxes. Soft-sided or folding storage may be easier to take home, while a rigid box may be preferable for protecting possessions. Check handles, closure and loaded carrying weight rather than judging only the advertised capacity. Do not block doors or walkways."],
+      ["Plan for laundry day", "Consider the distance to the laundry room and how you will carry detergent alongside clothes. A hamper that looks tidy in a bedroom can be awkward on stairs. Look for a manageable shape and usable handles; separate wet items rather than leaving them in a closed bag. Confirm cleaning instructions before assuming the hamper itself can go in the washing machine."],
+      ["Spend on everyday use, postpone decorative extras", "Start with the things you use each day, then add extras when a real need appears. Compare the total delivered cost of individual items with any bundle; a bundle is not a saving if half its contents remain unused. Ask whether the item will still be useful after a room move. A return policy is particularly valuable when you cannot inspect the room before ordering."],
+      ["Avoid size-dependent purchases without measurements", "Bedding, desk accessories and storage should fit the actual furniture. US college beds may use different sheet dimensions from beds at home, and UK accommodation is not universally one bed size either. Check the written measurements rather than relying on a label or a retailer's student category."]
+    ],
+    "sources": [],
+    "groups": [
+      {"label": "Laundry carrying option", "query": "foldable laundry hamper handles", "match": "laundry|hamper", "ceiling": {"uk": 25, "us": 30}, "decision": "A carrying hamper is worth comparing if laundry facilities are outside your room. Choose for the route you will walk, not just how it looks beside the bed.", "check": "Check handles, loaded size, construction and cleaning instructions."},
+      {"label": "Under-bed storage option", "query": "under bed storage bag", "match": "under.?bed|storage bag", "ceiling": {"uk": 25, "us": 30}, "decision": "Under-bed storage can use otherwise empty space, provided the product fits the actual clearance and remains accessible.", "check": "Measure height and width; confirm whether the listing price is for one bag or a multipack."}
+    ]
+  },
+  {
+    "key": "easy-grip-cutlery", "parent": "kitchen-utensils", "review_by": "2027-01-05",
+    "title_uk": "Easy-Grip Cutlery for Reduced Hand Mobility: How to Compare Options",
+    "title_us": "Easy-Grip Utensils for Reduced Hand Mobility: How to Compare Options",
+    "intro_uk": "The right cutlery depends on the movement or grip that is difficult. Compare handle shape, utensil weight and angle separately rather than assuming one adaptive set suits everyone.",
+    "intro_us": "Adaptive eating utensils differ in grip size, weight and angle. Compare the task you find difficult before choosing a set; a product advertised for reduced mobility is not automatically the best fit for you.",
+    "sections": [
+      ["Start with the task", "Is the main difficulty gripping a narrow handle, lifting weight, rotating the wrist or keeping food on the utensil? Those are different purchasing questions. If you are uncertain which design to try, an occupational therapist can help assess the task and, where available, arrange a trial. This guide compares shopping features and does not prescribe treatment."],
+      ["Handle size and weight are separate choices", "A larger or cushioned handle changes the surface you hold. Added weight changes the effort needed to lift it. Do not assume heavier automatically means easier: check the product's actual weight and handle measurements. Try a single utensil before buying an entire set where returns and hygiene rules allow."],
+      ["Check the angle and intended hand", "An angled or bendable utensil may offer a different approach to scooping, but confirm whether it is designed for left-hand, right-hand or either-hand use. Follow the manufacturer's instructions for any adjustment; do not bend a utensil that is not designed for it. Check the spoon bowl or fork head as well as the handle."],
+      ["Compare maintenance and replacement options", "Confirm dishwasher suitability, temperature limits and how any removable grip is cleaned and dried. Check whether a lost or worn utensil can be replaced individually. Ask the retailer about returns before opening a hygiene-sensitive product. The listing must identify the exact design and condition; a diagnosis keyword in its title is not evidence that it will work for a particular person."],
+      ["What the evidence does and does not establish", "NHS occupational-therapy guidance describes cushioned, weighted and angled designs and encourages trying aids to find a suitable option. It does not establish a universal best brand or verify the performance of the marketplace listings below. We have not tested these items with users and do not claim they treat symptoms or restore movement."]
+    ],
+    "sources": [["NHS small aids and trying equipment", "https://www.cntw.nhs.uk/resources/small-aids-help-you-home"]],
+    "groups": [
+      {"label": "Built-up handle option", "query": "adaptive cutlery easy grip", "query_us": "adaptive utensils easy grip", "match": "cutlery|utensil|spoon|fork", "specifics": "adaptive|easy.?grip|built.?up|large.?handle|ergonomic", "new_only": true, "ceiling": {"uk": 55, "us": 60}, "decision": "Compare this option when handle shape is your main shopping consideration. Retailer-supplied adaptive features are shown below; personal suitability has not been tested.", "check": "Confirm handle dimensions, weight and whether a single utensil can be tried first."},
+      {"label": "Angled or bendable option", "query": "bendable adaptive spoon", "match": "spoon|utensil|cutlery", "specifics": "bendable|angled|adjustable", "new_only": true, "ceiling": {"uk": 45, "us": 50}, "decision": "Compare the adjustment and intended hand if utensil angle matters for your usual eating position. Do not assume every adaptive spoon is bendable.", "check": "Confirm handedness and adjustment instructions with the manufacturer."}
+    ]
+  },
+  {
+    "key": "small-bedroom-air-purifiers", "parent": "air-purifiers", "review_by": "2027-04-01",
+    "title_uk": "Air Purifiers for Small Bedrooms: Filter Costs and Night-Time Checks",
+    "title_us": "Air Purifiers for Small Bedrooms: Filter Costs and Overnight Checks",
+    "intro_uk": "For a bedroom, room-size suitability, overnight noise and replacement filters matter more than a long feature list. Here is how to compare smaller air-purifier listings without relying on headline coverage claims.",
+    "intro_us": "Choose a bedroom air purifier by matching the room and checking the cost of replacement filters and acceptable overnight settings. A large coverage claim alone does not establish quiet performance.",
+    "sections": [
+      ["Measure before comparing coverage", "Record your room dimensions and compare the exact model's clean air delivery rate, or CADR, and the conditions behind its room-size claim. ENERGY STAR explains CADR as a measure of filtered-air delivery. Do not compare coverage numbers without checking whether the brands assume the same operating conditions."],
+      ["Look beyond the quietest quoted number", "Check which fan setting a noise figure describes and whether that setting delivers enough filtered air for your room. A sleep mode may dim lights and lower fan speed, but that does not by itself establish adequate overnight performance. Check independent measurements for the exact model where available."],
+      ["Check filter supply first", "Find the correct replacement-filter code, current delivered price and manufacturer guidance before buying the appliance. Compare ownership costs using realistic replacement assumptions, not a universal fixed interval. Confirm that a filter for a similarly named model actually fits."],
+      ["What a purifier cannot replace", "Control pollution sources and follow appropriate ventilation guidance. Do not infer a health outcome from a filter label, a retailer review or a product's appearance. We compare buying considerations and current listings, not clinical effectiveness."],
+      ["Choose a place it can actually operate", "Follow the exact manual's clearance and positioning instructions. Check the length of the power lead, the lights and the access needed to change filters. If the unit must be moved frequently, consider its weight and grip as well as its footprint."]
+    ],
+    "sources": [["ENERGY STAR air-cleaner buying guidance", "https://www.energystar.gov/products/air_cleaners"]],
+    "groups": [
+      {"label": "Lower initial-price option", "query": "bedroom air purifier", "match": "air purifier", "ceiling": {"uk": 75, "us": 90}, "decision": "Compare this lower-price listing only after confirming the exact model's CADR and replacement-filter supply.", "check": "Verify CADR, filter code, filter price and room-size test conditions."},
+      {"label": "Alternative model to compare", "query": "Levoit air purifier", "match": "Levoit.*(?:purifier|core)|(?:purifier|core).*Levoit", "ceiling": {"uk": 150, "us": 160}, "decision": "Compare this alternative on the same room-size and maintenance criteria. Its brand does not substitute for checking the exact variant.", "check": "Confirm overnight fan performance and filter availability for this exact model."}
+    ]
+  }
+]
