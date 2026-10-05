@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: worth-buying-repo-writes
@@ -38,6 +39,13 @@ jobs:
           python -m py_compile generate_market_watch.py
           pytest -q tests/test_market_watch.py
 
+      - name: Prepare original price charts
+        env:
+          PYTHONPATH: .
+        run: |
+          python generate_price_charts.py --market uk
+          python generate_price_charts.py --market us
+
       - name: Generate monthly original-data article
         env:
           PYTHONPATH: .
@@ -46,7 +54,7 @@ jobs:
       - name: Save market-watch articles
         shell: bash
         run: |
-          git add articles articles-us state/monthly_market_watch.json
+          git add articles articles-us state/monthly_market_watch.json assets/price-history
           if git diff --cached --quiet; then
             echo "Not enough original price-history data yet; no market-watch article created."
             exit 0
@@ -56,3 +64,8 @@ jobs:
           git commit -m "Add monthly WorthBuying Market Watch"
           git pull --rebase origin main
           git push
+
+      - name: Publish generated UK and USA articles
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run publish-articles.yml --ref main -f chain_usa=true

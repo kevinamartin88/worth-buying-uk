@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import html
+from src.price_tracking import valid_observations
+from src.price_charts import chart_html
 import json
 from datetime import date
 from statistics import median
@@ -222,7 +224,7 @@ def price_watch_page(market: str) -> dict:
     for key, entry in history.items():
         if not str(key).startswith(prefix) or not isinstance(entry, dict):
             continue
-        observations = entry.get("observations") or []
+        observations = valid_observations(entry, "GBP" if market == "uk" else "USD")
         prices = []
         currency = ""
         for obs in observations:
@@ -253,6 +255,8 @@ def price_watch_page(market: str) -> dict:
                 "currency": currency,
                 "checks": len(prices),
                 "article_url": article_url,
+                "chart": chart_html(key, entry, market),
+                "last_checked": observations[-1]["date"],
             }
         )
 
@@ -274,7 +278,8 @@ def price_watch_page(market: str) -> dict:
                 f'Current observed price: {_money(row["current"], row["currency"])} · '
                 f'Observed median: {_money(row["median"], row["currency"])} · '
                 f'<strong>{row["drop"]:.0f}% below observed median</strong> '
-                f'({row["checks"]} checks)</li>'
+                f'({row["checks"]} checks; last observed {row["last_checked"]})'
+                f'{row["chart"]}</li>'
             )
         body = '<ul>' + "".join(items) + '</ul>'
     else:

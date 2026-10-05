@@ -118,7 +118,7 @@ jobs:
             exit 0
           fi
 
-          git add articles articles-us state/daily_article_generator.json state/daily_price_history.json
+          git add articles articles-us state/daily_article_generator.json state/daily_price_history.json state/google_shopping_cache.json
           if git diff --cached --quiet; then
             echo "No new daily articles to commit."
             echo "changed=false" >> "$GITHUB_OUTPUT"

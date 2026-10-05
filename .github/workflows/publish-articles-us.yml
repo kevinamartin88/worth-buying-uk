@@ -12,6 +12,9 @@ on:
       - "publish_articles_us.py"
       - "publish_site_pages.py"
       - "src/site_pages.py"
+      - "src/article_copy.py"
+      - "src/price_charts.py"
+      - "generate_price_charts.py"
       - "src/blogger.py"
       - "generate_ai_visuals.py"
       - "src/ai_visuals.py"
@@ -129,6 +132,20 @@ jobs:
             git config user.name "worth-buying-usa-bot"
             git config user.email "worth-buying-usa-bot@users.noreply.github.com"
             git commit -m "Update USA X article images"
+            git pull --rebase origin main
+            git push
+          fi
+
+      - name: Prepare observed price-history charts
+        env:
+          PYTHONPATH: .
+        run: |
+          python generate_price_charts.py --market us
+          git add assets/price-history/us
+          if ! git diff --cached --quiet; then
+            git config user.name "worth-buying-price-charts-bot"
+            git config user.email "worth-buying-price-charts-bot@users.noreply.github.com"
+            git commit -m "Refresh USA observed price charts"
             git pull --rebase origin main
             git push
           fi

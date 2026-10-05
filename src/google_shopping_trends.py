@@ -7,6 +7,8 @@ from typing import Iterable
 
 import requests
 
+from src.shopping_cache import cached_topics, cooling_down, remember
+
 
 EXPLORE_URL = "https://trends.google.com/trends/api/explore"
 MULTILINE_URL = "https://trends.google.com/trends/api/widgetdata/multiline"
@@ -145,6 +147,14 @@ def rank_topics_by_google_shopping(
     if not topics:
         return []
 
+    cached = cached_topics(topics, market)
+    if len(cached) == len(topics):
+        print(f"[shopping-cache] {market.upper()}: using observations less than 24 hours old")
+        return cached
+    if cooling_down(market):
+        print(f"[shopping-cooldown] {market.upper()}: respecting Google's rate limit")
+        return cached
+
     geo = "GB" if market.casefold() == "uk" else "US"
     hl = "en-GB" if geo == "GB" else "en-US"
     session = requests.Session()
@@ -210,16 +220,20 @@ def rank_topics_by_google_shopping(
                     ranked.append((topic, signal))
 
             # Be polite to the public Trends endpoint and reduce 429 risk.
-            time.sleep(0.2)
+            time.sleep(1.0)
 
     except Exception as exc:
+        status = getattr(getattr(exc, "response", None), "status_code", None)
+        remember(market, ranked, rate_limited=status == 429)
         print(
-            f"[shopping-trends-warning] {market.upper()}: Google Shopping Trends "
-            f"lookup unavailable ({type(exc).__name__}: {exc}); using the next "
-            "external Google/fallback signal."
+            f"[shopping-trends-warning] {market.upper()}: lookup unavailable "
+            f"({type(exc).__name__}, HTTP {status}); retaining only recent observed signals."
         )
-        return []
+        return cached_topics(topics, market)
+    finally:
+        session.close()
 
+    remember(market, ranked)
     ranked.sort(
         key=lambda pair: (
             -float(pair[1].get("score") or 0),

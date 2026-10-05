@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import html
+from src.price_tracking import valid_observations
+from src.price_charts import chart_html
 import json
 from datetime import datetime
 from pathlib import Path
@@ -52,7 +54,7 @@ def market_rows(market: str) -> tuple[list[dict], int]:
         if not str(key).startswith(prefix) or not isinstance(entry, dict):
             continue
 
-        observations = entry.get("observations") or []
+        observations = valid_observations(entry, "GBP" if market == "uk" else "USD")
         valid: list[tuple[float, str]] = []
         for obs in observations:
             try:
@@ -83,6 +85,7 @@ def market_rows(market: str) -> tuple[list[dict], int]:
                 "currency": valid[-1][1],
                 "checks": len(valid),
                 "guide_url": guide_url,
+                "chart": chart_html(key, entry, market),
             }
         )
 
@@ -133,6 +136,7 @@ def render_market_watch(market: str, now: datetime) -> dict | None:
                 f"current observation {money(row['current'], row['currency'])}, "
                 f"median {money(row['median'], row['currency'])} "
                 f"across {row['checks']} checks."
+                f"{row.get('chart', '')}"
                 "</li>"
             )
         parts.append("</ul>")
@@ -161,7 +165,7 @@ def render_market_watch(market: str, now: datetime) -> dict | None:
         "<h2>Methodology</h2>"
         "<p>We record at most one observation per listing per day when that listing appears in our "
         "automated buying-guide research. We only include a listing in this report after at least three "
-        "valid observations, and we compare its most recent observation with the median of our recorded "
+        "valid observations on distinct dates, with a latest check no older than seven days, and we compare its most recent observation with the median of our recorded "
         "history. Listings can disappear or change, so this data should not be treated as a market-wide "
         "price index.</p>"
         "<p><strong>Affiliate disclosure:</strong> linked WorthBuying guides may contain affiliate links. "
