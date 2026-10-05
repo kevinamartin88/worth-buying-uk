@@ -1,0 +1,81 @@
+name: Weekly eBay Deals UK and USA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/weekly-ebay-deals.yml'
+      - 'refresh_ebay_deals.py'
+      - 'src/ebay_deals.py'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Discover fresh offers or recheck the existing roundup'
+        type: choice
+        options: [discover, validate]
+        default: discover
+  schedule:
+    - cron: '17 6 * * 1'
+    - cron: '17 6 * * 0,2-6'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: worth-buying-ebay-deals
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Test listing, tracking and publishing safeguards
+        env:
+          PYTHONPATH: .
+        run: pytest -q tests/test_ebay.py tests/test_ebay_deals.py tests/test_affiliate_tracking.py tests/test_blogger.py
+
+  refresh:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - market: uk
+            client_id: BLOGGER_CLIENT_ID
+            client_secret: BLOGGER_CLIENT_SECRET
+            refresh_token: BLOGGER_REFRESH_TOKEN
+            blog_id: BLOGGER_BLOG_ID
+          - market: us
+            client_id: BLOGGER_US_CLIENT_ID
+            client_secret: BLOGGER_US_CLIENT_SECRET
+            refresh_token: BLOGGER_US_REFRESH_TOKEN
+            blog_id: BLOGGER_US_BLOG_ID
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Refresh the market's live Deals section
+        env:
+          PYTHONPATH: .
+          EBAY_ENV: production
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+          BLOGGER_CLIENT_ID: ${{ secrets[matrix.client_id] }}
+          BLOGGER_CLIENT_SECRET: ${{ secrets[matrix.client_secret] }}
+          BLOGGER_REFRESH_TOKEN: ${{ secrets[matrix.refresh_token] }}
+          BLOGGER_BLOG_ID: ${{ secrets[matrix.blog_id] }}
+          MARKET: ${{ matrix.market }}
+          MODE: ${{ github.event.schedule == '17 6 * * 0,2-6' && 'validate' || inputs.mode || 'discover' }}
+        run: python refresh_ebay_deals.py --market "$MARKET" --mode "$MODE"

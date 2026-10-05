@@ -493,3 +493,38 @@ CJ, Awin and impact.com are not live product-feed sources in this repository yet
 They require working account access, approved retailer relationships and suitable
 feed/API access before tracked offers can be added. Newsletter subscriptions also
 need a connected service account; no subscriber collection or sending is enabled.
+# Weekly eBay Deals
+
+`.github/workflows/weekly-ebay-deals.yml` discovers fresh offers for both markets
+on Mondays at 06:17 UTC (07:17 London during BST, 06:17 during GMT). On the other
+days it rechecks the same listings at 06:17 UTC and removes offers that no longer
+qualify. GitHub may delay scheduled runs. A push changing the refresh implementation
+on `main` starts initial discovery automatically; manual dispatch supports either mode.
+
+The live sites' Deals menus both point to `/search?q=Deals`. Each market maintains
+one permanent Blogger post (`Weekly eBay Deals UK` or `Weekly eBay Deals USA`),
+with the Deals label and title so it appears in that existing section. Updates reuse
+the same post and URL. No manual page edit, repository state commit, email publishing,
+or chained article-publisher dispatch is needed.
+
+The workflow uses existing `EBAY_CLIENT_ID`/`EBAY_CLIENT_SECRET`, UK `BLOGGER_*`
+and USA `BLOGGER_US_*` secrets. It reuses the article publishers' EPN tracking:
+UK campaign `5339209132`, USA campaign `5339209205`, with separate market custom IDs.
+Only domestic marketplace listings in GBP/USD qualify. Search candidates are
+checked with `getItem`; current price, seller feedback, in-stock status, known
+delivery cost, fixed-price buying option and a consistent eBay-listed discount of
+at least 10% are required. Parts, broken items and common accessory mismatches are
+excluded. Listings ending within the next 24 hours are excluded; offers can still
+sell out between daily checks. Reference prices are clearly identified as eBay's,
+not independent historical savings.
+
+A successful refresh with zero qualifying offers clears the previous offers and
+publishes an honest empty state. Removed listings (404/410) are discarded. Quota,
+authentication or service errors retry where appropriate, then fail the workflow
+without publishing partial results or presenting old prices as newly checked.
+Blogger permission failures are also workflow failures: there is no manual-email
+fallback. Check the failed market's Actions logs and existing account permissions
+if a run fails. UK and USA run independently so failure in one does not stop the other.
+
+Local validation: `pytest -q tests/test_ebay.py tests/test_ebay_deals.py
+tests/test_affiliate_tracking.py tests/test_blogger.py`.
