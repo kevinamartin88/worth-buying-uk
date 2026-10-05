@@ -604,25 +604,23 @@ def _site_page_url(market: str, key: str) -> str:
 
 
 def editorial_trust_html(market: str, checked_date: str) -> str:
-    retailer = "eBay UK" if market == "uk" else "eBay"
-    methodology_url = _site_page_url(market, "methodology")
-    methodology_link = (
-        f'<a href="{html.escape(methodology_url, quote=True)}">our product-selection methodology</a>'
-        if methodology_url
-        else "our published product-selection methodology"
+    methodology_url = _site_page_url(market, "methodology") or (
+        "https://www.worthbuyinguk.co.uk/p/how-worth-buying-chooses-products.html"
+        if market == "uk"
+        else "https://www.worthbuyingusa.com/p/how-worth-buying-chooses-products.html"
     )
     return (
         '<aside style="border-left:4px solid #082f5b;background:#f6f8fb;'
         'padding:16px 18px;margin:20px 0;">'
-        '<p style="margin-top:0"><strong>Worth Buying Editorial Team</strong></p>'
-        f'<p>Checked {html.escape(checked_date)} using current listing data from {retailer}, '
-        'seller-quality signals, realistic pricing checks and product relevance filters. '
-        'We reject weak or suspicious marketplace listings rather than filling the page.</p>'
-        f'<p>These are data-led comparisons rather than claims of hands-on laboratory testing. '
-        f'Read {methodology_link} for the checks, limitations and update process.</p>'
-        '<p style="margin-bottom:0"><strong>How we make money:</strong> some retailer links are affiliate links. '
-        'A qualifying purchase can earn us a commission, but inclusion is determined by our published checks, '
-        'not by which retailer pays the highest commission.</p>'
+        '<p style="margin-top:0"><strong>How we choose our picks:</strong> '
+        'We compare products using current pricing, specifications, customer feedback, retailer data '
+        'and other relevant buying signals to help identify products we believe offer strong value. '
+        'These are data-led comparisons rather than market hype. You can read more about '
+        f'<a href="{html.escape(methodology_url, quote=True)}">how we choose and review products</a>.</p>'
+        '<p style="margin-bottom:0"><strong>Affiliate disclosure:</strong> Some links may earn '
+        'WorthBuying a small commission if you make a purchase — <strong>at no extra cost to you</strong>. '
+        'This helps support the site and keeps our buying guides free to use. Our recommendations '
+        'are based on our published selection process, not on which retailer pays the highest commission.</p>'
         '</aside>\n'
     )
 
