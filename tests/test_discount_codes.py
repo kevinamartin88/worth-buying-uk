@@ -129,3 +129,29 @@ def test_refresh_emails_manual_package_when_all_blogger_writes_are_forbidden(mon
     assert emailed.call_args.args[0] == "uk"
     assert emailed.call_args.args[2] == 1
     assert result["status"] == "MANUAL_PACKAGE"
+
+
+def test_public_codes_keep_markets_separate_and_confirm_terms(monkeypatch):
+    body = ("Free Standard Delivery over £50 FREEDELIVERY50 "
+            "Get 20% Off Your First Order NEW20 Save 10% off orders over £50 GOLDGB "
+            "Get 25% Off Your First Order NEW25 Save 10% off orders over $80 GOLDUS")
+    response = MagicMock(text=body)
+    monkeypatch.setattr(discounts.requests, "get", lambda *a, **k: response)
+    assert {o.code for o in discounts.retailer_offers("uk")} == {"FREEDELIVERY50", "NEW20", "GOLDGB"}
+    assert {o.code for o in discounts.retailer_offers("us")} == {"NEW25", "GOLDUS"}
+
+
+def test_public_codes_removed_when_source_changes_or_code_only_in_script(monkeypatch):
+    response = MagicMock(text='<script>Get 25% Off Your First Order NEW25 GOLDUS</script><p>Offer withdrawn</p>')
+    monkeypatch.setattr(discounts.requests, "get", lambda *a, **k: response)
+    assert discounts.retailer_offers("us") == []
+
+
+def test_unavailable_public_sources_do_not_keep_old_codes_forever(monkeypatch):
+    rows = [{"market": "us", "url": "https://www.iherb.com/info/sales-and-offers",
+             "checked_date": "2000-01-01"}]
+    monkeypatch.setattr(discounts.json, "loads", lambda _text: rows)
+    def unavailable(*a, **k):
+        raise discounts.requests.RequestException("unavailable")
+    monkeypatch.setattr(discounts.requests, "get", unavailable)
+    assert discounts.retailer_offers("us") == []
