@@ -384,6 +384,23 @@ def search_metrics(now, state):
         state["metrics_finished"] = True
 
 
+def reconcile_publication(state):
+    for market in MARKETS:
+        entries = published(market)
+        for slug, record in state.get("growth", {}).get(market, {}).items():
+            source = load(article_dir(market) / record["source_file"])
+            remote = entries.get(slug, {})
+            if remote.get("status") == "published" and remote.get("source_sha") == source.get("source_sha"):
+                record.update(status="published", url=remote.get("url"))
+        record = state.get("weekly", {}).get(market, {})
+        slug = record.get("slug")
+        if slug and record.get("status") != "blocked":
+            source = load(article_dir(market) / f"{slug}.json")
+            remote = entries.get(slug, {})
+            if remote.get("status") == "published" and remote.get("source_sha") == source.get("source_sha"):
+                record.update(status="published", url=remote.get("url"))
+
+
 def report(state, now):
     lines = ["# WorthBuying cloud editorial", f"Run: {now.isoformat()}",
              "Runs on GitHub-hosted infrastructure; no desktop session required.",
@@ -417,6 +434,7 @@ def main():
         return
     state = load(STATE)
     try:
+        reconcile_publication(state)
         weekly(now, state, briefs)
         growth(now, state)
         search_metrics(now, state)
