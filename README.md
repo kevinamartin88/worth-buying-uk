@@ -423,9 +423,12 @@ If there are too few good items, the page says so instead of fabricating bargain
 
 ## Affiliate disclosure
 
-The Blogger themes carry a clear, site-wide affiliate disclosure. Generated
-article bodies do not repeat that wording on every post, but retailer links
-remain marked with `rel="sponsored nofollow"` and retain the correct tracking.
+The publisher keeps a clear affiliate disclosure at the top of each article,
+as well as the themes' site-wide disclosure. Retailer links remain marked with
+`rel="sponsored nofollow"` and retain the correct tracking.
+
+Do not enable eBay SmartLinks in either Blogger theme: it overwrites the regional
+campaign and per-article custom IDs already set by the publisher.
 
 > This page contains affiliate links. If you buy through them, I may earn a
 > commission at no extra cost to you.
@@ -472,3 +475,21 @@ Remove `DRY_RUN=1` only when you intentionally want to publish/update Blogger.
 This is software, not a promise of profit. Affiliate approvals, API access,
 traffic, search visibility, conversions and commission rates are outside the
 script's control.
+
+## Observed price history and publishing handoff
+
+The daily generator rechecks up to 20 existing listings per market, within a
+90-second loop budget, before selecting the day's topic. It records one observation
+per listing per day. Price charts require at least three distinct observation dates,
+a consistent currency, an available listing and a recent check. Monthly Market Watch
+requires enough tracked products and genuine price movement; otherwise it skips.
+
+Weekly supporting guides and monthly reports explicitly dispatch the UK publisher,
+which chains the USA publisher. They do not depend on bot commits triggering Actions.
+Google Shopping responses may be cached for 24 hours; rate limiting starts a six-hour
+cooldown. Cached observations and seasonal fallback choices are identified honestly.
+
+CJ, Awin and impact.com are not live product-feed sources in this repository yet.
+They require working account access, approved retailer relationships and suitable
+feed/API access before tracked offers can be added. Newsletter subscriptions also
+need a connected service account; no subscriber collection or sending is enabled.

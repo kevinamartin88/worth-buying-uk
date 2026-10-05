@@ -604,7 +604,7 @@ def _site_page_url(market: str, key: str) -> str:
 
 
 def editorial_trust_html(market: str, checked_date: str) -> str:
-    retailer = "eBay UK and Amazon UK" if market == "uk" else "eBay and Amazon"
+    retailer = "eBay UK" if market == "uk" else "eBay"
     methodology_url = _site_page_url(market, "methodology")
     methodology_link = (
         f'<a href="{html.escape(methodology_url, quote=True)}">our product-selection methodology</a>'
@@ -615,7 +615,7 @@ def editorial_trust_html(market: str, checked_date: str) -> str:
         '<aside style="border-left:4px solid #082f5b;background:#f6f8fb;'
         'padding:16px 18px;margin:20px 0;">'
         '<p style="margin-top:0"><strong>Worth Buying Editorial Team</strong></p>'
-        f'<p>Checked {html.escape(checked_date)} using current retailer data from {retailer}, '
+        f'<p>Checked {html.escape(checked_date)} using current listing data from {retailer}, '
         'seller-quality signals, realistic pricing checks and product relevance filters. '
         'We reject weak or suspicious marketplace listings rather than filling the page.</p>'
         f'<p>These are data-led comparisons rather than claims of hands-on laboratory testing. '
