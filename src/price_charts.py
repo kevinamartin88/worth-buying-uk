@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import html
+import json
 from datetime import date
 from pathlib import Path
 
@@ -12,8 +13,9 @@ ROOT = Path(__file__).resolve().parents[1]
 ASSET_BASE = 'https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/'
 
 
-def chart_path(key: str, market: str) -> Path:
-    return Path('assets/price-history') / market / (hashlib.sha256(key.encode()).hexdigest()[:20] + '.png')
+def chart_path(key: str, market: str, rows: list[dict]) -> Path:
+    identity = json.dumps([key, rows], sort_keys=True).encode()
+    return Path('assets/price-history') / market / (hashlib.sha256(identity).hexdigest()[:20] + '.png')
 
 
 def render_chart(key: str, entry: dict, market: str) -> Path | None:
@@ -25,7 +27,7 @@ def render_chart(key: str, entry: dict, market: str) -> Path | None:
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     import matplotlib.dates as mdates
-    target = ROOT / chart_path(key, market)
+    target = ROOT / chart_path(key, market, rows)
     target.parent.mkdir(parents=True, exist_ok=True)
     fig, ax = plt.subplots(figsize=(8, 3.2), layout='constrained')
     dates = [date.fromisoformat(row['date']) for row in rows]
@@ -48,7 +50,7 @@ def render_chart(key: str, entry: dict, market: str) -> Path | None:
 
 def chart_html(key: str, entry: dict, market: str) -> str:
     rows = valid_observations(entry, 'GBP' if market == 'uk' else 'USD')
-    path = chart_path(key, market)
+    path = chart_path(key, market, rows)
     if len(rows) < 3 or not (ROOT / path).exists():
         return ''
     title = html.escape(str(entry.get('title') or 'Tracked listing'), quote=True)

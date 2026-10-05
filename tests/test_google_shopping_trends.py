@@ -25,3 +25,22 @@ def test_rising_product_scores_above_flat_equal_interest():
 def test_zero_interest_does_not_score():
     signal = _score([0.0] * 42, [50.0] * 42)
     assert signal["score"] == 0.0
+
+
+def test_rate_limit_keeps_recent_observations_and_stops_requests(monkeypatch, tmp_path):
+    import requests
+    from src import google_shopping_trends as shopping, shopping_cache as cache
+    monkeypatch.setattr(cache, "CACHE_PATH", tmp_path / "cache.json")
+    topics = [("air", "Air", "air purifier"), ("slow", "Slow", "slow cooker")]
+    cache.remember("uk", [(topics[0], {"query": "air purifier", "score": 50})])
+    calls = []
+    def limited(*args):
+        calls.append(True)
+        response = requests.Response()
+        response.status_code = 429
+        raise requests.HTTPError(response=response)
+    monkeypatch.setattr(shopping, "_explore_widgets", limited)
+    assert shopping.rank_topics_by_google_shopping(topics, "uk")[0][0] == topics[0]
+    assert cache.cooling_down("uk")
+    assert shopping.rank_topics_by_google_shopping(topics, "uk")[0][1]["cached"]
+    assert len(calls) == 1
