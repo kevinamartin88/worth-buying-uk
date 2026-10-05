@@ -244,8 +244,8 @@ def build_article(market: str, publish_date: date) -> dict:
         "I would still choose this product without the countdown, badge or claimed saving.",
     )
     content = f"""
-<p><strong>Savvy Buyer {html.escape(edition)}</strong> is one of {html.escape(details['name'])}'s twice-weekly guides to making calmer, better-informed purchases. This edition focuses on <strong>{html.escape(theme['name'])}</strong>: how to {html.escape(theme['promise'])}.</p>
-<p>The aim is not to find the cheapest listing at any cost. A savvy purchase balances price, suitability, seller reliability, support and the likely cost of owning the product. Use this guide as a practical framework and always check the live product information and current policies before paying.</p>
+<!-- wb-savvy-disclosure: footer -->
+<p>Before you buy, learn how to {html.escape(theme['promise'])}. This guide gives you four practical checks, common traps to avoid and a five-minute checklist to help you choose with confidence.</p>
 <h2>This week's buying lesson</h2>
 <p>{html.escape(angle_promise.capitalize())}. Start by writing down what evidence would make the purchase sensible and what information would make you walk away. This small pause makes it easier to compare offers on their merits rather than reacting to urgency.</p>
 <h2>Four details worth checking</h2>
@@ -271,6 +271,9 @@ def build_article(market: str, publish_date: date) -> dict:
 <p>A savvy buyer is not someone who never spends money. It is someone who knows what they need, checks the evidence and recognises when an attractive offer is not genuinely good value. This week's rule is simple: <strong>clarity beats urgency</strong>.</p>
 <p>Browse the latest product-specific guides on <a href="{html.escape(details['site'])}">{html.escape(details['name'])}</a> when you are ready to compare individual categories.</p>
 <p><em>This article provides general shopping guidance. Product details, prices, seller terms and consumer protections can change, so verify the current information relevant to your purchase.</em></p>
+<h2>About this guide</h2>
+<p><strong>Savvy Buyer {html.escape(edition)}</strong> is one of {html.escape(details['name'])}'s twice-weekly guides to making calmer, better-informed purchases. This edition focuses on <strong>{html.escape(theme['name'])}</strong>: how to {html.escape(theme['promise'])}.</p>
+<p>The aim is not to find the cheapest listing at any cost. A savvy purchase balances price, suitability, seller reliability, support and the likely cost of owning the product. Use this guide as a practical framework and always check the live product information and current policies before paying.</p>
 """.strip()
 
     return {
