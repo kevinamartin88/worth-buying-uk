@@ -234,6 +234,30 @@ def prioritize_products(products: list[RakutenProduct], market: str) -> list[Rak
     return sorted(products, key=lambda product: not is_preferred(product))
 
 
+def validated_products(
+    client: RakutenClient,
+    products: list[RakutenProduct],
+    market: str,
+) -> list[RakutenProduct]:
+    validated: list[RakutenProduct] = []
+    for product in prioritize_products(products, market):
+        ok, reason, final_url = client.validate_product_destination(product)
+        if not ok:
+            print(
+                f"[rakuten-link-reject] {market.upper()}: {product.merchant} | "
+                f"{product.name} | {reason} | {final_url or product.url}"
+            )
+            continue
+        print(
+            f"[rakuten-link-ok] {market.upper()}: {product.merchant} | "
+            f"{product.name} | {final_url}"
+        )
+        validated.append(product)
+        if len(validated) >= MAX_PRODUCTS:
+            break
+    return validated
+
+
 def find_offer_set(
     client: RakutenClient,
     month: int,
@@ -241,11 +265,17 @@ def find_offer_set(
     market: str = "",
 ) -> tuple[tuple | None, list[RakutenProduct]]:
     for topic in candidate_topics(month, recent_topics, market)[:MAX_SEARCHES_PER_MARKET]:
-        products = relevant_products(client.search(topic[2], limit=12), topic[2], topic[0])
+        products = relevant_products(client.search(topic[2], limit=20), topic[2], topic[0])
+        if len(products) < MIN_PRODUCTS:
+            continue
+        products = validated_products(client, products, market)
         if len(products) >= MIN_PRODUCTS:
-            return topic, prioritize_products(products, market)[:MAX_PRODUCTS]
+            return topic, products
+        print(
+            f"[rakuten-topic-reject] {market.upper()}: {topic[0]} had fewer than "
+            f"{MIN_PRODUCTS} validated product destinations"
+        )
     return None, []
-
 
 def display_price(product: RakutenProduct, market: str) -> str:
     raw = product.price.strip()
@@ -269,7 +299,7 @@ def product_sections(products: list[RakutenProduct], market: str) -> str:
             f"<h3>{index}. {html.escape(product.name)}</h3>\n"
             f"<p><strong>Retailer:</strong> {html.escape(merchant)}. "
             f"<strong>Price when checked:</strong> {html.escape(display_price(product, market))}. "
-            "This product appeared in the approved retailer feed when this article was prepared. "
+            "The retailer destination was checked when this article was prepared and matched this product. "
             "Check the exact model, specification, availability, delivery charge, warranty and returns "
             "on the live retailer page before ordering.</p>\n"
             f'<p><a href="{html.escape(product.url, quote=True)}" rel="sponsored nofollow">'
@@ -299,7 +329,8 @@ def build_article(topic: tuple, products: list[RakutenProduct], market: str, now
         f"offers available to {region} shoppers.</strong></p>\n"
         "<p><em>This is a separate Rakuten Advertising retailer roundup.</em></p>\n"
         f"<p><strong>Last checked:</strong> {html.escape(checked_date)}. The shortlist contains "
-        f"{len(products)} live feed results from {html.escape(merchants)}. Prices and stock can change "
+        f"{len(products)} feed results with validated retailer destinations from {html.escape(merchants)}. "
+        "Prices and stock can change "
         "after publication.</p>\n"
         f"<h2>Current {html.escape(display.lower())} offers worth comparing</h2>\n"
         f"{product_sections(products, market)}\n"
@@ -311,8 +342,10 @@ def build_article(topic: tuple, products: list[RakutenProduct], market: str, now
         f"<ul>{check_html}</ul>\n"
         "<h2>How this roundup was selected</h2>\n"
         f"<p>Our automation searched Rakuten Advertising product feeds belonging to retailers approved for the "
-        f"Worth Buying {region} account. It required at least {MIN_PRODUCTS} relevant, region-appropriate results "
-        "before creating this article. It did not copy recommendations from the separate Amazon and eBay guide, "
+        f"Worth Buying {region} account. Every selected result also had to resolve to a retailer product page "
+        f"that matched the feed product name, and the article required at least {MIN_PRODUCTS} validated, "
+        "region-appropriate results before publication. It did not copy recommendations from the separate Amazon "
+        "and eBay guide, "
         "and it did not create an article when the feed was too limited.</p>\n"
         "<p>Feed inclusion is not the same as hands-on testing or a guarantee that a product is right for every "
         "buyer. Check independent reviews where performance, safety or durability is important.</p>"
