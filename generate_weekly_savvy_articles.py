@@ -279,6 +279,7 @@ def build_article(market: str, publish_date: date) -> dict:
         "mode": "publish",
         "title": title,
         "labels": ["Savvy Buyer", "Buying Advice", "Consumer Tips", region],
+        "hero_visual_revision": "savvy-no-people-v1",
         "pinterest_enabled": True,
         "pinterest_title": title,
         "pinterest_subtitle": f"A practical buying checklist for {theme['name']}",
