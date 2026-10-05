@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import pytest
 import generate_supporting_articles as support
 
 
@@ -36,7 +37,7 @@ def test_support_article_retains_parent_cluster(monkeypatch):
             "content_html": "<p>Body</p>",
             "_seo": {},
             "_monetisation": {},
-            "_generator": {},
+            "_generator": {"live_ebay_picks": True},
         }
 
     monkeypatch.setattr(support.daily, "build_article", fake_build)
@@ -82,3 +83,18 @@ def test_weak_gsc_signal_falls_back_to_authority_rotation(monkeypatch):
         support.base_topic_for_week(1, "uk")
         == support.rotation_topic_for_week(1, "uk")
     )
+
+
+def test_storage_bins_do_not_get_refurbished_angle():
+    base = next(topic for topic in support.daily.TOPICS if topic[0] == "storage-bins")
+    topic = support.support_topic(base, "us", iso_week=2)
+    assert topic[0] == "value-storage-bins"
+    assert "refurbished" not in topic[2]
+    assert support.support_angle(base[0], 2) == "value"
+
+
+def test_support_rejects_search_only_fallback(monkeypatch):
+    base = next(topic for topic in support.daily.TOPICS if topic[0] == "tvs")
+    monkeypatch.setattr(support.daily, "build_article", lambda *args: {"_generator": {"live_ebay_picks": False}})
+    with pytest.raises(support.InsufficientSupportListings):
+        support.build_support_article(base, "uk", 2026, 2)

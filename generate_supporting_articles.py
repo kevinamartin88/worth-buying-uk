@@ -13,6 +13,22 @@ ROOT = Path(__file__).resolve().parent
 STATE_PATH = ROOT / "state" / "authority_support.json"
 LONDON = ZoneInfo("Europe/London")
 ANGLES = ("budget", "refurbished", "value")
+REFURBISHED_TOPICS = {
+    "air-fryers", "large-capacity-air-fryers", "coffee-machines",
+    "food-processors", "blenders", "stand-mixers", "cordless-vacuums",
+    "robot-vacuums", "dehumidifiers", "air-purifiers", "carpet-cleaners",
+    "steam-mops", "tvs", "soundbars", "tablets", "smartwatches",
+    "dash-cams", "pressure-washers", "cordless-drills", "lawn-mowers",
+}
+
+
+class InsufficientSupportListings(ValueError):
+    pass
+
+
+def support_angle(base_key: str, iso_week: int) -> str:
+    angle = ANGLES[(iso_week - 1) % len(ANGLES)]
+    return "value" if angle == "refurbished" and base_key not in REFURBISHED_TOPICS else angle
 
 
 def _load_json(path: Path) -> dict:
@@ -74,7 +90,7 @@ def base_topic_for_week(iso_week: int, market: str) -> tuple:
 
 def support_topic(base: tuple, market: str, iso_week: int) -> tuple:
     key, display, query, max_uk, max_us, category, kicker = daily.localise_topic(base, market)
-    angle = ANGLES[(iso_week - 1) % len(ANGLES)]
+    angle = support_angle(base[0], iso_week)
     region_symbol = "£" if market == "uk" else "$"
     ceiling = float(max_uk if market == "uk" else max_us)
 
@@ -140,10 +156,12 @@ def _pillar_url(base_key: str, market: str, year: int) -> str:
 def build_support_article(base: tuple, market: str, year: int, iso_week: int) -> dict:
     topic = support_topic(base, market, iso_week)
     article = daily.build_article(topic, market, year)
+    if not article.get("_generator", {}).get("live_ebay_picks"):
+        raise InsufficientSupportListings("too few verified listings for a supporting guide")
 
     base_key = base[0]
     cluster = daily.authority_cluster_for_topic(base_key)
-    angle = ANGLES[(iso_week - 1) % len(ANGLES)]
+    angle = support_angle(base_key, iso_week)
     pillar = _pillar_url(base_key, market, year)
 
     if pillar:
@@ -181,7 +199,11 @@ def main() -> None:
             continue
 
         base = base_topic_for_week(iso.week, market)
-        article = build_support_article(base, market, year, iso.week)
+        try:
+            article = build_support_article(base, market, year, iso.week)
+        except InsufficientSupportListings as exc:
+            print(f"[support-skip] {market.upper()}: {exc}")
+            continue
         article_dir = ROOT / ("articles" if market == "uk" else "articles-us")
         article_dir.mkdir(parents=True, exist_ok=True)
         target = article_dir / f"{article['slug']}.json"
