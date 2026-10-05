@@ -13,6 +13,7 @@ on:
       - ".github/workflows/**"
       - "generate_price_charts.py"
       - "generate_daily_articles.py"
+      - "generate_rakuten_articles.py"
       - "generate_supporting_articles.py"
       - "tests/test_supporting_articles.py"
       - "src/site_pages.py"
@@ -49,6 +50,6 @@ jobs:
           python -m unittest discover -s tests -p test_cloud_editorial.py -v
           python cloud_editorial.py --preview
           python -m py_compile generate_daily_articles.py
-          pytest -q tests/test_product_image_quality.py tests/test_article_images.py tests/test_google_trends.py tests/test_google_shopping_trends.py tests/test_daily_demand_gate.py tests/test_supporting_articles.py tests/test_site_pages.py tests/test_market_watch.py tests/test_article_copy.py tests/test_shopping_cache.py tests/test_price_tracking.py tests/test_price_charts.py tests/test_affiliate_tracking.py tests/test_workflow_handoff.py tests/test_daily_retailer_prices.py tests/test_blogger.py
+          pytest -q tests/test_rakuten.py tests/test_product_image_quality.py tests/test_article_images.py tests/test_google_trends.py tests/test_google_shopping_trends.py tests/test_daily_demand_gate.py tests/test_supporting_articles.py tests/test_site_pages.py tests/test_market_watch.py tests/test_article_copy.py tests/test_shopping_cache.py tests/test_price_tracking.py tests/test_price_charts.py tests/test_affiliate_tracking.py tests/test_workflow_handoff.py tests/test_daily_retailer_prices.py tests/test_blogger.py
 
 
