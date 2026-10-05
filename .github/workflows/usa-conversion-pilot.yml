@@ -1,0 +1,60 @@
+name: Improve five USA buying guides
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'refresh_usa_conversion_pilot.py'
+      - 'src/usa_conversion.py'
+      - 'automation/usa_conversion_pilot.json'
+      - '.github/workflows/usa-conversion-pilot.yml'
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: worth-buying-repo-writes
+  cancel-in-progress: false
+
+jobs:
+  refresh-five:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Verify USA product, link and measurement safeguards
+        env:
+          PYTHONPATH: .
+        run: pytest -q tests/test_usa_conversion.py tests/test_daily_demand_gate.py tests/test_daily_retailer_prices.py tests/test_product_image_quality.py tests/test_affiliate_tracking.py
+      - name: Refresh five existing USA guides from live product data
+        env:
+          PYTHONPATH: .
+          EBAY_ENV: production
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+          EPN_US_CAMPAIGN_ID: ${{ secrets.EPN_US_CAMPAIGN_ID }}
+          AMAZON_CREATORS_CLIENT_ID: ${{ secrets.AMAZON_CREATORS_CLIENT_ID }}
+          AMAZON_CREATORS_CLIENT_SECRET: ${{ secrets.AMAZON_CREATORS_CLIENT_SECRET }}
+          AMAZON_CREATORS_CREDENTIAL_VERSION: ${{ secrets.AMAZON_CREATORS_CREDENTIAL_VERSION }}
+        run: python refresh_usa_conversion_pilot.py
+      - name: Save verified USA guides
+        run: |
+          git add articles-us state/daily_price_history.json state/usa_conversion_pilot.json
+          if ! git diff --cached --quiet; then
+            git config user.name "worth-buying-usa-bot"
+            git config user.email "worth-buying-usa-bot@users.noreply.github.com"
+            git commit -m "Improve five USA guides with current buying cards"
+            git pull --rebase origin main
+            git push
+          fi
+      - name: Publish refreshed USA guides through the existing pipeline
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run publish-articles-us.yml --ref main

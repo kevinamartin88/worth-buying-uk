@@ -16,6 +16,9 @@ from src.product_image_quality import product_image_html
 from src.price_tracking import refresh_tracked_prices
 from src.google_trends import rank_topics_by_trends, trend_keyword_for_title
 from src.google_shopping_trends import rank_topics_by_google_shopping
+from src.usa_conversion import (
+    relevant_product, live_listing, cards_html, amazon_direct, tracking_script, EXPERIMENT,
+)
 
 
 ROOT = Path(__file__).resolve().parent
@@ -516,6 +519,8 @@ def related_guides_html(guides: list[dict]) -> str:
 def quick_picks_html(items: list[dict], market: str, query: str) -> str:
     if not items:
         return ""
+    if market == "us":
+        return cards_html(items, retailer_urls, query)
 
     retailer = "eBay UK" if market == "uk" else "eBay"
     amazon = "Amazon UK" if market == "uk" else "Amazon"
@@ -1005,6 +1010,8 @@ def listing_score(
         return None
     if query and not _query_relevant(title_raw, query):
         return None
+    if expected_currency == "USD" and not relevant_product(title_raw, query):
+        return None
     if not _has_product_image(item):
         return None
 
@@ -1165,6 +1172,33 @@ def current_picks(market: str, query: str, max_price: float, slug: str) -> list[
 
     scored.sort(key=lambda pair: pair[0], reverse=True)
     shortlist = [item for _, item in scored[:8]]
+    if market == "us":
+        from src.product_image_quality import checked_product_image
+        import requests
+        verified = []
+        for summary in shortlist:
+            item_id = str(summary.get("itemId") or "")
+            if not item_id:
+                continue
+            try:
+                item = client.get_item(item_id, affiliate_reference=f"daily-{slug}")
+            except requests.HTTPError as exc:
+                if exc.response is not None and exc.response.status_code in (404, 410):
+                    continue
+                raise
+            if item.get("itemId") != item_id or not live_listing(item, datetime.now(timezone.utc)):
+                continue
+            score = listing_score(item, max_price, expected_currency, query=query)
+            if score is None:
+                continue
+            try:
+                image, _, _ = checked_product_image(item["image"]["imageUrl"])
+            except (KeyError, RuntimeError):
+                continue
+            item["image"]["imageUrl"] = image
+            item["_worthbuying_score"] = score
+            verified.append(item)
+        shortlist = verified
     _record_price_history(shortlist, market, slug)
     return shortlist[:4]
 
@@ -1216,7 +1250,8 @@ def retailer_urls(item: dict, market: str, fallback_query: str) -> tuple[str, st
     title = " ".join(str(item.get("title", "")).split())
     amazon_query, exact_model_search = amazon_model_query(title, fallback_query)
 
-    ebay_url = str(item.get("itemAffiliateWebUrl") or item.get("itemWebUrl") or "").strip()
+    ebay_url = str((item.get("itemWebUrl") if market == "us" else item.get("itemAffiliateWebUrl"))
+                   or item.get("itemWebUrl") or "").strip()
     if not ebay_url:
         base = "https://www.ebay.co.uk/sch/i.html" if market == "uk" else "https://www.ebay.com/sch/i.html"
         ebay_url = f"{base}?_nkw={quote_plus(fallback_query)}&_sop=15"
@@ -1289,6 +1324,12 @@ def add_amazon_prices(items: list[dict], market: str, fallback_query: str) -> No
                 # A category or generic search is not sufficient evidence that the
                 # Amazon result is the same product as the eBay listing.
                 continue
+            if market == "us":
+                brand = str(item.get("brand") or "").strip().casefold()
+                if not brand or brand not in offer.title.casefold() or not amazon_direct({
+                    "price": offer.price, "currency": offer.currency, "url": offer.url,
+                }):
+                    continue
             item["_amazon_offer"] = {
                 "title": offer.title,
                 "price": offer.price,
@@ -1324,6 +1365,8 @@ def live_sections(items: list[dict], market: str, topic_name: str, query: str) -
         )
         ebay_url, amazon_url, exact_model_search = retailer_urls(item, market, query)
         amazon_offer = item.get("_amazon_offer") or {}
+        if market == "us" and not amazon_direct(amazon_offer):
+            amazon_offer = {}
         if amazon_offer.get("url"):
             amazon_url = str(amazon_offer["url"])
         price_parts = [f"eBay {price}" if price else "eBay: check the live listing"]
@@ -1338,6 +1381,12 @@ def live_sections(items: list[dict], market: str, topic_name: str, query: str) -
             if exact_model_search
             else f"Search {amazon} for this product"
         )
+        if amazon_offer and (market != "us" or amazon_direct(amazon_offer)):
+            amazon_link_label = f"Check this model on {amazon}"
+        ebay_attrs = (' data-wb-retailer="ebay" data-wb-placement="detail"' if market == "us" else "")
+        amazon_attrs = (' data-wb-retailer="amazon" data-wb-placement="'
+                        + ('detail' if amazon_direct(amazon_offer) else 'search-alternative') + '"'
+                        if market == "us" else "")
 
         parts.append(
             f"<h3>{index}. {safe_title}</h3>\n"
@@ -1356,9 +1405,9 @@ def live_sections(items: list[dict], market: str, topic_name: str, query: str) -
                 and float((item.get('_worthbuying_price_history') or {}).get('difference_pct') or 0) >= 5
                 else ""
             )
-            + f'<p><a href="{html.escape(ebay_url, quote=True)}" rel="sponsored nofollow">'
+            + f'<p><a href="{html.escape(ebay_url, quote=True)}" rel="sponsored nofollow"{ebay_attrs}>'
             f"View on {retailer}</a>\n"
-            f'<a href="{html.escape(amazon_url, quote=True)}" rel="sponsored nofollow">'
+            f'<a href="{html.escape(amazon_url, quote=True)}" rel="sponsored nofollow"{amazon_attrs}>'
             f"{amazon_link_label}</a></p>\n"
         )
 
@@ -1493,10 +1542,13 @@ def build_article(
 
     content = (
         f"<p><strong>{html.escape(buyer_intro(display, region, year, live))}</strong></p>\n"
+        + (f"<p><strong>Last checked:</strong> {html.escape(checked_date)}.</p>\n"
+           + quick_picks_html(picks, market, query) if live and market == "us" else "")
+        +
         f"<p>{methodology} Prices and availability can change after publication, so always verify the live listing.</p>\n"
         f"<p><strong>Last checked:</strong> {html.escape(checked_date)}.</p>\n"
         f"{editorial_trust_html(market, checked_date)}"
-        f"{quick_picks_html(picks, market, query) if live else ''}"
+        f"{quick_picks_html(picks, market, query) if live and market != 'us' else ''}"
         f"<h2>{'Current picks worth comparing' if live else 'Current retailer searches worth checking'}</h2>\n"
         f"{sections}\n"
         "<h2>How to choose the right option</h2>\n"
@@ -1519,6 +1571,11 @@ def build_article(
         "<p><em>Prices, promotions, seller feedback and availability change regularly. Always check the live retailer page "
         "before purchasing.</em></p>"
     )
+    if market == "us":
+        measurement = str(load_json(ROOT / "automation" / "usa_conversion_pilot.json").get("ga4_measurement_id") or "")
+        content = (f'<div data-wb-article="{html.escape(slug, quote=True)}" '
+                   f'data-wb-experiment="{EXPERIMENT}">{content}</div>'
+                   + tracking_script(slug, measurement))
 
     return {
         "slug": slug,
@@ -1562,7 +1619,7 @@ def build_article(
             "editorial_method": "retailer-data-plus-quality-filters",
         },
         "_monetisation": {
-            "version": "affiliate-conversion-v2",
+            "version": EXPERIMENT if market == "us" else "affiliate-conversion-v2",
             "primary_goal": "qualified-affiliate-click",
             "networks": ["eBay", "Amazon"],
             "commercial_intent": "high",
