@@ -155,7 +155,7 @@ class BloggerClient:
     def get_post(self, post_id: str) -> dict:
         return (
             self.service.posts()
-            .get(blogId=self.blog_id, postId=post_id)
+            .get(blogId=self.blog_id, postId=post_id, view="ADMIN")
             .execute(num_retries=API_RETRIES)
         )
 

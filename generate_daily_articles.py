@@ -1005,6 +1005,9 @@ def listing_score(
 ) -> float | None:
     title_raw = " ".join(str(item.get("title", "")).split())
     title = title_raw.casefold()
+    condition = str(item.get("condition", "")).casefold()
+    if "refurbished" in query.casefold() and "refurbished" not in condition:
+        return None
 
     if _implausible_marketplace_title(title_raw):
         return None

@@ -52,3 +52,18 @@ def test_generic_listing_does_not_claim_an_unverified_amazon_price(monkeypatch):
     daily.add_amazon_prices([item], "uk", "air fryer")
 
     assert "_amazon_offer" not in item
+
+
+def test_refurbished_query_requires_verified_refurbished_condition():
+    item = {
+        "title": "Ninja AF400UK Large Capacity Air Fryer",
+        "condition": "Certified - Refurbished",
+        "price": {"value": "100", "currency": "GBP"},
+        "image": {"imageUrl": "https://example.com/product.jpg"},
+        "seller": {"feedbackPercentage": "99.9", "feedbackScore": 1000},
+    }
+    query = "refurbished large capacity air fryer"
+    assert daily.listing_score(item, 400, "GBP", query=query) is not None
+    for condition in ("New", "New other (see details)", "Used", ""):
+        item["condition"] = condition
+        assert daily.listing_score(item, 400, "GBP", query=query) is None
