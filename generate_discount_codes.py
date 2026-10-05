@@ -2,6 +2,10 @@ from __future__ import annotations
 
 import argparse
 import html
+import json
+from pathlib import Path
+from html.parser import HTMLParser
+import requests
 import os
 import re
 import smtplib
@@ -41,6 +45,7 @@ class DiscountOffer:
     restriction: str = ""
     start_date: str = ""
     end_date: str = ""
+    checked_date: str = ""
 
 
 def send_manual_package(market: str, content: str, offer_count: int) -> dict:
@@ -147,6 +152,7 @@ def render_page(offers: list[DiscountOffer], market: str, today: date) -> str:
             "next weekly update.</p></div>"
         )
 
+    intro += "<p>Retailer-published codes have been checked against the source shown, but have not been tested with every basket. Eligibility and exclusions apply. Some links may earn us commission at no extra cost to you.</p>"
     cards: list[str] = []
     for offer in offers:
         end = parse_feed_date(offer.end_date)
@@ -167,6 +173,8 @@ def render_page(offers: list[DiscountOffer], market: str, today: date) -> str:
             f'<p class="wb-code-source">Verified source: {html.escape(offer.source)}</p>'
             f"<p>{html.escape(offer.description)}</p>"
             f"{code_block}{restriction}"
+            + (f'<p class="wb-code-small">Retailer source checked: {html.escape(offer.checked_date)}. Not checkout-tested.</p>' if offer.checked_date else "")
+            +
             f'<p class="wb-code-small"><strong>Ends:</strong> {html.escape(expiry)}</p>'
             f'<p><a class="wb-code-button" href="{html.escape(offer.url, quote=True)}" '
             'rel="sponsored nofollow">View offer</a></p>'
@@ -274,10 +282,65 @@ def ebay_offers(market: str) -> list[DiscountOffer]:
     return candidates
 
 
+class _VisibleText(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.parts = []
+        self.hidden = 0
+
+    def handle_starttag(self, tag, attrs):
+        if tag in {"script", "style"}:
+            self.hidden += 1
+
+    def handle_endtag(self, tag):
+        if tag in {"script", "style"} and self.hidden:
+            self.hidden -= 1
+
+    def handle_data(self, data):
+        if not self.hidden:
+            self.parts.append(data)
+
+
+def retailer_offers(market: str) -> list[DiscountOffer]:
+    """Recheck curated public codes; unavailable sources expire after seven days."""
+    records = json.loads((Path(__file__).parent / "automation" / "retailer_codes.json").read_text(encoding="utf-8"))
+    today = datetime.now(timezone.utc).date()
+    pages = {}
+    found = []
+    for row in records:
+        if row["market"] != market:
+            continue
+        url = row["url"]
+        if url not in pages:
+            try:
+                response = requests.get(url, timeout=25, headers={"User-Agent": "WorthBuying offer verification"})
+                response.raise_for_status()
+                parser = _VisibleText()
+                parser.feed(response.text)
+                pages[url] = " ".join(" ".join(parser.parts).split()).casefold()
+            except requests.RequestException:
+                pages[url] = None
+        body = pages[url]
+        checked = date.fromisoformat(row["checked_date"])
+        if body is not None:
+            if not all(" ".join(text.split()).casefold() in body for text in row["required_text"]):
+                print(f"[retailer-code-removed] {market} {row['code']}: source no longer confirms offer")
+                continue
+            checked = today
+        elif not 0 <= (today - checked).days <= 7:
+            continue
+        found.append(DiscountOffer(
+            advertiser=row["advertiser"], description=row["description"],
+            url=url, code=row["code"], restriction=row["restriction"],
+            source="Official retailer offer page", checked_date=checked.isoformat(),
+        ))
+    return found
+
+
 def collect_offers(market: str) -> list[DiscountOffer]:
     collected: list[DiscountOffer] = []
     successful_sources = 0
-    for name, loader in (("Rakuten", rakuten_offers), ("eBay", ebay_offers)):
+    for name, loader in (("Retailer public codes", retailer_offers), ("Rakuten", rakuten_offers), ("eBay", ebay_offers)):
         try:
             found = loader(market)
         except Exception as exc:

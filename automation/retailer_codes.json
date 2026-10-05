@@ -1,0 +1,67 @@
+[
+  {
+    "market": "uk",
+    "advertiser": "Ryman",
+    "code": "FREEDELIVERY50",
+    "description": "Free standard home delivery on orders over £50.",
+    "url": "https://www.ryman.co.uk/discount-codes",
+    "restriction": "UK home delivery; spend over £50. One voucher per order. Delivery exclusions may apply.",
+    "required_text": [
+      "Free Standard Delivery over £50",
+      "FREEDELIVERY50"
+    ],
+    "checked_date": "2026-10-05"
+  },
+  {
+    "market": "uk",
+    "advertiser": "iHerb",
+    "code": "NEW20",
+    "description": "20% off your first eligible order.",
+    "url": "https://uk.iherb.com/info/sales-and-offers",
+    "restriction": "New UK customers only. Exclusions apply; cannot be combined with other offers. Limited-time offer.",
+    "required_text": [
+      "Get 20% Off Your First Order",
+      "NEW20"
+    ],
+    "checked_date": "2026-10-05"
+  },
+  {
+    "market": "uk",
+    "advertiser": "iHerb",
+    "code": "GOLDGB",
+    "description": "10% off eligible orders over £50.",
+    "url": "https://uk.iherb.com/info/sales-and-offers",
+    "restriction": "Order value must exceed £50. Maximum discount US$100 equivalent; exclusions and other limitations apply. Check eligibility at checkout.",
+    "required_text": [
+      "Save 10% off orders over £50",
+      "GOLDGB"
+    ],
+    "checked_date": "2026-10-05"
+  },
+  {
+    "market": "us",
+    "advertiser": "iHerb",
+    "code": "NEW25",
+    "description": "25% off your first eligible order.",
+    "url": "https://www.iherb.com/info/sales-and-offers",
+    "restriction": "New US customers only. Exclusions apply; cannot be combined with other offers. Limited-time offer.",
+    "required_text": [
+      "Get 25% Off Your First Order",
+      "NEW25"
+    ],
+    "checked_date": "2026-10-05"
+  },
+  {
+    "market": "us",
+    "advertiser": "iHerb",
+    "code": "GOLDUS",
+    "description": "10% off eligible orders over $80.",
+    "url": "https://www.iherb.com/info/sales-and-offers",
+    "restriction": "US order value must exceed $80. Maximum discount $100; exclusions and other limitations apply. Check eligibility at checkout.",
+    "required_text": [
+      "Save 10% off orders over $80",
+      "GOLDUS"
+    ],
+    "checked_date": "2026-10-05"
+  }
+]
