@@ -19,7 +19,7 @@ permissions:
   actions: write
 
 concurrency:
-  group: worth-buying-repo-writes
+  group: worth-buying-rakuten-writes
   queue: max
   cancel-in-progress: false
 
