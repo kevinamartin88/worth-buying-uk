@@ -324,8 +324,16 @@ def _article_style_version(article: dict) -> str:
     retailer = _featured_retailer(article)
     if retailer.casefold() == "choice furniture superstore":
         # Regenerate the already-published image that used Rakuten's shortened name.
-        return STYLE_VERSION + "+choice-furniture-name-fit-v1"
-    return STYLE_VERSION + ("+retailer-logo-v2" if retailer else "")
+        version = STYLE_VERSION + "+choice-furniture-name-fit-v1"
+    else:
+        version = STYLE_VERSION + ("+retailer-logo-v2" if retailer else "")
+
+    revision = re.sub(
+        r"[^a-z0-9._-]+",
+        "-",
+        str(article.get("hero_visual_revision") or "").strip().casefold(),
+    ).strip("-")
+    return version + (f"+{revision}" if revision else "")
 
 
 def _style_marker(output: Path) -> Path:
@@ -348,6 +356,17 @@ def _write_style_marker(output: Path, article: dict) -> None:
 
 def _visual_direction(article: dict) -> str:
     haystack = _topic_haystack(article)
+
+    # General buying-advice articles need an abstract shopping decision scene,
+    # not literal interpretations of the word "shop" as a fashion store.
+    if _has_any(haystack, "savvy buyer", "buying advice", "consumer tips"):
+        return (
+            "Create a clean consumer price-comparison editorial scene on a modern desk: a generic "
+            "laptop showing an unreadable comparison-table layout, a calculator, a paper receipt, "
+            "two or three plain unbranded product boxes and small blank price-tag shapes. Keep the "
+            "scene realistic, calm and useful. Do not show people, faces, human figures, mannequins, "
+            "clothing racks, fashion stores or fashion imagery. Do not include readable text."
+        )
 
     # Motoring
     if _has_any(haystack, "garage tools", "workshop equipment", "socket set", "tool chest", "tyre inflator"):
@@ -588,7 +607,7 @@ def build_prompt(article: dict, market: str) -> str:
 def negative_prompt() -> str:
     return (
         "text, words, prices, sale badges, logos, trademarks, watermarks, brand names, QR codes, "
-        "screenshots, distorted lettering, malformed products, impossible geometry, extra limbs, "
+        "screenshots, distorted lettering, malformed products, impossible geometry, mannequins, extra limbs, "
         "extra fingers, duplicate objects, low resolution, blurry, oversaturated, cartoon, CGI, "
         "plastic-looking materials"
     )
