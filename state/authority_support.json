@@ -1,0 +1,22 @@
+{
+  "uk": {
+    "action": "created",
+    "authority_cluster": "Kitchen & Small Appliances",
+    "parent_topic": "large-capacity-air-fryers",
+    "selection_basis": "gsc-opportunity-or-authority-rotation",
+    "slug": "best-refurbished-large-capacity-air-fryers-worth-buying-uk",
+    "support_angle": "refurbished",
+    "title": "Best Refurbished Large Capacity Air Fryers Worth Buying in the UK (2026)",
+    "week": "2026-W41"
+  },
+  "us": {
+    "action": "created",
+    "authority_cluster": "Cleaning & Home Climate",
+    "parent_topic": "storage-bins",
+    "selection_basis": "gsc-opportunity-or-authority-rotation",
+    "slug": "best-refurbished-storage-bins-worth-buying-us",
+    "support_angle": "refurbished",
+    "title": "Best Refurbished Storage Bins & Organizers Worth Buying in the USA (2026)",
+    "week": "2026-W41"
+  }
+}
