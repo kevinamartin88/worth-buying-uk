@@ -11,7 +11,7 @@ _PARAGRAPH = re.compile(r"<p\b[^>]*>.*?</p>\s*", re.IGNORECASE | re.DOTALL)
 
 
 def clean_article_disclosures(content_html: str) -> str:
-    """Keep one clear disclosure at the top without deleting editorial copy."""
+    """Keep one disclosure; Savvy Buyer advice uses its explicit footer marker."""
     def remove_duplicate(match: re.Match) -> str:
         paragraph = match.group(0)
         text = re.sub(r"<[^>]+>", "", paragraph).strip().casefold()
@@ -22,4 +22,7 @@ def clean_article_disclosures(content_html: str) -> str:
             return ""
         return paragraph
 
-    return DISCLOSURE + _PARAGRAPH.sub(remove_duplicate, content_html).lstrip()
+    cleaned = _PARAGRAPH.sub(remove_duplicate, content_html).strip()
+    if "<!-- wb-savvy-disclosure: footer -->" in content_html:
+        return cleaned + "\n" + DISCLOSURE
+    return DISCLOSURE + cleaned
