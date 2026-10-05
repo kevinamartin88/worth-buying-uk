@@ -1,0 +1,10 @@
+name = "bedfordshire-seo-edge"
+main = "cloudflare/bedfordshire-seo-edge.js"
+compatibility_date = "2026-10-05"
+
+routes = [
+  { pattern = "bedfordthemeparkstays.com/*", zone_name = "bedfordthemeparkstays.com" },
+  { pattern = "bedfordstayfinder.com/*", zone_name = "bedfordstayfinder.com" },
+  { pattern = "stayinbedfordshire.com/*", zone_name = "stayinbedfordshire.com" },
+  { pattern = "staycloseto.com/*", zone_name = "staycloseto.com" }
+]
