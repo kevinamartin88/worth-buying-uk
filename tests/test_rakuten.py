@@ -3,7 +3,7 @@ from __future__ import annotations
 import requests
 import pytest
 
-from src.rakuten import RakutenClient
+from src.rakuten import RakutenClient, RakutenProduct
 
 
 class FakeResponse:
@@ -148,3 +148,122 @@ def test_coupon_feed_rejects_untrusted_links_and_invalid_network():
     assert client.coupons(network=3) == []
     with pytest.raises(ValueError, match="network"):
         client.coupons(network=2)
+
+
+class DestinationResponse(FakeResponse):
+    def __init__(
+        self,
+        body: str,
+        final_url: str,
+        status: int = 200,
+        content_type: str = "text/html; charset=utf-8",
+    ):
+        super().__init__(body=body, status=status)
+        self.url = final_url
+        self.headers = {"Content-Type": content_type}
+        self.text = body
+
+
+class DestinationSession:
+    def __init__(self, response: DestinationResponse):
+        self.response = response
+        self.calls = []
+
+    def get(self, url, **kwargs):
+        self.calls.append(("GET", url, kwargs))
+        return self.response
+
+
+def rakuten_product(name: str, destination: str) -> RakutenProduct:
+    from urllib.parse import quote
+
+    return RakutenProduct(
+        name=name,
+        merchant="Sharper Image",
+        url=(
+            "https://click.linksynergy.com/link?id=test&type=15&murl="
+            + quote(destination, safe="")
+        ),
+        price="79.99",
+        currency="USD",
+    )
+
+
+def test_validates_matching_retailer_product_page_without_clicking_affiliate_link():
+    destination = "https://sharperimage.com/products/star-wars-5-quart-slow-cooker"
+    response = DestinationResponse(
+        "<html><head><title>Star Wars 5-Quart Slow Cooker | Sharper Image</title></head>"
+        "<body><h1>Star Wars 5-Quart Slow Cooker</h1><p>5-quart slow cooker.</p></body></html>",
+        destination,
+    )
+    session = DestinationSession(response)
+    client = RakutenClient("id", "secret", "account", "USD", session=session)
+
+    ok, reason, final_url = client.validate_product_destination(
+        rakuten_product("Star Wars 5-Quart Slow Cooker", destination)
+    )
+
+    assert ok is True
+    assert reason == "validated retailer product page"
+    assert final_url == destination
+    assert session.calls[0][1] == destination
+    assert "click.linksynergy.com" not in session.calls[0][1]
+
+
+def test_rejects_soft_404_even_when_http_status_is_200():
+    destination = "https://sharperimage.com/products/mickey-mouse-and-minnie-mouse-5-quart-slow-cooker"
+    response = DestinationResponse(
+        "<html><head><title>Page Not Found | Sharper Image</title></head>"
+        "<body>The page you requested could not be found.</body></html>",
+        "https://sharperimage.com/404",
+    )
+    client = RakutenClient("id", "secret", "account", "USD", session=DestinationSession(response))
+
+    ok, reason, _ = client.validate_product_destination(
+        rakuten_product("Mickey Mouse and Minnie Mouse 5-Quart Slow Cooker", destination)
+    )
+
+    assert ok is False
+    assert "generic or error page" in reason or "soft 404" in reason
+
+
+def test_rejects_page_that_does_not_match_feed_product_name():
+    destination = "https://sharperimage.com/products/star-wars-5-quart-slow-cooker"
+    response = DestinationResponse(
+        "<html><head><title>Sharper Image | Innovative Gifts</title></head>"
+        "<body><h1>Best Sellers</h1><p>Massage chairs and travel accessories.</p></body></html>",
+        destination,
+    )
+    client = RakutenClient("id", "secret", "account", "USD", session=DestinationSession(response))
+
+    ok, reason, _ = client.validate_product_destination(
+        rakuten_product("Star Wars 5-Quart Slow Cooker", destination)
+    )
+
+    assert ok is False
+    assert "does not match product title" in reason
+
+
+def test_rejects_affiliate_link_without_inspectable_product_destination():
+    product = RakutenProduct(
+        name="Example Product",
+        merchant="Example",
+        url="https://click.linksynergy.com/deeplink?id=abc&mid=123",
+        price="10",
+        currency="USD",
+    )
+    client = RakutenClient(
+        "id",
+        "secret",
+        "account",
+        "USD",
+        session=DestinationSession(
+            DestinationResponse("<html></html>", "https://example.com/product")
+        ),
+    )
+
+    ok, reason, final_url = client.validate_product_destination(product)
+
+    assert ok is False
+    assert "no inspectable retailer murl" in reason
+    assert final_url == ""
