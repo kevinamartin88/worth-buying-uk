@@ -1,18 +1,10 @@
 {
   "uk": {
-    "date": "2026-10-05",
-    "merchants": [
-      "Choice Furniture Superstore"
-    ],
-    "offer_count": 5,
     "recent_topics": [
       "dining-tables",
       "coffee-tables",
-      "bed-frames",
-      "wardrobes"
-    ],
-    "slug": "approved-retailer-wardrobes-uk-2026-10-05",
-    "topic": "wardrobes"
+      "bed-frames"
+    ]
   },
   "us": {
     "date": "2026-10-05",
