@@ -6,4 +6,6 @@ google-auth-oauthlib>=1.2,<2
 Pillow>=10,<12
 CairoSVG>=2.7,<3
 pytest>=8,<9
+matplotlib>=3.9,<4
 atproto==0.0.72
+

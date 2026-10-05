@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 
 from src import site_pages
 
@@ -90,6 +92,7 @@ def test_price_watch_requires_repeat_observations(monkeypatch, tmp_path):
     articles.mkdir()
     pages = tmp_path / "pages.json"
 
+    today = datetime.now(ZoneInfo("Europe/London")).date()
     history.write_text(
         json.dumps(
             {
@@ -97,9 +100,9 @@ def test_price_watch_requires_repeat_observations(monkeypatch, tmp_path):
                     "title": "Example Product",
                     "article_slug": "best-example",
                     "observations": [
-                        {"price": 100, "currency": "GBP"},
-                        {"price": 100, "currency": "GBP"},
-                        {"price": 80, "currency": "GBP"},
+                        {"date": (today - timedelta(days=2)).isoformat(), "price": 100, "currency": "GBP"},
+                        {"date": (today - timedelta(days=1)).isoformat(), "price": 100, "currency": "GBP"},
+                        {"date": today.isoformat(), "price": 80, "currency": "GBP"},
                     ],
                 }
             }
@@ -141,3 +144,4 @@ def test_price_watch_requires_repeat_observations(monkeypatch, tmp_path):
 def test_cluster_page_key_matches_authority_state_key():
     page = site_pages.cluster_page("Cleaning & Home Climate", [], "uk")
     assert page["key"] == "cluster-cleaning-and-home-climate"
+

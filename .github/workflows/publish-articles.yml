@@ -18,6 +18,9 @@ on:
       - "publish_articles.py"
       - "publish_site_pages.py"
       - "src/site_pages.py"
+      - "src/article_copy.py"
+      - "src/price_charts.py"
+      - "generate_price_charts.py"
       - "src/blogger.py"
       - "generate_ai_visuals.py"
       - "src/ai_visuals.py"
@@ -163,6 +166,20 @@ jobs:
           SMTP_APP_PASSWORD: ${{ secrets.SMTP_APP_PASSWORD }}
           BLOGGER_UK_EMAIL_POST_ADDRESS: ${{ secrets.BLOGGER_UK_EMAIL_POST_ADDRESS }}
         run: python publish_articles.py
+      - name: Prepare observed price-history charts
+        env:
+          PYTHONPATH: .
+        run: |
+          python generate_price_charts.py --market uk
+          git add assets/price-history/uk
+          if ! git diff --cached --quiet; then
+            git config user.name "worth-buying-price-charts-bot"
+            git config user.email "worth-buying-price-charts-bot@users.noreply.github.com"
+            git commit -m "Refresh UK observed price charts"
+            git pull --rebase origin main
+            git push
+          fi
+
       - name: Refresh UK authority hub pages
         if: steps.blogger_preflight.outcome == 'success'
         continue-on-error: true
@@ -284,3 +301,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run publish-articles-us.yml --ref main
+

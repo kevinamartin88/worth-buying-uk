@@ -12,6 +12,7 @@ from urllib.parse import quote_plus
 
 from src.amazon_creators import AmazonCreatorsClient
 from src.ebay import EbayClient
+from src.price_tracking import refresh_tracked_prices
 from src.google_trends import rank_topics_by_trends, trend_keyword_for_title
 from src.google_shopping_trends import rank_topics_by_google_shopping
 
@@ -1101,6 +1102,8 @@ def _record_price_history(items: list[dict], market: str, article_slug: str) -> 
         )
         entry["title"] = str(item.get("title") or entry.get("title") or "")
         entry["article_slug"] = article_slug
+        entry["tracking_status"] = "active"
+        entry["last_attempt_date"] = today
         observations = entry.setdefault("observations", [])
 
         # One observation per listing/day is enough for editorial price history
@@ -1621,6 +1624,8 @@ def main() -> None:
             )
             continue
 
+        refresh_tracked_prices(PRICE_HISTORY_PATH, market, EbayClient.for_market(market))
+
         article_dir = ROOT / ("articles" if market == "uk" else "articles-us")
         article_dir.mkdir(parents=True, exist_ok=True)
 
@@ -1652,6 +1657,8 @@ def main() -> None:
             "google_query": (trend_signal or {}).get("query"),
             "google_score": (trend_signal or {}).get("score"),
             "google_source": (trend_signal or {}).get("source"),
+            "google_cached": bool((trend_signal or {}).get("cached")),
+            "google_observed_at": (trend_signal or {}).get("observed_at"),
             "shopping_current": (trend_signal or {}).get("shopping_current"),
             "shopping_momentum": (trend_signal or {}).get("shopping_momentum"),
             "shopping_relative_to_anchor": (trend_signal or {}).get("shopping_relative_to_anchor"),
@@ -1666,7 +1673,9 @@ def main() -> None:
                 else None
             ),
             "selection_basis": (
-                "google-shopping-trends"
+                "google-shopping-trends-cache"
+                if (trend_signal or {}).get("cached")
+                else "google-shopping-trends"
                 if (trend_signal or {}).get("source") == "google-trends-google-shopping"
                 else "google-trending-now"
                 if trend_signal
@@ -1692,3 +1701,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

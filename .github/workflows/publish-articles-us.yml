@@ -12,6 +12,9 @@ on:
       - "publish_articles_us.py"
       - "publish_site_pages.py"
       - "src/site_pages.py"
+      - "src/article_copy.py"
+      - "src/price_charts.py"
+      - "generate_price_charts.py"
       - "src/blogger.py"
       - "generate_ai_visuals.py"
       - "src/ai_visuals.py"
@@ -156,6 +159,20 @@ jobs:
           SMTP_APP_PASSWORD: ${{ secrets.SMTP_APP_PASSWORD }}
           BLOGGER_US_EMAIL_POST_ADDRESS: ${{ secrets.BLOGGER_US_EMAIL_POST_ADDRESS }}
         run: python publish_articles_us.py
+      - name: Prepare observed price-history charts
+        env:
+          PYTHONPATH: .
+        run: |
+          python generate_price_charts.py --market us
+          git add assets/price-history/us
+          if ! git diff --cached --quiet; then
+            git config user.name "worth-buying-price-charts-bot"
+            git config user.email "worth-buying-price-charts-bot@users.noreply.github.com"
+            git commit -m "Refresh USA observed price charts"
+            git pull --rebase origin main
+            git push
+          fi
+
       - name: Refresh USA authority hub pages
         if: steps.blogger_preflight.outcome == 'success'
         continue-on-error: true
@@ -271,3 +288,4 @@ jobs:
 
           echo "Could not save USA publication state after 3 attempts."
           exit 1
+
