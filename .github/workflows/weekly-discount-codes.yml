@@ -1,6 +1,12 @@
 name: Weekly discount codes pages
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'automation/retailer_codes.json'
+      - 'generate_discount_codes.py'
+      - '.github/workflows/weekly-discount-codes.yml'
   workflow_dispatch:
   schedule:
     - cron: "30 6 * * 5"
