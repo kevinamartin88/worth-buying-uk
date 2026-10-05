@@ -67,7 +67,7 @@
     "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/uk/best-air-purifiers-worth-buying-uk.jpg",
     "image_required": true,
     "post_id": "5567880193262241331",
-    "publish_fingerprint": "c6f32c425e89b5986fd11882c6dacaab118c7c63ba9e46b49d4fa64f8c1a8e35",
+    "publish_fingerprint": "c4b9233de03fd414748531c91c85d99a201aedbd7a11816929461b61ad9bdac6",
     "source_file": "best-air-purifiers-worth-buying-uk.json",
     "source_sha": "2026-10-05-air-purifiers-uk-daily-v6",
     "status": "published",
@@ -273,6 +273,17 @@
     "status": "published",
     "title": "Best Refurbished Laptops to Buy in the UK (2026)",
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-refurbished-laptops-to-buy-in-uk_0449327719.html"
+  },
+  "best-refurbished-large-capacity-air-fryers-worth-buying-uk": {
+    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/uk/best-refurbished-large-capacity-air-fryers-worth-buying-uk.jpg",
+    "image_required": true,
+    "post_id": "2154081558303478653",
+    "publish_fingerprint": "032e2b56b676435024e2fea4dd0c3ff9a5ae9e5bacdc7a2c69d3d226ee142bdd",
+    "source_file": "best-refurbished-large-capacity-air-fryers-worth-buying-uk.json",
+    "source_sha": "2026-10-05-refurbished-large-capacity-air-fryers-uk-daily-v6",
+    "status": "published",
+    "title": "Best Refurbished Large Capacity Air Fryers Worth Buying in the UK (2026)",
+    "url": "https://www.worthbuyinguk.co.uk/2026/10/best-refurbished-large-capacity-air.html"
   },
   "best-refurbished-smartphones-uk-2026": {
     "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/uk/best-refurbished-smartphones-uk-2026.jpg",
