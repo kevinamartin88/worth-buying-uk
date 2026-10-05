@@ -224,8 +224,10 @@ def test_editorial_trust_box_is_transparent(monkeypatch):
         lambda market, key: "https://example.com/methodology",
     )
     rendered = daily.editorial_trust_html("uk", "4 October 2026")
-    assert "Worth Buying Editorial Team" in rendered
+    assert "How we choose our picks:" in rendered
     assert "data-led comparisons" in rendered
-    assert "hands-on laboratory testing" in rendered
+    assert "rather than market hype" in rendered
     assert "https://example.com/methodology" in rendered
-    assert "affiliate links" in rendered
+    assert "Affiliate disclosure:" in rendered
+    assert "<strong>at no extra cost to you</strong>" in rendered
+    assert "not on which retailer pays the highest commission" in rendered
