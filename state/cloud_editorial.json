@@ -1,0 +1,560 @@
+{
+  "growth": {
+    "uk": {
+      "best-air-fryers-worth-buying-uk-2026": {
+        "url": "https://www.worthbuyinguk.co.uk/2026/09/best-air-fryers-worth-buying-in-uk-2026.html",
+        "title": "Best Air Fryers Worth Buying in the UK (2026)",
+        "source_file": "best-air-fryers-worth-buying-uk-2026.json",
+        "updated": "2026-10-05",
+        "status": "source-updated-awaiting-publisher"
+      },
+      "best-air-purifiers-worth-buying-uk": {
+        "url": "https://www.worthbuyinguk.co.uk/2026/10/best-air-purifiers-worth-buying-in-uk.html",
+        "title": "Best Air Purifiers Worth Buying in the UK (2026)",
+        "source_file": "best-air-purifiers-worth-buying-uk.json",
+        "updated": "2026-10-05",
+        "status": "source-updated-awaiting-publisher"
+      },
+      "best-robot-vacuum-cleaners-worth-buying-uk-2026": {
+        "url": "https://www.worthbuyinguk.co.uk/2026/09/best-robot-vacuum-cleaners-worth-buying.html",
+        "title": "Best Robot Vacuum Cleaners Worth Buying in the UK (2026)",
+        "source_file": "best-robot-vacuum-cleaners-worth-buying-uk-2026.json",
+        "updated": "2026-10-05",
+        "status": "source-updated-awaiting-publisher"
+      }
+    },
+    "us": {
+      "best-air-fryers-worth-buying-us-2026": {
+        "url": "https://www.worthbuyingusa.com/2026/09/best-air-fryers-worth-buying-in-usa-2026.html",
+        "title": "Best Air Fryers Worth Buying in the USA (2026)",
+        "source_file": "best-air-fryers-worth-buying-us-2026.json",
+        "updated": "2026-10-05",
+        "status": "source-updated-awaiting-publisher"
+      },
+      "approved-retailer-air-purifiers-us-2026-10-03": {
+        "url": "https://www.worthbuyingusa.com/2026/10/current-air-purifiers-offers-from.html",
+        "title": "Current Air Purifiers Offers from Approved USA Retailers (October 2026)",
+        "source_file": "approved-retailer-air-purifiers-us-2026-10-03.json",
+        "updated": "2026-10-05",
+        "status": "source-updated-awaiting-publisher"
+      },
+      "best-robot-vacuum-cleaners-worth-buying-us-2026": {
+        "url": "https://www.worthbuyingusa.com/2026/09/best-robot-vacuum-cleaners-worth-buying.html",
+        "title": "Best Robot Vacuum Cleaners Worth Buying in the USA (2026)",
+        "source_file": "best-robot-vacuum-cleaners-worth-buying-us-2026.json",
+        "updated": "2026-10-05",
+        "status": "source-updated-awaiting-publisher"
+      }
+    }
+  },
+  "search_metrics": {
+    "uk": {
+      "baseline": {
+        "start": "2026-09-19",
+        "end": "2026-10-02",
+        "source": "Google Search Console web search",
+        "clicks": 0,
+        "impressions": 1,
+        "rows": [
+          {
+            "keys": [
+              "2026-09-20"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-21"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-22"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-23"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-24"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-25"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-26"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-27"
+            ],
+            "clicks": 0,
+            "impressions": 1,
+            "ctr": 0,
+            "position": 1
+          },
+          {
+            "keys": [
+              "2026-09-28"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-29"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-30"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-10-01"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-10-02"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          }
+        ]
+      },
+      "latest": {
+        "start": "2026-09-19",
+        "end": "2026-10-02",
+        "source": "Google Search Console web search",
+        "clicks": 0,
+        "impressions": 1,
+        "rows": [
+          {
+            "keys": [
+              "2026-09-20"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-21"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-22"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-23"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-24"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-25"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-26"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-27"
+            ],
+            "clicks": 0,
+            "impressions": 1,
+            "ctr": 0,
+            "position": 1
+          },
+          {
+            "keys": [
+              "2026-09-28"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-29"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-30"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-10-01"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-10-02"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          }
+        ]
+      }
+    },
+    "us": {
+      "baseline": {
+        "start": "2026-09-19",
+        "end": "2026-10-02",
+        "source": "Google Search Console web search",
+        "clicks": 0,
+        "impressions": 0,
+        "rows": [
+          {
+            "keys": [
+              "2026-09-20"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-21"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-22"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-23"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-24"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-25"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-26"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-27"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-28"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-29"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-30"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-10-01"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-10-02"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          }
+        ]
+      },
+      "latest": {
+        "start": "2026-09-19",
+        "end": "2026-10-02",
+        "source": "Google Search Console web search",
+        "clicks": 0,
+        "impressions": 0,
+        "rows": [
+          {
+            "keys": [
+              "2026-09-20"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-21"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-22"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-23"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-24"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-25"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-26"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-27"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-28"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-29"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-09-30"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-10-01"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          },
+          {
+            "keys": [
+              "2026-10-02"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
+          }
+        ]
+      }
+    }
+  }
+}
