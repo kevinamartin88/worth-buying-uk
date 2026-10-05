@@ -1,20 +1,22 @@
 {
   "uk": {
-    "date": "2026-10-03",
+    "date": "2026-10-05",
     "dates": [
-      "2026-10-03"
+      "2026-10-03",
+      "2026-10-05"
     ],
-    "slug": "savvy-buyer-saturday-specifications-final-checklist-uk-2026-10-03",
-    "title": "Savvy Buyer Saturday: The Final Five-Minute Checklist for Comparing Specifications That Matter (UK)",
-    "week": "2026-W40"
+    "slug": "savvy-buyer-monday-price-comparison-before-you-shop-uk-2026-10-05",
+    "title": "Savvy Buyer Monday: Before You Shop for Building A Fair Price Comparison (UK)",
+    "week": "2026-W41"
   },
   "us": {
-    "date": "2026-10-03",
+    "date": "2026-10-05",
     "dates": [
-      "2026-10-03"
+      "2026-10-03",
+      "2026-10-05"
     ],
-    "slug": "savvy-buyer-saturday-specifications-final-checklist-us-2026-10-03",
-    "title": "Savvy Buyer Saturday: The Final Five-Minute Checklist for Comparing Specifications That Matter (US)",
-    "week": "2026-W40"
+    "slug": "savvy-buyer-monday-price-comparison-before-you-shop-us-2026-10-05",
+    "title": "Savvy Buyer Monday: Before You Shop for Building A Fair Price Comparison (US)",
+    "week": "2026-W41"
   }
 }
