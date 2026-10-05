@@ -1461,6 +1461,12 @@ def evergreen_article_slug(topic_key: str, market: str) -> str:
         slug = str(article.get("slug") or path.stem).strip()
         if slug:
             return slug
+    # Early manually published guides predate _generator metadata. Their exact
+    # topic-shaped filenames still identify the existing permanent article.
+    for path in sorted(article_dir.glob(f"best-{topic_key}-worth-buying-{market}-*.json"), reverse=True):
+        article = load_json(path)
+        if not article.get("_generator") and article.get("slug") == path.stem:
+            return path.stem
     return f"best-{topic_key}-worth-buying-{market}"
 
 

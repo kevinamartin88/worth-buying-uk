@@ -13,7 +13,8 @@ def main():
     report = {"experiment": EXPERIMENT, "generated_at": now.isoformat(), "articles": []}
     pending = []
     topics = {topic[0]: topic for topic in daily.TOPICS}
-    # Prepare all five before writing any article: no partial pilot publication.
+    # Prepare all five before writing any article, including legacy manual guides
+    # whose permanent slugs are resolved from their existing filenames.
     for key in PILOT_TOPICS:
         article = daily.build_article(topics[key], "us", now.year)
         if not article["_generator"]["live_ebay_picks"]:

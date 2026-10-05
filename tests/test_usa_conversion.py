@@ -150,6 +150,13 @@ def test_tracking_does_not_install_an_unknown_property_or_block_navigation():
         tracking_script('guide', '<script>')
 
 
+def test_legacy_manual_guide_keeps_its_existing_slug(monkeypatch, tmp_path):
+    slug = 'best-air-fryers-worth-buying-us-2026'
+    (tmp_path / f'{slug}.json').write_text(json.dumps({'slug': slug, 'title': 'Best Air Fryers'}))
+    monkeypatch.setattr(daily, 'published_article_dir', lambda market: tmp_path)
+    assert daily.evergreen_article_slug('air-fryers', 'us') == slug
+
+
 def test_pilot_workflow_explicitly_hands_off_to_usa_publisher():
     root = Path(__file__).resolve().parents[1]
     wf = yaml.safe_load((root / '.github/workflows/usa-conversion-pilot.yml').read_text())

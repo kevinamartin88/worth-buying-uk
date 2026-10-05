@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - 'refresh_usa_conversion_pilot.py'
+      - 'generate_daily_articles.py'
       - 'src/usa_conversion.py'
       - 'automation/usa_conversion_pilot.json'
       - '.github/workflows/usa-conversion-pilot.yml'
