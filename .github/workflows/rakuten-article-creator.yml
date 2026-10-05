@@ -2,6 +2,13 @@ name: Separate Rakuten article creator
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "generate_rakuten_articles.py"
+      - "tests/test_rakuten_articles.py"
+      - "state/rakuten_article_generator.json"
   schedule:
     - cron: "15 8 * * *"
     # Backup run; the generator skips markets already completed for the day.
