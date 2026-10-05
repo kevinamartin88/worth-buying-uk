@@ -4,6 +4,9 @@ import html
 import re
 from pathlib import Path
 
+from PIL import Image
+from src.product_image_quality import prepare_product_images
+
 
 ROOT = Path(__file__).resolve().parents[1]
 RAW_AI_BASE = (
@@ -30,16 +33,31 @@ def hero_image_url(market: str, slug: str) -> str:
     return f"{RAW_AI_BASE}/{market}/{slug}.jpg"
 
 
+def validate_hero_file(path: Path) -> None:
+    """Reject broken or undersized banners before any Blogger write."""
+    try:
+        with Image.open(path) as image:
+            image.verify()
+        with Image.open(path) as image:
+            image.load()
+            width, height = image.size
+        if width < 900 or height < 450:
+            raise ValueError(f"{width}x{height}; need at least 900x450")
+    except (OSError, ValueError) as exc:
+        raise RuntimeError(f"Publish blocked: invalid hero image {path.name}: {exc}") from exc
+
+
 def require_hero_image(market: str, slug: str) -> str:
     """Return a required public article image, preferring the generated AI hero.
 
     This mirrors the proven email/manual route: use the wide AI hero when it
     exists, otherwise fall back to the Pinterest artwork. Publishing is blocked
-    only when neither image exists.
+    when neither image exists or the selected image is corrupt or undersized.
     """
     market = _validate_market(market)
     ai_path = hero_image_path(market, slug)
     if ai_path.is_file() and ai_path.stat().st_size > 0:
+        validate_hero_file(ai_path)
         return hero_image_url(market, slug)
 
     if market == "uk":
@@ -56,6 +74,7 @@ def require_hero_image(market: str, slug: str) -> str:
         )
 
     if fallback_path.is_file() and fallback_path.stat().st_size > 0:
+        validate_hero_file(fallback_path)
         return fallback_url
 
     raise RuntimeError(
@@ -83,7 +102,7 @@ def has_any_image(content: str) -> bool:
 
 def add_required_hero(content: str, market: str, slug: str, title: str) -> tuple[str, str]:
     markup, image_url = hero_image_html(market, slug, title)
-    content = str(content or "")
+    content = prepare_product_images(str(content or ""))
     if image_url in content:
         return content, image_url
     return markup + content, image_url
@@ -115,3 +134,5 @@ def verify_any_image(content: str, title: str) -> None:
         raise RuntimeError(
             f"Publish verification failed: Blogger stored '{title}' without any article image."
         )
+
+
