@@ -45,6 +45,73 @@ RETAILER_LOGO_ASSETS = {
     "sharper image": "assets/retailers/sharper-image.svg",
 }
 
+# Product-feed searches often return accessories whose titles happen to contain the
+# parent product name (for example "hanging rail for sliding wardrobe"). These
+# topic rules keep complete products separate from spares, refills and fittings.
+TOPIC_PRODUCT_RULES = {
+    "wardrobes": {
+        "required_any": ("wardrobe", "armoire"),
+        "exclude_any": (
+            "hanging rail", "clothes rail", "garment rail", "wardrobe rail",
+            "drawer insert", "shelf insert", "door track", "runner", "hinge",
+            "handle", "bracket", "fitting", "spare", "replacement", "accessory",
+            "organiser", "organizer",
+        ),
+        "min_price": 100.0,
+    },
+    "dining-tables": {
+        "required_any": ("dining table",),
+        "exclude_any": ("table leg", "table top only", "table cover", "protector", "extension leaf"),
+        "min_price": 100.0,
+    },
+    "coffee-tables": {
+        "required_any": ("coffee table",),
+        "exclude_any": ("table leg", "table top only", "glass top only", "table cover"),
+        "min_price": 40.0,
+    },
+    "bed-frames": {
+        "required_any": ("bed frame", "bedstead", "platform bed"),
+        "exclude_any": ("headboard", "replacement slat", "bed slat", "underbed drawer", "mattress"),
+        "min_price": 100.0,
+    },
+    "sideboards": {
+        "required_any": ("sideboard",),
+        "exclude_any": ("handle", "replacement shelf", "leg set", "spare"),
+        "min_price": 100.0,
+    },
+    "air-purifiers": {
+        "required_any": ("air purifier", "air cleaner"),
+        "exclude_any": ("filter", "refill", "replacement", "wire kit", "capsule"),
+    },
+    "coffee-machines": {
+        "required_any": ("coffee machine", "coffee maker", "espresso machine"),
+        "exclude_any": ("filter", "carafe", "capsule", "pod", "replacement", "accessory"),
+    },
+    "slow-cookers": {
+        "required_any": ("slow cooker", "crock pot", "crock-pot"),
+        "exclude_any": ("liner", "replacement lid", "replacement pot", "accessory"),
+    },
+}
+
+FURNITURE_CHECKS = [
+    "Measure the available space carefully and check the full product dimensions before ordering.",
+    "Check the construction materials, finish, assembly requirements and whether wall fixing or anchoring is recommended.",
+    "Confirm delivery access, included fittings, warranty and returns before committing to a bulky item.",
+    "Compare the delivered price with another retailer rather than relying on the headline price alone.",
+]
+TOPIC_CHECKS = {
+    "wardrobes": [
+        "Check the overall width, height and depth against the available space, skirting and ceiling height.",
+        "Confirm whether the doors are hinged or sliding and allow enough clearance for comfortable access.",
+        "Compare the internal layout, including hanging space, shelves and drawers, and check which fittings are included.",
+        "Check delivery access, assembly, wall-fixing guidance, materials, warranty and returns before ordering.",
+    ],
+    "dining-tables": FURNITURE_CHECKS,
+    "coffee-tables": FURNITURE_CHECKS,
+    "bed-frames": FURNITURE_CHECKS,
+    "sideboards": FURNITURE_CHECKS,
+}
+
 
 def load_state() -> dict:
     if not STATE_PATH.exists():
@@ -93,21 +160,67 @@ def candidate_topics(month: int, recent_topics: list[str], market: str = "") -> 
     return ordered
 
 
-def relevant_products(products: list[RakutenProduct], query: str) -> list[RakutenProduct]:
+def _numeric_price(raw: str) -> float | None:
+    match = re.search(r"\d[\d,]*(?:\.\d+)?", str(raw or ""))
+    if not match:
+        return None
+    try:
+        return float(match.group(0).replace(",", ""))
+    except ValueError:
+        return None
+
+
+def _passes_topic_rule(product: RakutenProduct, topic_key: str) -> bool:
+    rule = TOPIC_PRODUCT_RULES.get(topic_key)
+    if not rule:
+        return True
+
+    name = " ".join(product.name.casefold().split())
+    required = tuple(rule.get("required_any", ()))
+    excluded = tuple(rule.get("exclude_any", ()))
+    if required and not any(term in name for term in required):
+        return False
+    if excluded and any(term in name for term in excluded):
+        return False
+
+    minimum = rule.get("min_price")
+    price = _numeric_price(product.price)
+    if minimum is not None and price is not None and price < float(minimum):
+        return False
+    return True
+
+
+def relevant_products(
+    products: list[RakutenProduct],
+    query: str,
+    topic_key: str = "",
+) -> list[RakutenProduct]:
     tokens = {
         token.casefold()
         for token in re.findall(r"[A-Za-z0-9]+", query)
         if len(token) >= 3 and token.casefold() not in QUERY_STOPWORDS
     }
-    if not tokens:
-        return products
 
     matches: list[RakutenProduct] = []
     for product in products:
         name = product.name.casefold()
-        if any(token in name for token in tokens):
-            matches.append(product)
+        if tokens and not any(token in name for token in tokens):
+            continue
+        if not _passes_topic_rule(product, topic_key):
+            continue
+        matches.append(product)
     return matches
+
+
+def validate_offer_set(topic_key: str, products: list[RakutenProduct]) -> None:
+    if topic_key not in TOPIC_PRODUCT_RULES:
+        return
+    invalid = [product.name for product in products if not _passes_topic_rule(product, topic_key)]
+    if invalid:
+        raise ValueError(
+            f"Refusing to build {topic_key} roundup with off-topic/accessory products: "
+            + "; ".join(invalid)
+        )
 
 
 def prioritize_products(products: list[RakutenProduct], market: str) -> list[RakutenProduct]:
@@ -128,7 +241,7 @@ def find_offer_set(
     market: str = "",
 ) -> tuple[tuple | None, list[RakutenProduct]]:
     for topic in candidate_topics(month, recent_topics, market)[:MAX_SEARCHES_PER_MARKET]:
-        products = relevant_products(client.search(topic[2], limit=12), topic[2])
+        products = relevant_products(client.search(topic[2], limit=12), topic[2], topic[0])
         if len(products) >= MIN_PRODUCTS:
             return topic, prioritize_products(products, market)[:MAX_PRODUCTS]
     return None, []
@@ -167,11 +280,12 @@ def product_sections(products: list[RakutenProduct], market: str) -> str:
 
 def build_article(topic: tuple, products: list[RakutenProduct], market: str, now: datetime) -> dict:
     key, display, query, _max_uk, _max_us, category, kicker = topic
+    validate_offer_set(key, products)
     region = "UK" if market == "uk" else "USA"
     month_year = now.strftime("%B %Y")
     date_key = now.strftime("%Y-%m-%d")
     slug = f"approved-retailer-{key}-{market}-{date_key}"
-    checks = CATEGORY_CHECKS.get(category, CATEGORY_CHECKS["Home & Kitchen"])
+    checks = TOPIC_CHECKS.get(key, CATEGORY_CHECKS.get(category, CATEGORY_CHECKS["Home & Kitchen"]))
     check_html = "\n".join(f"<li>{html.escape(check)}</li>" for check in checks)
     merchant_names = sorted({retailer_display_name(product.merchant) for product in products})
     merchants = ", ".join(merchant_names)
@@ -206,7 +320,7 @@ def build_article(topic: tuple, products: list[RakutenProduct], market: str, now
 
     return {
         "slug": slug,
-        "source_sha": f"{date_key}-{key}-{market}-rakuten-v1",
+        "source_sha": f"{date_key}-{key}-{market}-rakuten-v2",
         "mode": "publish",
         "title": title,
         "primary_category": category,

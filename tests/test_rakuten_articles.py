@@ -172,3 +172,90 @@ def test_single_sharper_image_roundup_adds_title_image_branding():
     assert article["featured_retailer"] == "Sharper Image"
     assert article["retailer_logo_asset"] == "assets/retailers/sharper-image.svg"
     assert article["_generator"]["featured_retailer"] == "Sharper Image"
+
+def test_wardrobe_gate_rejects_hanging_rails_and_accessories():
+    feed = [
+        RakutenProduct(
+            name="Rauch Orange Compartment Hanging Rail 90cm For Sliding Wardrobe",
+            merchant="Choice Furniture Superstore",
+            url="https://click.linksynergy.com/deeplink?id=rail",
+            price="39.95",
+            currency="GBP",
+        ),
+        RakutenProduct(
+            name="Rauch 2 Door Sliding Wardrobe 180cm",
+            merchant="Choice Furniture Superstore",
+            url="https://click.linksynergy.com/deeplink?id=wardrobe1",
+            price="599.00",
+            currency="GBP",
+        ),
+        RakutenProduct(
+            name="Modern 3 Door Wardrobe with Mirror",
+            merchant="Choice Furniture Superstore",
+            url="https://click.linksynergy.com/deeplink?id=wardrobe2",
+            price="749.00",
+            currency="GBP",
+        ),
+        RakutenProduct(
+            name="Oak 4 Door Wardrobe",
+            merchant="Choice Furniture Superstore",
+            url="https://click.linksynergy.com/deeplink?id=wardrobe3",
+            price="899.00",
+            currency="GBP",
+        ),
+    ]
+
+    matches = generator.relevant_products(feed, "wardrobe", "wardrobes")
+
+    assert len(matches) == 3
+    assert all("hanging rail" not in product.name.casefold() for product in matches)
+
+
+def test_wardrobe_roundup_uses_furniture_checks_not_appliance_copy():
+    topic = next(topic for topic in generator.RAKUTEN_TOPICS if topic[0] == "wardrobes")
+    offers = [
+        RakutenProduct(
+            name=f"Modern {index + 2} Door Wardrobe",
+            merchant="Choice Furniture Superstore",
+            url=f"https://click.linksynergy.com/deeplink?id=wardrobe{index}",
+            price=f"{499 + index * 100}.00",
+            currency="GBP",
+        )
+        for index in range(3)
+    ]
+
+    article = generator.build_article(
+        topic,
+        offers,
+        "uk",
+        datetime(2026, 10, 5, tzinfo=timezone.utc),
+    )
+
+    content = article["content_html"].casefold()
+    assert "hanging space" in content
+    assert "power use" not in content
+    assert "consumables" not in content
+
+
+def test_air_purifier_gate_rejects_filters_and_refills():
+    feed = [
+        RakutenProduct(
+            name="HEPA Filter for Basement Air Purifier",
+            merchant="Sharper Image",
+            url="https://click.linksynergy.com/deeplink?id=filter",
+            price="39.99",
+            currency="USD",
+        ),
+        RakutenProduct(
+            name="High Performance Personal Air Purifier",
+            merchant="Sharper Image",
+            url="https://click.linksynergy.com/deeplink?id=purifier",
+            price="159.99",
+            currency="USD",
+        ),
+    ]
+
+    matches = generator.relevant_products(feed, "air purifier", "air-purifiers")
+
+    assert [product.name for product in matches] == ["High Performance Personal Air Purifier"]
+
