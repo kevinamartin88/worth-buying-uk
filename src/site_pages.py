@@ -315,4 +315,3 @@ def build_pages(market: str) -> list[dict]:
         rows = [row for row in catalog if row["cluster"] == cluster]
         pages.append(cluster_page(cluster, rows, market))
     return pages
-

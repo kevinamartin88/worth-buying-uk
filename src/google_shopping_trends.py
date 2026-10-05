@@ -242,4 +242,3 @@ def rank_topics_by_google_shopping(
         )
     )
     return ranked
-

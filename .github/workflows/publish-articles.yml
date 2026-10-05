@@ -301,4 +301,3 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run publish-articles-us.yml --ref main
-

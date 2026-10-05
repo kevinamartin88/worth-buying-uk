@@ -17,4 +17,3 @@ def test_editorial_and_retailer_links_are_preserved():
     )
     cleaned = clean_article_disclosures(content)
     assert content in cleaned
-

@@ -69,4 +69,3 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run publish-articles.yml --ref main -f chain_usa=true
-

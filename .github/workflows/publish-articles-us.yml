@@ -288,4 +288,3 @@ jobs:
 
           echo "Could not save USA publication state after 3 attempts."
           exit 1
-

@@ -8,4 +8,3 @@ CairoSVG>=2.7,<3
 pytest>=8,<9
 matplotlib>=3.9,<4
 atproto==0.0.72
-

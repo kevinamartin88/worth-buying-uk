@@ -23,4 +23,3 @@ def clean_article_disclosures(content_html: str) -> str:
         return paragraph
 
     return DISCLOSURE + _PARAGRAPH.sub(remove_duplicate, content_html).lstrip()
-
