@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import date, timedelta
+from src.article_copy import clean_article_disclosures
 
 from generate_weekly_savvy_articles import (
     build_article,
@@ -64,3 +65,17 @@ def test_other_weekdays_including_sunday_are_rejected() -> None:
             assert "Monday and Saturday" in str(exc)
         else:
             raise AssertionError(f"{unsupported_date:%A} generation should be rejected")
+
+
+def test_published_savvy_guides_keep_advice_first_and_one_footer_disclosure():
+    for market in ("uk", "us"):
+        for run_date in (date(2026, 10, 5), date(2026, 10, 10)):
+            article = build_article(market, run_date)
+            published = clean_article_disclosures(article["content_html"])
+            assert published.index("Before you buy") < published.index("This week's buying lesson")
+            assert published.index("Your five-minute checkout checklist") < published.index("About this guide")
+            assert published.index("About this guide") < published.index("Affiliate disclosure:")
+            assert published.count("Affiliate disclosure:") == 1
+            assert clean_article_disclosures(published) == published
+
+
