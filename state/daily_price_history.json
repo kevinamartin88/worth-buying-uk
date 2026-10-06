@@ -509,7 +509,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 40.84,
-        "ts": "2026-10-06T07:47:56.946467+01:00"
+        "ts": "2026-10-06T14:20:41.011108+01:00"
       }
     ],
     "title": "UTEN Air Fryer XXL 1700W 4.2QT/5.8QT/6.9QT Oven Hot Electric Air Fryer Cooker US",
@@ -537,7 +537,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 265.0,
-        "ts": "2026-10-06T07:47:42.365473+01:00"
+        "ts": "2026-10-06T14:20:25.930512+01:00"
       }
     ],
     "title": "Shark Ip3251 Cordless Vacuum Cleaner Powerdetect Clean/ Empty System Dark Gray",
@@ -551,7 +551,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 159.99,
-        "ts": "2026-10-06T07:47:56.946467+01:00"
+        "ts": "2026-10-06T14:20:41.011108+01:00"
       }
     ],
     "title": "Ninja AD300CO Foodi 6-in-1 10-qt. XL 2-Basket Air Fryer with DualZone Technology",
@@ -565,7 +565,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 67.96,
-        "ts": "2026-10-06T07:48:02.113204+01:00"
+        "ts": "2026-10-06T14:20:46.005915+01:00"
       }
     ],
     "title": "Cuisinart Single Serve 72-Ounce Coffee Maker - White (OpenBox)",
@@ -607,7 +607,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 79.59,
-        "ts": "2026-10-06T07:48:02.113204+01:00"
+        "ts": "2026-10-06T14:20:46.005915+01:00"
       }
     ],
     "title": "ecozy 4-in-1 Espresso Machine, Drip Coffee & 30s Cold Brew 36s Heat-Up Over Ice",
@@ -655,7 +655,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 70.09,
-        "ts": "2026-10-06T07:47:56.946467+01:00"
+        "ts": "2026-10-06T14:20:41.011108+01:00"
       }
     ],
     "title": "Whall Air Fryer Oven 12QT 12-in-1 Air Fryer Convection Oven NSE1201 - Silver",
@@ -711,7 +711,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 149.99,
-        "ts": "2026-10-06T07:47:42.365473+01:00"
+        "ts": "2026-10-06T14:20:25.930512+01:00"
       }
     ],
     "title": "Shark - Pet Cordless Stick Vacuum with XL Dust Cup, LED Headlights, Up to 40 ...",
@@ -725,7 +725,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 72.99,
-        "ts": "2026-10-06T07:47:47.187869+01:00"
+        "ts": "2026-10-06T14:20:30.796278+01:00"
       }
     ],
     "title": "MZ-V7S500 Samsung 970 EVO Plus Series 500GB M.2 2280 NVMe PCIe Internal SSD",
@@ -739,7 +739,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 39.99,
-        "ts": "2026-10-06T07:47:47.187869+01:00"
+        "ts": "2026-10-06T14:20:30.796278+01:00"
       }
     ],
     "title": "Samsung 860 EVO 250GB SSD MZ-76E250 2.5\" SATA III Solid State Drive",
@@ -759,7 +759,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 52.81,
-        "ts": "2026-10-06T07:47:52.294441+01:00"
+        "ts": "2026-10-06T14:20:36.051690+01:00"
       }
     ],
     "title": "Crock-Pot Design Series 7-Quart Cook & Carry Slow Cooker with Thermal Bag",
@@ -773,10 +773,38 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 75.0,
-        "ts": "2026-10-06T07:47:52.294441+01:00"
+        "ts": "2026-10-06T14:20:36.051690+01:00"
       }
     ],
     "title": "Toastmaster 4 QT Black Cauldron Slow Cooker Removable Crock Glass Lid Halloween",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|257583841598|0": {
+    "article_slug": "approved-retailer-slow-cookers-us-2026-10-05",
+    "last_attempt_date": "2026-10-06",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 130.22,
+        "ts": "2026-10-06T14:20:36.051690+01:00"
+      }
+    ],
+    "title": "06019 8-Quart Nomad Traveling Slow Cooker, Locking Lid, Dry Erase Board, Green/G",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|267301861600|0": {
+    "article_slug": "best-ssds-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-06",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 138.56,
+        "ts": "2026-10-06T14:20:30.796278+01:00"
+      }
+    ],
+    "title": "SanDisk Ultra 3D SSD 1TB, SDSSDH3 2.5\" SSD Drive SATA III 6GB/S (SDSSDH3-1T02)",
     "tracking_status": "active"
   },
   "daily|us|v1|267803498921|0": {
@@ -801,7 +829,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 75.95,
-        "ts": "2026-10-06T07:48:02.113204+01:00"
+        "ts": "2026-10-06T14:20:46.005915+01:00"
       }
     ],
     "title": "New Keurig K Supreme Single Serve Coffee Maker new and sealed  Free Shipping ",
@@ -815,7 +843,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 299.99,
-        "ts": "2026-10-06T07:47:42.365473+01:00"
+        "ts": "2026-10-06T14:20:25.930512+01:00"
       }
     ],
     "title": "Dyson Outsize Plus Extra Cordless Vacuum Cleaner | Nickel | Refurbished",
@@ -829,7 +857,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 364.99,
-        "ts": "2026-10-06T07:47:42.365473+01:00"
+        "ts": "2026-10-06T14:20:25.930512+01:00"
       }
     ],
     "title": "Dyson V11 Complete Cordless Vacuum Cleaner | Iron | Refurbished",
@@ -849,7 +877,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 42.99,
-        "ts": "2026-10-06T07:47:52.294441+01:00"
+        "ts": "2026-10-06T14:20:36.051690+01:00"
       }
     ],
     "title": "Bella - 6-qt. Programmable Slow Cooker & 2-qt. Slow Cooker Set - Oatmilk",
@@ -863,7 +891,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 115.4,
-        "ts": "2026-10-06T07:47:56.946467+01:00"
+        "ts": "2026-10-06T14:20:41.011108+01:00"
       }
     ],
     "title": "Kitchen Elite 26 Qt Air Fryer Oven KE-AFO-107-26 Stainless Steel",
@@ -911,6 +939,20 @@
     "title": "Toastmaster Halloween Cauldron 4 Qt Slow Cooker Black, SHIPS SAME DAY",
     "tracking_status": "active"
   },
+  "daily|us|v1|313969708276|0": {
+    "article_slug": "best-ssds-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-06",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 109.99,
+        "ts": "2026-10-06T14:20:30.796278+01:00"
+      }
+    ],
+    "title": "Netac 1TB SSD 2.5'' SATA III 6 Gb/s Internal Solid State Drive 500MB/s MAC/PC",
+    "tracking_status": "active"
+  },
   "daily|us|v1|314002724093|612681955175": {
     "article_slug": "best-ssds-worth-buying-us-2026",
     "last_attempt_date": "2026-10-06",
@@ -920,6 +962,20 @@
         "date": "2026-10-06",
         "price": 119.99,
         "ts": "2026-10-06T07:47:47.187869+01:00"
+      }
+    ],
+    "title": "Netac 120GB 256GB 512GB SSD 2.5\" SATA III 6GB/s Internal Solid State Drive lot",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|314002724093|615332075354": {
+    "article_slug": "best-ssds-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-06",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 189.99,
+        "ts": "2026-10-06T14:20:30.796278+01:00"
       }
     ],
     "title": "Netac 120GB 256GB 512GB SSD 2.5\" SATA III 6GB/s Internal Solid State Drive lot",
@@ -947,7 +1003,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 79.95,
-        "ts": "2026-10-06T07:48:02.113204+01:00"
+        "ts": "2026-10-06T14:20:46.005915+01:00"
       }
     ],
     "title": "Ninja CFP105 DualBrew Hot & Iced Coffee Maker (Black)",
@@ -975,7 +1031,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 89.0,
-        "ts": "2026-10-06T07:47:42.365473+01:00"
+        "ts": "2026-10-06T14:20:25.930512+01:00"
       }
     ],
     "title": "Tineco Floor One S3 Pro Smart Cordless All-in-One Vacuum Cleaner, Self-Cleaning",
@@ -1009,7 +1065,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 82.0,
-        "ts": "2026-10-06T07:47:56.946467+01:00"
+        "ts": "2026-10-06T14:20:41.011108+01:00"
       }
     ],
     "title": "9.5 QT Dual Basket Air Fryer,Large Air Fryer with Double Basket TEMP Control",
@@ -1043,7 +1099,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 119.99,
-        "ts": "2026-10-06T07:47:47.187869+01:00"
+        "ts": "2026-10-06T14:20:30.796278+01:00"
       }
     ],
     "title": "Netac 120GB 256GB 1TB 2TB Internal SSD 2.5'' SATAIII 6Gb/s Solid State Drive lot",
@@ -1063,7 +1119,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 41.98,
-        "ts": "2026-10-06T07:47:52.294441+01:00"
+        "ts": "2026-10-06T14:20:36.051690+01:00"
       }
     ],
     "title": "Crock-Pot 7 Quart Manual Slow Cooker with 3Heat Settings,Large Slow Cooker,Denim",
@@ -1097,7 +1153,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 64.99,
-        "ts": "2026-10-06T07:47:42.365473+01:00"
+        "ts": "2026-10-06T14:20:25.930512+01:00"
       }
     ],
     "title": "6-in-1 Cordless Vacuum Cleaner 50KPA Stick Vacuum Lightweight Rechargeable 45min",
@@ -1111,7 +1167,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 89.99,
-        "ts": "2026-10-06T07:48:02.113204+01:00"
+        "ts": "2026-10-06T14:20:46.005915+01:00"
       }
     ],
     "title": "4-in-1 Espresso Machine Coffee Maker Combo w/ Milk Frother Cold Brew Over Ice",
@@ -1139,7 +1195,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 66.0,
-        "ts": "2026-10-06T07:47:47.187869+01:00"
+        "ts": "2026-10-06T14:20:30.796278+01:00"
       }
     ],
     "title": "Fikwot 512GB SATA SSD 2.5'' SSD SATA III 6Gb/s Internal Solid State Drive 560MBs",
@@ -1153,7 +1209,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 52.24,
-        "ts": "2026-10-06T07:48:02.113204+01:00"
+        "ts": "2026-10-06T14:20:46.005915+01:00"
       }
     ],
     "title": "Hamilton Beach 12-Cup Programmable Drip Coffee Maker, Dispensing Pot, Black",
@@ -1167,7 +1223,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 52.25,
-        "ts": "2026-10-06T07:47:56.946467+01:00"
+        "ts": "2026-10-06T14:20:41.011108+01:00"
       }
     ],
     "title": "Gourmia 14-Quart Air Fryer, Oven, Rotisserie & Dehydrator with Temp Probe",
@@ -1181,7 +1237,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 44.23,
-        "ts": "2026-10-06T07:47:56.946467+01:00"
+        "ts": "2026-10-06T14:20:41.011108+01:00"
       }
     ],
     "title": "bella PRO - 12.6-qt. Touchscreen Air Fryer Oven - Stainless Steel -",
@@ -1195,7 +1251,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 59.99,
-        "ts": "2026-10-06T07:48:02.113204+01:00"
+        "ts": "2026-10-06T14:20:46.005915+01:00"
       }
     ],
     "title": "Keurig K-Express Single Serve 3 Brew size 42oz Black Coffee Maker",
@@ -1209,7 +1265,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 59.4,
-        "ts": "2026-10-06T07:47:42.365473+01:00"
+        "ts": "2026-10-06T14:20:25.930512+01:00"
       }
     ],
     "title": "Cordless Vacuum Cleaner 500W 40KPa Stick Vacuum Rechargeable LED Screen Pet Hair",
@@ -1223,7 +1279,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 59.99,
-        "ts": "2026-10-06T07:47:42.365473+01:00"
+        "ts": "2026-10-06T14:20:25.930512+01:00"
       }
     ],
     "title": "Cordless Vacuum Cleaner 20000Pa Powerful Suction Stick Lightweight 30Mins Runtim",
@@ -1237,7 +1293,7 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 64.9,
-        "ts": "2026-10-06T07:47:56.946467+01:00"
+        "ts": "2026-10-06T14:20:41.011108+01:00"
       }
     ],
     "title": "Bella PRO 12.6-Qt Air Fryer Oven Stainless Steel – Air Fry, Roast, Bake, Broil",
@@ -1271,10 +1327,38 @@
         "currency": "USD",
         "date": "2026-10-06",
         "price": 40.99,
-        "ts": "2026-10-06T06:51:53.119479+01:00"
+        "ts": "2026-10-06T14:20:36.051690+01:00"
       }
     ],
     "title": "6.7/9 Quart Slow Cooker",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|800739729052|0": {
+    "article_slug": "best-ssds-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-06",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 51.99,
+        "ts": "2026-10-06T14:20:30.796278+01:00"
+      }
+    ],
+    "title": "Samsung 512GB PCIe NVMe m.2 SSD Solid State Drive MZVLW512HMJP-000L7 MZ-VLB5120",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|920004862277|0": {
+    "article_slug": "best-coffee-machines-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-06",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 179.9,
+        "ts": "2026-10-06T14:20:46.005915+01:00"
+      }
+    ],
+    "title": "Cuisinart - CoffeeCenter 12-Cup Coffee Maker Barista Bar 4-In-1 Coffeemaker",
     "tracking_status": "active"
   },
   "daily|us|v1|920009001948|0": {
