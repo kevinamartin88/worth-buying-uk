@@ -60,7 +60,7 @@ def test_air_fryer_direction_forbids_ovens():
     assert "built-in oven" in direction
     assert "toaster-oven shape" in direction
     assert "transparent or glass front panel" in direction
-    assert "air-fryer-subject-v3" in ai_visuals._article_style_version(article)
+    assert "air-fryer-subject-v4" in ai_visuals._article_style_version(article)
 
 
 def test_air_fryer_product_candidate_rejects_oven_and_uses_real_basket_photo():
