@@ -28,6 +28,15 @@ def test_creators_api_fetches_and_reuses_token(monkeypatch):
                         {
                             "detailPageURL": "https://www.amazon.co.uk/dp/ABC",
                             "itemInfo": {"title": {"displayValue": "Ninja AF400UK"}},
+                            "images": {
+                                "primary": {
+                                    "large": {
+                                        "url": "https://m.media-amazon.com/images/I/example.jpg",
+                                        "height": 500,
+                                        "width": 500,
+                                    }
+                                }
+                            },
                             "offersV2": {
                                 "listings": [
                                     {"price": {"money": {"amount": 149.99, "currency": "GBP"}}}
@@ -52,6 +61,8 @@ def test_creators_api_fetches_and_reuses_token(monkeypatch):
 
     assert first[0].price == 149.99
     assert first[0].currency == "GBP"
+    assert first[0].image_url == "https://m.media-amazon.com/images/I/example.jpg"
     assert second == first
     assert sum(url.endswith("/auth/o2/token") for url, _ in calls) == 1
     assert calls[1][1]["headers"]["Authorization"] == "Bearer secret-token"
+    assert "images.primary.large" in calls[1][1]["json"]["resources"]
