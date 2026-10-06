@@ -1,1 +1,2 @@
 2026-10-06 Prime Big Deal Days slot 1 manual trigger
+2026-10-06 Prime Big Deal Days Amazon-only republish trigger UK+USA
