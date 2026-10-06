@@ -1,0 +1,87 @@
+name: Prime Big Deal Days extra guides
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "state/manual-prime-big-deal-kick.txt"
+  schedule:
+    # UTC. 6 Oct: manual first slot, then 15:17 and 19:17 UK.
+    - cron: "17 14,18 6 10 *"
+    # 7 Oct: 01:17, 08:17 and 15:17 UK.
+    - cron: "17 0,7,14 7 10 *"
+    # Restore evergreen presentation after the event.
+    - cron: "37 0 8 10 *"
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: worth-buying-repo-writes
+  cancel-in-progress: false
+
+jobs:
+  prime-event:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out latest main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Test Prime event safeguards
+        env:
+          PYTHONPATH: .
+        run: |
+          python -m py_compile generate_prime_big_deal_articles.py
+          pytest -q tests/test_prime_big_deal_days.py tests/test_article_copy.py tests/test_affiliate_tracking.py
+
+      - name: Generate or restore Prime event guides
+        env:
+          PYTHONPATH: .
+          EBAY_ENV: production
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+          EPN_CAMPAIGN_ID: ${{ secrets.EPN_CAMPAIGN_ID }}
+          EPN_US_CAMPAIGN_ID: ${{ secrets.EPN_US_CAMPAIGN_ID }}
+          AMAZON_CREATORS_CLIENT_ID: ${{ secrets.AMAZON_CREATORS_CLIENT_ID }}
+          AMAZON_CREATORS_CLIENT_SECRET: ${{ secrets.AMAZON_CREATORS_CLIENT_SECRET }}
+          AMAZON_CREATORS_CREDENTIAL_VERSION: ${{ secrets.AMAZON_CREATORS_CREDENTIAL_VERSION }}
+        run: python generate_prime_big_deal_articles.py
+
+      - name: Save Prime event changes
+        id: save
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add articles articles-us state/prime_big_deal_days.json state/daily_price_history.json
+          if git diff --cached --quiet; then
+            echo "No Prime event changes to commit."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "worth-buying-prime-bot"
+          git config user.email "worth-buying-prime-bot@users.noreply.github.com"
+          git commit -m "Update Prime Big Deal Days buying guides"
+          git pull --rebase origin main
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Publish Prime event changes
+        if: steps.save.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run publish-articles.yml --ref main -f chain_usa=true
