@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import html
 import re
 from pathlib import Path
@@ -30,7 +31,21 @@ def hero_image_path(market: str, slug: str) -> Path:
 
 def hero_image_url(market: str, slug: str) -> str:
     market = _validate_market(market)
-    return f"{RAW_AI_BASE}/{market}/{slug}.jpg"
+    url = f"{RAW_AI_BASE}/{market}/{slug}.jpg"
+
+    # Refreshed/event artwork deliberately changes while keeping the same
+    # article slug. Give those images a content-addressed URL so Blogger,
+    # browsers and CDNs cannot keep serving the previous thumbnail.
+    path = hero_image_path(market, slug)
+    style_path = path.with_suffix(path.suffix + ".style")
+    try:
+        style = style_path.read_text(encoding="utf-8").strip().casefold()
+    except OSError:
+        style = ""
+    if path.is_file() and ("updated-badge" in style or "prime-big" in style):
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()[:16]
+        return f"{url}?v={digest}"
+    return url
 
 
 def validate_hero_file(path: Path) -> None:
@@ -105,6 +120,8 @@ def add_required_hero(content: str, market: str, slug: str, title: str) -> tuple
     content = prepare_product_images(str(content or ""))
     if image_url in content:
         return content, image_url
+    if HERO_RE.search(content):
+        return HERO_RE.sub(markup, content, count=1), image_url
     return markup + content, image_url
 
 
@@ -118,6 +135,8 @@ def backfill_hero_if_missing(
     markup, image_url = hero_image_html(market, slug, title)
     if image_url in content:
         return content, image_url, False
+    if HERO_RE.search(content):
+        return HERO_RE.sub(markup, content, count=1), image_url, True
     return markup + content, image_url, True
 
 
