@@ -58,7 +58,7 @@ def test_air_fryer_direction_forbids_ovens():
     assert "basket-style countertop air fryer" in direction
     assert "pull-out drawer seam" in direction
     assert "built-in oven" in direction
-    assert "toaster oven" in direction
+    assert "toaster-oven shape" in direction
     assert "transparent or glass front panel" in direction
     assert "air-fryer-subject-v2" in ai_visuals._article_style_version(article)
 
