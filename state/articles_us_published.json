@@ -50,10 +50,12 @@
     "url": "https://www.worthbuyingusa.com/2026/10/current-dehumidifiers-offers-from.html"
   },
   "approved-retailer-slow-cookers-us-2026-10-05": {
+    "daily_featured_date": "2026-10-06",
     "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/approved-retailer-slow-cookers-us-2026-10-05.jpg",
     "image_required": true,
     "post_id": "107360190488454877",
-    "publish_fingerprint": "b8b898d27164ecd2986ae83db44108abb1e00514735486c1383021b834217ce9",
+    "promotion_token": "2026-10-06:us:approved-retailer-slow-cookers-us-2026-10-05",
+    "publish_fingerprint": "d46a3e12840aa106d9190028152648df7315f9cada254b26ee88ec5635051213",
     "source_file": "approved-retailer-slow-cookers-us-2026-10-05.json",
     "source_sha": "2026-10-06-slow-cookers-us-daily-v6",
     "status": "published",
@@ -61,11 +63,13 @@
     "url": "https://www.worthbuyingusa.com/2026/10/current-slow-cookers-offers-from.html"
   },
   "best-air-fryers-worth-buying-us-2026": {
+    "daily_featured_date": "2026-10-06",
     "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-air-fryers-worth-buying-us-2026.jpg",
     "image_required": true,
     "post_id": "3305276758977212815",
     "primary_category": "Home & Kitchen",
-    "publish_fingerprint": "aacd0ac73c8f9e9fbd6f078306c7d9c7ca937741006610c78031b2cc2084077e",
+    "promotion_token": "2026-10-06:us:best-air-fryers-worth-buying-us-2026",
+    "publish_fingerprint": "b44b4956b0cfe281ce8d45b5fcde3e48c7e818469b0c5221652603b4eff23234",
     "publisher": "email",
     "source_file": "best-air-fryers-worth-buying-us-2026.json",
     "source_sha": "2026-10-06-air-fryers-us-daily-v6",
@@ -113,11 +117,13 @@
     "url": "https://www.worthbuyingusa.com/2026/09/best-car-jump-starters-worth-buying.html"
   },
   "best-coffee-machines-worth-buying-us-2026": {
+    "daily_featured_date": "2026-10-06",
     "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-coffee-machines-worth-buying-us-2026.jpg",
     "image_required": true,
     "post_id": "2114255027085372222",
     "primary_category": "Home & Kitchen",
-    "publish_fingerprint": "9d44a538ee65061069944d031187fccb683adb29191ced6b8688b1dbbf953d1c",
+    "promotion_token": "2026-10-06:us:best-coffee-machines-worth-buying-us-2026",
+    "publish_fingerprint": "2039e4edc9afeb1382222052928b47a13f313210d7e63c369841f3590f489e35",
     "publisher": "manual",
     "source_file": "best-coffee-machines-worth-buying-us-2026.json",
     "source_sha": "2026-10-06-coffee-machines-us-daily-v6",
@@ -126,11 +132,13 @@
     "url": "https://www.worthbuyingusa.com/2026/09/best-coffee-machines-worth-buying-in.html"
   },
   "best-cordless-vacuums-worth-buying-us-2026": {
+    "daily_featured_date": "2026-10-06",
     "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-cordless-vacuums-worth-buying-us-2026.jpg",
     "image_required": true,
     "post_id": "7746805626527393182",
     "primary_category": "Home & Kitchen",
-    "publish_fingerprint": "04b1ca7ded4fd59e8a61ffbabe19ebec0d552ac9ae71f18774802f4d520481c8",
+    "promotion_token": "2026-10-06:us:best-cordless-vacuums-worth-buying-us-2026",
+    "publish_fingerprint": "2d1d5338ff5a0f96dc07fee2f34edd8ad7275ad0a8e75b1251ea73838ab3a9e9",
     "publisher": "email",
     "source_file": "best-cordless-vacuums-worth-buying-us-2026.json",
     "source_sha": "2026-10-06-cordless-vacuums-us-daily-v6",
@@ -323,10 +331,12 @@
     "url": "https://www.worthbuyingusa.com/2026/09/best-soundbars-worth-buying-in-usa-2026.html"
   },
   "best-ssds-worth-buying-us-2026": {
+    "daily_featured_date": "2026-10-06",
     "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-ssds-worth-buying-us-2026.jpg",
     "image_required": true,
     "post_id": "2168924783691041031",
-    "publish_fingerprint": "31eaf30d8186eae4d081fa4bba52e14ec78dffe1ff1c5c7a5d763fee95a2faf2",
+    "promotion_token": "2026-10-06:us:best-ssds-worth-buying-us-2026",
+    "publish_fingerprint": "2cbbadbd03f00e7dcb03b4bd570d3774f3c4e2a2bc742761bc3c761682411f9f",
     "source_file": "best-ssds-worth-buying-us-2026.json",
     "source_sha": "2026-10-06-ssds-us-daily-v6",
     "status": "published",

@@ -40,19 +40,26 @@
     "url": "https://www.worthbuyingusa.com/2026/10/current-dehumidifiers-offers-from.html"
   },
   "approved-retailer-slow-cookers-us-2026-10-05": {
-    "bluesky_cid": "bafyreidg3hb6vrneve3d7csf3e27dlq4ewevplvbefvt4ski3pmttzc7um",
-    "bluesky_uri": "at://did:plc:3rwb32szw2cj6zi5ajiup5hv/app.bsky.feed.post/3mx5fwo43n72n",
-    "bluesky_url": "https://bsky.app/profile/worthbuyingusa.bsky.social/post/3mx5fwo43n72n",
+    "bluesky_cid": "bafyreih32lg44zgb5zwa3ipxfhzjhlwactgey23e7bgx33i4viyfdnakry",
+    "bluesky_uri": "at://did:plc:3rwb32szw2cj6zi5ajiup5hv/app.bsky.feed.post/3mx6toked5b2z",
+    "bluesky_url": "https://bsky.app/profile/worthbuyingusa.bsky.social/post/3mx6toked5b2z",
     "image_path": "assets/ai/us/approved-retailer-slow-cookers-us-2026-10-05.jpg",
-    "source_sha": "2026-10-05-slow-cookers-us-rakuten-v1",
+    "promotion_token": "2026-10-06:us:approved-retailer-slow-cookers-us-2026-10-05",
+    "source_sha": "2026-10-06-slow-cookers-us-daily-v6",
     "status": "published",
-    "title": "Current Slow Cookers Offers from Approved USA Retailers (October 2026)",
+    "title": "Best Slow Cookers Worth Buying in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/10/current-slow-cookers-offers-from.html"
   },
   "best-air-fryers-worth-buying-us-2026": {
     "baseline": true,
+    "bluesky_cid": "bafyreicmtb5qdb5qtoqmcfaoq7c5mswurmddjpeobgrdgp4ppqu5z555pu",
+    "bluesky_uri": "at://did:plc:3rwb32szw2cj6zi5ajiup5hv/app.bsky.feed.post/3mx6tolg7ka22",
+    "bluesky_url": "https://bsky.app/profile/worthbuyingusa.bsky.social/post/3mx6tolg7ka22",
     "buffer_post_id": null,
-    "source_sha": "2026-09-21-best-air-fryers-us-v1",
+    "image_path": "assets/ai/us/best-air-fryers-worth-buying-us-2026.jpg",
+    "promotion_token": "2026-10-06:us:best-air-fryers-worth-buying-us-2026",
+    "source_sha": "2026-10-06-air-fryers-us-daily-v6",
+    "status": "published",
     "title": "Best Air Fryers Worth Buying in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/09/best-air-fryers-worth-buying-in-usa-2026.html"
   },
@@ -87,21 +94,28 @@
     "url": "https://www.worthbuyingusa.com/2026/09/best-car-jump-starters-worth-buying.html"
   },
   "best-coffee-machines-worth-buying-us-2026": {
-    "bluesky_cid": "bafyreibi2ks4wdq3h4jxilmimniqjxiky73bmbsw5u5xcqd6rqyve4xb74",
-    "bluesky_uri": "at://did:plc:3rwb32szw2cj6zi5ajiup5hv/app.bsky.feed.post/3mw6e4ujw4f24",
-    "bluesky_url": "https://bsky.app/profile/worthbuyingusa.bsky.social/post/3mw6e4ujw4f24",
+    "bluesky_cid": "bafyreignialkeslecwqen6xjmoon2katwplbpahycn2kqboxa4r2bzh4nm",
+    "bluesky_uri": "at://did:plc:3rwb32szw2cj6zi5ajiup5hv/app.bsky.feed.post/3mx6tomg7xi22",
+    "bluesky_url": "https://bsky.app/profile/worthbuyingusa.bsky.social/post/3mx6tomg7xi22",
     "image_path": "assets/ai/us/best-coffee-machines-worth-buying-us-2026.jpg",
-    "source_sha": "2026-09-23-coffee-machines-us-daily-v2",
+    "promotion_token": "2026-10-06:us:best-coffee-machines-worth-buying-us-2026",
+    "source_sha": "2026-10-06-coffee-machines-us-daily-v6",
     "status": "published",
-    "title": "Best Coffee Machines Worth Buying in the USA (2026)",
+    "title": "Best Coffee Makers Worth Buying in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/09/best-coffee-machines-worth-buying-in.html"
   },
   "best-cordless-vacuums-worth-buying-us-2026": {
     "baseline": true,
+    "bluesky_cid": "bafyreigcrvlv4ls3y23mocce2rt4t6dlqrldcawhvgaoqdlf7plkt3k4lm",
+    "bluesky_uri": "at://did:plc:3rwb32szw2cj6zi5ajiup5hv/app.bsky.feed.post/3mx6tomsqb424",
+    "bluesky_url": "https://bsky.app/profile/worthbuyingusa.bsky.social/post/3mx6tomsqb424",
     "buffer_post_id": null,
-    "source_sha": "2026-09-22-cordless-vacuums-us-daily-v2",
-    "title": "Best Cordless Vacuum Cleaners Worth Buying in the USA (2026)",
-    "url": "https://www.worthbuyingusa.com/2026/09/best-cordless-vacuum-cleaners-worth.html"
+    "image_path": "assets/ai/us/best-cordless-vacuums-worth-buying-us-2026.jpg",
+    "promotion_token": "2026-10-06:us:best-cordless-vacuums-worth-buying-us-2026",
+    "source_sha": "2026-10-06-cordless-vacuums-us-daily-v6",
+    "status": "published",
+    "title": "Best Cordless Vacuums Worth Buying in the USA (2026)",
+    "url": "https://www.worthbuyingusa.com/2026/10/best-cordless-vacuum-cleaners-worth.html"
   },
   "best-dash-cams-worth-buying-us-2026": {
     "bluesky_cid": "bafyreibripxeodfohzepjvrut4kjo46vua43varhvibuawqn6kwuhe2kkq",
@@ -235,11 +249,12 @@
     "url": "https://www.worthbuyingusa.com/2026/09/best-soundbars-worth-buying-in-usa-2026.html"
   },
   "best-ssds-worth-buying-us-2026": {
-    "bluesky_cid": "bafyreifsxfnauqlbpahiquju33k3w3hnhle5tiqgbrqhywlq444xy4x4ye",
-    "bluesky_uri": "at://did:plc:3rwb32szw2cj6zi5ajiup5hv/app.bsky.feed.post/3mx2gfhaimc2w",
-    "bluesky_url": "https://bsky.app/profile/worthbuyingusa.bsky.social/post/3mx2gfhaimc2w",
+    "bluesky_cid": "bafyreiaweh5h6d55sfuruqk4xhk52onjrgtgijpnz6oqolnr7h6y2gw7eq",
+    "bluesky_uri": "at://did:plc:3rwb32szw2cj6zi5ajiup5hv/app.bsky.feed.post/3mx6tonpanu2z",
+    "bluesky_url": "https://bsky.app/profile/worthbuyingusa.bsky.social/post/3mx6tonpanu2z",
     "image_path": "assets/ai/us/best-ssds-worth-buying-us-2026.jpg",
-    "source_sha": "2026-10-04-ssds-us-daily-v5",
+    "promotion_token": "2026-10-06:us:best-ssds-worth-buying-us-2026",
+    "source_sha": "2026-10-06-ssds-us-daily-v6",
     "status": "published",
     "title": "Best Solid-State Drives Worth Buying in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/10/best-solid-state-drives-worth-buying-in.html"
