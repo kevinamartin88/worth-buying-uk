@@ -5,6 +5,7 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
 
+from src.refresh_badge import updated_badge_text
 from src.site_config import get_site_host
 
 ROOT = Path(__file__).resolve().parent
@@ -117,8 +118,16 @@ def render_article(article: dict, output: Path) -> None:
     draw.rounded_rectangle((70, 282, 70 + badge_w, 344), radius=31, fill=PALE_TEAL)
     draw.text((105, 297), kicker, font=badge_font, fill=NAVY)
 
+    updated_badge = updated_badge_text(article)
+    if updated_badge:
+        # Keep the full date on its own row, clear of the category kicker.
+        update_font = load_font(25, bold=True)
+        update_w, _ = measure(draw, updated_badge, update_font)
+        draw.rounded_rectangle((70, 360, 70 + update_w + 56, 422), radius=31, fill=YELLOW)
+        draw.text((98, 375), updated_badge, font=update_font, fill=NAVY)
+
     title_font, title_lines = title_layout(draw, title)
-    y = 405
+    y = 455 if updated_badge else 405
     line_height = measure(draw, "Ag", title_font)[1] + 22
     for line in title_lines:
         draw.text((70, y), line, font=title_font, fill=DEEP_NAVY)

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import base64
-from datetime import date
 import hashlib
 import html
 import io
@@ -16,6 +15,8 @@ try:
 except (ImportError, OSError):
     cairosvg = None
 from PIL import Image, ImageDraw, ImageFont
+
+from src.refresh_badge import updated_badge_text as _updated_badge_text
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -319,18 +320,6 @@ def _load_retailer_logo(
     except Exception:
         # A retailer logo problem must never stop the article or hero image.
         return None
-
-
-def _updated_badge_text(article: dict) -> str:
-    promotion = article.get("_promotion") or {}
-    if not promotion.get("is_refresh"):
-        return ""
-    raw = str(promotion.get("daily_featured_date") or "").strip()
-    try:
-        value = date.fromisoformat(raw)
-    except ValueError:
-        return "Updated today" if raw else ""
-    return f"Updated {value.day} {value.strftime('%B')}"
 
 
 def _article_style_version(article: dict) -> str:
@@ -747,7 +736,7 @@ def _add_text_overlay(image: Image.Image, article: dict, market: str) -> Image.I
     # A single-retailer Rakuten roundup gets an immediately visible retailer card.
     retailer = _featured_retailer(article)
     if retailer:
-        card_y1 = badge_y2 + 18
+        card_y1 = retailer_card_bottom + 18
         card_y2 = card_y1 + 104
         draw.rounded_rectangle(
             (text_x, card_y1, text_x + text_max_width, card_y2),

@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import argparse
-from datetime import date
 import io
 import json
 import textwrap
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
+
+from src.refresh_badge import updated_badge_text
 
 
 ROOT = Path(__file__).resolve().parent
@@ -19,18 +20,6 @@ YELLOW = (248, 196, 66)
 OFF_WHITE = (248, 249, 251)
 MUTED = (190, 202, 215)
 DARK_TEAL = (20, 112, 109)
-
-
-def updated_badge_text(article: dict) -> str:
-    promotion = article.get("_promotion") or {}
-    if not promotion.get("is_refresh"):
-        return ""
-    raw = str(promotion.get("daily_featured_date") or "").strip()
-    try:
-        value = date.fromisoformat(raw)
-    except ValueError:
-        return "Updated today" if raw else ""
-    return f"Updated {value.day} {value.strftime('%B')}"
 
 
 def load_font(size: int, bold: bool = False):
@@ -120,8 +109,9 @@ def render(article: dict, market: str) -> bytes:
         updated_font = load_font(27, bold=True)
         box = draw.textbbox((0, 0), updated_badge, font=updated_font)
         updated_w = box[2] - box[0]
-        draw.rounded_rectangle((1150, 65, 1195 + updated_w, 122), radius=28, fill=YELLOW)
-        draw.text((1172, 77), updated_badge, font=updated_font, fill=NAVY)
+        updated_x1 = WIDTH - 100 - updated_w - 45
+        draw.rounded_rectangle((updated_x1, 65, WIDTH - 100, 122), radius=28, fill=YELLOW)
+        draw.text((updated_x1 + 22, 77), updated_badge, font=updated_font, fill=NAVY)
     draw.rounded_rectangle((100, 145, 560, 205), radius=30, fill=TEAL)
     draw.text((130, 157), kicker, font=font_kicker, fill=OFF_WHITE)
 

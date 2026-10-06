@@ -33,8 +33,8 @@ def test_refresh_badge_uses_reader_friendly_date():
             "daily_featured_date": "2026-10-06",
         }
     }
-    assert ai_visuals._updated_badge_text(article) == "Updated 6 October"
-    assert "updated-badge-v1-updated-6-october" in ai_visuals._article_style_version(article)
+    assert ai_visuals._updated_badge_text(article) == "Updated on 6 October 2026"
+    assert "updated-badge-v1-updated-on-6-october-2026" in ai_visuals._article_style_version(article)
 
 
 def test_new_article_has_no_updated_badge():
