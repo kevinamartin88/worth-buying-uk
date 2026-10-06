@@ -180,6 +180,31 @@ def _amazon_search_url(query: str, market: str) -> str:
 
 
 
+
+def _prime_membership_cta(market: str) -> str:
+    if market == "uk":
+        url = "https://www.amazon.co.uk/tryprimefree?tag=worthbuyin008-21"
+        retailer = "Amazon UK"
+        bounty_copy = "Eligible customers can check whether a Prime free trial is available."
+    else:
+        url = "https://www.amazon.com/tryprimefree?tag=worthbuyingus-20"
+        retailer = "Amazon"
+        bounty_copy = "Eligible customers can check whether a Prime free trial is available."
+
+    return (
+        '<aside class="wb-prime-signup" style="border:1px solid #f0a500;'
+        'background:#fff8e8;border-radius:12px;padding:16px 18px;margin:18px 0;">'
+        '<p style="margin:0 0 8px"><strong>Not a Prime member?</strong></p>'
+        f'<p style="margin:0 0 12px">{html.escape(bounty_copy)} '
+        'Prime eligibility and trial availability are determined by Amazon.</p>'
+        f'<p style="margin:0"><a href="{html.escape(url, quote=True)}" '
+        'rel="sponsored nofollow" style="display:inline-block;padding:11px 16px;'
+        'background:#082f5b;color:#fff;text-decoration:none;border-radius:8px;'
+        f'font-weight:700">Check {html.escape(retailer)} Prime eligibility</a></p>'
+        '</aside>\n'
+    )
+
+
 def _amazon_prime_offers(topic: tuple, market: str) -> list:
     key, display, query, *_ = daily.localise_topic(topic, market)
     client = AmazonCreatorsClient.from_env(market)
@@ -256,6 +281,7 @@ def _amazon_only_prime_content(topic: tuple, market: str, run_date: date) -> str
         "This event update is deliberately Amazon-only so every retailer link matches the Amazon event.</strong></p>\n"
         f"<p>We checked current Amazon products for {html.escape(display)} on {html.escape(checked)}. "
         "The product cards below use Amazon's current product title, price, product page and official primary image.</p>\n"
+        f"{_prime_membership_cta(market)}"
         f"{daily.editorial_trust_html(market, checked)}"
         "<h2>Amazon products worth comparing</h2>\n"
         + "".join(cards)
@@ -316,6 +342,11 @@ def validate_prime_article(article: dict, market: str) -> None:
     networks = list((article.get("_monetisation") or {}).get("networks") or [])
     if networks != ["Amazon"]:
         raise RuntimeError(f"Prime event networks must be Amazon-only, got {networks}")
+    expected_prime_path = "amazon.co.uk/tryprimefree" if market == "uk" else "amazon.com/tryprimefree"
+    if expected_prime_path not in lowered:
+        raise RuntimeError(
+            f"Prime event article must contain the tracked Prime signup CTA for {market}"
+        )
     image_count = lowered.count('m.media-amazon.com') + lowered.count('images-na.ssl-images-amazon.com') + lowered.count('images-eu.ssl-images-amazon.com')
     if image_count < 3:
         raise RuntimeError(
