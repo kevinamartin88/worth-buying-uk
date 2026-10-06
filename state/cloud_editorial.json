@@ -6,21 +6,21 @@
         "title": "Best Air Fryers Worth Buying in the UK (2026)",
         "source_file": "best-air-fryers-worth-buying-uk-2026.json",
         "updated": "2026-10-05",
-        "status": "source-updated-awaiting-publisher"
+        "status": "published"
       },
       "best-air-purifiers-worth-buying-uk": {
         "url": "https://www.worthbuyinguk.co.uk/2026/10/best-air-purifiers-worth-buying-in-uk.html",
         "title": "Best Air Purifiers Worth Buying in the UK (2026)",
         "source_file": "best-air-purifiers-worth-buying-uk.json",
         "updated": "2026-10-05",
-        "status": "source-updated-awaiting-publisher"
+        "status": "published"
       },
       "best-robot-vacuum-cleaners-worth-buying-uk-2026": {
         "url": "https://www.worthbuyinguk.co.uk/2026/09/best-robot-vacuum-cleaners-worth-buying.html",
         "title": "Best Robot Vacuum Cleaners Worth Buying in the UK (2026)",
         "source_file": "best-robot-vacuum-cleaners-worth-buying-uk-2026.json",
         "updated": "2026-10-05",
-        "status": "source-updated-awaiting-publisher"
+        "status": "published"
       }
     },
     "us": {
@@ -29,21 +29,21 @@
         "title": "Best Air Fryers Worth Buying in the USA (2026)",
         "source_file": "best-air-fryers-worth-buying-us-2026.json",
         "updated": "2026-10-05",
-        "status": "source-updated-awaiting-publisher"
+        "status": "published"
       },
       "approved-retailer-air-purifiers-us-2026-10-03": {
         "url": "https://www.worthbuyingusa.com/2026/10/current-air-purifiers-offers-from.html",
         "title": "Current Air Purifiers Offers from Approved USA Retailers (October 2026)",
         "source_file": "approved-retailer-air-purifiers-us-2026-10-03.json",
         "updated": "2026-10-05",
-        "status": "source-updated-awaiting-publisher"
+        "status": "published"
       },
       "best-robot-vacuum-cleaners-worth-buying-us-2026": {
         "url": "https://www.worthbuyingusa.com/2026/09/best-robot-vacuum-cleaners-worth-buying.html",
         "title": "Best Robot Vacuum Cleaners Worth Buying in the USA (2026)",
         "source_file": "best-robot-vacuum-cleaners-worth-buying-us-2026.json",
         "updated": "2026-10-05",
-        "status": "source-updated-awaiting-publisher"
+        "status": "published"
       }
     }
   },
@@ -176,11 +176,11 @@
         ]
       },
       "latest": {
-        "start": "2026-09-19",
-        "end": "2026-10-02",
+        "start": "2026-09-20",
+        "end": "2026-10-03",
         "source": "Google Search Console web search",
         "clicks": 0,
-        "impressions": 1,
+        "impressions": 2,
         "rows": [
           {
             "keys": [
@@ -298,6 +298,15 @@
             "impressions": 0,
             "ctr": 0,
             "position": 0
+          },
+          {
+            "keys": [
+              "2026-10-03"
+            ],
+            "clicks": 0,
+            "impressions": 1,
+            "ctr": 0,
+            "position": 2
           }
         ]
       }
@@ -430,11 +439,11 @@
         ]
       },
       "latest": {
-        "start": "2026-09-19",
-        "end": "2026-10-02",
+        "start": "2026-09-20",
+        "end": "2026-10-03",
         "source": "Google Search Console web search",
         "clicks": 0,
-        "impressions": 0,
+        "impressions": 1,
         "rows": [
           {
             "keys": [
@@ -552,8 +561,26 @@
             "impressions": 0,
             "ctr": 0,
             "position": 0
+          },
+          {
+            "keys": [
+              "2026-10-03"
+            ],
+            "clicks": 0,
+            "impressions": 1,
+            "ctr": 0,
+            "position": 5
           }
         ]
+      }
+    }
+  },
+  "promotions": {
+    "uk": {
+      "2026-10-06": {
+        "slug": "best-air-fryers-worth-buying-uk-2026",
+        "status": "reserved-outcome-unknown",
+        "url": "https://www.worthbuyinguk.co.uk/2026/09/best-air-fryers-worth-buying-in-uk-2026.html?utm_source=x&utm_medium=social&utm_campaign=worthbuying-october-guide-improvements&utm_content=uk"
       }
     }
   }
