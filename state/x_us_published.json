@@ -238,11 +238,12 @@
   },
   "best-slow-cookers-worth-buying-us": {
     "buffer_channel_id": "6aa8516eea19ca0bde41b09c",
-    "buffer_post_id": "6ac3031e5de5ee424c20bb23",
-    "buffer_sent_at": "2026-10-05T01:53:35.979Z",
+    "buffer_post_id": "6ac513d7e02198815242f323",
+    "buffer_sent_at": "2026-10-06T15:29:29.227Z",
     "buffer_status": "sent",
     "image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-slow-cookers-worth-buying-us.jpg",
-    "source_sha": "2026-10-05-slow-cookers-us-daily-v6",
+    "promotion_token": "2026-10-06:us:best-slow-cookers-worth-buying-us",
+    "source_sha": "2026-10-06-slow-cookers-us-daily-v6",
     "title": "Best Slow Cookers Worth Buying in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/10/best-slow-cookers-worth-buying-in-usa.html"
   },
