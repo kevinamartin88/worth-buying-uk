@@ -1,13 +1,19 @@
 {
   "daily|uk|v1|127602155859|0": {
     "article_slug": "best-refurbished-large-capacity-air-fryers-worth-buying-uk",
-    "last_attempt_date": "2026-10-05",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-05",
         "price": 74.99,
         "ts": "2026-10-05T11:39:47.919933+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 74.99,
+        "ts": "2026-10-06T03:53:33.653630+01:00"
       }
     ],
     "title": "EMtronics 10L Stack Dual Air Fryer Double Basket Large Family Size - White",
@@ -15,13 +21,19 @@
   },
   "daily|uk|v1|128063528284|0": {
     "article_slug": "best-refurbished-large-capacity-air-fryers-worth-buying-uk",
-    "last_attempt_date": "2026-10-05",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-05",
         "price": 59.99,
         "ts": "2026-10-05T11:39:47.919933+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 59.99,
+        "ts": "2026-10-06T03:53:33.653630+01:00"
       }
     ],
     "title": "16L Large Air Fryer Oven w/ Rotisserie 1300W Low Fat Healthy Frying Roast Baking",
@@ -29,13 +41,19 @@
   },
   "daily|uk|v1|146583641088|0": {
     "article_slug": "best-refurbished-large-capacity-air-fryers-worth-buying-uk",
-    "last_attempt_date": "2026-10-05",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-05",
         "price": 37.99,
         "ts": "2026-10-05T11:39:47.919933+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 37.99,
+        "ts": "2026-10-06T03:53:33.653630+01:00"
       }
     ],
     "title": "EMtronics EMAF45L Large Family Air Fryer with 4.5L Basket and Timer - Black",
@@ -43,113 +61,263 @@
   },
   "daily|uk|v1|146749103647|445371183801": {
     "article_slug": "best-refurbished-large-capacity-air-fryers-worth-buying-uk",
-    "last_attempt_date": "2026-10-05",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-05",
         "price": 57.99,
         "ts": "2026-10-05T11:39:47.919933+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 57.99,
+        "ts": "2026-10-06T03:53:33.653630+01:00"
       }
     ],
     "title": "Air Fryer Oven Toaster 2 in 1 Large 16L 1300W Low Fat Healthy Roast Baking 230℃",
     "tracking_status": "active"
   },
+  "daily|uk|v1|147147281171|0": {
+    "article_slug": "best-slow-cookers-worth-buying-uk",
+    "last_attempt_date": "2026-10-06",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 74.99,
+        "ts": "2026-10-06T03:53:41.732662+01:00"
+      }
+    ],
+    "title": "Laura Ashley 6.5L Slow Cooker with Ceramic Pot Glass Lid 3 Heat Settings",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|157412559803|458899331732": {
     "article_slug": "best-refurbished-large-capacity-air-fryers-worth-buying-uk",
-    "last_attempt_date": "2026-10-05",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-05",
         "price": 89.99,
         "ts": "2026-10-05T11:39:47.919933+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 89.99,
+        "ts": "2026-10-06T03:53:33.653630+01:00"
       }
     ],
     "title": "16L Air Fryer Oven Digital Spacious Extra Large Capacity 6 Accessories 1800W",
     "tracking_status": "active"
   },
+  "daily|uk|v1|166421291989|0": {
+    "article_slug": "best-slow-cookers-worth-buying-uk",
+    "last_attempt_date": "2026-10-06",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 34.99,
+        "ts": "2026-10-06T03:53:41.732662+01:00"
+      }
+    ],
+    "title": "Tower 6.5L Slow Cooker, Cavaletto, 3 Heat Setting, T16043GRY, Grey and Rose Gold",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|167622941886|0": {
     "article_slug": "best-air-purifiers-worth-buying-uk",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-05",
         "price": 64.99,
         "ts": "2026-10-05T02:49:20.659876+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 64.99,
+        "ts": "2026-10-06T03:53:33.653630+01:00"
       }
     ],
-    "title": "Hoover 300 Air Purifier with Fast Acting H-TRIFILTER Bluetooth-Enabled White"
+    "title": "Hoover 300 Air Purifier with Fast Acting H-TRIFILTER Bluetooth-Enabled White",
+    "tracking_status": "active"
   },
   "daily|uk|v1|174227029013|0": {
     "article_slug": "best-air-purifiers-worth-buying-uk",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-05",
         "price": 94.99,
         "ts": "2026-10-05T02:49:20.659876+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 94.99,
+        "ts": "2026-10-06T03:53:33.653630+01:00"
       }
     ],
-    "title": "Air Purifier, HEPA Air Purifier with Ioniser & UV-C Eliminates viruses - 22 inch"
+    "title": "Air Purifier, HEPA Air Purifier with Ioniser & UV-C Eliminates viruses - 22 inch",
+    "tracking_status": "active"
   },
   "daily|uk|v1|184194713405|0": {
     "article_slug": "best-air-purifiers-worth-buying-uk",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-05",
         "price": 84.99,
         "ts": "2026-10-05T02:49:20.659876+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 84.99,
+        "ts": "2026-10-06T03:53:33.653630+01:00"
       }
     ],
-    "title": "Air Purifier, 5-in-1 Air Purifier with True HEPA Filter, Carbon & Negative Ions"
+    "title": "Air Purifier, 5-in-1 Air Purifier with True HEPA Filter, Carbon & Negative Ions",
+    "tracking_status": "active"
   },
   "daily|uk|v1|187760022244|695535222973": {
     "article_slug": "best-air-purifiers-worth-buying-uk",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-05",
         "price": 109.99,
         "ts": "2026-10-05T02:49:20.659876+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 109.99,
+        "ts": "2026-10-06T03:53:33.653630+01:00"
       }
     ],
-    "title": "Shark NeverChange5 Air Purifier | Compact Pro, HEPA Filter | REFURB | HP072UK"
+    "title": "Shark NeverChange5 Air Purifier | Compact Pro, HEPA Filter | REFURB | HP072UK",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|256611252644|0": {
+    "article_slug": "best-slow-cookers-worth-buying-uk",
+    "last_attempt_date": "2026-10-06",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 29.99,
+        "ts": "2026-10-06T03:53:41.732662+01:00"
+      }
+    ],
+    "title": "Salter Chalkboard Slow Cooker 3.5L Keep Warm Function 3 Heat Setting Family Size",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|266979217860|0": {
+    "article_slug": "best-slow-cookers-worth-buying-uk",
+    "last_attempt_date": "2026-10-06",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 39.99,
+        "ts": "2026-10-06T03:53:41.732662+01:00"
+      }
+    ],
+    "title": "Salter Retro 6.5L Slow Cooker 3 Heat Settings/Keep Warm for Family Cooking Cream",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|276645434428|0": {
+    "article_slug": "best-slow-cookers-worth-buying-uk",
+    "last_attempt_date": "2026-10-06",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 27.99,
+        "ts": "2026-10-06T03:53:41.732662+01:00"
+      }
+    ],
+    "title": "Salter Kuro 3.5L Slow Cooker 3 Heat Settings/Keep Warm for Family Cooking 200W",
+    "tracking_status": "active"
   },
   "daily|uk|v1|277173082970|0": {
     "article_slug": "best-air-purifiers-worth-buying-uk",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-05",
         "price": 69.99,
         "ts": "2026-10-05T02:49:20.659876+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 69.99,
+        "ts": "2026-10-06T03:53:33.653630+01:00"
       }
     ],
-    "title": "PureMate PM-510 True HEPA Air Purifier and Ioniser with UV-C Sanitizer - Black"
+    "title": "PureMate PM-510 True HEPA Air Purifier and Ioniser with UV-C Sanitizer - Black",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|277352299657|0": {
+    "article_slug": "best-slow-cookers-worth-buying-uk",
+    "last_attempt_date": "2026-10-06",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 42.99,
+        "ts": "2026-10-06T03:53:41.732662+01:00"
+      }
+    ],
+    "title": "Salter 6.5L Digital Slow Cooker – LED Display, 3 Heat Settings, Timer, 320W",
+    "tracking_status": "active"
   },
   "daily|uk|v1|278080827909|0": {
     "article_slug": "best-air-purifiers-worth-buying-uk",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-05",
         "price": 59.99,
         "ts": "2026-10-05T02:49:20.659876+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 59.99,
+        "ts": "2026-10-06T03:53:33.653630+01:00"
       }
     ],
-    "title": "Philips GoPure In-Car Air Purifier GP5212 New & Boxed"
+    "title": "Philips GoPure In-Car Air Purifier GP5212 New & Boxed",
+    "tracking_status": "active"
   },
   "daily|uk|v1|278081309946|0": {
     "article_slug": "best-refurbished-large-capacity-air-fryers-worth-buying-uk",
-    "last_attempt_date": "2026-10-05",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-05",
         "price": 64.99,
         "ts": "2026-10-05T11:39:47.919933+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 64.99,
+        "ts": "2026-10-06T03:53:33.653630+01:00"
       }
     ],
     "title": "VonShef Air Fryer 6L - Large Family Size, Nordic Design with Timer - Fika Range",
@@ -157,37 +325,87 @@
   },
   "daily|uk|v1|296936293078|594677298569": {
     "article_slug": "best-air-purifiers-worth-buying-uk",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-05",
         "price": 49.99,
         "ts": "2026-10-05T02:49:20.659876+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 49.99,
+        "ts": "2026-10-06T03:53:33.653630+01:00"
       }
     ],
-    "title": "Medify Air Purifier MA-25 Includes True Hepa Filter Black Nightlight In Black"
+    "title": "Medify Air Purifier MA-25 Includes True Hepa Filter Black Nightlight In Black",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|326774568772|0": {
+    "article_slug": "best-slow-cookers-worth-buying-uk",
+    "last_attempt_date": "2026-10-06",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 31.99,
+        "ts": "2026-10-06T03:53:41.732662+01:00"
+      }
+    ],
+    "title": "ProCook 4.8L Digital Slow Cooker 3 Heat Settings Delay Start Function Black 9440",
+    "tracking_status": "active"
   },
   "daily|uk|v1|364528031940|634033027227": {
     "article_slug": "best-air-purifiers-worth-buying-uk",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-05",
         "price": 49.99,
         "ts": "2026-10-05T02:49:20.659876+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 49.99,
+        "ts": "2026-10-06T03:53:33.653630+01:00"
       }
     ],
-    "title": "Silentnight Airmax 800 Air Purifier for Home Bedroom Ultra Quiet Sleep Aid Pets"
+    "title": "Silentnight Airmax 800 Air Purifier for Home Bedroom Ultra Quiet Sleep Aid Pets",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|397178813318|0": {
+    "article_slug": "best-slow-cookers-worth-buying-uk",
+    "last_attempt_date": "2026-10-06",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 31.82,
+        "ts": "2026-10-06T03:53:41.732662+01:00"
+      }
+    ],
+    "title": "SUPERLEX 6.5L Slow Cooker – Removable Ceramic Pot, 3 Heat Settings, Timer, 270W",
+    "tracking_status": "active"
   },
   "daily|uk|v1|397479343812|0": {
     "article_slug": "best-refurbished-large-capacity-air-fryers-worth-buying-uk",
-    "last_attempt_date": "2026-10-05",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-05",
         "price": 72.99,
         "ts": "2026-10-05T11:39:47.919933+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 72.99,
+        "ts": "2026-10-06T03:53:33.653630+01:00"
       }
     ],
     "title": "12L Air fryer Oven Family Size Large Air fryer With Accessories 1800W",
@@ -195,33 +413,75 @@
   },
   "daily|uk|v1|407189764861|0": {
     "article_slug": "best-refurbished-large-capacity-air-fryers-worth-buying-uk",
-    "last_attempt_date": "2026-10-05",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-05",
         "price": 139.99,
         "ts": "2026-10-05T11:39:47.919933+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-06",
+        "price": 139.99,
+        "ts": "2026-10-06T03:53:33.653630+01:00"
       }
     ],
     "title": "MOMOKOVA 26L Dual Zone Air Fryer Oven 10-in-1 Rotisserie Convection French Door",
     "tracking_status": "active"
   },
+  "daily|us|v1|115616630395|417139470691": {
+    "article_slug": "best-air-fryers-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-06",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 40.84,
+        "ts": "2026-10-06T03:53:50.521740+01:00"
+      }
+    ],
+    "title": "UTEN Air Fryer XXL 1700W 4.2QT/5.8QT/6.9QT Oven Hot Electric Air Fryer Cooker US",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|136450049455|0": {
+    "article_slug": "best-air-fryers-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-06",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 159.99,
+        "ts": "2026-10-06T03:53:50.521740+01:00"
+      }
+    ],
+    "title": "Ninja AD300CO Foodi 6-in-1 10-qt. XL 2-Basket Air Fryer with DualZone Technology",
+    "tracking_status": "active"
+  },
   "daily|us|v1|166512483033|0": {
     "article_slug": "best-slow-cookers-worth-buying-us",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-05",
         "price": 109.11,
         "ts": "2026-10-05T02:49:22.152850+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 109.11,
+        "ts": "2026-10-06T03:53:41.740115+01:00"
       }
     ],
-    "title": "8qt Crock Pot 8qt Slow Cooker Big 10 quart 9 quart 8.5 Quart Huge XL qt Large"
+    "title": "8qt Crock Pot 8qt Slow Cooker Big 10 quart 9 quart 8.5 Quart Huge XL qt Large",
+    "tracking_status": "active"
   },
   "daily|us|v1|168122935055|0": {
     "article_slug": "best-refurbished-storage-bins-worth-buying-us",
-    "last_attempt_date": "2026-10-05",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "USD",
@@ -231,101 +491,247 @@
       }
     ],
     "title": "Akro-Mills Metal 24-Drawer Storage Organizer Cabinet Bin With 1,2,3 Compartments",
+    "tracking_status": "ended"
+  },
+  "daily|us|v1|168635340243|0": {
+    "article_slug": "best-air-fryers-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-06",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 70.09,
+        "ts": "2026-10-06T03:53:50.521740+01:00"
+      }
+    ],
+    "title": "Whall Air Fryer Oven 12QT 12-in-1 Air Fryer Convection Oven NSE1201 - Silver",
     "tracking_status": "active"
   },
   "daily|us|v1|236829884831|0": {
     "article_slug": "best-slow-cookers-worth-buying-us",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-05",
         "price": 52.81,
         "ts": "2026-10-05T02:49:22.152850+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 52.81,
+        "ts": "2026-10-06T03:53:41.740115+01:00"
       }
     ],
-    "title": "Crock-Pot Design Series 7-Quart Cook & Carry Slow Cooker with Thermal Bag"
+    "title": "Crock-Pot Design Series 7-Quart Cook & Carry Slow Cooker with Thermal Bag",
+    "tracking_status": "active"
   },
   "daily|us|v1|287520677006|0": {
     "article_slug": "best-slow-cookers-worth-buying-us",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-05",
         "price": 42.99,
         "ts": "2026-10-05T02:49:22.152850+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 42.99,
+        "ts": "2026-10-06T03:53:41.740115+01:00"
       }
     ],
-    "title": "Bella - 6-qt. Programmable Slow Cooker & 2-qt. Slow Cooker Set - Oatmilk"
+    "title": "Bella - 6-qt. Programmable Slow Cooker & 2-qt. Slow Cooker Set - Oatmilk",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|298491432151|0": {
+    "article_slug": "best-air-fryers-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-06",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 115.4,
+        "ts": "2026-10-06T03:53:50.521740+01:00"
+      }
+    ],
+    "title": "Kitchen Elite 26 Qt Air Fryer Oven KE-AFO-107-26 Stainless Steel",
+    "tracking_status": "active"
   },
   "daily|us|v1|318012189912|0": {
     "article_slug": "best-slow-cookers-worth-buying-us",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-05",
         "price": 49.99,
         "ts": "2026-10-05T02:49:22.152850+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 49.99,
+        "ts": "2026-10-06T03:53:41.740115+01:00"
       }
     ],
-    "title": "Chefman 7-Qt Programmable Slow Cooker w/ Locking Lid, Adjustable Temp & Timer"
+    "title": "Chefman 7-Qt Programmable Slow Cooker w/ Locking Lid, Adjustable Temp & Timer",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|318181056019|616724865540": {
+    "article_slug": "best-air-fryers-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-06",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 82.0,
+        "ts": "2026-10-06T03:53:50.521740+01:00"
+      }
+    ],
+    "title": "9.5 QT Dual Basket Air Fryer,Large Air Fryer with Double Basket TEMP Control",
+    "tracking_status": "active"
   },
   "daily|us|v1|318258330825|0": {
     "article_slug": "best-slow-cookers-worth-buying-us",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-05",
         "price": 59.99,
         "ts": "2026-10-05T02:49:22.152850+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 59.99,
+        "ts": "2026-10-06T03:53:41.740115+01:00"
       }
     ],
-    "title": "Crock-Pot 7qt Slow Cooker Touch Control 4 Settings Locking Lid Digital"
+    "title": "Crock-Pot 7qt Slow Cooker Touch Control 4 Settings Locking Lid Digital",
+    "tracking_status": "active"
   },
   "daily|us|v1|318931450381|0": {
     "article_slug": "best-slow-cookers-worth-buying-us",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-05",
         "price": 41.98,
         "ts": "2026-10-05T02:49:22.152850+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 69.96,
+        "ts": "2026-10-06T03:53:41.740115+01:00"
       }
     ],
-    "title": "Crock-Pot 7 Quart Manual Slow Cooker with 3Heat Settings,Large Slow Cooker,Denim"
+    "title": "Crock-Pot 7 Quart Manual Slow Cooker with 3Heat Settings,Large Slow Cooker,Denim",
+    "tracking_status": "active"
   },
   "daily|us|v1|318932624937|0": {
     "article_slug": "best-slow-cookers-worth-buying-us",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-05",
         "price": 19.77,
         "ts": "2026-10-05T02:49:22.152850+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 19.77,
+        "ts": "2026-10-06T03:53:41.740115+01:00"
       }
     ],
-    "title": "Crock-Pot® 4-Quart Classic Slow Cooker, Black"
+    "title": "Crock-Pot® 4-Quart Classic Slow Cooker, Black",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|366709903738|0": {
+    "article_slug": "best-air-fryers-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-06",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 52.25,
+        "ts": "2026-10-06T03:53:50.521740+01:00"
+      }
+    ],
+    "title": "Gourmia 14-Quart Air Fryer, Oven, Rotisserie & Dehydrator with Temp Probe",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|377342620580|0": {
+    "article_slug": "best-air-fryers-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-06",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 49.7,
+        "ts": "2026-10-06T03:53:50.521740+01:00"
+      }
+    ],
+    "title": "bella PRO - 12.6-qt. Touchscreen Air Fryer Oven - Stainless Steel -",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|398401629551|0": {
+    "article_slug": "best-air-fryers-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-06",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 64.9,
+        "ts": "2026-10-06T03:53:50.521740+01:00"
+      }
+    ],
+    "title": "Bella PRO 12.6-Qt Air Fryer Oven Stainless Steel – Air Fry, Roast, Bake, Broil",
+    "tracking_status": "active"
   },
   "daily|us|v1|407109926357|677285696446": {
     "article_slug": "best-slow-cookers-worth-buying-us",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-05",
         "price": 40.99,
         "ts": "2026-10-05T02:49:22.152850+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 40.99,
+        "ts": "2026-10-06T03:53:41.740115+01:00"
       }
     ],
-    "title": "6.7/9 Quart Slow Cooker"
+    "title": "6.7/9 Quart Slow Cooker",
+    "tracking_status": "active"
   },
   "daily|us|v1|920009001948|0": {
     "article_slug": "best-refurbished-storage-bins-worth-buying-us",
-    "last_attempt_date": "2026-10-05",
+    "last_attempt_date": "2026-10-06",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-05",
         "price": 30.0,
         "ts": "2026-10-05T11:39:48.985281+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-06",
+        "price": 30.0,
+        "ts": "2026-10-06T03:53:41.740115+01:00"
       }
     ],
     "title": "French Country Basket 15” X 12” Vintage Green  Storage Cottage Core Farmhouse",
