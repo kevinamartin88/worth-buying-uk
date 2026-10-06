@@ -11,6 +11,8 @@ from urllib.parse import quote_plus
 from zoneinfo import ZoneInfo
 
 import generate_daily_articles as daily
+from src.amazon_creators import AmazonCreatorsClient
+from src.product_image_quality import product_image_html
 
 
 ROOT = Path(__file__).resolve().parent
@@ -177,40 +179,66 @@ def _amazon_search_url(query: str, market: str) -> str:
     return f"https://{host}/s?k={quote_plus(query)}"
 
 
+
+def _amazon_prime_offers(topic: tuple, market: str) -> list:
+    key, display, query, *_ = daily.localise_topic(topic, market)
+    client = AmazonCreatorsClient.from_env(market)
+    if client is None:
+        raise RuntimeError(
+            f"Amazon Creators API credentials are required for Prime product cards ({market})"
+        )
+    offers = client.search_offers(query, item_count=8)
+    usable = []
+    for offer in offers:
+        if not offer.image_url:
+            continue
+        if not daily.relevant_product(offer.title, query):
+            continue
+        usable.append(offer)
+        if len(usable) >= 4:
+            break
+    if len(usable) < 3:
+        raise RuntimeError(
+            f"Amazon returned only {len(usable)} usable {display} offers with product images"
+        )
+    return usable
+
+
 def _amazon_only_prime_content(topic: tuple, market: str, run_date: date) -> str:
     key, display, query, _max_uk, _max_us, category, _kicker = daily.localise_topic(
         topic, market
     )
     region = "UK" if market == "uk" else "USA"
     retailer = "Amazon UK" if market == "uk" else "Amazon"
-    variants = PRIME_AMAZON_SEARCHES.get(key) or (
-        query,
-        f"{query} best rated",
-        f"{query} Prime",
-        f"{query} deals",
-    )
+    symbol = "£" if market == "uk" else "$"
+    offers = _amazon_prime_offers(topic, market)
+
     cards = []
     sections = []
-    for index, search_term in enumerate(variants[:4], start=1):
-        url = _amazon_search_url(search_term, market)
-        label = search_term.title()
+    for index, offer in enumerate(offers, start=1):
+        title = str(offer.title).strip()
+        price = f"{symbol}{offer.price:,.2f}"
+        url = str(offer.url).strip()
+        image_markup = product_image_html(str(offer.image_url), title)
         cards.append(
             '<div style="border:1px solid #dfe6ee;border-radius:14px;padding:18px;'
             'margin:14px 0;background:#fff;">'
-            f'<p style="margin:0 0 8px"><strong>{index}. {html.escape(label)}</strong></p>'
-            '<p style="margin:6px 0">Open Amazon to see the current products, live price, '
-            'Prime eligibility and availability. We do not publish an unverified discount.</p>'
+            f'{image_markup}'
+            f'<p style="margin:0 0 8px"><strong>{index}. {html.escape(title)}</strong></p>'
+            f'<p style="margin:6px 0"><strong>Amazon price checked:</strong> {html.escape(price)}</p>'
+            '<p style="margin:6px 0">Prime eligibility, delivery and promotional pricing can change, '
+            'so confirm the live Amazon listing before buying.</p>'
             '<p style="margin:14px 0 2px">'
             f'<a href="{html.escape(url, quote=True)}" rel="sponsored nofollow" '
             'style="display:inline-block;padding:11px 16px;background:#082f5b;'
             'color:#fff;text-decoration:none;border-radius:8px;font-weight:700">'
-            f'Search {html.escape(retailer)}</a></p></div>'
+            f'Check {html.escape(retailer)} price</a></p></div>'
         )
         sections.append(
-            f"<h3>{index}. {html.escape(label)}</h3>\n"
-            f"<p>Use this {html.escape(retailer)} search to compare current {html.escape(display.lower())}. "
+            f"<h3>{index}. {html.escape(title)}</h3>\n"
+            f"<p>Amazon returned this product at {html.escape(price)} when the guide was generated. "
             "Check the exact model, specification, warranty, delivery, returns, Prime eligibility and "
-            "current price on Amazon before buying.</p>\n"
+            "current price on the live Amazon page before buying.</p>\n"
             f'<p><a href="{html.escape(url, quote=True)}" rel="sponsored nofollow">'
             f'View on {html.escape(retailer)}</a></p>\n'
         )
@@ -226,27 +254,25 @@ def _amazon_only_prime_content(topic: tuple, market: str, run_date: date) -> str
     return (
         f"<p><strong>Shopping for {html.escape(display.lower())} during Prime Big Deal Days in the {region}? "
         "This event update is deliberately Amazon-only so every retailer link matches the Amazon event.</strong></p>\n"
-        f"<p>We checked Amazon routes for {html.escape(display)} on {html.escape(checked)}. "
-        "Where a direct verified offer is not available, we link to a focused Amazon search rather than "
-        "substituting eBay or inventing a price or discount.</p>\n"
+        f"<p>We checked current Amazon products for {html.escape(display)} on {html.escape(checked)}. "
+        "The product cards below use Amazon's current product title, price, product page and official primary image.</p>\n"
         f"{daily.editorial_trust_html(market, checked)}"
-        "<h2>Amazon options worth comparing</h2>\n"
+        "<h2>Amazon products worth comparing</h2>\n"
         + "".join(cards)
-        + "<h2>Current Amazon searches</h2>\n"
+        + "<h2>Current Amazon picks</h2>\n"
         + "".join(sections)
         + "<h2>How to choose the right option</h2>\n"
         f"<ul>{check_html}</ul>\n"
         "<h2>Why this Prime guide is Amazon-only</h2>\n"
         "<p>Prime Big Deal Days is an Amazon shopping event. These event-specific Worth Buying guides "
-        "therefore use Amazon-only retailer links. If Amazon does not return a suitable direct offer, "
-        "we keep the article on Amazon using a focused search instead of falling back to another marketplace.</p>\n"
+        "therefore use Amazon-only retailer links and Amazon product imagery.</p>\n"
         "<h2>How we choose these Prime picks</h2>\n"
-        "<p>We use current retailer routes, practical buying checks and transparent fallbacks. "
+        "<p>We use current Amazon catalogue data, practical buying checks and transparent pricing. "
         "We do not claim a Prime discount unless current Amazon data supports that claim.</p>\n"
         "<h2>Frequently asked questions</h2>\n"
         f"<h3>Are these {html.escape(display.lower())} definitely discounted?</h3>\n"
-        "<p>No. Prices and promotions can change quickly. We only describe a discount when it is verified; "
-        "otherwise, use the Amazon link to check the live price.</p>\n"
+        "<p>No. Prices and promotions can change quickly. We show the Amazon price returned when the guide is generated, "
+        "but you should check the live product page before buying.</p>\n"
         f"<h3>Why do all links go to {html.escape(retailer)}?</h3>\n"
         "<p>Because Prime Big Deal Days is an Amazon event, these Prime-specific guides do not mix in eBay links.</p>\n"
         "<p><em>As an Amazon Associate we earn from qualifying purchases at no extra cost to you. "
@@ -269,11 +295,12 @@ def make_prime_article_amazon_only(
     generator = article.setdefault("_generator", {})
     generator["live_ebay_picks"] = False
     generator["prime_amazon_only"] = True
-    generator["pick_count"] = 4
+    generator["pick_count"] = str(article.get("content_html") or "").count('class="wb-product-image"')
     generator["retailer_mode"] = "amazon-only"
     article["youtube_short_points"] = [
-        f"{term.title()} — check current Amazon price"
-        for term in (PRIME_AMAZON_SEARCHES.get(topic[0]) or (topic[2],))[:3]
+        "Amazon product images and current prices verified in the live guide",
+        "Amazon-only Prime Big Deal Days retailer links",
+        "Check the live Amazon page for current Prime eligibility",
     ]
     return article
 
@@ -289,6 +316,11 @@ def validate_prime_article(article: dict, market: str) -> None:
     networks = list((article.get("_monetisation") or {}).get("networks") or [])
     if networks != ["Amazon"]:
         raise RuntimeError(f"Prime event networks must be Amazon-only, got {networks}")
+    image_count = lowered.count('m.media-amazon.com') + lowered.count('images-na.ssl-images-amazon.com') + lowered.count('images-eu.ssl-images-amazon.com')
+    if image_count < 3:
+        raise RuntimeError(
+            f"Prime event article must contain at least 3 Amazon product images; found {image_count}"
+        )
 
 
 def _event_banner(run_date: date, market: str) -> str:
