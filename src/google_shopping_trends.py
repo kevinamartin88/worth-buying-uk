@@ -160,7 +160,7 @@ def rank_topics_by_google_shopping(
     session = requests.Session()
     session.headers.update(
         {
-            "User-Agent": USER_AGENT,
+            "User-Agent": USER_AGENT.replace("https://www.worthbuyinguk.co.uk/", "https://www.worthbuyingusa.com/") if geo == "US" else USER_AGENT,
             "Accept": "application/json,text/plain,*/*",
             "Referer": f"https://trends.google.com/trends/explore?geo={geo}",
         }

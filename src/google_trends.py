@@ -140,7 +140,7 @@ def fetch_trending_searches(market: str, timeout: int = 8) -> list[dict]:
     geo = "GB" if market.casefold() == "uk" else "US"
     request = urllib.request.Request(
         RSS_URL.format(geo=geo),
-        headers={"User-Agent": USER_AGENT, "Accept": "application/rss+xml, application/xml;q=0.9, */*;q=0.8"},
+        headers={"User-Agent": USER_AGENT.replace("https://www.worthbuyinguk.co.uk/", "https://www.worthbuyingusa.com/") if geo == "US" else USER_AGENT, "Accept": "application/rss+xml, application/xml;q=0.9, */*;q=0.8"},
     )
 
     try:

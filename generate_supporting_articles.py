@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from src.us_targeting import us_article_output
+
 import json
 from datetime import datetime
 from pathlib import Path
@@ -153,6 +155,7 @@ def _pillar_url(base_key: str, market: str, year: int) -> str:
     return ""
 
 
+@us_article_output
 def build_support_article(base: tuple, market: str, year: int, iso_week: int) -> dict:
     topic = support_topic(base, market, iso_week)
     article = daily.build_article(topic, market, year)

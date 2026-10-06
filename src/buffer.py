@@ -79,6 +79,11 @@ class BufferClient:
             )
 
         wanted = self.channel_name.casefold()
+        if wanted == "worth buying usa":
+            exact_us = [c for c in channels if self._normalise_name(str(c.get("name", ""))) == "worthbuyingusa"]
+            if len(exact_us) != 1:
+                raise RuntimeError("USA Buffer channel must match uniquely; refusing another account")
+            return str(exact_us[0]["id"])
         exact = [c for c in channels if str(c.get("name", "")).casefold() == wanted]
 
         selected: dict | None = None

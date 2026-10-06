@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from src.us_targeting import us_article_output
+
 import argparse
 import html
 import json
@@ -221,6 +223,7 @@ def list_html(items: tuple[str, ...] | list[str]) -> str:
     return "<ul>" + "".join(f"<li>{html.escape(item)}</li>" for item in items) + "</ul>"
 
 
+@us_article_output
 def build_article(market: str, publish_date: date) -> dict:
     if market not in {"uk", "us"}:
         raise ValueError(f"Unsupported market: {market}")

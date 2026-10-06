@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from src.us_targeting import prepare_us_article, us_url, localize_text, localize_html, validate_us_copy, us_audience_hours
+
 import json
 import os
 from pathlib import Path
@@ -104,6 +106,9 @@ def initialize_baseline(blog_state: dict) -> None:
 
 
 def main() -> None:
+    if not us_audience_hours():
+        print("[deferred] USA social publishing resumes during 09:00–21:00 Eastern.")
+        return
     if not os.getenv("BUFFER_API_KEY"):
         print("[skip] BUFFER_API_KEY is not configured")
         return
@@ -130,12 +135,12 @@ def main() -> None:
         print("[skip] No new USA articles need X publishing; Buffer API was not called.")
         return
 
-    buffer = BufferClient.from_env()
+    buffer = BufferClient(os.environ["BUFFER_API_KEY"].strip(), "Worth Buying USA")
 
     posted = 0
     for slug, item in pending:
-        url = item["url"]
-        title = item["title"]
+        url = us_url(item["url"])
+        title = localize_text(item["title"])
         refreshed_feature = is_refreshed_daily_feature(x_state.get(slug), item)
 
         article_path = ROOT / "articles-us" / item.get("source_file", "")
@@ -159,10 +164,15 @@ def main() -> None:
             else:
                 text = prefix + text[: max(0, 279 - len(prefix))].rstrip() + "…"
 
+        text = localize_text(text)
+        validate_us_copy(text, social=True)
+
         ai_image_path = AI_IMAGE_DIR / f"{slug}.jpg"
         fallback_image_path = X_IMAGE_DIR / f"{slug}.png"
         if ai_image_path.exists():
             image_url = f"{AI_IMAGE_BASE}/{slug}.jpg"
+            if slug == "best-large-capacity-air-fryers-worth-buying-us":
+                image_url += "?v=basket-air-fryers-v2"
         elif fallback_image_path.exists():
             image_url = f"{X_IMAGE_BASE}/{slug}.png"
         else:

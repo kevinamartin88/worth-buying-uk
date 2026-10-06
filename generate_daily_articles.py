@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from src.us_targeting import us_article_output
+
 import html
 import json
 import math
@@ -886,7 +888,7 @@ def pick_topic(
     # Primary signal: external Google Shopping search interest in GB/US.
     # This measures what people are searching for on Google Shopping and does
     # not use WorthBuying Search Console or any traffic from our own sites.
-    shopping_candidates = shopping_candidate_topics(candidate_pool, month)
+    shopping_candidates = [localise_topic(t, market) for t in shopping_candidate_topics(candidate_pool, month)]
     shopping_ranked = rank_topics_by_google_shopping(
         shopping_candidates,
         market,
@@ -911,7 +913,7 @@ def pick_topic(
     # Secondary external signal: Google's Trending Now feed. This is broader
     # than shopping intent and is often news/sport-led, so it is used only if
     # the Shopping comparison endpoint is unavailable or returns no product data.
-    trend_ranked = rank_topics_by_trends(candidate_pool, market)
+    trend_ranked = rank_topics_by_trends([localise_topic(t, market) for t in candidate_pool], market)
     if trend_ranked:
         topic, trend_signal = trend_ranked[0]
         trend_score = float(trend_signal.get("score") or 0)
@@ -1520,6 +1522,7 @@ def evergreen_article_slug(topic_key: str, market: str) -> str:
     return f"best-{topic_key}-worth-buying-{market}"
 
 
+@us_article_output
 def build_article(
     topic: tuple,
     market: str,

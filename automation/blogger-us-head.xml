@@ -1,0 +1,6 @@
+<!-- Install ONLY in the Worth Buying USA Blogger theme's <head>.
+     Keep Blogger's existing canonical include; do not add another canonical.
+     Blogger must already use https://www.worthbuyingusa.com as its custom domain. -->
+<b:if cond='data:blog.canonicalUrl contains "www.worthbuyingusa.com"'>
+  <link expr:href='data:blog.canonicalUrl' hreflang='en-US' rel='alternate'/>
+</b:if>

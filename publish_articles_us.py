@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from src.us_targeting import prepare_us_article, us_url, localize_text, localize_html, validate_us_copy, us_audience_hours
+
 # Image-gated Blogger publisher.
 
 import hashlib
@@ -128,7 +130,7 @@ def main() -> None:
     resolve_usa_blog(blogger)
 
     for path in sorted(ARTICLES_DIR.glob("*.json")):
-        article = json.loads(path.read_text(encoding="utf-8"))
+        article = prepare_us_article(json.loads(path.read_text(encoding="utf-8")))
         slug = article["slug"]
         title = article["title"]
         article_content = clean_article_disclosures(
@@ -198,7 +200,7 @@ def main() -> None:
             existing["image_required"] = True
             if feature_today and existing.get("promotion_token") != promotion_token:
                 featured = blogger.feature_post_today(str(existing["post_id"]))
-                existing["url"] = featured.get("url") or existing.get("url")
+                existing["url"] = us_url(featured.get("url") or existing.get("url"))
                 existing["promotion_token"] = promotion_token
                 existing["daily_featured_date"] = promotion.get("daily_featured_date")
                 print(f"[daily-feature-refresh] {title}: moved back to top of Blogger")
@@ -227,6 +229,11 @@ def main() -> None:
                     action = "reconciled-image-backfilled"
                 else:
                     action = "reconciled"
+                cleaned = localize_html(str(post.get("content", "")))
+                validate_us_copy(cleaned)
+                if cleaned != post.get("content", ""):
+                    post = blogger.update_post_content(post_id, cleaned)
+                    action = "reconciled-us-copy"
                 if mode == "publish" and str(found.get("status", "")).upper() != "LIVE":
                     post = blogger.publish_post(post_id)
             else:
@@ -260,7 +267,7 @@ def main() -> None:
 
         state[slug] = {
             "post_id": stored["id"],
-            "url": stored.get("url") or post.get("url"),
+            "url": us_url(stored.get("url") or post.get("url")),
             "title": title,
             "status": "published" if mode == "publish" else "draft",
             "source_sha": article.get("source_sha"),

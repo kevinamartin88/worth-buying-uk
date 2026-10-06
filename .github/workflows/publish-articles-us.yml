@@ -4,11 +4,15 @@ name: Publish USA Blogger articles
 # Posts are staged as drafts before going live, then feed X, Bluesky and Pinterest.
 on:
   workflow_dispatch:
+  schedule:
+    # UTC: daytime Eastern and late morning/afternoon Pacific, including DST.
+    - cron: "23 14,17,21 * * *"
   push:
     branches:
       - main
     paths:
       - "articles-us/**"
+      - "src/us_targeting.py"
       - "publish_articles_us.py"
       - "publish_site_pages.py"
       - "src/site_pages.py"
@@ -45,6 +49,8 @@ concurrency:
 
 jobs:
   publish-us:
+    needs: usa-time-gate
+    if: needs.usa-time-gate.outputs.run == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 25
 
@@ -66,7 +72,7 @@ jobs:
       - name: Test publishing and Shorts safeguards
         env:
           PYTHONPATH: .
-        run: pytest -q tests/test_article_images.py tests/test_youtube_shorts.py tests/test_site_pages.py tests/test_affiliate_tracking.py tests/test_social_promotion.py
+        run: pytest -q tests/test_us_targeting.py tests/test_article_images.py tests/test_youtube_shorts.py tests/test_site_pages.py tests/test_affiliate_tracking.py tests/test_social_promotion.py
 
       - name: Ensure FFmpeg is available for YouTube Shorts
         run: |
@@ -289,3 +295,20 @@ jobs:
 
           echo "Could not save USA publication state after 3 attempts."
           exit 1
+
+  usa-time-gate:
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.gate.outputs.run }}
+    steps:
+      - name: Select USA audience hours
+        id: gate
+        shell: bash
+        run: |
+          hour=$(TZ=America/New_York date +%H)
+          if (( 10#$hour >= 9 && 10#$hour < 21 )); then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "USA publishing deferred to the next US daytime schedule."
+          fi

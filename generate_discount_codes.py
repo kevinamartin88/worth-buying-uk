@@ -360,6 +360,10 @@ def refresh_market(market: str) -> dict:
     blogger = BloggerClient.from_env()
     blogger.resolve_blog(EXPECTED_HOSTS[market], f"Worth Buying {market.upper()}")
     content = render_page(offers, market, today)
+    if market == "us":
+        from src.us_targeting import localize_html, validate_us_copy
+        content = localize_html(content)
+        validate_us_copy(content)
     try:
         result = blogger.upsert_page(PAGE_TITLE, content)
         content_type = "page"

@@ -597,6 +597,12 @@ def build_prompt(article: dict, market: str) -> str:
     summary = _strip_html(str(article.get("content_html", "")))[:450]
     region = "United Kingdom" if market == "uk" else "United States"
     direction = _visual_direction(article)
+    if market == "us" and "air fryer" in title.casefold():
+        direction = (
+            "Show large countertop basket air fryers with clearly visible pull-out basket handles, "
+            "including a dual-drawer model. These are compact standalone appliances on a countertop. "
+            "No freestanding oven, built-in oven, range, stovetop or toaster oven in the scene."
+        )
 
     return (
         "Premium photorealistic 16:9 editorial hero photograph for an independent "
