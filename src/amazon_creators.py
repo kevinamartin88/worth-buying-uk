@@ -33,6 +33,7 @@ class AmazonOffer:
     price: float
     currency: str
     url: str
+    image_url: str = ""
 
 
 class AmazonCreatorsClient:
@@ -113,7 +114,11 @@ class AmazonCreatorsClient:
                 "partnerTag": config["partner_tag"],
                 "marketplace": config["marketplace"],
                 "itemCount": max(1, min(item_count, 10)),
-                "resources": ["itemInfo.title", "offersV2.listings.price"],
+                "resources": [
+                    "images.primary.large",
+                    "itemInfo.title",
+                    "offersV2.listings.price",
+                ],
             },
             timeout=self.timeout,
         )
@@ -135,7 +140,19 @@ class AmazonCreatorsClient:
                 continue
             currency = str(money.get("currency") or "").upper()
             url = str(item.get("detailPageURL") or "").strip()
+            image_url = str(
+                (((item.get("images") or {}).get("primary") or {}).get("large") or {}).get("url")
+                or ""
+            ).strip()
             if currency != config["currency"] or price <= 0 or not url:
                 continue
-            offers.append(AmazonOffer(title=title, price=price, currency=currency, url=url))
+            offers.append(
+                AmazonOffer(
+                    title=title,
+                    price=price,
+                    currency=currency,
+                    url=url,
+                    image_url=image_url,
+                )
+            )
         return offers
