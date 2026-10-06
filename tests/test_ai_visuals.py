@@ -55,7 +55,7 @@ def test_air_fryer_direction_forbids_ovens():
         "hero_image_kicker": "AIR FRYER GUIDE",
     }
     direction = ai_visuals._visual_direction(article)
-    assert "basket-style air fryer" in direction
+    assert "basket-style countertop air fryer" in direction
     assert "pull-out cooking drawer" in direction
     assert "conventional built-in oven" in direction
     assert "toaster oven" in direction
