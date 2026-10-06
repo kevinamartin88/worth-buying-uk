@@ -15,6 +15,10 @@ RAW_AI_BASE = (
     "worth-buying-uk/main/assets/ai"
 )
 IMG_RE = re.compile(r"<img\b", re.IGNORECASE)
+HERO_RE = re.compile(
+    r'<div\\s+class="wb-article-hero"[^>]*>.*?</div>\\s*',
+    re.IGNORECASE | re.DOTALL,
+)
 
 
 def _validate_market(market: str) -> str:
