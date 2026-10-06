@@ -16,7 +16,7 @@ RAW_AI_BASE = (
 )
 IMG_RE = re.compile(r"<img\b", re.IGNORECASE)
 HERO_RE = re.compile(
-    r'<div\\s+class="wb-article-hero"[^>]*>.*?</div>\\s*',
+    r'<div\s+class="wb-article-hero"[^>]*>.*?</div>\s*',
     re.IGNORECASE | re.DOTALL,
 )
 
