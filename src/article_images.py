@@ -6,6 +6,7 @@ import re
 from pathlib import Path
 
 from PIL import Image
+from src.curated_visuals import configuration as curated_configuration
 from src.product_image_quality import prepare_product_images
 
 
@@ -46,7 +47,7 @@ def hero_image_url(market: str, slug: str) -> str:
         style = style_path.read_text(encoding="utf-8").strip().casefold()
     except OSError:
         style = ""
-    if path.is_file() and ("updated-badge" in style or "prime-big" in style):
+    if path.is_file() and ("updated-badge" in style or "prime-big" in style or curated_configuration(market, slug)):
         digest = hashlib.sha256(path.read_bytes()).hexdigest()[:16]
         return f"{url}?v={digest}"
     return url

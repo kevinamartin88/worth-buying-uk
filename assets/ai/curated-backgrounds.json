@@ -1,0 +1,24 @@
+{
+  "uk:best-large-capacity-air-fryers-worth-buying-uk": {
+    "path": "assets/ai/backgrounds/reviewed-basket-air-fryer.jpg",
+    "sha256": "71af89e719b96ac39b51f7e26e62ac3b51df0ebbca229974864a0e10e842651e",
+    "reviewed_subject": "Compact dual-drawer countertop basket air fryer; open removable baskets; no oven or refrigerator"
+  },
+  "us:best-large-capacity-air-fryers-worth-buying-us": {
+    "path": "assets/ai/backgrounds/reviewed-basket-air-fryer.jpg",
+    "sha256": "71af89e719b96ac39b51f7e26e62ac3b51df0ebbca229974864a0e10e842651e",
+    "reviewed_subject": "Compact dual-drawer countertop basket air fryer; open removable baskets; no oven or refrigerator"
+  },
+  "air-fryer-defaults": {
+    "uk": {
+      "path": "assets/ai/backgrounds/reviewed-basket-air-fryer.jpg",
+      "sha256": "71af89e719b96ac39b51f7e26e62ac3b51df0ebbca229974864a0e10e842651e",
+      "reviewed_subject": "Compact dual-drawer countertop basket air fryer; open removable baskets; no oven or refrigerator"
+    },
+    "us": {
+      "path": "assets/ai/backgrounds/reviewed-basket-air-fryer.jpg",
+      "sha256": "71af89e719b96ac39b51f7e26e62ac3b51df0ebbca229974864a0e10e842651e",
+      "reviewed_subject": "Compact dual-drawer countertop basket air fryer; open removable baskets; no oven or refrigerator"
+    }
+  }
+}
