@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import date
+from types import SimpleNamespace
 
 import generate_prime_big_deal_articles as prime
 
@@ -76,6 +77,19 @@ def test_each_run_caps_at_one_article_per_market(monkeypatch, tmp_path):
     }
     monkeypatch.setattr(prime, "ROOT", tmp_path)
     monkeypatch.setattr(prime.daily, "build_article", lambda *args, **kwargs: dict(base))
+    monkeypatch.setattr(
+        prime,
+        "_amazon_prime_offers",
+        lambda *args, **kwargs: [
+            SimpleNamespace(
+                title=f"Robot Vacuum {i}",
+                price=199.99 + i,
+                url=f"https://www.amazon.co.uk/dp/B00000000{i}",
+                image_url=f"https://m.media-amazon.com/images/I/product{i}._SL1200_.jpg",
+            )
+            for i in range(1, 5)
+        ],
+    )
     row = prime.generate_one_market(
         state,
         market="uk",
@@ -85,3 +99,17 @@ def test_each_run_caps_at_one_article_per_market(monkeypatch, tmp_path):
     assert row is not None
     assert row["slot"] == 1
     assert len(state["days"]["2026-10-06"]["uk"]["published"]) == 1
+
+
+def test_prime_validation_requires_amazon_product_images():
+    article = {
+        "slug": "example",
+        "content_html": (
+            '<a href="https://www.amazon.co.uk/dp/B000000001">Amazon</a>'
+            '<img src="https://m.media-amazon.com/images/I/one.jpg">'
+            '<img src="https://m.media-amazon.com/images/I/two.jpg">'
+            '<img src="https://m.media-amazon.com/images/I/three.jpg">'
+        ),
+        "_monetisation": {"networks": ["Amazon"]},
+    }
+    prime.validate_prime_article(article, "uk")
