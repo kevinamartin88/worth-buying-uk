@@ -6,6 +6,10 @@
           {
             "status": "published",
             "topic": "large-capacity-air-fryers"
+          },
+          {
+            "status": "published",
+            "topic": "robot-vacuums"
           }
         ],
         "published": [
@@ -16,6 +20,14 @@
             "slug": "best-large-capacity-air-fryers-worth-buying-uk",
             "title": "Prime Big Deal Days: Large Capacity Air Fryers Worth Comparing in the UK (2026)",
             "topic": "large-capacity-air-fryers"
+          },
+          {
+            "action": "refreshed",
+            "pick_count": 4,
+            "slot": 2,
+            "slug": "best-robot-vacuum-cleaners-worth-buying-uk-2026",
+            "title": "Prime Big Deal Days: Robot Vacuum Cleaners Worth Comparing in the UK (2026)",
+            "topic": "robot-vacuums"
           }
         ]
       },
@@ -24,6 +36,10 @@
           {
             "status": "published",
             "topic": "large-capacity-air-fryers"
+          },
+          {
+            "status": "published",
+            "topic": "robot-vacuums"
           }
         ],
         "published": [
@@ -34,6 +50,14 @@
             "slug": "best-large-capacity-air-fryers-worth-buying-us",
             "title": "Prime Big Deal Days: Large Capacity Air Fryers Worth Comparing in the USA (2026)",
             "topic": "large-capacity-air-fryers"
+          },
+          {
+            "action": "refreshed",
+            "pick_count": 4,
+            "slot": 2,
+            "slug": "best-robot-vacuum-cleaners-worth-buying-us-2026",
+            "title": "Prime Big Deal Days: Robot Vacuums Worth Comparing in the USA (2026)",
+            "topic": "robot-vacuums"
           }
         ]
       }
