@@ -21,8 +21,10 @@ SLUG = "approved-retailer-wardrobes-uk-2026-10-05"
 SEARCHES = ("2 door wardrobe", "3 door wardrobe", "4 door wardrobe", "sliding wardrobe", "armoire")
 ACCESSORIES = re.compile(
     r"\b(hangers?|rails?|organisers?|organizers?|inserts?|tracks?|runners?|hinges?|"
-    r"handles?|brackets?|fittings?|spares?|replacements?|accessor(?:y|ies))\b", re.I
+    r"handles?|brackets?|fittings?|spares?|replacements?|dampers?|shelves|shelf|"
+    r"panels?|locks?|castors?|casters?|accessor(?:y|ies))\b", re.I
 )
+FOR_WARDROBE = re.compile(r"\bfor\b.*\b(?:wardrobes?|armoires?)\b", re.I)
 
 
 def refreshed_article(original, client, now):
@@ -31,7 +33,8 @@ def refreshed_article(original, client, now):
     candidates, seen = [], set()
     for query in SEARCHES:
         for product in relevant_products(client.search(query, limit=20), "wardrobe armoire", "wardrobes"):
-            if product.url in seen or ACCESSORIES.search(product.name) or product.currency != "GBP":
+            if (product.url in seen or ACCESSORIES.search(product.name)
+                    or FOR_WARDROBE.search(product.name) or product.currency != "GBP"):
                 continue
             seen.add(product.url)
             candidates.append(product)

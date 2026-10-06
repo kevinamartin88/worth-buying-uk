@@ -19,6 +19,8 @@ def test_refresh_uses_complete_wardrobes_and_keeps_original_identity():
     client = Mock()
     client.search.return_value = [
         product("Wardrobe Hangers", "199.00"), product("Wardrobe hanging rail", "129.00"),
+        product("Rauch Orange Door Dampers - Set of 3 - For Sliding Wardrobe", "149.00"),
+        product("Interior Lighting Kit For Sliding Wardrobe", "199.00"),
         product("Oak 2 Door Wardrobe"), product("White 3 Door Wardrobe"), product("Mirrored Sliding Wardrobe"),
         product("US 4 Door Wardrobe", currency="USD"),
     ]
@@ -28,6 +30,8 @@ def test_refresh_uses_complete_wardrobes_and_keeps_original_identity():
     assert article["_generator"]["offer_count"] == 3
     assert "Wardrobe Hangers" not in article["content_html"]
     assert "hanging rail" not in article["content_html"]
+    assert "Door Dampers" not in article["content_html"]
+    assert "Lighting Kit" not in article["content_html"]
     assert "US 4 Door" not in article["content_html"]
     assert client.validate_product_destination.call_count == 3
 
