@@ -112,6 +112,7 @@ def test_refresh_updates_stable_deals_section_and_clears_empty_results(market):
     ebay, blogger = Mock(), Mock()
     ebay.search.return_value = []
     blogger.upsert_post.return_value = {'id': '42', 'url': 'https://site/existing'}
+    blogger.get_post_or_none.return_value = {'id': '42', 'content': render([], market, NOW, NOW.isoformat())}
     result = refresh(market, 'discover', ebay, blogger, NOW)
     assert result['id'] == '42'
     blogger.resolve_blog.assert_called_once_with(EXPECTED_HOSTS[market], TITLES[market])
@@ -166,3 +167,52 @@ def test_validate_missing_roundup_is_clean_skip(monkeypatch, capsys):
     assert "weekly roundup does not exist yet" in capsys.readouterr().out
     ebay.search.assert_not_called()
     blogger.upsert_post.assert_not_called()
+
+
+@pytest.mark.parametrize('market', ['uk', 'us'])
+def test_roundup_has_real_jpeg_hero_even_without_offers(market):
+    from src.article_images import require_hero_image
+    from PIL import Image
+    slug = f'weekly-ebay-deals-{market}'
+    path = Path(__file__).resolve().parents[1] / 'assets/ai' / market / f'{slug}.jpg'
+    with Image.open(path) as image:
+        assert image.format == 'JPEG' and image.size == (1600, 900)
+    content = render([], market, NOW, NOW.isoformat())
+    assert content.startswith('<div class="wb-article-hero"')
+    assert require_hero_image(market, slug) in content
+    assert '<svg' not in content and '.svg' not in content
+
+
+@pytest.mark.parametrize('market', ['uk', 'us'])
+def test_image_repair_preserves_live_copy_and_is_idempotent(market):
+    from src.article_images import hero_image_html
+    ebay, blogger = Mock(), Mock()
+    original = '<p>Manually checked offers and exact prices</p><!-- wb-ebay-deals:metadata -->'
+    hero, _ = hero_image_html(market, f'weekly-ebay-deals-{market}', TITLES[market])
+    repaired = hero + original
+    blogger.find_post_by_exact_title.return_value = {'id': '42'}
+    blogger.get_post_or_none.side_effect = [
+        {'id': '42', 'content': original}, {'id': '42', 'content': repaired},
+        {'id': '42', 'content': repaired}, {'id': '42', 'content': repaired},
+    ]
+    refresh(market, 'repair-images', ebay, blogger, NOW)
+    refresh(market, 'repair-images', ebay, blogger, NOW)
+    blogger.update_post_content.assert_called_once_with('42', repaired)
+    blogger.upsert_post.assert_not_called()
+    ebay.search.assert_not_called()
+    ebay.get_item.assert_not_called()
+
+
+def test_image_repair_fails_if_blogger_drops_the_image():
+    blogger = Mock()
+    blogger.find_post_by_exact_title.return_value = {'id': '42'}
+    blogger.get_post_or_none.return_value = {'id': '42', 'content': '<p>Offers</p>'}
+    with pytest.raises(RuntimeError, match='without the required hero'):
+        refresh('uk', 'repair-images', Mock(), blogger, NOW)
+
+
+def test_push_repairs_images_without_refreshing_offer_prices():
+    path = Path(__file__).resolve().parents[1] / '.github/workflows/weekly-ebay-deals.yml'
+    workflow = yaml.safe_load(path.read_text())
+    mode = workflow['jobs']['refresh']['steps'][-1]['env']['MODE']
+    assert "github.event_name == 'push' && 'repair-images'" in mode
