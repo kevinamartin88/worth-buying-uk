@@ -254,9 +254,9 @@
     "image_required": true,
     "post_id": "5400843848255275793",
     "promotion_token": "2026-10-06:prime-big-deal-days:us:best-large-capacity-air-fryers-worth-buying-us",
-    "publish_fingerprint": "637928c53ad121a40631727aef9aba19c46a46d9be47a18821265b191d840c26",
+    "publish_fingerprint": "5ab9e460436b0190190ec65d6dbca7bfe7b4138800a095eb6d472b371cba6476",
     "source_file": "best-large-capacity-air-fryers-worth-buying-us.json",
-    "source_sha": "2026-10-06-large-capacity-air-fryers-us-prime-big-deal-days-v1",
+    "source_sha": "2026-10-06-large-capacity-air-fryers-us-prime-big-deal-days-amazon-v2",
     "status": "published",
     "title": "Prime Big Deal Days: Large Capacity Air Fryers Worth Comparing in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/10/best-large-capacity-air-fryers-worth.html"
@@ -351,10 +351,10 @@
     "post_id": "1703728186862133304",
     "primary_category": "Home & Kitchen",
     "promotion_token": "2026-10-06:prime-big-deal-days:us:best-robot-vacuum-cleaners-worth-buying-us-2026",
-    "publish_fingerprint": "4f01d100de9fcfe89485db58100590e662b6b422a6ae2f93deff9159cebd948d",
+    "publish_fingerprint": "81bbb508cadbb9e3da24299c4a75a15627ac06c348a78f513777c467c437b669",
     "publisher": "manual",
     "source_file": "best-robot-vacuum-cleaners-worth-buying-us-2026.json",
-    "source_sha": "2026-10-06-robot-vacuums-us-prime-big-deal-days-v1",
+    "source_sha": "2026-10-06-robot-vacuums-us-prime-big-deal-days-amazon-v2-rerun1",
     "status": "published",
     "title": "Prime Big Deal Days: Robot Vacuums Worth Comparing in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/09/best-robot-vacuum-cleaners-worth-buying.html"
@@ -444,6 +444,19 @@
     "status": "published",
     "title": "Best TVs Worth Buying in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/09/best-tvs-worth-buying-in-usa-2026.html"
+  },
+  "best-wireless-earbuds-worth-buying-us": {
+    "daily_featured_date": "2026-10-06",
+    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-wireless-earbuds-worth-buying-us.jpg?v=f46ac2dd09da28b0",
+    "image_required": true,
+    "post_id": "5387673092246635749",
+    "promotion_token": "2026-10-06:prime-big-deal-days:us:best-wireless-earbuds-worth-buying-us",
+    "publish_fingerprint": "c7a4986c17aaff3c78ea32c8bab6abe777bd5413d5672d5e805b7e153389bf31",
+    "source_file": "best-wireless-earbuds-worth-buying-us.json",
+    "source_sha": "2026-10-06-wireless-earbuds-us-prime-big-deal-days-amazon-v2",
+    "status": "published",
+    "title": "Prime Big Deal Days: Wireless Earbuds Worth Comparing in the USA (2026)",
+    "url": "https://www.worthbuyingusa.com/2026/10/prime-big-deal-days-wireless-earbuds.html"
   },
   "car-accessories-garage-tools-worth-buying-us-2026": {
     "daily_featured_date": null,

@@ -133,9 +133,10 @@
   },
   "best-large-capacity-air-fryers-worth-buying-us": {
     "blog_url": "https://www.worthbuyingusa.com/2026/10/best-large-capacity-air-fryers-worth.html",
-    "publication_fingerprint": "d4e91ce806513e1d9b0e9aff7b671e0d8635a696ca264bb84f58ed26f08dac7f",
+    "publication_fingerprint": "abddc17ddbb2308c8ff3d4145cb9c3930530bbce352d803c246d3b6fe5cb6e02",
+    "reconciled_from_channel": true,
     "status": "published",
-    "uploaded_at": "2026-10-06T13:09:40.780836+00:00",
+    "uploaded_at": "2026-10-06T21:56:27.184347+00:00",
     "video_id": "qFY5-sY1bwg",
     "video_url": "https://www.youtube.com/shorts/qFY5-sY1bwg"
   },
@@ -166,9 +167,10 @@
   },
   "best-robot-vacuum-cleaners-worth-buying-us-2026": {
     "blog_url": "https://www.worthbuyingusa.com/2026/09/best-robot-vacuum-cleaners-worth-buying.html",
-    "publication_fingerprint": "d21ba2242ac5f057a0fa024b55c1eb04c48f47965bb386d5400bc64f66ce1594",
+    "publication_fingerprint": "4b6a5f173441de58422bff6ca0c18bc709b1df3f6c966a7c3efadaec3fb63fd4",
+    "reconciled_from_channel": true,
     "status": "published",
-    "uploaded_at": "2026-10-06T19:37:43.681477+00:00",
+    "uploaded_at": "2026-10-06T21:56:27.375814+00:00",
     "video_id": "Zhld2D-S6Y8",
     "video_url": "https://www.youtube.com/shorts/Zhld2D-S6Y8"
   },
@@ -209,6 +211,14 @@
     "blog_url": "https://www.worthbuyingusa.com/2026/09/best-tvs-worth-buying-in-usa-2026.html",
     "publication_fingerprint": "16c6d982844ec76ecf5cc36528bd6a0419f3e994b2ef72864a245f1f3123afb1",
     "status": "baseline"
+  },
+  "best-wireless-earbuds-worth-buying-us": {
+    "blog_url": "https://www.worthbuyingusa.com/2026/10/prime-big-deal-days-wireless-earbuds.html",
+    "publication_fingerprint": "958a2de803dbadc83c942607366836c44c0de0d775599f7ba0dabb7ec3100a6c",
+    "status": "published",
+    "uploaded_at": "2026-10-06T21:56:38.364886+00:00",
+    "video_id": "nDH-vNuBvm4",
+    "video_url": "https://www.youtube.com/shorts/nDH-vNuBvm4"
   },
   "car-accessories-garage-tools-worth-buying-us-2026": {
     "blog_url": "https://www.worthbuyingusa.com/2026/09/7-car-accessories-garage-tools-worth.html",
