@@ -816,25 +816,15 @@ def authority_candidate_pool(
     focused = weekend_candidate_topics(core, weekday)
     today = datetime.now(LONDON_TZ).date()
 
-    # The daily promise is one NEW UK + one NEW USA post every day. Build
-    # topical authority by exhausting unused commercial topics before using a
-    # daily slot to refresh an existing pillar page.
-    unused = [
-        topic
-        for topic in focused
-        if not topic_already_covered(article_dir, topic, year)
-    ]
-    if unused:
-        return unused
-
-    # Only after the current-year authority pool is exhausted may the daily
-    # slot refresh an existing money page. Separate workflows can still refresh
-    # older evergreen pages without consuming the daily new-post slot.
+    # A daily slot can be either a new authority article or a commercially
+    # useful refresh. Refreshed guides are promoted as today's feature and
+    # moved back to the top of Blogger without creating a duplicate URL.
     due: list[tuple] = []
     dated: list[tuple[date, tuple]] = []
     for topic in focused:
         last = topic_last_generated_date(article_dir, topic, year)
         if last is None:
+            due.append(topic)
             continue
         dated.append((last, topic))
         if (today - last).days >= REFRESH_AFTER_DAYS:
@@ -1642,6 +1632,12 @@ def build_article(
             "retailer_cta_count": len(picks) * 2 if live else 8,
             "authority_cluster": authority_cluster_for_topic(key),
         },
+        "_promotion": {
+            "daily_featured_date": checked_at.date().isoformat(),
+            "promotion_token": f"{checked_at.date().isoformat()}:{market}:{slug}",
+            "return_to_top": True,
+            "is_refresh": False,
+        },
         "_generator": {
             "market": market,
             "topic": key,
@@ -1711,6 +1707,8 @@ def main() -> None:
         )
         target = article_dir / f"{article['slug']}.json"
         refreshing = target.exists()
+        article.setdefault("_promotion", {})["is_refresh"] = refreshing
+        article["_promotion"]["promotion_token"] = f"{today}:{market}:{article['slug']}"
 
         target.write_text(
             json.dumps(article, indent=2, ensure_ascii=False) + "\n",

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+from datetime import datetime, timezone
 from urllib.parse import urlsplit
 
 from google.oauth2.credentials import Credentials
@@ -139,6 +140,45 @@ class BloggerClient:
             .patch(blogId=self.blog_id, postId=post_id, body=body)
             .execute(num_retries=API_RETRIES)
         )
+
+    def feature_post_today(self, post_id: str) -> dict:
+        """Move a published post to the top while protecting its existing URL."""
+        original = self.get_post(post_id)
+        original_url = str(original.get("url") or "")
+        original_published = str(original.get("published") or "")
+        published_now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+
+        featured = (
+            self.service.posts()
+            .patch(
+                blogId=self.blog_id,
+                postId=post_id,
+                body={"published": published_now},
+            )
+            .execute(num_retries=API_RETRIES)
+        )
+        featured_url = str(featured.get("url") or "")
+        if original_url and featured_url and featured_url != original_url:
+            if original_published:
+                (
+                    self.service.posts()
+                    .patch(
+                        blogId=self.blog_id,
+                        postId=post_id,
+                        body={"published": original_published},
+                    )
+                    .execute(num_retries=API_RETRIES)
+                )
+            raise RuntimeError(
+                "Blogger changed the permalink while featuring a refreshed post. "
+                f"Original date restored: {original_url} -> {featured_url}"
+            )
+
+        print(
+            f"[featured-today] Blogger post {post_id} moved to the top; "
+            f"URL preserved: {featured_url or original_url}"
+        )
+        return featured
 
     def update_post_content(self, post_id: str, content: str) -> dict:
         """Patch only a post body, preserving any manually edited title and labels."""

@@ -144,6 +144,13 @@ def main() -> None:
         )
         labels = article.get("labels", [])
         mode = article.get("mode", "publish").strip().lower()
+        promotion = article.get("_promotion") or {}
+        promotion_token = str(promotion.get("promotion_token") or "").strip()
+        feature_today = bool(
+            promotion_token
+            and promotion.get("return_to_top")
+            and promotion.get("is_refresh")
+        )
 
         # Keep the historical USA fingerprint based on the article body alone.
         # The mandatory hero is verified independently so legacy state remains
@@ -189,6 +196,12 @@ def main() -> None:
 
             existing["hero_image_url"] = hero_url
             existing["image_required"] = True
+            if feature_today and existing.get("promotion_token") != promotion_token:
+                featured = blogger.feature_post_today(str(existing["post_id"]))
+                existing["url"] = featured.get("url") or existing.get("url")
+                existing["promotion_token"] = promotion_token
+                existing["daily_featured_date"] = promotion.get("daily_featured_date")
+                print(f"[daily-feature-refresh] {title}: moved back to top of Blogger")
             continue
 
         body_replaced = False
@@ -231,6 +244,13 @@ def main() -> None:
                 body_replaced = True
 
         stored = blogger.get_post(str(post["id"]))
+        if (
+            feature_today
+            and existing
+            and existing.get("promotion_token") != promotion_token
+        ):
+            stored = blogger.feature_post_today(str(stored["id"]))
+            print(f"[daily-feature-refresh] {title}: moved back to top of Blogger")
         if body_replaced:
             verify_required_hero(str(stored.get("content", "")), hero_url, title)
             print(f"[verified] {title}: required USA hero image stored by Blogger")
@@ -248,6 +268,8 @@ def main() -> None:
             "source_file": path.name,
             "hero_image_url": hero_url,
             "image_required": True,
+            "promotion_token": promotion_token or None,
+            "daily_featured_date": promotion.get("daily_featured_date"),
         }
         print(f"[{action}] {title} ({state[slug]['status']})")
 

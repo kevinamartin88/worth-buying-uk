@@ -80,11 +80,13 @@ def main() -> None:
                 "description": description,
                 "link": record["url"],
                 "image": image_url(slug, image_path),
+                "promotion_token": str(record.get("promotion_token") or ""),
+                "featured_date": str(record.get("daily_featured_date") or ""),
             }
         )
 
     # Stable ordering prevents normal reruns from constantly changing the feed.
-    items.sort(key=lambda item: item["link"], reverse=True)
+    items.sort(key=lambda item: (item.get("featured_date", ""), item["link"]), reverse=True)
 
     lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',

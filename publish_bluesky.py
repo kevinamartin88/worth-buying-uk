@@ -5,6 +5,7 @@ import os
 from pathlib import Path
 
 from src.bluesky import BlueskyClient
+from src.social_promotion import is_refreshed_daily_feature, needs_social_promotion, promotion_token
 
 
 ROOT = Path(__file__).resolve().parent
@@ -41,6 +42,7 @@ def initialize_baseline(blog_state: dict) -> None:
             "title": item.get("title"),
             "url": item.get("url"),
             "source_sha": item.get("source_sha"),
+            "promotion_token": promotion_token(item) or None,
         }
     save_json(STATE, baseline)
     print(
@@ -66,11 +68,12 @@ def main() -> None:
 
     posted = 0
     for slug, item in sorted(blog_state.items()):
-        if item.get("status") != "published" or slug in state:
+        if item.get("status") != "published" or not needs_social_promotion(state.get(slug), item):
             continue
 
         url = item.get("url")
         title = item.get("title")
+        refreshed_feature = is_refreshed_daily_feature(state.get(slug), item)
         if not url or not title:
             continue
 
@@ -83,8 +86,9 @@ def main() -> None:
         else:
             image_path = None
 
+        social_title = f"Updated today: {title}" if refreshed_feature else title
         result = bluesky.publish(
-            title=title,
+            title=social_title,
             url=url,
             market_name="UK",
             image_path=image_path,
@@ -97,6 +101,7 @@ def main() -> None:
             "title": title,
             "url": url,
             "source_sha": item.get("source_sha"),
+            "promotion_token": promotion_token(item) or None,
             "image_path": str(image_path.relative_to(ROOT)) if image_path else None,
         }
         save_json(STATE, state)

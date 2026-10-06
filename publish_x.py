@@ -8,6 +8,7 @@ from requests.exceptions import HTTPError
 
 from src.buffer import BufferClient
 from src.social_copy import clean_social_template
+from src.social_promotion import is_refreshed_daily_feature, needs_social_promotion, promotion_token
 
 
 ROOT = Path(__file__).resolve().parent
@@ -96,7 +97,7 @@ def main() -> None:
             continue
         if not item.get("url") or not item.get("title"):
             continue
-        if slug in x_state:
+        if not needs_social_promotion(x_state.get(slug), item):
             continue
         pending.append((slug, item))
 
@@ -118,6 +119,7 @@ def main() -> None:
     for slug, item in pending:
         url = item["url"]
         title = item["title"]
+        refreshed_feature = is_refreshed_daily_feature(x_state.get(slug), item)
 
         article_path = ROOT / "articles" / item.get("source_file", "")
         article: dict = {}
@@ -132,6 +134,13 @@ def main() -> None:
             text = custom_x_text(template, title, url)
         else:
             text = default_x_text(title, url, list(article.get("labels", [])))
+
+        if refreshed_feature:
+            prefix = "🔄 Updated today\n\n"
+            if len(prefix + text) <= 280:
+                text = prefix + text
+            else:
+                text = prefix + text[: max(0, 279 - len(prefix))].rstrip() + "…"
 
         ai_image_path = AI_IMAGE_DIR / f"{slug}.jpg"
         fallback_image_path = X_IMAGE_DIR / f"{slug}.png"
@@ -170,6 +179,7 @@ def main() -> None:
             "title": title,
             "url": url,
             "source_sha": item.get("source_sha"),
+            "promotion_token": promotion_token(item) or None,
             "image_url": image_url,
         }
         save_json(X_STATE, x_state)

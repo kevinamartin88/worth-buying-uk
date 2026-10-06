@@ -76,9 +76,11 @@ def main() -> None:
             "description": description,
             "link": record["url"],
             "image": image_url(slug, image_path),
+                "promotion_token": str(record.get("promotion_token") or ""),
+                "featured_date": str(record.get("daily_featured_date") or ""),
         })
 
-    items.sort(key=lambda item: item["link"], reverse=True)
+    items.sort(key=lambda item: (item.get("featured_date", ""), item["link"]), reverse=True)
     lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/">',
