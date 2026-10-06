@@ -2,13 +2,14 @@ from __future__ import annotations
 
 import html
 import json
+import math
 import os
 import re
 from datetime import date, datetime, timezone
 from statistics import median
 from zoneinfo import ZoneInfo
 from pathlib import Path
-from urllib.parse import quote_plus
+from urllib.parse import quote_plus, urlsplit
 
 from src.amazon_creators import AmazonCreatorsClient
 from src.ebay import EbayClient
@@ -531,7 +532,7 @@ def quick_picks_html(items: list[dict], market: str, query: str) -> str:
         price = price_text(item, market) or "Check live price"
         condition = str(item.get("condition", "")).strip() or "Check listing"
         ebay_url, amazon_url, exact_model = retailer_urls(item, market, query)
-        amazon_offer = item.get("_amazon_offer") or {}
+        amazon_offer = verified_amazon_offer(item, market, query)
         if amazon_offer.get("url"):
             amazon_url = str(amazon_offer["url"])
 
@@ -559,11 +560,14 @@ def quick_picks_html(items: list[dict], market: str, query: str) -> str:
                     f'from {int(history["observations"])} checks.</p>'
                 )
 
-        amazon_label = (
-            f"Check {amazon} price"
-            if exact_model or amazon_offer
-            else f"Compare on {amazon}"
-        )
+        amazon_link = ""
+        if amazon_offer:
+            amazon_link = (
+                f'<a href="{html.escape(amazon_url, quote=True)}" rel="sponsored nofollow" '
+                'style="display:inline-block;padding:11px 16px;margin:0 8px 8px 0;'
+                'background:#f2f4f7;color:#082f5b;text-decoration:none;border-radius:8px;font-weight:700">'
+                f'Check {amazon} price</a>'
+            )
         image_html = product_image_html(image_url, title) if image_url else ""
         cards.append(
             '<div style="border:1px solid #dfe6ee;border-radius:14px;padding:18px;'
@@ -579,10 +583,7 @@ def quick_picks_html(items: list[dict], market: str, query: str) -> str:
             'style="display:inline-block;padding:11px 16px;margin:0 8px 8px 0;'
             'background:#082f5b;color:#fff;text-decoration:none;border-radius:8px;font-weight:700">'
             f'Check {retailer} price</a>'
-            f'<a href="{html.escape(amazon_url, quote=True)}" rel="sponsored nofollow" '
-            'style="display:inline-block;padding:11px 16px;margin:0 8px 8px 0;'
-            'background:#f2f4f7;color:#082f5b;text-decoration:none;border-radius:8px;font-weight:700">'
-            f'{html.escape(amazon_label)}</a>'
+            f'{amazon_link}'
             '</p></div>'
         )
 
@@ -1208,6 +1209,13 @@ def amazon_model_query(title: str, fallback_query: str) -> tuple[str, bool]:
 
     model = ""
     for token in tokens:
+        # Basket capacities and feature counts are specifications, not models.
+        if re.fullmatch(
+            r"(?:\d+(?:\.\d+)?x)?\d+(?:\.\d+)?(?:ml|l|w|v|db|hz|mah|gb|tb|inch|cm|mm)"
+            r"|\d+[-/]?in[-/]?\d+",
+            token, re.I,
+        ):
+            continue
         compact = re.sub(r"[^A-Za-z0-9]", "", token)
         if len(compact) < 5:
             continue
@@ -1293,6 +1301,42 @@ def _model_token(title: str, fallback_query: str) -> str:
     return re.sub(r"[^A-Za-z0-9]", "", tokens[-1]).casefold()
 
 
+def verified_amazon_offer(item: dict, market: str, fallback_query: str) -> dict:
+    """Expose only a direct retailer offer matching the listing's brand and model."""
+    offer = item.get("_amazon_offer") or {}
+    title = str(item.get("title") or "")
+    model = _model_token(title, fallback_query)
+    words = title.split()
+    brand = str(item.get("brand") or (words[0] if words else "")).strip().casefold()
+    if not model or not brand or not brand.isalpha() or brand in {
+        "new", "best", "refurbished", "certified", "portable", "electric",
+        "dehumidifier", "vacuum", "cleaner", "large", "family", "double",
+    }:
+        return {}
+    offer_title = str(offer.get("title") or "").casefold()
+    offer_tokens = {
+        re.sub(r"[^a-z0-9]", "", token)
+        for token in re.findall(r"[a-z0-9][a-z0-9._/-]*", offer_title)
+    }
+    if (model not in offer_tokens
+            or not re.search(r"\b" + re.escape(brand) + r"\b", offer_title)
+            or not relevant_product(offer_title, fallback_query)):
+        return {}
+    try:
+        parts = urlsplit(str(offer.get("url") or ""))
+        price = float(offer.get("price") or 0)
+        host = "amazon.co.uk" if market == "uk" else "amazon.com"
+        currency = "GBP" if market == "uk" else "USD"
+        if (parts.scheme != "https" or parts.hostname not in {host, "www." + host}
+                or parts.username or parts.password or parts.port not in {None, 443}
+                or not re.match(r"^/(?:dp|gp/product)/[A-Z0-9]{10}(?:/|$)", parts.path, re.I)
+                or offer.get("currency") != currency or not math.isfinite(price) or price <= 0):
+            return {}
+    except (TypeError, ValueError):
+        return {}
+    return offer
+
+
 def add_amazon_prices(items: list[dict], market: str, fallback_query: str) -> None:
     """Attach a verified Amazon offer when Creators API access is configured."""
     client = AmazonCreatorsClient.from_env(market)
@@ -1301,6 +1345,7 @@ def add_amazon_prices(items: list[dict], market: str, fallback_query: str) -> No
         return
 
     for item in items:
+        item.pop("_amazon_offer", None)
         title = " ".join(str(item.get("title", "")).split())
         search_query, exact_model_search = amazon_model_query(title, fallback_query)
         model = _model_token(title, fallback_query)
@@ -1327,13 +1372,15 @@ def add_amazon_prices(items: list[dict], market: str, fallback_query: str) -> No
                     "price": offer.price, "currency": offer.currency, "url": offer.url,
                 }):
                     continue
-            item["_amazon_offer"] = {
+            candidate = {
                 "title": offer.title,
                 "price": offer.price,
                 "currency": offer.currency,
                 "url": offer.url,
             }
-            break
+            if verified_amazon_offer({**item, "_amazon_offer": candidate}, market, fallback_query):
+                item["_amazon_offer"] = candidate
+                break
 
 
 def discount_text(item: dict) -> str:
@@ -1361,7 +1408,8 @@ def live_sections(items: list[dict], market: str, topic_name: str, query: str) -
             if condition else ""
         )
         ebay_url, amazon_url, exact_model_search = retailer_urls(item, market, query)
-        amazon_offer = item.get("_amazon_offer") or {}
+        amazon_offer = (verified_amazon_offer(item, market, query) if market == "uk"
+                        else item.get("_amazon_offer") or {})
         if market == "us" and not amazon_direct(amazon_offer):
             amazon_offer = {}
         if amazon_offer.get("url"):
@@ -1384,6 +1432,12 @@ def live_sections(items: list[dict], market: str, topic_name: str, query: str) -
         amazon_attrs = (' data-wb-retailer="amazon" data-wb-placement="'
                         + ('detail' if amazon_direct(amazon_offer) else 'search-alternative') + '"'
                         if market == "us" else "")
+        amazon_link = ""
+        if amazon_offer or market == "us":
+            amazon_link = (
+                f'<a href="{html.escape(amazon_url, quote=True)}" rel="sponsored nofollow"{amazon_attrs}>'
+                f"{amazon_link_label}</a>"
+            )
 
         parts.append(
             f"<h3>{index}. {safe_title}</h3>\n"
@@ -1404,8 +1458,7 @@ def live_sections(items: list[dict], market: str, topic_name: str, query: str) -
             )
             + f'<p><a href="{html.escape(ebay_url, quote=True)}" rel="sponsored nofollow"{ebay_attrs}>'
             f"View on {retailer}</a>\n"
-            f'<a href="{html.escape(amazon_url, quote=True)}" rel="sponsored nofollow"{amazon_attrs}>'
-            f"{amazon_link_label}</a></p>\n"
+            f"{amazon_link}</p>\n"
         )
 
     return "\n".join(parts)
