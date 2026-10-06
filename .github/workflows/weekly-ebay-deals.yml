@@ -7,12 +7,14 @@ on:
       - '.github/workflows/weekly-ebay-deals.yml'
       - 'refresh_ebay_deals.py'
       - 'src/ebay_deals.py'
+      - 'assets/ai/uk/weekly-ebay-deals-uk.jpg'
+      - 'assets/ai/us/weekly-ebay-deals-us.jpg'
   workflow_dispatch:
     inputs:
       mode:
         description: 'Discover fresh offers or recheck the existing roundup'
         type: choice
-        options: [discover, validate]
+        options: [discover, validate, repair-images]
         default: discover
   schedule:
     - cron: '17 6 * * 1'
@@ -77,5 +79,5 @@ jobs:
           BLOGGER_REFRESH_TOKEN: ${{ secrets[matrix.refresh_token] }}
           BLOGGER_BLOG_ID: ${{ secrets[matrix.blog_id] }}
           MARKET: ${{ matrix.market }}
-          MODE: ${{ github.event.schedule == '17 6 * * 0,2-6' && 'validate' || inputs.mode || 'discover' }}
+          MODE: ${{ github.event_name == 'push' && 'repair-images' || github.event.schedule == '17 6 * * 0,2-6' && 'validate' || inputs.mode || 'discover' }}
         run: python refresh_ebay_deals.py --market "$MARKET" --mode "$MODE"

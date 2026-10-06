@@ -10,6 +10,7 @@ from urllib.parse import urlsplit
 
 import requests
 
+from src.article_images import hero_image_html
 from src.ebay import EbayClient, MARKETS
 from publish_articles import UK_EPN_PARAMS, add_uk_epn_tracking
 from publish_articles_us import US_EPN_PARAMS, add_us_epn_tracking
@@ -203,4 +204,5 @@ def render(deals, market, now, discovered_at):
     metadata = {"market": market, "discovered_at": discovered_at,
                 "items": [{key: row[key] for key in ("id", "topic", "ceiling")} for row in deals]}
     encoded = json.dumps(metadata, separators=(",", ":")).replace("<", "\\u003c").replace(">", "\\u003e")
-    return content + f'<!-- wb-ebay-deals:{encoded} -->'
+    hero, _ = hero_image_html(market, f"weekly-ebay-deals-{market}", TITLES[market])
+    return hero + content + f'<!-- wb-ebay-deals:{encoded} -->'
