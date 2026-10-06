@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from src.us_targeting import prepare_us_article, us_url, localize_text, localize_html, validate_us_copy, us_audience_hours
+
 import html
 import json
 import re
@@ -70,11 +72,14 @@ def main() -> None:
         if not image_path.exists():
             continue
         title = article.get("pinterest_title") or record.get("title") or slug
-        description = affiliate_description(article.get("pinterest_subtitle"))
+        title = localize_text(title)
+        description = localize_text(affiliate_description(article.get("pinterest_subtitle")))
+        validate_us_copy(title)
+        validate_us_copy(description, social=True)
         items.append({
             "title": title,
             "description": description,
-            "link": record["url"],
+            "link": us_url(record["url"]),
             "image": image_url(slug, image_path),
                 "promotion_token": str(record.get("promotion_token") or ""),
                 "featured_date": str(record.get("daily_featured_date") or ""),

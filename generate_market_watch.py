@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from src.us_targeting import us_article_output
+
 import html
 from src.price_tracking import valid_observations
 from src.price_charts import chart_html
@@ -93,6 +95,7 @@ def market_rows(market: str) -> tuple[list[dict], int]:
     return rows, eligible_count
 
 
+@us_article_output
 def render_market_watch(market: str, now: datetime) -> dict | None:
     rows, eligible_count = market_rows(market)
     movers = [row for row in rows if abs(float(row["change_pct"])) >= 5]

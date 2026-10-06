@@ -1,7 +1,7 @@
 {
   "market": "US",
   "site_name": "Worth Buying USA",
-  "site_url": "https://worthbuyingusa.blogspot.com/",
+  "site_url": "https://www.worthbuyingusa.com/",
   "domain_config": "automation/domains.json",
   "custom_domain": "https://www.worthbuyingusa.com/",
   "custom_domain_status": "connected-live",
@@ -12,7 +12,7 @@
     "x": 2,
     "pinterest": 2
   },
-  "local_timezone": "Europe/London",
+  "local_timezone": "America/New_York",
   "suggested_slots": [
     {
       "time": "09:30",
@@ -34,7 +34,7 @@
       "Actively search for unusually strong current US deals as well as evergreen buying-guide opportunities.",
       "Use official retailer sale and launch pages, product-launch news, rising search interest and public deal-community activity as discovery signals.",
       "Treat public deal communities as demand signals only; do not automate self-promotion or affiliate-link posting into communities that prohibit it.",
-      "Score opportunities using the shared automation/deal_discovery_plan.json and prioritise candidates scoring 70 or above.",
+      "Score opportunities using the shared automation/deal_discovery_plan.json and prioritize candidates scoring 70 or above.",
       "Create Deal Alert, Today's Best Deals, Price Drop Worth Buying, Launch Deal, Refurbished Deal, Seasonal Deal Hub and Viral Product Check content when the evidence supports it."
     ],
     "future_networks": [
@@ -94,6 +94,9 @@
       "DIY & Garden"
     ],
     "primary_conversion_goal": "qualified affiliate clicks to tracked retailer links",
-    "revenue_principle": "Prioritise buyer intent, trustworthy product quality and useful retailer comparisons over vanity traffic."
-  }
+    "revenue_principle": "Prioritize buyer intent, trustworthy product quality and useful retailer comparisons over vanity traffic."
+  },
+  "language": "en-US",
+  "currency": "USD",
+  "google_market": "US"
 }

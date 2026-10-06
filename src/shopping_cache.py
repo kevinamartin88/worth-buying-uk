@@ -36,6 +36,8 @@ def cached_topics(topics: list[tuple], market: str) -> list[tuple[tuple, dict]]:
             score = float(signal["score"])
         except (KeyError, TypeError, ValueError):
             continue
+        if market == "us" and signal.get("geo") != "US":
+            continue
         if 0 <= age < MAX_AGE and math.isfinite(score) and score > 0:
             result.append((topic, {**signal, "cached": True, "observed_at": entry["checked_at"]}))
     return sorted(result, key=lambda pair: -float(pair[1]["score"]))

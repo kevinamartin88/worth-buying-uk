@@ -5,6 +5,8 @@ curated; marketplace inventory, prices, images and item details are fetched live
 """
 from __future__ import annotations
 
+from src.us_targeting import us_article_output
+
 import argparse
 import hashlib
 import html
@@ -32,6 +34,9 @@ def load(path):
 
 
 def save(path, value):
+    if path.parent.name == "articles-us":
+        from src.us_targeting import prepare_us_article
+        value = prepare_us_article(value)
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(path.suffix + ".tmp")
     temporary.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -171,6 +176,7 @@ def create_hero(article, market, picks):
     canvas.save(target, "JPEG", quality=92)
 
 
+@us_article_output
 def build_article(brief, market, picks, today):
     import generate_daily_articles as daily
     from src.product_image_quality import product_image_html
@@ -300,6 +306,10 @@ def growth(now, state):
 
 def tagged_url(url, market):
     parts = urlsplit(url)
+    if market == "us":
+        from src.us_targeting import us_url
+        url = us_url(url)
+        parts = urlsplit(url)
     expected = "worthbuyinguk.co.uk" if market == "uk" else "worthbuyingusa.com"
     if parts.scheme != "https" or parts.hostname not in {expected, "www." + expected}:
         raise ValueError("Promotion URL does not belong to the intended market")
@@ -343,9 +353,17 @@ def promote(now, state, reserve=persist_reservation):
         if entries[slug].get("source_sha") != source.get("source_sha"):
             continue  # Wait until the changed guide is confirmed published.
         url = tagged_url(entries[slug]["url"], market)
+        if market == "us":
+            from src.us_targeting import us_audience_hours, validate_us_copy
+            if not us_audience_hours():
+                continue
         client = BufferClient(api_key, "Worth Buying UK" if market == "uk" else "Worth Buying USA")
         channel = client.find_x_channel_id()  # Resolve correct account before reservation.
         text = f"{entry['title'][:120]}\n\nCompare the practical checks before buying. Guide contains affiliate links.\n{url}"
+        if market == "us":
+            from src.us_targeting import localize_text
+            text = localize_text(text)
+            validate_us_copy(text, social=True)
         history[day] = {"slug": slug, "status": "reserved-outcome-unknown", "url": url}
         reserve(state)
         try:

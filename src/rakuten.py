@@ -226,6 +226,8 @@ class RakutenClient:
 
             # Do not present a foreign-currency product on either regional site.
             # Blank currency is allowed because some feeds omit it.
+            if self.currency == "USD" and not currency:
+                continue  # USA prices need explicit USD evidence.
             if currency and currency != self.currency:
                 continue
 

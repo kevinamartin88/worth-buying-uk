@@ -32,11 +32,14 @@ class PageSignals(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
         self.canonical: str | None = None
+        self.hreflang: dict[str, str] = {}
         self.json_ld: list[str] = []
         self._in_json_ld = False
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         attributes = dict(attrs)
+        if tag == "link" and attributes.get("hreflang") and attributes.get("href"):
+            self.hreflang[str(attributes["hreflang"])] = str(attributes["href"])
         if tag == "link" and "canonical" in (attributes.get("rel") or "").lower().split():
             self.canonical = attributes.get("href")
         if tag == "script" and (attributes.get("type") or "").lower() == "application/ld+json":
@@ -116,6 +119,9 @@ def inspect_page(session: requests.Session, url: str, host: str) -> None:
     signals = PageSignals()
     signals.feed(response.text)
     print(f"[seo] Page reachable ({response.status_code}): {url}")
+    if urlsplit(url).hostname == "www.worthbuyingusa.com":
+        if signals.hreflang.get("en-US", "").rstrip("/") != url.rstrip("/"):
+            print("[seo-warning] USA en-US hreflang absent or incorrect; install automation/blogger-us-head.xml in the USA Blogger theme head")
     if signals.canonical:
         print(f"[seo] Canonical: {signals.canonical}")
         if signals.canonical.rstrip("/") != response.url.rstrip("/"):

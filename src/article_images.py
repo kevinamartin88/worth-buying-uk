@@ -30,6 +30,8 @@ def hero_image_path(market: str, slug: str) -> Path:
 
 def hero_image_url(market: str, slug: str) -> str:
     market = _validate_market(market)
+    if market == "us" and slug == "best-large-capacity-air-fryers-worth-buying-us":
+        return f"{RAW_AI_BASE}/{market}/{slug}.jpg?v=basket-air-fryers-v2"
     return f"{RAW_AI_BASE}/{market}/{slug}.jpg"
 
 
@@ -103,6 +105,8 @@ def has_any_image(content: str) -> bool:
 def add_required_hero(content: str, market: str, slug: str, title: str) -> tuple[str, str]:
     markup, image_url = hero_image_html(market, slug, title)
     content = prepare_product_images(str(content or ""))
+    if market == "us" and "?v=basket-air-fryers-v2" in image_url:
+        content = content.replace(image_url.split("?", 1)[0] + '"', image_url + '"')
     if image_url in content:
         return content, image_url
     return markup + content, image_url
@@ -116,6 +120,10 @@ def backfill_hero_if_missing(
 ) -> tuple[str, str, bool]:
     content = str(content or "")
     markup, image_url = hero_image_html(market, slug, title)
+    if market == "us" and "?v=basket-air-fryers-v2" in image_url:
+        updated = content.replace(image_url.split("?", 1)[0] + '"', image_url + '"')
+        if updated != content:
+            return updated, image_url, True
     if image_url in content:
         return content, image_url, False
     return markup + content, image_url, True

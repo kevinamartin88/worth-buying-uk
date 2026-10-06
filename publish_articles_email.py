@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from src.us_targeting import prepare_us_article, us_url, localize_text, localize_html, validate_us_copy, us_audience_hours
+
 import html
 import json
 import os
@@ -556,6 +558,8 @@ def main() -> None:
 
     for path in sorted(articles_dir.glob("*.json")):
         article = json.loads(path.read_text(encoding="utf-8"))
+        if market == "us":
+            article = prepare_us_article(article)
         mode = str(article.get("mode", "publish")).strip().lower()
         if mode != "publish":
             print(f"[skip] {path.name}: not marked for publish")

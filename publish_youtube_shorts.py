@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from src.us_targeting import prepare_us_article, us_url, localize_text, localize_html, validate_us_copy, us_audience_hours
+
 import argparse
 import json
 import os
@@ -67,6 +69,9 @@ def eligible_articles(market: str, only_slug: str | None = None):
             continue
         if post.get("status") != "published" or not blog_url:
             continue
+        if market == "us":
+            article = prepare_us_article(article)
+            blog_url = us_url(blog_url)
         yield article, blog_url
 
 
@@ -98,6 +103,9 @@ def main() -> None:
     args = parser.parse_args()
 
     market = args.market
+    if market == "us" and not args.dry_run and not us_audience_hours():
+        print("[deferred] USA Shorts resume during 09:00–21:00 Eastern.")
+        return
     config = CONFIG[market]
     state = load_json(config["youtube_state"], {})
 

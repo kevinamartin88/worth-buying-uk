@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from src.us_targeting import prepare_us_article, us_url, localize_text, localize_html, validate_us_copy, us_audience_hours
+
 # Authority hub publisher trigger.
 
 import argparse
@@ -37,6 +39,10 @@ def main() -> None:
 
     page_state: dict[str, dict] = {}
     for page in build_pages(market):
+        if market == "us":
+            page["title"] = localize_text(page["title"])
+            page["content"] = localize_html(page["content"])
+            validate_us_copy(page["content"])
         content_type = "page"
         try:
             result = client.upsert_page(page["title"], page["content"])
@@ -55,7 +61,7 @@ def main() -> None:
         page_state[page["key"]] = {
             "id": str(result.get("id") or ""),
             "title": page["title"],
-            "url": str(result.get("url") or ""),
+            "url": us_url(result["url"]) if market == "us" and result.get("url") else str(result.get("url") or ""),
             "content_type": content_type,
             "updated_at": datetime.now(timezone.utc).isoformat(),
         }

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from src.us_targeting import us_article_output
+
 import argparse
 import html
 import json
@@ -128,6 +130,7 @@ def _insert_event_banner(content: str, banner: str) -> str:
     return content[:close] + "\n" + banner + content[close:]
 
 
+@us_article_output
 def decorate_prime_article(
     article: dict,
     *,
@@ -379,6 +382,9 @@ def cleanup_event_articles(state: dict, run_date: date) -> int:
                 f"{run_date.isoformat()}-{market}-{article['slug']}-post-prime-v1"
             )
             article.pop("_event", None)
+            if market == "us":
+                from src.us_targeting import prepare_us_article
+                article = prepare_us_article(article)
             path.write_text(
                 json.dumps(article, indent=2, ensure_ascii=False) + "\n",
                 encoding="utf-8",

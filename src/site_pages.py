@@ -314,4 +314,10 @@ def build_pages(market: str) -> list[dict]:
     for cluster in AUTHORITY_CLUSTERS:
         rows = [row for row in catalog if row["cluster"] == cluster]
         pages.append(cluster_page(cluster, rows, market))
+    if market == "us":
+        from src.us_targeting import localize_text, localize_html, validate_us_copy
+        for page in pages:
+            page["title"] = localize_text(page["title"])
+            page["content"] = localize_html(page["content"])
+            validate_us_copy(page["content"])
     return pages

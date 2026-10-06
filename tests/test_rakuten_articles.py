@@ -154,7 +154,7 @@ def test_single_sharper_image_roundup_adds_title_image_branding():
         RakutenProduct(
             name=f"Sharper Image Dehumidifier {index}",
             merchant="Sharper Image",
-            url=f"https://click.linksynergy.com/deeplink?id={index}&mid=456",
+            url=f"https://click.linksynergy.com/deeplink?id={index}&mid=456&murl=https%3A%2F%2Fwww.sharperimage.com%2Fp%2Fdehumidifier-{index}",
             price="129.00",
             currency="USD",
             advertiser_id="456",

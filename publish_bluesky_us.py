@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from src.us_targeting import prepare_us_article, us_url, localize_text, localize_html, validate_us_copy, us_audience_hours
+
 import json
 import os
 from pathlib import Path
@@ -52,6 +54,9 @@ def initialize_baseline(blog_state: dict) -> None:
 
 
 def main() -> None:
+    if not us_audience_hours():
+        print("[deferred] USA social publishing resumes during 09:00–21:00 Eastern.")
+        return
     handle = os.getenv("BLUESKY_US_HANDLE", "").strip()
     app_password = os.getenv("BLUESKY_US_APP_PASSWORD", "").strip()
     if not handle or not app_password:
@@ -86,6 +91,9 @@ def main() -> None:
         else:
             image_path = None
 
+        url = us_url(url)
+        title = localize_text(title)
+        validate_us_copy(title)
         social_title = f"Updated today: {title}" if refreshed_feature else title
         result = bluesky.publish(
             title=social_title,

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from src.us_targeting import us_article_output
+
 import html
 import json
 import re
@@ -308,6 +310,7 @@ def product_sections(products: list[RakutenProduct], market: str) -> str:
     return "\n".join(sections)
 
 
+@us_article_output
 def build_article(topic: tuple, products: list[RakutenProduct], market: str, now: datetime) -> dict:
     key, display, query, _max_uk, _max_us, category, kicker = topic
     validate_offer_set(key, products)
