@@ -71,3 +71,15 @@ def test_remote_image_is_fully_decoded(monkeypatch):
     quality.image_dimensions.cache_clear()
     assert quality.image_dimensions("https://i.ebayimg.com/images/g/valid/s-l1600.jpg") == (800, 600)
 
+
+
+def test_official_amazon_product_image_is_preserved_and_standardised():
+    content = (
+        '<img class="wb-product-image" '
+        'src="https://m.media-amazon.com/images/I/example._SL1200_.jpg" '
+        'alt="Amazon product">'
+    )
+    result = quality.prepare_product_images(content)
+    assert quality.FRAME_STYLE in result
+    assert 'https://m.media-amazon.com/images/I/example._SL1200_.jpg' in result
+    assert 'alt="Amazon product"' in result
