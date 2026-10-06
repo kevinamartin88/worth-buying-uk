@@ -61,6 +61,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Check whether today's UK and USA pair already exists
         id: daily

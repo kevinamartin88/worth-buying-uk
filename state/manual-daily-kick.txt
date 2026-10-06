@@ -1,1 +1,1 @@
-2026-10-06 USA missing-new-post repair
+2026-10-06 USA missing-new-post repair retry after stale-checkout conflict
