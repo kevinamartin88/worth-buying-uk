@@ -172,7 +172,7 @@ def test_quick_picks_puts_affiliate_ctas_near_top(monkeypatch):
         "image": {"imageUrl": "https://example.com/fryer.jpg"},
     }
     html = daily.quick_picks_html([item], "uk", "air fryer")
-    assert "Affiliate links" in html
+    assert "Affiliate links" not in html
     assert "Check eBay UK price" in html
     assert "Amazon UK" in html
     assert 'rel="sponsored nofollow"' in html
@@ -228,8 +228,9 @@ def test_editorial_trust_box_is_transparent(monkeypatch):
     assert "data-led comparisons" in rendered
     assert "rather than market hype" in rendered
     assert "https://example.com/methodology" in rendered
-    assert "Affiliate disclosure:" in rendered
-    assert "<strong>at no extra cost to you</strong>" in rendered
+    assert "Affiliate disclosure:" not in rendered
+    assert "Prices checked:" in rendered
+    assert "Retailer links may be affiliate links" in rendered
     assert "not on which retailer pays the highest commission" in rendered
 
 
