@@ -331,7 +331,7 @@ def _article_style_version(article: dict) -> str:
         version = STYLE_VERSION + ("+retailer-logo-v2" if retailer else "")
 
     if _has_any(_topic_haystack(article), "air fryer", "air-fryer"):
-        version += "+air-fryer-subject-v3"
+        version += "+air-fryer-subject-v4"
 
     updated_badge = _updated_badge_text(article)
     if updated_badge:
