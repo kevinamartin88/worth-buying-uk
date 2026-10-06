@@ -330,6 +330,9 @@ def _article_style_version(article: dict) -> str:
     else:
         version = STYLE_VERSION + ("+retailer-logo-v2" if retailer else "")
 
+    if _has_any(_topic_haystack(article), "air fryer", "air-fryer"):
+        version += "+air-fryer-subject-v1"
+
     updated_badge = _updated_badge_text(article)
     if updated_badge:
         badge_revision = re.sub(
@@ -486,7 +489,20 @@ def _visual_direction(article: dict) -> str:
         )
 
     # Home and kitchen
-    if _has_any(haystack, "kitchen gadgets", "kitchen appliance", "air fryer", "coffee maker", "stand mixer", "cookware"):
+    if _has_any(haystack, "air fryer", "air-fryer"):
+        return (
+            "The HERO PRODUCT MUST be an unmistakable countertop basket-style air fryer in the foreground: "
+            "a compact freestanding appliance with a clearly visible pull-out cooking drawer or dual drawers, "
+            "digital controls on the front, and proportions typical of a modern countertop air fryer. "
+            "Show only one or two air fryers, with the main unit occupying roughly one third of the frame. "
+            "It must NOT look like a conventional built-in oven, freestanding cooker/range, wall oven, "
+            "microwave, toaster oven, mini oven, air-fryer oven with a glass door, or full-size kitchen appliance. "
+            "Do not show an oven cavity, stovetop burners, hob, range hood or built-in cabinetry appliance as "
+            "the focal product. Use a bright modern kitchen counter setting, keeping the product clearly "
+            "recognisable as a basket air fryer and leaving clean space on the centre-right for headline text."
+        )
+
+    if _has_any(haystack, "kitchen gadgets", "kitchen appliance", "coffee maker", "stand mixer", "cookware"):
         return (
             "Stage a bright modern kitchen editorial with three or four relevant unbranded kitchen products "
             "such as an air fryer, coffee maker, mixer or cookware item arranged naturally. The scene should "

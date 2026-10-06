@@ -142,3 +142,27 @@ def test_workflow_runs_both_markets_with_weekly_discovery_and_daily_validation()
     step = job['steps'][-1]
     assert "'validate'" in step['env']['MODE']
     assert 'SMTP' not in str(step['env'])
+
+
+
+def test_validate_missing_roundup_is_clean_skip(monkeypatch, capsys):
+    from datetime import datetime, timezone
+    import refresh_ebay_deals as refresh_module
+
+    blogger = Mock()
+    blogger.resolve_blog.return_value = {}
+    blogger.find_post_by_exact_title.return_value = None
+    ebay = Mock()
+
+    result = refresh_module.refresh(
+        "us",
+        "validate",
+        ebay,
+        blogger,
+        datetime(2026, 10, 6, tzinfo=timezone.utc),
+    )
+
+    assert result is None
+    assert "weekly roundup does not exist yet" in capsys.readouterr().out
+    ebay.search.assert_not_called()
+    blogger.upsert_post.assert_not_called()

@@ -45,3 +45,19 @@ def test_new_article_has_no_updated_badge():
         }
     }
     assert ai_visuals._updated_badge_text(article) == ""
+
+
+
+def test_air_fryer_direction_forbids_ovens():
+    article = {
+        "title": "Best Air Fryers Worth Buying in the USA (2026)",
+        "labels": ["Home & Kitchen", "Air Fryers", "USA"],
+        "hero_image_kicker": "AIR FRYER GUIDE",
+    }
+    direction = ai_visuals._visual_direction(article)
+    assert "basket-style air fryer" in direction
+    assert "pull-out cooking drawer" in direction
+    assert "conventional built-in oven" in direction
+    assert "toaster oven" in direction
+    assert "air-fryer oven with a glass door" in direction
+    assert "air-fryer-subject-v1" in ai_visuals._article_style_version(article)

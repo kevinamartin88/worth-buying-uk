@@ -21,7 +21,11 @@ def refresh(market, mode, ebay, blogger, now):
     existing = blogger.find_post_by_exact_title(TITLES[market])
     if mode == "validate":
         if not existing:
-            raise RuntimeError("Weekly roundup is missing; run discovery first")
+            print(
+                f"[ebay-deals-skip] {market}: weekly roundup does not exist yet; "
+                "validation will resume after the next discovery run"
+            )
+            return None
         # Post search may omit bodies; fetch the authoritative current content.
         post = blogger.get_post_or_none(str(existing["id"]))
         if not post:
