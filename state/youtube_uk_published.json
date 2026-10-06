@@ -138,9 +138,10 @@
   },
   "best-large-capacity-air-fryers-worth-buying-uk": {
     "blog_url": "https://www.worthbuyinguk.co.uk/2026/10/prime-big-deal-days-large-capacity-air.html",
-    "publication_fingerprint": "c604e4b0117e4734e9a8837c48a3ae887757cc5bebfa9940a3a75e8da2ada691",
+    "publication_fingerprint": "bb442900df6321422173501c182b5a7be9db13491a2ffb3f92e645a25d278e48",
+    "reconciled_from_channel": true,
     "status": "published",
-    "uploaded_at": "2026-10-06T13:07:10.648792+00:00",
+    "uploaded_at": "2026-10-06T21:38:02.855152+00:00",
     "video_id": "6SoVQqvPngI",
     "video_url": "https://www.youtube.com/shorts/6SoVQqvPngI"
   },
@@ -192,9 +193,10 @@
   },
   "best-robot-vacuum-cleaners-worth-buying-uk-2026": {
     "blog_url": "https://www.worthbuyinguk.co.uk/2026/09/best-robot-vacuum-cleaners-worth-buying.html",
-    "publication_fingerprint": "6a7636a7455635c32c44e4be241c62c4557b16524a4d3be3e3731622ab6bdd4c",
+    "publication_fingerprint": "ce7b07a0b328220e6ad58999b20d0d5e4f59b4d70ba50bf1d272d31a017c5d1f",
+    "reconciled_from_channel": true,
     "status": "published",
-    "uploaded_at": "2026-10-06T19:35:18.281414+00:00",
+    "uploaded_at": "2026-10-06T21:38:03.223254+00:00",
     "video_id": "siKUJ8G64dc",
     "video_url": "https://www.youtube.com/shorts/siKUJ8G64dc"
   },
@@ -230,6 +232,14 @@
     "blog_url": "https://www.worthbuyinguk.co.uk/2026/09/best-video-doorbells-worth-buying-in-uk.html",
     "publication_fingerprint": "40f4f773986d37b8b8460af6c8644eb4de1f394074c4456c66f09653d55633be",
     "status": "baseline"
+  },
+  "best-wireless-earbuds-worth-buying-uk": {
+    "blog_url": "https://www.worthbuyinguk.co.uk/2026/10/prime-big-deal-days-wireless-earbuds.html",
+    "publication_fingerprint": "304ff141a230673be232081341d9e311d225b7c49016bb0d93d15f91f66fd72b",
+    "status": "published",
+    "uploaded_at": "2026-10-06T21:38:14.391598+00:00",
+    "video_id": "rg3BE8pHFJ0",
+    "video_url": "https://www.youtube.com/shorts/rg3BE8pHFJ0"
   },
   "diamond-jewellery-deals-ebay-uk-2026": {
     "blog_url": "https://www.worthbuyinguk.co.uk/2026/10/diamond-jewellery-deals-on-ebay-uk-what.html",

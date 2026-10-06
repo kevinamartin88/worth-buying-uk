@@ -262,13 +262,13 @@
   },
   "best-large-capacity-air-fryers-worth-buying-uk": {
     "daily_featured_date": "2026-10-06",
-    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/uk/best-large-capacity-air-fryers-worth-buying-uk.jpg?v=b4e043b8d0ef4d61",
+    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/uk/best-large-capacity-air-fryers-worth-buying-uk.jpg?v=7f7e19b7152d4d0c",
     "image_required": true,
     "post_id": "842452172683125281",
     "promotion_token": "2026-10-06:prime-big-deal-days:uk:best-large-capacity-air-fryers-worth-buying-uk",
-    "publish_fingerprint": "346e621c9ebc33593bb67dca96ce9dc54af177d7c6d560a383bf9b2539dcae6b",
+    "publish_fingerprint": "ec6002f3da3882b1d8a041fc3603057a51be7fa753bd78354e572b92606d4c81",
     "source_file": "best-large-capacity-air-fryers-worth-buying-uk.json",
-    "source_sha": "2026-10-06-large-capacity-air-fryers-uk-prime-big-deal-days-v1",
+    "source_sha": "2026-10-06-large-capacity-air-fryers-uk-prime-big-deal-days-amazon-v2",
     "status": "published",
     "title": "Prime Big Deal Days: Large Capacity Air Fryers Worth Comparing in the UK (2026)",
     "url": "https://www.worthbuyinguk.co.uk/2026/10/prime-big-deal-days-large-capacity-air.html"
@@ -403,10 +403,10 @@
     "post_id": "7066665454084266261",
     "primary_category": "Home & Kitchen",
     "promotion_token": "2026-10-06:prime-big-deal-days:uk:best-robot-vacuum-cleaners-worth-buying-uk-2026",
-    "publish_fingerprint": "511366e67c5a23998b8ceb7a8e5534d22823894f5fc84eb46dd2079f2192fe5f",
+    "publish_fingerprint": "897946a79c9db679b856c9bce6258d43a8a158ab0de5c0450e2aad44a440f9c7",
     "publisher": "manual",
     "source_file": "best-robot-vacuum-cleaners-worth-buying-uk-2026.json",
-    "source_sha": "2026-10-06-robot-vacuums-uk-prime-big-deal-days-v1",
+    "source_sha": "2026-10-06-robot-vacuums-uk-prime-big-deal-days-amazon-v2-rerun1",
     "status": "published",
     "title": "Prime Big Deal Days: Robot Vacuum Cleaners Worth Comparing in the UK (2026)",
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-robot-vacuum-cleaners-worth-buying.html"
@@ -498,6 +498,19 @@
     "status": "published",
     "title": "Best Video Doorbells Worth Buying in the UK (2026)",
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-video-doorbells-worth-buying-in-uk.html"
+  },
+  "best-wireless-earbuds-worth-buying-uk": {
+    "daily_featured_date": "2026-10-06",
+    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/uk/best-wireless-earbuds-worth-buying-uk.jpg?v=04fe12fd9eabb4a9",
+    "image_required": true,
+    "post_id": "5235291533422568773",
+    "promotion_token": "2026-10-06:prime-big-deal-days:uk:best-wireless-earbuds-worth-buying-uk",
+    "publish_fingerprint": "8be438c78f7cf34b42e6f2a45ce886d8233b98b4b8bee51c83466730acbd59f2",
+    "source_file": "best-wireless-earbuds-worth-buying-uk.json",
+    "source_sha": "2026-10-06-wireless-earbuds-uk-prime-big-deal-days-amazon-v2",
+    "status": "published",
+    "title": "Prime Big Deal Days: Wireless Earbuds Worth Comparing in the UK (2026)",
+    "url": "https://www.worthbuyinguk.co.uk/2026/10/prime-big-deal-days-wireless-earbuds.html"
   },
   "diamond-jewellery-deals-ebay-uk-2026": {
     "daily_featured_date": null,
