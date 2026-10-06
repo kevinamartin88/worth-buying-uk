@@ -876,9 +876,9 @@ def _air_fryer_product_candidate(article: dict) -> tuple[str, str] | None:
         "glass door",
     )
 
-    for tag in re.findall(r"<img\\b[^>]*>", content, flags=re.IGNORECASE):
-        src_match = re.search(r'\\bsrc=["\\\']([^"\\\']+)["\\\']', tag, flags=re.IGNORECASE)
-        alt_match = re.search(r'\\balt=["\\\']([^"\\\']*)["\\\']', tag, flags=re.IGNORECASE)
+    for tag in re.findall(r"<img\b[^>]*>", content, flags=re.IGNORECASE):
+        src_match = re.search(r'\bsrc=["\\']([^"\\']+)["\\']', tag, flags=re.IGNORECASE)
+        alt_match = re.search(r'\balt=["\\']([^"\\']*)["\\']', tag, flags=re.IGNORECASE)
         if not src_match or not alt_match:
             continue
 
@@ -896,7 +896,7 @@ def _air_fryer_product_candidate(article: dict) -> tuple[str, str] | None:
         # eBay article thumbnails are often stored at s-l225; request the
         # higher-resolution variant for the hero whenever that URL pattern is used.
         image_url = re.sub(
-            r"/s-l\\d+\\.(jpe?g|png)(?:\\?.*)?$",
+            r"/s-l\d+\.(jpe?g|png)(?:\?.*)?$",
             lambda match: f"/s-l1600.{match.group(1)}",
             image_url,
             flags=re.IGNORECASE,
