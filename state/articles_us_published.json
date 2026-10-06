@@ -85,7 +85,7 @@
   },
   "best-air-fryers-worth-buying-us-2026": {
     "daily_featured_date": "2026-10-06",
-    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-air-fryers-worth-buying-us-2026.jpg?v=d61dd206bf8cfdc0",
+    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-air-fryers-worth-buying-us-2026.jpg?v=337f00524d73c44d",
     "image_required": true,
     "post_id": "3305276758977212815",
     "primary_category": "Home & Kitchen",
@@ -250,7 +250,7 @@
   },
   "best-large-capacity-air-fryers-worth-buying-us": {
     "daily_featured_date": "2026-10-06",
-    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-large-capacity-air-fryers-worth-buying-us.jpg?v=2904e309bdbedeab",
+    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-large-capacity-air-fryers-worth-buying-us.jpg?v=8283ced82a1fa06d",
     "image_required": true,
     "post_id": "5400843848255275793",
     "promotion_token": "2026-10-06:prime-big-deal-days:us:best-large-capacity-air-fryers-worth-buying-us",
@@ -345,18 +345,18 @@
     "url": "https://www.worthbuyingusa.com/"
   },
   "best-robot-vacuum-cleaners-worth-buying-us-2026": {
-    "daily_featured_date": null,
-    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-robot-vacuum-cleaners-worth-buying-us-2026.jpg",
+    "daily_featured_date": "2026-10-06",
+    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-robot-vacuum-cleaners-worth-buying-us-2026.jpg?v=75b4fb0100ceecb3",
     "image_required": true,
     "post_id": "1703728186862133304",
     "primary_category": "Home & Kitchen",
-    "promotion_token": null,
-    "publish_fingerprint": "eee33b6f9f53aacdda1571005d5758bd1cb41304f98856ddb0805092e2cdfff0",
+    "promotion_token": "2026-10-06:prime-big-deal-days:us:best-robot-vacuum-cleaners-worth-buying-us-2026",
+    "publish_fingerprint": "4f01d100de9fcfe89485db58100590e662b6b422a6ae2f93deff9159cebd948d",
     "publisher": "manual",
     "source_file": "best-robot-vacuum-cleaners-worth-buying-us-2026.json",
-    "source_sha": "eb8953208950166511dce58dd33ba4223088b8fdb526e41ad7911db1a0c0b5de",
+    "source_sha": "2026-10-06-robot-vacuums-us-prime-big-deal-days-v1",
     "status": "published",
-    "title": "Best Robot Vacuum Cleaners Worth Buying in the USA (2026)",
+    "title": "Prime Big Deal Days: Robot Vacuums Worth Comparing in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/09/best-robot-vacuum-cleaners-worth-buying.html"
   },
   "best-slow-cookers-worth-buying-us": {

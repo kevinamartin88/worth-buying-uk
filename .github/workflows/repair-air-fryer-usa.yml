@@ -1,0 +1,91 @@
+name: Repair USA air fryer hero
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/repair-air-fryer-usa.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: repair-air-fryer-usa
+  cancel-in-progress: false
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Regenerate verified USA air fryer hero
+        env:
+          PYTHONPATH: .
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          from src.ai_visuals import generate_image, ROOT
+
+          article_path = ROOT / "articles-us" / "best-large-capacity-air-fryers-worth-buying-us.json"
+          article = json.loads(article_path.read_text(encoding="utf-8"))
+          output = ROOT / "assets" / "ai" / "us" / "best-large-capacity-air-fryers-worth-buying-us.jpg"
+
+          generate_image(
+              article,
+              "us",
+              output,
+              account_id=os.environ.get("CLOUDFLARE_ACCOUNT_ID", ""),
+              api_token=os.environ.get("CLOUDFLARE_API_TOKEN", ""),
+              force=True,
+          )
+          PY
+
+      - name: Save corrected USA air fryer hero
+        run: |
+          git add assets/ai/us/best-large-capacity-air-fryers-worth-buying-us.jpg assets/ai/us/best-large-capacity-air-fryers-worth-buying-us.jpg.style
+          if git diff --cached --quiet; then
+            echo "No image changes."
+          else
+            git config user.name "worth-buying-repair-bot"
+            git config user.email "worth-buying-repair-bot@users.noreply.github.com"
+            git commit -m "Repair USA air fryer hero image"
+            git pull --rebase origin main
+            git push
+          fi
+
+      - name: Republish corrected USA air fryer article
+        env:
+          PYTHONPATH: .
+          BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_US_CLIENT_ID }}
+          BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_US_CLIENT_SECRET }}
+          BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_US_REFRESH_TOKEN }}
+          BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_US_BLOG_ID }}
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          import publish_articles_us
+
+          target = Path("articles-us/best-large-capacity-air-fryers-worth-buying-us.json")
+          article = json.loads(target.read_text(encoding="utf-8"))
+          publish_articles_us.publish_article(article)
+          PY

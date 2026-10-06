@@ -60,7 +60,36 @@ def test_air_fryer_direction_forbids_ovens():
     assert "built-in oven" in direction
     assert "toaster-oven shape" in direction
     assert "transparent or glass front panel" in direction
-    assert "air-fryer-subject-v2" in ai_visuals._article_style_version(article)
+    assert "air-fryer-subject-v4" in ai_visuals._article_style_version(article)
+
+
+def test_air_fryer_product_candidate_rejects_oven_and_uses_real_basket_photo():
+    article = {
+        "content_html": (
+            '<img src="https://i.ebayimg.com/images/g/oven/s-l225.jpg" '
+            'alt="Gourmia 14-Quart Air Fryer Oven Rotisserie Convection">'
+            '<img src="https://i.ebayimg.com/images/g/basket/s-l225.jpg" '
+            'alt="9.5 QT Dual Basket Air Fryer with Double Basket">'
+        )
+    }
+
+    candidate = ai_visuals._air_fryer_product_candidate(article)
+
+    assert candidate == (
+        "https://i.ebayimg.com/images/g/basket/s-l1600.jpg",
+        "9.5 QT Dual Basket Air Fryer with Double Basket",
+    )
+
+
+def test_air_fryer_product_candidate_returns_none_when_only_oven_products_exist():
+    article = {
+        "content_html": (
+            '<img src="https://i.ebayimg.com/images/g/oven/s-l1600.jpg" '
+            'alt="12L Air Fryer Oven with Rotisserie and French Door">'
+        )
+    }
+
+    assert ai_visuals._air_fryer_product_candidate(article) is None
 
 
 def test_air_fryer_negative_prompt_forbids_oven_forms():

@@ -39,6 +39,16 @@ def test_changed_reviewed_source_is_rejected(tmp_path, monkeypatch):
         curated_visuals.curated_background({'slug': 'test-guide'}, 'uk')
 
 
+def test_no_air_fryer_photo_never_falls_back_to_diffusion(tmp_path, monkeypatch):
+    monkeypatch.setattr(curated_visuals, 'ROOT', tmp_path)
+    request = Mock(side_effect=AssertionError('Diffusion must never run'))
+    monkeypatch.setattr(ai_visuals.requests, 'post', request)
+    article = {'slug': 'new-air-fryers-us', 'title': 'Air Fryers', 'content_html': '<p>No suitable photo</p>'}
+    with pytest.raises(RuntimeError, match='refusing diffusion fallback'):
+        ai_visuals.generate_image(article, 'us', tmp_path / 'output.jpg', 'account', 'token', force=True)
+    request.assert_not_called()
+
+
 def test_unrelated_articles_have_no_curated_override(tmp_path, monkeypatch):
     configure(tmp_path, monkeypatch)
     assert curated_visuals.curated_background({'slug': 'other'}, 'uk') is None
