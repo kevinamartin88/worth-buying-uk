@@ -164,3 +164,47 @@ def test_pilot_workflow_explicitly_hands_off_to_usa_publisher():
     steps = wf['jobs']['refresh-five']['steps']
     assert steps[-1]['run'] == 'gh workflow run publish-articles-us.yml --ref main'
     assert 'GH_TOKEN' in steps[-1]['env']
+
+
+
+def test_conversion_refresh_preserves_refresh_badge_metadata():
+    previous = {
+        "slug": "best-air-fryers-worth-buying-us-2026",
+        "_promotion": {
+            "daily_featured_date": "2026-10-06",
+            "is_refresh": True,
+            "promotion_token": "2026-10-06:us:best-air-fryers-worth-buying-us-2026",
+            "return_to_top": True,
+        },
+        "hero_visual_revision": "updated-badge-2026-10-06-v3",
+    }
+    rebuilt = {
+        "slug": previous["slug"],
+        "_promotion": {
+            "daily_featured_date": "2026-10-06",
+            "is_refresh": False,
+            "promotion_token": "2026-10-06:us:best-air-fryers-worth-buying-us-2026",
+            "return_to_top": True,
+        },
+    }
+    result = pilot.preserve_presentation_metadata(rebuilt, previous)
+    assert result["_promotion"]["is_refresh"] is True
+    assert result["hero_visual_revision"] == "updated-badge-2026-10-06-v3"
+
+
+def test_conversion_refresh_preserves_active_event_presentation():
+    previous = {
+        "_event": {"key": "prime-big-deal-days-2026"},
+        "title": "Prime Big Deal Days: Air Fryers Worth Comparing",
+        "hero_image_kicker": "PRIME BIG DEAL DAYS",
+        "x_kicker": "PRIME BIG DEAL DAYS",
+    }
+    rebuilt = {
+        "title": "Best Air Fryers Worth Buying",
+        "hero_image_kicker": "AIR FRYER GUIDE",
+        "x_kicker": "AIR FRYER GUIDE",
+    }
+    result = pilot.preserve_presentation_metadata(rebuilt, previous)
+    assert result["title"].startswith("Prime Big Deal Days:")
+    assert result["hero_image_kicker"] == "PRIME BIG DEAL DAYS"
+    assert result["x_kicker"] == "PRIME BIG DEAL DAYS"
