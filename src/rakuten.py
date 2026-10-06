@@ -155,6 +155,7 @@ class RakutenClient:
         self.currency = currency.upper()
         self.session = session or requests.Session()
         self._access_token = ""
+        self._validated_product_pages: dict[str, tuple[str, str]] = {}
 
     @classmethod
     def for_market(
@@ -325,6 +326,7 @@ class RakutenClient:
                     final_url,
                 )
 
+        self._validated_product_pages[product.url] = (document, final_url)
         return True, "validated retailer product page", final_url
 
     def coupons(self, network: int, limit: int = 100) -> list[RakutenCoupon]:

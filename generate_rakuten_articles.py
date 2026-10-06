@@ -4,6 +4,7 @@ import html
 import json
 import re
 from datetime import datetime, timezone
+from dataclasses import replace
 from pathlib import Path
 
 from generate_daily_articles import (
@@ -13,6 +14,7 @@ from generate_daily_articles import (
     TOPICS,
 )
 from src.rakuten import RakutenClient, RakutenProduct
+from src.cfs_prices import cfs_destination, checked_cfs_price
 
 
 ROOT = Path(__file__).resolve().parent
@@ -252,6 +254,10 @@ def validated_products(
             f"[rakuten-link-ok] {market.upper()}: {product.merchant} | "
             f"{product.name} | {final_url}"
         )
+        if cfs_destination(product.url):
+            current_price = checked_cfs_price(client, product)
+            # Never substitute CFS feed RRP when the selling price is unverified.
+            product = replace(product, price=current_price or "")
         validated.append(product)
         if len(validated) >= MAX_PRODUCTS:
             break
