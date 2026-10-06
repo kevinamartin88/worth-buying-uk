@@ -1,0 +1,48 @@
+{
+  "days": {
+    "2026-10-06": {
+      "uk": {
+        "attempted": [
+          {
+            "status": "published",
+            "topic": "large-capacity-air-fryers"
+          }
+        ],
+        "published": [
+          {
+            "action": "created",
+            "pick_count": 4,
+            "slot": 1,
+            "slug": "best-large-capacity-air-fryers-worth-buying-uk",
+            "title": "Prime Big Deal Days: Large Capacity Air Fryers Worth Comparing in the UK (2026)",
+            "topic": "large-capacity-air-fryers"
+          }
+        ]
+      },
+      "us": {
+        "attempted": [
+          {
+            "status": "published",
+            "topic": "large-capacity-air-fryers"
+          }
+        ],
+        "published": [
+          {
+            "action": "refreshed",
+            "pick_count": 4,
+            "slot": 1,
+            "slug": "best-large-capacity-air-fryers-worth-buying-us",
+            "title": "Prime Big Deal Days: Large Capacity Air Fryers Worth Comparing in the USA (2026)",
+            "topic": "large-capacity-air-fryers"
+          }
+        ]
+      }
+    }
+  },
+  "event": {
+    "end": "2026-10-07",
+    "key": "prime-big-deal-days-2026",
+    "start": "2026-10-06",
+    "target_per_market_per_day": 3
+  }
+}
