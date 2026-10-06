@@ -816,12 +816,25 @@ def authority_candidate_pool(
     focused = weekend_candidate_topics(core, weekday)
     today = datetime.now(LONDON_TZ).date()
 
+    # The daily promise is one NEW UK + one NEW USA post every day. Build
+    # topical authority by exhausting unused commercial topics before using a
+    # daily slot to refresh an existing pillar page.
+    unused = [
+        topic
+        for topic in focused
+        if not topic_already_covered(article_dir, topic, year)
+    ]
+    if unused:
+        return unused
+
+    # Only after the current-year authority pool is exhausted may the daily
+    # slot refresh an existing money page. Separate workflows can still refresh
+    # older evergreen pages without consuming the daily new-post slot.
     due: list[tuple] = []
     dated: list[tuple[date, tuple]] = []
     for topic in focused:
         last = topic_last_generated_date(article_dir, topic, year)
         if last is None:
-            due.append(topic)
             continue
         dated.append((last, topic))
         if (today - last).days >= REFRESH_AFTER_DAYS:
@@ -830,9 +843,6 @@ def authority_candidate_pool(
     if due:
         return due
 
-    # Never skip a day: if every authority page is fresher than the normal
-    # refresh window, update the oldest one rather than wandering into a weak
-    # unrelated topic. This keeps traffic and internal authority concentrated.
     dated.sort(key=lambda row: row[0])
     return [topic for _, topic in dated[:12]] or focused
 

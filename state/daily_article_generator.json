@@ -27,7 +27,7 @@
   "us": {
     "authority_cluster": "Kitchen & Small Appliances",
     "content_action": "refreshed",
-    "date": "2026-10-06",
+    "date": "",
     "day": "Tuesday",
     "demand_score": null,
     "google_cached": false,
@@ -47,6 +47,7 @@
     "topic": "air-fryers",
     "trend_traffic": null,
     "weekend_focus": null,
-    "weekend_priority": false
+    "weekend_priority": false,
+    "repair_reason": "2026-10-06 evergreen refresh consumed new-post slot; regenerate unused authority topic"
   }
 }

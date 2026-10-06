@@ -231,3 +231,38 @@ def test_editorial_trust_box_is_transparent(monkeypatch):
     assert "Affiliate disclosure:" in rendered
     assert "<strong>at no extra cost to you</strong>" in rendered
     assert "not on which retailer pays the highest commission" in rendered
+
+
+
+def test_daily_authority_pool_prefers_unused_topic_over_refresh(monkeypatch, tmp_path):
+    used_topic = next(topic for topic in daily.TOPICS if topic[0] == "air-fryers")
+    unused_topic = next(topic for topic in daily.TOPICS if topic[0] == "food-processors")
+
+    monkeypatch.setattr(
+        daily,
+        "TOPICS",
+        (used_topic, unused_topic),
+    )
+    monkeypatch.setattr(
+        daily,
+        "AUTHORITY_CORE_KEYS",
+        ("air-fryers", "food-processors"),
+    )
+    monkeypatch.setattr(
+        daily,
+        "weekend_candidate_topics",
+        lambda available, weekday: available,
+    )
+    monkeypatch.setattr(
+        daily,
+        "topic_already_covered",
+        lambda article_dir, topic, year: topic[0] == "air-fryers",
+    )
+    monkeypatch.setattr(
+        daily,
+        "topic_last_generated_date",
+        lambda article_dir, topic, year: __import__("datetime").date(2026, 9, 1),
+    )
+
+    pool = daily.authority_candidate_pool(tmp_path, 2026, weekday=1)
+    assert [topic[0] for topic in pool] == ["food-processors"]
