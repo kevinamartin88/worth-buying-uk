@@ -331,7 +331,7 @@ def _article_style_version(article: dict) -> str:
         version = STYLE_VERSION + ("+retailer-logo-v2" if retailer else "")
 
     if _has_any(_topic_haystack(article), "air fryer", "air-fryer"):
-        version += "+air-fryer-subject-v1"
+        version += "+air-fryer-subject-v2"
 
     updated_badge = _updated_badge_text(article)
     if updated_badge:
@@ -491,15 +491,15 @@ def _visual_direction(article: dict) -> str:
     # Home and kitchen
     if _has_any(haystack, "air fryer", "air-fryer"):
         return (
-            "The HERO PRODUCT MUST be an unmistakable countertop basket-style air fryer in the foreground: "
-            "a compact freestanding appliance with a clearly visible pull-out cooking drawer or dual drawers, "
-            "digital controls on the front, and proportions typical of a modern countertop air fryer. "
-            "Show only one or two air fryers, with the main unit occupying roughly one third of the frame. "
-            "It must NOT look like a conventional built-in oven, freestanding cooker/range, wall oven, "
-            "microwave, toaster oven, mini oven, air-fryer oven with a glass door, or full-size kitchen appliance. "
-            "Do not show an oven cavity, stovetop burners, hob, range hood or built-in cabinetry appliance as "
-            "the focal product. Use a bright modern kitchen counter setting, keeping the product clearly "
-            "recognisable as a basket air fryer and leaving clean space on the centre-right for headline text."
+            "Show ONE unmistakable modern basket-style countertop air fryer as the hero product. "
+            "It must have a solid opaque front, a horizontal pull-out drawer seam, a substantial drawer handle, "
+            "and the drawer pulled partly open so the removable basket is clearly visible. A second matching "
+            "drawer is acceptable for a dual-basket model. The appliance should be compact and sit entirely on "
+            "a kitchen countertop. Do NOT show any transparent or glass front panel. Do NOT show an oven door, "
+            "wire racks, baking trays, rotisserie cavity, toaster-oven shape, microwave shape, built-in oven, "
+            "freestanding cooker/range, stovetop, hob or range hood. Do NOT make the air fryer resemble a mini oven. "
+            "Use a bright realistic modern kitchen, with the air fryer large and obvious on the left side and "
+            "clean negative space toward the centre-right for headline text."
         )
 
     if _has_any(haystack, "kitchen gadgets", "kitchen appliance", "coffee maker", "stand mixer", "cookware"):
@@ -631,13 +631,21 @@ def build_prompt(article: dict, market: str) -> str:
     )
 
 
-def negative_prompt() -> str:
-    return (
+def negative_prompt(article: dict | None = None) -> str:
+    base = (
         "text, words, prices, sale badges, logos, trademarks, watermarks, brand names, QR codes, "
         "screenshots, distorted lettering, malformed products, impossible geometry, mannequins, extra limbs, "
         "extra fingers, duplicate objects, low resolution, blurry, oversaturated, cartoon, CGI, "
         "plastic-looking materials"
     )
+    if article and _has_any(_topic_haystack(article), "air fryer", "air-fryer"):
+        return (
+            base
+            + ", oven, conventional oven, wall oven, built-in oven, cooker, range, stove, stovetop, hob, "
+            "toaster oven, mini oven, convection oven, air fryer oven, glass door, transparent door, "
+            "oven cavity, oven rack, wire rack, baking tray, rotisserie"
+        )
+    return base
 
 
 def _extract_image_bytes(response: requests.Response) -> bytes:
@@ -875,7 +883,7 @@ def generate_image(
     )
     payload = {
         "prompt": build_prompt(article, market),
-        "negative_prompt": negative_prompt(),
+        "negative_prompt": negative_prompt(article),
         "width": GEN_WIDTH,
         "height": GEN_HEIGHT,
         "seed": _seed_for(article, market),

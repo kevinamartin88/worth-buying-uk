@@ -60,4 +60,16 @@ def test_air_fryer_direction_forbids_ovens():
     assert "conventional built-in oven" in direction
     assert "toaster oven" in direction
     assert "air-fryer oven with a glass door" in direction
-    assert "air-fryer-subject-v1" in ai_visuals._article_style_version(article)
+    assert "air-fryer-subject-v2" in ai_visuals._article_style_version(article)
+
+
+def test_air_fryer_negative_prompt_forbids_oven_forms():
+    article = {
+        "title": "Best Air Fryers Worth Buying in the USA (2026)",
+        "labels": ["Air Fryers", "USA"],
+    }
+    prompt = ai_visuals.negative_prompt(article)
+    assert "toaster oven" in prompt
+    assert "glass door" in prompt
+    assert "air fryer oven" in prompt
+    assert "oven rack" in prompt
