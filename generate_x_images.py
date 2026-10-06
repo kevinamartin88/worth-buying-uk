@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+from datetime import date
 import io
 import json
 import textwrap
@@ -18,6 +19,18 @@ YELLOW = (248, 196, 66)
 OFF_WHITE = (248, 249, 251)
 MUTED = (190, 202, 215)
 DARK_TEAL = (20, 112, 109)
+
+
+def updated_badge_text(article: dict) -> str:
+    promotion = article.get("_promotion") or {}
+    if not promotion.get("is_refresh"):
+        return ""
+    raw = str(promotion.get("daily_featured_date") or "").strip()
+    try:
+        value = date.fromisoformat(raw)
+    except ValueError:
+        return "Updated today" if raw else ""
+    return f"Updated {value.day} {value.strftime('%B')}"
 
 
 def load_font(size: int, bold: bool = False):
@@ -102,6 +115,13 @@ def render(article: dict, market: str) -> bytes:
     font_chip = load_font(25, bold=True)
 
     draw.text((100, 75), brand, font=font_brand, fill=OFF_WHITE)
+    updated_badge = updated_badge_text(article)
+    if updated_badge:
+        updated_font = load_font(27, bold=True)
+        box = draw.textbbox((0, 0), updated_badge, font=updated_font)
+        updated_w = box[2] - box[0]
+        draw.rounded_rectangle((1150, 65, 1195 + updated_w, 122), radius=28, fill=YELLOW)
+        draw.text((1172, 77), updated_badge, font=updated_font, fill=NAVY)
     draw.rounded_rectangle((100, 145, 560, 205), radius=30, fill=TEAL)
     draw.text((130, 157), kicker, font=font_kicker, fill=OFF_WHITE)
 

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from datetime import date
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
@@ -27,6 +28,18 @@ GREY = "#5D6B78"
 
 FONT_REGULAR = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 FONT_BOLD = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
+
+
+def updated_badge_text(article: dict) -> str:
+    promotion = article.get("_promotion") or {}
+    if not promotion.get("is_refresh"):
+        return ""
+    raw = str(promotion.get("daily_featured_date") or "").strip()
+    try:
+        value = date.fromisoformat(raw)
+    except ValueError:
+        return "Updated today" if raw else ""
+    return f"Updated {value.day} {value.strftime('%B')}"
 
 
 def load_font(size: int, bold: bool = False):
@@ -120,6 +133,14 @@ def render_article(article: dict, output: Path) -> None:
     badge_w = min(520, measure(draw, kicker, badge_font)[0] + 70)
     draw.rounded_rectangle((70, 282, 70 + badge_w, 344), radius=31, fill=PALE_TEAL)
     draw.text((105, 297), kicker, font=badge_font, fill=NAVY)
+
+    updated_badge = updated_badge_text(article)
+    if updated_badge:
+        update_font = load_font(25, bold=True)
+        update_w, _ = measure(draw, updated_badge, update_font)
+        update_x1 = 930 - update_w - 56
+        draw.rounded_rectangle((update_x1, 282, 930, 344), radius=31, fill=YELLOW)
+        draw.text((update_x1 + 28, 297), updated_badge, font=update_font, fill=NAVY)
 
     title_font, title_lines = title_layout(draw, title)
     y = 405

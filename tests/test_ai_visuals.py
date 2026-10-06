@@ -23,3 +23,25 @@ def test_truncated_choice_furniture_name_is_normalized_for_existing_articles():
 
     assert ai_visuals._featured_retailer(article) == "Choice Furniture Superstore"
     assert ai_visuals._article_style_version(article).endswith("+choice-furniture-name-fit-v1")
+
+
+
+def test_refresh_badge_uses_reader_friendly_date():
+    article = {
+        "_promotion": {
+            "is_refresh": True,
+            "daily_featured_date": "2026-10-06",
+        }
+    }
+    assert ai_visuals._updated_badge_text(article) == "Updated 6 October"
+    assert "updated-badge-v1-updated-6-october" in ai_visuals._article_style_version(article)
+
+
+def test_new_article_has_no_updated_badge():
+    article = {
+        "_promotion": {
+            "is_refresh": False,
+            "daily_featured_date": "2026-10-06",
+        }
+    }
+    assert ai_visuals._updated_badge_text(article) == ""

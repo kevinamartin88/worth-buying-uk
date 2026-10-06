@@ -588,8 +588,6 @@ def quick_picks_html(items: list[dict], market: str, query: str) -> str:
 
     return (
         "<h2>Best current options at a glance</h2>\n"
-        "<p><strong>Affiliate links:</strong> if you buy through a retailer link, Worth Buying may earn "
-        "a commission at no extra cost to you. Retailers do not pay to be included in this shortlist.</p>\n"
         + "".join(cards)
     )
 
@@ -616,10 +614,9 @@ def editorial_trust_html(market: str, checked_date: str) -> str:
         'and other relevant buying signals to help identify products we believe offer strong value. '
         'These are data-led comparisons rather than market hype. You can read more about '
         f'<a href="{html.escape(methodology_url, quote=True)}">how we choose and review products</a>.</p>'
-        '<p style="margin-bottom:0"><strong>Affiliate disclosure:</strong> Some links may earn '
-        'WorthBuying a small commission if you make a purchase — <strong>at no extra cost to you</strong>. '
-        'This helps support the site and keeps our buying guides free to use. Our recommendations '
-        'are based on our published selection process, not on which retailer pays the highest commission.</p>'
+        f'<p><small><strong>Prices checked:</strong> {html.escape(checked_date)}.</small></p>'
+        '<p style="margin-bottom:0">Retailer links may be affiliate links. Recommendations are based on '
+        'our published selection process, not on which retailer pays the highest commission.</p>'
         '</aside>\n'
     )
 
@@ -713,13 +710,13 @@ def buyer_intro(display: str, region: str, year: int, live: bool) -> str:
     topic = display.lower()
     if live:
         return (
-            f"If you are searching for the best {topic} in the {region} in {year}, this guide narrows the market "
-            "to a small set of current listings worth comparing. We focus on price, seller quality and practical "
-            "buying checks rather than repeating retailer marketing claims."
+            f"Shopping for {topic} in the {region}? We have narrowed the current market to a practical "
+            "shortlist worth comparing, focusing on useful features, realistic prices and seller quality "
+            "so you can get to the strongest options faster."
         )
     return (
-        f"If you are comparing the best {topic} in the {region} in {year}, this guide explains what to look for "
-        "and gives direct retailer searches so you can check current stock and prices without us inventing product rankings."
+        f"Shopping for {topic} in the {region}? This guide focuses on the features and buying checks that "
+        "matter most, with live retailer searches so you can compare current stock and prices before deciding."
     )
 
 
@@ -1548,11 +1545,9 @@ def build_article(
 
     content = (
         f"<p><strong>{html.escape(buyer_intro(display, region, year, live))}</strong></p>\n"
-        + (f"<p><strong>Last checked:</strong> {html.escape(checked_date)}.</p>\n"
-           + quick_picks_html(picks, market, query) if live and market == "us" else "")
+        + (quick_picks_html(picks, market, query) if live and market == "us" else "")
         +
         f"<p>{methodology} Prices and availability can change after publication, so always verify the live listing.</p>\n"
-        f"<p><strong>Last checked:</strong> {html.escape(checked_date)}.</p>\n"
         f"{editorial_trust_html(market, checked_date)}"
         f"{quick_picks_html(picks, market, query) if live and market != 'us' else ''}"
         f"<h2>{'Current picks worth comparing' if live else 'Current retailer searches worth checking'}</h2>\n"

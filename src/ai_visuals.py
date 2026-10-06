@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import base64
+from datetime import date
 import hashlib
 import html
 import io
@@ -320,6 +321,18 @@ def _load_retailer_logo(
         return None
 
 
+def _updated_badge_text(article: dict) -> str:
+    promotion = article.get("_promotion") or {}
+    if not promotion.get("is_refresh"):
+        return ""
+    raw = str(promotion.get("daily_featured_date") or "").strip()
+    try:
+        value = date.fromisoformat(raw)
+    except ValueError:
+        return "Updated today" if raw else ""
+    return f"Updated {value.day} {value.strftime('%B')}"
+
+
 def _article_style_version(article: dict) -> str:
     retailer = _featured_retailer(article)
     if retailer.casefold() == "choice furniture superstore":
@@ -327,6 +340,15 @@ def _article_style_version(article: dict) -> str:
         version = STYLE_VERSION + "+choice-furniture-name-fit-v1"
     else:
         version = STYLE_VERSION + ("+retailer-logo-v2" if retailer else "")
+
+    updated_badge = _updated_badge_text(article)
+    if updated_badge:
+        badge_revision = re.sub(
+            r"[^a-z0-9._-]+",
+            "-",
+            updated_badge.casefold(),
+        ).strip("-")
+        version += f"+updated-badge-v1-{badge_revision}"
 
     revision = re.sub(
         r"[^a-z0-9._-]+",
@@ -701,9 +723,29 @@ def _add_text_overlay(image: Image.Image, article: dict, market: str) -> Image.I
     )
     draw.text((badge_x1 + 27, badge_y1 + 13), brand, font=brand_font, fill=WHITE)
 
+    # Refreshed daily features get a clear date badge on the site/social thumbnail.
+    updated_badge = _updated_badge_text(article)
+    retailer_card_bottom = badge_y2
+    if updated_badge:
+        updated_font = _load_font(24, bold=True)
+        updated_w, updated_h = _measure(draw, updated_badge, updated_font)
+        updated_y1 = badge_y2 + 14
+        updated_y2 = updated_y1 + updated_h + 24
+        draw.rounded_rectangle(
+            (text_x, updated_y1, text_x + updated_w + 42, updated_y2),
+            radius=16,
+            fill=(253, 189, 32, 246),
+        )
+        draw.text(
+            (text_x + 21, updated_y1 + 9),
+            updated_badge,
+            font=updated_font,
+            fill=DEEP_NAVY,
+        )
+        retailer_card_bottom = updated_y2
+
     # A single-retailer Rakuten roundup gets an immediately visible retailer card.
     retailer = _featured_retailer(article)
-    retailer_card_bottom = badge_y2
     if retailer:
         card_y1 = badge_y2 + 18
         card_y2 = card_y1 + 104
