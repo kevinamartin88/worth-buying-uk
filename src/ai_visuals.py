@@ -877,8 +877,8 @@ def _air_fryer_product_candidate(article: dict) -> tuple[str, str] | None:
     )
 
     for tag in re.findall(r"<img\b[^>]*>", content, flags=re.IGNORECASE):
-        src_match = re.search(r'\bsrc=["\\']([^"\\']+)["\\']', tag, flags=re.IGNORECASE)
-        alt_match = re.search(r'\balt=["\\']([^"\\']*)["\\']', tag, flags=re.IGNORECASE)
+        src_match = re.search(r'\bsrc="([^"]+)"', tag, flags=re.IGNORECASE)
+        alt_match = re.search(r'\balt="([^"]*)"', tag, flags=re.IGNORECASE)
         if not src_match or not alt_match:
             continue
 
