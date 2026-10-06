@@ -27,6 +27,19 @@
     "title": "Current Coffee Machines Offers from Approved USA Retailers (October 2026)",
     "url": "https://www.worthbuyingusa.com/2026/10/current-coffee-machines-offers-from.html"
   },
+  "approved-retailer-cordless-vacuums-us-2026-10-06": {
+    "daily_featured_date": null,
+    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/approved-retailer-cordless-vacuums-us-2026-10-06.jpg",
+    "image_required": true,
+    "post_id": "1085972280261790678",
+    "promotion_token": null,
+    "publish_fingerprint": "162b2df76821818f12409a96643cddff09c76f1a7849a490e19e7b6cc7a44ceb",
+    "source_file": "approved-retailer-cordless-vacuums-us-2026-10-06.json",
+    "source_sha": "2026-10-06-cordless-vacuums-us-rakuten-v2",
+    "status": "published",
+    "title": "Current Cordless Vacuum Cleaners Offers from Approved USA Retailers (October 2026)",
+    "url": "https://www.worthbuyingusa.com/2026/10/current-cordless-vacuum-cleaners-offers.html"
+  },
   "approved-retailer-dash-cams-us-2026-10-02": {
     "daily_featured_date": null,
     "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/approved-retailer-dash-cams-us-2026-10-02.jpg",
@@ -77,10 +90,10 @@
     "post_id": "3305276758977212815",
     "primary_category": "Home & Kitchen",
     "promotion_token": "2026-10-06:us:best-air-fryers-worth-buying-us-2026",
-    "publish_fingerprint": "6e21e510f0576f02d7bf81fcd867a0cf87ee6b70279dd99ab4a78e1e40824fe1",
+    "publish_fingerprint": "9a55af4feee5574e7b2cdc98e849f1f152c3b618d3c7596c2e542c32bdaa7a1e",
     "publisher": "email",
     "source_file": "best-air-fryers-worth-buying-us-2026.json",
-    "source_sha": "2026-10-06-air-fryers-us-daily-v6",
+    "source_sha": "2026-10-06-air-fryers-us-v8-correct-hero-subject",
     "status": "published",
     "title": "Best Air Fryers Worth Buying in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/09/best-air-fryers-worth-buying-in-usa-2026.html"
