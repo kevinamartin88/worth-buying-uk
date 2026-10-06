@@ -15,6 +15,7 @@ try:
 except (ImportError, OSError):
     cairosvg = None
 from PIL import Image, ImageDraw, ImageFont, ImageOps
+from src.curated_visuals import curated_background, configuration as curated_configuration
 
 from src.refresh_badge import updated_badge_text as _updated_badge_text
 
@@ -332,6 +333,10 @@ def _article_style_version(article: dict) -> str:
 
     if _has_any(_topic_haystack(article), "air fryer", "air-fryer"):
         version += "+air-fryer-subject-v4"
+    reviewed = (curated_configuration('uk', article.get('slug', ''))
+                or curated_configuration('us', article.get('slug', '')))
+    if reviewed:
+        version += '+curated-basket-source-v1-' + reviewed['sha256'][:12]
 
     updated_badge = _updated_badge_text(article)
     if updated_badge:
@@ -965,10 +970,17 @@ def generate_image(
         # the clean AI background before applying a changed layout, otherwise
         # old and new headlines would be layered on top of one another.
 
+    source = curated_background(article, market)
+    if source:
+        # Dates, titles and Prime cleanup reuse the reviewed photo, even on force.
+        with Image.open(source) as image:
+            _save_branded_image(image, output, article, market)
+        return True
+
     # Air-fryer guides use a verified basket-style retailer product photo
     # rather than trusting a generative model to distinguish a drawer air fryer
     # from an oven-style appliance. If no suitable product photo is available,
-    # fall back to the normal Cloudflare generation path below.
+    # refuse generation when neither a reviewed source nor product photo exists.
     if _has_any(_topic_haystack(article), "air fryer", "air-fryer"):
         try:
             if _generate_air_fryer_product_hero(article, market, output):
@@ -978,6 +990,9 @@ def generate_image(
                 f"[air-fryer-product-hero-warning] {article.get('slug', '')}: "
                 f"{type(exc).__name__}: {exc}"
             )
+
+    if _has_any(_topic_haystack(article), "air fryer", "air-fryer"):
+        raise RuntimeError("No reviewed air-fryer source or suitable retailer photo; refusing diffusion fallback")
 
     if not account_id or not api_token:
         raise RuntimeError(
@@ -1036,7 +1051,8 @@ def generate_market(market: str, force: bool = False) -> int:
         slug = str(article["slug"]).strip()
         target = output_dir / f"{slug}.jpg"
 
-        if not target.exists() and (not account_id or not api_token):
+        if (not target.exists() and (not account_id or not api_token)
+                and not curated_configuration(market, slug)):
             print(
                 f"[ai-visual-skip] {slug}: Cloudflare credentials are not configured "
                 "and no existing AI background is available."
