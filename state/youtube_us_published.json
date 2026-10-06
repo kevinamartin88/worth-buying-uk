@@ -39,12 +39,12 @@
   },
   "approved-retailer-slow-cookers-us-2026-10-05": {
     "blog_url": "https://www.worthbuyingusa.com/2026/10/current-slow-cookers-offers-from.html",
-    "publication_fingerprint": "9f8d58399e97383a6bc34c543aeca801efc1508e108b5d37df7a1d88035a9a07",
+    "publication_fingerprint": "56dba9cac8412633f48fb9272eb5467914336d162abbaf00edba61ac433b37a2",
     "reconciled_from_channel": true,
     "status": "published",
-    "uploaded_at": "2026-10-05T22:39:38.332913+00:00",
-    "video_id": "vpqiF0Auwp4",
-    "video_url": "https://www.youtube.com/shorts/vpqiF0Auwp4"
+    "uploaded_at": "2026-10-06T05:54:56.168681+00:00",
+    "video_id": "79DT6WKh7Jc",
+    "video_url": "https://www.youtube.com/shorts/79DT6WKh7Jc"
   },
   "best-air-fryers-worth-buying-us-2026": {
     "blog_url": "https://www.worthbuyingusa.com/2026/09/best-air-fryers-worth-buying-in-usa-2026.html",
@@ -78,16 +78,19 @@
   },
   "best-coffee-machines-worth-buying-us-2026": {
     "blog_url": "https://www.worthbuyingusa.com/2026/09/best-coffee-machines-worth-buying-in.html",
-    "publication_fingerprint": "6a044ccb3106a81aea0ae5c5b218b7be63118e28bd9d68c3fbd476139ce1032a",
-    "status": "baseline"
+    "publication_fingerprint": "54ccd118e969926c7902ea5dd5c447eec83f65b8447addc673365908fe8d7740",
+    "status": "published",
+    "uploaded_at": "2026-10-06T05:55:06.208642+00:00",
+    "video_id": "OXqN6NUjESs",
+    "video_url": "https://www.youtube.com/shorts/OXqN6NUjESs"
   },
   "best-cordless-vacuums-worth-buying-us-2026": {
     "blog_url": "https://www.worthbuyingusa.com/2026/10/best-cordless-vacuum-cleaners-worth.html",
-    "publication_fingerprint": "b73d02c1e154ee7495d3d20d9f4b8642e77e8788a03d7110a2ea6344f714ba49",
+    "publication_fingerprint": "b72dba60b508aa2e82e5420ed73431a874ed3bc701a7f184e9d1169a0a75dd1f",
     "status": "published",
-    "uploaded_at": "2026-10-04T12:38:17.379451+00:00",
-    "video_id": "JgaRkepAK3I",
-    "video_url": "https://www.youtube.com/shorts/JgaRkepAK3I"
+    "uploaded_at": "2026-10-06T05:55:16.811500+00:00",
+    "video_id": "lc5MoJxkqhc",
+    "video_url": "https://www.youtube.com/shorts/lc5MoJxkqhc"
   },
   "best-dash-cams-worth-buying-us-2026": {
     "blog_url": "https://www.worthbuyingusa.com/2026/09/best-dash-cams-worth-buying-in-usa-2026.html",
@@ -168,9 +171,10 @@
   },
   "best-ssds-worth-buying-us-2026": {
     "blog_url": "https://www.worthbuyingusa.com/2026/10/best-solid-state-drives-worth-buying-in.html",
-    "publication_fingerprint": "719af5e42f41ca8d950b8f70cb97613c29dcdb2ccacbf9a2fa5835a201913fff",
+    "publication_fingerprint": "95c2622cfdffd8c8eafa579ea98b70157f112ecd6d6be7df3ec3da2e84c45ee6",
+    "reconciled_from_channel": true,
     "status": "published",
-    "uploaded_at": "2026-10-04T12:38:28.976853+00:00",
+    "uploaded_at": "2026-10-06T05:55:17.052653+00:00",
     "video_id": "Iwbb2eGh1H4",
     "video_url": "https://www.youtube.com/shorts/Iwbb2eGh1H4"
   },
