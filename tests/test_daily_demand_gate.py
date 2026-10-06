@@ -245,3 +245,34 @@ def test_daily_feature_metadata_can_mark_refresh():
     }
     article["_promotion"]["is_refresh"] = True
     assert article["_promotion"]["is_refresh"] is True
+
+
+def test_evergreen_slug_ignores_temporary_rakuten_roundup(monkeypatch, tmp_path):
+    temporary = {
+        "slug": "approved-retailer-cordless-vacuums-us-2026-10-06",
+        "_generator": {
+            "topic": "cordless-vacuums",
+            "channel": "rakuten",
+        },
+    }
+    permanent = {
+        "slug": "best-cordless-vacuums-worth-buying-us-2026",
+        "_generator": {
+            "topic": "cordless-vacuums",
+            "market": "us",
+            "live_ebay_picks": True,
+        },
+    }
+    (tmp_path / "temporary.json").write_text(
+        __import__("json").dumps(temporary),
+        encoding="utf-8",
+    )
+    (tmp_path / "permanent.json").write_text(
+        __import__("json").dumps(permanent),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(daily, "published_article_dir", lambda market: tmp_path)
+    assert (
+        daily.evergreen_article_slug("cordless-vacuums", "us")
+        == "best-cordless-vacuums-worth-buying-us-2026"
+    )

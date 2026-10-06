@@ -1495,28 +1495,47 @@ def fallback_sections(market: str, topic_name: str, query: str) -> str:
 
 
 def evergreen_article_slug(topic_key: str, market: str) -> str:
-    """Reuse an existing topic slug so annual refreshes keep the same URL authority."""
+    """Reuse the permanent buying-guide slug, never a temporary retailer roundup."""
     article_dir = published_article_dir(market)
     wanted = normalise(topic_key)
+    candidates: list[tuple[int, str]] = []
+
     for path in article_dir.glob("*.json"):
         try:
             article = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
             continue
+
         generator = article.get("_generator") or {}
         if normalise(str(generator.get("topic") or "")) != wanted:
             continue
+
+        # Supporting pages and retailer-specific roundups are separate assets.
+        # They must never become the canonical evergreen URL for a daily guide.
         if str(generator.get("content_type") or "") == "authority-support":
             continue
+        if str(generator.get("channel") or "").casefold() == "rakuten":
+            continue
+
         slug = str(article.get("slug") or path.stem).strip()
-        if slug:
-            return slug
+        if not slug or slug.startswith("approved-retailer-"):
+            continue
+
+        expected_prefix = f"best-{topic_key}-worth-buying-{market}"
+        priority = 0 if slug.startswith(expected_prefix) else 1
+        candidates.append((priority, slug))
+
+    if candidates:
+        candidates.sort(key=lambda row: (row[0], row[1]))
+        return candidates[0][1]
+
     # Early manually published guides predate _generator metadata. Their exact
     # topic-shaped filenames still identify the existing permanent article.
     for path in sorted(article_dir.glob(f"best-{topic_key}-worth-buying-{market}-*.json"), reverse=True):
         article = load_json(path)
         if not article.get("_generator") and article.get("slug") == path.stem:
             return path.stem
+
     return f"best-{topic_key}-worth-buying-{market}"
 
 
