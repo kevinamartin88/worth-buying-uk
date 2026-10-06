@@ -33,6 +33,19 @@ def is_ebay_image(url: str) -> bool:
     return parsed.scheme == "https" and parsed.hostname == "i.ebayimg.com" and parsed.port in (None, 443)
 
 
+def is_amazon_image(url: str) -> bool:
+    parsed = urlsplit(url)
+    return (
+        parsed.scheme == "https"
+        and parsed.hostname in {
+            "m.media-amazon.com",
+            "images-na.ssl-images-amazon.com",
+            "images-eu.ssl-images-amazon.com",
+        }
+        and parsed.port in (None, 443)
+    )
+
+
 @lru_cache(maxsize=512)
 def image_dimensions(url: str) -> tuple[int, int]:
     """Read bounded image bytes and decode the entire image, not just its header."""
@@ -99,6 +112,10 @@ def prepare_product_images(content: str) -> str:
         parser.feed(match.group(0))
         attrs = parser.attrs
         url = attrs.get("src", "")
+        if is_amazon_image(url):
+            # Amazon Creators API images.primary.large is already the official
+            # product image resource, so preserve it and standardise the card.
+            return product_image_html(url, attrs.get("alt", "Product photograph"))
         if not is_ebay_image(url):
             if "wb-product-image" in (attrs.get("class") or "").split():
                 raise RuntimeError(f"Product image quality check requires a supported retailer image: {url}")
