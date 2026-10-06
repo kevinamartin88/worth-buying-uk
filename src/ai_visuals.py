@@ -14,7 +14,7 @@ try:
     import cairosvg
 except (ImportError, OSError):
     cairosvg = None
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 from src.refresh_badge import updated_badge_text as _updated_badge_text
 
@@ -331,7 +331,7 @@ def _article_style_version(article: dict) -> str:
         version = STYLE_VERSION + ("+retailer-logo-v2" if retailer else "")
 
     if _has_any(_topic_haystack(article), "air fryer", "air-fryer"):
-        version += "+air-fryer-subject-v2"
+        version += "+air-fryer-subject-v3"
 
     updated_badge = _updated_badge_text(article)
     if updated_badge:
@@ -857,6 +857,99 @@ def _save_generated_image(
         _save_branded_image(image, output, article, market)
 
 
+def _air_fryer_product_candidate(article: dict) -> tuple[str, str] | None:
+    """Pick a real basket-style air fryer product photo already used in the article.
+
+    AI image models can still turn the words "air fryer" into toaster-oven style
+    appliances even with a strong negative prompt. For air-fryer guides we avoid
+    that ambiguity by reusing an approved retailer product image whose listing
+    title clearly describes a basket/drawer air fryer and does not describe an
+    oven-style appliance.
+    """
+    content = str(article.get("content_html") or "")
+    forbidden = (
+        "oven",
+        "rotisserie",
+        "toaster",
+        "convection",
+        "french door",
+        "glass door",
+    )
+
+    for tag in re.findall(r"<img\\b[^>]*>", content, flags=re.IGNORECASE):
+        src_match = re.search(r'\\bsrc=["\\\']([^"\\\']+)["\\\']', tag, flags=re.IGNORECASE)
+        alt_match = re.search(r'\\balt=["\\\']([^"\\\']*)["\\\']', tag, flags=re.IGNORECASE)
+        if not src_match or not alt_match:
+            continue
+
+        alt = html.unescape(alt_match.group(1)).strip()
+        label = " ".join(alt.casefold().split())
+        if "air fryer" not in label and "airfryer" not in label:
+            continue
+        if any(term in label for term in forbidden):
+            continue
+
+        image_url = html.unescape(src_match.group(1)).strip()
+        if not image_url.startswith(("https://", "http://")):
+            continue
+
+        # eBay article thumbnails are often stored at s-l225; request the
+        # higher-resolution variant for the hero whenever that URL pattern is used.
+        image_url = re.sub(
+            r"/s-l\\d+\\.(jpe?g|png)(?:\\?.*)?$",
+            lambda match: f"/s-l1600.{match.group(1)}",
+            image_url,
+            flags=re.IGNORECASE,
+        )
+        return image_url, alt
+
+    return None
+
+
+def _save_air_fryer_product_hero(
+    image_bytes: bytes,
+    output: Path,
+    article: dict,
+    market: str,
+) -> None:
+    """Build a deterministic hero from a real basket-style product image."""
+    with Image.open(io.BytesIO(image_bytes)) as product:
+        product = product.convert("RGB")
+        canvas = Image.new("RGB", (OUTPUT_WIDTH, OUTPUT_HEIGHT), (244, 247, 250))
+        panel = Image.new("RGB", (900, OUTPUT_HEIGHT), (255, 255, 255))
+        fitted = ImageOps.contain(
+            product,
+            (820, 820),
+            method=Image.Resampling.LANCZOS,
+        )
+        x = max(0, (panel.width - fitted.width) // 2)
+        y = max(0, (panel.height - fitted.height) // 2)
+        panel.paste(fitted, (x, y))
+        canvas.paste(panel, (0, 0))
+        _save_branded_image(canvas, output, article, market)
+
+
+def _generate_air_fryer_product_hero(
+    article: dict,
+    market: str,
+    output: Path,
+) -> bool:
+    candidate = _air_fryer_product_candidate(article)
+    if candidate is None:
+        return False
+
+    image_url, title = candidate
+    response = requests.get(
+        image_url,
+        timeout=REQUEST_TIMEOUT,
+        headers={"User-Agent": "WorthBuyingVisualGenerator/4.3"},
+    )
+    response.raise_for_status()
+    _save_air_fryer_product_hero(response.content, output, article, market)
+    print(f"[air-fryer-product-hero] {title}")
+    return True
+
+
 def generate_image(
     article: dict,
     market: str,
@@ -871,6 +964,20 @@ def generate_image(
         # The saved JPG already contains its previous text overlay. Regenerate
         # the clean AI background before applying a changed layout, otherwise
         # old and new headlines would be layered on top of one another.
+
+    # Air-fryer guides use a verified basket-style retailer product photo
+    # rather than trusting a generative model to distinguish a drawer air fryer
+    # from an oven-style appliance. If no suitable product photo is available,
+    # fall back to the normal Cloudflare generation path below.
+    if _has_any(_topic_haystack(article), "air fryer", "air-fryer"):
+        try:
+            if _generate_air_fryer_product_hero(article, market, output):
+                return True
+        except Exception as exc:
+            print(
+                f"[air-fryer-product-hero-warning] {article.get('slug', '')}: "
+                f"{type(exc).__name__}: {exc}"
+            )
 
     if not account_id or not api_token:
         raise RuntimeError(
