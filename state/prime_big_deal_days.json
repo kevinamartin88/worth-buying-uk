@@ -10,12 +10,17 @@
           {
             "status": "published",
             "topic": "robot-vacuums"
+          },
+          {
+            "status": "published",
+            "topic": "wireless-earbuds"
           }
         ],
         "published": [
           {
-            "action": "created",
+            "action": "refreshed",
             "pick_count": 4,
+            "retailer": "Amazon",
             "slot": 1,
             "slug": "best-large-capacity-air-fryers-worth-buying-uk",
             "title": "Prime Big Deal Days: Large Capacity Air Fryers Worth Comparing in the UK (2026)",
@@ -24,10 +29,19 @@
           {
             "action": "refreshed",
             "pick_count": 4,
+            "retailer": "Amazon",
             "slot": 2,
             "slug": "best-robot-vacuum-cleaners-worth-buying-uk-2026",
             "title": "Prime Big Deal Days: Robot Vacuum Cleaners Worth Comparing in the UK (2026)",
             "topic": "robot-vacuums"
+          },
+          {
+            "action": "created",
+            "pick_count": 4,
+            "slot": 3,
+            "slug": "best-wireless-earbuds-worth-buying-uk",
+            "title": "Prime Big Deal Days: Wireless Earbuds Worth Comparing in the UK (2026)",
+            "topic": "wireless-earbuds"
           }
         ]
       },
@@ -40,12 +54,17 @@
           {
             "status": "published",
             "topic": "robot-vacuums"
+          },
+          {
+            "status": "published",
+            "topic": "wireless-earbuds"
           }
         ],
         "published": [
           {
             "action": "refreshed",
             "pick_count": 4,
+            "retailer": "Amazon",
             "slot": 1,
             "slug": "best-large-capacity-air-fryers-worth-buying-us",
             "title": "Prime Big Deal Days: Large Capacity Air Fryers Worth Comparing in the USA (2026)",
@@ -54,10 +73,19 @@
           {
             "action": "refreshed",
             "pick_count": 4,
+            "retailer": "Amazon",
             "slot": 2,
             "slug": "best-robot-vacuum-cleaners-worth-buying-us-2026",
             "title": "Prime Big Deal Days: Robot Vacuums Worth Comparing in the USA (2026)",
             "topic": "robot-vacuums"
+          },
+          {
+            "action": "created",
+            "pick_count": 4,
+            "slot": 3,
+            "slug": "best-wireless-earbuds-worth-buying-us",
+            "title": "Prime Big Deal Days: Wireless Earbuds Worth Comparing in the USA (2026)",
+            "topic": "wireless-earbuds"
           }
         ]
       }
