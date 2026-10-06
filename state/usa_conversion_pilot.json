@@ -1,0 +1,31 @@
+{
+  "articles": [
+    {
+      "slug": "best-cordless-vacuums-worth-buying-us-2026",
+      "topic": "cordless-vacuums",
+      "verified_products": 4
+    },
+    {
+      "slug": "best-ssds-worth-buying-us-2026",
+      "topic": "ssds",
+      "verified_products": 4
+    },
+    {
+      "slug": "approved-retailer-slow-cookers-us-2026-10-05",
+      "topic": "slow-cookers",
+      "verified_products": 4
+    },
+    {
+      "slug": "best-air-fryers-worth-buying-us-2026",
+      "topic": "air-fryers",
+      "verified_products": 4
+    },
+    {
+      "slug": "best-coffee-machines-worth-buying-us-2026",
+      "topic": "coffee-machines",
+      "verified_products": 4
+    }
+  ],
+  "experiment": "usa-buying-cards-v1",
+  "generated_at": "2026-10-06T05:51:37.121803+00:00"
+}
