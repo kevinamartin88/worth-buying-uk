@@ -85,15 +85,15 @@
   },
   "best-air-fryers-worth-buying-us-2026": {
     "daily_featured_date": "2026-10-06",
-    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-air-fryers-worth-buying-us-2026.jpg?v=4215d21cf0ef065f",
+    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-air-fryers-worth-buying-us-2026.jpg?v=d61dd206bf8cfdc0",
     "image_required": true,
     "post_id": "3305276758977212815",
     "primary_category": "Home & Kitchen",
     "promotion_token": "2026-10-06:us:best-air-fryers-worth-buying-us-2026",
-    "publish_fingerprint": "9521ccbd38f113ce60fbbfb5ed02f2cac516aabbc3e42cb033de61b7d2bda9be",
+    "publish_fingerprint": "68c4ac9a731cfbb94bbb0e2caa9ad710295d9bd65c2e7288eb66cd25a82386b7",
     "publisher": "email",
     "source_file": "best-air-fryers-worth-buying-us-2026.json",
-    "source_sha": "2026-10-06-air-fryers-us-daily-v6",
+    "source_sha": "2026-10-06-air-fryers-us-v9-basket-hero",
     "status": "published",
     "title": "Best Air Fryers Worth Buying in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/09/best-air-fryers-worth-buying-in-usa-2026.html"
@@ -250,7 +250,7 @@
   },
   "best-large-capacity-air-fryers-worth-buying-us": {
     "daily_featured_date": "2026-10-06",
-    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-large-capacity-air-fryers-worth-buying-us.jpg?v=40bfa05b840a0477",
+    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-large-capacity-air-fryers-worth-buying-us.jpg?v=2904e309bdbedeab",
     "image_required": true,
     "post_id": "5400843848255275793",
     "promotion_token": "2026-10-06:prime-big-deal-days:us:best-large-capacity-air-fryers-worth-buying-us",
