@@ -106,6 +106,8 @@ def test_prime_validation_requires_amazon_product_images():
         "slug": "example",
         "content_html": (
             '<a href="https://www.amazon.co.uk/dp/B000000001">Amazon</a>'
+            '<a href="https://www.amazon.co.uk/tryprimefree?tag=worthbuyin008-21">'
+            'Check Amazon UK Prime eligibility</a>'
             '<img src="https://m.media-amazon.com/images/I/one.jpg">'
             '<img src="https://m.media-amazon.com/images/I/two.jpg">'
             '<img src="https://m.media-amazon.com/images/I/three.jpg">'
