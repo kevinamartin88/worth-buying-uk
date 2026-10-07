@@ -89,6 +89,88 @@
           }
         ]
       }
+    },
+    "2026-10-07": {
+      "uk": {
+        "attempted": [
+          {
+            "error": "RuntimeError: Amazon Creators API credentials are required for Prime product cards (uk)",
+            "status": "build-error",
+            "topic": "tvs"
+          },
+          {
+            "error": "RuntimeError: Amazon Creators API credentials are required for Prime product cards (uk)",
+            "status": "build-error",
+            "topic": "coffee-machines"
+          },
+          {
+            "error": "RuntimeError: Amazon Creators API credentials are required for Prime product cards (uk)",
+            "status": "build-error",
+            "topic": "ssds"
+          },
+          {
+            "error": "RuntimeError: Amazon Creators API credentials are required for Prime product cards (uk)",
+            "status": "build-error",
+            "topic": "air-fryers"
+          },
+          {
+            "error": "RuntimeError: Amazon Creators API credentials are required for Prime product cards (uk)",
+            "status": "build-error",
+            "topic": "tablets"
+          },
+          {
+            "error": "RuntimeError: Amazon Creators API credentials are required for Prime product cards (uk)",
+            "status": "build-error",
+            "topic": "soundbars"
+          },
+          {
+            "error": "RuntimeError: Amazon Creators API credentials are required for Prime product cards (uk)",
+            "status": "build-error",
+            "topic": "security-cameras"
+          }
+        ],
+        "published": []
+      },
+      "us": {
+        "attempted": [
+          {
+            "error": "RuntimeError: Amazon Creators API credentials are required for Prime product cards (us)",
+            "status": "build-error",
+            "topic": "tvs"
+          },
+          {
+            "error": "RuntimeError: Amazon Creators API credentials are required for Prime product cards (us)",
+            "status": "build-error",
+            "topic": "coffee-machines"
+          },
+          {
+            "error": "RuntimeError: Amazon Creators API credentials are required for Prime product cards (us)",
+            "status": "build-error",
+            "topic": "ssds"
+          },
+          {
+            "error": "RuntimeError: Amazon Creators API credentials are required for Prime product cards (us)",
+            "status": "build-error",
+            "topic": "air-fryers"
+          },
+          {
+            "error": "RuntimeError: Amazon Creators API credentials are required for Prime product cards (us)",
+            "status": "build-error",
+            "topic": "tablets"
+          },
+          {
+            "error": "RuntimeError: Amazon Creators API credentials are required for Prime product cards (us)",
+            "status": "build-error",
+            "topic": "soundbars"
+          },
+          {
+            "error": "RuntimeError: Amazon Creators API credentials are required for Prime product cards (us)",
+            "status": "build-error",
+            "topic": "security-cameras"
+          }
+        ],
+        "published": []
+      }
     }
   },
   "event": {

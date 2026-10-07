@@ -1,4 +1,18 @@
 {
+  "daily|uk|v1|117221169668|0": {
+    "article_slug": "best-tvs-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 286.0,
+        "ts": "2026-10-07T15:29:14.242821+01:00"
+      }
+    ],
+    "title": "TCL 50V6D-UK 50 Inch LED 4K Ultra HD Smart TV Bluetooth WiFi",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|125687113100|0": {
     "article_slug": "best-air-fryers-worth-buying-uk-2026",
     "last_attempt_date": "2026-10-07",
@@ -13,6 +27,34 @@
     "title": "EMtronics Double Basket Air Fryer Digital Dual 9L with Timer - Stainless Steel",
     "tracking_status": "active"
   },
+  "daily|uk|v1|126616925330|0": {
+    "article_slug": "best-tablets-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 69.98,
+        "ts": "2026-10-07T15:29:24.737819+01:00"
+      }
+    ],
+    "title": "2025 NEW 12S PRO Wifi Tablet Android 15 PC 8GB+64GB Tablets 10.1 Inch 6000mAh",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|127040307133|0": {
+    "article_slug": "best-coffee-machines-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 374.99,
+        "ts": "2026-10-07T15:29:16.562729+01:00"
+      }
+    ],
+    "title": "Ninja Luxe Café Premier Espresso Machine | Bean to Cup | REFURB | ES601UK",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|127281955059|428385499136": {
     "article_slug": "best-air-fryers-worth-buying-uk-2026",
     "last_attempt_date": "2026-10-07",
@@ -25,6 +67,20 @@
       }
     ],
     "title": "EMtronics Double Basket Air Fryer Dual Drawer 9 Litre - Various Colours",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|127530818719|0": {
+    "article_slug": "best-coffee-machines-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 144.99,
+        "ts": "2026-10-07T15:29:16.562729+01:00"
+      }
+    ],
+    "title": "Ninja Prestige Dualbrew Coffee Machine | Filter and Pod | REFURB | CFN802UK",
     "tracking_status": "active"
   },
   "daily|uk|v1|127602155859|0": {
@@ -79,6 +135,62 @@
     "title": "16L Large Air Fryer Oven w/ Rotisserie 1300W Low Fat Healthy Frying Roast Baking",
     "tracking_status": "active"
   },
+  "daily|uk|v1|136880714004|0": {
+    "article_slug": "best-air-fryers-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 44.99,
+        "ts": "2026-10-07T15:29:20.521225+01:00"
+      }
+    ],
+    "title": "George Home GHAFPN161B4B 6L Digital Air Fryer with Pizza Function 2850W Black",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|136880714337|0": {
+    "article_slug": "best-air-fryers-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 39.99,
+        "ts": "2026-10-07T15:29:20.521225+01:00"
+      }
+    ],
+    "title": "George Home GHAFN111B3Q 9L Dual Basket Digital Air Fryer Touch Screen LED Black",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|136880714511|0": {
+    "article_slug": "best-air-fryers-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 36.99,
+        "ts": "2026-10-07T15:29:20.521225+01:00"
+      }
+    ],
+    "title": "George Home GHAFN011B4B 9L Multi-Basket Air Fryer Touch Screen Stainless Steel",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|136880735758|0": {
+    "article_slug": "best-air-fryers-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 39.99,
+        "ts": "2026-10-07T15:29:20.521225+01:00"
+      }
+    ],
+    "title": "George Home GHAFN121B4C 10L Dual Drawer Digital Air Fryer Touch screen LED 3040W",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|136954889500|0": {
     "article_slug": "best-air-fryers-worth-buying-uk-2026",
     "last_attempt_date": "2026-10-07",
@@ -87,7 +199,7 @@
         "currency": "GBP",
         "date": "2026-10-07",
         "price": 39.99,
-        "ts": "2026-10-07T03:15:11.465173+01:00"
+        "ts": "2026-10-07T15:29:20.521225+01:00"
       }
     ],
     "title": "George Home GHAFN121B5D 9L Multi-Basket Dual Digital Air Fryer Non-Stick Black",
@@ -101,10 +213,66 @@
         "currency": "GBP",
         "date": "2026-10-07",
         "price": 49.99,
-        "ts": "2026-10-07T03:15:11.465173+01:00"
+        "ts": "2026-10-07T15:29:20.521225+01:00"
       }
     ],
     "title": "Scoville SVAFS121B5B 10L Dual Air Fryer Stackable Baskets Non-stick 2700w Black",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|137190219990|0": {
+    "article_slug": "best-air-fryers-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 42.99,
+        "ts": "2026-10-07T15:29:20.521225+01:00"
+      }
+    ],
+    "title": "George Home SAFN121BL4Q 9.5L Digital Air Fryer Dual Drawer 2400w Black and Wood",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|137268972796|0": {
+    "article_slug": "best-air-fryers-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 39.99,
+        "ts": "2026-10-07T15:29:20.521225+01:00"
+      }
+    ],
+    "title": "George Home GHAFN121B5M 8L Dual Drawer Digital Air Fryer 2400w Non-stick Black",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|144301668983|0": {
+    "article_slug": "best-coffee-machines-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 224.99,
+        "ts": "2026-10-07T15:29:16.562729+01:00"
+      }
+    ],
+    "title": "De'Longhi Magnifica S Smart Bean to Cup Machine ECAM250.33.TB - Refurbished",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|145572714666|0": {
+    "article_slug": "best-coffee-machines-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 259.99,
+        "ts": "2026-10-07T15:29:16.562729+01:00"
+      }
+    ],
+    "title": "De'Longhi Bean To Cup Machine Magnifica Start ECAM220.60.B - Refurbished",
     "tracking_status": "active"
   },
   "daily|uk|v1|146583641088|0": {
@@ -177,6 +345,34 @@
       }
     ],
     "title": "Laura Ashley 6.5L Slow Cooker with Ceramic Pot Glass Lid 3 Heat Settings",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|147405514393|0": {
+    "article_slug": "best-ssds-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 137.95,
+        "ts": "2026-10-07T15:29:18.597230+01:00"
+      }
+    ],
+    "title": "SanDisk 2TB SDSSDA-2T00 2TB SATA 2.5\" SSD Disk Sandisk Plus 6G/s",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|147512467422|0": {
+    "article_slug": "best-security-cameras-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 36.39,
+        "ts": "2026-10-07T15:29:28.466698+01:00"
+      }
+    ],
+    "title": "ARCCTV 360° PTZ Security Camera Wifi 5Ghz Wifi Night Vision Home Outdoor 2PACK",
     "tracking_status": "active"
   },
   "daily|uk|v1|147517558047|0": {
@@ -311,6 +507,48 @@
     "title": "Air Purifier, HEPA Air Purifier with Ioniser & UV-C Eliminates viruses - 22 inch",
     "tracking_status": "active"
   },
+  "daily|uk|v1|176053751709|0": {
+    "article_slug": "best-tablets-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 79.99,
+        "ts": "2026-10-07T15:29:24.737819+01:00"
+      }
+    ],
+    "title": "HP Pro X2 612 G2 Tablet Intel Pentium 4GB RAM 128GB SSD Windows 11 Pro Grade A",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|176634447725|476284993939": {
+    "article_slug": "best-tablets-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 72.25,
+        "ts": "2026-10-07T15:29:24.737819+01:00"
+      }
+    ],
+    "title": "HP Pro X2 612 G2 Tablet 4GB RAM 128GB SSD Windows 11 Pro Keyboard Dock Options",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|178530921552|0": {
+    "article_slug": "best-tablets-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 59.0,
+        "ts": "2026-10-07T15:29:24.737819+01:00"
+      }
+    ],
+    "title": "Amazon Fire HD 10 13th Gen 10.1in 32GB Wi-Fi Tablet Black 2023 1080p Full HD",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|184194713405|0": {
     "article_slug": "best-air-purifiers-worth-buying-uk",
     "last_attempt_date": "2026-10-07",
@@ -335,6 +573,20 @@
       }
     ],
     "title": "Air Purifier, 5-in-1 Air Purifier with True HEPA Filter, Carbon & Negative Ions",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|186839037770|0": {
+    "article_slug": "best-tablets-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 59.96,
+        "ts": "2026-10-07T15:29:24.737819+01:00"
+      }
+    ],
+    "title": "Acer ACTAB1422 10.3\" Android Tablet 64GB Wi-Fi Black HD Screen Tab – Grade B",
     "tracking_status": "active"
   },
   "daily|uk|v1|187760022244|695535222973": {
@@ -403,6 +655,104 @@
     "title": "Shark ThermaCharged PowerDetect Wet & Dry Robot Vacuum | REFURB | AV2910XEUKWH",
     "tracking_status": "active"
   },
+  "daily|uk|v1|195927448874|0": {
+    "article_slug": "best-soundbars-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 449.0,
+        "ts": "2026-10-07T15:29:26.610234+01:00"
+      }
+    ],
+    "title": "Sonos Arc White Certified Refurbished - Smart soundbar - Dolby Atmos - AirPlay 2",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|198218212453|0": {
+    "article_slug": "best-security-cameras-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 26.95,
+        "ts": "2026-10-07T15:29:28.466698+01:00"
+      }
+    ],
+    "title": "8MP Wireless IP Camera WIFI Outdoor CCTV PTZ Smart Home Security Cam Audio 4K UK",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|198251370445|497367675075": {
+    "article_slug": "best-ssds-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 49.99,
+        "ts": "2026-10-07T15:29:18.597230+01:00"
+      }
+    ],
+    "title": "Solid State Drive SSD 120GB 128GB 240GB 256GB 480GB 512GB SATA Laptop Lot 2.5\"",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|198657030777|497606577093": {
+    "article_slug": "best-security-cameras-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 27.99,
+        "ts": "2026-10-07T15:29:28.466698+01:00"
+      }
+    ],
+    "title": "5G Window Home Security Camera WiFi 2.4/5GHz 3MP 2K Full Color Night Vision UK",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|206066026902|0": {
+    "article_slug": "best-soundbars-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 219.95,
+        "ts": "2026-10-07T15:29:26.610234+01:00"
+      }
+    ],
+    "title": "Sennheiser AMBEO Soundbar Mini 3D Dolby Atmos Compact – Brand New",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|206546459026|0": {
+    "article_slug": "best-soundbars-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 189.99,
+        "ts": "2026-10-07T15:29:26.610234+01:00"
+      }
+    ],
+    "title": "Hisense AX5125H 5.1.2 CH 500W Soundbar With Wireless Subwoofer & Rear Speakers",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|224181819752|0": {
+    "article_slug": "best-security-cameras-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 36.39,
+        "ts": "2026-10-07T15:29:28.466698+01:00"
+      }
+    ],
+    "title": "ANRAN 5MP Wireless WIFI IP CCTV Camera Smart Home Security Night Vision Indoor",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|226773369289|0": {
     "article_slug": "best-wireless-earbuds-worth-buying-uk",
     "last_attempt_date": "2026-10-07",
@@ -421,6 +771,34 @@
       }
     ],
     "title": "Sports Ear Hook Wireless Earbuds Over Ear Running Gym Headphones Bluetooth Tws",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|226975553588|0": {
+    "article_slug": "best-coffee-machines-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 134.99,
+        "ts": "2026-10-07T15:29:16.562729+01:00"
+      }
+    ],
+    "title": "ProCook 1450W Espresso Coffee Machine 15-Bar Pump - Stainless Steel 9627",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|235241012926|0": {
+    "article_slug": "best-tablets-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 69.99,
+        "ts": "2026-10-07T15:29:24.737819+01:00"
+      }
+    ],
+    "title": "NEW Amazon Fire HD 10 Tablet - 1080p Full HD Display in Black 32gb - 11th Gen",
     "tracking_status": "active"
   },
   "daily|uk|v1|236880763740|0": {
@@ -611,6 +989,20 @@
     "title": "VonShef Air Fryer 6L - Large Family Size, Nordic Design with Timer - Fika Range",
     "tracking_status": "active"
   },
+  "daily|uk|v1|284139668350|585628158209": {
+    "article_slug": "best-ssds-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 81.99,
+        "ts": "2026-10-07T15:29:18.597230+01:00"
+      }
+    ],
+    "title": "Kingston A400 SSD 1TB, 480GB/240GB SATA III 2.5\" Fast Solid State Drive Storage",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|287317176472|0": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-uk",
     "last_attempt_date": "2026-10-06",
@@ -623,6 +1015,34 @@
       }
     ],
     "title": "VonShef Air Fryer 6L - Large Family Size, 10-in-1, Healthy Cooking - Fika Range",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|287550890100|0": {
+    "article_slug": "best-soundbars-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 89.95,
+        "ts": "2026-10-07T15:29:26.610234+01:00"
+      }
+    ],
+    "title": "Hisense Hs2100 240W 2.1Ch Bluetooth Soundbar With Dts Virtual X & Dolby Digital",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|296129913751|594238779032": {
+    "article_slug": "best-ssds-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 39.99,
+        "ts": "2026-10-07T15:29:18.597230+01:00"
+      }
+    ],
+    "title": "Fanxiang SATA III 2.5\" SSD 256G 512GB 1TB 2TB 4TB Solid State SSD Hard Drive Lot",
     "tracking_status": "active"
   },
   "daily|uk|v1|296936293078|594677298569": {
@@ -645,6 +1065,34 @@
     "title": "Medify Air Purifier MA-25 Includes True Hepa Filter Black Nightlight In Black",
     "tracking_status": "active"
   },
+  "daily|uk|v1|298635758856|0": {
+    "article_slug": "best-ssds-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 47.98,
+        "ts": "2026-10-07T15:29:18.597230+01:00"
+      }
+    ],
+    "title": "Crucial BX500 3D NAND CT480BX500SSD1 480GB 2.5\" Laptop PC Solid State Drive SSD",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|298739739128|0": {
+    "article_slug": "best-ssds-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 70.0,
+        "ts": "2026-10-07T15:29:18.597230+01:00"
+      }
+    ],
+    "title": "Set of 4 x WD Green 2.5\" 240GB SATA SSD Drives - WDS240G2G0A - 80% Plus Health",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|316959523090|0": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-uk",
     "last_attempt_date": "2026-10-06",
@@ -657,6 +1105,20 @@
       }
     ],
     "title": "Air Fryer Oven Combi, Rotisserie and Grill, Large Family Size 12L with 16 Pre-Se",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|318843013240|0": {
+    "article_slug": "best-soundbars-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 59.99,
+        "ts": "2026-10-07T15:29:26.610234+01:00"
+      }
+    ],
+    "title": "ULTIMEA Poseidon M30 2.1 Soundbar 240W with Wireless Subwoofer, VoiceMX, BassMX",
     "tracking_status": "active"
   },
   "daily|uk|v1|318897959885|0": {
@@ -673,6 +1135,20 @@
     "title": "Air Fryer Kitchen Master 8L Digital Dual Basket Large Family CSB97466 New",
     "tracking_status": "active"
   },
+  "daily|uk|v1|326111928728|0": {
+    "article_slug": "best-soundbars-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 109.0,
+        "ts": "2026-10-07T15:29:26.610234+01:00"
+      }
+    ],
+    "title": "Bose SOLO 5 Soundbar Sound Bar with Remote PSU  Optical Audio Cable 971",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|326774568772|0": {
     "article_slug": "best-slow-cookers-worth-buying-uk",
     "last_attempt_date": "2026-10-06",
@@ -685,6 +1161,62 @@
       }
     ],
     "title": "ProCook 4.8L Digital Slow Cooker 3 Heat Settings Delay Start Function Black 9440",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|336665617686|0": {
+    "article_slug": "best-tvs-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 222.99,
+        "ts": "2026-10-07T15:29:14.242821+01:00"
+      }
+    ],
+    "title": "Samsung 43 Inch TV Smart 4K Ultra HD HDR Crystal TV Netflix UE43U8000HKXXU",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|336807661334|546136837588": {
+    "article_slug": "best-tablets-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 72.65,
+        "ts": "2026-10-07T15:29:24.737819+01:00"
+      }
+    ],
+    "title": "2026 NEW 16GB+1TB  Wifi 5G Android Tablet 15 Dual Sim GPS 10.36in  20000mAh UK",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|336833649963|0": {
+    "article_slug": "best-soundbars-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 168.0,
+        "ts": "2026-10-07T15:29:26.610234+01:00"
+      }
+    ],
+    "title": "TCL Q65H 580W HOME CINEMA SOUNDBAR SUBWOOFER DOLBY ATMOS Q65HK RRP£299 No Remote",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|358479024834|0": {
+    "article_slug": "best-soundbars-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 94.95,
+        "ts": "2026-10-07T15:29:26.610234+01:00"
+      }
+    ],
+    "title": "Majority Bowfell Halo 5.1 DOLBY ATMOS SOUNDBAR Subwoofer",
     "tracking_status": "active"
   },
   "daily|uk|v1|358658580846|0": {
@@ -715,6 +1247,48 @@
     "title": "11L Double Stack Air Fryer, Family Size Digital with 2x5.5L Baskets Cook",
     "tracking_status": "active"
   },
+  "daily|uk|v1|358833944989|0": {
+    "article_slug": "best-tvs-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 254.99,
+        "ts": "2026-10-07T15:29:14.242821+01:00"
+      }
+    ],
+    "title": "Samsung 50 Inch TV Smart 4K Ultra HD HDR Crystal LED TV UE50U7000HKXXU",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|364245399320|635990528642": {
+    "article_slug": "best-ssds-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 69.99,
+        "ts": "2026-10-07T15:29:18.597230+01:00"
+      }
+    ],
+    "title": "Fanxiang 2.5\" SATA SSD 256GB 512GB 1TB 2TB 4TB SSD Solid State Hard Drive Lot",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|364245951633|0": {
+    "article_slug": "best-ssds-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 99.99,
+        "ts": "2026-10-07T15:29:18.597230+01:00"
+      }
+    ],
+    "title": "Fanxiang SSD 1TB 2.5\" SATA SSD 6Gb/s 550MB/S Internal Solid State Hard Drive PC",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|364528031940|634033027227": {
     "article_slug": "best-air-purifiers-worth-buying-uk",
     "last_attempt_date": "2026-10-06",
@@ -735,6 +1309,20 @@
     "title": "Silentnight Airmax 800 Air Purifier for Home Bedroom Ultra Quiet Sleep Aid Pets",
     "tracking_status": "active"
   },
+  "daily|uk|v1|365361460352|0": {
+    "article_slug": "best-coffee-machines-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 469.99,
+        "ts": "2026-10-07T15:29:16.562729+01:00"
+      }
+    ],
+    "title": "Sage The Barista Pro SES878BSS Coffee Espresso Machine Brushed Stainless Steel*",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|365401219008|0": {
     "article_slug": "best-wireless-earbuds-worth-buying-uk",
     "last_attempt_date": "2026-10-06",
@@ -747,6 +1335,118 @@
       }
     ],
     "title": "Sony True Wireless Bluetooth Earphones Waterproof In-Ear Fitness Music Headset",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|366046119481|0": {
+    "article_slug": "best-tvs-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 205.99,
+        "ts": "2026-10-07T15:29:14.242821+01:00"
+      }
+    ],
+    "title": "Bush 55 Inch TV SMART 4K HDR TV Ultra HD LED Freely Powered By TiVo 55UT24SB",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|366046119566|0": {
+    "article_slug": "best-tvs-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 281.99,
+        "ts": "2026-10-07T15:29:14.242821+01:00"
+      }
+    ],
+    "title": "Samsung 55 Inch TV SMART 4K LED TV UE55U8000FK Ultra HD HDR Bixby",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|366046122252|0": {
+    "article_slug": "best-tvs-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 218.99,
+        "ts": "2026-10-07T15:29:14.242821+01:00"
+      }
+    ],
+    "title": "Toshiba 55 Inch TV Smart 4K Ultra HD HDR QLED Freely TV Netflix 55QV1563DB",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|366624077554|0": {
+    "article_slug": "best-coffee-machines-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 59.99,
+        "ts": "2026-10-07T15:29:16.562729+01:00"
+      }
+    ],
+    "title": "De'Longhi EC230.BK Ground Espresso Coffee Machine Maker Stilosa 1L 1100w Black",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|366715779749|0": {
+    "article_slug": "best-tvs-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 228.99,
+        "ts": "2026-10-07T15:29:14.242821+01:00"
+      }
+    ],
+    "title": "LG 50 Inch Smart TV 4K 50NU8E0B3LA UHD HDR LED Nano AI TV Black",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|386118922277|0": {
+    "article_slug": "best-security-cameras-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 31.99,
+        "ts": "2026-10-07T15:29:28.466698+01:00"
+      }
+    ],
+    "title": "ieGeek Outdoor 3MP Battery Security Camera Wireless WiFi CCTV System for Home,UK",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|393244557000|0": {
+    "article_slug": "best-coffee-machines-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 264.99,
+        "ts": "2026-10-07T15:29:16.562729+01:00"
+      }
+    ],
+    "title": "Sage The Bambino Plus Espresso Coffee Machine SES500BSS Brushed Stainless Steel-",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|396206956310|664891158884": {
+    "article_slug": "best-tablets-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 289.99,
+        "ts": "2026-10-07T15:29:24.737819+01:00"
+      }
+    ],
+    "title": "Apple iPad Air 4th Gen 10.9\" 64GB 256GB Unlocked Tablet EXCELLENT CONDITION A++",
     "tracking_status": "active"
   },
   "daily|uk|v1|397178813318|0": {
@@ -781,6 +1481,34 @@
       }
     ],
     "title": "12L Air fryer Oven Family Size Large Air fryer With Accessories 1800W",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|397746603338|0": {
+    "article_slug": "best-security-cameras-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 31.99,
+        "ts": "2026-10-07T15:29:28.466698+01:00"
+      }
+    ],
+    "title": "Iegeek 5MP Indoor Home Security Camera 2.4 / 5GHz Night Vision 360 PTZ SC1 2PCS",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|398303550934|0": {
+    "article_slug": "best-tvs-worth-buying-uk-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 199.89,
+        "ts": "2026-10-07T15:29:14.242821+01:00"
+      }
+    ],
+    "title": "Sharp 4T-C50HK4145KB 4K Ultra HD USB HDMI HDR Smart 50\" Tivo TV - Black A",
     "tracking_status": "active"
   },
   "daily|uk|v1|406440401294|0": {
@@ -873,6 +1601,20 @@
     "title": "MOMOKOVA 26L Dual Zone Air Fryer Oven 10-in-1 Rotisserie Convection French Door",
     "tracking_status": "active"
   },
+  "daily|uk|v1|800154077602|0": {
+    "article_slug": "best-security-cameras-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 39.99,
+        "ts": "2026-10-07T15:29:28.466698+01:00"
+      }
+    ],
+    "title": "ieGeek Outdoor 360° Wireless Solar Security Camera Home Wifi Battery PTZ CCTV",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|800484897301|0": {
     "article_slug": "best-robot-vacuum-cleaners-worth-buying-uk-2026",
     "last_attempt_date": "2026-10-06",
@@ -885,6 +1627,20 @@
       }
     ],
     "title": "Hoover Robot Vacuum Cleaner & Mop Turbo Slim HG2 Hydro Pro - BOX DAMAGED",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|800564539359|0": {
+    "article_slug": "best-security-cameras-worth-buying-uk",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-07",
+        "price": 29.99,
+        "ts": "2026-10-07T15:29:28.466698+01:00"
+      }
+    ],
+    "title": "Wireless IP Camera WIFI Outdoor CCTV HD PTZ Home Security IR Cam 3lens 3m line",
     "tracking_status": "active"
   },
   "daily|uk|v1|800690387253|0": {
@@ -975,6 +1731,34 @@
     "title": "LOT of (2) 960GB SATA 2.5\" SSD Intel D3-S4510 Series Laptop Solid State Drive",
     "tracking_status": "unavailable"
   },
+  "daily|us|v1|135731571124|0": {
+    "article_slug": "best-soundbars-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 160.99,
+        "ts": "2026-10-07T15:30:33.060150+01:00"
+      }
+    ],
+    "title": "Vizio SV510M-0806B-RB 33\" Dolby Atmos 5.1 Soundbar,Black - Certified Refurbished",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|135803949840|0": {
+    "article_slug": "best-soundbars-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 94.99,
+        "ts": "2026-10-07T15:30:33.060150+01:00"
+      }
+    ],
+    "title": "VIZIO SV210X-0805B-RB 2.1 Soundbar,Dolby Atmos,DTS:X,Black-Certified Refurbished",
+    "tracking_status": "active"
+  },
   "daily|us|v1|135834794086|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
     "last_attempt_date": "2026-10-07",
@@ -1029,10 +1813,52 @@
         "currency": "USD",
         "date": "2026-10-07",
         "price": 67.96,
-        "ts": "2026-10-07T03:15:11.475030+01:00"
+        "ts": "2026-10-07T15:29:45.693635+01:00"
       }
     ],
     "title": "Cuisinart Single Serve 72-Ounce Coffee Maker - White (OpenBox)",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|146727225499|0": {
+    "article_slug": "best-tablets-worth-buying-us",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 319.99,
+        "ts": "2026-10-07T15:30:20.946862+01:00"
+      }
+    ],
+    "title": "Samsung Galaxy S10 10.9\" FE 128GB WiFi Tablet SM-X520NZACXAR S-Pen Keyboard 2025",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|147229112770|0": {
+    "article_slug": "best-tablets-worth-buying-us",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 159.99,
+        "ts": "2026-10-07T15:30:20.946862+01:00"
+      }
+    ],
+    "title": "Samsung Galaxy Tab A11+ 11\" WiFi Tablet 6GB 128GB Gray SM-X230NZAYXAR 2026 Model",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|147257850038|0": {
+    "article_slug": "best-tablets-worth-buying-us",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 649.0,
+        "ts": "2026-10-07T15:30:20.946862+01:00"
+      }
+    ],
+    "title": "Apple iPad Air 13\" M4 Chip WiFi Tablet 128GB Space Gray MH5N4LL/A 2026 Model",
     "tracking_status": "active"
   },
   "daily|us|v1|147419012907|0": {
@@ -1089,10 +1915,24 @@
         "currency": "USD",
         "date": "2026-10-07",
         "price": 79.59,
-        "ts": "2026-10-07T03:15:11.475030+01:00"
+        "ts": "2026-10-07T15:29:45.693635+01:00"
       }
     ],
     "title": "ecozy 4-in-1 Espresso Machine, Drip Coffee & 30s Cold Brew 36s Heat-Up Over Ice",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|157395706031|0": {
+    "article_slug": "best-soundbars-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 365.0,
+        "ts": "2026-10-07T15:30:33.060150+01:00"
+      }
+    ],
+    "title": "JBL Bar 500MK2 750W Peak 5.1-Ch Dolby Atmos Soundbar w/ Wireless Subwoofer",
     "tracking_status": "active"
   },
   "daily|us|v1|157835956881|459231723016": {
@@ -1107,6 +1947,20 @@
       }
     ],
     "title": "Samsung Galaxy Watch 8 LTE 44MM Unlocked  Smartwatch L335U Excellent",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|164808049794|464290224764": {
+    "article_slug": "best-security-cameras-worth-buying-us",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 289.99,
+        "ts": "2026-10-07T15:30:37.959172+01:00"
+      }
+    ],
+    "title": "ANRAN Home Outdoor Wireless Security WiFi Camera System CCTV 5MP HD NVR 2TB HDD",
     "tracking_status": "active"
   },
   "daily|us|v1|166181985612|0": {
@@ -1155,6 +2009,20 @@
     "title": "8qt Crock Pot 8qt Slow Cooker Big 10 quart 9 quart 8.5 Quart Huge XL qt Large",
     "tracking_status": "active"
   },
+  "daily|us|v1|167031735841|0": {
+    "article_slug": "best-soundbars-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 129.0,
+        "ts": "2026-10-07T15:30:33.060150+01:00"
+      }
+    ],
+    "title": "Bose Solo Soundbar 2 Home Theater, Certified Refurbished",
+    "tracking_status": "active"
+  },
   "daily|us|v1|168122935055|0": {
     "article_slug": "best-refurbished-storage-bins-worth-buying-us",
     "last_attempt_date": "2026-10-06",
@@ -1197,10 +2065,24 @@
         "currency": "USD",
         "date": "2026-10-07",
         "price": 70.09,
-        "ts": "2026-10-07T03:15:11.475030+01:00"
+        "ts": "2026-10-07T15:30:07.116112+01:00"
       }
     ],
     "title": "Whall Air Fryer Oven 12QT 12-in-1 Air Fryer Convection Oven NSE1201 - Silver",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|168698734506|0": {
+    "article_slug": "best-tvs-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 999.99,
+        "ts": "2026-10-07T15:29:36.737999+01:00"
+      }
+    ],
+    "title": "Hisense 75\" U7 ULED Mini-LED 4K UHD 165 Hz Smart Google TV",
     "tracking_status": "active"
   },
   "daily|us|v1|185935454347|0": {
@@ -1243,6 +2125,48 @@
       }
     ],
     "title": "Samsung Galaxy Watch 7 SM-L300 | 40mm | GPS | Bluetooth - Multi Color SmartWatch",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|187376950418|0": {
+    "article_slug": "best-soundbars-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 297.0,
+        "ts": "2026-10-07T15:30:33.060150+01:00"
+      }
+    ],
+    "title": "Samsung HW-Q600F Q-series 3.1.2 ch Soundbar w/ Wireless Subwoofer (2025)",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|187656775458|0": {
+    "article_slug": "best-soundbars-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 473.0,
+        "ts": "2026-10-07T15:30:33.060150+01:00"
+      }
+    ],
+    "title": "JBL BAR 700MK2 7.1-Channel 780W Dolby Atmos Soundbar System w/ Subwoofer",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|187698678816|0": {
+    "article_slug": "best-security-cameras-worth-buying-us",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 75.65,
+        "ts": "2026-10-07T15:30:37.959172+01:00"
+      }
+    ],
+    "title": "3-Pack 100%Wireless Solar Security Camera Outdoor Stable WiFi6,2-Way Talk",
     "tracking_status": "active"
   },
   "daily|us|v1|188147615353|695768445429": {
@@ -1293,6 +2217,34 @@
     "title": "Amazfit Active 2 Round GPS Smartwatch Heart Sleep Tracking",
     "tracking_status": "active"
   },
+  "daily|us|v1|198243040358|0": {
+    "article_slug": "best-tvs-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 249.99,
+        "ts": "2026-10-07T15:29:36.737999+01:00"
+      }
+    ],
+    "title": "Samsung - 50Class U8000H Series Crystal UHD 4K Smart Tizen TV (2026)",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|198395708997|0": {
+    "article_slug": "best-tvs-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 229.99,
+        "ts": "2026-10-07T15:29:36.737999+01:00"
+      }
+    ],
+    "title": "Toshiba - 50\" Class M450 QLED Series 4K UHD Smart Fire TV (2026)",
+    "tracking_status": "active"
+  },
   "daily|us|v1|198583800405|0": {
     "article_slug": "best-robot-vacuum-cleaners-worth-buying-us-2026",
     "last_attempt_date": "2026-10-07",
@@ -1333,6 +2285,20 @@
     "title": "Paula Deen 8.5QT Family XXL Large Air Fryer PDAF8TX-2 - NOS Open Box",
     "tracking_status": "active"
   },
+  "daily|us|v1|205800879962|0": {
+    "article_slug": "best-tablets-worth-buying-us",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 209.99,
+        "ts": "2026-10-07T15:30:20.946862+01:00"
+      }
+    ],
+    "title": "Lenovo - Idea Tab - 11\" 2.5K Tablet - 8GB RAM - 128GB UFS - with Tab Pen and ...",
+    "tracking_status": "active"
+  },
   "daily|us|v1|206108797439|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
     "last_attempt_date": "2026-10-07",
@@ -1351,6 +2317,34 @@
       }
     ],
     "title": "Oster New 220 240 Volt 12-Cup Coffee Maker (NOT FOR USA) Europe Asia Africa",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|206180405852|0": {
+    "article_slug": "best-tvs-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 199.99,
+        "ts": "2026-10-07T15:29:36.737999+01:00"
+      }
+    ],
+    "title": "Samsung - 43Class U8000H Series Crystal UHD 4K Smart Tizen TV (2026)",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|206222465402|0": {
+    "article_slug": "best-tvs-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 199.99,
+        "ts": "2026-10-07T15:29:36.737999+01:00"
+      }
+    ],
+    "title": "Roku - 50\" Class Select Series 4K QLED Smart RokuTV (2026)",
     "tracking_status": "active"
   },
   "daily|us|v1|206315038937|0": {
@@ -1373,6 +2367,76 @@
     "title": "Shark - Pet Cordless Stick Vacuum with XL Dust Cup, LED Headlights, Up to 40 ...",
     "tracking_status": "active"
   },
+  "daily|us|v1|206562589425|0": {
+    "article_slug": "best-air-fryers-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 45.99,
+        "ts": "2026-10-07T15:30:07.116112+01:00"
+      }
+    ],
+    "title": "Gourmia 6-Qt Digital Window Air Fryer with 12 Presets & Guided Cooking",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|206577141743|0": {
+    "article_slug": "best-tablets-worth-buying-us",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 69.94,
+        "ts": "2026-10-07T15:30:20.946862+01:00"
+      }
+    ],
+    "title": "Lenovo Tab M9 (2nd Gen) TB310FU Wi-Fi Android 12 Tablet 3GB 32GB 9\" Gray",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|206601061761|0": {
+    "article_slug": "best-air-fryers-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 97.99,
+        "ts": "2026-10-07T15:30:07.116112+01:00"
+      }
+    ],
+    "title": "Gourmia 9-Slice Digital Air Fryer Oven with 14 One-Touch Cooking Functions and",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|206608774474|0": {
+    "article_slug": "best-air-fryers-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 33.14,
+        "ts": "2026-10-07T15:30:07.116112+01:00"
+      }
+    ],
+    "title": "Gourmia Digital 4-Slice Toaster Oven Air Fryer with 11 Cooking",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|221605928059|0": {
+    "article_slug": "best-security-cameras-worth-buying-us",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 89.99,
+        "ts": "2026-10-07T15:30:37.959172+01:00"
+      }
+    ],
+    "title": "ZOSI 4Pack 2MP 1080p TVI Home Security Camera CCTV Outdoor 120ft IR Night Vision",
+    "tracking_status": "active"
+  },
   "daily|us|v1|224889997183|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
     "last_attempt_date": "2026-10-07",
@@ -1387,7 +2451,7 @@
         "currency": "USD",
         "date": "2026-10-07",
         "price": 72.99,
-        "ts": "2026-10-07T03:15:11.475030+01:00"
+        "ts": "2026-10-07T15:29:54.392685+01:00"
       }
     ],
     "title": "MZ-V7S500 Samsung 970 EVO Plus Series 500GB M.2 2280 NVMe PCIe Internal SSD",
@@ -1415,13 +2479,19 @@
   },
   "daily|us|v1|226439671399|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-06",
+    "last_attempt_date": "2026-10-07",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-06",
         "price": 39.99,
         "ts": "2026-10-06T16:26:54.841162+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 39.99,
+        "ts": "2026-10-07T15:29:54.392685+01:00"
       }
     ],
     "title": "Samsung 860 EVO 250GB SSD MZ-76E250 2.5\" SATA III Solid State Drive",
@@ -1441,6 +2511,20 @@
     "title": "Nuwave Brio 15.5Qt Air Fryer Rotisserie Oven X-Large Family Size Powerful 1800W",
     "tracking_status": "active"
   },
+  "daily|us|v1|235198697187|0": {
+    "article_slug": "best-soundbars-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 59.77,
+        "ts": "2026-10-07T15:30:33.060150+01:00"
+      }
+    ],
+    "title": "Samsung 2.0Ch Soundbar with Built-in Woofer - Black HW-C400",
+    "tracking_status": "active"
+  },
   "daily|us|v1|236233132863|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
     "last_attempt_date": "2026-10-06",
@@ -1453,6 +2537,20 @@
       }
     ],
     "title": "Nespresso Vertuo Pop+ Combination Espresso and Coffee Maker - Black/Gold (/RT...",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|236653270970|0": {
+    "article_slug": "best-coffee-machines-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 368.0,
+        "ts": "2026-10-07T15:29:45.693635+01:00"
+      }
+    ],
+    "title": "Ninja Luxe Café Premier Series Coffee Espresso Machine, Certified Refurbished",
     "tracking_status": "active"
   },
   "daily|us|v1|236829884831|0": {
@@ -1487,6 +2585,20 @@
       }
     ],
     "title": "Toastmaster 4 QT Black Cauldron Slow Cooker Removable Crock Glass Lid Halloween",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|237110448834|0": {
+    "article_slug": "best-tvs-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 279.99,
+        "ts": "2026-10-07T15:29:36.737999+01:00"
+      }
+    ],
+    "title": "TCL 50\" Q Class 4K UHD HDR QLED Smart TV with Fire TV - 50Q550F",
     "tracking_status": "active"
   },
   "daily|us|v1|257583841598|0": {
@@ -1559,6 +2671,20 @@
     "title": "New Keurig K Supreme Single Serve Coffee Maker new and sealed  Free Shipping ",
     "tracking_status": "active"
   },
+  "daily|us|v1|267805913062|0": {
+    "article_slug": "best-ssds-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 71.99,
+        "ts": "2026-10-07T15:29:54.392685+01:00"
+      }
+    ],
+    "title": "PNY CS900 500GB 2.5\" SATA III Internal SSD Solid State Drive (SSD7CS900-500-RB)",
+    "tracking_status": "active"
+  },
   "daily|us|v1|277719757635|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
     "last_attempt_date": "2026-10-06",
@@ -1609,13 +2735,19 @@
   },
   "daily|us|v1|298491432151|0": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-06",
+    "last_attempt_date": "2026-10-07",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-06",
         "price": 110.69,
         "ts": "2026-10-06T16:27:23.409890+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 110.69,
+        "ts": "2026-10-07T15:30:07.116112+01:00"
       }
     ],
     "title": "Kitchen Elite 26 Qt Air Fryer Oven KE-AFO-107-26 Stainless Steel",
@@ -1633,6 +2765,20 @@
       }
     ],
     "title": "Samsung 850 PRO 512GB 2.5\" SATA SSD MZ-7KE512 MZ7KE512",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|306803503917|0": {
+    "article_slug": "best-coffee-machines-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 64.99,
+        "ts": "2026-10-07T15:29:45.693635+01:00"
+      }
+    ],
+    "title": "bella PRO  MultiBrew 12-Cup Drip & Keurig cups Single Serve Coffee Maker",
     "tracking_status": "active"
   },
   "daily|us|v1|307089193294|0": {
@@ -1663,6 +2809,20 @@
     "title": "Toastmaster Halloween Cauldron 4 Qt Slow Cooker Black, SHIPS SAME DAY",
     "tracking_status": "active"
   },
+  "daily|us|v1|307219370859|0": {
+    "article_slug": "best-coffee-machines-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 130.0,
+        "ts": "2026-10-07T15:29:45.693635+01:00"
+      }
+    ],
+    "title": "Gevi 10-Cup Grind-And-Brew Drip Coffee Maker with Built-In Burr Grinder",
+    "tracking_status": "active"
+  },
   "daily|us|v1|313969708276|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
     "last_attempt_date": "2026-10-06",
@@ -1679,13 +2839,19 @@
   },
   "daily|us|v1|314002724093|612681955175": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-06",
+    "last_attempt_date": "2026-10-07",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-06",
         "price": 119.99,
         "ts": "2026-10-06T07:47:47.187869+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 119.99,
+        "ts": "2026-10-07T15:29:54.392685+01:00"
       }
     ],
     "title": "Netac 120GB 256GB 512GB SSD 2.5\" SATA III 6GB/s Internal Solid State Drive lot",
@@ -1707,13 +2873,19 @@
   },
   "daily|us|v1|314491550846|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-06",
+    "last_attempt_date": "2026-10-07",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-06",
         "price": 72.99,
         "ts": "2026-10-06T16:26:54.841162+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 72.99,
+        "ts": "2026-10-07T15:29:54.392685+01:00"
       }
     ],
     "title": "Netac Internal SSD 500GB Solid State Drive M.2 2280 PCIe Gen3.0 NVMe 3100MB/s",
@@ -1721,13 +2893,19 @@
   },
   "daily|us|v1|314583757070|613125428107": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-06",
+    "last_attempt_date": "2026-10-07",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-06",
         "price": 129.99,
         "ts": "2026-10-06T15:55:22.814031+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 129.99,
+        "ts": "2026-10-07T15:29:54.392685+01:00"
       }
     ],
     "title": "Netac 2TB 1TB 500GB Internal SSD M.2 NVMe PCIe3.0 Solid State Drive lot",
@@ -1735,13 +2913,19 @@
   },
   "daily|us|v1|315403607769|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-06",
+    "last_attempt_date": "2026-10-07",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-06",
         "price": 79.95,
         "ts": "2026-10-06T15:55:42.784839+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 79.95,
+        "ts": "2026-10-07T15:29:45.693635+01:00"
       }
     ],
     "title": "Ninja CFP105 DualBrew Hot & Iced Coffee Maker (Black)",
@@ -1797,13 +2981,19 @@
   },
   "daily|us|v1|318181056019|616724865540": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-06",
+    "last_attempt_date": "2026-10-07",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-06",
         "price": 82.0,
         "ts": "2026-10-06T16:27:23.409890+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 82.0,
+        "ts": "2026-10-07T15:30:07.116112+01:00"
       }
     ],
     "title": "9.5 QT Dual Basket Air Fryer,Large Air Fryer with Double Basket TEMP Control",
@@ -1883,6 +3073,48 @@
     "title": "Crock-Pot® 4-Quart Classic Slow Cooker, Black",
     "tracking_status": "active"
   },
+  "daily|us|v1|326666680201|0": {
+    "article_slug": "best-tablets-worth-buying-us",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 99.99,
+        "ts": "2026-10-07T15:30:20.946862+01:00"
+      }
+    ],
+    "title": "Lenovo - Tab One - 8.7\" HD Tablet - 4GB RAM - 64GB eMMC - Luna Grey",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|327285234753|0": {
+    "article_slug": "best-tvs-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 417.99,
+        "ts": "2026-10-07T15:29:36.737999+01:00"
+      }
+    ],
+    "title": "TCL - 50\" Class QM6K Series 4K UHD HDR QD Mini LED Smart TV with Google TV (2...",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|327296803741|0": {
+    "article_slug": "best-tvs-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 259.99,
+        "ts": "2026-10-07T15:29:36.737999+01:00"
+      }
+    ],
+    "title": "TCL - 50\" Class Q6LR Series 4K UHD HDR QLED Smart TV with Roku TV (2026)",
+    "tracking_status": "active"
+  },
   "daily|us|v1|336514451057|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
     "last_attempt_date": "2026-10-06",
@@ -1925,6 +3157,20 @@
     "title": "4-in-1 Espresso Machine Coffee Maker Combo w/ Milk Frother Cold Brew Over Ice",
     "tracking_status": "active"
   },
+  "daily|us|v1|358119439057|0": {
+    "article_slug": "best-security-cameras-worth-buying-us",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 47.49,
+        "ts": "2026-10-07T15:30:37.959172+01:00"
+      }
+    ],
+    "title": "4-Pack Wireless 5G WiFi Security Camera System Smart Outdoor Night Vision 1080P",
+    "tracking_status": "active"
+  },
   "daily|us|v1|358787993983|0": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-us",
     "last_attempt_date": "2026-10-06",
@@ -1939,15 +3185,35 @@
     "title": "Multifunctional 7.2 QT Air Fryer with Touchscreen – Cook Healthy for Your Family",
     "tracking_status": "active"
   },
+  "daily|us|v1|364117692196|0": {
+    "article_slug": "best-soundbars-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 106.99,
+        "ts": "2026-10-07T15:30:33.060150+01:00"
+      }
+    ],
+    "title": "Samsung HW-S50B 3.0ch All in One Soundbar with Dolby 5.1 / DTS Virutal:X - Black",
+    "tracking_status": "active"
+  },
   "daily|us|v1|366539049062|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-06",
+    "last_attempt_date": "2026-10-07",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-06",
         "price": 66.0,
         "ts": "2026-10-06T16:26:54.841162+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 66.0,
+        "ts": "2026-10-07T15:29:54.392685+01:00"
       }
     ],
     "title": "Fikwot 512GB SATA SSD 2.5'' SSD SATA III 6Gb/s Internal Solid State Drive 560MBs",
@@ -1967,6 +3233,20 @@
     "title": "Hamilton Beach 12-Cup Programmable Drip Coffee Maker, Dispensing Pot, Black",
     "tracking_status": "active"
   },
+  "daily|us|v1|366709903590|636365835660": {
+    "article_slug": "best-air-fryers-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 56.05,
+        "ts": "2026-10-07T15:30:07.116112+01:00"
+      }
+    ],
+    "title": "Ninja AF100WMWH 4-Qt 3-in-1 Air Fryer, Nonstick, Dishwasher Safe, White",
+    "tracking_status": "active"
+  },
   "daily|us|v1|366709903738|0": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
     "last_attempt_date": "2026-10-06",
@@ -1981,15 +3261,49 @@
     "title": "Gourmia 14-Quart Air Fryer, Oven, Rotisserie & Dehydrator with Temp Probe",
     "tracking_status": "active"
   },
+  "daily|us|v1|377277422892|0": {
+    "article_slug": "best-security-cameras-worth-buying-us",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 159.99,
+        "ts": "2026-10-07T15:30:37.959172+01:00"
+      }
+    ],
+    "title": "Wireless Outdoor Solar Security Camera System 4MP 4 Cameras 360°PTZ Night Vision",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|377277422893|0": {
+    "article_slug": "best-security-cameras-worth-buying-us",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 159.99,
+        "ts": "2026-10-07T15:30:37.959172+01:00"
+      }
+    ],
+    "title": "4MP Solar Security Camera Wireless Outdoor System 4 Cam-Kit 360°PTZ Night Vision",
+    "tracking_status": "active"
+  },
   "daily|us|v1|377342620580|0": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-06",
+    "last_attempt_date": "2026-10-07",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-06",
         "price": 44.23,
         "ts": "2026-10-06T16:27:23.409890+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 44.23,
+        "ts": "2026-10-07T15:30:07.116112+01:00"
       }
     ],
     "title": "bella PRO - 12.6-qt. Touchscreen Air Fryer Oven - Stainless Steel -",
@@ -2107,6 +3421,20 @@
     "title": "Soundcore Space A40 Wireless Earbuds Auto-Adjustable ANC Hi-Res 50H Play (Green)",
     "tracking_status": "active"
   },
+  "daily|us|v1|388650102327|0": {
+    "article_slug": "best-tablets-worth-buying-us",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 69.88,
+        "ts": "2026-10-07T15:30:20.946862+01:00"
+      }
+    ],
+    "title": "2026 Tablet 10 inch Android 14 Tablet 8+64GB 1280x800 IPS Touchscreen 5000mAh",
+    "tracking_status": "active"
+  },
   "daily|us|v1|389373091712|0": {
     "article_slug": "best-wireless-earbuds-worth-buying-us",
     "last_attempt_date": "2026-10-06",
@@ -2119,6 +3447,20 @@
       }
     ],
     "title": "Apple Airpods Pro 2 Wireless Active Noise Cancelling Earbuds - USB-C MTJV3LL/A",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|391950862594|0": {
+    "article_slug": "best-security-cameras-worth-buying-us",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 53.99,
+        "ts": "2026-10-07T15:30:37.959172+01:00"
+      }
+    ],
+    "title": "ANRAN Home Security Camera System Solar Panel 360° PTZ Wireless 5MP Outdoor IP65",
     "tracking_status": "active"
   },
   "daily|us|v1|396302962904|0": {
@@ -2137,13 +3479,19 @@
   },
   "daily|us|v1|397238692452|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-06",
+    "last_attempt_date": "2026-10-07",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-06",
         "price": 59.99,
         "ts": "2026-10-06T16:27:28.715095+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 59.99,
+        "ts": "2026-10-07T15:29:45.693635+01:00"
       }
     ],
     "title": "Keurig K-Express Single Serve 3 Brew size 42oz Black Coffee Maker",
@@ -2161,6 +3509,20 @@
       }
     ],
     "title": "Cordless Vacuum Cleaner 500W 40KPa Stick Vacuum Rechargeable LED Screen Pet Hair",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|397765132330|0": {
+    "article_slug": "best-coffee-machines-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 59.95,
+        "ts": "2026-10-07T15:29:45.693635+01:00"
+      }
+    ],
+    "title": "PowerXL Smart Brew 10-Cup Drip Coffee Maker with Strength & Flavor Control",
     "tracking_status": "active"
   },
   "daily|us|v1|398257980843|0": {
@@ -2219,6 +3581,20 @@
     "title": "Roborock Saros 10 Robot Vacuum,22000Pa,AI Obstacle Avoidance,Heat-Wash & Dry Mop",
     "tracking_status": "active"
   },
+  "daily|us|v1|406894539615|0": {
+    "article_slug": "best-tablets-worth-buying-us",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 109.0,
+        "ts": "2026-10-07T15:30:20.946862+01:00"
+      }
+    ],
+    "title": "Android 16 Tablet 10.1 inch 36GB RAM 256GB ROM 6000mAh WiFi 6 BT 5.4 Dual Camera",
+    "tracking_status": "active"
+  },
   "daily|us|v1|407109926357|677285696445": {
     "article_slug": "approved-retailer-slow-cookers-us-2026-10-05",
     "last_attempt_date": "2026-10-06",
@@ -2253,15 +3629,35 @@
     "title": "6.7/9 Quart Slow Cooker",
     "tracking_status": "active"
   },
+  "daily|us|v1|407189199935|0": {
+    "article_slug": "best-security-cameras-worth-buying-us",
+    "last_attempt_date": "2026-10-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 59.99,
+        "ts": "2026-10-07T15:30:37.959172+01:00"
+      }
+    ],
+    "title": "SANNCE 8CH 1080P Lite DVR 1080P CCTV Home Security Camera System Night Vision AI",
+    "tracking_status": "active"
+  },
   "daily|us|v1|800739729052|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-06",
+    "last_attempt_date": "2026-10-07",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-06",
         "price": 51.99,
         "ts": "2026-10-06T16:26:54.841162+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-07",
+        "price": 51.99,
+        "ts": "2026-10-07T15:29:54.392685+01:00"
       }
     ],
     "title": "Samsung 512GB PCIe NVMe m.2 SSD Solid State Drive MZVLW512HMJP-000L7 MZ-VLB5120",
