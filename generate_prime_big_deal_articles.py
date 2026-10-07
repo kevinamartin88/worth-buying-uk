@@ -82,6 +82,10 @@ def article_dir(market: str) -> Path:
     return ROOT / ("articles" if market == "uk" else "articles-us")
 
 
+def prime_event_slug(topic_key: str, market: str, year: int) -> str:
+    return f"prime-big-deal-days-{topic_key}-{market}-{year}"
+
+
 def _used_topics(state: dict, market: str) -> set[str]:
     used: set[str] = set()
     for day_state in state.get("days", {}).values():
@@ -668,6 +672,7 @@ def generate_one_market(
             print(f"[prime-warning] {market.upper()} {key}: {type(exc).__name__}: {exc}")
             continue
 
+        article["slug"] = prime_event_slug(key, market, year)
         directory = article_dir(market)
         directory.mkdir(parents=True, exist_ok=True)
         target = directory / f"{article['slug']}.json"
@@ -719,13 +724,15 @@ def repair_existing_event_articles(state: dict, run_date: date) -> int:
                 continue
             topic = topic_by_key(key)
             try:
-                article = daily.build_article(topic, market, run_date.year)
+                base_article = daily.build_article(topic, market, run_date.year)
+                original_slug = str(base_article.get("slug") or "").strip()
                 article = make_prime_article_amazon_only(
-                    article,
+                    base_article,
                     topic=topic,
                     market=market,
                     run_date=run_date,
                 )
+                article["slug"] = prime_event_slug(key, market, run_date.year)
                 article = decorate_prime_article(
                     article,
                     topic=topic,
@@ -749,6 +756,28 @@ def repair_existing_event_articles(state: dict, run_date: date) -> int:
                 target.write_text(rendered, encoding="utf-8")
                 changed += 1
                 print(f"[prime-repaired] {market.upper()} {key}: Amazon-only")
+
+            previous_row_slug = str(row.get("slug") or "").strip()
+            if (
+                original_slug
+                and previous_row_slug
+                and previous_row_slug != article["slug"]
+                and previous_row_slug == original_slug
+            ):
+                old_target = article_dir(market) / f"{original_slug}.json"
+                evergreen = json.dumps(base_article, indent=2, ensure_ascii=False) + "\n"
+                old_previous = (
+                    old_target.read_text(encoding="utf-8")
+                    if old_target.exists()
+                    else ""
+                )
+                if evergreen != old_previous:
+                    old_target.write_text(evergreen, encoding="utf-8")
+                    changed += 1
+                    print(
+                        f"[prime-restored-evergreen] {market.upper()} {key}: "
+                        f"{original_slug}"
+                    )
 
             row["slug"] = article["slug"]
             row["title"] = article["title"]
@@ -775,6 +804,40 @@ def cleanup_event_articles(state: dict, run_date: date) -> int:
             event = article.get("_event") or {}
             if event.get("key") != EVENT_KEY:
                 continue
+            if str(article.get("slug") or "").startswith("prime-big-deal-days-"):
+                content = str(article.get("content_html") or "")
+                content = re.sub(
+                    r'\s*<aside class="wb-prime-big-deal-days"[\s\S]*?</aside>\s*',
+                    "\n",
+                    content,
+                    count=1,
+                    flags=re.IGNORECASE,
+                )
+                expired = (
+                    '<aside class="wb-prime-big-deal-days-ended" '
+                    'style="border-left:4px solid #777;background:#f6f6f6;'
+                    'padding:16px 18px;margin:18px 0;">'
+                    '<p><strong>Prime Big Deal Days has ended.</strong></p>'
+                    '<p>This guide is kept as an event archive. Check the live Amazon '
+                    'pages for current prices, availability and Prime eligibility.</p>'
+                    '</aside>\n'
+                )
+                article["content_html"] = expired + content
+                promotion = article.setdefault("_promotion", {})
+                promotion["return_to_top"] = False
+                article["hero_visual_revision"] = (
+                    f"post-prime-archive-{run_date.isoformat()}"
+                )
+                article["source_sha"] = (
+                    f"{run_date.isoformat()}-{market}-{article['slug']}-post-prime-archive-v1"
+                )
+                path.write_text(
+                    json.dumps(article, indent=2, ensure_ascii=False) + "\n",
+                    encoding="utf-8",
+                )
+                changed += 1
+                continue
+
             restore = event.get("restore") or {}
             for key in (
                 "title",
