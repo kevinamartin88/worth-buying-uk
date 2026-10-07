@@ -231,8 +231,11 @@
   },
   "best-tvs-worth-buying-us-2026": {
     "blog_url": "https://www.worthbuyingusa.com/2026/09/best-tvs-worth-buying-in-usa-2026.html",
-    "publication_fingerprint": "16c6d982844ec76ecf5cc36528bd6a0419f3e994b2ef72864a245f1f3123afb1",
-    "status": "baseline"
+    "publication_fingerprint": "01618f64253e52cbd3dbd1e21b18e36e4e62a26dd89d55c9c2f417c468bc90d1",
+    "status": "published",
+    "uploaded_at": "2026-10-07T19:26:53.152432+00:00",
+    "video_id": "EEKuUemRsns",
+    "video_url": "https://www.youtube.com/shorts/EEKuUemRsns"
   },
   "best-wireless-earbuds-worth-buying-us": {
     "blog_url": "https://www.worthbuyingusa.com/2026/10/prime-big-deal-days-wireless-earbuds.html",
@@ -251,6 +254,30 @@
     "blog_url": "https://www.worthbuyingusa.com/2026/09/kitchen-home-equipment-worth-buying-in.html",
     "publication_fingerprint": "48831fbeac0f98b23290463dfd5fb5c4442c7c4f75cfbdefd5990f62c934d0cc",
     "status": "baseline"
+  },
+  "prime-big-deal-days-coffee-machines-us-2026": {
+    "blog_url": "https://www.worthbuyingusa.com/2026/10/prime-big-deal-days-coffee-makers-worth.html",
+    "publication_fingerprint": "534436556b25203af901c56a975b65b126c9b21a48dc0061021963f39c7f620a",
+    "status": "published",
+    "uploaded_at": "2026-10-07T19:27:04.004130+00:00",
+    "video_id": "xjYyIBXf190",
+    "video_url": "https://www.youtube.com/shorts/xjYyIBXf190"
+  },
+  "prime-big-deal-days-ssds-us-2026": {
+    "blog_url": "https://www.worthbuyingusa.com/2026/10/prime-big-deal-days-solid-state-drives.html",
+    "publication_fingerprint": "a3f260e18a47ad5a2c182403f7392fbad46de5a9b7632478c15f3bff0ae80364",
+    "status": "published",
+    "uploaded_at": "2026-10-07T19:27:15.547007+00:00",
+    "video_id": "6F0lGyveUGc",
+    "video_url": "https://www.youtube.com/shorts/6F0lGyveUGc"
+  },
+  "prime-big-deal-days-tvs-us-2026": {
+    "blog_url": "https://www.worthbuyingusa.com/2026/10/prime-big-deal-days-tvs-worth-comparing.html",
+    "publication_fingerprint": "264dea77826e2be5d6b8cd12138164656ced70caa5df3c2667a3e61e68093e64",
+    "status": "published",
+    "uploaded_at": "2026-10-07T19:27:26.169224+00:00",
+    "video_id": "zGBVt4Fntus",
+    "video_url": "https://www.youtube.com/shorts/zGBVt4Fntus"
   },
   "savvy-buyer-monday-price-comparison-before-you-shop-us-2026-10-05": {
     "blog_url": "https://www.worthbuyingusa.com/2026/10/savvy-buyer-monday-before-you-shop-for.html",

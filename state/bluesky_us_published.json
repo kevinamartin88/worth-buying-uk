@@ -314,8 +314,14 @@
   },
   "best-tvs-worth-buying-us-2026": {
     "baseline": true,
+    "bluesky_cid": "bafyreib525kkb67fzvaqn2jvqt3icxo3wtr52yl26itbnp6asm6ve2gf64",
+    "bluesky_uri": "at://did:plc:3rwb32szw2cj6zi5ajiup5hv/app.bsky.feed.post/3mxcohvdika2w",
+    "bluesky_url": "https://bsky.app/profile/worthbuyingusa.bsky.social/post/3mxcohvdika2w",
     "buffer_post_id": null,
-    "source_sha": "2026-09-21-tvs-us-daily-v1",
+    "image_path": "assets/ai/us/best-tvs-worth-buying-us-2026.jpg",
+    "promotion_token": "2026-10-07:us:best-tvs-worth-buying-us-2026",
+    "source_sha": "2026-10-07-tvs-us-daily-v6",
+    "status": "published",
     "title": "Best TVs Worth Buying in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/09/best-tvs-worth-buying-in-usa-2026.html"
   },
@@ -343,6 +349,39 @@
     "source_sha": "2026-09-15-kitchen-home-us-v1",
     "title": "Kitchen & Home Equipment Worth Buying in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/09/kitchen-home-equipment-worth-buying-in.html"
+  },
+  "prime-big-deal-days-coffee-machines-us-2026": {
+    "bluesky_cid": "bafyreigxm6nb6355xv5qdnusodtukk7bksvewacsixt7epod6dxrdo2c4u",
+    "bluesky_uri": "at://did:plc:3rwb32szw2cj6zi5ajiup5hv/app.bsky.feed.post/3mxcohwmqi72l",
+    "bluesky_url": "https://bsky.app/profile/worthbuyingusa.bsky.social/post/3mxcohwmqi72l",
+    "image_path": "assets/ai/us/prime-big-deal-days-coffee-machines-us-2026.jpg",
+    "promotion_token": "2026-10-07:prime-big-deal-days:us:prime-big-deal-days-coffee-machines-us-2026",
+    "source_sha": "2026-10-07-coffee-machines-us-prime-big-deal-days-amazon-v2",
+    "status": "published",
+    "title": "Prime Big Deal Days: Coffee Makers Worth Comparing in the USA (2026)",
+    "url": "https://www.worthbuyingusa.com/2026/10/prime-big-deal-days-coffee-makers-worth.html"
+  },
+  "prime-big-deal-days-ssds-us-2026": {
+    "bluesky_cid": "bafyreieqlqfxfodct6oo4r5xumkl3l7wlteyt7awvoecnegmxcnkwwg26i",
+    "bluesky_uri": "at://did:plc:3rwb32szw2cj6zi5ajiup5hv/app.bsky.feed.post/3mxcohxpci224",
+    "bluesky_url": "https://bsky.app/profile/worthbuyingusa.bsky.social/post/3mxcohxpci224",
+    "image_path": "assets/ai/us/prime-big-deal-days-ssds-us-2026.jpg",
+    "promotion_token": "2026-10-07:prime-big-deal-days:us:prime-big-deal-days-ssds-us-2026",
+    "source_sha": "2026-10-07-ssds-us-prime-big-deal-days-amazon-v2",
+    "status": "published",
+    "title": "Prime Big Deal Days: Solid-State Drives Worth Comparing in the USA (2026)",
+    "url": "https://www.worthbuyingusa.com/2026/10/prime-big-deal-days-solid-state-drives.html"
+  },
+  "prime-big-deal-days-tvs-us-2026": {
+    "bluesky_cid": "bafyreicp2nluqafwinnicp663v3j7o35g4q6jrwhz2dsqtjpzjs5tbssxi",
+    "bluesky_uri": "at://did:plc:3rwb32szw2cj6zi5ajiup5hv/app.bsky.feed.post/3mxcohyq7yc2n",
+    "bluesky_url": "https://bsky.app/profile/worthbuyingusa.bsky.social/post/3mxcohyq7yc2n",
+    "image_path": "assets/ai/us/prime-big-deal-days-tvs-us-2026.jpg",
+    "promotion_token": "2026-10-07:prime-big-deal-days:us:prime-big-deal-days-tvs-us-2026",
+    "source_sha": "2026-10-07-tvs-us-prime-big-deal-days-amazon-v2",
+    "status": "published",
+    "title": "Prime Big Deal Days: TVs Worth Comparing in the USA (2026)",
+    "url": "https://www.worthbuyingusa.com/2026/10/prime-big-deal-days-tvs-worth-comparing.html"
   },
   "savvy-buyer-monday-price-comparison-before-you-shop-us-2026-10-05": {
     "bluesky_cid": "bafyreibxralqo2ejygxipsf5zmdrgavmy2pg6cqjnh4of2q4cghh22jtza",
