@@ -1,5 +1,7 @@
 name: Clean Blogger duplicate URLs
 
+# Safe numeric-suffix duplicate cleanup; keeps the clean permalink live.
+
 on:
   workflow_dispatch:
   push:
