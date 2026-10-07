@@ -44,9 +44,8 @@ permissions:
   actions: write
 
 concurrency:
-  # All workflows that can push back to main share one queue. This avoids
-  # simultaneous bot pushes racing and causing non-fast-forward failures.
-  group: worth-buying-repo-writes
+  # Temporary Prime-event recovery queue; restored after the recovery runs start.
+  group: worth-buying-prime-publish-uk
   queue: max
   cancel-in-progress: false
 
