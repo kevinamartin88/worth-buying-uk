@@ -62,11 +62,12 @@
   },
   "best-air-fryers-worth-buying-uk-2026": {
     "buffer_channel_id": "6aa84d4aea19ca0bde41a0a4",
-    "buffer_post_id": "6ab182f8640ac1a51da6b31f",
-    "buffer_sent_at": "2026-09-21T19:18:18.226Z",
+    "buffer_post_id": "6ac5abaf53551104161b694d",
+    "buffer_sent_at": "2026-10-07T02:17:20.622Z",
     "buffer_status": "sent",
     "image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/uk/best-air-fryers-worth-buying-uk-2026.jpg",
-    "source_sha": "2026-09-21-best-air-fryers-uk-v1",
+    "promotion_token": "2026-10-07:uk:best-air-fryers-worth-buying-uk-2026",
+    "source_sha": "2026-10-07-air-fryers-uk-daily-v6",
     "title": "Best Air Fryers Worth Buying in the UK (2026)",
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-air-fryers-worth-buying-in-uk-2026.html"
   },
