@@ -497,6 +497,12 @@ def decorate_prime_article(
     return article
 
 
+def _retryable_build_error(exc: Exception) -> bool:
+    """Return True for environment failures that a later scheduled run can fix."""
+    message = f"{type(exc).__name__}: {exc}".casefold()
+    return "amazon creators api credentials are required" in message
+
+
 def generate_one_market(
     state: dict,
     *,
@@ -538,6 +544,16 @@ def generate_one_market(
                 run_date=run_date,
             )
         except Exception as exc:
+            if _retryable_build_error(exc):
+                print(
+                    f"[prime-retryable] {market.upper()} {key}: "
+                    f"{type(exc).__name__}: {exc}; topic remains eligible for a later run"
+                )
+                # Stop this market run immediately. Trying every remaining topic
+                # cannot succeed while the shared Amazon credentials are missing,
+                # and none of those topics should be poisoned as "attempted".
+                return None
+
             attempted.append({
                 "topic": key,
                 "status": "build-error",
