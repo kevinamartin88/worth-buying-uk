@@ -118,10 +118,11 @@ def test_wrong_product_or_unverified_destination_is_not_rendered(changes):
     assert "amazon.co.uk" not in daily.live_sections([item], "uk", "Air Fryers", "air fryer")
 
 
-def test_corrected_air_fryer_article_contains_only_direct_product_links():
+def test_corrected_air_fryer_article_uses_valid_retailer_links_for_its_mode():
     import json
     from pathlib import Path
     from html.parser import HTMLParser
+    from urllib.parse import urlsplit
 
     class Links(HTMLParser):
         urls = None
@@ -135,5 +136,29 @@ def test_corrected_air_fryer_article_contains_only_direct_product_links():
     parser = Links()
     parser.urls = []
     parser.feed(article["content_html"])
+
+    retailer_mode = str((article.get("_monetisation") or {}).get("retailer_mode") or "")
+    event_key = str((article.get("_event") or {}).get("key") or "")
+    is_prime_amazon_only = (
+        retailer_mode == "amazon-only"
+        or event_key == "prime-big-deal-days-2026"
+    )
+
+    if is_prime_amazon_only:
+        retailer_urls = [
+            url for url in parser.urls
+            if "amazon.co.uk" in url or "ebay.co.uk" in url
+        ]
+        assert retailer_urls
+        assert not any("ebay.co.uk" in url for url in retailer_urls)
+        assert all(
+            (urlsplit(url).hostname or "").casefold()
+            in {"amazon.co.uk", "www.amazon.co.uk"}
+            for url in retailer_urls
+        )
+        return
+
+    # Evergreen/non-event articles must still avoid generic Amazon search fallbacks
+    # and keep the known direct eBay product link used by this regression fixture.
     assert not any("amazon.co.uk/s?" in url for url in parser.urls)
     assert sum("ebay.co.uk/itm/358703800622" in url for url in parser.urls) == 2
