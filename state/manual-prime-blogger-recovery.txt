@@ -1,2 +1,0 @@
-2026-10-07 Prime Blogger recovery for distinct UK and USA event posts
-2026-10-07 retry with conflict-safe USA image save and direct Blogger publish
