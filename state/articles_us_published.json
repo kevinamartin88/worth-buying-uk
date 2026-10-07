@@ -457,16 +457,16 @@
     "url": "https://www.worthbuyingusa.com/2026/09/best-toasters-worth-buying-in-usa-2026.html"
   },
   "best-tvs-worth-buying-us-2026": {
-    "daily_featured_date": null,
+    "daily_featured_date": "2026-10-07",
     "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-tvs-worth-buying-us-2026.jpg",
     "image_required": true,
     "post_id": "8014976226633978516",
     "primary_category": "Tech",
-    "promotion_token": null,
-    "publish_fingerprint": "1a6c5c6833ec45d05a85813f4f47f5b8a438a7350be5be571aff43cfa41d7548",
+    "promotion_token": "2026-10-07:us:best-tvs-worth-buying-us-2026",
+    "publish_fingerprint": "6969696206fd3363d2f4df2a78ae9c9083df5e8ab0e41569eefdfb7929beeb52",
     "publisher": "email",
     "source_file": "best-tvs-worth-buying-us-2026.json",
-    "source_sha": "2026-09-21-tvs-us-daily-v1",
+    "source_sha": "2026-10-07-tvs-us-daily-v6",
     "status": "published",
     "title": "Best TVs Worth Buying in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/09/best-tvs-worth-buying-in-usa-2026.html"
@@ -510,6 +510,45 @@
     "status": "published",
     "title": "Kitchen & Home Equipment Worth Buying in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/09/kitchen-home-equipment-worth-buying-in.html"
+  },
+  "prime-big-deal-days-coffee-machines-us-2026": {
+    "daily_featured_date": "2026-10-07",
+    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/prime-big-deal-days-coffee-machines-us-2026.jpg?v=2ee8bb0e7fb69173",
+    "image_required": true,
+    "post_id": "1734529626555004803",
+    "promotion_token": "2026-10-07:prime-big-deal-days:us:prime-big-deal-days-coffee-machines-us-2026",
+    "publish_fingerprint": "7c3c0a395cbedd3f709cea0263e3910ebcba1f2ae935b113cab1b06769dd6ecd",
+    "source_file": "prime-big-deal-days-coffee-machines-us-2026.json",
+    "source_sha": "2026-10-07-coffee-machines-us-prime-big-deal-days-amazon-v2",
+    "status": "published",
+    "title": "Prime Big Deal Days: Coffee Makers Worth Comparing in the USA (2026)",
+    "url": "https://www.worthbuyingusa.com/2026/10/prime-big-deal-days-coffee-makers-worth.html"
+  },
+  "prime-big-deal-days-ssds-us-2026": {
+    "daily_featured_date": "2026-10-07",
+    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/prime-big-deal-days-ssds-us-2026.jpg?v=1bc320847092b8ae",
+    "image_required": true,
+    "post_id": "7862213371197280892",
+    "promotion_token": "2026-10-07:prime-big-deal-days:us:prime-big-deal-days-ssds-us-2026",
+    "publish_fingerprint": "7dcf7413661841ef180e87cbadcc6826824e7c2de97e962fc6c31c39514c5140",
+    "source_file": "prime-big-deal-days-ssds-us-2026.json",
+    "source_sha": "2026-10-07-ssds-us-prime-big-deal-days-amazon-v2",
+    "status": "published",
+    "title": "Prime Big Deal Days: Solid-State Drives Worth Comparing in the USA (2026)",
+    "url": "https://www.worthbuyingusa.com/2026/10/prime-big-deal-days-solid-state-drives.html"
+  },
+  "prime-big-deal-days-tvs-us-2026": {
+    "daily_featured_date": "2026-10-07",
+    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/prime-big-deal-days-tvs-us-2026.jpg?v=44aa607e897b7dd2",
+    "image_required": true,
+    "post_id": "1913955481774331062",
+    "promotion_token": "2026-10-07:prime-big-deal-days:us:prime-big-deal-days-tvs-us-2026",
+    "publish_fingerprint": "349510c56e0fc93fe464569d97c1fbe127fdd57bdc78ba40f98646dbc9d78b4c",
+    "source_file": "prime-big-deal-days-tvs-us-2026.json",
+    "source_sha": "2026-10-07-tvs-us-prime-big-deal-days-amazon-v2",
+    "status": "published",
+    "title": "Prime Big Deal Days: TVs Worth Comparing in the USA (2026)",
+    "url": "https://www.worthbuyingusa.com/2026/10/prime-big-deal-days-tvs-worth-comparing.html"
   },
   "savvy-buyer-monday-price-comparison-before-you-shop-us-2026-10-05": {
     "daily_featured_date": null,
