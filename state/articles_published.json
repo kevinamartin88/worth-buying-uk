@@ -470,18 +470,18 @@
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-toasters-worth-buying-in-uk-2026.html"
   },
   "best-tvs-worth-buying-uk-2026": {
-    "daily_featured_date": null,
-    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/uk/best-tvs-worth-buying-uk-2026.jpg",
+    "daily_featured_date": "2026-10-07",
+    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/uk/best-tvs-worth-buying-uk-2026.jpg?v=159d122be28719c2",
     "image_required": true,
     "post_id": "4064744471392522144",
     "primary_category": "Tech",
-    "promotion_token": null,
-    "publish_fingerprint": "42c9287fac84ca3995ec125ae9bf88e9004a75cc7befe1d17e52ec522831a273",
+    "promotion_token": "2026-10-07:prime-big-deal-days:uk:best-tvs-worth-buying-uk-2026",
+    "publish_fingerprint": "bb8b991a324b6f1f92e7b77708a06ea5460af54b68e3fbc81950b1b29460ee7b",
     "publisher": "email",
     "source_file": "best-tvs-worth-buying-uk-2026.json",
-    "source_sha": "2026-09-21-tvs-uk-daily-v1",
+    "source_sha": "2026-10-07-tvs-uk-prime-big-deal-days-amazon-v2",
     "status": "published",
-    "title": "Best TVs Worth Buying in the UK (2026)",
+    "title": "Prime Big Deal Days: TVs Worth Comparing in the UK (2026)",
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-tvs-worth-buying-in-uk-2026.html"
   },
   "best-video-doorbells-worth-buying-uk-2026": {

@@ -302,12 +302,13 @@
   },
   "best-tvs-worth-buying-uk-2026": {
     "buffer_channel_id": "6aa84d4aea19ca0bde41a0a4",
-    "buffer_post_id": "6ab23a4f6b39c53ea1c8388d",
-    "buffer_sent_at": "2026-09-22T08:20:32.900Z",
+    "buffer_post_id": "6ac694cb62a632ed42a552e0",
+    "buffer_sent_at": "2026-10-07T18:51:56.556Z",
     "buffer_status": "sent",
     "image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/uk/best-tvs-worth-buying-uk-2026.jpg",
-    "source_sha": "2026-09-21-tvs-uk-daily-v1",
-    "title": "Best TVs Worth Buying in the UK (2026)",
+    "promotion_token": "2026-10-07:prime-big-deal-days:uk:best-tvs-worth-buying-uk-2026",
+    "source_sha": "2026-10-07-tvs-uk-prime-big-deal-days-amazon-v2",
+    "title": "Prime Big Deal Days: TVs Worth Comparing in the UK (2026)",
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-tvs-worth-buying-in-uk-2026.html"
   },
   "best-video-doorbells-worth-buying-uk-2026": {
