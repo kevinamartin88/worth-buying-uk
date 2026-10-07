@@ -20,7 +20,10 @@ permissions:
   actions: write
 
 concurrency:
-  group: worth-buying-repo-writes
+  # Prime generation has its own queue so a long social/video publisher cannot
+  # block time-sensitive event article generation. The publish workflow still
+  # uses the shared repository-write queue.
+  group: worth-buying-prime-event-writes
   cancel-in-progress: false
 
 jobs:
