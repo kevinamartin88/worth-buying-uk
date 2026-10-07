@@ -92,12 +92,40 @@
     },
     "2026-10-07": {
       "uk": {
-        "attempted": [],
-        "published": []
+        "attempted": [
+          {
+            "status": "published",
+            "topic": "tvs"
+          }
+        ],
+        "published": [
+          {
+            "action": "refreshed",
+            "pick_count": 4,
+            "slot": 1,
+            "slug": "best-tvs-worth-buying-uk-2026",
+            "title": "Prime Big Deal Days: TVs Worth Comparing in the UK (2026)",
+            "topic": "tvs"
+          }
+        ]
       },
       "us": {
-        "attempted": [],
-        "published": []
+        "attempted": [
+          {
+            "status": "published",
+            "topic": "tvs"
+          }
+        ],
+        "published": [
+          {
+            "action": "refreshed",
+            "pick_count": 4,
+            "slot": 1,
+            "slug": "best-tvs-worth-buying-us-2026",
+            "title": "Prime Big Deal Days: TVs Worth Comparing in the USA (2026)",
+            "topic": "tvs"
+          }
+        ]
       }
     }
   },
