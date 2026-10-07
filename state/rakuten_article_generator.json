@@ -15,20 +15,21 @@
     "topic": "sideboards"
   },
   "us": {
-    "date": "2026-10-06",
+    "date": "2026-10-07",
     "merchants": [
       "Sharper Image"
     ],
-    "offer_count": 3,
+    "offer_count": 5,
     "recent_topics": [
       "dehumidifiers",
       "dash-cams",
       "air-purifiers",
       "coffee-machines",
       "slow-cookers",
-      "cordless-vacuums"
+      "cordless-vacuums",
+      "wireless-earbuds"
     ],
-    "slug": "approved-retailer-cordless-vacuums-us-2026-10-06",
-    "topic": "cordless-vacuums"
+    "slug": "approved-retailer-wireless-earbuds-us-2026-10-07",
+    "topic": "wireless-earbuds"
   }
 }
