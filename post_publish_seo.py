@@ -132,7 +132,7 @@ def inspect_page(session: requests.Session, url: str, host: str) -> None:
     print(f"[seo] Valid JSON-LD blocks: {valid}")
 
 
-def search_console(market: str, urls: list[str], sitemap: str) -> None:
+def search_console(market: str, urls: list[str], sitemaps: list[str]) -> None:
     site = None
     if configured():
         try:
@@ -171,8 +171,9 @@ def search_console(market: str, urls: list[str], sitemap: str) -> None:
         if not site:
             print("[seo-warning] No matching Search Console property for sitemap submission")
             return
-        writer.sitemaps().submit(siteUrl=site, feedpath=sitemap).execute()
-        print(f"[seo] Submitted {sitemap} to Search Console property {site}")
+        for sitemap in sitemaps:
+            writer.sitemaps().submit(siteUrl=site, feedpath=sitemap).execute()
+            print(f"[seo] Submitted {sitemap} to Search Console property {site}")
     except Exception as exc:
         print(f"[seo-warning] Sitemap submission failed: {type(exc).__name__}: {exc}")
 
@@ -184,7 +185,16 @@ def run(market: str) -> None:
         return
     host = get_site_host(market)
     sitemap = urljoin(get_site_url(market), "sitemap.xml")
+    pages_sitemap = urljoin(get_site_url(market), "sitemap-pages.xml")
     with requests.Session() as session:
+        try:
+            inspect_page(session, get_site_url(market), host)
+        except requests.RequestException as exc:
+            print(
+                f"[seo-warning] Homepage discovery check failed for {get_site_url(market)}: "
+                f"{type(exc).__name__}: {exc}"
+            )
+
         urls = []
         for post in posts:
             url = public_url(str(post["url"]), market)
@@ -198,7 +208,7 @@ def run(market: str) -> None:
             except (requests.RequestException, ElementTree.ParseError) as exc:
                 print(f"[seo-warning] Public discovery check failed for {url}: {type(exc).__name__}: {exc}")
         if urls:
-            search_console(market, urls, sitemap)
+            search_console(market, urls, [sitemap, pages_sitemap])
 
 
 if __name__ == "__main__":
