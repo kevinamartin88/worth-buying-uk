@@ -587,7 +587,7 @@ def decorate_prime_article(
     monetisation["event_mode"] = True
     monetisation["primary_goal"] = "qualified-affiliate-click"
     monetisation["networks"] = ["Amazon"]
-    monetisation["retailer_mode"] = "amazon-only"
+    monetisation.setdefault("retailer_mode", "amazon-only")
 
     article["_promotion"] = {
         "daily_featured_date": run_date.isoformat(),
