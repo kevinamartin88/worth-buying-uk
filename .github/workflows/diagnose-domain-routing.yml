@@ -13,7 +13,7 @@ permissions:
 jobs:
   diagnose:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 10
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
     steps:
@@ -21,20 +21,35 @@ jobs:
         shell: bash
         run: |
           set -u
-          for host in worthbuyinguk.co.uk www.worthbuyinguk.co.uk; do
-            echo "===== DNS: $host ====="
-            getent ahosts "$host" || true
-          done
-
-          for url in             "http://worthbuyinguk.co.uk/"             "https://worthbuyinguk.co.uk/"             "http://www.worthbuyinguk.co.uk/"             "https://www.worthbuyinguk.co.uk/"             "https://www.worthbuyinguk.co.uk/sitemap.xml"             "https://worthbuyinguk.blogspot.com/"; do
+          for domain in worthbuyinguk.co.uk worthbuyingusa.com; do
             echo
-            echo "===== HEAD: $url ====="
-            curl -sS -I --connect-timeout 10 --max-time 20 -A "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" "$url" || true
+            echo "############################"
+            echo "DOMAIN: $domain"
+            echo "############################"
+
+            for host in "$domain" "www.$domain"; do
+              echo "===== DNS: $host ====="
+              getent ahosts "$host" || true
+            done
+
+            for url in               "http://$domain/"               "https://$domain/"               "http://www.$domain/"               "https://www.$domain/"               "https://www.$domain/sitemap.xml"; do
+              echo
+              echo "===== HEAD: $url ====="
+              curl -sS -I --connect-timeout 10 --max-time 20                 -A "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"                 "$url" || true
+            done
+
+            echo
+            echo "===== FOLLOW REDIRECTS: apex HTTPS ($domain) ====="
+            curl -sS -I -L --max-redirs 10 --connect-timeout 10 --max-time 30               -A "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"               "https://$domain/" || true
           done
 
           echo
-          echo "===== FOLLOW REDIRECTS: apex HTTPS ====="
-          curl -sS -I -L --max-redirs 10 --connect-timeout 10 --max-time 30             -A "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"             "https://worthbuyinguk.co.uk/" || true
+          echo "===== BLOGSPOT BACKENDS ====="
+          for url in "https://worthbuyinguk.blogspot.com/" "https://worthbuyingusa.blogspot.com/"; do
+            echo
+            echo "===== HEAD: $url ====="
+            curl -sS -I --connect-timeout 10 --max-time 20               -A "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"               "$url" || true
+          done
 
       - name: Inspect Cloudflare zone configuration
         shell: bash
@@ -46,23 +61,31 @@ jobs:
           fi
 
           auth=(-H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json")
-          zone_json="$(curl -sS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones?name=worthbuyinguk.co.uk")"
-          echo "===== ZONE LOOKUP ====="
-          echo "$zone_json" | jq '{success,errors,result:[.result[]? | {id,name,status,type}]}'
-          zone_id="$(echo "$zone_json" | jq -r '.result[0].id // empty')"
-          if [ -z "$zone_id" ]; then
-            echo "No accessible Cloudflare zone found with this token."
-            exit 0
-          fi
 
-          echo "===== DNS RECORDS ====="
-          curl -sS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones/$zone_id/dns_records?per_page=100"             | jq '{success,errors,result:[.result[]? | {id,type,name,content,proxied,ttl}]}'
+          for domain in worthbuyinguk.co.uk worthbuyingusa.com; do
+            echo
+            echo "############################"
+            echo "CLOUDFLARE ZONE: $domain"
+            echo "############################"
 
-          echo "===== ZONE RULESETS ====="
-          curl -sS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones/$zone_id/rulesets"             | jq '{success,errors,result:[.result[]? | {id,name,kind,phase}]}'
+            zone_json="$(curl -sS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones?name=$domain")"
+            echo "===== ZONE LOOKUP ====="
+            echo "$zone_json" | jq '{success,errors,result:[.result[]? | {id,name,status,type}]}'
+            zone_id="$(echo "$zone_json" | jq -r '.result[0].id // empty')"
+            if [ -z "$zone_id" ]; then
+              echo "No accessible Cloudflare zone found with this token."
+              continue
+            fi
 
-          echo "===== PAGE RULES ====="
-          curl -sS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones/$zone_id/pagerules?status=active&per_page=100"             | jq '{success,errors,result:[.result[]? | {id,status,targets,actions,priority}]}'
+            echo "===== DNS RECORDS ====="
+            curl -sS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones/$zone_id/dns_records?per_page=100"               | jq '{success,errors,result:[.result[]? | {id,type,name,content,proxied,ttl}]}'
 
-          echo "===== ALWAYS USE HTTPS ====="
-          curl -sS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones/$zone_id/settings/always_use_https"             | jq '{success,errors,result:{id:.result.id,value:.result.value,modified_on:.result.modified_on}}'
+            echo "===== ZONE RULESETS ====="
+            curl -sS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones/$zone_id/rulesets"               | jq '{success,errors,result:[.result[]? | {id,name,kind,phase}]}'
+
+            echo "===== PAGE RULES ====="
+            curl -sS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones/$zone_id/pagerules?status=active&per_page=100"               | jq '{success,errors,result:[.result[]? | {id,status,targets,actions,priority}]}'
+
+            echo "===== ALWAYS USE HTTPS ====="
+            curl -sS "${auth[@]}" "https://api.cloudflare.com/client/v4/zones/$zone_id/settings/always_use_https"               | jq '{success,errors,result:{id:.result.id,value:.result.value,modified_on:.result.modified_on}}'
+          done
