@@ -115,3 +115,46 @@ def test_prime_validation_requires_amazon_product_images():
         "_monetisation": {"networks": ["Amazon"]},
     }
     prime.validate_prime_article(article, "uk")
+
+
+def test_missing_amazon_credentials_remain_retryable(monkeypatch, tmp_path):
+    state = {}
+    base = {
+        "slug": "best-tvs-worth-buying-uk-2026",
+        "title": "Best TVs Worth Buying in the UK (2026)",
+        "labels": ["Tech", "UK"],
+        "content_html": "<p>Buyer first.</p>",
+        "_seo": {},
+        "_monetisation": {},
+        "_generator": {},
+    }
+    monkeypatch.setattr(prime, "ROOT", tmp_path)
+    monkeypatch.setattr(prime.daily, "build_article", lambda *args, **kwargs: dict(base))
+
+    def missing_credentials(*args, **kwargs):
+        raise RuntimeError(
+            "Amazon Creators API credentials are required for Prime product cards (uk)"
+        )
+
+    monkeypatch.setattr(prime, "_amazon_prime_offers", missing_credentials)
+
+    row = prime.generate_one_market(
+        state,
+        market="uk",
+        run_date=date(2026, 10, 7),
+        year=2026,
+    )
+
+    assert row is None
+    market = state["days"]["2026-10-07"]["uk"]
+    assert market["published"] == []
+    assert market["attempted"] == []
+
+
+def test_retryable_error_classifier_is_narrow():
+    assert prime._retryable_build_error(
+        RuntimeError("Amazon Creators API credentials are required for Prime product cards (uk)")
+    )
+    assert not prime._retryable_build_error(
+        RuntimeError("Amazon returned only 1 usable TV offers with product images")
+    )
