@@ -176,21 +176,12 @@
         ]
       },
       "latest": {
-        "start": "2026-09-20",
-        "end": "2026-10-03",
+        "start": "2026-09-21",
+        "end": "2026-10-04",
         "source": "Google Search Console web search",
         "clicks": 0,
         "impressions": 2,
         "rows": [
-          {
-            "keys": [
-              "2026-09-20"
-            ],
-            "clicks": 0,
-            "impressions": 0,
-            "ctr": 0,
-            "position": 0
-          },
           {
             "keys": [
               "2026-09-21"
@@ -307,6 +298,15 @@
             "impressions": 1,
             "ctr": 0,
             "position": 2
+          },
+          {
+            "keys": [
+              "2026-10-04"
+            ],
+            "clicks": 0,
+            "impressions": 0,
+            "ctr": 0,
+            "position": 0
           }
         ]
       }
@@ -439,21 +439,12 @@
         ]
       },
       "latest": {
-        "start": "2026-09-20",
-        "end": "2026-10-03",
+        "start": "2026-09-21",
+        "end": "2026-10-04",
         "source": "Google Search Console web search",
         "clicks": 0,
-        "impressions": 1,
+        "impressions": 3,
         "rows": [
-          {
-            "keys": [
-              "2026-09-20"
-            ],
-            "clicks": 0,
-            "impressions": 0,
-            "ctr": 0,
-            "position": 0
-          },
           {
             "keys": [
               "2026-09-21"
@@ -570,6 +561,15 @@
             "impressions": 1,
             "ctr": 0,
             "position": 5
+          },
+          {
+            "keys": [
+              "2026-10-04"
+            ],
+            "clicks": 0,
+            "impressions": 2,
+            "ctr": 0,
+            "position": 7.5
           }
         ]
       }
@@ -593,6 +593,18 @@
         "post_id": "6ac527046cefee84931dac36",
         "provider_status": "sent"
       }
+    }
+  },
+  "weekly": {
+    "uk": {
+      "status": "blocked",
+      "error": "ValueError: No verified, relevant listing with a usable photo for Smaller single-basket shortlist",
+      "attempted": "2026-10-07"
+    },
+    "us": {
+      "status": "blocked",
+      "error": "ValueError: No verified, relevant listing with a usable photo for More basket space to compare",
+      "attempted": "2026-10-07"
     }
   }
 }
