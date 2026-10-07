@@ -208,7 +208,7 @@ jobs:
           YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
           YOUTUBE_UK_REFRESH_TOKEN: ${{ secrets.YOUTUBE_UK_REFRESH_TOKEN }}
           YOUTUBE_PRIVACY_STATUS: public
-        run: python publish_youtube_shorts.py --market uk
+        run: python publish_youtube_shorts.py --market uk --today-only
 
       - name: Generate Pinterest RSS feed
         env:
