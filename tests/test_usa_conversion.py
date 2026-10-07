@@ -102,9 +102,84 @@ def test_live_details_and_image_quality_gate_us_shortlist(monkeypatch):
     client.get_item.side_effect = [item(1), sold, item(3)]
     monkeypatch.setattr(daily.EbayClient, 'for_market', lambda market: client)
     monkeypatch.setattr(daily, '_record_price_history', lambda *args: None)
-    monkeypatch.setattr('src.product_image_quality.checked_product_image', lambda url: (url, 1600, 1200))
+    monkeypatch.setattr(daily, 'checked_product_image', lambda url: (url, 1600, 1200))
     result = daily.current_picks('us', 'cordless vacuum', 700, 'vacuum-guide')
     assert {r['itemId'] for r in result} == {'v1|1|0', 'v1|3|0'}
+
+
+def test_current_picks_keeps_searching_past_bad_images_us(monkeypatch):
+    client = Mock()
+    rows = [item(n, 80 + n) for n in range(1, 13)]
+    client.search.return_value = rows
+    client.get_item.side_effect = [deepcopy(row) for row in rows]
+
+    def image_gate(url):
+        match = int(url.split('/g/')[1].split('/')[0])
+        if match <= 8:
+            raise RuntimeError("bad image")
+        return url, 1600, 1200
+
+    monkeypatch.setattr(daily.EbayClient, 'for_market', lambda market: client)
+    monkeypatch.setattr(daily, '_record_price_history', lambda *args: None)
+    monkeypatch.setattr(daily, 'checked_product_image', image_gate)
+
+    result = daily.current_picks('us', 'cordless vacuum', 700, 'vacuum-guide')
+
+    assert [row['itemId'] for row in result] == [
+        'v1|9|0', 'v1|10|0', 'v1|11|0', 'v1|12|0'
+    ]
+    assert client.search.call_args.kwargs['limit'] == 100
+
+
+def test_current_picks_keeps_searching_past_bad_images_uk(monkeypatch):
+    def uk_item(n):
+        row = item(n, 80 + n)
+        row['listingMarketplaceId'] = 'EBAY_GB'
+        row['itemLocation'] = {'country': 'GB'}
+        row['price'] = {'value': str(80 + n), 'currency': 'GBP'}
+        row['itemAffiliateWebUrl'] = f'https://www.ebay.co.uk/itm/{n}'
+        row['itemWebUrl'] = f'https://www.ebay.co.uk/itm/{n}'
+        row['title'] = f'Dyson V{n} cordless vacuum cleaner'
+        return row
+
+    client = Mock()
+    rows = [uk_item(n) for n in range(1, 11)]
+    client.search.return_value = rows
+
+    def image_gate(url):
+        match = int(url.split('/g/')[1].split('/')[0])
+        if match <= 6:
+            raise RuntimeError("bad image")
+        return url, 1600, 1200
+
+    monkeypatch.setattr(daily.EbayClient, 'for_market', lambda market: client)
+    monkeypatch.setattr(daily, '_record_price_history', lambda *args: None)
+    monkeypatch.setattr(daily, 'checked_product_image', image_gate)
+
+    result = daily.current_picks('uk', 'cordless vacuum cleaner', 600, 'vacuum-guide')
+
+    assert [row['itemId'] for row in result] == [
+        'v1|7|0', 'v1|8|0', 'v1|9|0', 'v1|10|0'
+    ]
+
+
+def test_current_picks_falls_back_without_failing_when_images_run_out(monkeypatch):
+    client = Mock()
+    rows = [item(n, 80 + n) for n in range(1, 5)]
+    client.search.return_value = rows
+    client.get_item.side_effect = [deepcopy(row) for row in rows]
+
+    monkeypatch.setattr(daily.EbayClient, 'for_market', lambda market: client)
+    monkeypatch.setattr(daily, '_record_price_history', lambda *args: None)
+    monkeypatch.setattr(
+        daily,
+        'checked_product_image',
+        lambda url: (_ for _ in ()).throw(RuntimeError("bad image")),
+    )
+
+    result = daily.current_picks('us', 'cordless vacuum', 700, 'vacuum-guide')
+
+    assert result == []
 
 
 def test_usa_article_puts_real_choices_before_methodology_and_reuses_slug(monkeypatch):
