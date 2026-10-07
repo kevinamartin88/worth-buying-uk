@@ -5,3 +5,4 @@
 2026-10-07 18:55 BST - trigger safe Prime fallback UK+USA
 2026-10-07 19:02 BST - queue Prime fallback slot 2 UK+USA
 2026-10-07 19:03 BST - queue Prime fallback slot 3 UK+USA
+2026-10-07 19:22 BST - Prime fallback slot 1 after safeguard test fix
