@@ -904,12 +904,15 @@ def run_for_date(run_date: date) -> int:
     if event_active(run_date):
         changed = repair_existing_event_articles(state, run_date)
         for market in ("uk", "us"):
-            if generate_one_market(
-                state,
-                market=market,
-                run_date=run_date,
-                year=run_date.year,
-            ):
+            while len(_market_state(state, run_date, market).get("published", [])) < TARGET_PER_MARKET_PER_DAY:
+                row = generate_one_market(
+                    state,
+                    market=market,
+                    run_date=run_date,
+                    year=run_date.year,
+                )
+                if not row:
+                    break
                 changed += 1
         save_json(STATE_PATH, state)
         return changed
