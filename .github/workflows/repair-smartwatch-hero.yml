@@ -1,0 +1,44 @@
+name: Repair USA smartwatch image
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'repair_smartwatch_hero.py'
+      - '.github/workflows/repair-smartwatch-hero.yml'
+      - 'assets/ai/us/best-smartwatches-worth-buying-us.jpg'
+permissions:
+  contents: read
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - market: us
+            client_id: BLOGGER_US_CLIENT_ID
+            client_secret: BLOGGER_US_CLIENT_SECRET
+            refresh_token: BLOGGER_US_REFRESH_TOKEN
+            blog_id: BLOGGER_US_BLOG_ID
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Test reviewed photo and image replacement safeguards
+        env:
+          PYTHONPATH: .
+        run: pytest -q tests/test_curated_visuals.py tests/test_article_images.py tests/test_ai_visuals.py
+      - name: Replace and verify the existing article image
+        env:
+          PYTHONPATH: .
+          BLOGGER_CLIENT_ID: ${{ secrets[matrix.client_id] }}
+          BLOGGER_CLIENT_SECRET: ${{ secrets[matrix.client_secret] }}
+          BLOGGER_REFRESH_TOKEN: ${{ secrets[matrix.refresh_token] }}
+          BLOGGER_BLOG_ID: ${{ secrets[matrix.blog_id] }}
+          MARKET: ${{ matrix.market }}
+        run: python repair_smartwatch_hero.py --market "$MARKET"
