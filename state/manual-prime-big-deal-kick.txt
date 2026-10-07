@@ -2,3 +2,4 @@
 2026-10-06 Prime Big Deal Days Amazon-only republish trigger UK+USA
 2026-10-06 Prime rebuild: Amazon product images + tracked Prime signup bounty CTA UK+USA
 2026-10-07 16:19 BST - retry after Prime credential-state fix
+2026-10-07 18:55 BST - trigger safe Prime fallback UK+USA
