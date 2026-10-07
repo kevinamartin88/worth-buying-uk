@@ -25,7 +25,12 @@ MAX_SEARCHES_PER_MARKET = 24
 RECENT_TOPIC_WINDOW = 45
 QUERY_STOPWORDS = {"and", "best", "for", "home", "inch", "pro", "smart", "the", "with"}
 PREFERRED_MERCHANTS = {
-    "uk": ("Choice Furniture Superstore", "Choice Furniture Supersto"),
+    "uk": (
+        "Skirting World",
+        "Walls Panels World",
+        "Choice Furniture Superstore",
+        "Choice Furniture Supersto",
+    ),
     "us": ("Sharper Image",),
 }
 RETAILER_DISPLAY_NAMES = {
@@ -33,6 +38,8 @@ RETAILER_DISPLAY_NAMES = {
     "choice furniture supersto": "Choice Furniture Superstore",
 }
 RAKUTEN_ONLY_TOPICS = [
+    ("skirting-boards", "Skirting Boards", "skirting board", 500, 500, "DIY & Home Improvement", "SKIRTING BOARD GUIDE"),
+    ("wall-panels", "Wall Panels", "wall panel", 800, 800, "DIY & Home Improvement", "WALL PANEL GUIDE"),
     ("dining-tables", "Dining Tables", "dining table", 1800, 2000, "Home & Kitchen", "DINING TABLE GUIDE"),
     ("coffee-tables", "Coffee Tables", "coffee table", 900, 1000, "Home & Kitchen", "COFFEE TABLE GUIDE"),
     ("bed-frames", "Bed Frames", "bed frame", 1600, 1800, "Home & Kitchen", "BED BUYING GUIDE"),
@@ -51,6 +58,22 @@ RETAILER_LOGO_ASSETS = {
 # parent product name (for example "hanging rail for sliding wardrobe"). These
 # topic rules keep complete products separate from spares, refills and fittings.
 TOPIC_PRODUCT_RULES = {
+    "skirting-boards": {
+        "required_any": ("skirting board", "skirting"),
+        "exclude_any": (
+            "sample", "adhesive", "sealant", "caulk", "glue", "screw",
+            "fixing", "primer", "paint", "touch up", "offcut",
+        ),
+        "min_price": 5.0,
+    },
+    "wall-panels": {
+        "required_any": ("wall panel", "wall panels", "slat panel", "acoustic panel"),
+        "exclude_any": (
+            "sample", "adhesive", "sealant", "caulk", "glue", "fixing",
+            "edge trim", "corner trim", "touch up", "offcut",
+        ),
+        "min_price": 10.0,
+    },
     "wardrobes": {
         "required_any": ("wardrobe", "armoire"),
         "exclude_any": (
@@ -102,6 +125,18 @@ FURNITURE_CHECKS = [
     "Compare the delivered price with another retailer rather than relying on the headline price alone.",
 ]
 TOPIC_CHECKS = {
+    "skirting-boards": [
+        "Measure each wall run and allow for sensible cutting waste before ordering.",
+        "Check the board height, thickness, profile and material against existing architrave, flooring and door frames.",
+        "Confirm whether the product is primed, fully finished or requires painting, and check the recommended fixing method.",
+        "Compare pack length, delivery charges, returns and damage policies because long lengths can be awkward to transport.",
+    ],
+    "wall-panels": [
+        "Measure the wall area carefully and allow for cutting waste, sockets, switches, corners and pattern matching.",
+        "Check panel dimensions, material, finish, fire rating and whether the product is suitable for the intended room.",
+        "Confirm the recommended adhesive, battens or fixing system and whether trims or finishing pieces are sold separately.",
+        "Compare delivered cost, lead time, returns and damage policies before ordering bulky panels.",
+    ],
     "wardrobes": [
         "Check the overall width, height and depth against the available space, skirting and ceiling height.",
         "Confirm whether the doors are hinged or sliding and allow enough clearance for comfortable access.",
