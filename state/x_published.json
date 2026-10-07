@@ -302,13 +302,13 @@
   },
   "best-tvs-worth-buying-uk-2026": {
     "buffer_channel_id": "6aa84d4aea19ca0bde41a0a4",
-    "buffer_post_id": "6ac694cb62a632ed42a552e0",
-    "buffer_sent_at": "2026-10-07T18:51:56.556Z",
+    "buffer_post_id": "6ac6973aa8c569b3dfae5912",
+    "buffer_sent_at": "2026-10-07T19:02:20.194Z",
     "buffer_status": "sent",
     "image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/uk/best-tvs-worth-buying-uk-2026.jpg",
-    "promotion_token": "2026-10-07:prime-big-deal-days:uk:best-tvs-worth-buying-uk-2026",
-    "source_sha": "2026-10-07-tvs-uk-prime-big-deal-days-amazon-v2",
-    "title": "Prime Big Deal Days: TVs Worth Comparing in the UK (2026)",
+    "promotion_token": "2026-10-07:uk:best-tvs-worth-buying-uk-2026",
+    "source_sha": "2026-10-07-tvs-uk-daily-v6",
+    "title": "Best TVs Worth Buying in the UK (2026)",
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-tvs-worth-buying-in-uk-2026.html"
   },
   "best-video-doorbells-worth-buying-uk-2026": {
@@ -347,6 +347,39 @@
     "source_sha": "2026-09-15-kitchen-home-uk-v1",
     "title": "Kitchen & Home Equipment Worth Buying in the UK (2026)",
     "url": "https://worthbuyinguk.blogspot.com/2026/09/kitchen-home-equipment-worth-buying-in.html"
+  },
+  "prime-big-deal-days-coffee-machines-uk-2026": {
+    "buffer_channel_id": "6aa84d4aea19ca0bde41a0a4",
+    "buffer_post_id": "6ac6973db7850fff3cb69530",
+    "buffer_sent_at": "2026-10-07T19:02:22.542Z",
+    "buffer_status": "sent",
+    "image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/uk/prime-big-deal-days-coffee-machines-uk-2026.jpg",
+    "promotion_token": "2026-10-07:prime-big-deal-days:uk:prime-big-deal-days-coffee-machines-uk-2026",
+    "source_sha": "2026-10-07-coffee-machines-uk-prime-big-deal-days-amazon-v2",
+    "title": "Prime Big Deal Days: Coffee Machines Worth Comparing in the UK (2026)",
+    "url": "https://www.worthbuyinguk.co.uk/2026/10/prime-big-deal-days-coffee-machines.html"
+  },
+  "prime-big-deal-days-ssds-uk-2026": {
+    "buffer_channel_id": "6aa84d4aea19ca0bde41a0a4",
+    "buffer_post_id": "6ac6973fb7850fff3cb695b6",
+    "buffer_sent_at": "2026-10-07T19:02:25.895Z",
+    "buffer_status": "sent",
+    "image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/uk/prime-big-deal-days-ssds-uk-2026.jpg",
+    "promotion_token": "2026-10-07:prime-big-deal-days:uk:prime-big-deal-days-ssds-uk-2026",
+    "source_sha": "2026-10-07-ssds-uk-prime-big-deal-days-amazon-v2",
+    "title": "Prime Big Deal Days: Solid-State Drives Worth Comparing in the UK (2026)",
+    "url": "https://www.worthbuyinguk.co.uk/2026/10/prime-big-deal-days-solid-state-drives.html"
+  },
+  "prime-big-deal-days-tvs-uk-2026": {
+    "buffer_channel_id": "6aa84d4aea19ca0bde41a0a4",
+    "buffer_post_id": "6ac69742b7850fff3cb6966a",
+    "buffer_sent_at": "2026-10-07T19:02:27.581Z",
+    "buffer_status": "sent",
+    "image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/uk/prime-big-deal-days-tvs-uk-2026.jpg",
+    "promotion_token": "2026-10-07:prime-big-deal-days:uk:prime-big-deal-days-tvs-uk-2026",
+    "source_sha": "2026-10-07-tvs-uk-prime-big-deal-days-amazon-v2",
+    "title": "Prime Big Deal Days: TVs Worth Comparing in the UK (2026)",
+    "url": "https://www.worthbuyinguk.co.uk/2026/10/prime-big-deal-days-tvs-worth-comparing.html"
   },
   "ps5-vs-ps4-best-value-uk-2026": {
     "status": "preexisting"

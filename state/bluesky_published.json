@@ -303,15 +303,15 @@
   },
   "best-tvs-worth-buying-uk-2026": {
     "baseline": true,
-    "bluesky_cid": "bafyreid6rocom6fzybumlwog42cqnv3gmlivxkj6kjae5glsbxlwdybjqe",
-    "bluesky_uri": "at://did:plc:gpidjepgxnwtzfcyl3np2mgn/app.bsky.feed.post/3mxcmi4tohe2z",
-    "bluesky_url": "https://bsky.app/profile/worthbuyinguk.bsky.social/post/3mxcmi4tohe2z",
+    "bluesky_cid": "bafyreieatcqjx42nm3zqtfwflturkqsklq2rsbhjnv4way2t53pwzdleca",
+    "bluesky_uri": "at://did:plc:gpidjepgxnwtzfcyl3np2mgn/app.bsky.feed.post/3mxcn2wmoir2r",
+    "bluesky_url": "https://bsky.app/profile/worthbuyinguk.bsky.social/post/3mxcn2wmoir2r",
     "buffer_post_id": null,
     "image_path": "assets/ai/uk/best-tvs-worth-buying-uk-2026.jpg",
-    "promotion_token": "2026-10-07:prime-big-deal-days:uk:best-tvs-worth-buying-uk-2026",
-    "source_sha": "2026-10-07-tvs-uk-prime-big-deal-days-amazon-v2",
+    "promotion_token": "2026-10-07:uk:best-tvs-worth-buying-uk-2026",
+    "source_sha": "2026-10-07-tvs-uk-daily-v6",
     "status": "published",
-    "title": "Prime Big Deal Days: TVs Worth Comparing in the UK (2026)",
+    "title": "Best TVs Worth Buying in the UK (2026)",
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-tvs-worth-buying-in-uk-2026.html"
   },
   "best-video-doorbells-worth-buying-uk-2026": {
@@ -355,6 +355,39 @@
     "source_sha": "2026-09-15-kitchen-home-uk-v1",
     "title": "Kitchen & Home Equipment Worth Buying in the UK (2026)",
     "url": "https://www.worthbuyinguk.co.uk/2026/09/kitchen-home-equipment-worth-buying-in.html"
+  },
+  "prime-big-deal-days-coffee-machines-uk-2026": {
+    "bluesky_cid": "bafyreiglrvkh6cnv3gemoqpdgqiy3zsye4chz3rjvjrgltued5qc745j2i",
+    "bluesky_uri": "at://did:plc:gpidjepgxnwtzfcyl3np2mgn/app.bsky.feed.post/3mxcn2xrow62w",
+    "bluesky_url": "https://bsky.app/profile/worthbuyinguk.bsky.social/post/3mxcn2xrow62w",
+    "image_path": "assets/ai/uk/prime-big-deal-days-coffee-machines-uk-2026.jpg",
+    "promotion_token": "2026-10-07:prime-big-deal-days:uk:prime-big-deal-days-coffee-machines-uk-2026",
+    "source_sha": "2026-10-07-coffee-machines-uk-prime-big-deal-days-amazon-v2",
+    "status": "published",
+    "title": "Prime Big Deal Days: Coffee Machines Worth Comparing in the UK (2026)",
+    "url": "https://www.worthbuyinguk.co.uk/2026/10/prime-big-deal-days-coffee-machines.html"
+  },
+  "prime-big-deal-days-ssds-uk-2026": {
+    "bluesky_cid": "bafyreidbiacnchgsgky3faame5e4ypyswg2cjh4eesua4bhezdncv6xtyq",
+    "bluesky_uri": "at://did:plc:gpidjepgxnwtzfcyl3np2mgn/app.bsky.feed.post/3mxcn2yzx5r2r",
+    "bluesky_url": "https://bsky.app/profile/worthbuyinguk.bsky.social/post/3mxcn2yzx5r2r",
+    "image_path": "assets/ai/uk/prime-big-deal-days-ssds-uk-2026.jpg",
+    "promotion_token": "2026-10-07:prime-big-deal-days:uk:prime-big-deal-days-ssds-uk-2026",
+    "source_sha": "2026-10-07-ssds-uk-prime-big-deal-days-amazon-v2",
+    "status": "published",
+    "title": "Prime Big Deal Days: Solid-State Drives Worth Comparing in the UK (2026)",
+    "url": "https://www.worthbuyinguk.co.uk/2026/10/prime-big-deal-days-solid-state-drives.html"
+  },
+  "prime-big-deal-days-tvs-uk-2026": {
+    "bluesky_cid": "bafyreic3wjjgdkusxmdf5wp26d3npzz4olpq32y7gkspvyqwa4u6w45lk4",
+    "bluesky_uri": "at://did:plc:gpidjepgxnwtzfcyl3np2mgn/app.bsky.feed.post/3mxcn32hujf2z",
+    "bluesky_url": "https://bsky.app/profile/worthbuyinguk.bsky.social/post/3mxcn32hujf2z",
+    "image_path": "assets/ai/uk/prime-big-deal-days-tvs-uk-2026.jpg",
+    "promotion_token": "2026-10-07:prime-big-deal-days:uk:prime-big-deal-days-tvs-uk-2026",
+    "source_sha": "2026-10-07-tvs-uk-prime-big-deal-days-amazon-v2",
+    "status": "published",
+    "title": "Prime Big Deal Days: TVs Worth Comparing in the UK (2026)",
+    "url": "https://www.worthbuyinguk.co.uk/2026/10/prime-big-deal-days-tvs-worth-comparing.html"
   },
   "ps5-vs-ps4-best-value-uk-2026": {
     "baseline": true,
