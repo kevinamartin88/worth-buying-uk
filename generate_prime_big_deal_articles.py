@@ -176,7 +176,8 @@ PRIME_AMAZON_SEARCHES = {
 
 def _amazon_search_url(query: str, market: str) -> str:
     host = "www.amazon.co.uk" if market == "uk" else "www.amazon.com"
-    return f"https://{host}/s?k={quote_plus(query)}"
+    tag = "worthbuyin008-21" if market == "uk" else "worthbuyingus-20"
+    return f"https://{host}/s?k={quote_plus(query)}&tag={tag}"
 
 
 
@@ -202,6 +203,66 @@ def _prime_membership_cta(market: str) -> str:
         'background:#082f5b;color:#fff;text-decoration:none;border-radius:8px;'
         f'font-weight:700">Check {html.escape(retailer)} Prime eligibility</a></p>'
         '</aside>\n'
+    )
+
+
+def _amazon_search_fallback_content(topic: tuple, market: str, run_date: date) -> str:
+    key, display, _query, _max_uk, _max_us, category, _kicker = daily.localise_topic(
+        topic, market
+    )
+    region = "UK" if market == "uk" else "USA"
+    retailer = "Amazon UK" if market == "uk" else "Amazon"
+    searches = list(PRIME_AMAZON_SEARCHES.get(key) or ())
+    if len(searches) < 3:
+        searches = [display, f"best {display}", f"{display} deals", f"{display} Prime"]
+
+    cards = []
+    for index, search in enumerate(searches[:4], start=1):
+        url = _amazon_search_url(search, market)
+        cards.append(
+            '<div style="border:1px solid #dfe6ee;border-radius:14px;padding:18px;'
+            'margin:14px 0;background:#fff;">'
+            f'<p style="margin:0 0 8px"><strong>{index}. {html.escape(search.title())}</strong></p>'
+            '<p style="margin:6px 0">Browse the current Amazon results for this buying angle. '
+            'Prices, Prime eligibility and promotions can change quickly, so check the live '
+            'Amazon results before buying.</p>'
+            '<p style="margin:14px 0 2px">'
+            f'<a href="{html.escape(url, quote=True)}" rel="sponsored nofollow" '
+            'style="display:inline-block;padding:11px 16px;background:#082f5b;'
+            'color:#fff;text-decoration:none;border-radius:8px;font-weight:700">'
+            f'Browse current {html.escape(retailer)} results</a></p></div>'
+        )
+
+    checks = [
+        daily.localise_template_text(check, market)
+        for check in daily.CATEGORY_CHECKS.get(
+            category, daily.CATEGORY_CHECKS["Home & Kitchen"]
+        )
+    ]
+    check_html = "\n".join(f"<li>{html.escape(check)}</li>" for check in checks)
+    checked = display_date(run_date)
+    return (
+        f"<p><strong>Shopping for {html.escape(display.lower())} during Prime Big Deal Days in the {region}? "
+        "This Amazon-only fallback guide keeps the event coverage live even when Amazon's "
+        "product-data API is temporarily unavailable.</strong></p>\n"
+        f"<p>We checked the buying category on {html.escape(checked)}. Rather than inventing a price "
+        "or discount without live API data, the links below take you to tracked Amazon searches so "
+        "you can see the current products, prices and Prime eligibility directly on Amazon.</p>\n"
+        f"{_prime_membership_cta(market)}"
+        f"{daily.editorial_trust_html(market, checked)}"
+        "<h2>Amazon searches worth checking now</h2>\n"
+        + "".join(cards)
+        + "<h2>How to choose the right option</h2>\n"
+        f"<ul>{check_html}</ul>\n"
+        "<h2>Why this Prime guide is Amazon-only</h2>\n"
+        "<p>Prime Big Deal Days is an Amazon shopping event. These event-specific Worth Buying guides "
+        "therefore use Amazon-only retailer links.</p>\n"
+        "<h2>How we handle missing live product data</h2>\n"
+        "<p>When Amazon's product-data API is unavailable, we do not publish unverified prices, "
+        "discount percentages or product-specific claims. We publish tracked Amazon search links "
+        "instead, so shoppers can verify the current offer directly.</p>\n"
+        "<p><em>As an Amazon Associate we earn from qualifying purchases at no extra cost to you. "
+        "Prices, promotions, Prime eligibility and availability can change quickly.</em></p>"
     )
 
 
@@ -314,23 +375,51 @@ def make_prime_article_amazon_only(
     run_date: date,
 ) -> dict:
     article = deepcopy(article)
-    article["content_html"] = _amazon_only_prime_content(topic, market, run_date)
+    fallback = False
+    try:
+        article["content_html"] = _amazon_only_prime_content(topic, market, run_date)
+    except Exception as exc:
+        if not _retryable_build_error(exc):
+            raise
+        fallback = True
+        article["content_html"] = _amazon_search_fallback_content(
+            topic, market, run_date
+        )
+        print(
+            f"[prime-fallback] {market.upper()} {topic[0]}: Amazon Creators API "
+            "credentials unavailable; publishing tracked Amazon search links without "
+            "unverified product prices."
+        )
+
     monetisation = article.setdefault("_monetisation", {})
     monetisation["networks"] = ["Amazon"]
-    monetisation["retailer_mode"] = "amazon-only"
+    monetisation["retailer_mode"] = (
+        "amazon-search-fallback" if fallback else "amazon-only"
+    )
     generator = article.setdefault("_generator", {})
     generator["live_ebay_picks"] = False
     generator["prime_amazon_only"] = True
-    generator["pick_count"] = str(article.get("content_html") or "").count('class="wb-product-image"')
-    generator["retailer_mode"] = "amazon-only"
-    article["youtube_short_points"] = [
-        "Amazon product images and current prices verified in the live guide",
-        "Amazon-only Prime Big Deal Days retailer links",
-        "Check the live Amazon page for current Prime eligibility",
-    ]
+    generator["prime_amazon_search_fallback"] = fallback
+    generator["pick_count"] = (
+        min(4, len(PRIME_AMAZON_SEARCHES.get(topic[0]) or ()))
+        if fallback
+        else str(article.get("content_html") or "").count('class="wb-product-image"')
+    )
+    generator["retailer_mode"] = monetisation["retailer_mode"]
+    article["youtube_short_points"] = (
+        [
+            "Tracked Amazon searches for current Prime Big Deal Days options",
+            "No unverified prices or discount claims",
+            "Check the live Amazon page for current Prime eligibility",
+        ]
+        if fallback
+        else [
+            "Amazon product images and current prices verified in the live guide",
+            "Amazon-only Prime Big Deal Days retailer links",
+            "Check the live Amazon page for current Prime eligibility",
+        ]
+    )
     return article
-
-
 def validate_prime_article(article: dict, market: str) -> None:
     content = str(article.get("content_html") or "")
     lowered = content.casefold()
@@ -347,6 +436,23 @@ def validate_prime_article(article: dict, market: str) -> None:
         raise RuntimeError(
             f"Prime event article must contain the tracked Prime signup CTA for {market}"
         )
+    generator = article.get("_generator") or {}
+    if generator.get("prime_amazon_search_fallback"):
+        expected_tag = "worthbuyin008-21" if market == "uk" else "worthbuyingus-20"
+        if lowered.count("/s?k=") < 3:
+            raise RuntimeError(
+                "Prime fallback article must contain at least 3 Amazon search links"
+            )
+        if f"tag={expected_tag}" not in lowered:
+            raise RuntimeError(
+                f"Prime fallback article is missing the Amazon Associate tag for {market}"
+            )
+        if "amazon price checked:" in lowered:
+            raise RuntimeError(
+                "Prime fallback article must not claim a checked Amazon product price"
+            )
+        return
+
     image_count = lowered.count('m.media-amazon.com') + lowered.count('images-na.ssl-images-amazon.com') + lowered.count('images-eu.ssl-images-amazon.com')
     if image_count < 3:
         raise RuntimeError(
