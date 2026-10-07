@@ -1,0 +1,80 @@
+name: Clean Blogger duplicate URLs
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/cleanup-blogger-duplicates.yml"
+      - "cleanup_blogger_duplicates.py"
+      - "tests/test_duplicate_cleanup.py"
+  schedule:
+    - cron: "43 4 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: worth-buying-repo-writes
+  queue: max
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+
+    steps:
+      - name: Check out latest main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Test duplicate cleanup safeguards
+        env:
+          PYTHONPATH: .
+        run: pytest -q tests/test_duplicate_cleanup.py
+
+      - name: Clean UK numeric-suffix duplicates
+        env:
+          PYTHONPATH: .
+          BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_CLIENT_ID }}
+          BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_CLIENT_SECRET }}
+          BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_REFRESH_TOKEN }}
+          BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_BLOG_ID }}
+        run: python cleanup_blogger_duplicates.py --market uk --apply
+
+      - name: Clean USA numeric-suffix duplicates
+        env:
+          PYTHONPATH: .
+          BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_US_CLIENT_ID }}
+          BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_US_CLIENT_SECRET }}
+          BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_US_REFRESH_TOKEN }}
+          BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_US_BLOG_ID }}
+        run: python cleanup_blogger_duplicates.py --market us --apply
+
+      - name: Save repaired publication state
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add state/articles_published.json state/articles_us_published.json
+          if git diff --cached --quiet; then
+            echo "No publication-state repair required."
+            exit 0
+          fi
+
+          git config user.name "worth-buying-seo-cleanup-bot"
+          git config user.email "worth-buying-seo-cleanup-bot@users.noreply.github.com"
+          git commit -m "Repair Blogger duplicate publication state"
+          git pull --rebase origin main
+          git push
