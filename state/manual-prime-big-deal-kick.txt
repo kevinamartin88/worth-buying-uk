@@ -8,3 +8,4 @@
 2026-10-07 19:22 BST - Prime fallback slot 1 after safeguard test fix
 2026-10-07 19:31 BST - retry Prime slot 1 after fallback mode fix
 2026-10-07 19:55 BST - migrate Prime posts to distinct event URLs and publish next slot
+2026-10-07 20:02 BST - run distinct Prime URLs on dedicated event queue
