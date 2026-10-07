@@ -96,16 +96,41 @@
           {
             "status": "published",
             "topic": "tvs"
+          },
+          {
+            "status": "published",
+            "topic": "coffee-machines"
+          },
+          {
+            "status": "published",
+            "topic": "ssds"
           }
         ],
         "published": [
           {
             "action": "refreshed",
             "pick_count": 4,
+            "retailer": "Amazon",
             "slot": 1,
-            "slug": "best-tvs-worth-buying-uk-2026",
+            "slug": "prime-big-deal-days-tvs-uk-2026",
             "title": "Prime Big Deal Days: TVs Worth Comparing in the UK (2026)",
             "topic": "tvs"
+          },
+          {
+            "action": "created",
+            "pick_count": 4,
+            "slot": 2,
+            "slug": "prime-big-deal-days-coffee-machines-uk-2026",
+            "title": "Prime Big Deal Days: Coffee Machines Worth Comparing in the UK (2026)",
+            "topic": "coffee-machines"
+          },
+          {
+            "action": "created",
+            "pick_count": 4,
+            "slot": 3,
+            "slug": "prime-big-deal-days-ssds-uk-2026",
+            "title": "Prime Big Deal Days: Solid-State Drives Worth Comparing in the UK (2026)",
+            "topic": "ssds"
           }
         ]
       },
@@ -114,16 +139,41 @@
           {
             "status": "published",
             "topic": "tvs"
+          },
+          {
+            "status": "published",
+            "topic": "coffee-machines"
+          },
+          {
+            "status": "published",
+            "topic": "ssds"
           }
         ],
         "published": [
           {
             "action": "refreshed",
             "pick_count": 4,
+            "retailer": "Amazon",
             "slot": 1,
-            "slug": "best-tvs-worth-buying-us-2026",
+            "slug": "prime-big-deal-days-tvs-us-2026",
             "title": "Prime Big Deal Days: TVs Worth Comparing in the USA (2026)",
             "topic": "tvs"
+          },
+          {
+            "action": "created",
+            "pick_count": 4,
+            "slot": 2,
+            "slug": "prime-big-deal-days-coffee-machines-us-2026",
+            "title": "Prime Big Deal Days: Coffee Makers Worth Comparing in the USA (2026)",
+            "topic": "coffee-machines"
+          },
+          {
+            "action": "created",
+            "pick_count": 4,
+            "slot": 3,
+            "slug": "prime-big-deal-days-ssds-us-2026",
+            "title": "Prime Big Deal Days: Solid-State Drives Worth Comparing in the USA (2026)",
+            "topic": "ssds"
           }
         ]
       }
