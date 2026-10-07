@@ -152,7 +152,7 @@ def test_missing_amazon_credentials_publish_safe_search_fallback(monkeypatch, tm
     assert len(market["published"]) == 1
     assert market["attempted"] == [{"topic": "tvs", "status": "published"}]
 
-    article_path = tmp_path / "articles" / "best-tvs-worth-buying-uk-2026.json"
+    article_path = tmp_path / "articles" / "prime-big-deal-days-tvs-uk-2026.json"
     article = prime.load_json(article_path)
     assert article["_generator"]["prime_amazon_search_fallback"] is True
     assert article["_monetisation"]["retailer_mode"] == "amazon-search-fallback"
