@@ -13,7 +13,7 @@ from urllib.parse import quote_plus, urlsplit
 
 from src.amazon_creators import AmazonCreatorsClient
 from src.ebay import EbayClient
-from src.product_image_quality import product_image_html
+from src.product_image_quality import checked_product_image, product_image_html
 from src.price_tracking import refresh_tracked_prices
 from src.google_trends import rank_topics_by_trends, trend_keyword_for_title
 from src.google_shopping_trends import rank_topics_by_google_shopping
@@ -1144,12 +1144,16 @@ def _record_price_history(items: list[dict], market: str, article_slug: str) -> 
 def current_picks(market: str, query: str, max_price: float, slug: str) -> list[dict]:
     expected_currency = "GBP" if market == "uk" else "USD"
     client = EbayClient.for_market(market)
+
+    # Pull a broad candidate pool so a missing/bad product photo never causes
+    # the article to fail or settle for an imageless product. We keep scanning
+    # until four suitable products with verified retailer images are found.
     results = client.search(
         query=query,
         max_price=max_price,
         require_free_shipping=False,
         affiliate_reference=f"daily-{slug}"[:256],
-        limit=40,
+        limit=100,
     )
 
     scored: list[tuple[float, dict]] = []
@@ -1169,36 +1173,90 @@ def current_picks(market: str, query: str, max_price: float, slug: str) -> list[
         scored.append((score, enriched))
 
     scored.sort(key=lambda pair: pair[0], reverse=True)
-    shortlist = [item for _, item in scored[:8]]
+    candidates = [item for _, item in scored]
+
+    verified: list[dict] = []
     if market == "us":
-        from src.product_image_quality import checked_product_image
         import requests
-        verified = []
-        for summary in shortlist:
+
+        for summary in candidates:
             item_id = str(summary.get("itemId") or "")
             if not item_id:
                 continue
             try:
-                item = client.get_item(item_id, affiliate_reference=f"daily-{slug}")
+                item = client.get_item(
+                    item_id,
+                    affiliate_reference=f"daily-{slug}",
+                )
             except requests.HTTPError as exc:
                 if exc.response is not None and exc.response.status_code in (404, 410):
                     continue
                 raise
-            if item.get("itemId") != item_id or not live_listing(item, datetime.now(timezone.utc)):
+
+            if item.get("itemId") != item_id or not live_listing(
+                item, datetime.now(timezone.utc)
+            ):
                 continue
-            score = listing_score(item, max_price, expected_currency, query=query)
+
+            score = listing_score(
+                item,
+                max_price,
+                expected_currency,
+                query=query,
+            )
             if score is None:
                 continue
-            try:
-                image, _, _ = checked_product_image(item["image"]["imageUrl"])
-            except (KeyError, RuntimeError):
+
+            image_url = str(
+                ((item.get("image") or {}).get("imageUrl") or "")
+            ).strip()
+            if not image_url:
                 continue
-            item["image"]["imageUrl"] = image
+            try:
+                image_url, _, _ = checked_product_image(image_url)
+            except (RuntimeError, ValueError):
+                print(
+                    f"[daily-image-skip] US {item_id}: unusable or missing product image"
+                )
+                continue
+
+            item.setdefault("image", {})["imageUrl"] = image_url
             item["_worthbuying_score"] = score
             verified.append(item)
-        shortlist = verified
-    _record_price_history(shortlist, market, slug)
-    return shortlist[:4]
+            if len(verified) >= 4:
+                break
+    else:
+        for item in candidates:
+            item_id = str(item.get("itemId") or "")
+            image_url = str(
+                ((item.get("image") or {}).get("imageUrl") or "")
+            ).strip()
+            if not image_url:
+                continue
+            try:
+                image_url, _, _ = checked_product_image(image_url)
+            except (RuntimeError, ValueError):
+                print(
+                    f"[daily-image-skip] UK {item_id or 'listing'}: "
+                    "unusable or missing product image"
+                )
+                continue
+
+            item.setdefault("image", {})["imageUrl"] = image_url
+            verified.append(item)
+            if len(verified) >= 4:
+                break
+
+    if len(verified) < 3:
+        print(
+            f"[daily-image-fallback] {market.upper()}: only {len(verified)} "
+            "suitable image-backed product(s) found after checking the full "
+            "candidate pool; publishing the normal retailer-search fallback "
+            "instead of failing the daily blog."
+        )
+
+    _record_price_history(verified, market, slug)
+    return verified[:4]
 
 
 def amazon_model_query(title: str, fallback_query: str) -> tuple[str, bool]:
