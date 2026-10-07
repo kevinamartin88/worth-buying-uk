@@ -110,10 +110,12 @@ def test_choice_furniture_is_prioritized_for_uk_roundups():
     assert len(ranked[: generator.MAX_PRODUCTS]) == generator.MAX_PRODUCTS
 
 
-def test_choice_furniture_topics_are_searched_first_for_uk():
+def test_newly_approved_uk_merchants_topics_are_searched_first():
     topics = generator.candidate_topics(10, [], "uk")
 
-    assert [topic[0] for topic in topics[:5]] == [
+    assert [topic[0] for topic in topics[:7]] == [
+        "skirting-boards",
+        "wall-panels",
         "dining-tables",
         "coffee-tables",
         "bed-frames",
@@ -259,3 +261,89 @@ def test_air_purifier_gate_rejects_filters_and_refills():
 
     assert [product.name for product in matches] == ["High Performance Personal Air Purifier"]
 
+
+
+def test_skirting_world_and_walls_panels_world_are_preferred_uk_merchants():
+    offers = products(3) + [
+        RakutenProduct(
+            name="MDF Skirting Board Ogee Profile",
+            merchant="Skirting World",
+            url="https://click.linksynergy.com/deeplink?id=skirting&mid=1001",
+            price="24.99",
+            currency="GBP",
+            advertiser_id="1001",
+        ),
+        RakutenProduct(
+            name="Oak Slat Wall Panel",
+            merchant="Walls Panels World",
+            url="https://click.linksynergy.com/deeplink?id=panels&mid=1002",
+            price="69.99",
+            currency="GBP",
+            advertiser_id="1002",
+        ),
+    ]
+
+    ranked = generator.prioritize_products(offers, "uk")
+
+    assert ranked[0].merchant in {"Skirting World", "Walls Panels World"}
+    assert ranked[1].merchant in {"Skirting World", "Walls Panels World"}
+
+
+def test_skirting_board_gate_rejects_samples_and_fixings():
+    feed = [
+        RakutenProduct(
+            name="Ogee MDF Skirting Board 3m",
+            merchant="Skirting World",
+            url="https://click.linksynergy.com/deeplink?id=board",
+            price="28.00",
+            currency="GBP",
+        ),
+        RakutenProduct(
+            name="Skirting Board Sample",
+            merchant="Skirting World",
+            url="https://click.linksynergy.com/deeplink?id=sample",
+            price="1.00",
+            currency="GBP",
+        ),
+        RakutenProduct(
+            name="Skirting Board Adhesive",
+            merchant="Skirting World",
+            url="https://click.linksynergy.com/deeplink?id=glue",
+            price="7.00",
+            currency="GBP",
+        ),
+    ]
+
+    matches = generator.relevant_products(feed, "skirting board", "skirting-boards")
+
+    assert [product.name for product in matches] == ["Ogee MDF Skirting Board 3m"]
+
+
+def test_wall_panel_gate_rejects_samples_and_trims():
+    feed = [
+        RakutenProduct(
+            name="Acoustic Slat Wall Panel Walnut",
+            merchant="Walls Panels World",
+            url="https://click.linksynergy.com/deeplink?id=panel",
+            price="79.00",
+            currency="GBP",
+        ),
+        RakutenProduct(
+            name="Wall Panel Sample",
+            merchant="Walls Panels World",
+            url="https://click.linksynergy.com/deeplink?id=sample",
+            price="2.00",
+            currency="GBP",
+        ),
+        RakutenProduct(
+            name="Wall Panel Corner Trim",
+            merchant="Walls Panels World",
+            url="https://click.linksynergy.com/deeplink?id=trim",
+            price="9.00",
+            currency="GBP",
+        ),
+    ]
+
+    matches = generator.relevant_products(feed, "wall panel", "wall-panels")
+
+    assert [product.name for product in matches] == ["Acoustic Slat Wall Panel Walnut"]
