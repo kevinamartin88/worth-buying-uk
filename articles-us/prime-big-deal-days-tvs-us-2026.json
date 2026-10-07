@@ -65,8 +65,7 @@
     "daily_featured_date": "2026-10-07",
     "promotion_token": "2026-10-07:prime-big-deal-days:us:prime-big-deal-days-tvs-us-2026",
     "return_to_top": true,
-    "is_refresh": true,
-    "recovery_publish_token": "prime-event-recovery-2026-10-07-us"
+    "is_refresh": true
   },
   "_generator": {
     "market": "us",

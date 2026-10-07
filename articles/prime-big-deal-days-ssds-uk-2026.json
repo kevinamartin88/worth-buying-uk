@@ -65,7 +65,7 @@
     "daily_featured_date": "2026-10-07",
     "promotion_token": "2026-10-07:prime-big-deal-days:uk:prime-big-deal-days-ssds-uk-2026",
     "return_to_top": true,
-    "is_refresh": false
+    "is_refresh": true
   },
   "_generator": {
     "market": "uk",
