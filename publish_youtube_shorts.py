@@ -6,6 +6,7 @@ import os
 import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 from src.youtube import YouTubeClient
 from src.youtube_shorts import (
@@ -53,9 +54,15 @@ def save_json(path: Path, value) -> None:
     )
 
 
-def eligible_articles(market: str, only_slug: str | None = None):
+def eligible_articles(
+    market: str,
+    only_slug: str | None = None,
+    today_only: bool = False,
+):
     config = CONFIG[market]
     blogger_state = load_json(config["blogger_state"], {})
+    market_timezone = "Europe/London" if market == "uk" else "America/New_York"
+    today = datetime.now(ZoneInfo(market_timezone)).date().isoformat()
     for article_path in sorted(config["articles"].glob("*.json")):
         article = load_json(article_path, {})
         slug = str(article.get("slug", ""))
@@ -66,6 +73,8 @@ def eligible_articles(market: str, only_slug: str | None = None):
         if article.get("mode", "publish").strip().lower() != "publish":
             continue
         if post.get("status") != "published" or not blog_url:
+            continue
+        if today_only and str(post.get("daily_featured_date") or "") != today:
             continue
         yield article, blog_url
 
@@ -95,6 +104,11 @@ def main() -> None:
     parser.add_argument("--article", help="Generate/upload only this article slug")
     parser.add_argument("--dry-run", action="store_true", help="Render but do not upload")
     parser.add_argument("--backfill", action="store_true", help="Allow existing articles to upload")
+    parser.add_argument(
+        "--today-only",
+        action="store_true",
+        help="Upload only articles confirmed by Blogger state as featured today",
+    )
     args = parser.parse_args()
 
     market = args.market
@@ -123,7 +137,7 @@ def main() -> None:
         channel = client.verify_channel(config["channel_id"])
         print(f"[youtube-channel] {channel['snippet']['title']} ({channel['id']})")
 
-    candidates = list(eligible_articles(market, args.article))
+    candidates = list(eligible_articles(market, args.article, args.today_only))
     if args.article and not candidates:
         raise RuntimeError(
             f"Article {args.article!r} has no confirmed published Blogger URL for {market.upper()}."
