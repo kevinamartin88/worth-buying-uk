@@ -34,30 +34,49 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Generate Prime hero images
-        continue-on-error: true
+      - name: Generate missing USA Prime hero images
         env:
           PYTHONPATH: .
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        run: |
-          python generate_ai_visuals.py --market uk
-          python generate_ai_visuals.py --market us
+        run: python generate_ai_visuals.py --market us
 
-      - name: Save Prime hero images
+      - name: Save USA Prime hero images safely
         shell: bash
         run: |
           set -euo pipefail
-          git add assets/ai/uk assets/ai/us
-          if git diff --cached --quiet; then
-            echo "No Prime hero image changes to commit."
-          else
-            git config user.name "worth-buying-prime-recovery-bot"
-            git config user.email "worth-buying-prime-recovery-bot@users.noreply.github.com"
-            git commit -m "Add Prime recovery hero images"
-            git pull --rebase origin main
-            git push
+          SNAPSHOT_DIR="$(mktemp -d)"
+          mkdir -p "$SNAPSHOT_DIR"
+          cp assets/ai/us/prime-big-deal-days-* "$SNAPSHOT_DIR/" 2>/dev/null || true
+
+          if ! compgen -G "$SNAPSHOT_DIR/prime-big-deal-days-*" > /dev/null; then
+            echo "No USA Prime hero images were generated."
+            exit 1
           fi
+
+          git config user.name "worth-buying-prime-recovery-bot"
+          git config user.email "worth-buying-prime-recovery-bot@users.noreply.github.com"
+
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            mkdir -p assets/ai/us
+            cp "$SNAPSHOT_DIR"/prime-big-deal-days-* assets/ai/us/
+            git add assets/ai/us/prime-big-deal-days-*
+
+            if git diff --cached --quiet; then
+              echo "USA Prime hero images already present on main."
+              exit 0
+            fi
+
+            git commit -m "Add USA Prime recovery hero images"
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+          done
+
+          echo "Could not save USA Prime hero images after 3 attempts."
+          exit 1
 
       - name: Verify UK Blogger
         id: uk_preflight
