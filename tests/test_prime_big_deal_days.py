@@ -117,7 +117,7 @@ def test_prime_validation_requires_amazon_product_images():
     prime.validate_prime_article(article, "uk")
 
 
-def test_missing_amazon_credentials_remain_retryable(monkeypatch, tmp_path):
+def test_missing_amazon_credentials_publish_safe_search_fallback(monkeypatch, tmp_path):
     state = {}
     base = {
         "slug": "best-tvs-worth-buying-uk-2026",
@@ -145,10 +145,20 @@ def test_missing_amazon_credentials_remain_retryable(monkeypatch, tmp_path):
         year=2026,
     )
 
-    assert row is None
+    assert row is not None
+    assert row["slot"] == 1
+    assert row["topic"] == "tvs"
     market = state["days"]["2026-10-07"]["uk"]
-    assert market["published"] == []
-    assert market["attempted"] == []
+    assert len(market["published"]) == 1
+    assert market["attempted"] == [{"topic": "tvs", "status": "published"}]
+
+    article_path = tmp_path / "articles" / "best-tvs-worth-buying-uk-2026.json"
+    article = prime.load_json(article_path)
+    assert article["_generator"]["prime_amazon_search_fallback"] is True
+    assert article["_monetisation"]["retailer_mode"] == "amazon-search-fallback"
+    assert article["content_html"].count("amazon.co.uk/s?k=") >= 3
+    assert "tag=worthbuyin008-21" in article["content_html"]
+    assert "Amazon price checked:" not in article["content_html"]
 
 
 def test_retryable_error_classifier_is_narrow():
