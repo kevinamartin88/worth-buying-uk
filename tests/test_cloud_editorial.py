@@ -84,6 +84,35 @@ class CloudEditorialTests(unittest.TestCase):
         for title in ("Air fryer", "Air fryer 10L", "Air fryer 4L replacement basket"):
             self.assertFalse(c.eligible({**item, "title": title}, group, "us"))
 
+    def test_collect_retries_broader_queries_without_accepting_wrong_capacity(self):
+        group = {"label": "small fryers", "query": "narrow",
+                 "fallback_queries": ["broader"], "match": "air fryer",
+                 "capacity": True, "ceiling": {"uk": 80, "us": 90}}
+        good = {"itemId": "good", "title": "Air fryer 3L",
+                "price": {"currency": "GBP"}, "image": {"imageUrl": "photo"}}
+        class Client:
+            @staticmethod
+            def for_market(market):
+                return Client()
+            def get_item(self, item_id, affiliate_reference):
+                return good
+        daily = types.ModuleType("generate_daily_articles")
+        daily.current_picks = lambda market, query, ceiling, slug: (
+            [{"itemId": "bad", "title": "Air fryer 10L"}] if query == "narrow"
+            else [good])
+        daily.listing_score = lambda *args, **kwargs: 1
+        ebay = types.ModuleType("src.ebay")
+        ebay.EbayClient = Client
+        quality = types.ModuleType("src.product_image_quality")
+        quality.checked_product_image = lambda url: (url, None, None)
+        with patch.dict(sys.modules, {"generate_daily_articles": daily,
+                                      "src.ebay": ebay,
+                                      "src.product_image_quality": quality}):
+            picks = c.collect({"groups": [group]}, "uk", "test")
+        self.assertEqual(len(picks), 1)
+        self.assertEqual(picks[0]["item"]["itemId"], "good")
+        self.assertEqual(picks[0]["query"], "broader")
+
     def test_tagged_links_stay_in_the_right_market(self):
         url = c.tagged_url("https://www.worthbuyingusa.com/guide?utm_source=old", "us")
         self.assertEqual(url.count("utm_source="), 1)
