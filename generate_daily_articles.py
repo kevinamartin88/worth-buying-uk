@@ -1758,6 +1758,7 @@ def build_article(
     trend_signal: dict | None = None,
     gsc_signal: dict | None = None,
     demand_score: float | None = None,
+    is_refresh: bool = False,
 ) -> dict:
     topic = localise_topic(topic, market)
     key, display, query, max_uk, max_us, category, kicker = topic
@@ -1832,9 +1833,10 @@ def build_article(
         if market == "uk"
         else f"{checked_at.strftime('%B')} {checked_at.day}, {checked_at.year}"
     )
+    daily_freshness_label = "UPDATED DAILY GUIDE" if is_refresh else "NEW DAILY GUIDE"
     daily_freshness = (
         '<p class="wb-daily-freshness"><strong>'
-        + html.escape(f"NEW DAILY GUIDE · {daily_guide_date.upper()}")
+        + html.escape(f"{daily_freshness_label} · {daily_guide_date.upper()}")
         + "</strong></p>\n"
     )
 
@@ -1927,7 +1929,7 @@ def build_article(
             "daily_featured_date": checked_at.date().isoformat(),
             "promotion_token": f"{checked_at.date().isoformat()}:{market}:{slug}",
             "return_to_top": True,
-            "is_refresh": False,
+            "is_refresh": bool(is_refresh),
         },
         "_generator": {
             "market": market,
@@ -1988,6 +1990,10 @@ def main() -> None:
             article_dir, year, weekday, market, month=now.month
         )
 
+        planned_slug = evergreen_article_slug(topic[0], market)
+        planned_target = article_dir / f"{planned_slug}.json"
+        refreshing = planned_target.exists()
+
         article = build_article(
             topic,
             market,
@@ -1995,9 +2001,9 @@ def main() -> None:
             trend_signal=trend_signal,
             gsc_signal=gsc_signal,
             demand_score=demand_score,
+            is_refresh=refreshing,
         )
         target = article_dir / f"{article['slug']}.json"
-        refreshing = target.exists()
         article.setdefault("_promotion", {})["is_refresh"] = refreshing
         article["_promotion"]["promotion_token"] = f"{today}:{market}:{article['slug']}"
 
