@@ -1141,6 +1141,130 @@ def _record_price_history(items: list[dict], market: str, article_slug: str) -> 
     save_json(PRICE_HISTORY_PATH, state)
 
 
+SMARTWATCH_BRANDS = (
+    "apple",
+    "samsung",
+    "garmin",
+    "fitbit",
+    "google",
+    "amazfit",
+    "huawei",
+    "xiaomi",
+    "polar",
+    "oneplus",
+    "withings",
+)
+
+SMARTWATCH_COLOUR_WORDS = {
+    "black", "white", "silver", "gold", "rose", "pink", "blue", "green",
+    "grey", "gray", "graphite", "cream", "beige", "red", "purple",
+    "orange", "navy", "midnight", "starlight", "titanium",
+}
+
+
+def _smartwatch_brand(title: str) -> str:
+    text = normalise(title)
+    for brand in SMARTWATCH_BRANDS:
+        if re.search(r"\b" + re.escape(brand) + r"\b", text):
+            return brand
+    words = text.split()
+    return words[0] if words else "unknown"
+
+
+def _smartwatch_model_key(title: str) -> str:
+    """Collapse colour/strap/storage variants of the same smartwatch model."""
+    text = normalise(title)
+    brand = _smartwatch_brand(text)
+
+    patterns = (
+        r"apple\s+watch\s+(?:series\s+\d+|se(?:\s+\d+)?|ultra(?:\s+\d+)?)",
+        r"samsung\s+galaxy\s+watch\s*\d+(?:\s+(?:classic|ultra|fe))?",
+        r"google\s+pixel\s+watch\s*\d+",
+        r"fitbit\s+(?:versa|sense|charge)\s*\d*",
+        r"garmin\s+(?:venu|forerunner|fenix|epix|vivoactive|instinct)\s*[a-z0-9+-]*",
+        r"amazfit\s+(?:active|gtr|gts|balance|bip|t-rex)\s*[a-z0-9+-]*",
+        r"huawei\s+watch\s+[a-z0-9+-]+(?:\s+[a-z0-9+-]+)?",
+        r"xiaomi\s+watch\s+[a-z0-9+-]+(?:\s+[a-z0-9+-]+)?",
+        r"oneplus\s+watch\s*[a-z0-9+-]*",
+        r"withings\s+(?:scanwatch|steel\s+hr)\s*[a-z0-9+-]*",
+    )
+    for pattern in patterns:
+        match = re.search(pattern, text, re.I)
+        if match:
+            return " ".join(match.group(0).casefold().split())
+
+    # Fall back to a normalized title with common variant-only words removed.
+    tokens = []
+    for token in re.findall(r"[a-z0-9+-]+", text.casefold()):
+        if token in SMARTWATCH_COLOUR_WORDS:
+            continue
+        if re.fullmatch(r"\d{2,3}mm", token):
+            continue
+        if token in {"bluetooth", "lte", "gps", "wifi", "cellular", "smartwatch",
+                     "watch", "strap", "band", "boxed", "new", "refurbished"}:
+            continue
+        tokens.append(token)
+    return f"{brand}:" + " ".join(tokens[:7])
+
+
+def diversify_smartwatch_picks(items: list[dict], query: str, limit: int = 4) -> list[dict]:
+    """Prefer model and brand variety for smartwatch guides.
+
+    All items passed the normal listing/image checks before reaching this point.
+    Apple is included when available, then distinct brands are favoured before
+    any brand receives a second slot. A brand can never occupy more than two
+    positions in the final four.
+    """
+    if "smartwatch" not in normalise(query):
+        return items[:limit]
+
+    unique: list[dict] = []
+    seen_models: set[str] = set()
+    for item in items:
+        model = _smartwatch_model_key(str(item.get("title") or ""))
+        if model in seen_models:
+            continue
+        seen_models.add(model)
+        unique.append(item)
+
+    selected: list[dict] = []
+    brand_counts: dict[str, int] = {}
+
+    def add(item: dict) -> bool:
+        if item in selected:
+            return False
+        brand = _smartwatch_brand(str(item.get("title") or ""))
+        if brand_counts.get(brand, 0) >= 2:
+            return False
+        selected.append(item)
+        brand_counts[brand] = brand_counts.get(brand, 0) + 1
+        return True
+
+    # A qualifying Apple Watch should be represented in a generic smartwatch guide.
+    apple = next(
+        (item for item in unique if _smartwatch_brand(str(item.get("title") or "")) == "apple"),
+        None,
+    )
+    if apple is not None:
+        add(apple)
+
+    # First pass: maximize the number of brands represented.
+    for item in unique:
+        brand = _smartwatch_brand(str(item.get("title") or ""))
+        if brand_counts.get(brand, 0) == 0:
+            add(item)
+        if len(selected) >= limit:
+            return selected[:limit]
+
+    # Second pass: fill remaining slots by score/order, max two per brand.
+    for item in unique:
+        add(item)
+        if len(selected) >= limit:
+            break
+
+    return selected[:limit]
+
+
 def current_picks(market: str, query: str, max_price: float, slug: str) -> list[dict]:
     expected_currency = "GBP" if market == "uk" else "USD"
     client = EbayClient.for_market(market)
@@ -1223,7 +1347,8 @@ def current_picks(market: str, query: str, max_price: float, slug: str) -> list[
             item.setdefault("image", {})["imageUrl"] = image_url
             item["_worthbuying_score"] = score
             verified.append(item)
-            if len(verified) >= 4:
+            target_pool = 12 if "smartwatch" in normalise(query) else 4
+            if len(verified) >= target_pool:
                 break
     else:
         for item in candidates:
@@ -1244,8 +1369,11 @@ def current_picks(market: str, query: str, max_price: float, slug: str) -> list[
 
             item.setdefault("image", {})["imageUrl"] = image_url
             verified.append(item)
-            if len(verified) >= 4:
+            target_pool = 20 if "smartwatch" in normalise(query) else 4
+            if len(verified) >= target_pool:
                 break
+
+    verified = diversify_smartwatch_picks(verified, query, limit=4)
 
     if len(verified) < 3:
         print(
