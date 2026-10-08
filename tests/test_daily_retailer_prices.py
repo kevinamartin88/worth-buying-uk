@@ -162,3 +162,46 @@ def test_corrected_air_fryer_article_uses_valid_retailer_links_for_its_mode():
     # and keep the known direct eBay product link used by this regression fixture.
     assert not any("amazon.co.uk/s?" in url for url in parser.urls)
     assert sum("ebay.co.uk/itm/358703800622" in url for url in parser.urls) == 2
+
+
+def test_colour_only_product_variants_share_one_fingerprint():
+    black = daily.listing_variant_fingerprint(
+        "Dyson V15 Detect Cordless Vacuum Cleaner - Black",
+        "cordless vacuum cleaner",
+    )
+    blue = daily.listing_variant_fingerprint(
+        "Dyson V15 Detect Cordless Vacuum Cleaner - Blue",
+        "cordless vacuum cleaner",
+    )
+    assert black == blue
+
+
+def test_colour_word_in_actual_query_is_not_discarded():
+    white = daily.listing_variant_fingerprint(
+        "Portable White Noise Machine with Night Light",
+        "white noise machine",
+    )
+    black = daily.listing_variant_fingerprint(
+        "Portable Black Noise Machine with Night Light",
+        "white noise machine",
+    )
+    assert white != black
+
+
+def test_smartwatch_variety_prefers_apple_and_distinct_models():
+    rows = [
+        {"title": "Samsung Galaxy Watch 6 40mm Bluetooth Smartwatch Black"},
+        {"title": "Samsung Galaxy Watch 6 40mm Bluetooth Smartwatch Silver"},
+        {"title": "Samsung Galaxy Watch5 40mm GPS Smartwatch Rose Gold"},
+        {"title": "Apple Watch Series 6 40mm Smartwatch Black"},
+        {"title": "Amazfit Active 2 GPS Smartwatch Black"},
+        {"title": "Garmin Venu 3 GPS Smartwatch Black"},
+    ]
+
+    selected = daily.diversify_smartwatch_picks(rows, "smartwatch", limit=4)
+    titles = [row["title"] for row in selected]
+
+    assert any(title.startswith("Apple Watch") for title in titles)
+    assert sum("Galaxy Watch 6" in title for title in titles) == 1
+    assert sum(title.startswith("Samsung") for title in titles) <= 2
+    assert len({daily._smartwatch_brand(title) for title in titles}) >= 3
