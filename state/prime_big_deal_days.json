@@ -1,4 +1,9 @@
 {
+  "cleanup": {
+    "articles_restored": 12,
+    "completed": true,
+    "date": "2026-10-08"
+  },
   "days": {
     "2026-10-06": {
       "uk": {
