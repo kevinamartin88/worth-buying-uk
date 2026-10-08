@@ -1,14 +1,21 @@
-name: Repair USA smartwatch image
+name: Repair smartwatch hero images
+
 on:
   workflow_dispatch:
   push:
     branches: [main]
     paths:
       - 'repair_smartwatch_hero.py'
+      - 'tests/test_smartwatch_hero.py'
+      - 'src/curated_visuals.py'
+      - 'assets/ai/curated-backgrounds.json'
       - '.github/workflows/repair-smartwatch-hero.yml'
+      - 'assets/ai/uk/best-smartwatches-worth-buying-uk.jpg'
       - 'assets/ai/us/best-smartwatches-worth-buying-us.jpg'
+
 permissions:
   contents: read
+
 jobs:
   repair:
     runs-on: ubuntu-latest
@@ -17,11 +24,17 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - market: uk
+            client_id: BLOGGER_CLIENT_ID
+            client_secret: BLOGGER_CLIENT_SECRET
+            refresh_token: BLOGGER_REFRESH_TOKEN
+            blog_id: BLOGGER_BLOG_ID
           - market: us
             client_id: BLOGGER_US_CLIENT_ID
             client_secret: BLOGGER_US_CLIENT_SECRET
             refresh_token: BLOGGER_US_REFRESH_TOKEN
             blog_id: BLOGGER_US_BLOG_ID
+
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
@@ -29,10 +42,17 @@ jobs:
           python-version: '3.12'
           cache: pip
       - run: pip install -r requirements.txt
-      - name: Test reviewed photo and image replacement safeguards
+
+      - name: Test reviewed digital smartwatch safeguards
         env:
           PYTHONPATH: .
-        run: pytest -q tests/test_curated_visuals.py tests/test_article_images.py tests/test_ai_visuals.py
+        run: >
+          pytest -q
+          tests/test_smartwatch_hero.py
+          tests/test_curated_visuals.py
+          tests/test_article_images.py
+          tests/test_ai_visuals.py
+
       - name: Replace and verify the existing article image
         env:
           PYTHONPATH: .

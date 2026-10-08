@@ -19,6 +19,8 @@ def configuration(market, slug):
         return explicit
     if re.search(r'air[- ]?fryers?', str(slug), re.I):
         return config.get('air-fryer-defaults', {}).get(market)
+    if re.search(r'smart[- ]?watches?', str(slug), re.I):
+        return config.get('smartwatch-defaults', {}).get(market)
     return None
 
 

@@ -25,5 +25,17 @@
     "path": "assets/ai/backgrounds/reviewed-digital-smartwatch.jpg",
     "sha256": "0eec799f058299f44b29b6a27b15f4daeff856a78dc6b3239453af11b7e0cd57",
     "reviewed_subject": "Digital touchscreen smartwatch with activity rings and silicone band; no analog dial"
+  },
+  "smartwatch-defaults": {
+    "uk": {
+      "path": "assets/ai/backgrounds/reviewed-digital-smartwatch.jpg",
+      "sha256": "0eec799f058299f44b29b6a27b15f4daeff856a78dc6b3239453af11b7e0cd57",
+      "reviewed_subject": "Digital touchscreen smartwatch with activity rings and silicone band; no analog dial"
+    },
+    "us": {
+      "path": "assets/ai/backgrounds/reviewed-digital-smartwatch.jpg",
+      "sha256": "0eec799f058299f44b29b6a27b15f4daeff856a78dc6b3239453af11b7e0cd57",
+      "reviewed_subject": "Digital touchscreen smartwatch with activity rings and silicone band; no analog dial"
+    }
   }
 }
