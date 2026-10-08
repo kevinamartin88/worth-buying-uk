@@ -34,3 +34,14 @@ def test_manual_topic_refresh_saves_generated_state_atomically():
     assert 'python scripts/refresh_daily_topic.py' in text
     assert 'git pull --rebase origin main' not in text
     assert 'git push origin HEAD:main' in text
+
+
+def test_core_content_generators_stage_all_tracked_state_before_rebase():
+    for name in (
+        'daily-article-creator.yml',
+        'prime-big-deal-days.yml',
+        'rakuten-article-creator.yml',
+    ):
+        text = (ROOT / '.github/workflows' / name).read_text()
+        assert 'git add -u state' in text
+        assert 'Unexpected unstaged tracked changes would make the automated rebase unsafe' in text
