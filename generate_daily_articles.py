@@ -1155,11 +1155,30 @@ SMARTWATCH_BRANDS = (
     "withings",
 )
 
-SMARTWATCH_COLOUR_WORDS = {
+COLOUR_VARIANT_WORDS = {
     "black", "white", "silver", "gold", "rose", "pink", "blue", "green",
     "grey", "gray", "graphite", "cream", "beige", "red", "purple",
-    "orange", "navy", "midnight", "starlight", "titanium",
+    "orange", "navy", "midnight", "starlight", "titanium", "bronze",
+    "brown", "charcoal", "yellow", "aqua", "teal", "burgundy",
 }
+
+
+def listing_variant_fingerprint(title: str, query: str) -> str:
+    """Normalize retailer titles so colour-only variants cannot fill multiple slots.
+
+    Query words are protected: if a colour word is part of the actual shopping
+    topic (for example "white noise machine"), it remains meaningful rather
+    than being stripped as a cosmetic variant.
+    """
+    query_tokens = set(re.findall(r"[a-z0-9+-]+", normalise(query)))
+    tokens = []
+    for token in re.findall(r"[a-z0-9+-]+", normalise(title)):
+        if token in {"colour", "color", "colours", "colors"}:
+            continue
+        if token in COLOUR_VARIANT_WORDS and token not in query_tokens:
+            continue
+        tokens.append(token)
+    return " ".join(tokens[:12])
 
 
 def _smartwatch_brand(title: str) -> str:
@@ -1196,7 +1215,7 @@ def _smartwatch_model_key(title: str) -> str:
     # Fall back to a normalized title with common variant-only words removed.
     tokens = []
     for token in re.findall(r"[a-z0-9+-]+", text.casefold()):
-        if token in SMARTWATCH_COLOUR_WORDS:
+        if token in COLOUR_VARIANT_WORDS:
             continue
         if re.fullmatch(r"\d{2,3}mm", token):
             continue
@@ -1281,23 +1300,30 @@ def current_picks(market: str, query: str, max_price: float, slug: str) -> list[
     )
 
     scored: list[tuple[float, dict]] = []
-    seen: set[str] = set()
 
     for item in results:
         score = listing_score(item, max_price, expected_currency, query=query)
         if score is None:
             continue
 
-        fingerprint = " ".join(normalise(str(item.get("title", ""))).split()[:8])
-        if not fingerprint or fingerprint in seen:
-            continue
-        seen.add(fingerprint)
         enriched = dict(item)
         enriched["_worthbuying_score"] = score
         scored.append((score, enriched))
 
+    # Sort first so when retailer feeds contain the same product in several
+    # colours, we retain the strongest listing rather than whichever colour
+    # happened to appear first in the API response.
     scored.sort(key=lambda pair: pair[0], reverse=True)
-    candidates = [item for _, item in scored]
+    candidates: list[dict] = []
+    seen_variants: set[str] = set()
+    for _, item in scored:
+        fingerprint = listing_variant_fingerprint(
+            str(item.get("title") or ""), query
+        )
+        if not fingerprint or fingerprint in seen_variants:
+            continue
+        seen_variants.add(fingerprint)
+        candidates.append(item)
 
     verified: list[dict] = []
     if market == "us":
