@@ -272,12 +272,12 @@
   },
   "best-smartwatches-worth-buying-uk": {
     "buffer_channel_id": "6aa84d4aea19ca0bde41a0a4",
-    "buffer_post_id": "6ac702c195b0fb1c5cc7b5fb",
-    "buffer_sent_at": "2026-10-08T02:41:07.179Z",
+    "buffer_post_id": "6ac77dbd444a36d3be1cc5f5",
+    "buffer_sent_at": "2026-10-08T11:25:50.689Z",
     "buffer_status": "sent",
     "image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/uk/best-smartwatches-worth-buying-uk.jpg",
-    "promotion_token": "2026-10-08:uk:best-smartwatches-worth-buying-uk",
-    "source_sha": "2026-10-08-smartwatches-uk-daily-v6",
+    "promotion_token": "2026-10-08:uk:best-smartwatches-worth-buying-uk:manual-topic-refresh-v1",
+    "source_sha": "2026-10-08-smartwatches-uk-daily-v7-variety-refresh",
     "title": "Best Smartwatches Worth Buying in the UK (2026)",
     "url": "https://www.worthbuyinguk.co.uk/2026/10/best-smartwatches-worth-buying-in-uk.html"
   },
