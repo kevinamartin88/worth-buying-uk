@@ -1,0 +1,107 @@
+name: Manual daily topic refresh
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'state/manual-topic-refresh.txt'
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: worth-buying-repo-writes
+  queue: max
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Read requested market and topic
+        id: request
+        shell: bash
+        run: |
+          line="$(grep -v '^[[:space:]]*$' state/manual-topic-refresh.txt | tail -n 1)"
+          market="$(printf '%s' "$line" | cut -d'|' -f2)"
+          topic="$(printf '%s' "$line" | cut -d'|' -f3)"
+          if [ "$market" != "uk" ] && [ "$market" != "us" ]; then
+            echo "Invalid market in manual topic refresh: $market"
+            exit 1
+          fi
+          if [ -z "$topic" ]; then
+            echo "Missing topic in manual topic refresh."
+            exit 1
+          fi
+          echo "market=$market" >> "$GITHUB_OUTPUT"
+          echo "topic=$topic" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Test product variety safeguards
+        env:
+          PYTHONPATH: .
+        run: pytest -q tests/test_daily_retailer_prices.py
+
+      - name: Refresh requested article from live retailer data
+        env:
+          PYTHONPATH: .
+          EBAY_ENV: production
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+          EPN_CAMPAIGN_ID: ${{ secrets.EPN_CAMPAIGN_ID }}
+          EPN_US_CAMPAIGN_ID: ${{ secrets.EPN_US_CAMPAIGN_ID }}
+          AMAZON_CREATORS_CLIENT_ID: ${{ secrets.AMAZON_CREATORS_CLIENT_ID }}
+          AMAZON_CREATORS_CLIENT_SECRET: ${{ secrets.AMAZON_CREATORS_CLIENT_SECRET }}
+          AMAZON_CREATORS_CREDENTIAL_VERSION: ${{ secrets.AMAZON_CREATORS_CREDENTIAL_VERSION }}
+        run: >
+          python scripts/refresh_daily_topic.py
+          --market "${{ steps.request.outputs.market }}"
+          --topic "${{ steps.request.outputs.topic }}"
+
+      - name: Save refreshed article
+        id: save
+        shell: bash
+        run: |
+          git add articles articles-us
+          if git diff --cached --quiet; then
+            echo "No article changes to commit."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git config user.name "worth-buying-topic-refresh-bot"
+          git config user.email "worth-buying-topic-refresh-bot@users.noreply.github.com"
+          git commit -m "Refresh ${{ steps.request.outputs.market }} ${{ steps.request.outputs.topic }} guide"
+          git pull --rebase origin main
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Publish refreshed article
+        if: steps.save.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MARKET: ${{ steps.request.outputs.market }}
+        shell: bash
+        run: |
+          if [ "$MARKET" = "uk" ]; then
+            gh workflow run publish-articles.yml --ref main
+          else
+            gh workflow run publish-articles-us.yml --ref main
+          fi
