@@ -54,12 +54,17 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Test product variety safeguards
+      - name: Test product variety and workflow safeguards
         env:
           PYTHONPATH: .
-        run: pytest -q tests/test_daily_retailer_prices.py
+        run: >
+          pytest -q
+          tests/test_daily_retailer_prices.py
+          tests/test_workflow_handoff.py
 
-      - name: Refresh requested article from live retailer data
+      - name: Refresh and safely save requested article
+        id: save
+        shell: bash
         env:
           PYTHONPATH: .
           EBAY_ENV: production
@@ -70,28 +75,50 @@ jobs:
           AMAZON_CREATORS_CLIENT_ID: ${{ secrets.AMAZON_CREATORS_CLIENT_ID }}
           AMAZON_CREATORS_CLIENT_SECRET: ${{ secrets.AMAZON_CREATORS_CLIENT_SECRET }}
           AMAZON_CREATORS_CREDENTIAL_VERSION: ${{ secrets.AMAZON_CREATORS_CREDENTIAL_VERSION }}
-        run: >
-          python scripts/refresh_daily_topic.py
-          --market "${{ steps.request.outputs.market }}"
-          --topic "${{ steps.request.outputs.topic }}"
-
-      - name: Save refreshed article
-        id: save
-        shell: bash
+          MARKET: ${{ steps.request.outputs.market }}
+          TOPIC: ${{ steps.request.outputs.topic }}
         run: |
-          git add articles articles-us
-          if git diff --cached --quiet; then
-            echo "No article changes to commit."
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
+          set -euo pipefail
 
           git config user.name "worth-buying-topic-refresh-bot"
           git config user.email "worth-buying-topic-refresh-bot@users.noreply.github.com"
-          git commit -m "Refresh ${{ steps.request.outputs.market }} ${{ steps.request.outputs.topic }} guide"
-          git pull --rebase origin main
-          git push
-          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+          for attempt in 1 2 3; do
+            echo "Topic refresh save attempt $attempt/3"
+
+            # Always regenerate from the latest main. If another WorthBuying
+            # workflow landed a commit while this job was waiting, the retry
+            # starts clean instead of trying to rebase a dirty worktree.
+            git fetch origin main
+            git reset --hard origin/main
+
+            python scripts/refresh_daily_topic.py               --market "$MARKET"               --topic "$TOPIC"
+
+            # current_picks() records observed retailer prices while building
+            # the article, so the price-history state is part of the same
+            # atomic change and must never be left unstaged.
+            git add articles articles-us state/daily_price_history.json
+
+            if git diff --cached --quiet; then
+              echo "No refreshed article or price-history changes to commit."
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            git commit -m "Refresh $MARKET $TOPIC guide"
+
+            if git push origin HEAD:main; then
+              echo "Refreshed article saved successfully."
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            echo "Main changed before the push; regenerating from latest main and retrying."
+            sleep 2
+          done
+
+          echo "Could not save refreshed article after 3 clean retries."
+          exit 1
 
       - name: Publish refreshed article
         if: steps.save.outputs.changed == 'true'
