@@ -1827,8 +1827,20 @@ def build_article(
         f"so this guide links to current retailer searches for {html.escape(display)} instead of inventing product recommendations."
     )
 
+    daily_guide_date = (
+        checked_at.strftime("%-d %B %Y")
+        if market == "uk"
+        else f"{checked_at.strftime('%B')} {checked_at.day}, {checked_at.year}"
+    )
+    daily_freshness = (
+        '<p class="wb-daily-freshness"><strong>'
+        + html.escape(f"NEW DAILY GUIDE · {daily_guide_date.upper()}")
+        + "</strong></p>\n"
+    )
+
     content = (
-        f"<p><strong>{html.escape(buyer_intro(display, region, year, live))}</strong></p>\n"
+        daily_freshness
+        + f"<p><strong>{html.escape(buyer_intro(display, region, year, live))}</strong></p>\n"
         + (quick_picks_html(picks, market, query) if live and market == "us" else "")
         +
         f"<p>{methodology} Prices and availability can change after publication, so always verify the live listing.</p>\n"
