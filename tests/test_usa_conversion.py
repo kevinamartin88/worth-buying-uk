@@ -182,6 +182,19 @@ def test_current_picks_falls_back_without_failing_when_images_run_out(monkeypatc
     assert result == []
 
 
+def test_refreshed_daily_article_uses_updated_marker(monkeypatch):
+    rows = [item(1), item(2), item(3)]
+    monkeypatch.setattr(daily, 'current_picks', lambda *args: rows)
+    monkeypatch.setattr(daily, 'add_amazon_prices', lambda *args: None)
+    monkeypatch.setattr(daily, 'related_guides', lambda **kwargs: [])
+    topic = next(t for t in daily.TOPICS if t[0] == 'cordless-vacuums')
+    article = daily.build_article(topic, 'us', 2026, is_refresh=True)
+    body = article['content_html']
+    assert 'UPDATED DAILY GUIDE · ' in body
+    assert 'NEW DAILY GUIDE · ' not in body
+    assert article['_promotion']['is_refresh'] is True
+
+
 def test_usa_article_puts_real_choices_before_methodology_and_reuses_slug(monkeypatch):
     rows = [item(1), item(2), item(3)]
     monkeypatch.setattr(daily, 'current_picks', lambda *args: rows)
