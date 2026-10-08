@@ -19,7 +19,7 @@ def refresh_topic(market: str, topic_key: str) -> Path:
         raise ValueError(f"Unknown daily topic: {topic_key}")
 
     now = datetime.now(daily.LONDON_TZ)
-    article = daily.build_article(topic, market, now.year)
+    article = daily.build_article(topic, market, now.year, is_refresh=True)
 
     promotion = article.setdefault("_promotion", {})
     promotion["daily_featured_date"] = now.date().isoformat()
