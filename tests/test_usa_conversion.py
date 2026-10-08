@@ -190,6 +190,8 @@ def test_usa_article_puts_real_choices_before_methodology_and_reuses_slug(monkey
     topic = next(t for t in daily.TOPICS if t[0] == 'cordless-vacuums')
     article = daily.build_article(topic, 'us', 2026)
     body = article['content_html']
+    assert 'NEW DAILY GUIDE · ' in body
+    assert body.index('NEW DAILY GUIDE · ') < body.index('Check this listing on eBay')
     assert body.index('Check this listing on eBay') < body.index('For this guide, our automation')
     assert body.count('class="wb-buying-card"') == 3
     assert article['slug'] == 'best-cordless-vacuums-worth-buying-us-2026'
