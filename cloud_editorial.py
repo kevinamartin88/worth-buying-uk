@@ -74,29 +74,44 @@ def collect(brief, market, slug):
     picks, seen = [], set()
     for group in brief["groups"]:
         query = group.get("query_" + market, group["query"])
-        candidates = daily.current_picks(market, query, group["ceiling"][market], slug)
+        # Broaden discovery if narrow marketplace searches have no qualifying
+        # inventory. Never relax the brief's capacity, price or photo checks.
+        queries = [query, *group.get("fallback_queries_" + market, group.get("fallback_queries", []))]
         selected = None
-        for candidate in candidates:
-            if candidate.get("itemId") in seen:
-                continue
-            if REJECT.search(str(candidate.get("title", ""))):
-                continue
-            item = {**candidate, **client.get_item(candidate["itemId"], affiliate_reference=slug)}
-            if not eligible(item, group, market):
-                continue
-            availability = item.get("estimatedAvailabilities", [])
-            if availability and not any(a.get("estimatedAvailabilityStatus") == "IN_STOCK" for a in availability):
-                continue
-            if daily.listing_score(item, group["ceiling"][market], "GBP" if market == "uk" else "USD", query=query) is None:
-                continue
+        for search_query in dict.fromkeys(queries):
             try:
-                image, _, _ = checked_product_image(item["image"]["imageUrl"])
-            except (RuntimeError, ValueError):
+                candidates = daily.current_picks(market, search_query, group["ceiling"][market], slug)
+            except (RuntimeError, ValueError) as exc:
+                print(f"[editorial-search-skip] {market} {search_query}: {exc}")
                 continue
-            item["image"] = {**item["image"], "imageUrl": image}
-            selected = {"item": item, "group": group, "query": query}
-            seen.add(item["itemId"])
-            break
+            for candidate in candidates:
+                item_id = candidate.get("itemId")
+                if not item_id or item_id in seen:
+                    continue
+                if REJECT.search(str(candidate.get("title", ""))):
+                    continue
+                try:
+                    item = {**candidate, **client.get_item(item_id, affiliate_reference=slug)}
+                except (RuntimeError, ValueError, KeyError) as exc:
+                    print(f"[editorial-item-skip] {market} {item_id}: {exc}")
+                    continue
+                if not eligible(item, group, market):
+                    continue
+                availability = item.get("estimatedAvailabilities", [])
+                if availability and not any(a.get("estimatedAvailabilityStatus") == "IN_STOCK" for a in availability):
+                    continue
+                if daily.listing_score(item, group["ceiling"][market], "GBP" if market == "uk" else "USD", query=search_query) is None:
+                    continue
+                try:
+                    image, _, _ = checked_product_image(item["image"]["imageUrl"])
+                except (RuntimeError, ValueError):
+                    continue
+                item["image"] = {**item["image"], "imageUrl": image}
+                selected = {"item": item, "group": group, "query": search_query}
+                seen.add(item["itemId"])
+                break
+            if selected is not None:
+                break
         if selected is None:
             raise ValueError(f"No verified, relevant listing with a usable photo for {group['label']}")
         picks.append(selected)
