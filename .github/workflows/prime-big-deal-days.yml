@@ -68,6 +68,12 @@ jobs:
         run: |
           set -euo pipefail
           git add articles articles-us state/prime_big_deal_days.json state/daily_price_history.json
+          git add -u state
+          if ! git diff --quiet; then
+            echo "Unexpected unstaged tracked changes would make the automated rebase unsafe:"
+            git diff --name-only
+            exit 1
+          fi
           if git diff --cached --quiet; then
             echo "No Prime event changes to commit."
             echo "changed=false" >> "$GITHUB_OUTPUT"
