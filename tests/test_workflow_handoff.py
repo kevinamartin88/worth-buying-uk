@@ -22,3 +22,15 @@ def test_chart_commits_happen_before_publication_state_changes():
         charts = next(i for i, step in enumerate(steps) if step['name'] == 'Prepare observed price-history charts')
         publish = next(i for i, step in enumerate(steps) if step.get('run') in ('python publish_articles.py', 'python publish_articles_us.py'))
         assert charts < publish
+
+
+def test_manual_topic_refresh_saves_generated_state_atomically():
+    path = ROOT / '.github/workflows' / 'manual-topic-refresh.yml'
+    text = path.read_text()
+
+    assert 'state/daily_price_history.json' in text
+    assert 'for attempt in 1 2 3' in text
+    assert 'git reset --hard origin/main' in text
+    assert 'python scripts/refresh_daily_topic.py' in text
+    assert 'git pull --rebase origin main' not in text
+    assert 'git push origin HEAD:main' in text
