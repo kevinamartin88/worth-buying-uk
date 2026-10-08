@@ -602,8 +602,10 @@
       },
       "2026-10-08": {
         "slug": "approved-retailer-air-purifiers-us-2026-10-03",
-        "status": "reserved-outcome-unknown",
-        "url": "https://www.worthbuyingusa.com/2026/10/current-air-purifiers-offers-from.html?utm_source=x&utm_medium=social&utm_campaign=worthbuying-october-guide-improvements&utm_content=us"
+        "status": "accepted",
+        "url": "https://www.worthbuyingusa.com/2026/10/current-air-purifiers-offers-from.html?utm_source=x&utm_medium=social&utm_campaign=worthbuying-october-guide-improvements&utm_content=us",
+        "post_id": "6ac7d252777d0616a6fa9faf",
+        "provider_status": "sent"
       }
     }
   },

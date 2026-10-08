@@ -1,5 +1,5 @@
 {
-  "run": "2026-10-07T17:27:31.578398+01:00",
+  "run": "2026-10-08T18:26:26.294050+01:00",
   "state": {
     "growth": {
       "uk": {
@@ -178,21 +178,12 @@
           ]
         },
         "latest": {
-          "start": "2026-09-21",
-          "end": "2026-10-04",
+          "start": "2026-09-22",
+          "end": "2026-10-05",
           "source": "Google Search Console web search",
           "clicks": 0,
           "impressions": 2,
           "rows": [
-            {
-              "keys": [
-                "2026-09-21"
-              ],
-              "clicks": 0,
-              "impressions": 0,
-              "ctr": 0,
-              "position": 0
-            },
             {
               "keys": [
                 "2026-09-22"
@@ -304,6 +295,15 @@
             {
               "keys": [
                 "2026-10-04"
+              ],
+              "clicks": 0,
+              "impressions": 0,
+              "ctr": 0,
+              "position": 0
+            },
+            {
+              "keys": [
+                "2026-10-05"
               ],
               "clicks": 0,
               "impressions": 0,
@@ -441,21 +441,12 @@
           ]
         },
         "latest": {
-          "start": "2026-09-21",
-          "end": "2026-10-04",
+          "start": "2026-09-22",
+          "end": "2026-10-05",
           "source": "Google Search Console web search",
-          "clicks": 0,
-          "impressions": 3,
+          "clicks": 1,
+          "impressions": 9,
           "rows": [
-            {
-              "keys": [
-                "2026-09-21"
-              ],
-              "clicks": 0,
-              "impressions": 0,
-              "ctr": 0,
-              "position": 0
-            },
             {
               "keys": [
                 "2026-09-22"
@@ -572,6 +563,15 @@
               "impressions": 2,
               "ctr": 0,
               "position": 7.5
+            },
+            {
+              "keys": [
+                "2026-10-05"
+              ],
+              "clicks": 1,
+              "impressions": 6,
+              "ctr": 0.16666666666666666,
+              "position": 20.5
             }
           ]
         }
@@ -585,6 +585,13 @@
           "url": "https://www.worthbuyinguk.co.uk/2026/09/best-air-fryers-worth-buying-in-uk-2026.html?utm_source=x&utm_medium=social&utm_campaign=worthbuying-october-guide-improvements&utm_content=uk",
           "post_id": "6ac5270161c22f8369bce3e5",
           "provider_status": "sent"
+        },
+        "2026-10-08": {
+          "slug": "best-air-purifiers-worth-buying-uk",
+          "status": "accepted",
+          "url": "https://www.worthbuyinguk.co.uk/2026/10/best-air-purifiers-worth-buying-in-uk.html?utm_source=x&utm_medium=social&utm_campaign=worthbuying-october-guide-improvements&utm_content=uk",
+          "post_id": "6ac7d24f96e7c600486271f5",
+          "provider_status": "sent"
         }
       },
       "us": {
@@ -594,6 +601,13 @@
           "url": "https://www.worthbuyingusa.com/2026/09/best-air-fryers-worth-buying-in-usa-2026.html?utm_source=x&utm_medium=social&utm_campaign=worthbuying-october-guide-improvements&utm_content=us",
           "post_id": "6ac527046cefee84931dac36",
           "provider_status": "sent"
+        },
+        "2026-10-08": {
+          "slug": "approved-retailer-air-purifiers-us-2026-10-03",
+          "status": "accepted",
+          "url": "https://www.worthbuyingusa.com/2026/10/current-air-purifiers-offers-from.html?utm_source=x&utm_medium=social&utm_campaign=worthbuying-october-guide-improvements&utm_content=us",
+          "post_id": "6ac7d252777d0616a6fa9faf",
+          "provider_status": "sent"
         }
       }
     },
@@ -601,12 +615,12 @@
       "uk": {
         "status": "blocked",
         "error": "ValueError: No verified, relevant listing with a usable photo for Smaller single-basket shortlist",
-        "attempted": "2026-10-07"
+        "attempted": "2026-10-08"
       },
       "us": {
         "status": "blocked",
         "error": "ValueError: No verified, relevant listing with a usable photo for More basket space to compare",
-        "attempted": "2026-10-07"
+        "attempted": "2026-10-08"
       }
     }
   }
