@@ -303,12 +303,12 @@
   },
   "best-tablets-worth-buying-us": {
     "buffer_channel_id": "6aa8516eea19ca0bde41b09c",
-    "buffer_post_id": "6ac703672977c961bdc2542f",
-    "buffer_sent_at": "2026-10-08T02:43:52.998Z",
+    "buffer_post_id": "6ac7a7aad1ababbf88b43f2e",
+    "buffer_sent_at": "2026-10-08T14:24:43.908Z",
     "buffer_status": "sent",
     "image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-tablets-worth-buying-us.jpg",
-    "promotion_token": "2026-10-08:us:best-tablets-worth-buying-us",
-    "source_sha": "2026-10-08-tablets-us-daily-v6",
+    "promotion_token": "2026-10-08:us:best-tablets-worth-buying-us:manual-topic-refresh-v1",
+    "source_sha": "2026-10-08-tablets-us-daily-v7-variety-refresh",
     "title": "Best Tablets Worth Buying in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/10/best-tablets-worth-buying-in-usa-2026.html"
   },
