@@ -15,7 +15,7 @@
     "topic": "sideboards"
   },
   "us": {
-    "date": "2026-10-08",
+    "date": "2026-10-09",
     "merchants": [
       "Sharper Image"
     ],
@@ -28,9 +28,10 @@
       "slow-cookers",
       "cordless-vacuums",
       "wireless-earbuds",
-      "power-banks"
+      "power-banks",
+      "security-cameras"
     ],
-    "slug": "approved-retailer-power-banks-us-2026-10-08",
-    "topic": "power-banks"
+    "slug": "approved-retailer-security-cameras-us-2026-10-09",
+    "topic": "security-cameras"
   }
 }
