@@ -95,7 +95,7 @@ class CloudEditorialTests(unittest.TestCase):
             def for_market(market):
                 return Client()
             def get_item(self, item_id, affiliate_reference):
-                return good
+                return good if item_id == "good" else {**good, "itemId": item_id, "title": "Air fryer 10L"}
         daily = types.ModuleType("generate_daily_articles")
         daily.current_picks = lambda market, query, ceiling, slug: (
             [{"itemId": "bad", "title": "Air fryer 10L"}] if query == "narrow"
@@ -121,7 +121,7 @@ class CloudEditorialTests(unittest.TestCase):
             c.tagged_url("https://www.worthbuyinguk.co.uk/guide", "us")
 
     def test_growth_preserves_slug_price_and_records_only_existing_published_guides(self):
-        article = {"slug": "old-slug", "title": "Existing", "content_html": "Original £59 price and photos", "_generator": {"topic": "air-fryers"}}
+        article = {"slug": "old-slug", "title": "Existing", "content_html": "Original Â£59 price and photos", "_generator": {"topic": "air-fryers"}}
         c.save(self.root / "articles/old-slug.json", article)
         c.save(self.root / "state/articles_published.json", {"old-slug": {"status": "published", "url": "https://www.worthbuyinguk.co.uk/old", "source_file": "old-slug.json"}})
         state = {}
