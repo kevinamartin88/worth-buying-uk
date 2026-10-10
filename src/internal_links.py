@@ -55,7 +55,7 @@ def discovery_html(row: dict, related: list[dict], pages: dict) -> str:
     links = list(dict.fromkeys(links))
     if not links:
         return ""
-    body = " Â· ".join(f'<a href="{html.escape(url, quote=True)}">{html.escape(title)}</a>'
+    body = " &middot; ".join(f'<a href="{html.escape(url, quote=True)}">{html.escape(title)}</a>'
                       for url, title in links)
     return (START + '<aside class="wb-discovery-links" '
             'style="margin:28px 0;padding:16px 18px;background:#f6f8fb;border-left:4px solid #082f5b">'
@@ -69,3 +69,4 @@ def update_discovery_links(content: str, row: dict, related: list[dict], pages: 
     if BLOCK.search(content):
         return BLOCK.sub(lambda _: block, content)
     return content.rstrip() + "\n" + block if block else content
+
