@@ -41,6 +41,39 @@ TOPIC_TO_CLUSTER = {
     for topic in topics
 }
 
+CATEGORIES = ("Home & Kitchen", "Tech", "Motoring", "Gaming", "Cleaning", "Seasonal")
+
+
+def category_key(category: str) -> str:
+    # Keep the existing Motoring hub and its permalink.
+    if category == "Motoring":
+        return "cluster-motoring"
+    return "category-" + category.casefold().replace("&", "and").replace(" ", "-")
+
+
+def article_categories(article: dict) -> list[str]:
+    topic = str((article.get("_generator") or {}).get("topic") or "")
+    text = " ".join([str(article.get("title") or ""), topic,
+                     str(article.get("primary_category") or ""),
+                     " ".join(article.get("labels") or [])]).casefold()
+    categories = []
+    primary = str(article.get("primary_category") or "")
+    if primary in CATEGORIES:
+        categories.append(primary)
+    if any(word in text for word in ("vacuum", "cleaner", "steam mop", "pressure washer")):
+        categories.append("Cleaning")
+    if any(word in text for word in ("gaming", "game controller", "console")):
+        categories.append("Gaming")
+    if any(word in text for word in ("motoring", "car ", "dash cam", "tyre", "tire", "jump starter", "battery charger")):
+        categories.append("Motoring")
+    if any(word in text for word in ("tech", "phone", "tablet", "ipad", "earbud", "smartwatch", "soundbar", " tv", "ssd", "power bank", "security camera")):
+        categories.append("Tech")
+    if any(word in text for word in ("kitchen", "home", "furniture", "wardrobe", "air fryer", "coffee", "slow cooker", "toaster", "storage", "hanger", "bed frame")):
+        categories.append("Home & Kitchen")
+    if any(word in text for word in ("seasonal", "winter", "autumn", "summer", "christmas", "black friday", "prime big deal", "heater", "electric blanket", "dehumidifier")):
+        categories.append("Seasonal")
+    return list(dict.fromkeys(categories))
+
 MARKET = {
     "uk": {
         "site": "Worth Buying UK",
@@ -96,8 +129,7 @@ def load_catalog(market: str) -> list[dict]:
         cluster = str((article.get("_seo") or {}).get("authority_cluster") or "").strip()
         if not cluster:
             cluster = TOPIC_TO_CLUSTER.get(topic, "")
-        if cluster not in AUTHORITY_CLUSTERS:
-            continue
+        categories = article_categories({**article, "primary_category": article.get("primary_category") or state.get("primary_category")})
 
         catalog.append(
             {
@@ -105,6 +137,7 @@ def load_catalog(market: str) -> list[dict]:
                 "title": str(article.get("title") or state.get("title") or slug),
                 "url": str(state["url"]),
                 "cluster": cluster,
+                "categories": categories,
                 "topic": topic,
                 "description": str((article.get("_seo") or {}).get("description") or ""),
                 "checked": _article_date(article),
@@ -314,4 +347,14 @@ def build_pages(market: str) -> list[dict]:
     for cluster in AUTHORITY_CLUSTERS:
         rows = [row for row in catalog if row["cluster"] == cluster]
         pages.append(cluster_page(cluster, rows, market))
+    for category in CATEGORIES:
+        if category == "Motoring":
+            # Broaden the established hub to include legacy and retailer guides.
+            rows = [row for row in catalog if category in row["categories"]]
+            pages = [page for page in pages if page["key"] != "cluster-motoring"]
+        else:
+            rows = [row for row in catalog if category in row["categories"]]
+        page = cluster_page(category, rows, market)
+        page["key"] = category_key(category)
+        pages.append(page)
     return pages

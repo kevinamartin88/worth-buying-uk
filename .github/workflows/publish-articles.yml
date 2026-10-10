@@ -18,6 +18,8 @@ on:
       - "publish_articles.py"
       - "publish_site_pages.py"
       - "src/site_pages.py"
+      - "src/internal_links.py"
+      - "src/publishing_seo.py"
       - "src/article_copy.py"
       - "src/price_charts.py"
       - "generate_price_charts.py"
@@ -73,7 +75,7 @@ jobs:
       - name: Test publishing and Shorts safeguards
         env:
           PYTHONPATH: .
-        run: pytest -q tests/test_article_images.py tests/test_youtube_shorts.py tests/test_site_pages.py tests/test_affiliate_tracking.py tests/test_social_promotion.py
+        run: pytest -q tests/test_article_images.py tests/test_youtube_shorts.py tests/test_site_pages.py tests/test_publishing_seo.py tests/test_retailer_measurement.py tests/test_publish_reconciliation.py tests/test_affiliate_tracking.py tests/test_social_promotion.py
 
       - name: Ensure FFmpeg is available for YouTube Shorts
         run: |

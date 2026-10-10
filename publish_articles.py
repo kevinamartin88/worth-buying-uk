@@ -15,6 +15,7 @@ from src.article_images import (
     verify_required_hero,
 )
 from src.blogger import BloggerClient
+from src.publishing_seo import REVISION, enrich_metadata, repair_metadata
 
 
 ROOT = Path(__file__).resolve().parent
@@ -183,6 +184,7 @@ def main() -> None:
             slug=slug,
             title=title,
         )
+        content = enrich_metadata(content, article, "uk")
         labels = article.get("labels", [])
         mode = article.get("mode", "publish").strip().lower()
         promotion = article.get("_promotion") or {}
@@ -215,7 +217,8 @@ def main() -> None:
                     existing = None
 
         if existing and existing.get("publish_fingerprint") == fingerprint and current_post:
-            post = current_post
+            post = repair_metadata(blogger, current_post, article, "uk")
+            existing["seo_revision"] = REVISION
             repaired_content, hero_url, repaired = backfill_hero_if_missing(
                 str(post.get("content", "")),
                 market="uk",
@@ -285,7 +288,7 @@ def main() -> None:
                 action = "created"
                 body_replaced = True
 
-        stored = blogger.get_post(str(post["id"]))
+        stored = repair_metadata(blogger, blogger.get_post(str(post["id"])), article, "uk")
         if (
             feature_today
             and existing
@@ -302,6 +305,7 @@ def main() -> None:
             print(f"[verified] {title}: Blogger article image present")
 
         state[slug] = {
+            "seo_revision": REVISION,
             "post_id": stored["id"],
             "url": stored.get("url") or post.get("url"),
             "title": title,

@@ -31,12 +31,21 @@ WRITE_SCOPE = "https://www.googleapis.com/auth/webmasters"
 class PageSignals(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
+        self.descriptions: list[str] = []
+        self.links: list[str] = []
+        self._in_head = False
         self.canonical: str | None = None
         self.json_ld: list[str] = []
         self._in_json_ld = False
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         attributes = dict(attrs)
+        if tag == "head":
+            self._in_head = True
+        if tag == "meta" and self._in_head and (attributes.get("name") or "").lower() == "description":
+            self.descriptions.append(attributes.get("content") or "")
+        if tag == "a" and attributes.get("href"):
+            self.links.append(attributes["href"])
         if tag == "link" and "canonical" in (attributes.get("rel") or "").lower().split():
             self.canonical = attributes.get("href")
         if tag == "script" and (attributes.get("type") or "").lower() == "application/ld+json":
@@ -48,6 +57,8 @@ class PageSignals(HTMLParser):
             self.json_ld[-1] += data
 
     def handle_endtag(self, tag: str) -> None:
+        if tag == "head":
+            self._in_head = False
         if tag == "script":
             self._in_json_ld = False
 
@@ -62,7 +73,7 @@ def changed_posts(market: str) -> list[dict]:
         previous = json.loads(previous_text)
     except (subprocess.CalledProcessError, json.JSONDecodeError):
         previous = {}
-    keys = ("url", "status", "source_sha", "publish_fingerprint")
+    keys = ("url", "status", "source_sha", "publish_fingerprint", "seo_revision")
     return [
         post for slug, post in current.items()
         if post.get("status") == "published" and post.get("url")
@@ -122,6 +133,14 @@ def inspect_page(session: requests.Session, url: str, host: str) -> None:
             print("[seo-warning] Canonical differs from the published URL")
     else:
         print("[seo-warning] No canonical link found in the rendered page")
+    if len(signals.descriptions) != 1 or not signals.descriptions[0].strip():
+        print("[seo-warning] Expected one nonempty description in the server-rendered head")
+    else:
+        print(f"[seo] Server-rendered description: {signals.descriptions[0]}")
+    if 'class="wb-published-seo"' in response.text:
+        print("[seo] Generated-description bridge present; browser verification still required")
+    if "wb_retailer_click" in response.text:
+        print("[seo] Retailer measurement listener present; GA4 receipt requires browser verification")
     valid = 0
     for block in signals.json_ld:
         try:

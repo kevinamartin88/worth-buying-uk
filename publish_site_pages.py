@@ -9,6 +9,7 @@ from datetime import datetime, timezone
 from googleapiclient.errors import HttpError
 
 from src.blogger import BloggerClient
+from src.internal_links import related_graph, update_discovery_links
 from src.site_pages import MARKET, build_pages, load_catalog
 
 
@@ -77,45 +78,25 @@ def main() -> None:
     except (OSError, json.JSONDecodeError):
         published_state = {}
 
-    methodology_url = str((page_state.get("methodology") or {}).get("url") or "")
+    catalog = load_catalog(market)
+    graph = related_graph(catalog)
     backfilled = 0
-    for row in load_catalog(market):
-        slug = str(row.get("slug") or "")
-        cluster = str(row.get("cluster") or "")
-        cluster_key = "cluster-" + cluster.casefold().replace("&", "and").replace(" ", "-")
-        hub_url = str((page_state.get(cluster_key) or {}).get("url") or "")
+    for row in catalog:
+        slug = row["slug"]
         post_id = str((published_state.get(slug) or {}).get("post_id") or "")
-        if not post_id or not hub_url:
+        if not post_id:
             continue
-
         post = client.get_post_or_none(post_id)
-        if not post:
+        if not post or str(post.get("status") or "").upper() != "LIVE":
             continue
         content = str(post.get("content") or "")
-        if hub_url in content and (not methodology_url or methodology_url in content):
+        updated = update_discovery_links(content, row, graph[slug], page_state)
+        if updated == content:
             continue
-
-        links = []
-        if hub_url and hub_url not in content:
-            links.append(
-                f'<a href="{hub_url}">{cluster} buying guides</a>'
-            )
-        if methodology_url and methodology_url not in content:
-            links.append(
-                f'<a href="{methodology_url}">How Worth Buying chooses products</a>'
-            )
-        if not links:
-            continue
-
-        appendix = (
-            '<aside class="wb-authority-links" '
-            'style="margin:28px 0;padding:16px 18px;background:#f6f8fb;'
-            'border-left:4px solid #082f5b">'
-            '<strong>More from Worth Buying:</strong> '
-            + " · ".join(links)
-            + '</aside>'
-        )
-        client.update_post_content(post_id, content + appendix)
+        client.update_post_content(post_id, updated)
+        stored = client.get_post(post_id)
+        if updated != str(stored.get("content") or ""):
+            raise RuntimeError(f"Blogger did not retain discovery links for {slug}")
         backfilled += 1
 
     print(f"[authority-backfill] {market.upper()}: updated {backfilled} article(s)")
