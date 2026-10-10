@@ -6,6 +6,9 @@ on:
     # 07:30 UTC every Monday and Saturday. This is additional to the normal
     # daily affiliate buying-guide run, so both article types publish.
     - cron: "30 7 * * 1,6"
+    # One-time catch-up at 08:30 BST on 11 October 2026; selection below
+    # prevents this annual cron from creating another catch-up in later years.
+    - cron: "30 7 11 10 *"
 
 permissions:
   contents: write
@@ -17,7 +20,33 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  select-edition:
+    runs-on: ubuntu-latest
+    outputs:
+      publish: ${{ steps.edition.outputs.publish }}
+      article_date: ${{ steps.edition.outputs.article_date }}
+    steps:
+      - name: Select the normal edition or the missed Saturday catch-up
+        id: edition
+        shell: bash
+        env:
+          EVENT_SCHEDULE: ${{ github.event.schedule }}
+        run: |
+          today="$(date -u +%F)"
+          article_date="$today"
+          if [ "$EVENT_SCHEDULE" = "30 7 11 10 *" ]; then
+            if [ "$today" != "2026-10-11" ]; then
+              echo "publish=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            article_date="2026-10-10"
+          fi
+          echo "publish=true" >> "$GITHUB_OUTPUT"
+          echo "article_date=$article_date" >> "$GITHUB_OUTPUT"
+
   create-savvy-buyer-articles:
+    needs: select-edition
+    if: needs.select-edition.outputs.publish == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -40,7 +69,9 @@ jobs:
         run: pytest -q tests/test_weekly_savvy_articles.py
 
       - name: Create one UK and one USA Savvy Buyer advice article
-        run: python generate_weekly_savvy_articles.py
+        env:
+          ARTICLE_DATE: ${{ needs.select-edition.outputs.article_date }}
+        run: python generate_weekly_savvy_articles.py --date "$ARTICLE_DATE"
 
       - name: Save the weekly articles
         id: save

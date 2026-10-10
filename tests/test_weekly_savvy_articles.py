@@ -74,8 +74,8 @@ def test_published_savvy_guides_keep_advice_first_and_one_footer_disclosure():
             published = clean_article_disclosures(article["content_html"])
             assert published.index("Before you buy") < published.index("This week's buying lesson")
             assert published.index("Your five-minute checkout checklist") < published.index("About this guide")
-            assert published.index("About this guide") < published.index("Affiliate disclosure:")
-            assert published.count("Affiliate disclosure:") == 1
+            assert published.index("About this guide") < published.index("Affiliate links:")
+            assert published.count("Affiliate links:") == 1
             assert clean_article_disclosures(published) == published
 
 
