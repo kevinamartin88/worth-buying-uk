@@ -11,6 +11,10 @@ import publish_articles_us
 class ExistingPostBlogger:
     def __init__(self) -> None:
         self.update_calls = []
+        self.content = '<p><img src="https://blogger.test/manual-photo.jpg"></p>'
+
+    def update_post_content(self, post_id, content):
+        self.content = content
 
     def resolve_blog(self, expected_hosts, label):
         return {"id": "blog-1", "name": label}
@@ -29,7 +33,7 @@ class ExistingPostBlogger:
             "title": "Manually edited title",
             "status": "LIVE",
             "url": "https://example.test/existing-post",
-            "content": '<p><img src="https://blogger.test/manual-photo.jpg"></p>',
+            "content": self.content,
         }
 
     def update_post(self, *args, **kwargs):
@@ -68,6 +72,8 @@ def test_reconciliation_preserves_existing_blogger_content(
     monkeypatch.setattr(module, "ARTICLES_DIR", articles_dir)
     monkeypatch.setattr(module, "STATE_PATH", state_path)
     monkeypatch.setattr(module.BloggerClient, "from_env", lambda: blogger)
+    monkeypatch.setattr(module, "add_required_hero", lambda content, **kw: (content, "https://blogger.test/manual-photo.jpg"))
+    monkeypatch.setattr(module, "backfill_hero_if_missing", lambda content, **kw: (content, "https://blogger.test/manual-photo.jpg", False))
     if module is publish_articles:
         monkeypatch.setattr(module, "PINTEREST_DIR", tmp_path / "missing-pinterest")
 
@@ -76,3 +82,6 @@ def test_reconciliation_preserves_existing_blogger_content(
     state = json.loads(state_path.read_text(encoding="utf-8"))
     assert state["existing-guide"]["post_id"] == "post-1"
     assert blogger.update_calls == []
+    assert 'manual-photo.jpg' in blogger.content
+    assert 'Generated replacement body' not in blogger.content
+    assert 'wb-published-seo' in blogger.content

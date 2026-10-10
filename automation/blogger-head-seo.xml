@@ -1,0 +1,6 @@
+<!-- wb-head-seo:start -->
+<b:if cond='data:view.isSingleItem and !data:blog.metaDescription'>
+  <meta expr:content='data:view.title + &quot;: compare current retailer offers and practical buying checks from Worth Buying.&quot;' name='description'/>
+  <meta expr:content='data:view.title + &quot;: compare current retailer offers and practical buying checks from Worth Buying.&quot;' property='og:description'/>
+</b:if>
+<!-- wb-head-seo:end -->
