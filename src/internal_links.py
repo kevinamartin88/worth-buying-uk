@@ -24,14 +24,21 @@ def related_graph(catalog: list[dict], limit: int = 3) -> dict[str, list[dict]]:
             overlap = len(tokens & (set(re.findall(r"[a-z]+", other["title"].casefold())) - STOP))
             shared = set(row.get("categories", [])) & set(other.get("categories", []))
             # A generic seasonal overlap alone does not justify a recommendation.
-            meaningful = shared - {"Seasonal"}
-            score = overlap * 3 + len(meaningful)
+            meaningful = shared - {"Seasonal", "Home & Kitchen"}
+            cluster_match = bool(row.get("cluster") and row.get("cluster") == other.get("cluster"))
+            score = overlap * 3 + len(meaningful) + int(cluster_match)
             if score > 0:
                 candidates.append((score, other.get("checked", ""), other["slug"], other))
         candidates.sort(key=lambda entry: entry[:3], reverse=True)
-        for _, _, _, other in candidates[:limit]:
+        selected = 0
+        for _, _, _, other in candidates:
+            if selected >= limit or len(graph[row["slug"]]) >= limit * 2:
+                break
+            if other["slug"] in graph[row["slug"]] or len(graph[other["slug"]]) >= limit * 2:
+                continue
             graph[row["slug"]][other["slug"]] = other
             graph[other["slug"]][row["slug"]] = row
+            selected += 1
     return {slug: list(links.values()) for slug, links in graph.items()}
 
 
@@ -48,7 +55,7 @@ def discovery_html(row: dict, related: list[dict], pages: dict) -> str:
     links = list(dict.fromkeys(links))
     if not links:
         return ""
-    body = " · ".join(f'<a href="{html.escape(url, quote=True)}">{html.escape(title)}</a>'
+    body = " Â· ".join(f'<a href="{html.escape(url, quote=True)}">{html.escape(title)}</a>'
                       for url, title in links)
     return (START + '<aside class="wb-discovery-links" '
             'style="margin:28px 0;padding:16px 18px;background:#f6f8fb;border-left:4px solid #082f5b">'

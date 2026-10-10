@@ -46,3 +46,12 @@ def test_all_six_hubs_and_uncategorised_gaming(monkeypatch):
     assert all(category_key(c) in keys for c in CATEGORIES)
     assert 'Gaming' in article_categories({'title':'Best gaming controllers'})
     assert 'Cleaning' in article_categories({'title':'Best pressure washers'})
+
+
+def test_reciprocal_footers_stay_compact_and_skip_broad_home_matches():
+    rows = [dict(slug=str(i), url='https://uk.test/' + str(i), title='Vacuum ' + str(i),
+                 categories=['Cleaning'], checked=str(i)) for i in range(20)]
+    assert all(len(links) <= 6 for links in related_graph(rows).values())
+    rows = [dict(slug='washer', url='https://uk.test/washer', title='Pressure washers', categories=['Home & Kitchen']),
+            dict(slug='wardrobe', url='https://uk.test/wardrobe', title='Wardrobe offers', categories=['Home & Kitchen'])]
+    assert related_graph(rows)['washer'] == []
