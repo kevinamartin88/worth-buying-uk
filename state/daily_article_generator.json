@@ -1,9 +1,9 @@
 {
   "uk": {
-    "authority_cluster": "Consumer Tech",
+    "authority_cluster": "DIY & Garden",
     "content_action": "created",
-    "date": "2026-10-09",
-    "day": "Friday",
+    "date": "2026-10-10",
+    "day": "Saturday",
     "demand_score": null,
     "google_cached": false,
     "google_observed_at": null,
@@ -17,18 +17,18 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-tablets-worth-buying-uk",
-    "title": "Best Tablets Worth Buying in the UK (2026)",
-    "topic": "tablets",
+    "slug": "best-pressure-washers-worth-buying-uk",
+    "title": "Best Pressure Washers Worth Buying in the UK (2026)",
+    "topic": "pressure-washers",
     "trend_traffic": null,
-    "weekend_focus": null,
-    "weekend_priority": false
+    "weekend_focus": "saturday-home-diy",
+    "weekend_priority": true
   },
   "us": {
-    "authority_cluster": "Consumer Tech",
+    "authority_cluster": "DIY & Garden",
     "content_action": "created",
-    "date": "2026-10-09",
-    "day": "Friday",
+    "date": "2026-10-10",
+    "day": "Saturday",
     "demand_score": null,
     "google_cached": false,
     "google_observed_at": null,
@@ -42,11 +42,11 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-security-cameras-worth-buying-us",
-    "title": "Best Home Security Cameras Worth Buying in the USA (2026)",
-    "topic": "security-cameras",
+    "slug": "best-pressure-washers-worth-buying-us",
+    "title": "Best Pressure Washers Worth Buying in the USA (2026)",
+    "topic": "pressure-washers",
     "trend_traffic": null,
-    "weekend_focus": null,
-    "weekend_priority": false
+    "weekend_focus": "saturday-home-diy",
+    "weekend_priority": true
   }
 }
