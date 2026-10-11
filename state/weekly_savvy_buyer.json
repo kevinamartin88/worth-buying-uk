@@ -1,22 +1,24 @@
 {
   "uk": {
-    "date": "2026-10-05",
+    "date": "2026-10-10",
     "dates": [
       "2026-10-03",
-      "2026-10-05"
+      "2026-10-05",
+      "2026-10-10"
     ],
-    "slug": "savvy-buyer-monday-price-comparison-before-you-shop-uk-2026-10-05",
-    "title": "Savvy Buyer Monday: Before You Shop for Building A Fair Price Comparison (UK)",
+    "slug": "savvy-buyer-saturday-price-comparison-compare-options-uk-2026-10-10",
+    "title": "Savvy Buyer Saturday: How to Compare Your Options for Building A Fair Price Comparison (UK)",
     "week": "2026-W41"
   },
   "us": {
-    "date": "2026-10-05",
+    "date": "2026-10-10",
     "dates": [
       "2026-10-03",
-      "2026-10-05"
+      "2026-10-05",
+      "2026-10-10"
     ],
-    "slug": "savvy-buyer-monday-price-comparison-before-you-shop-us-2026-10-05",
-    "title": "Savvy Buyer Monday: Before You Shop for Building A Fair Price Comparison (US)",
+    "slug": "savvy-buyer-saturday-price-comparison-compare-options-us-2026-10-10",
+    "title": "Savvy Buyer Saturday: How to Compare Your Options for Building A Fair Price Comparison (US)",
     "week": "2026-W41"
   }
 }
