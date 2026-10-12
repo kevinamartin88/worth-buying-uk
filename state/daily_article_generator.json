@@ -1,9 +1,9 @@
 {
   "uk": {
-    "authority_cluster": "Cleaning & Home Climate",
+    "authority_cluster": "Consumer Tech",
     "content_action": "created",
-    "date": "2026-10-11",
-    "day": "Sunday",
+    "date": "2026-10-12",
+    "day": "Monday",
     "demand_score": null,
     "google_cached": false,
     "google_observed_at": null,
@@ -17,18 +17,18 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-steam-mops-worth-buying-uk",
-    "title": "Best Steam Mops Worth Buying in the UK (2026)",
-    "topic": "steam-mops",
+    "slug": "best-security-cameras-worth-buying-uk",
+    "title": "Best Home Security Cameras Worth Buying in the UK (2026)",
+    "topic": "security-cameras",
     "trend_traffic": null,
-    "weekend_focus": "sunday-home",
-    "weekend_priority": true
+    "weekend_focus": null,
+    "weekend_priority": false
   },
   "us": {
-    "authority_cluster": "Cleaning & Home Climate",
+    "authority_cluster": "Consumer Tech",
     "content_action": "created",
-    "date": "2026-10-11",
-    "day": "Sunday",
+    "date": "2026-10-12",
+    "day": "Monday",
     "demand_score": null,
     "google_cached": false,
     "google_observed_at": null,
@@ -42,11 +42,11 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-steam-mops-worth-buying-us",
-    "title": "Best Steam Mops Worth Buying in the USA (2026)",
-    "topic": "steam-mops",
+    "slug": "best-video-doorbells-worth-buying-us",
+    "title": "Best Video Doorbells Worth Buying in the USA (2026)",
+    "topic": "video-doorbells",
     "trend_traffic": null,
-    "weekend_focus": "sunday-home",
-    "weekend_priority": true
+    "weekend_focus": null,
+    "weekend_priority": false
   }
 }
