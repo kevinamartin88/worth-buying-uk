@@ -54,5 +54,19 @@ def test_public_social_source_can_use_the_same_optional_renderer():
     evidence = json.loads(EVIDENCE_PATH.read_text(encoding='utf-8'))
     evidence[0]['source_url'] = 'https://www.reddit.com/r/example/comments/example/'
     evidence[0]['source_label'] = 'Public owner discussion (unverified ownership)'
+    evidence[0]['source_kind'] = 'social_discussion'
     result = owner_review_html({'title': 'Tower T16043GRY'}, 'uk', evidence=evidence, today=TODAY)
     assert 'unverified ownership' in result
+    assert 'What owners discuss' in result
+
+
+def test_editorial_and_manufacturer_evidence_are_not_labelled_customer_reviews():
+    evidence = json.loads(EVIDENCE_PATH.read_text(encoding='utf-8'))
+    evidence[0]['source_kind'] = 'editorial_review'
+    result = owner_review_html({'title': 'Tower T16043GRY'}, 'uk', evidence=evidence, today=TODAY)
+    assert 'What reviewers found' in result and 'What customers say' not in result
+    evidence[0]['source_kind'] = 'manufacturer_details'
+    result = owner_review_html({'title': 'Tower T16043GRY'}, 'uk', evidence=evidence, today=TODAY)
+    assert 'manufacturer-stated features' in result
+    evidence[0]['source_kind'] = 'unsupported'
+    assert owner_review_html({'title': 'Tower T16043GRY'}, 'uk', evidence=evidence, today=TODAY) == ''

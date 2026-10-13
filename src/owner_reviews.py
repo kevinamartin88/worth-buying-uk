@@ -38,16 +38,26 @@ def _owner_review_html(item: dict, market: str, *, evidence=None, today=None) ->
         source = urlsplit(entry['source_url'])
         if source.scheme != 'https' or not source.hostname or source.username or source.password:
             raise ValueError('Product-review evidence needs a public HTTPS source')
+        kind = entry.get('source_kind', 'customer_reviews')
+        labels = {
+            'customer_reviews': ('What customers say', 'Customer experiences are individual reports; we have not independently tested this model.'),
+            'social_discussion': ('What owners discuss', 'Public comments describe individual experiences; ownership has not been independently verified.'),
+            'editorial_review': ('What reviewers found', 'This assessment draws on the linked reviewer’s published findings, not our own hands-on testing.'),
+            'manufacturer_details': ('Features worth weighing up', 'These are manufacturer-stated features, not independently measured performance.'),
+        }
+        if kind not in labels:
+            return ''
+        heading, attribution = labels[kind]
         esc = lambda value: html.escape(str(value), quote=True)
         return (
             f'<section class="wb-owner-review" data-wb-review="{esc(entry["key"])}">'
-            '<h4>What customers say</h4>'
+            f'<h4>{esc(heading)}</h4>'
             f'<p>{esc(entry["praise"])}</p>'
             f'<p><strong>Limits of the feedback:</strong> {esc(entry["limitations"])}</p>'
             f'<p><strong>Worth Buying take:</strong> {esc(entry["verdict"])}</p>'
-            f'<p><small>Product-review source: <a href="{esc(entry["source_url"])}">'
+            f'<p><small>Source: <a href="{esc(entry["source_url"])}">'
             f'{esc(entry["source_label"])}</a>. Evidence reviewed {checked.isoformat()}. '
-            'Customer experiences are individual reports; we have not independently tested this model.'
+            f'{esc(attribution)}'
             '</small></p></section>'
         )
     return ''
