@@ -119,8 +119,14 @@
   },
   "best-cordless-vacuums-worth-buying-uk-2026": {
     "baseline": true,
+    "bluesky_cid": "bafyreicexintnaojbkfvrtphggz4ewqcdsj5kmcw35s3vb6aotjwiy6myu",
+    "bluesky_uri": "at://did:plc:gpidjepgxnwtzfcyl3np2mgn/app.bsky.feed.post/3mxq3yu5nrz2o",
+    "bluesky_url": "https://bsky.app/profile/worthbuyinguk.bsky.social/post/3mxq3yu5nrz2o",
     "buffer_post_id": null,
-    "source_sha": "2026-09-22-cordless-vacuums-uk-daily-v2",
+    "image_path": "assets/ai/uk/best-cordless-vacuums-worth-buying-uk-2026.jpg",
+    "promotion_token": "2026-10-13:uk:best-cordless-vacuums-worth-buying-uk-2026",
+    "source_sha": "2026-10-13-cordless-vacuums-uk-daily-v6",
+    "status": "published",
     "title": "Best Cordless Vacuum Cleaners Worth Buying in the UK (2026)",
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-cordless-vacuum-cleaners-worth.html"
   },
