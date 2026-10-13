@@ -1606,6 +1606,8 @@ def discount_text(item: dict) -> str:
 
 
 def live_sections(items: list[dict], market: str, topic_name: str, query: str) -> str:
+    from src.owner_reviews import owner_review_html
+
     parts: list[str] = []
     retailer = "eBay UK" if market == "uk" else "eBay"
     amazon = "Amazon UK" if market == "uk" else "Amazon"
@@ -1671,6 +1673,7 @@ def live_sections(items: list[dict], market: str, topic_name: str, query: str) -
             + f'<p><a href="{html.escape(ebay_url, quote=True)}" rel="sponsored nofollow"{ebay_attrs}>'
             f"View on {retailer}</a>\n"
             f"{amazon_link}</p>\n"
+            + owner_review_html(item, market)
         )
 
     return "\n".join(parts)
