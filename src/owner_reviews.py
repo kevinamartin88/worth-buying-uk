@@ -53,7 +53,7 @@ def _owner_review_html(item: dict, market: str, *, evidence=None, today=None) ->
             f'<section class="wb-owner-review" data-wb-review="{esc(entry["key"])}">'
             f'<h4>{esc(heading)}</h4>'
             f'<p>{esc(entry["praise"])}</p>'
-            f'<p><strong>Limits of the feedback:</strong> {esc(entry["limitations"])}</p>'
+            f'<p><strong>Before you choose:</strong> {esc(entry.get("before_buying", entry.get("limitations", "")))}</p>'
             f'<p><strong>Worth Buying take:</strong> {esc(entry["verdict"])}</p>'
             f'<p><small>Source: <a href="{esc(entry["source_url"])}">'
             f'{esc(entry["source_label"])}</a>. Evidence reviewed {checked.isoformat()}. '

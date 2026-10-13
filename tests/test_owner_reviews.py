@@ -10,7 +10,7 @@ def test_exact_model_and_market_only():
     item = {'title': 'Tower 6.5L T16043GRY Slow Cooker'}
     result = owner_review_html(item, 'uk', today=TODAY)
     assert 'B&amp;Q' in result and 'What customers say' in result
-    assert 'Limits of the feedback' in result
+    assert 'Before you choose' in result
     assert owner_review_html(item, 'us', today=TODAY) == ''
     assert owner_review_html({'title': 'Tower T16043BLK'}, 'uk', today=TODAY) == ''
     assert owner_review_html({'title': 'Tower T16043GRY2'}, 'uk', today=TODAY) == ''
@@ -19,8 +19,8 @@ def test_exact_model_and_market_only():
 def test_usa_variant_must_include_design_series_capacity_and_bag():
     title = 'Crock-Pot Design Series 7-Quart Cook & Carry Slow Cooker with Thermal Bag'
     result = owner_review_html({'title': title}, 'us', today=TODAY)
-    assert 'Only two product reviews' in result
-    assert 'pre-owned' in result and 'Seller delivery feedback' in result
+    assert 'individual experience' in result and 'pre-owned' in result
+    assert 'Seller delivery feedback' not in result
     assert owner_review_html({'title': title.replace('7-Quart', '6-Quart')}, 'us', today=TODAY) == ''
     assert owner_review_html({'title': title.replace('with Thermal Bag', '')}, 'us', today=TODAY) == ''
 
