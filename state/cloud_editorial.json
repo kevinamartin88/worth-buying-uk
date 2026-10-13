@@ -593,8 +593,10 @@
       },
       "2026-10-13": {
         "slug": "best-robot-vacuum-cleaners-worth-buying-uk-2026",
-        "status": "reserved-outcome-unknown",
-        "url": "https://www.worthbuyinguk.co.uk/2026/09/best-robot-vacuum-cleaners-worth-buying.html?utm_source=x&utm_medium=social&utm_campaign=worthbuying-october-guide-improvements&utm_content=uk"
+        "status": "accepted",
+        "url": "https://www.worthbuyinguk.co.uk/2026/09/best-robot-vacuum-cleaners-worth-buying.html?utm_source=x&utm_medium=social&utm_campaign=worthbuying-october-guide-improvements&utm_content=uk",
+        "post_id": "6ace6cdac75fa9d311e03dcb",
+        "provider_status": "sent"
       }
     },
     "us": {
@@ -611,6 +613,11 @@
         "url": "https://www.worthbuyingusa.com/2026/10/current-air-purifiers-offers-from.html?utm_source=x&utm_medium=social&utm_campaign=worthbuying-october-guide-improvements&utm_content=us",
         "post_id": "6ac7d252777d0616a6fa9faf",
         "provider_status": "sent"
+      },
+      "2026-10-13": {
+        "slug": "best-robot-vacuum-cleaners-worth-buying-us-2026",
+        "status": "reserved-outcome-unknown",
+        "url": "https://www.worthbuyingusa.com/2026/09/best-robot-vacuum-cleaners-worth-buying.html?utm_source=x&utm_medium=social&utm_campaign=worthbuying-october-guide-improvements&utm_content=us"
       }
     }
   },
