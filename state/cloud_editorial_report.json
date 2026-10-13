@@ -1,5 +1,5 @@
 {
-  "run": "2026-10-08T18:26:26.294050+01:00",
+  "run": "2026-10-13T18:39:34.787498+01:00",
   "state": {
     "growth": {
       "uk": {
@@ -178,57 +178,12 @@
           ]
         },
         "latest": {
-          "start": "2026-09-22",
-          "end": "2026-10-05",
+          "start": "2026-09-27",
+          "end": "2026-10-10",
           "source": "Google Search Console web search",
-          "clicks": 0,
-          "impressions": 2,
+          "clicks": 5,
+          "impressions": 7,
           "rows": [
-            {
-              "keys": [
-                "2026-09-22"
-              ],
-              "clicks": 0,
-              "impressions": 0,
-              "ctr": 0,
-              "position": 0
-            },
-            {
-              "keys": [
-                "2026-09-23"
-              ],
-              "clicks": 0,
-              "impressions": 0,
-              "ctr": 0,
-              "position": 0
-            },
-            {
-              "keys": [
-                "2026-09-24"
-              ],
-              "clicks": 0,
-              "impressions": 0,
-              "ctr": 0,
-              "position": 0
-            },
-            {
-              "keys": [
-                "2026-09-25"
-              ],
-              "clicks": 0,
-              "impressions": 0,
-              "ctr": 0,
-              "position": 0
-            },
-            {
-              "keys": [
-                "2026-09-26"
-              ],
-              "clicks": 0,
-              "impressions": 0,
-              "ctr": 0,
-              "position": 0
-            },
             {
               "keys": [
                 "2026-09-27"
@@ -309,6 +264,51 @@
               "impressions": 0,
               "ctr": 0,
               "position": 0
+            },
+            {
+              "keys": [
+                "2026-10-06"
+              ],
+              "clicks": 1,
+              "impressions": 1,
+              "ctr": 1,
+              "position": 1
+            },
+            {
+              "keys": [
+                "2026-10-07"
+              ],
+              "clicks": 1,
+              "impressions": 1,
+              "ctr": 1,
+              "position": 1
+            },
+            {
+              "keys": [
+                "2026-10-08"
+              ],
+              "clicks": 0,
+              "impressions": 0,
+              "ctr": 0,
+              "position": 0
+            },
+            {
+              "keys": [
+                "2026-10-09"
+              ],
+              "clicks": 0,
+              "impressions": 0,
+              "ctr": 0,
+              "position": 0
+            },
+            {
+              "keys": [
+                "2026-10-10"
+              ],
+              "clicks": 3,
+              "impressions": 3,
+              "ctr": 1,
+              "position": 1.6666666666666665
             }
           ]
         }
@@ -441,57 +441,12 @@
           ]
         },
         "latest": {
-          "start": "2026-09-22",
-          "end": "2026-10-05",
+          "start": "2026-09-27",
+          "end": "2026-10-10",
           "source": "Google Search Console web search",
-          "clicks": 1,
-          "impressions": 9,
+          "clicks": 4,
+          "impressions": 16,
           "rows": [
-            {
-              "keys": [
-                "2026-09-22"
-              ],
-              "clicks": 0,
-              "impressions": 0,
-              "ctr": 0,
-              "position": 0
-            },
-            {
-              "keys": [
-                "2026-09-23"
-              ],
-              "clicks": 0,
-              "impressions": 0,
-              "ctr": 0,
-              "position": 0
-            },
-            {
-              "keys": [
-                "2026-09-24"
-              ],
-              "clicks": 0,
-              "impressions": 0,
-              "ctr": 0,
-              "position": 0
-            },
-            {
-              "keys": [
-                "2026-09-25"
-              ],
-              "clicks": 0,
-              "impressions": 0,
-              "ctr": 0,
-              "position": 0
-            },
-            {
-              "keys": [
-                "2026-09-26"
-              ],
-              "clicks": 0,
-              "impressions": 0,
-              "ctr": 0,
-              "position": 0
-            },
             {
               "keys": [
                 "2026-09-27"
@@ -572,6 +527,51 @@
               "impressions": 6,
               "ctr": 0.16666666666666666,
               "position": 20.5
+            },
+            {
+              "keys": [
+                "2026-10-06"
+              ],
+              "clicks": 2,
+              "impressions": 5,
+              "ctr": 0.4,
+              "position": 3.4
+            },
+            {
+              "keys": [
+                "2026-10-07"
+              ],
+              "clicks": 1,
+              "impressions": 2,
+              "ctr": 0.5,
+              "position": 8
+            },
+            {
+              "keys": [
+                "2026-10-08"
+              ],
+              "clicks": 0,
+              "impressions": 0,
+              "ctr": 0,
+              "position": 0
+            },
+            {
+              "keys": [
+                "2026-10-09"
+              ],
+              "clicks": 0,
+              "impressions": 0,
+              "ctr": 0,
+              "position": 0
+            },
+            {
+              "keys": [
+                "2026-10-10"
+              ],
+              "clicks": 0,
+              "impressions": 0,
+              "ctr": 0,
+              "position": 0
             }
           ]
         }
@@ -592,6 +592,13 @@
           "url": "https://www.worthbuyinguk.co.uk/2026/10/best-air-purifiers-worth-buying-in-uk.html?utm_source=x&utm_medium=social&utm_campaign=worthbuying-october-guide-improvements&utm_content=uk",
           "post_id": "6ac7d24f96e7c600486271f5",
           "provider_status": "sent"
+        },
+        "2026-10-13": {
+          "slug": "best-robot-vacuum-cleaners-worth-buying-uk-2026",
+          "status": "accepted",
+          "url": "https://www.worthbuyinguk.co.uk/2026/09/best-robot-vacuum-cleaners-worth-buying.html?utm_source=x&utm_medium=social&utm_campaign=worthbuying-october-guide-improvements&utm_content=uk",
+          "post_id": "6ace6cdac75fa9d311e03dcb",
+          "provider_status": "sent"
         }
       },
       "us": {
@@ -607,6 +614,13 @@
           "status": "accepted",
           "url": "https://www.worthbuyingusa.com/2026/10/current-air-purifiers-offers-from.html?utm_source=x&utm_medium=social&utm_campaign=worthbuying-october-guide-improvements&utm_content=us",
           "post_id": "6ac7d252777d0616a6fa9faf",
+          "provider_status": "sent"
+        },
+        "2026-10-13": {
+          "slug": "best-robot-vacuum-cleaners-worth-buying-us-2026",
+          "status": "accepted",
+          "url": "https://www.worthbuyingusa.com/2026/09/best-robot-vacuum-cleaners-worth-buying.html?utm_source=x&utm_medium=social&utm_campaign=worthbuying-october-guide-improvements&utm_content=us",
+          "post_id": "6ace6cddf969cac3ed43d24f",
           "provider_status": "sent"
         }
       }
