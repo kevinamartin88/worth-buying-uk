@@ -15,7 +15,7 @@ from urllib.parse import urlsplit
 
 from post_publish_seo import changed_posts, recent_posts, public_url, same_site
 from src.blogger import BloggerClient
-from src.publication_quality import CONFIG, affiliate_issues, choose_description, duplicate_descriptions
+from src.publication_quality import CONFIG, affiliate_issues, choose_description, duplicate_descriptions, description_conflicts
 from src.publishing_seo import description_for, repair_metadata
 from src.site_config import get_site_host, get_site_config
 
@@ -54,6 +54,9 @@ PROBE = r'''() => {
 def assess(observed, article, market, url):
     expected = description_for(article, market)
     issues = []
+    conflicts = description_conflicts(article, market)
+    if conflicts:
+        issues.append('description still shared with another guide; editorial review needed')
     if not observed.get('articlePresent'):
         issues.append('article body missing')
     if observed.get('description') != [expected]:
@@ -78,6 +81,7 @@ def assess(observed, article, market, url):
             issues.append('retailer click has incorrect regional or article attribution')
     return {'verification': 'passed' if not issues else 'needs_attention', 'issues': issues,
             'description': expected, 'description_source_issues': choose_description(article, market, duplicate_descriptions(market))[1],
+            'description_conflicts': conflicts,
             'ga4_receipt': RECEIPT, 'retailer_probe': 'tested locally' if observed.get('testedRetailerLink') else 'no direct retailer link to test',
             'observed': observed}
 

@@ -20,8 +20,8 @@ CONFIG = {
            'tag': 'worthbuyingus-20', 'property': 'G-EEYCNV01MN'},
 }
 ANCHOR = re.compile(r'<a\b[^>]*>', re.I)
-HREF = re.compile(r'\bhref\s*=\s*([\"\'])(.*?)\1', re.I | re.S)
-REL = re.compile(r'\brel\s*=\s*([\"\'])(.*?)\1', re.I | re.S)
+HREF = re.compile(r'(?<![\w:-])href\s*=\s*([\"\'])(.*?)\1', re.I | re.S)
+REL = re.compile(r'(?<![\w:-])rel\s*=\s*([\"\'])(.*?)\1', re.I | re.S)
 STOP = {'the', 'a', 'an', 'in', 'for', 'and', 'with', 'best', 'worth', 'buying', 'uk', 'us', 'usa', 'guide', 'guides', 'current', 'offers', 'approved', 'retailers', 'review', 'reviews'}
 
 
@@ -101,6 +101,27 @@ def retailer_kind(url, market):
         return None
     config = CONFIG[market]
     return 'ebay' if host == config['ebay'] else 'amazon' if host == config['amazon'] else None
+
+
+@lru_cache(maxsize=2)
+def selected_descriptions(market):
+    rows = {}
+    folder = Path(__file__).resolve().parents[1] / ('articles' if market == 'uk' else 'articles-us')
+    for path in folder.glob('*.json'):
+        try:
+            article = json.loads(path.read_text(encoding='utf-8'))
+            if article.get('mode', 'publish') != 'publish':
+                continue
+            value = choose_description(article, market, duplicate_descriptions(market))[0]
+            rows.setdefault(value, set()).add(article['slug'])
+        except (OSError, ValueError, KeyError):
+            continue
+    return rows
+
+
+def description_conflicts(article, market):
+    value = choose_description(article, market, duplicate_descriptions(market))[0]
+    return sorted(selected_descriptions(market).get(value, set()) - {article['slug']})
 
 
 def repair_affiliate_links(content, market, slug):

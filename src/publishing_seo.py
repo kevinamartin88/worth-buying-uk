@@ -6,7 +6,6 @@ import json
 import re
 from pathlib import Path
 
-from src.seo import meta_description, plain_text
 from src.publication_quality import choose_description, duplicate_descriptions, repair_affiliate_links
 
 REVISION = "published-seo-v1"

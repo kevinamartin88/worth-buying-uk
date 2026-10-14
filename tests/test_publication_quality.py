@@ -125,3 +125,13 @@ def test_browser_failure_is_unconfirmed_and_never_overwrites_the_post():
     result = verify_one(probe, article(), 'uk', {'post_id': '1', 'url': 'https://www.worthbuyinguk.co.uk/2026/10/coffee.html'}, Client())
     assert result['verification'] == 'unconfirmed'
     assert 'TimeoutError' in result['issues']
+
+
+def test_indistinguishable_guides_are_flagged_instead_of_inventing_different_claims(monkeypatch):
+    import verify_publication
+    row = article()
+    monkeypatch.setattr(verify_publication, 'description_conflicts', lambda *args: ['duplicate-guide'])
+    data = observed(row)
+    result = assess(data, row, 'uk', data['canonical'])
+    assert result['verification'] == 'needs_attention'
+    assert any('editorial review' in issue for issue in result['issues'])
