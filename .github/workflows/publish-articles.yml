@@ -20,6 +20,8 @@ on:
       - "src/site_pages.py"
       - "src/internal_links.py"
       - "src/publishing_seo.py"
+      - "post_publish_seo.py"
+      - "src/google_discovery_report.py"
       - "src/article_copy.py"
       - "src/price_charts.py"
       - "generate_price_charts.py"
@@ -218,6 +220,7 @@ jobs:
         run: python generate_pinterest_feed.py
 
       - name: Check UK article discovery and Search Console
+        id: google_discovery
         continue-on-error: true
         timeout-minutes: 4
         env:
@@ -230,6 +233,16 @@ jobs:
           GSC_WRITE_REFRESH_TOKEN: ${{ secrets.GSC_WRITE_REFRESH_TOKEN }}
           GSC_UK_SITE_URL: ${{ secrets.GSC_UK_SITE_URL }}
         run: python post_publish_seo.py --market uk
+
+      - name: Save UK Google discovery evidence
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: google-discovery-after-publication-uk
+          path: reports/google-discovery-uk.json
+          if-no-files-found: warn
+          retention-days: 30
 
       - name: Publish new articles to X through Buffer
         env:
@@ -304,3 +317,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run publish-articles-us.yml --ref main
+
