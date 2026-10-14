@@ -82,7 +82,7 @@ def test_daily_generator_retains_advice_even_without_live_listings(monkeypatch, 
         assert 'wb_retailer_click' in article['content_html']
 
 
-@pytest.mark.parametrize('topic', ['air-fryers', 'large-capacity-air-fryers', 'smartwatches', 'battery-chargers'])
+@pytest.mark.parametrize('topic', ['air-fryers', 'large-capacity-air-fryers', 'smartwatches', 'battery-chargers', 'coffee-machines'])
 @pytest.mark.parametrize('market', ['uk', 'us'])
 def test_priority_advice_preserves_retailer_evidence_and_identity(topic, market):
     article = {'slug': 'stable-url', 'title': 'Stable title',
@@ -124,4 +124,5 @@ def test_air_fryer_layouts_and_regions_have_distinct_copy():
     assert 'litres' in uk[0] and 'quarts' in us[0]
     assert 'SYNC' in uk[0] and 'Smart Finish' in us[0]
     assert uk[0] != large[0]
+
 
