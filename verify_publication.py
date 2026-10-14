@@ -173,6 +173,7 @@ def run(market, recent=None, read_only=False):
             browser = playwright.chromium.launch(headless=True)
             try:
                 for post in posts:
+                    result = {}
                     name = str(post.get('source_file') or '')
                     if not name or Path(name).name != name:
                         report['posts'][str(post.get('post_id'))] = {'verification': 'unconfirmed', 'issues': ['invalid source file']}
