@@ -69,6 +69,7 @@ jobs:
         env:
           PYTHONPATH: .
         run: |
+          pytest -q tests/test_publication_quality_browser.py
           python verify_publication.py --market uk --recent 1 --read-only
           python verify_publication.py --market us --recent 1 --read-only
       - name: Save live publication probe reports

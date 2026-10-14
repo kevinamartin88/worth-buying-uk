@@ -187,11 +187,15 @@ def run(market, recent=None, read_only=False):
                     except Exception as exc:
                         report['posts'][name] = {'verification': 'unconfirmed', 'issues': [type(exc).__name__]}
                     checkpoint(path, report)
+                    if any('HTTP=429' in issue for issue in result.get('issues', [])):
+                        report['rate_limited'] = True
+                        report['retry_policy'] = 'Stop this batch; retry during the next scheduled check. Do not bypass or hammer the server.'
+                        break
             finally:
                 browser.close()
     except Exception as exc:
         report['browser_unavailable'] = type(exc).__name__
-    report['complete'] = 'browser_unavailable' not in report
+    report['complete'] = 'browser_unavailable' not in report and not report.get('rate_limited', False)
     report['attention_required'] = (not report['complete'] or any(r['verification'] != 'passed' for r in report['posts'].values()))
     checkpoint(path, report)
     rows = '\n'.join(f'| {html.escape(slug)} | {row["verification"]} | {html.escape("; ".join(row.get("issues", [])))} |'
