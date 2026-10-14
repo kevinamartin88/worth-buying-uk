@@ -7,6 +7,7 @@ successful Blogger publication or prevent the existing social steps from running
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import os
 import subprocess
@@ -197,6 +198,35 @@ def search_console(market: str, urls: list[str], sitemaps: list[str]) -> None:
         print(f"[seo-warning] Sitemap submission failed: {type(exc).__name__}: {exc}")
 
 
+def manual_indexing_summary(market: str, urls: list[str]) -> None:
+    """List changed URLs in Actions; this does not submit indexing requests."""
+    target = os.getenv("GITHUB_STEP_SUMMARY")
+    if not target:
+        return
+    allowed = list(dict.fromkeys(url for url in urls if same_site(url, get_site_host(market))))
+    if not allowed:
+        return
+    links = "\n".join(
+        f'<li><a href="{html.escape(url, quote=True)}">{html.escape(url)}</a></li>' for url in allowed
+    )
+    summary = (
+        f"\n## {market.upper()} indexing review: new or changed guides\n\n"
+        "Sitemap submission and individual indexing requests are separate actions. "
+        "The workflow has not requested indexing for these URLs.\n\n"
+        "For an important new or substantially improved guide, inspect its public URL in "
+        "Search Console, check the live test, then request indexing once. "
+        "Repeated submissions do not improve queue priority.\n\n"
+        f"<ul>\n{links}\n</ul>\n"
+        "[Google’s recrawl guidance](https://developers.google.com/search/docs/crawling-indexing/ask-google-to-recrawl)\n"
+    )
+    try:
+        with Path(target).open("a", encoding="utf-8") as handle:
+            handle.write(summary)
+        print(f"[seo] Added {len(allowed)} changed URL(s) to the manual indexing review summary")
+    except OSError as exc:
+        print(f"[seo-warning] Could not write indexing review summary: {type(exc).__name__}: {exc}")
+
+
 def run(market: str) -> None:
     posts = changed_posts(market)
     if not posts:
@@ -228,9 +258,11 @@ def run(market: str) -> None:
                 print(f"[seo-warning] Public discovery check failed for {url}: {type(exc).__name__}: {exc}")
         if urls:
             search_console(market, urls, [sitemap, pages_sitemap])
+            manual_indexing_summary(market, urls)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--market", choices=("uk", "us"), required=True)
     run(parser.parse_args().market)
+
