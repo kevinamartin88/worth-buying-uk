@@ -101,7 +101,8 @@ def pressure_faq(market: str) -> str:
 def enhance_search_guide(article: dict, market: str) -> dict:
     """Enhance only the selected topic; unrelated articles stay byte-for-byte equal."""
     if (article.get('_generator') or {}).get('topic') != 'pressure-washers':
-        return article
+        from src.topic_advice import enhance_topic_advice
+        return enhance_topic_advice(article, market)
     if market not in {'uk', 'us'}:
         return article
     result = copy.deepcopy(article)
@@ -136,3 +137,4 @@ def enhance_search_guide(article: dict, market: str) -> dict:
     ]))
     seo['editorial_revision'] = REVISION
     return result
+

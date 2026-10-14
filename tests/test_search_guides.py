@@ -41,7 +41,7 @@ def test_enrichment_preserves_prices_links_tracking_and_publication_identity(mar
 
 
 def test_other_topics_and_unknown_market_are_unchanged():
-    article = {'content_html': '<p>Original</p>', '_generator': {'topic': 'air-fryers'}}
+    article = {'content_html': '<p>Original</p>', '_generator': {'topic': 'air-purifiers'}}
     assert enhance_search_guide(article, 'uk') is article
     article['_generator']['topic'] = 'pressure-washers'
     assert enhance_search_guide(article, 'unknown') is article
@@ -80,3 +80,48 @@ def test_daily_generator_retains_advice_even_without_live_listings(monkeypatch, 
     assert 'sponsored nofollow' in article['content_html']
     if market == 'us':
         assert 'wb_retailer_click' in article['content_html']
+
+
+@pytest.mark.parametrize('topic', ['air-fryers', 'large-capacity-air-fryers', 'smartwatches', 'battery-chargers'])
+@pytest.mark.parametrize('market', ['uk', 'us'])
+def test_priority_advice_preserves_retailer_evidence_and_identity(topic, market):
+    article = {'slug': 'stable-url', 'title': 'Stable title',
+               '_generator': {'topic': topic}, '_seo': {'last_checked_iso': '2026-10-07'},
+               '_promotion': {'promotion_token': 'keep'},
+               'content_html': '<p>Prices checked: 7 October</p><img src="product.jpg">'
+               '<a href="https://www.ebay.com/itm/123" rel="sponsored nofollow">Offer</a>'
+               '<h2>How to choose the right option</h2><p>Generic</p>'
+               '<h2>Retailer checks</h2><p>Keep</p>'
+               '<h2>Frequently asked questions</h2><h3>Old question</h3><p>Old</p>'
+               '<h2>Related Worth Buying guides</h2><a href="https://example.com/hub">Hub</a>'
+               '<script>wb_retailer_click</script>'}
+    result = enhance_search_guide(article, market)
+    assert 'Old question' not in result['content_html']
+    assert 'Generic' not in result['content_html']
+    assert '<script>wb_retailer_click</script>' in result['content_html']
+    assert '<a href="https://www.ebay.com/itm/123" rel="sponsored nofollow">Offer</a>' in result['content_html']
+    assert '<img src="product.jpg">' in result['content_html']
+    assert result['_seo']['last_checked_iso'] == '2026-10-07'
+    assert result['_promotion'] == article['_promotion']
+    assert result['slug'] == article['slug']
+    assert len(result['_seo']['description']) <= 155
+    assert enhance_search_guide(result, market) == result
+    assert f'wb-topic-advice:{topic}:start' in result['content_html']
+
+
+def test_event_and_support_copy_keeps_its_separate_intent():
+    for flags in [{'_event': {'type': 'prime'}}, {'_generator': {'topic': 'air-fryers', 'prime_amazon_only': True}},
+                  {'_generator': {'topic': 'air-fryers', 'content_type': 'authority-support'}}]:
+        article = {'content_html': '<p>Event or support copy</p>', '_generator': {'topic': 'air-fryers'}, **flags}
+        assert enhance_search_guide(article, 'uk') is article
+
+
+def test_air_fryer_layouts_and_regions_have_distinct_copy():
+    from src.topic_advice import air_fryer_advice
+    uk = air_fryer_advice('uk')
+    us = air_fryer_advice('us')
+    large = air_fryer_advice('uk', True)
+    assert 'litres' in uk[0] and 'quarts' in us[0]
+    assert 'SYNC' in uk[0] and 'Smart Finish' in us[0]
+    assert uk[0] != large[0]
+
