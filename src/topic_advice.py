@@ -6,7 +6,7 @@ import html
 import re
 
 REVISION = 'priority-search-advice-v1'
-TOPICS = {'air-fryers', 'large-capacity-air-fryers', 'smartwatches', 'battery-chargers'}
+TOPICS = {'air-fryers', 'large-capacity-air-fryers', 'smartwatches', 'battery-chargers', 'coffee-machines'}
 
 
 def air_fryer_advice(market, large=False):
@@ -172,11 +172,73 @@ def battery_advice(market):
                                     'lithium battery charger compatibility', '12V car battery charger']
 
 
+def coffee_advice(market):
+    uk = market == 'uk'
+    advice = (
+        '<h2>How to choose a coffee machine for your kitchen</h2>'
+        '<p>The best-value machine is the one that makes your usual drink without turning every '
+        'morning into a project. Start with the number of cups, how you like your coffee and '
+        'how much preparation and cleaning you are happy to do.</p>'
+        '<h3>Filter, espresso, bean-to-cup or pods?</h3>'
+        '<p>A filter machine is worth comparing when you want a jug of black coffee for several '
+        'people. A manual espresso machine suits someone willing to learn dosing and preparation; '
+        'check whether a grinder is included or needs buying separately. Bean-to-cup machines '
+        'reduce some preparation but still need cleaning. Pods can simplify drink preparation, '
+        'but check the compatible capsules, their ongoing cost and the drinks the exact model makes.</p>'
+        '<p>Check the coffee format as carefully as the machine price. De’Longhi’s guidance, '
+        'for example, distinguishes coarser ground coffee for filter machines from finer espresso '
+        'grounds and says instant coffee should not be used in its machines. '
+        '<a href="https://www.delonghi.com/en-gb/faqs/Can-I-use-instant-coffee-in-my-coffee-machine/a/8441">'
+        'Source: De’Longhi coffee-format guidance</a>. Follow the instructions for your exact model.</p>'
+        '<h3>A coffee machine for a small kitchen: measure the working space</h3>'
+        '<p>Measure width, depth and the height beneath cupboards. Then allow room to lift a water '
+        'tank, open a bean hopper or filter lid and remove the drip tray. A compact footprint is '
+        'less helpful if the machine must be pulled out every time you refill it. Check your '
+        'normal mug height and the manufacturer’s installation clearances too.</p>'
+        '<h3>Milk drinks: think about the second cup</h3>'
+        '<p>For regular cappuccinos or lattes, check whether the machine has a steam wand, an '
+        'automatic milk system or requires a separate frother. Consider the steps needed to '
+        'prepare two drinks and clean the milk parts afterwards. A pump-pressure headline alone '
+        'does not tell you how convenient the whole routine will be.</p>'
+        '<h3>Compare the cost per morning, not just the machine</h3>'
+        '<p>Add the likely cost of beans, ground coffee or capsules, plus any grinder, filters '
+        'and manufacturer-approved maintenance supplies. Count the drinks you actually make '
+        'each week. A cheaper appliance can become the more expensive choice if its consumables '
+        'cost more or you need extra equipment to make your preferred drink.</p>'
+        '<h3>Cleaning and refurbished buying checks</h3>'
+        '<p>Check access to removable parts, the descaling instructions and availability of '
+        'replacement filters, jugs or seals. For refurbished stock, confirm condition, included '
+        'accessories, warranty and returns; an espresso machine missing its portafilter or milk '
+        'jug may need additional spending. Product reviews are most useful when they describe '
+        'the exact model, drink and cleaning routine you plan to use.</p>'
+    )
+    questions = [
+        ('Is a filter coffee maker better than an espresso machine?', 'Choose by the drink and '
+         'routine you want. Filter coffee suits a jug of black coffee; espresso preparation and '
+         'milk drinks involve different equipment, ingredients and cleaning.'),
+        ('What should I check for a coffee machine in a small kitchen?', 'Check cupboard height '
+         'as well as the footprint, access for refilling and cleaning, cup clearance and the '
+         'manufacturer’s installation requirements.'),
+        ('Does an espresso machine include a grinder?', 'Some do and some do not. Check the exact '
+         'listing and supported coffee format, then include a suitable grinder in the budget if needed.'),
+        ('Are pod machines always cheaper to use?', 'Compare the cost of compatible capsules with '
+         'the beans or grounds for your usual number of drinks. Purchase price alone cannot settle it.'),
+        ('What matters when buying a refurbished coffee maker?', 'Confirm the exact model, '
+         'condition, included brewing and milk accessories, cleaning requirements, warranty and returns.'),
+    ]
+    desc = (f'Compare coffee {"machines in the UK" if uk else "makers in the USA"}: filter vs espresso, '
+            'small-kitchen fit, milk drinks, running costs and refurbished buying checks.')
+    return advice, questions, desc, ['filter vs espresso coffee machine', 'coffee machine for small kitchen',
+                                     'coffee maker running costs', 'refurbished coffee machine checks']
+
+
 def topic_fragments(topic, market):
     if topic in {'air-fryers', 'large-capacity-air-fryers'}:
         return air_fryer_advice(market, topic == 'large-capacity-air-fryers')
     if topic == 'smartwatches':
         return smartwatch_advice(market)
+    if topic == 'coffee-machines':
+        return coffee_advice(market)
     return battery_advice(market)
 
 
@@ -218,3 +280,4 @@ def enhance_topic_advice(article, market):
     seo['editorial_revision'] = REVISION
     seo['secondary_keywords'] = list(dict.fromkeys(list(seo.get('secondary_keywords') or []) + keywords))
     return result
+

@@ -129,7 +129,9 @@ def short_description(article: dict, blog_url: str, market: str) -> str:
         or "A quick buying guide to help you compare the options that matter."
     ).strip()
     return (
-        f"Read the complete guide: {blog_url}\n\n{summary}\n\n"
+        f"Open our channel profile and tap the website link: {config['site']}\n"
+        f"Find the guide: {article.get('title', 'Worth Buying guide')}\n\n"
+        f"Full article URL (copy into your browser): {blog_url}\n\n{summary}\n\n"
         "Prices, availability and product details can change. Check the full guide and "
         "retailer listing before buying.\n\n"
         f"#{config['brand'].replace(' ', '')} #BuyingGuide #Shorts"
@@ -404,7 +406,7 @@ def create_slide(
     )
     cta_font = _font(30, bold=True)
     cta = (
-        "FULL GUIDE IN DESCRIPTION"
+        "GUIDE VIA PROFILE LINK"
         if slide_number < slide_count
         else "READ THE FULL BUYING GUIDE"
     )
@@ -500,7 +502,7 @@ def build_short_video(
         (
             "FULL GUIDE",
             "See every pick and buying check",
-            f"Visit {config['site']} — link in the description.",
+            f"Tap the website link on our channel profile: {config['site']}",
         ),
     ]
     work_dir.mkdir(parents=True, exist_ok=True)
@@ -566,3 +568,4 @@ def build_short_video(
     ]
     subprocess.run(command, check=True, capture_output=True, text=True)
     return output_path
+

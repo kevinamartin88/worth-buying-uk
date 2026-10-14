@@ -54,11 +54,15 @@ def test_short_metadata_is_regional_and_within_youtube_limits():
     assert len(short_title(article)) <= 100
     description = short_description(article, "https://www.worthbuyinguk.co.uk/post", "uk")
     assert description.startswith(
-        "Read the complete guide: https://www.worthbuyinguk.co.uk/post"
+        "Open our channel profile and tap the website link: worthbuyinguk.co.uk"
     )
     assert "worthbuyinguk.co.uk/post" in description
     assert "affiliate" not in description.casefold()
     assert "#Shorts" in description
+    assert "copy into your browser" in description
+    usa = short_description(article, "https://www.worthbuyingusa.com/post", "us")
+    assert usa.startswith("Open our channel profile and tap the website link: worthbuyingusa.com")
+    assert "worthbuyinguk.co.uk" not in usa
 
 
 def test_generated_price_points_take_priority_over_headings():
@@ -129,3 +133,4 @@ def test_short_slide_renders_centered_mobile_safe_layout(tmp_path):
     )
 
     assert slide.size == (1080, 1920)
+
