@@ -1621,7 +1621,210 @@ def live_sections(items: list[dict], market: str, topic_name: str, query: str) -
             f" <strong>Condition shown:</strong> {html.escape(condition)}."
             if condition else ""
         )
-        ebay_url, amazon_url, exact_model_laboratory test results."
+        ebay_url, amazon_url, exact_model_search = retailer_urls(item, market, query)
+        amazon_offer = (verified_amazon_offer(item, market, query) if market == "uk"
+                        else item.get("_amazon_offer") or {})
+        if market == "us" and not amazon_direct(amazon_offer):
+            amazon_offer = {}
+        if amazon_offer.get("url"):
+            amazon_url = str(amazon_offer["url"])
+        price_parts = [f"eBay {price}" if price else "eBay: check the live listing"]
+        if amazon_offer.get("price") and amazon_offer.get("currency"):
+            price_parts.append(
+                "Amazon "
+                + money_text(float(amazon_offer["price"]), str(amazon_offer["currency"]))
+            )
+        prices = "; ".join(price_parts)
+        amazon_link_label = (
+            f"Search {amazon} for this model"
+            if exact_model_search
+            else f"Search {amazon} for this product"
+        )
+        if amazon_offer and (market != "us" or amazon_direct(amazon_offer)):
+            amazon_link_label = f"Check this model on {amazon}"
+        ebay_attrs = (' data-wb-retailer="ebay" data-wb-placement="detail"' if market == "us" else "")
+        amazon_attrs = (' data-wb-retailer="amazon" data-wb-placement="'
+                        + ('detail' if amazon_direct(amazon_offer) else 'search-alternative') + '"'
+                        if market == "us" else "")
+        amazon_link = ""
+        if amazon_offer or market == "us":
+            amazon_link = (
+                f'<a href="{html.escape(amazon_url, quote=True)}" rel="sponsored nofollow"{amazon_attrs}>'
+                f"{amazon_link_label}</a>"
+            )
+
+        parts.append(
+            f"<h3>{index}. {safe_title}</h3>\n"
+            f"<p><strong>Prices when checked:</strong> {html.escape(prices)}."
+            f"{condition_text} This listing made the shortlist because it passed our automated price, "
+            f"fixed-price and seller-quality checks for {html.escape(topic_name)}."
+            f"{html.escape(discount_text(item))}</p>\n"
+            f"<p>{html.escape(seller_text(item))} Availability, condition and price can change quickly, "
+            "so verify the exact model, specification, warranty, delivery and returns on the retailer page.</p>\n"
+            + (
+                f"<p><strong>WorthBuying price history:</strong> this listing is currently about "
+                f"{float((item.get('_worthbuying_price_history') or {}).get('difference_pct') or 0):.0f}% below "
+                f"its observed median across "
+                f"{int((item.get('_worthbuying_price_history') or {}).get('observations') or 0)} checks.</p>\n"
+                if int((item.get('_worthbuying_price_history') or {}).get('observations') or 0) >= 3
+                and float((item.get('_worthbuying_price_history') or {}).get('difference_pct') or 0) >= 5
+                else ""
+            )
+            + f'<p><a href="{html.escape(ebay_url, quote=True)}" rel="sponsored nofollow"{ebay_attrs}>'
+            f"View on {retailer}</a>\n"
+            f"{amazon_link}</p>\n"
+            + owner_review_html(item, market)
+        )
+
+    return "\n".join(parts)
+
+
+def fallback_sections(market: str, topic_name: str, query: str) -> str:
+    ebay_base = "https://www.ebay.co.uk/sch/i.html" if market == "uk" else "https://www.ebay.com/sch/i.html"
+    amazon_base = "https://www.amazon.co.uk/s" if market == "uk" else "https://www.amazon.com/s"
+    retailer = "eBay UK" if market == "uk" else "eBay"
+    amazon = "Amazon UK" if market == "uk" else "Amazon"
+
+    variants = [
+        ("Best-value options", query),
+        ("Higher-spec options", f"{query} premium"),
+        ("Refurbished and open-box options", f"refurbished {query}"),
+        ("Popular current listings", f"{query} best seller"),
+    ]
+
+    parts: list[str] = []
+    for index, (heading, search_query) in enumerate(variants, start=1):
+        ebay_url = f"{ebay_base}?_nkw={quote_plus(search_query)}&_sop=15"
+        amazon_url = f"{amazon_base}?k={quote_plus(search_query)}"
+        parts.append(
+            f"<h3>{index}. {html.escape(heading)}</h3>\n"
+            f"<p>Compare current {html.escape(topic_name)} listings in this part of the market. "
+            "The live retailer pages are the best place to check current models, prices, seller details "
+            "and availability.</p>\n"
+            f'<p><a href="{html.escape(ebay_url, quote=True)}" rel="sponsored nofollow">'
+            f"Compare on {retailer}</a>\n"
+            f'<a href="{html.escape(amazon_url, quote=True)}" rel="sponsored nofollow">'
+            f"Compare on {amazon}</a></p>\n"
+        )
+    return "\n".join(parts)
+
+
+def evergreen_article_slug(topic_key: str, market: str) -> str:
+    """Reuse the permanent buying-guide slug, never a temporary retailer roundup."""
+    article_dir = published_article_dir(market)
+    wanted = normalise(topic_key)
+    candidates: list[tuple[int, str]] = []
+
+    for path in article_dir.glob("*.json"):
+        try:
+            article = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+
+        generator = article.get("_generator") or {}
+        if normalise(str(generator.get("topic") or "")) != wanted:
+            continue
+
+        # Supporting pages and retailer-specific roundups are separate assets.
+        # They must never become the canonical evergreen URL for a daily guide.
+        if str(generator.get("content_type") or "") == "authority-support":
+            continue
+        if str(generator.get("channel") or "").casefold() == "rakuten":
+            continue
+
+        slug = str(article.get("slug") or path.stem).strip()
+        if not slug or slug.startswith("approved-retailer-"):
+            continue
+
+        expected_prefix = f"best-{topic_key}-worth-buying-{market}"
+        priority = 0 if slug.startswith(expected_prefix) else 1
+        candidates.append((priority, slug))
+
+    if candidates:
+        candidates.sort(key=lambda row: (row[0], row[1]))
+        return candidates[0][1]
+
+    # Early manually published guides predate _generator metadata. Their exact
+    # topic-shaped filenames still identify the existing permanent article.
+    for path in sorted(article_dir.glob(f"best-{topic_key}-worth-buying-{market}-*.json"), reverse=True):
+        article = load_json(path)
+        if not article.get("_generator") and article.get("slug") == path.stem:
+            return path.stem
+
+    return f"best-{topic_key}-worth-buying-{market}"
+
+
+def build_article(
+    topic: tuple,
+    market: str,
+    year: int,
+    trend_signal: dict | None = None,
+    gsc_signal: dict | None = None,
+    demand_score: float | None = None,
+    is_refresh: bool = False,
+) -> dict:
+    topic = localise_topic(topic, market)
+    key, display, query, max_uk, max_us, category, kicker = topic
+    region = "UK" if market == "uk" else "USA"
+    directory_name = "articles" if market == "uk" else "articles-us"
+    max_price = float(max_uk if market == "uk" else max_us)
+    slug = evergreen_article_slug(key, market)
+
+    try:
+        picks = current_picks(market, query, max_price, slug)
+    except Exception as exc:
+        print(f"[daily-warning] {market.upper()} eBay lookup failed for {display}: {type(exc).__name__}: {exc}")
+        picks = []
+
+    if picks:
+        add_amazon_prices(picks, market, query)
+
+    live = len(picks) >= 3
+    sections = (
+        live_sections(picks, market, display, query)
+        if live
+        else fallback_sections(market, display, query)
+    )
+
+    checks = [
+        localise_template_text(check, market)
+        for check in CATEGORY_CHECKS.get(category, CATEGORY_CHECKS["Home & Kitchen"])
+    ]
+    check_html = "\n".join(f"<li>{html.escape(check)}</li>" for check in checks)
+    guides = related_guides(
+        market=market,
+        current_slug=slug,
+        display=display,
+        query=query,
+        category=category,
+        limit=4,
+    )
+
+    trend_title_phrase = trend_keyword_for_title(topic, trend_signal)
+    title_subject = trend_title_phrase or display
+    title = f"Best {title_subject} Worth Buying in the {region} ({year})"
+    source_sha = f"{datetime.now(LONDON_TZ).date().isoformat()}-{key}-{market}-daily-v6"
+    primary_keyword = f"best {title_subject.lower()} {region.lower()} {year}"
+    secondary_keywords = [
+        f"{display.lower()} buying guide {region.lower()}",
+        f"{display.lower()} worth buying {year}",
+        f"compare {display.lower()} {region.lower()}",
+    ]
+    if trend_signal and trend_signal.get("query"):
+        trend_query = " ".join(str(trend_signal["query"]).split())
+        secondary_keywords.insert(0, trend_query)
+    description = seo_description(display, region, year)
+    checked_at = datetime.now(LONDON_TZ)
+    checked_date = (
+        checked_at.strftime("%d %B %Y").lstrip("0")
+        if market == "uk"
+        else f"{checked_at.strftime('%B')} {checked_at.day}, {checked_at.year}"
+    )
+
+    methodology = (
+        f"For this guide, our automation searched current {('eBay UK' if market == 'uk' else 'eBay')} "
+        f"listings for {html.escape(display)} and applied basic fixed-price, price-ceiling and seller-feedback checks. "
+        "These are current marketplace picks rather than hands-on laboratory test results."
         if live
         else
         f"Our live marketplace lookup did not return enough listings that passed the automated filters today, "
@@ -1867,6 +2070,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
 
 
