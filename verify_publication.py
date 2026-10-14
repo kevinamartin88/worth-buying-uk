@@ -103,9 +103,9 @@ def render_probe(browser, article, market, url):
         check_url = url + separator + 'wb_quality=' + str(int(datetime.now(timezone.utc).timestamp() * 1000))
         response = page.goto(check_url, wait_until='domcontentloaded', timeout=20000)
         if not response or response.status >= 400:
-            raise RuntimeError('PublicPageUnavailable')
+            raise RuntimeError('PublicPageUnavailable HTTP=' + str(response.status if response else 'no response'))
         if not same_site(page.url, get_site_host(market)):
-            raise RuntimeError('UnexpectedRedirectHost')
+            raise RuntimeError('UnexpectedRedirectHost=' + str(urlsplit(page.url).hostname))
         page.locator('.post-body').first.wait_for(state='attached', timeout=5000)
         # Wait for the publication bridge to execute, without waiting for every ad/image.
         try:
@@ -139,7 +139,8 @@ def verify_one(probe, article, market, post, client=None):
                             'before_issues': first['issues']}
         return second
     except Exception as exc:
-        return {'verification': 'unconfirmed', 'issues': [type(exc).__name__], 'ga4_receipt': RECEIPT}
+        details = str(exc) if isinstance(exc, RuntimeError) and str(exc).startswith(('PublicPageUnavailable', 'UnexpectedRedirectHost')) else type(exc).__name__
+        return {'verification': 'unconfirmed', 'issues': [details], 'ga4_receipt': RECEIPT}
 
 
 def checkpoint(path, report):
@@ -172,6 +173,7 @@ def run(market, recent=None, read_only=False):
             browser = playwright.chromium.launch(headless=True)
             try:
                 for post in posts:
+                    result = {}
                     name = str(post.get('source_file') or '')
                     if not name or Path(name).name != name:
                         report['posts'][str(post.get('post_id'))] = {'verification': 'unconfirmed', 'issues': ['invalid source file']}
@@ -186,11 +188,15 @@ def run(market, recent=None, read_only=False):
                     except Exception as exc:
                         report['posts'][name] = {'verification': 'unconfirmed', 'issues': [type(exc).__name__]}
                     checkpoint(path, report)
+                    if any('HTTP=429' in issue for issue in result.get('issues', [])):
+                        report['rate_limited'] = True
+                        report['retry_policy'] = 'Stop this batch; retry during the next scheduled check. Do not bypass or hammer the server.'
+                        break
             finally:
                 browser.close()
     except Exception as exc:
         report['browser_unavailable'] = type(exc).__name__
-    report['complete'] = 'browser_unavailable' not in report
+    report['complete'] = 'browser_unavailable' not in report and not report.get('rate_limited', False)
     report['attention_required'] = (not report['complete'] or any(r['verification'] != 'passed' for r in report['posts'].values()))
     checkpoint(path, report)
     rows = '\n'.join(f'| {html.escape(slug)} | {row["verification"]} | {html.escape("; ".join(row.get("issues", [])))} |'
