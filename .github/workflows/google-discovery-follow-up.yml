@@ -20,7 +20,7 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
@@ -52,6 +52,27 @@ jobs:
           GSC_UK_SITE_URL: ${{ secrets.GSC_UK_SITE_URL }}
           GSC_US_SITE_URL: ${{ secrets.GSC_US_SITE_URL }}
         run: python post_publish_seo.py --market ${{ matrix.market }} --recent 10
+      - name: Set up optional rendered-page verification
+        continue-on-error: true
+        timeout-minutes: 4
+        run: |
+          pip install 'playwright>=1.49,<2'
+          python -m playwright install --with-deps chromium
+      - name: Verify recent posts without changing content
+        continue-on-error: true
+        timeout-minutes: 6
+        env:
+          PYTHONPATH: .
+        run: python verify_publication.py --market ${{ matrix.market }} --recent 10 --read-only
+      - name: Save publication quality evidence
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: publication-quality-follow-up-${{ matrix.market }}
+          path: reports/publication-quality-${{ matrix.market }}.json
+          if-no-files-found: warn
+          retention-days: 30
       - name: Save Google discovery evidence
         if: always()
         continue-on-error: true
