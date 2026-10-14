@@ -1879,7 +1879,7 @@ def build_article(
                    f'data-wb-experiment="{EXPERIMENT}">{content}</div>'
                    + tracking_script(slug, measurement))
 
-    return {
+    article = {
         "slug": slug,
         "source_sha": source_sha,
         "mode": "publish",
@@ -1963,6 +1963,9 @@ def build_article(
             for item in picks[:3]
         ],
     }
+
+    from src.search_guides import enhance_search_guide
+    return enhance_search_guide(article, market)
 
 
 def main() -> None:
