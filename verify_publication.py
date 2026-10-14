@@ -103,9 +103,9 @@ def render_probe(browser, article, market, url):
         check_url = url + separator + 'wb_quality=' + str(int(datetime.now(timezone.utc).timestamp() * 1000))
         response = page.goto(check_url, wait_until='domcontentloaded', timeout=20000)
         if not response or response.status >= 400:
-            raise RuntimeError('PublicPageUnavailable')
+            raise RuntimeError('PublicPageUnavailable HTTP=' + str(response.status if response else 'no response'))
         if not same_site(page.url, get_site_host(market)):
-            raise RuntimeError('UnexpectedRedirectHost')
+            raise RuntimeError('UnexpectedRedirectHost=' + str(urlsplit(page.url).hostname))
         page.locator('.post-body').first.wait_for(state='attached', timeout=5000)
         # Wait for the publication bridge to execute, without waiting for every ad/image.
         try:
@@ -139,7 +139,8 @@ def verify_one(probe, article, market, post, client=None):
                             'before_issues': first['issues']}
         return second
     except Exception as exc:
-        return {'verification': 'unconfirmed', 'issues': [type(exc).__name__], 'ga4_receipt': RECEIPT}
+        details = str(exc) if isinstance(exc, RuntimeError) and str(exc).startswith(('PublicPageUnavailable', 'UnexpectedRedirectHost')) else type(exc).__name__
+        return {'verification': 'unconfirmed', 'issues': [details], 'ga4_receipt': RECEIPT}
 
 
 def checkpoint(path, report):
