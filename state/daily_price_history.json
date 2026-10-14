@@ -229,7 +229,7 @@
   },
   "daily|uk|v1|128015448408|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-13",
+    "last_attempt_date": "2026-10-14",
     "observations": [
       {
         "currency": "GBP",
@@ -242,6 +242,12 @@
         "date": "2026-10-13",
         "price": 20.19,
         "ts": "2026-10-13T04:29:48.758386+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-14",
+        "price": 20.19,
+        "ts": "2026-10-14T15:30:35.983059+01:00"
       }
     ],
     "title": "3Pcs Silicone Air Fryer Liners for Ninja Flex Drawer AF500UK, 2Pcs 5.2L + 1Pcs 1",
@@ -374,32 +380,44 @@
     "tracking_status": "active"
   },
   "daily|uk|v1|136880714337|0": {
-    "article_slug": "best-air-fryers-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-09",
+    "article_slug": "air-fryers-for-students-uk",
+    "last_attempt_date": "2026-10-14",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-07",
         "price": 39.99,
         "ts": "2026-10-07T15:29:20.521225+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-14",
+        "price": 39.99,
+        "ts": "2026-10-14T15:30:40.550411+01:00"
       }
     ],
     "title": "George Home GHAFN111B3Q 9L Dual Basket Digital Air Fryer Touch Screen LED Black",
-    "tracking_status": "unavailable"
+    "tracking_status": "active"
   },
   "daily|uk|v1|136880714511|0": {
-    "article_slug": "best-air-fryers-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-09",
+    "article_slug": "air-fryers-for-students-uk",
+    "last_attempt_date": "2026-10-14",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-07",
         "price": 36.99,
         "ts": "2026-10-07T15:29:20.521225+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-14",
+        "price": 39.99,
+        "ts": "2026-10-14T15:30:40.550411+01:00"
       }
     ],
     "title": "George Home GHAFN011B4B 9L Multi-Basket Air Fryer Touch Screen Stainless Steel",
-    "tracking_status": "unavailable"
+    "tracking_status": "active"
   },
   "daily|uk|v1|136880735758|0": {
     "article_slug": "best-air-fryers-worth-buying-uk-2026",
@@ -416,8 +434,8 @@
     "tracking_status": "unavailable"
   },
   "daily|uk|v1|136954889500|0": {
-    "article_slug": "best-air-fryers-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-09",
+    "article_slug": "air-fryers-for-students-uk",
+    "last_attempt_date": "2026-10-14",
     "observations": [
       {
         "currency": "GBP",
@@ -430,6 +448,12 @@
         "date": "2026-10-09",
         "price": 39.99,
         "ts": "2026-10-09T03:54:50.664153+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-14",
+        "price": 39.99,
+        "ts": "2026-10-14T15:30:37.244090+01:00"
       }
     ],
     "title": "George Home GHAFN121B5D 9L Multi-Basket Dual Digital Air Fryer Non-Stick Black",
@@ -456,22 +480,28 @@
     "tracking_status": "active"
   },
   "daily|uk|v1|137190219990|0": {
-    "article_slug": "best-air-fryers-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-09",
+    "article_slug": "air-fryers-for-students-uk",
+    "last_attempt_date": "2026-10-14",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-07",
         "price": 42.99,
         "ts": "2026-10-07T15:29:20.521225+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-14",
+        "price": 44.99,
+        "ts": "2026-10-14T15:30:40.550411+01:00"
       }
     ],
     "title": "George Home SAFN121BL4Q 9.5L Digital Air Fryer Dual Drawer 2400w Black and Wood",
-    "tracking_status": "unavailable"
+    "tracking_status": "active"
   },
   "daily|uk|v1|137268972796|0": {
-    "article_slug": "best-air-fryers-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-09",
+    "article_slug": "air-fryers-for-students-uk",
+    "last_attempt_date": "2026-10-14",
     "observations": [
       {
         "currency": "GBP",
@@ -484,6 +514,12 @@
         "date": "2026-10-09",
         "price": 39.99,
         "ts": "2026-10-09T03:54:50.664153+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-14",
+        "price": 39.99,
+        "ts": "2026-10-14T15:30:40.550411+01:00"
       }
     ],
     "title": "George Home GHAFN121B5M 8L Dual Drawer Digital Air Fryer 2400w Non-stick Black",
@@ -2035,7 +2071,7 @@
         "currency": "GBP",
         "date": "2026-10-14",
         "price": 12.52,
-        "ts": "2026-10-14T02:47:53.050998+01:00"
+        "ts": "2026-10-14T15:30:35.983059+01:00"
       }
     ],
     "title": "3Pcs 4.7-6.2L Silicone Air Fryer Liner Suit for Philips Airfryer 6.2L (Na230/09;",
@@ -2061,7 +2097,7 @@
         "currency": "GBP",
         "date": "2026-10-14",
         "price": 17.47,
-        "ts": "2026-10-14T02:47:53.050998+01:00"
+        "ts": "2026-10-14T15:30:35.983059+01:00"
       }
     ],
     "title": "KAHEIGN 3Pcs Silicone Air Fryer Liners for Ninja Flex Drawer AF500UK, 2Pcs 5.2L",
@@ -2076,10 +2112,16 @@
         "date": "2026-10-08",
         "price": 11.16,
         "ts": "2026-10-08T18:26:28.021563+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-14",
+        "price": 11.16,
+        "ts": "2026-10-14T15:30:35.983059+01:00"
       }
     ],
     "title": "100PCS Air Fryer Liners for Tefal Easy Fry 5.2L/3.1L, Tower 5.2L/3.3L, Lakeland",
-    "tracking_status": "unavailable"
+    "tracking_status": "active"
   },
   "daily|uk|v1|318843013240|0": {
     "article_slug": "best-soundbars-worth-buying-uk-2026",
@@ -3917,6 +3959,20 @@
     "title": "Kalorik MAXX 26 QT Stainless Steel Digital Air Fryer Oven AFO-46045-SS",
     "tracking_status": "active"
   },
+  "daily|us|v1|168667892800|0": {
+    "article_slug": "air-fryers-for-students-us",
+    "last_attempt_date": "2026-10-14",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-14",
+        "price": 59.25,
+        "ts": "2026-10-14T15:30:50.713701+01:00"
+      }
+    ],
+    "title": "NUTRICOOK AIR FRYER 3.5 QUART COMPACT AFM033KUS - BLACK",
+    "tracking_status": "active"
+  },
   "daily|us|v1|168698734506|0": {
     "article_slug": "best-tvs-worth-buying-us-2026",
     "last_attempt_date": "2026-10-11",
@@ -4333,6 +4389,20 @@
     "title": "Paula Deen 8.5QT Family XXL Large Air Fryer PDAF8TX-2 - NOS Open Box",
     "tracking_status": "active"
   },
+  "daily|us|v1|198695509319|0": {
+    "article_slug": "air-fryers-for-students-us",
+    "last_attempt_date": "2026-10-14",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-14",
+        "price": 36.99,
+        "ts": "2026-10-14T15:30:46.480733+01:00"
+      }
+    ],
+    "title": "Dash Deluxe Air Fryer 3Qt",
+    "tracking_status": "active"
+  },
   "daily|us|v1|205800879962|0": {
     "article_slug": "best-tablets-worth-buying-us",
     "last_attempt_date": "2026-10-12",
@@ -4615,13 +4685,19 @@
   },
   "daily|us|v1|226967630821|0": {
     "article_slug": "air-fryers-for-students-us",
-    "last_attempt_date": "2026-10-08",
+    "last_attempt_date": "2026-10-14",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-08",
         "price": 34.99,
         "ts": "2026-10-08T18:26:34.445584+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-14",
+        "price": 34.99,
+        "ts": "2026-10-14T15:30:46.480733+01:00"
       }
     ],
     "title": "Gourmia 4-Quart Digital Air Fryer with Guided Cooking, Easy Clean, Black GAF486 ",
@@ -5249,6 +5325,20 @@
       }
     ],
     "title": "Toastmaster Halloween Cauldron 4 Qt Slow Cooker Black, SHIPS SAME DAY",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|307201007566|0": {
+    "article_slug": "air-fryers-for-students-us",
+    "last_attempt_date": "2026-10-14",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-14",
+        "price": 21.17,
+        "ts": "2026-10-14T15:30:50.713701+01:00"
+      }
+    ],
+    "title": "Gourmia GAF612 6-Quart Digital Air Fryer Black Open Box",
     "tracking_status": "active"
   },
   "daily|us|v1|307219370859|0": {
@@ -6115,13 +6205,19 @@
   },
   "daily|us|v1|366432759207|0": {
     "article_slug": "air-fryers-for-students-us",
-    "last_attempt_date": "2026-10-08",
+    "last_attempt_date": "2026-10-14",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-08",
         "price": 59.07,
         "ts": "2026-10-08T18:26:34.445584+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-14",
+        "price": 59.07,
+        "ts": "2026-10-14T15:30:50.713701+01:00"
       }
     ],
     "title": "4-Quart Digital Air Fryer with 12 One-Touch Presets, GAF414, Black",
@@ -6249,7 +6345,7 @@
   },
   "daily|us|v1|366715540050|0": {
     "article_slug": "air-fryers-for-students-us",
-    "last_attempt_date": "2026-10-08",
+    "last_attempt_date": "2026-10-14",
     "observations": [
       {
         "currency": "USD",
@@ -6262,6 +6358,12 @@
         "date": "2026-10-08",
         "price": 14.67,
         "ts": "2026-10-08T18:26:31.003490+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-14",
+        "price": 15.72,
+        "ts": "2026-10-14T15:30:46.480733+01:00"
       }
     ],
     "title": "Gourmia 4-Quart Digital Air Fryer with 12 One-Touch Presets  GAF414  Black",
@@ -6743,6 +6845,20 @@
     "title": "PowerXL Smart Brew 10-Cup Drip Coffee Maker with Strength & Flavor Control",
     "tracking_status": "ended"
   },
+  "daily|us|v1|398184800058|0": {
+    "article_slug": "air-fryers-for-students-us",
+    "last_attempt_date": "2026-10-14",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-14",
+        "price": 55.16,
+        "ts": "2026-10-14T15:30:46.480733+01:00"
+      }
+    ],
+    "title": "Bella Pro 9-Qt TriZone Touchscreen Air Fryer Dual Flex Basket - Stainless Steel",
+    "tracking_status": "active"
+  },
   "daily|us|v1|398257980843|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
     "last_attempt_date": "2026-10-09",
@@ -6935,6 +7051,20 @@
       }
     ],
     "title": "Portable Heavy Duty 12V 150PSI Car Tyre Auto Tire Inflator Pump Air Compressor",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|800556776572|0": {
+    "article_slug": "air-fryers-for-students-us",
+    "last_attempt_date": "2026-10-14",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-14",
+        "price": 51.99,
+        "ts": "2026-10-14T15:30:50.713701+01:00"
+      }
+    ],
+    "title": "BELLA 6Qt Slim Air Fryer EK-60Z06E1 1750W Ceramic Nonstick Oatmilk Excellent",
     "tracking_status": "active"
   },
   "daily|us|v1|800739729052|0": {

@@ -51,7 +51,15 @@
           "us": 90
         },
         "decision": "Compare this listing if you cook small portions and want to keep the initial spend down. Its title states a small capacity; that is not a verified serving count.",
-        "check": "Confirm the exact dimensions, basket shape and housing permission before buying."
+        "check": "Confirm the exact dimensions, basket shape and housing permission before buying.",
+        "fallback_queries": [
+          "compact air fryer 2.5L",
+          "mini air fryer 3L"
+        ],
+        "fallback_queries_us": [
+          "compact air fryer 2.5 quart",
+          "small air fryer 3 qt"
+        ]
       },
       {
         "label": "More basket space to compare",
@@ -64,7 +72,15 @@
           "us": 120
         },
         "decision": "Compare this option if a smaller basket would make your normal meals awkward. Check that the extra space justifies the price and counter footprint.",
-        "check": "Check the usable basket base and ventilation clearance, not just the capacity label."
+        "check": "Check the usable basket base and ventilation clearance, not just the capacity label.",
+        "fallback_queries": [
+          "air fryer 3.5L",
+          "air fryer 4.5L"
+        ],
+        "fallback_queries_us": [
+          "air fryer 3.5 qt",
+          "air fryer 4.5 quart"
+        ]
       }
     ]
   },
