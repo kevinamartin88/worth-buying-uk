@@ -1,0 +1,63 @@
+name: Google discovery follow-up
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'state/google-discovery-check-trigger.txt'
+  schedule:
+    # 09:17 UTC is 10:17 UK time in BST and 09:17 in GMT, after daily publishing.
+    - cron: '17 9 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: google-discovery-follow-up
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        market: [uk, us]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Verify Google discovery safeguards
+        env:
+          PYTHONPATH: .
+        run: pytest -q tests/test_post_publish_seo.py
+      - name: Recheck the ten most recently featured guides
+        continue-on-error: true
+        timeout-minutes: 6
+        env:
+          PYTHONPATH: .
+          GSC_CLIENT_ID: ${{ secrets.GSC_CLIENT_ID }}
+          GSC_CLIENT_SECRET: ${{ secrets.GSC_CLIENT_SECRET }}
+          GSC_REFRESH_TOKEN: ${{ secrets.GSC_REFRESH_TOKEN }}
+          GSC_WRITE_CLIENT_ID: ${{ secrets.GSC_WRITE_CLIENT_ID }}
+          GSC_WRITE_CLIENT_SECRET: ${{ secrets.GSC_WRITE_CLIENT_SECRET }}
+          GSC_WRITE_REFRESH_TOKEN: ${{ secrets.GSC_WRITE_REFRESH_TOKEN }}
+          GSC_UK_SITE_URL: ${{ secrets.GSC_UK_SITE_URL }}
+          GSC_US_SITE_URL: ${{ secrets.GSC_US_SITE_URL }}
+        run: python post_publish_seo.py --market ${{ matrix.market }} --recent 10
+      - name: Save Google discovery evidence
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: google-discovery-follow-up-${{ matrix.market }}
+          path: reports/google-discovery-${{ matrix.market }}.json
+          if-no-files-found: warn
+          retention-days: 30

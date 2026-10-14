@@ -14,6 +14,8 @@ on:
       - "src/site_pages.py"
       - "src/internal_links.py"
       - "src/publishing_seo.py"
+      - "post_publish_seo.py"
+      - "src/google_discovery_report.py"
       - "src/article_copy.py"
       - "src/price_charts.py"
       - "generate_price_charts.py"
@@ -211,6 +213,7 @@ jobs:
         run: python generate_pinterest_feed_us.py
 
       - name: Check USA article discovery and Search Console
+        id: google_discovery
         continue-on-error: true
         timeout-minutes: 4
         env:
@@ -223,6 +226,16 @@ jobs:
           GSC_WRITE_REFRESH_TOKEN: ${{ secrets.GSC_WRITE_REFRESH_TOKEN }}
           GSC_US_SITE_URL: ${{ secrets.GSC_US_SITE_URL }}
         run: python post_publish_seo.py --market us
+
+      - name: Save US Google discovery evidence
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: google-discovery-after-publication-us
+          path: reports/google-discovery-us.json
+          if-no-files-found: warn
+          retention-days: 30
 
       - name: Publish new USA articles to X through Buffer
         env:
@@ -291,3 +304,4 @@ jobs:
 
           echo "Could not save USA publication state after 3 attempts."
           exit 1
+
