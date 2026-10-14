@@ -14,6 +14,8 @@ on:
       - "src/site_pages.py"
       - "src/internal_links.py"
       - "src/publishing_seo.py"
+      - "src/publication_quality.py"
+      - "verify_publication.py"
       - "post_publish_seo.py"
       - "src/google_discovery_report.py"
       - "src/article_copy.py"
@@ -70,7 +72,7 @@ jobs:
       - name: Test publishing and Shorts safeguards
         env:
           PYTHONPATH: .
-        run: pytest -q tests/test_article_images.py tests/test_youtube_shorts.py tests/test_site_pages.py tests/test_publishing_seo.py tests/test_retailer_measurement.py tests/test_publish_reconciliation.py tests/test_affiliate_tracking.py tests/test_social_promotion.py
+        run: pytest -q tests/test_article_images.py tests/test_youtube_shorts.py tests/test_site_pages.py tests/test_publishing_seo.py tests/test_publication_quality.py tests/test_retailer_measurement.py tests/test_publish_reconciliation.py tests/test_affiliate_tracking.py tests/test_social_promotion.py
 
       - name: Ensure FFmpeg is available for YouTube Shorts
         run: |
@@ -189,6 +191,36 @@ jobs:
           BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_US_BLOG_ID }}
         run: python publish_site_pages.py --market us
 
+      - name: Set up optional rendered-page verification
+        id: publication_browser
+        continue-on-error: true
+        timeout-minutes: 4
+        run: |
+          pip install 'playwright>=1.49,<2'
+          python -m playwright install --with-deps chromium
+
+      - name: Verify and repair USA published metadata and tracking
+        if: always()
+        continue-on-error: true
+        timeout-minutes: 6
+        env:
+          PYTHONPATH: .
+          BLOGGER_CLIENT_ID: ${{ secrets.BLOGGER_US_CLIENT_ID }}
+          BLOGGER_CLIENT_SECRET: ${{ secrets.BLOGGER_US_CLIENT_SECRET }}
+          BLOGGER_REFRESH_TOKEN: ${{ secrets.BLOGGER_US_REFRESH_TOKEN }}
+          BLOGGER_BLOG_ID: ${{ secrets.BLOGGER_US_BLOG_ID }}
+        run: python verify_publication.py --market us
+
+      - name: Save USA publication quality evidence
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: publication-quality-us
+          path: reports/publication-quality-us.json
+          if-no-files-found: warn
+          retention-days: 30
+
       - name: Prepare USA manual publishing package when Blogger is restricted
         if: steps.blogger_preflight.outcome == 'failure'
         env:
@@ -304,4 +336,3 @@ jobs:
 
           echo "Could not save USA publication state after 3 attempts."
           exit 1
-
