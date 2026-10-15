@@ -176,21 +176,12 @@
         ]
       },
       "latest": {
-        "start": "2026-09-28",
-        "end": "2026-10-11",
+        "start": "2026-09-29",
+        "end": "2026-10-12",
         "source": "Google Search Console web search",
         "clicks": 6,
-        "impressions": 11,
+        "impressions": 17,
         "rows": [
-          {
-            "keys": [
-              "2026-09-28"
-            ],
-            "clicks": 0,
-            "impressions": 0,
-            "ctr": 0,
-            "position": 0
-          },
           {
             "keys": [
               "2026-09-29"
@@ -307,6 +298,15 @@
             "impressions": 5,
             "ctr": 0.2,
             "position": 5.8
+          },
+          {
+            "keys": [
+              "2026-10-12"
+            ],
+            "clicks": 0,
+            "impressions": 6,
+            "ctr": 0,
+            "position": 46.833333333333336
           }
         ]
       }
@@ -439,21 +439,12 @@
         ]
       },
       "latest": {
-        "start": "2026-09-28",
-        "end": "2026-10-11",
+        "start": "2026-09-29",
+        "end": "2026-10-12",
         "source": "Google Search Console web search",
         "clicks": 4,
-        "impressions": 16,
+        "impressions": 21,
         "rows": [
-          {
-            "keys": [
-              "2026-09-28"
-            ],
-            "clicks": 0,
-            "impressions": 0,
-            "ctr": 0,
-            "position": 0
-          },
           {
             "keys": [
               "2026-09-29"
@@ -570,6 +561,15 @@
             "impressions": 0,
             "ctr": 0,
             "position": 0
+          },
+          {
+            "keys": [
+              "2026-10-12"
+            ],
+            "clicks": 0,
+            "impressions": 5,
+            "ctr": 0,
+            "position": 52.4
           }
         ]
       }
@@ -627,15 +627,16 @@
     "uk": {
       "status": "blocked",
       "error": "ValueError: No verified, relevant listing with a usable photo for Smaller single-basket shortlist",
-      "attempted": "2026-10-14"
+      "attempted": "2026-10-15"
     },
     "us": {
-      "status": "generated-awaiting-publisher",
+      "status": "published",
       "error": null,
       "attempted": "2026-10-08",
       "week": "2026-W42",
       "next": 1,
-      "slug": "air-fryers-for-students-usa"
+      "slug": "air-fryers-for-students-usa",
+      "url": "https://www.worthbuyingusa.com/2026/10/air-fryers-for-college-students.html"
     }
   }
 }

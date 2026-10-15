@@ -271,7 +271,7 @@
   },
   "daily|uk|v1|128015448408|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-14",
+    "last_attempt_date": "2026-10-15",
     "observations": [
       {
         "currency": "GBP",
@@ -290,6 +290,12 @@
         "date": "2026-10-14",
         "price": 20.19,
         "ts": "2026-10-14T15:30:35.983059+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-15",
+        "price": 20.19,
+        "ts": "2026-10-15T16:06:49.450907+01:00"
       }
     ],
     "title": "3Pcs Silicone Air Fryer Liners for Ninja Flex Drawer AF500UK, 2Pcs 5.2L + 1Pcs 1",
@@ -429,7 +435,7 @@
   },
   "daily|uk|v1|136880714337|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-14",
+    "last_attempt_date": "2026-10-15",
     "observations": [
       {
         "currency": "GBP",
@@ -442,6 +448,12 @@
         "date": "2026-10-14",
         "price": 39.99,
         "ts": "2026-10-14T15:30:40.550411+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-15",
+        "price": 39.99,
+        "ts": "2026-10-15T16:06:53.731899+01:00"
       }
     ],
     "title": "George Home GHAFN111B3Q 9L Dual Basket Digital Air Fryer Touch Screen LED Black",
@@ -468,7 +480,7 @@
     "tracking_status": "active"
   },
   "daily|uk|v1|136880735758|0": {
-    "article_slug": "best-air-fryers-worth-buying-uk-2026",
+    "article_slug": "air-fryers-for-students-uk",
     "last_attempt_date": "2026-10-15",
     "observations": [
       {
@@ -476,14 +488,20 @@
         "date": "2026-10-07",
         "price": 39.99,
         "ts": "2026-10-07T15:29:20.521225+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-15",
+        "price": 39.99,
+        "ts": "2026-10-15T16:06:53.731899+01:00"
       }
     ],
     "title": "George Home GHAFN121B4C 10L Dual Drawer Digital Air Fryer Touch screen LED 3040W",
-    "tracking_status": "unavailable"
+    "tracking_status": "active"
   },
   "daily|uk|v1|136954889500|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-14",
+    "last_attempt_date": "2026-10-15",
     "observations": [
       {
         "currency": "GBP",
@@ -502,6 +520,12 @@
         "date": "2026-10-14",
         "price": 39.99,
         "ts": "2026-10-14T15:30:37.244090+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-15",
+        "price": 39.99,
+        "ts": "2026-10-15T16:06:53.731899+01:00"
       }
     ],
     "title": "George Home GHAFN121B5D 9L Multi-Basket Dual Digital Air Fryer Non-Stick Black",
@@ -529,7 +553,7 @@
   },
   "daily|uk|v1|137190219990|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-14",
+    "last_attempt_date": "2026-10-15",
     "observations": [
       {
         "currency": "GBP",
@@ -542,6 +566,12 @@
         "date": "2026-10-14",
         "price": 44.99,
         "ts": "2026-10-14T15:30:40.550411+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-15",
+        "price": 44.99,
+        "ts": "2026-10-15T16:06:53.731899+01:00"
       }
     ],
     "title": "George Home SAFN121BL4Q 9.5L Digital Air Fryer Dual Drawer 2400w Black and Wood",
@@ -549,7 +579,7 @@
   },
   "daily|uk|v1|137268972796|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-14",
+    "last_attempt_date": "2026-10-15",
     "observations": [
       {
         "currency": "GBP",
@@ -568,9 +598,29 @@
         "date": "2026-10-14",
         "price": 39.99,
         "ts": "2026-10-14T15:30:40.550411+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-15",
+        "price": 39.99,
+        "ts": "2026-10-15T16:06:50.627571+01:00"
       }
     ],
     "title": "George Home GHAFN121B5M 8L Dual Drawer Digital Air Fryer 2400w Non-stick Black",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|137309522378|0": {
+    "article_slug": "air-fryers-for-students-uk",
+    "last_attempt_date": "2026-10-15",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-15",
+        "price": 44.99,
+        "ts": "2026-10-15T16:06:50.627571+01:00"
+      }
+    ],
+    "title": "George Home GHAFS121G5B 10L Stackable Air Fryer Dual Basket Digital 2700w Green",
     "tracking_status": "active"
   },
   "daily|uk|v1|137813387463|435760786355": {
@@ -2183,7 +2233,7 @@
   },
   "daily|uk|v1|317809552897|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-14",
+    "last_attempt_date": "2026-10-15",
     "observations": [
       {
         "currency": "GBP",
@@ -2202,6 +2252,12 @@
         "date": "2026-10-14",
         "price": 12.52,
         "ts": "2026-10-14T15:30:35.983059+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-15",
+        "price": 12.52,
+        "ts": "2026-10-15T16:06:49.450907+01:00"
       }
     ],
     "title": "3Pcs 4.7-6.2L Silicone Air Fryer Liner Suit for Philips Airfryer 6.2L (Na230/09;",
@@ -2209,7 +2265,7 @@
   },
   "daily|uk|v1|318042236130|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-14",
+    "last_attempt_date": "2026-10-15",
     "observations": [
       {
         "currency": "GBP",
@@ -2228,6 +2284,12 @@
         "date": "2026-10-14",
         "price": 17.47,
         "ts": "2026-10-14T15:30:35.983059+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-15",
+        "price": 17.47,
+        "ts": "2026-10-15T16:06:49.450907+01:00"
       }
     ],
     "title": "KAHEIGN 3Pcs Silicone Air Fryer Liners for Ninja Flex Drawer AF500UK, 2Pcs 5.2L",
@@ -2235,7 +2297,7 @@
   },
   "daily|uk|v1|318495567333|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-14",
+    "last_attempt_date": "2026-10-15",
     "observations": [
       {
         "currency": "GBP",
@@ -2248,6 +2310,12 @@
         "date": "2026-10-14",
         "price": 11.16,
         "ts": "2026-10-14T15:30:35.983059+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-15",
+        "price": 11.16,
+        "ts": "2026-10-15T16:06:49.450907+01:00"
       }
     ],
     "title": "100PCS Air Fryer Liners for Tefal Easy Fry 5.2L/3.1L, Tower 5.2L/3.3L, Lakeland",
