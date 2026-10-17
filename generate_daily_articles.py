@@ -25,7 +25,7 @@ from src.usa_conversion import (
 ROOT = Path(__file__).resolve().parent
 STATE_PATH = ROOT / "state" / "daily_article_generator.json"
 PRICE_HISTORY_PATH = ROOT / "state" / "daily_price_history.json"
-REFRESH_AFTER_DAYS = 21
+REFRESH_AFTER_DAYS = 56
 LONDON_TZ = ZoneInfo("Europe/London")
 
 # Do not publish a daily article merely because it is next in a curated list.
@@ -103,6 +103,19 @@ AUTHORITY_CLUSTERS = {
         "pressure-washers", "cordless-drills", "lawn-mowers", "hedge-trimmers",
         "leaf-blowers", "garden-tool-sets",
     ),
+    "Gaming & Entertainment": (
+        "gaming-headsets", "gaming-keyboards", "gaming-mice", "game-controllers",
+        "portable-gaming-systems", "streaming-devices", "bluetooth-speakers", "projectors",
+    ),
+    "Smart Home & Connectivity": (
+        "wifi-routers", "mesh-wifi", "security-cameras", "video-doorbells",
+        "smart-plugs", "smart-light-switches", "webcams", "printers",
+    ),
+    "Lifestyle & Personal Care": (
+        "hair-dryers", "electric-toothbrushes", "electric-shavers", "hair-straighteners",
+        "loungewear", "beauty-sets", "seasonal-hobby-kits", "luggage",
+        "backpacks", "office-chairs",
+    ),
 }
 AUTHORITY_CORE_KEYS = tuple(
     dict.fromkeys(
@@ -124,7 +137,7 @@ def authority_cluster_for_topic(topic_key: str) -> str:
 def shopping_candidate_topics(
     available: list[tuple],
     month: int,
-    limit: int = 24,
+    limit: int = 36,
 ) -> list[tuple]:
     """Shortlist commercial product topics for external Google Shopping research."""
     by_key = {topic[0]: topic for topic in available}
@@ -139,6 +152,21 @@ def shopping_candidate_topics(
 
     for key in SEASONAL_FALLBACKS.get(month, ()):
         add(key)
+
+    # Guarantee the Google Shopping comparison sees a genuinely mixed shortlist.
+    # Without this pass, the seasonal and evergreen lists can fill the shortlist
+    # before gaming, lifestyle, smart-home and other commercial categories are
+    # ever considered.
+    for cluster_keys in AUTHORITY_CLUSTERS.values():
+        added = 0
+        for key in cluster_keys:
+            before = len(chosen)
+            add(key)
+            if len(chosen) > before:
+                added += 1
+            if added >= 2 or len(chosen) >= limit:
+                break
+
     for key in EVERGREEN_HIGH_INTENT:
         add(key)
 
@@ -296,6 +324,13 @@ SATURDAY_PRIORITY = (
     "leaf-blowers",
     "portable-griddles",
     "smart-light-switches",
+    "portable-gaming-systems",
+    "projectors",
+    "gaming-headsets",
+    "bluetooth-speakers",
+    "seasonal-hobby-kits",
+    "luggage",
+    "beauty-sets",
 )
 
 SUNDAY_PRIORITY = (
@@ -863,8 +898,13 @@ def pick_topic(
     weekday: int,
     market: str,
     month: int | None = None,
+    excluded_topic_keys: set[str] | None = None,
 ) -> tuple[tuple, dict | None, dict | None, float | None]:
     available = authority_candidate_pool(article_dir, year, weekday)
+    if excluded_topic_keys:
+        varied = [topic for topic in available if topic[0] not in excluded_topic_keys]
+        if varied:
+            available = varied
     if not available:
         raise RuntimeError("No authority-cluster topics are available for publication.")
 
@@ -1977,6 +2017,7 @@ def main() -> None:
     is_weekend = weekday in (5, 6)
     state = load_json(STATE_PATH)
     generated = 0
+    selected_today: set[str] = set()
 
     for market in ("uk", "us"):
         market_state = state.get(market, {})
@@ -1993,8 +2034,14 @@ def main() -> None:
         article_dir.mkdir(parents=True, exist_ok=True)
 
         topic, trend_signal, gsc_signal, demand_score = pick_topic(
-            article_dir, year, weekday, market, month=now.month
+            article_dir,
+            year,
+            weekday,
+            market,
+            month=now.month,
+            excluded_topic_keys=selected_today,
         )
+        selected_today.add(topic[0])
 
         planned_slug = evergreen_article_slug(topic[0], market)
         planned_target = article_dir / f"{planned_slug}.json"
