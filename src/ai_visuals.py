@@ -333,6 +333,8 @@ def _article_style_version(article: dict) -> str:
 
     if _has_any(_topic_haystack(article), "air fryer", "air-fryer"):
         version += "+air-fryer-subject-v4"
+    if _has_any(_topic_haystack(article), "storage bins", "storage boxes", "storage bin", "storage box"):
+        version += "+household-storage-subject-v2"
     reviewed = (curated_configuration('uk', article.get('slug', ''))
                 or curated_configuration('us', article.get('slug', '')))
     if reviewed:
@@ -520,9 +522,19 @@ def _visual_direction(article: dict) -> str:
             "tools in a tidy utility room or home setting. The look should be fresh, practical and premium."
         )
 
+    if _has_any(haystack, "storage bins", "storage boxes", "storage bin", "storage box"):
+        return (
+            "Show household storage boxes only: several large clear or translucent plastic storage boxes "
+            "with secure clip-on or latch lids, stacked neatly in a bright modern utility room, bedroom, "
+            "hall cupboard or home office. They should look like normal 20L-80L home storage containers "
+            "used for clothes, bedding, toys or household items. Do not show wall-mounted bins, small-parts "
+            "drawers, workshop organisers, tool racks, pegboards, screw/nail/bolt containers, garage shelving "
+            "or industrial component storage. Keep the main household boxes large and obvious on the left side."
+        )
+
     if _has_any(haystack, "storage", "organisation", "organization", "organizer", "shelving", "declutter", "hanger"):
         return (
-            "Stage a home-organisation editorial scene with attractive unbranded storage bins, "
+            "Stage a home-organisation editorial scene with attractive unbranded household storage bins, "
             "wardrobe organisers or hangers in a neat modern home environment. Make it feel clean, "
             "satisfying and useful."
         )
@@ -649,6 +661,13 @@ def negative_prompt(article: dict | None = None) -> str:
             + ", oven, conventional oven, wall oven, built-in oven, cooker, range, stove, stovetop, hob, "
             "toaster oven, mini oven, convection oven, air fryer oven, glass door, transparent door, "
             "oven cavity, oven rack, wire rack, baking tray, rotisserie"
+        )
+    if article and _has_any(_topic_haystack(article), "storage bins", "storage boxes", "storage bin", "storage box"):
+        return (
+            base
+            + ", garage, workshop, pegboard, wall-mounted parts bins, wall mount bins, small parts organizer, "
+            "small parts organiser, screw organizer, screw organiser, nail bins, bolt bins, nut bins, tool rack, "
+            "tool organiser, tool organizer, industrial parts storage, component drawers, hardware bins"
         )
     return base
 
