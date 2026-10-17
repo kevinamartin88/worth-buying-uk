@@ -251,7 +251,7 @@ TOPICS = [
     ("leaf-blowers", "Leaf Blowers", "leaf blower", 450, 500, "Home & Kitchen", "LEAF BLOWER GUIDE"),
     ("hedge-trimmers", "Hedge Trimmers", "hedge trimmer", 450, 500, "Home & Kitchen", "HEDGE TRIMMER GUIDE"),
     ("lawn-mowers", "Lawn Mowers", "lawn mower", 900, 1000, "Home & Kitchen", "LAWN MOWER GUIDE"),
-    ("storage-bins", "Storage Bins & Organisers", "storage bins organizer", 180, 220, "Home & Kitchen", "HOME ORGANISATION GUIDE"),
+    ("storage-bins", "Storage Bins & Organisers", "plastic storage boxes with lids home organisation", 180, 220, "Home & Kitchen", "HOME ORGANISATION GUIDE"),
     ("non-slip-hangers", "Non-Slip Hangers", "non slip hangers", 120, 150, "Home & Kitchen", "HOME ORGANISATION GUIDE"),
     ("cleaning-bundles", "Multi-Purpose Cleaning Bundles", "household cleaning bundle", 180, 220, "Home & Kitchen", "CLEANING BUYING GUIDE"),
     ("portable-griddles", "Portable Griddles", "portable griddle", 700, 800, "Home & Kitchen", "OUTDOOR COOKING GUIDE"),
@@ -274,7 +274,7 @@ US_TOPIC_COPY = {
     "robot-vacuums": ("Robot Vacuums", "robot vacuum", "ROBOT VACUUM GUIDE"),
     "tyre-inflators": ("Tire Inflators", "tire inflator", "TIRE INFLATOR GUIDE"),
     "car-vacuums": ("Car Vacuums", "car vacuum", "CAR VACUUM GUIDE"),
-    "storage-bins": ("Storage Bins & Organizers", "storage bins organizer", "HOME ORGANIZATION GUIDE"),
+    "storage-bins": ("Storage Bins & Organizers", "plastic storage bins with lids home organization", "HOME ORGANIZATION GUIDE"),
 }
 
 US_ENGLISH_REPLACEMENTS = (
@@ -1028,6 +1028,34 @@ def _query_relevant(title: str, query: str) -> bool:
     return bool(query_tokens & title_tokens)
 
 
+def _topic_specific_listing_match(title: str, query: str) -> bool:
+    """Reject common marketplace false positives for deliberately narrow topics."""
+    text = normalise(title)
+    query_cf = query.casefold()
+
+    if "storage" in query_cf and any(word in query_cf for word in ("box", "bin", "organ")):
+        blocked = (
+            "garage", "workshop", "small parts", "parts rack", "parts organizer",
+            "parts organiser", "tool rack", "tool organiser", "tool organizer",
+            "wall mount", "wall mounted", "peg board", "pegboard", "screw",
+            "screws", "nail", "nails", "bolt", "bolts", "nut storage",
+            "hardware storage", "component storage", "shed tool",
+            "waste bin", "trash bin", "garbage bin", "wheelie bin", "recycling bin",
+        )
+        if any(term in text for term in blocked):
+            return False
+
+        household_signals = (
+            "storage box", "storage boxes", "storage bin", "storage bins",
+            "storage container", "storage containers", "stackable", "stacking",
+            "lidded", "lid", "latch", "underbed", "under bed", "closet",
+            "wardrobe", "home organisation", "home organization", "clear plastic",
+        )
+        return any(term in text for term in household_signals)
+
+    return True
+
+
 def _has_product_image(item: dict) -> bool:
     return bool(str(((item.get("image") or {}).get("imageUrl") or "")).strip())
 
@@ -1047,6 +1075,8 @@ def listing_score(
     if _implausible_marketplace_title(title_raw):
         return None
     if query and not _query_relevant(title_raw, query):
+        return None
+    if query and not _topic_specific_listing_match(title_raw, query):
         return None
     if expected_currency == "USD" and not relevant_product(title_raw, query):
         return None
