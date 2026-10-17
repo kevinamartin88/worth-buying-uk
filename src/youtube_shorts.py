@@ -129,9 +129,12 @@ def short_description(article: dict, blog_url: str, market: str) -> str:
         or "A quick buying guide to help you compare the options that matter."
     ).strip()
     return (
-        f"Open our channel profile and tap the website link: {config['site']}\n"
-        f"Find the guide: {article.get('title', 'Worth Buying guide')}\n\n"
-        f"Full article URL (copy into your browser): {blog_url}\n\n{summary}\n\n"
+        "🔗 WANT THE FULL GUIDE?\n"
+        f"Tap our channel name/profile, then tap the website link for {config['site']}.\n"
+        f"Guide to look for: {article.get('title', 'Worth Buying guide')}\n\n"
+        f"Article address: {blog_url}\n\n{summary}\n\n"
+        "YouTube does not make ordinary external URLs in Shorts descriptions clickable, "
+        "so the channel-profile website link is the quickest route.\n\n"
         "Prices, availability and product details can change. Check the full guide and "
         "retailer listing before buying.\n\n"
         f"#{config['brand'].replace(' ', '')} #BuyingGuide #Shorts"
@@ -501,8 +504,8 @@ def build_short_video(
         ),
         (
             "FULL GUIDE",
-            "See every pick and buying check",
-            f"Tap the website link on our channel profile: {config['site']}",
+            "Tap our profile → website link",
+            f"Then find this guide on {config['site']}",
         ),
     ]
     work_dir.mkdir(parents=True, exist_ok=True)
