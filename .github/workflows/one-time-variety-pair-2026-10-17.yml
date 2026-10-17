@@ -49,9 +49,10 @@ jobs:
           python scripts/refresh_daily_topic.py --market uk --topic storage-bins
           python scripts/refresh_daily_topic.py --market us --topic storage-bins
 
-      - name: Commit the new varied pair
+      - name: Commit the regenerated household guides
         run: |
-          git add articles articles-us
+          git add articles articles-us state/daily_price_history.json
+          git add -u state
           if git diff --cached --quiet; then
             echo "No article changes were generated."
             exit 0
