@@ -1,9 +1,9 @@
 {
   "uk": {
-    "authority_cluster": "Motoring",
+    "authority_cluster": "Cleaning & Home Climate",
     "content_action": "refreshed",
-    "date": "2026-10-16",
-    "day": "Friday",
+    "date": "2026-10-17",
+    "day": "Saturday",
     "demand_score": null,
     "google_cached": false,
     "google_observed_at": null,
@@ -17,18 +17,18 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-car-jump-starters-before-winter-uk-2026",
-    "title": "Best Car Jump Starters Worth Buying in the UK (2026)",
-    "topic": "jump-starters",
+    "slug": "best-storage-bins-worth-buying-uk-2026",
+    "title": "Best Storage Bins & Organisers Worth Buying in the UK (2026)",
+    "topic": "storage-bins",
     "trend_traffic": null,
-    "weekend_focus": null,
-    "weekend_priority": false
+    "weekend_focus": "saturday-home-diy",
+    "weekend_priority": true
   },
   "us": {
-    "authority_cluster": "Motoring",
+    "authority_cluster": "Cleaning & Home Climate",
     "content_action": "refreshed",
-    "date": "2026-10-16",
-    "day": "Friday",
+    "date": "2026-10-17",
+    "day": "Saturday",
     "demand_score": null,
     "google_cached": false,
     "google_observed_at": null,
@@ -42,11 +42,11 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-car-jump-starters-before-winter-us-2026",
-    "title": "Best Car Jump Starters Worth Buying in the USA (2026)",
-    "topic": "jump-starters",
+    "slug": "best-storage-bins-worth-buying-us-2026",
+    "title": "Best Storage Bins & Organizers Worth Buying in the USA (2026)",
+    "topic": "storage-bins",
     "trend_traffic": null,
-    "weekend_focus": null,
-    "weekend_priority": false
+    "weekend_focus": "saturday-home-diy",
+    "weekend_priority": true
   }
 }
