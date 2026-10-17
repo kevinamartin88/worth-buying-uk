@@ -382,12 +382,13 @@
   },
   "best-storage-bins-worth-buying-us-2026": {
     "buffer_channel_id": "6aa8516eea19ca0bde41b09c",
-    "buffer_post_id": "6ab7824ff59168c9753b188e",
-    "buffer_sent_at": "2026-09-26T08:29:04.471Z",
+    "buffer_post_id": "6ad2cdeb1c7e49ea4c30a798",
+    "buffer_sent_at": "2026-10-17T01:22:52.607Z",
     "buffer_status": "sent",
     "image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-storage-bins-worth-buying-us-2026.jpg",
-    "source_sha": "2026-09-26-storage-bins-us-daily-v4",
-    "title": "Best Storage Bins & Organisers Worth Buying in the USA (2026)",
+    "promotion_token": "2026-10-17:us:best-storage-bins-worth-buying-us-2026",
+    "source_sha": "2026-10-17-storage-bins-us-daily-v6",
+    "title": "Best Storage Bins & Organizers Worth Buying in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/09/best-storage-bins-organisers-worth.html"
   },
   "best-tablets-worth-buying-us": {
