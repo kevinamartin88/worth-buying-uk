@@ -1,26 +1,28 @@
 {
   "uk": {
-    "date": "2026-10-12",
+    "date": "2026-10-17",
     "dates": [
       "2026-10-03",
       "2026-10-05",
       "2026-10-10",
-      "2026-10-12"
+      "2026-10-12",
+      "2026-10-17"
     ],
-    "slug": "savvy-buyer-monday-price-comparison-avoid-traps-uk-2026-10-12",
-    "title": "Savvy Buyer Monday: Common Traps to Avoid for Building A Fair Price Comparison (UK)",
+    "slug": "savvy-buyer-saturday-price-comparison-final-checklist-uk-2026-10-17",
+    "title": "Savvy Buyer Saturday: The Final Five-Minute Checklist for Building A Fair Price Comparison (UK)",
     "week": "2026-W42"
   },
   "us": {
-    "date": "2026-10-12",
+    "date": "2026-10-17",
     "dates": [
       "2026-10-03",
       "2026-10-05",
       "2026-10-10",
-      "2026-10-12"
+      "2026-10-12",
+      "2026-10-17"
     ],
-    "slug": "savvy-buyer-monday-price-comparison-avoid-traps-us-2026-10-12",
-    "title": "Savvy Buyer Monday: Common Traps to Avoid for Building A Fair Price Comparison (US)",
+    "slug": "savvy-buyer-saturday-price-comparison-final-checklist-us-2026-10-17",
+    "title": "Savvy Buyer Saturday: The Final Five-Minute Checklist for Building A Fair Price Comparison (US)",
     "week": "2026-W42"
   }
 }
