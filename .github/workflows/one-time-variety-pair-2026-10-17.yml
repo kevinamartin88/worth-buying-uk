@@ -1,0 +1,63 @@
+name: One-time variety pair 2026-10-17
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/one-time-variety-pair-2026-10-17.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: worth-buying-repo-writes
+  queue: max
+  cancel-in-progress: false
+
+jobs:
+  create-variety-pair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Create a deliberately varied UK and USA pair
+        env:
+          PYTHONPATH: .
+          EBAY_ENV: production
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+          EPN_CAMPAIGN_ID: ${{ secrets.EPN_CAMPAIGN_ID }}
+          EPN_US_CAMPAIGN_ID: ${{ secrets.EPN_US_CAMPAIGN_ID }}
+          AMAZON_CREATORS_CLIENT_ID: ${{ secrets.AMAZON_CREATORS_CLIENT_ID }}
+          AMAZON_CREATORS_CLIENT_SECRET: ${{ secrets.AMAZON_CREATORS_CLIENT_SECRET }}
+          AMAZON_CREATORS_CREDENTIAL_VERSION: ${{ secrets.AMAZON_CREATORS_CREDENTIAL_VERSION }}
+        run: |
+          python scripts/refresh_daily_topic.py --market uk --topic electric-shavers
+          python scripts/refresh_daily_topic.py --market us --topic portable-gaming-systems
+
+      - name: Commit the new varied pair
+        run: |
+          git add articles articles-us
+          if git diff --cached --quiet; then
+            echo "No article changes were generated."
+            exit 0
+          fi
+          git config user.name "worth-buying-variety-bot"
+          git config user.email "worth-buying-variety-bot@users.noreply.github.com"
+          git commit -m "Publish varied UK and USA buying guides"
+          git pull --rebase origin main
+          git push
