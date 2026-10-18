@@ -11,7 +11,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: worth-buying-repo-writes
+  group: worth-buying-carpet-cleaner-repair
   queue: max
   cancel-in-progress: false
 
@@ -50,8 +50,8 @@ jobs:
 
       - name: Commit the regenerated UK carpet-cleaner guide
         run: |
-          git add articles state/daily_price_history.json
-          git add -u state
+          git restore state/daily_price_history.json 2>/dev/null || true
+          git add articles/best-carpet-cleaners-worth-buying-uk.json
           if git diff --cached --quiet; then
             echo "No article changes were generated."
             exit 0
