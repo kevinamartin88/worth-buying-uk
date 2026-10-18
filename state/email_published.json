@@ -79,6 +79,18 @@
     "title": "Best Car Jump Starters Worth Buying Before Winter in the UK (2026)",
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-car-jump-starters-worth-buying.html"
   },
+  "uk:best-carpet-cleaners-worth-buying-uk": {
+    "delivery_mode": "manual",
+    "delivery_status": "awaiting_manual_publish",
+    "last_sent_at": "2026-10-18T01:04:24.475125+00:00",
+    "market": "uk",
+    "primary_category": "Home & Kitchen",
+    "send_attempts": 1,
+    "sent": true,
+    "source_file": "best-carpet-cleaners-worth-buying-uk.json",
+    "source_sha": "2026-10-18-carpet-cleaners-uk-daily-v6",
+    "title": "Best Carpet Cleaners Worth Buying in the UK (2026)"
+  },
   "uk:best-coffee-machines-worth-buying-uk-2026": {
     "delivery_mode": "manual",
     "delivery_status": "published",
@@ -532,6 +544,18 @@
     "source_sha": "2026-09-25-soundbars-us-daily-v2",
     "title": "Best Soundbars Worth Buying in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/09/best-soundbars-worth-buying-in-usa-2026.html"
+  },
+  "us:best-stand-mixers-worth-buying-us": {
+    "delivery_mode": "manual",
+    "delivery_status": "awaiting_manual_publish",
+    "last_sent_at": "2026-10-18T01:04:28.573043+00:00",
+    "market": "us",
+    "primary_category": "Home & Kitchen",
+    "send_attempts": 1,
+    "sent": true,
+    "source_file": "best-stand-mixers-worth-buying-us.json",
+    "source_sha": "2026-10-18-stand-mixers-us-daily-v6",
+    "title": "Best Stand Mixers Worth Buying in the USA (2026)"
   },
   "us:best-storage-bins-worth-buying-us-2026": {
     "delivery_mode": "manual",
