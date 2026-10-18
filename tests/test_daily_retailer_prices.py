@@ -81,7 +81,7 @@ def test_capacity_and_feature_counts_are_not_models(title):
     assert "Air Fryer" in query
 
 
-def test_unverified_air_fryer_has_only_advertised_ebay_product_link():
+def test_unverified_air_fryer_keeps_ebay_and_adds_amazon_search_alternative():
     item = {
         "title": "11L Double Stack Air Fryer, Family Size Digital with 2x5.5L Baskets Cook",
         "itemWebUrl": "https://www.ebay.co.uk/itm/358703800622",
@@ -91,7 +91,9 @@ def test_unverified_air_fryer_has_only_advertised_ebay_product_link():
                    lambda rows, market, query: daily.live_sections(rows, market, "Air Fryers", query)):
         content = render([item], "uk", "air fryer")
         assert item["itemWebUrl"] in content
-        assert "amazon.co.uk" not in content
+        assert "amazon.co.uk/s?" in content
+        assert "tag=worthbuyin008-21" in content
+        assert "Search Amazon UK" in content
 
 
 @pytest.mark.parametrize("changes", [
@@ -114,8 +116,12 @@ def test_wrong_product_or_unverified_destination_is_not_rendered(changes):
             "url": "https://www.amazon.co.uk/dp/B0EXAMPLE1", **changes,
         },
     }
-    assert "amazon.co.uk" not in daily.quick_picks_html([item], "uk", "air fryer")
-    assert "amazon.co.uk" not in daily.live_sections([item], "uk", "Air Fryers", "air fryer")
+    quick = daily.quick_picks_html([item], "uk", "air fryer")
+    detail = daily.live_sections([item], "uk", "Air Fryers", "air fryer")
+    for content in (quick, detail):
+        assert "amazon.co.uk/s?" in content
+        assert "tag=worthbuyin008-21" in content
+        assert "amazon.co.uk/dp/B0EXAMPLE1" not in content
 
 
 def test_corrected_air_fryer_article_uses_valid_retailer_links_for_its_mode():
