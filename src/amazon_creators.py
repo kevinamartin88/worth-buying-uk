@@ -34,6 +34,10 @@ class AmazonOffer:
     currency: str
     url: str
     image_url: str = ""
+    asin: str = ""
+    brand: str = ""
+    eans: tuple[str, ...] = ()
+    upcs: tuple[str, ...] = ()
 
 
 class AmazonCreatorsClient:
@@ -117,6 +121,8 @@ class AmazonCreatorsClient:
                 "resources": [
                     "images.primary.large",
                     "itemInfo.title",
+                    "itemInfo.byLineInfo",
+                    "itemInfo.externalIds",
                     "offersV2.listings.price",
                 ],
             },
@@ -144,6 +150,23 @@ class AmazonCreatorsClient:
                 (((item.get("images") or {}).get("primary") or {}).get("large") or {}).get("url")
                 or ""
             ).strip()
+            item_info = item.get("itemInfo") or {}
+            brand = str(
+                ((((item_info.get("byLineInfo") or {}).get("brand") or {}).get("displayValue")))
+                or ""
+            ).strip()
+            external_ids = item_info.get("externalIds") or {}
+            eans = tuple(
+                str(value).strip()
+                for value in (((external_ids.get("eans") or {}).get("displayValues")) or [])
+                if str(value).strip()
+            )
+            upcs = tuple(
+                str(value).strip()
+                for value in (((external_ids.get("upcs") or {}).get("displayValues")) or [])
+                if str(value).strip()
+            )
+            asin = str(item.get("asin") or "").strip()
             if currency != config["currency"] or price <= 0 or not url:
                 continue
             offers.append(
@@ -153,6 +176,10 @@ class AmazonCreatorsClient:
                     currency=currency,
                     url=url,
                     image_url=image_url,
+                    asin=asin,
+                    brand=brand,
+                    eans=eans,
+                    upcs=upcs,
                 )
             )
         return offers
