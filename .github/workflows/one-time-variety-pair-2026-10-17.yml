@@ -1,4 +1,4 @@
-name: One-time variety pair 2026-10-17
+name: One-time carpet cleaner repair 2026-10-18
 
 on:
   push:
@@ -34,7 +34,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Regenerate household storage-bin guides for both markets
+      - name: Regenerate UK carpet-cleaner guide with machine-only matching
         env:
           PYTHONPATH: .
           EBAY_ENV: production
@@ -46,12 +46,11 @@ jobs:
           AMAZON_CREATORS_CLIENT_SECRET: ${{ secrets.AMAZON_CREATORS_CLIENT_SECRET }}
           AMAZON_CREATORS_CREDENTIAL_VERSION: ${{ secrets.AMAZON_CREATORS_CREDENTIAL_VERSION }}
         run: |
-          python scripts/refresh_daily_topic.py --market uk --topic storage-bins
-          python scripts/refresh_daily_topic.py --market us --topic storage-bins
+          python scripts/refresh_daily_topic.py --market uk --topic carpet-cleaners
 
-      - name: Commit the regenerated household guides
+      - name: Commit the regenerated UK carpet-cleaner guide
         run: |
-          git add articles articles-us state/daily_price_history.json
+          git add articles state/daily_price_history.json
           git add -u state
           if git diff --cached --quiet; then
             echo "No article changes were generated."
@@ -59,6 +58,6 @@ jobs:
           fi
           git config user.name "worth-buying-variety-bot"
           git config user.email "worth-buying-variety-bot@users.noreply.github.com"
-          git commit -m "Repair household storage-bin guides"
+          git commit -m "Repair UK carpet-cleaner guide"
           git pull --rebase origin main
           git push
