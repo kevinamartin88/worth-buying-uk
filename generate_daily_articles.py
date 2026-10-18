@@ -1706,7 +1706,11 @@ def _amazon_identity_match(item: dict, offer: object, fallback_query: str) -> bo
     offer_brand = normalise(getattr(offer, "brand", ""))
     offer_title = normalise(getattr(offer, "title", ""))
     model = _clean_identifier(identity["mpn"] or identity["model"])
-    compact_offer_title = _clean_identifier(offer_title)
+    offer_model_tokens = {
+        _clean_identifier(token)
+        for token in re.findall(r"[A-Za-z0-9][A-Za-z0-9._/-]*", offer_title)
+        if _clean_identifier(token)
+    }
 
     if not brand or not model:
         return False
@@ -1714,7 +1718,7 @@ def _amazon_identity_match(item: dict, offer: object, fallback_query: str) -> bo
         return False
     if brand not in offer_title and (not offer_brand or brand not in offer_brand):
         return False
-    return model in compact_offer_title
+    return model in offer_model_tokens
 
 
 def verified_amazon_offer(item: dict, market: str, fallback_query: str) -> dict:
@@ -1751,14 +1755,18 @@ def verified_amazon_offer(item: dict, market: str, fallback_query: str) -> dict:
     brand = normalise(identity["brand"])
     offer_brand = normalise(str(offer.get("brand") or ""))
     model = _clean_identifier(identity["mpn"] or identity["model"])
-    compact_title = _clean_identifier(offer_title)
+    offer_model_tokens = {
+        _clean_identifier(token)
+        for token in re.findall(r"[A-Za-z0-9][A-Za-z0-9._/-]*", offer_title)
+        if _clean_identifier(token)
+    }
     if not brand or not model:
         return {}
     if offer_brand and brand != offer_brand and brand not in offer_brand and offer_brand not in brand:
         return {}
     if brand not in normalise(offer_title) and (not offer_brand or brand not in offer_brand):
         return {}
-    if model not in compact_title:
+    if model not in offer_model_tokens:
         return {}
     return offer
 
@@ -1794,7 +1802,7 @@ def add_amazon_prices(items: list[dict], market: str, fallback_query: str) -> No
                 continue
             seen_queries.add(normal_query.casefold())
             try:
-                offers = client.search_offers(normal_query, item_count=10)
+                offers = client.search_offers(normal_query)
             except Exception as exc:
                 print(
                     f"[amazon-warning] {market.upper()} price lookup failed for "
