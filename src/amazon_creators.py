@@ -104,7 +104,7 @@ class AmazonCreatorsClient:
         self._token_cache[cache_key] = (token, now + expires_in)
         return token
 
-    def search_offers(self, keywords: str, item_count: int = 5) -> list[AmazonOffer]:
+    def search_offers(self, keywords: str, item_count: int = 10) -> list[AmazonOffer]:
         config = MARKETS[self.market]
         response = requests.post(
             "https://creatorsapi.amazon/catalog/v1/searchItems",
