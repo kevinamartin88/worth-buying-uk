@@ -202,7 +202,7 @@ TOPICS = [
     ("stand-mixers", "Stand Mixers", "stand mixer", 800, 900, "Home & Kitchen", "STAND MIXER GUIDE"),
     ("food-processors", "Food Processors", "food processor", 500, 600, "Home & Kitchen", "FOOD PROCESSOR GUIDE"),
     ("steam-mops", "Steam Mops", "steam mop", 300, 350, "Home & Kitchen", "STEAM MOP GUIDE"),
-    ("carpet-cleaners", "Carpet Cleaners", "carpet cleaner", 600, 700, "Home & Kitchen", "CARPET CLEANER GUIDE"),
+    ("carpet-cleaners", "Carpet Cleaners", "carpet cleaning machine washer", 600, 700, "Home & Kitchen", "CARPET CLEANER GUIDE"),
     ("air-purifiers", "Air Purifiers", "air purifier", 600, 700, "Home & Kitchen", "AIR PURIFIER GUIDE"),
     ("tower-fans", "Tower Fans", "tower fan", 300, 350, "Home & Kitchen", "FAN BUYING GUIDE"),
     ("portable-heaters", "Portable Heaters", "portable electric heater", 250, 300, "Home & Kitchen", "HEATER BUYING GUIDE"),
@@ -1052,6 +1052,25 @@ def _topic_specific_listing_match(title: str, query: str) -> bool:
             "wardrobe", "home organisation", "home organization", "clear plastic",
         )
         return any(term in text for term in household_signals)
+
+    if "carpet" in query_cf and any(word in query_cf for word in ("cleaner", "cleaning", "washer", "machine", "extractor")):
+        blocked = (
+            "solution", "shampoo solution", "cleaning solution", "detergent", "deodoriser",
+            "deodorizer", "stain remover", "refill", "concentrate", "formula", "liquid",
+            "5l", "4 x 5l", "2l", "1l", "500ml", "1 litre", "2 litre", "5 litre",
+            "bottle", "fluid", "chemical", "spray", "powder", "tablet", "tabs",
+            "brush head", "replacement brush", "hose only", "spare hose", "filter only",
+        )
+        if any(term in text for term in blocked):
+            return False
+
+        machine_signals = (
+            "carpet cleaner machine", "carpet cleaning machine", "carpet washer",
+            "carpet extractor", "carpet shampooer", "upright carpet cleaner",
+            "deep cleaner", "spot cleaner", "wet dry vacuum", "wet and dry vacuum",
+            "rug doctor", "bissell", "vax", "hoover smartwash", "shark stainstriker",
+        )
+        return any(term in text for term in machine_signals)
 
     return True
 
