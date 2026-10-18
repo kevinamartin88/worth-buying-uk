@@ -1640,27 +1640,86 @@ def _model_token(title: str, fallback_query: str) -> str:
     return re.sub(r"[^A-Za-z0-9]", "", tokens[-1]).casefold()
 
 
-def verified_amazon_offer(item: dict, market: str, fallback_query: str) -> dict:
-    """Expose only a direct retailer offer matching the listing's brand and model."""
-    offer = item.get("_amazon_offer") or {}
-    title = str(item.get("title") or "")
-    model = _model_token(title, fallback_query)
-    words = title.split()
-    brand = str(item.get("brand") or (words[0] if words else "")).strip().casefold()
-    if not model or not brand or not brand.isalpha() or brand in {
-        "new", "best", "refurbished", "certified", "portable", "electric",
-        "dehumidifier", "vacuum", "cleaner", "large", "family", "double",
-    }:
-        return {}
-    offer_title = str(offer.get("title") or "").casefold()
-    offer_tokens = {
-        re.sub(r"[^a-z0-9]", "", token)
-        for token in re.findall(r"[a-z0-9][a-z0-9._/-]*", offer_title)
+def _clean_identifier(value: object) -> str:
+    return re.sub(r"[^0-9A-Za-z]", "", str(value or "")).casefold()
+
+
+def ebay_product_identity(item: dict, fallback_query: str = "") -> dict:
+    """Extract the strongest cross-retailer identity signals available from eBay."""
+    aspects: dict[str, list[str]] = {}
+    for aspect in item.get("localizedAspects") or []:
+        name = normalise(str(aspect.get("name") or "")).strip()
+        value = " ".join(str(aspect.get("value") or "").split()).strip()
+        if name and value:
+            aspects.setdefault(name, []).append(value)
+
+    def first(*names: str) -> str:
+        for name in names:
+            values = aspects.get(normalise(name), [])
+            if values:
+                return values[0]
+        return ""
+
+    def identifiers(*names: str) -> set[str]:
+        found: set[str] = set()
+        for name in names:
+            for value in aspects.get(normalise(name), []):
+                clean = _clean_identifier(value)
+                if clean and clean not in {"doesnotapply", "notapplicable", "na"}:
+                    found.add(clean)
+        return found
+
+    title = " ".join(str(item.get("title") or "").split())
+    title_words = title.split()
+    brand = str(item.get("brand") or first("Brand") or (title_words[0] if title_words else "")).strip()
+    mpn = first("MPN", "Manufacturer Part Number", "Manufacturer Part Number (MPN)")
+    model = first("Model", "Model Number", "Model No", "Product Model")
+    eans = identifiers("EAN", "EAN13", "EAN-13", "GTIN", "GTIN13", "GTIN-13")
+    upcs = identifiers("UPC", "UPC-A", "GTIN12", "GTIN-12")
+
+    if not model:
+        model_query, exact = amazon_model_query(title, fallback_query or title)
+        if exact:
+            model = model_query.split()[-1]
+
+    return {
+        "brand": brand,
+        "mpn": mpn,
+        "model": model,
+        "eans": eans,
+        "upcs": upcs,
     }
-    if (model not in offer_tokens
-            or not re.search(r"\b" + re.escape(brand) + r"\b", offer_title)
-            or not relevant_product(offer_title, fallback_query)):
-        return {}
+
+
+def _amazon_identity_match(item: dict, offer: object, fallback_query: str) -> bool:
+    identity = ebay_product_identity(item, fallback_query)
+    offer_eans = {_clean_identifier(v) for v in getattr(offer, "eans", ()) if _clean_identifier(v)}
+    offer_upcs = {_clean_identifier(v) for v in getattr(offer, "upcs", ()) if _clean_identifier(v)}
+
+    # A shared barcode is the strongest signal that both retailers carry the same product.
+    if identity["eans"] and offer_eans and identity["eans"] & offer_eans:
+        return True
+    if identity["upcs"] and offer_upcs and identity["upcs"] & offer_upcs:
+        return True
+
+    brand = normalise(identity["brand"])
+    offer_brand = normalise(getattr(offer, "brand", ""))
+    offer_title = normalise(getattr(offer, "title", ""))
+    model = _clean_identifier(identity["mpn"] or identity["model"])
+    compact_offer_title = _clean_identifier(offer_title)
+
+    if not brand or not model:
+        return False
+    if offer_brand and brand != offer_brand and brand not in offer_brand and offer_brand not in brand:
+        return False
+    if brand not in offer_title and (not offer_brand or brand not in offer_brand):
+        return False
+    return model in compact_offer_title
+
+
+def verified_amazon_offer(item: dict, market: str, fallback_query: str) -> dict:
+    """Expose only a direct Amazon offer matched by barcode or strong brand/model identity."""
+    offer = item.get("_amazon_offer") or {}
     try:
         parts = urlsplit(str(offer.get("url") or ""))
         price = float(offer.get("price") or 0)
@@ -1673,11 +1732,39 @@ def verified_amazon_offer(item: dict, market: str, fallback_query: str) -> dict:
             return {}
     except (TypeError, ValueError):
         return {}
+
+    offer_title = str(offer.get("title") or "")
+    if not relevant_product(offer_title, fallback_query):
+        return {}
+
+    identity = ebay_product_identity(item, fallback_query)
+    ebay_eans = identity["eans"]
+    ebay_upcs = identity["upcs"]
+    amazon_eans = {_clean_identifier(v) for v in offer.get("eans", []) if _clean_identifier(v)}
+    amazon_upcs = {_clean_identifier(v) for v in offer.get("upcs", []) if _clean_identifier(v)}
+
+    if ebay_eans and amazon_eans and ebay_eans & amazon_eans:
+        return offer
+    if ebay_upcs and amazon_upcs and ebay_upcs & amazon_upcs:
+        return offer
+
+    brand = normalise(identity["brand"])
+    offer_brand = normalise(str(offer.get("brand") or ""))
+    model = _clean_identifier(identity["mpn"] or identity["model"])
+    compact_title = _clean_identifier(offer_title)
+    if not brand or not model:
+        return {}
+    if offer_brand and brand != offer_brand and brand not in offer_brand and offer_brand not in brand:
+        return {}
+    if brand not in normalise(offer_title) and (not offer_brand or brand not in offer_brand):
+        return {}
+    if model not in compact_title:
+        return {}
     return offer
 
 
 def add_amazon_prices(items: list[dict], market: str, fallback_query: str) -> None:
-    """Attach a verified Amazon offer when Creators API access is configured."""
+    """Attach the same Amazon product when cross-retailer identity can be verified."""
     client = AmazonCreatorsClient.from_env(market)
     if client is None:
         print(f"[amazon-skip] {market.upper()} Creators API credentials are not configured")
@@ -1686,39 +1773,60 @@ def add_amazon_prices(items: list[dict], market: str, fallback_query: str) -> No
     for item in items:
         item.pop("_amazon_offer", None)
         title = " ".join(str(item.get("title", "")).split())
-        search_query, exact_model_search = amazon_model_query(title, fallback_query)
-        model = _model_token(title, fallback_query)
-        try:
-            offers = client.search_offers(search_query)
-        except Exception as exc:
-            print(
-                f"[amazon-warning] {market.upper()} price lookup failed: "
-                f"{type(exc).__name__}: {exc}"
-            )
-            return
+        identity = ebay_product_identity(item, fallback_query)
+        model_query, _ = amazon_model_query(title, fallback_query)
 
-        for offer in offers:
-            normal_title = re.sub(r"[^a-z0-9]", "", offer.title.casefold())
-            if exact_model_search and model and model not in normal_title:
+        queries: list[str] = []
+        if identity["eans"]:
+            queries.append(sorted(identity["eans"])[0])
+        elif identity["upcs"]:
+            queries.append(sorted(identity["upcs"])[0])
+        if identity["brand"] and identity["mpn"]:
+            queries.append(f'{identity["brand"]} {identity["mpn"]}')
+        elif identity["brand"] and identity["model"]:
+            queries.append(f'{identity["brand"]} {identity["model"]}')
+        queries.append(model_query)
+
+        seen_queries: set[str] = set()
+        for search_query in queries:
+            normal_query = " ".join(str(search_query).split())
+            if not normal_query or normal_query.casefold() in seen_queries:
                 continue
-            if not exact_model_search:
-                # A category or generic search is not sufficient evidence that the
-                # Amazon result is the same product as the eBay listing.
-                continue
-            if market == "us":
-                brand = str(item.get("brand") or "").strip().casefold()
-                if not brand or brand not in offer.title.casefold() or not amazon_direct({
+            seen_queries.add(normal_query.casefold())
+            try:
+                offers = client.search_offers(normal_query, item_count=10)
+            except Exception as exc:
+                print(
+                    f"[amazon-warning] {market.upper()} price lookup failed for "
+                    f"'{normal_query}': {type(exc).__name__}: {exc}"
+                )
+                break
+
+            for offer in offers:
+                if not _amazon_identity_match(item, offer, fallback_query):
+                    continue
+                if market == "us" and not amazon_direct({
                     "price": offer.price, "currency": offer.currency, "url": offer.url,
                 }):
                     continue
-            candidate = {
-                "title": offer.title,
-                "price": offer.price,
-                "currency": offer.currency,
-                "url": offer.url,
-            }
-            if verified_amazon_offer({**item, "_amazon_offer": candidate}, market, fallback_query):
-                item["_amazon_offer"] = candidate
+                candidate = {
+                    "title": offer.title,
+                    "price": offer.price,
+                    "currency": offer.currency,
+                    "url": offer.url,
+                    "asin": offer.asin,
+                    "brand": offer.brand,
+                    "eans": list(offer.eans),
+                    "upcs": list(offer.upcs),
+                }
+                if verified_amazon_offer({**item, "_amazon_offer": candidate}, market, fallback_query):
+                    item["_amazon_offer"] = candidate
+                    print(
+                        f"[amazon-match] {market.upper()}: matched eBay '{title}' "
+                        f"to Amazon '{offer.title}' via cross-retailer identity"
+                    )
+                    break
+            if item.get("_amazon_offer"):
                 break
 
 
