@@ -205,7 +205,8 @@ def test_quick_picks_puts_affiliate_ctas_near_top(monkeypatch):
     html = daily.quick_picks_html([item], "uk", "air fryer")
     assert "Affiliate links" not in html
     assert "Check eBay UK price" in html
-    assert "amazon.co.uk" not in html
+    assert "amazon.co.uk" in html
+    assert "tag=worthbuyin008-21" in html
     assert 'rel="sponsored nofollow"' in html
 
 
