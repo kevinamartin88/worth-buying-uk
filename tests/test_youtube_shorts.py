@@ -53,15 +53,15 @@ def test_short_metadata_is_regional_and_within_youtube_limits():
     }
     assert len(short_title(article)) <= 100
     description = short_description(article, "https://www.worthbuyinguk.co.uk/post", "uk")
-    assert description.startswith(
-        "Open our channel profile and tap the website link: worthbuyinguk.co.uk"
-    )
+    assert description.startswith("🔗 WANT THE FULL GUIDE?")
+    assert "Tap our channel name/profile, then tap the website link for worthbuyinguk.co.uk." in description
     assert "worthbuyinguk.co.uk/post" in description
     assert "affiliate" not in description.casefold()
     assert "#Shorts" in description
-    assert "copy into your browser" in description
+    assert "copy into your browser" not in description
     usa = short_description(article, "https://www.worthbuyingusa.com/post", "us")
-    assert usa.startswith("Open our channel profile and tap the website link: worthbuyingusa.com")
+    assert usa.startswith("🔗 WANT THE FULL GUIDE?")
+    assert "worthbuyingusa.com" in usa
     assert "worthbuyinguk.co.uk" not in usa
 
 
