@@ -595,14 +595,19 @@ def quick_picks_html(items: list[dict], market: str, query: str) -> str:
                     f'from {int(history["observations"])} checks.</p>'
                 )
 
-        amazon_link = ""
-        if amazon_offer:
-            amazon_link = (
-                f'<a href="{html.escape(amazon_url, quote=True)}" rel="sponsored nofollow" '
-                'style="display:inline-block;padding:11px 16px;margin:0 8px 8px 0;'
-                'background:#f2f4f7;color:#082f5b;text-decoration:none;border-radius:8px;font-weight:700">'
-                f'Check {amazon} price</a>'
-            )
+        amazon_label = (
+            f"Check {amazon} price"
+            if amazon_offer
+            else (f"Search {amazon} for this model" if exact_model else f"Search {amazon} for alternatives")
+        )
+        amazon_link = (
+            f'<a href="{html.escape(amazon_url, quote=True)}" rel="sponsored nofollow" '
+            'data-wb-retailer="amazon" '
+            'data-wb-placement="' + ('quick-pick' if amazon_offer else 'search-alternative') + '" '
+            'style="display:inline-block;padding:11px 16px;margin:0 8px 8px 0;'
+            'background:#f2f4f7;color:#082f5b;text-decoration:none;border-radius:8px;font-weight:700">'
+            f'{html.escape(amazon_label)}</a>'
+        )
         image_html = product_image_html(image_url, title) if image_url else ""
         cards.append(
             '<div style="border:1px solid #dfe6ee;border-radius:14px;padding:18px;'
@@ -1563,7 +1568,8 @@ def retailer_urls(item: dict, market: str, fallback_query: str) -> tuple[str, st
         ebay_url = f"{base}?_nkw={quote_plus(fallback_query)}&_sop=15"
 
     amazon_base = "https://www.amazon.co.uk/s" if market == "uk" else "https://www.amazon.com/s"
-    amazon_url = f"{amazon_base}?k={quote_plus(amazon_query)}"
+    amazon_tag = "worthbuyin008-21" if market == "uk" else "worthbuyingus-20"
+    amazon_url = f"{amazon_base}?k={quote_plus(amazon_query)}&tag={amazon_tag}"
     return ebay_url, amazon_url, exact_model_search
 
 
@@ -1732,15 +1738,15 @@ def live_sections(items: list[dict], market: str, topic_name: str, query: str) -
         if amazon_offer and (market != "us" or amazon_direct(amazon_offer)):
             amazon_link_label = f"Check this model on {amazon}"
         ebay_attrs = (' data-wb-retailer="ebay" data-wb-placement="detail"' if market == "us" else "")
-        amazon_attrs = (' data-wb-retailer="amazon" data-wb-placement="'
-                        + ('detail' if amazon_direct(amazon_offer) else 'search-alternative') + '"'
-                        if market == "us" else "")
-        amazon_link = ""
-        if amazon_offer or market == "us":
-            amazon_link = (
-                f'<a href="{html.escape(amazon_url, quote=True)}" rel="sponsored nofollow"{amazon_attrs}>'
-                f"{amazon_link_label}</a>"
-            )
+        amazon_attrs = (
+            ' data-wb-retailer="amazon" data-wb-placement="'
+            + ('detail' if amazon_offer and (market != "us" or amazon_direct(amazon_offer)) else 'search-alternative')
+            + '"'
+        )
+        amazon_link = (
+            f'<a href="{html.escape(amazon_url, quote=True)}" rel="sponsored nofollow"{amazon_attrs}>'
+            f"{amazon_link_label}</a>"
+        )
 
         parts.append(
             f"<h3>{index}. {safe_title}</h3>\n"
@@ -1913,6 +1919,8 @@ def build_article(
     methodology = (
         f"For this guide, our automation searched current {('eBay UK' if market == 'uk' else 'eBay')} "
         f"listings for {html.escape(display)} and applied basic fixed-price, price-ceiling and seller-feedback checks. "
+        f"We also include {('Amazon UK' if market == 'uk' else 'Amazon')} comparison links for every pick: "
+        "a verified exact offer when available, otherwise a focused search for the same model or product. "
         "These are current marketplace picks rather than hands-on laboratory test results."
         if live
         else
