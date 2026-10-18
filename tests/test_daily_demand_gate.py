@@ -162,6 +162,37 @@ def test_listing_score_rejects_unrelated_marketplace_accessory():
     assert daily.listing_score(item, 1400, "GBP", query="4K smart TV") is None
 
 
+def test_carpet_cleaner_topic_rejects_shampoo_and_solution():
+    for title in (
+        "Carpet Shampoo Cleaner & Deodoriser 4 x 5L",
+        "2L Carpet Cleaner Solution for Shark StainStriker",
+        "ProKleen Carpet Shampoo Cleaning Solution Upholstery Stain Remover",
+    ):
+        item = {
+            "title": title,
+            "price": {"value": "39.99", "currency": "GBP"},
+            "buyingOptions": ["FIXED_PRICE"],
+            "seller": {"feedbackPercentage": "99.8", "feedbackScore": 5000},
+            "image": {"imageUrl": "https://example.com/product.jpg"},
+        }
+        assert daily.listing_score(
+            item, 600, "GBP", query="carpet cleaning machine washer"
+        ) is None
+
+
+def test_carpet_cleaner_topic_accepts_actual_machine():
+    item = {
+        "title": "Bissell ProHeat Upright Carpet Cleaner Machine Washer",
+        "price": {"value": "179.99", "currency": "GBP"},
+        "buyingOptions": ["FIXED_PRICE"],
+        "seller": {"feedbackPercentage": "99.8", "feedbackScore": 5000},
+        "image": {"imageUrl": "https://example.com/bissell.jpg"},
+    }
+    assert daily.listing_score(
+        item, 600, "GBP", query="carpet cleaning machine washer"
+    ) is not None
+
+
 def test_quick_picks_puts_affiliate_ctas_near_top(monkeypatch):
     item = {
         "title": "Example Air Fryer AF400",
