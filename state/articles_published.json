@@ -168,14 +168,14 @@
   },
   "best-carpet-cleaners-worth-buying-uk": {
     "daily_featured_date": "2026-10-18",
-    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/uk/best-carpet-cleaners-worth-buying-uk.jpg",
+    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/uk/best-carpet-cleaners-worth-buying-uk.jpg?v=5447de6d3f55e14d",
     "image_required": true,
     "post_id": "587154023347142164",
-    "promotion_token": "2026-10-18:uk:best-carpet-cleaners-worth-buying-uk",
-    "publish_fingerprint": "a8ef4f2b28aa69c733b12ae6410fd498d74df207daf75640e5df4236a02247c2",
+    "promotion_token": "2026-10-18:uk:best-carpet-cleaners-worth-buying-uk:manual-topic-refresh-v1",
+    "publish_fingerprint": "6674375143068706d09bf6ebd7c91da0f2b81ca1249c92b93d350d4e9a43705e",
     "seo_revision": "published-seo-v1",
     "source_file": "best-carpet-cleaners-worth-buying-uk.json",
-    "source_sha": "2026-10-18-carpet-cleaners-uk-daily-v6-autopublish-retry",
+    "source_sha": "2026-10-18-carpet-cleaners-uk-daily-v7-variety-refresh",
     "status": "published",
     "title": "Best Carpet Cleaners Worth Buying in the UK (2026)",
     "url": "https://www.worthbuyinguk.co.uk/2026/10/best-carpet-cleaners-worth-buying-in-uk.html"
