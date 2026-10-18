@@ -5,6 +5,7 @@ import json
 import math
 import os
 import re
+import requests
 from datetime import date, datetime, timezone
 from statistics import median
 from zoneinfo import ZoneInfo
@@ -1421,8 +1422,6 @@ def current_picks(market: str, query: str, max_price: float, slug: str) -> list[
 
     verified: list[dict] = []
     if market == "us":
-        import requests
-
         for summary in candidates:
             item_id = str(summary.get("itemId") or "")
             if not item_id:
@@ -1471,8 +1470,41 @@ def current_picks(market: str, query: str, max_price: float, slug: str) -> list[
             if len(verified) >= target_pool:
                 break
     else:
-        for item in candidates:
-            item_id = str(item.get("itemId") or "")
+        for summary in candidates:
+            item_id = str(summary.get("itemId") or "")
+            item = summary
+            if item_id:
+                try:
+                    detail = client.get_item(
+                        item_id,
+                        affiliate_reference=f"daily-{slug}",
+                    )
+                    if detail:
+                        item = {**summary, **detail}
+                except requests.HTTPError as exc:
+                    if exc.response is not None and exc.response.status_code in (404, 410):
+                        continue
+                    print(
+                        f"[daily-detail-warning] UK {item_id}: "
+                        f"{type(exc).__name__}: {exc}"
+                    )
+                except Exception as exc:
+                    print(
+                        f"[daily-detail-warning] UK {item_id}: "
+                        f"{type(exc).__name__}: {exc}"
+                    )
+
+            # Re-run the listing gate against the enriched item so product
+            # details cannot turn an otherwise-valid summary into an invalid pick.
+            score = listing_score(
+                item,
+                max_price,
+                expected_currency,
+                query=query,
+            )
+            if score is None:
+                continue
+
             image_url = str(
                 ((item.get("image") or {}).get("imageUrl") or "")
             ).strip()
