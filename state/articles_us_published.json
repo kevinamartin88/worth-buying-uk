@@ -554,6 +554,20 @@
     "title": "Best Solid-State Drives Worth Buying in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/10/best-solid-state-drives-worth-buying-in.html"
   },
+  "best-stand-mixers-worth-buying-us": {
+    "daily_featured_date": "2026-10-18",
+    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-stand-mixers-worth-buying-us.jpg",
+    "image_required": true,
+    "post_id": "6882127367401315322",
+    "promotion_token": "2026-10-18:us:best-stand-mixers-worth-buying-us",
+    "publish_fingerprint": "ab5daa74d0be7d813d8a64b5ba3654a5145a9a851bfc996ab3115ba9cfcf78b8",
+    "seo_revision": "published-seo-v1",
+    "source_file": "best-stand-mixers-worth-buying-us.json",
+    "source_sha": "2026-10-18-stand-mixers-us-daily-v6-autopublish-retry",
+    "status": "published",
+    "title": "Best Stand Mixers Worth Buying in the USA (2026)",
+    "url": "https://www.worthbuyingusa.com/2026/10/best-stand-mixers-worth-buying-in-usa.html"
+  },
   "best-steam-mops-worth-buying-us": {
     "daily_featured_date": "2026-10-11",
     "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-steam-mops-worth-buying-us.jpg",
@@ -570,7 +584,7 @@
   },
   "best-storage-bins-worth-buying-us-2026": {
     "daily_featured_date": "2026-10-17",
-    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-storage-bins-worth-buying-us-2026.jpg?v=6423d4f495cea6b8",
+    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/us/best-storage-bins-worth-buying-us-2026.jpg?v=97e2df9e723a52d3",
     "image_required": true,
     "post_id": "8598344050884896097",
     "primary_category": "Home & Kitchen",
