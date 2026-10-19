@@ -1,28 +1,30 @@
 {
   "uk": {
-    "date": "2026-10-17",
+    "date": "2026-10-19",
     "dates": [
       "2026-10-03",
       "2026-10-05",
       "2026-10-10",
       "2026-10-12",
-      "2026-10-17"
+      "2026-10-17",
+      "2026-10-19"
     ],
-    "slug": "savvy-buyer-saturday-price-comparison-final-checklist-uk-2026-10-17",
-    "title": "Savvy Buyer Saturday: The Final Five-Minute Checklist for Building A Fair Price Comparison (UK)",
-    "week": "2026-W42"
+    "slug": "savvy-buyer-monday-repairability-before-you-shop-uk-2026-10-19",
+    "title": "Savvy Buyer Monday: Before You Shop for Checking Repairability And Product Support (UK)",
+    "week": "2026-W43"
   },
   "us": {
-    "date": "2026-10-17",
+    "date": "2026-10-19",
     "dates": [
       "2026-10-03",
       "2026-10-05",
       "2026-10-10",
       "2026-10-12",
-      "2026-10-17"
+      "2026-10-17",
+      "2026-10-19"
     ],
-    "slug": "savvy-buyer-saturday-price-comparison-final-checklist-us-2026-10-17",
-    "title": "Savvy Buyer Saturday: The Final Five-Minute Checklist for Building A Fair Price Comparison (US)",
-    "week": "2026-W42"
+    "slug": "savvy-buyer-monday-repairability-before-you-shop-us-2026-10-19",
+    "title": "Savvy Buyer Monday: Before You Shop for Checking Repairability And Product Support (US)",
+    "week": "2026-W43"
   }
 }
