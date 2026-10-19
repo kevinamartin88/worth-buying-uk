@@ -390,3 +390,16 @@ def test_giftcards_gate_requires_approved_usa_card_and_destination():
            replace(good, name="Gift Box"),
            replace(good, url="https://click.linksynergy.com/deeplink?id=usa&murl=https%3A%2F%2Fwww.giftcards.ca%2Fca%2Fcard")]
     assert generator.relevant_products([good, *bad], "gift card", "gift-cards") == [good]
+
+
+def test_giftcards_search_failure_falls_back_to_existing_topics(monkeypatch):
+    air_fryers = next(t for t in generator.TOPICS if t[0] == "air-fryers")
+    monkeypatch.setattr(generator, "candidate_topics", lambda *args: [generator.GIFT_CARDS_TOPIC, air_fryers])
+    monkeypatch.setattr(generator, "validated_products", lambda client, offers, market: offers)
+    class UnavailableGiftcards(FakeClient):
+        def search(self, query, limit=5):
+            if query == "gift card":
+                raise RuntimeError("temporary feed failure")
+            return self.results
+    topic, found = generator.find_offer_set(UnavailableGiftcards(products()), 10, [], "us")
+    assert topic == air_fryers and len(found) == 3
