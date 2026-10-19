@@ -5,12 +5,22 @@ import html
 import re
 
 from src.site_pages import category_key
+from src.public_urls import canonical_public_url
 
 START = "<!-- wb-discovery-links:start -->"
 END = "<!-- wb-discovery-links:end -->"
 BLOCK = re.compile(re.escape(START) + r".*?" + re.escape(END), re.S)
 STOP = {"best", "worth", "buying", "guide", "guides", "current", "offers", "approved",
         "retailers", "the", "in", "for", "and", "from", "with", "usa", "uk", "us", "2026"}
+
+# Complementary tasks make better next reads than repeated listings of one
+# product. These pairs also give established guides paths to newer guides.
+COMPLEMENTARY = (
+    {'pressure-washers', 'carpet-cleaners', 'steam-mops'},
+    {'slow-cookers', 'air-fryers', 'large-capacity-air-fryers', 'coffee-machines'},
+    {'battery-chargers', 'jump-starters', 'tyre-inflators'},
+    {'smartwatches', 'wireless-earbuds', 'tablets'},
+)
 
 
 def related_graph(catalog: list[dict], limit: int = 3) -> dict[str, list[dict]]:
@@ -27,6 +37,9 @@ def related_graph(catalog: list[dict], limit: int = 3) -> dict[str, list[dict]]:
             meaningful = shared - {"Seasonal", "Home & Kitchen"}
             cluster_match = bool(row.get("cluster") and row.get("cluster") == other.get("cluster"))
             score = overlap * 3 + len(meaningful) + int(cluster_match)
+            if row.get('topic') != other.get('topic') and any(
+                    {row.get('topic'), other.get('topic')} <= group for group in COMPLEMENTARY):
+                score += 8
             if score > 0:
                 candidates.append((score, other.get("checked", ""), other["slug"], other))
         candidates.sort(key=lambda entry: entry[:3], reverse=True)
@@ -47,11 +60,11 @@ def discovery_html(row: dict, related: list[dict], pages: dict) -> str:
     for category in row.get("categories", []):
         page = pages.get(category_key(category)) or {}
         if page.get("url"):
-            links.append((page["url"], category + " buying guides"))
+            links.append((canonical_public_url(page["url"]), category + " buying guides"))
     methodology = pages.get("methodology") or {}
     if methodology.get("url"):
-        links.append((methodology["url"], "How Worth Buying chooses products"))
-    links.extend((other["url"], other["title"]) for other in related)
+        links.append((canonical_public_url(methodology["url"]), "How Worth Buying chooses products"))
+    links.extend((canonical_public_url(other["url"]), other["title"]) for other in related)
     links = list(dict.fromkeys(links))
     if not links:
         return ""
