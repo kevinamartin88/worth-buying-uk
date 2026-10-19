@@ -331,6 +331,8 @@ def find_offer_set(
         try:
             products = relevant_products(client.search(topic[2], limit=20), topic[2], topic[0])
         except Exception as exc:
+            if topic[0] != "gift-cards":
+                raise
             print(f"[rakuten-topic-skip] {market.upper()}: {topic[0]} search unavailable ({type(exc).__name__})")
             continue
         if len(products) < MIN_PRODUCTS:
