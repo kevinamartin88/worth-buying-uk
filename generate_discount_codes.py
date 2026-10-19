@@ -215,7 +215,10 @@ def rakuten_offers(market: str) -> list[DiscountOffer]:
             start_date=offer.start_date,
             end_date=offer.end_date,
         )
-        for offer in client.coupons(NETWORKS[market], limit=500)
+        for offer in client.coupons(NETWORKS[market], limit=500, per_advertiser_limit=MAX_PER_ADVERTISER)
+        # Giftcards' creative feed also reuses undated promotion codes. Its
+        # current codes are verified separately against the public source.
+        if offer.advertiser_id != "44432" and offer.advertiser.casefold() != "giftcards.com"
     ]
 
 

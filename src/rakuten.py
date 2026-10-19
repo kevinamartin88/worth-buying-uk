@@ -329,7 +329,7 @@ class RakutenClient:
         self._validated_product_pages[product.url] = (document, final_url)
         return True, "validated retailer product page", final_url
 
-    def coupons(self, network: int, limit: int = 100) -> list[RakutenCoupon]:
+    def coupons(self, network: int, limit: int = 100, per_advertiser_limit: int | None = None) -> list[RakutenCoupon]:
         """Return approved-advertiser promotions from Rakuten's Coupon Feed.
 
         Network 1 is the US and network 3 is the UK. Links that are not Rakuten
@@ -341,47 +341,67 @@ class RakutenClient:
         if limit < 1:
             return []
 
-        response = self.session.get(
-            COUPON_FEED_URL,
-            headers={"Authorization": f"Bearer {self._token()}"},
-            params={
-                "network": network,
-                "resultsperpage": min(limit, 500),
-                "pagenumber": 1,
-            },
-            timeout=30,
-        )
-        response.raise_for_status()
-        root = ET.fromstring(response.content)
-
+        if per_advertiser_limit is not None and per_advertiser_limit < 1:
+            raise ValueError("per_advertiser_limit must be positive")
         offers: list[RakutenCoupon] = []
         seen: set[tuple[str, str, str]] = set()
-        links = root.findall(".//link") + root.findall(".//{*}link")
-        for item in links:
-            url = _safe_tracking_url(_text(item, "clickurl"))
-            advertiser = _text(item, "advertisername")
-            description = _text(item, "offerdescription")
-            code = _text(item, "couponcode")
-            if code.casefold() in {"n/a", "na", "none", "no code required"}:
-                code = ""
-            key = (advertiser.casefold(), description.casefold(), code.casefold())
-            if not url or not advertiser or not description or key in seen:
-                continue
-            seen.add(key)
-            offers.append(
-                RakutenCoupon(
-                    advertiser=advertiser,
-                    advertiser_id=_text(item, "advertiserid"),
-                    description=description,
-                    url=url,
-                    code=code,
-                    restriction=_text(item, "couponrestriction"),
-                    start_date=_text(item, "offerstartdate"),
-                    end_date=_text(item, "offerenddate"),
-                    categories=_texts(item, "categories"),
-                    promotion_types=_texts(item, "promotiontypes"),
+        counts: dict[str, int] = {}
+        # The documented TotalPages field lets us reach smaller partners after
+        # a large catalogue. Bound refresh time even if the feed grows sharply.
+        max_pages = 5 if per_advertiser_limit else 1
+        for page_number in range(1, max_pages + 1):
+            try:
+                response = self.session.get(
+                    COUPON_FEED_URL,
+                    headers={"Authorization": f"Bearer {self._token()}"},
+                    params={
+                        "network": network,
+                        "resultsperpage": min(limit, 500),
+                        "pagenumber": page_number,
+                    },
+                    timeout=30,
                 )
-            )
-            if len(offers) >= limit:
+                response.raise_for_status()
+                root = ET.fromstring(response.content)
+            except (requests.RequestException, ET.ParseError):
+                if not offers:
+                    raise
+                print(f"[rakuten-coupons] Page {page_number} unavailable; retaining earlier feed results")
+                break
+
+            links = root.findall(".//link") + root.findall(".//{*}link")
+            for item in links:
+                url = _safe_tracking_url(_text(item, "clickurl"))
+                advertiser = _text(item, "advertisername")
+                description = _text(item, "offerdescription")
+                code = _text(item, "couponcode")
+                if code.casefold() in {"n/a", "na", "none", "no code required"}:
+                    code = ""
+                key = (advertiser.casefold(), description.casefold(), code.casefold())
+                if not url or not advertiser or not description or key in seen:
+                    continue
+                seen.add(key)
+                merchant = _text(item, "advertiserid") or advertiser.casefold()
+                if per_advertiser_limit and counts.get(merchant, 0) >= per_advertiser_limit:
+                    continue
+                counts[merchant] = counts.get(merchant, 0) + 1
+                offers.append(
+                    RakutenCoupon(
+                        advertiser=advertiser,
+                        advertiser_id=_text(item, "advertiserid"),
+                        description=description,
+                        url=url,
+                        code=code,
+                        restriction=_text(item, "couponrestriction"),
+                        start_date=_text(item, "offerstartdate"),
+                        end_date=_text(item, "offerenddate"),
+                        categories=_texts(item, "categories"),
+                        promotion_types=_texts(item, "promotiontypes"),
+                    )
+                )
+                if len(offers) >= limit:
+                    return offers
+            total_pages = _text(root, "TotalPages")
+            if not total_pages.isdigit() or page_number >= int(total_pages):
                 break
         return offers
