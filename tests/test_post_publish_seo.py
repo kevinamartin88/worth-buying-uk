@@ -61,6 +61,46 @@ def test_blogger_url_maps_to_active_public_domain():
     assert public_url("https://other.blogspot.com/post.html", "uk") is None
 
 
+def test_index_inspection_uses_clean_url_without_mobile_parameter_or_anchor():
+    assert public_url('https://worthbuyingusa.blogspot.com/a.html?m=1#pick', 'us') == (
+        'https://www.worthbuyingusa.com/a.html')
+
+
+def test_mobile_inspection_reports_indexed_variant_without_claiming_clean_is_indexed(monkeypatch):
+    import post_publish_seo as seo
+    from src.google_discovery_report import next_action
+    monkeypatch.delenv('GSC_WRITE_REFRESH_TOKEN', raising=False)
+    reader = Mock()
+    reader.urlInspection().index().inspect().execute.side_effect = [
+        {'inspectionResult': {'indexStatusResult': {'verdict': 'NEUTRAL', 'coverageState': 'Unknown'}}},
+        {'inspectionResult': {'indexStatusResult': {'verdict': 'PASS', 'googleCanonical': 'https://www.worthbuyingusa.com/a.html?m=1'}}}]
+    monkeypatch.setattr(seo, 'configured', lambda: True)
+    monkeypatch.setattr(seo, 'build_service', lambda: reader)
+    monkeypatch.setattr(seo, 'choose_site', lambda *args: 'sc-domain:worthbuyingusa.com')
+    url = 'https://www.worthbuyingusa.com/a.html'
+    row = seo.search_console('us', [url], [])['inspections'][url]
+    assert row['state'] == 'not_indexed'
+    assert row['mobile_variant']['state'] == 'indexed'
+    assert 'Mobile variant is indexed' in next_action(url, row)
+    assert reader.urlInspection().index().inspect.call_args.kwargs['body']['inspectionUrl'] == url + '?m=1'
+
+
+def test_mobile_probe_failure_preserves_clean_inspection(monkeypatch):
+    import post_publish_seo as seo
+    monkeypatch.delenv('GSC_WRITE_REFRESH_TOKEN', raising=False)
+    reader = Mock()
+    reader.urlInspection().index().inspect().execute.side_effect = [
+        {'inspectionResult': {'indexStatusResult': {'verdict': 'NEUTRAL', 'coverageState': 'Unknown'}}},
+        RuntimeError('temporary')]
+    monkeypatch.setattr(seo, 'configured', lambda: True)
+    monkeypatch.setattr(seo, 'build_service', lambda: reader)
+    monkeypatch.setattr(seo, 'choose_site', lambda *args: 'sc-domain:worthbuyingusa.com')
+    url = 'https://www.worthbuyingusa.com/a.html'
+    row = seo.search_console('us', [url], [])['inspections'][url]
+    assert row['coverage'] == 'Unknown'
+    assert row['mobile_variant']['reason'] == 'RuntimeError'
+
+
 def test_sitemap_is_fetched_once_for_a_batch():
     session = Mock()
     session.get.return_value.content = b'<urlset><url><loc>https://example.com/a</loc></url></urlset>'
