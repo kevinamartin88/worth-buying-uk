@@ -1,4 +1,4 @@
-name: Weekly discount codes pages
+name: Discount codes pages (daily USA, weekly UK)
 
 on:
   push:
@@ -10,6 +10,8 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "30 6 * * 5"
+    # Keep time-limited USA codes current without creating additional blog posts.
+    - cron: "30 6 * * 0-4,6"
 
 permissions:
   contents: read
@@ -39,6 +41,7 @@ jobs:
 
   refresh-uk:
     needs: verify
+    if: github.event_name != 'schedule' || github.event.schedule == '30 6 * * 5'
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:

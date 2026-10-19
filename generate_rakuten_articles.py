@@ -13,7 +13,8 @@ from generate_daily_articles import (
     SEASONAL_FALLBACKS,
     TOPICS,
 )
-from src.rakuten import RakutenClient, RakutenProduct
+from src.rakuten import RakutenClient, RakutenProduct, _product_destination_url
+from urllib.parse import urlsplit
 from src.cfs_prices import cfs_destination, checked_cfs_price
 
 
@@ -31,8 +32,12 @@ PREFERRED_MERCHANTS = {
         "Choice Furniture Superstore",
         "Choice Furniture Supersto",
     ),
-    "us": ("Sharper Image",),
+    "us": ("Sharper Image", "Giftcards.com"),
 }
+GIFT_CARDS_TOPIC = ("gift-cards", "Gift Cards", "gift card", 500, 500, "Seasonal", "GIFT CARD GUIDE")
+# Accepted for Worth Buying USA SID 4756937 only. Do not assume renewal.
+GIFTCARDS_OFFER_START = datetime(2026, 10, 19, tzinfo=timezone.utc)
+GIFTCARDS_OFFER_END = datetime(2026, 11, 1, 7, tzinfo=timezone.utc)
 RETAILER_DISPLAY_NAMES = {
     # Rakuten shortens this advertiser name in some product-feed responses.
     "choice furniture supersto": "Choice Furniture Superstore",
@@ -46,9 +51,10 @@ RAKUTEN_ONLY_TOPICS = [
     ("wardrobes", "Wardrobes", "wardrobe", 1800, 2000, "Home & Kitchen", "WARDROBE GUIDE"),
     ("sideboards", "Sideboards", "sideboard", 1400, 1600, "Home & Kitchen", "SIDEBOARD GUIDE"),
 ]
-RAKUTEN_TOPICS = [*RAKUTEN_ONLY_TOPICS, *TOPICS]
+RAKUTEN_TOPICS = [*RAKUTEN_ONLY_TOPICS, GIFT_CARDS_TOPIC, *TOPICS]
 PREFERRED_TOPIC_KEYS = {
     "uk": tuple(topic[0] for topic in RAKUTEN_ONLY_TOPICS),
+    "us": ("gift-cards",),
 }
 RETAILER_LOGO_ASSETS = {
     "sharper image": "assets/retailers/sharper-image.svg",
@@ -125,6 +131,12 @@ FURNITURE_CHECKS = [
     "Compare the delivered price with another retailer rather than relying on the headline price alone.",
 ]
 TOPIC_CHECKS = {
+    "gift-cards": [
+        "Choose a card for a store or service the recipient already uses; check the permitted US redemption locations.",
+        "Compare the card balance with the total checkout cost, including any purchase or delivery fees.",
+        "Check digital delivery timing, the recipient email address and physical-card shipping before paying.",
+        "Read the exact card's redemption, expiry, returns and lost-card terms; a retailer gift card differs from a prepaid payment card.",
+    ],
     "skirting-boards": [
         "Measure each wall run and allow for sensible cutting waste before ordering.",
         "Check the board height, thickness, profile and material against existing architrave, flooring and door frames.",
@@ -167,8 +179,11 @@ def save_state(state: dict) -> None:
     )
 
 
-def candidate_topics(month: int, recent_topics: list[str], market: str = "") -> list[tuple]:
-    by_key = {topic[0]: topic for topic in RAKUTEN_TOPICS}
+def candidate_topics(month: int, recent_topics: list[str], market: str = "", now: datetime | None = None) -> list[tuple]:
+    now = now or datetime.now(timezone.utc)
+    giftcards_active = market == "us" and GIFTCARDS_OFFER_START <= now < GIFTCARDS_OFFER_END
+    available = [topic for topic in RAKUTEN_TOPICS if topic[0] != "gift-cards" or giftcards_active]
+    by_key = {topic[0]: topic for topic in available}
     priority_keys = [
         *PREFERRED_TOPIC_KEYS.get(market, ()),
         *SEASONAL_FALLBACKS.get(month, ()),
@@ -191,7 +206,7 @@ def candidate_topics(month: int, recent_topics: list[str], market: str = "") -> 
             if key in by_key and key not in seen:
                 ordered.append(by_key[key])
                 seen.add(key)
-        for topic in RAKUTEN_TOPICS:
+        for topic in available:
             if topic[0] not in seen:
                 ordered.append(topic)
     return ordered
@@ -241,6 +256,13 @@ def relevant_products(
     matches: list[RakutenProduct] = []
     for product in products:
         name = product.name.casefold()
+        if topic_key == "gift-cards":
+            destination = urlsplit(_product_destination_url(product.url))
+            if (product.advertiser_id != "44432" or product.currency != "USD"
+                or (destination.hostname or "").casefold() != "www.giftcards.com"
+                or not destination.path.startswith("/us/")
+                or not any(term in name for term in ("gift card", "giftcard", "egift"))):
+                continue
         if tokens and not any(token in name for token in tokens):
             continue
         if not _passes_topic_rule(product, topic_key):
@@ -306,7 +328,13 @@ def find_offer_set(
     market: str = "",
 ) -> tuple[tuple | None, list[RakutenProduct]]:
     for topic in candidate_topics(month, recent_topics, market)[:MAX_SEARCHES_PER_MARKET]:
-        products = relevant_products(client.search(topic[2], limit=20), topic[2], topic[0])
+        try:
+            products = relevant_products(client.search(topic[2], limit=20), topic[2], topic[0])
+        except Exception as exc:
+            if topic[0] != "gift-cards":
+                raise
+            print(f"[rakuten-topic-skip] {market.upper()}: {topic[0]} search unavailable ({type(exc).__name__})")
+            continue
         if len(products) < MIN_PRODUCTS:
             continue
         products = validated_products(client, products, market)
@@ -332,7 +360,7 @@ def retailer_display_name(name: str) -> str:
     return RETAILER_DISPLAY_NAMES.get(clean.casefold(), clean)
 
 
-def product_sections(products: list[RakutenProduct], market: str) -> str:
+def product_sections(products: list[RakutenProduct], market: str, topic_key: str = "") -> str:
     sections: list[str] = []
     for index, product in enumerate(products, start=1):
         merchant = retailer_display_name(product.merchant)
@@ -341,7 +369,10 @@ def product_sections(products: list[RakutenProduct], market: str) -> str:
             f"<p><strong>Retailer:</strong> {html.escape(merchant)}. "
             f"<strong>Price when checked:</strong> {html.escape(display_price(product, market))}. "
             "The retailer destination was checked when this article was prepared and matched this product. "
-            "Check the exact model, specification, availability, delivery charge, warranty and returns "
+            + ("Check the card value, redemption rules, availability, fees, delivery timing and returns "
+               if topic_key == "gift-cards" else
+               "Check the exact model, specification, availability, delivery charge, warranty and returns ")
+            +
             "on the live retailer page before ordering.</p>\n"
             f'<p><a href="{html.escape(product.url, quote=True)}" rel="sponsored nofollow">'
             f"View this offer at {html.escape(merchant)} (Ad)</a></p>"
@@ -351,6 +382,11 @@ def product_sections(products: list[RakutenProduct], market: str) -> str:
 
 def build_article(topic: tuple, products: list[RakutenProduct], market: str, now: datetime) -> dict:
     key, display, query, _max_uk, _max_us, category, kicker = topic
+    if key == "gift-cards" and (
+        market != "us" or not GIFTCARDS_OFFER_START <= now < GIFTCARDS_OFFER_END
+        or len(relevant_products(products, query, key)) != len(products)
+    ):
+        raise ValueError("Giftcards.com offer requires active USA partnership and matching US card destinations")
     validate_offer_set(key, products)
     region = "UK" if market == "uk" else "USA"
     month_year = now.strftime("%B %Y")
@@ -374,12 +410,18 @@ def build_article(topic: tuple, products: list[RakutenProduct], market: str, now
         "Prices and stock can change "
         "after publication.</p>\n"
         f"<h2>Current {html.escape(display.lower())} offers worth comparing</h2>\n"
-        f"{product_sections(products, market)}\n"
+        f"{product_sections(products, market, key)}\n"
         "<h2>How to compare these retailer offers</h2>\n"
+        + ("<p>Start with where the recipient will actually spend the card. Compare the loaded balance with the total "
+           "checkout cost, then check delivery timing, fees and redemption restrictions. A card for a familiar shop "
+           "can be more useful than a larger balance for somewhere they rarely visit. Check each promotion's basket "
+           "conditions before paying.</p>\n"
+           if key == "gift-cards" else
         "<p>Start by matching the exact model number and specification, then compare the delivered price rather "
         "than the headline figure alone. A slightly higher price can represent better value when it includes a "
         "longer warranty, easier returns or useful accessories. Treat any advertised saving as context, not proof "
-        "of value, and compare the live price before purchasing.</p>\n"
+        "of value, and compare the live price before purchasing.</p>\n")
+        +
         f"<ul>{check_html}</ul>\n"
         "<h2>How this roundup was selected</h2>\n"
         f"<p>Our automation searched Rakuten Advertising product feeds belonging to retailers approved for the "
@@ -427,7 +469,8 @@ def build_article(topic: tuple, products: list[RakutenProduct], market: str, now
             ],
             "description": (
                 f"Compare current {display.lower()} offers from approved {region} retailers, with practical "
-                "checks covering price, specification, warranty and returns."
+                + ("checks covering balances, fees, delivery and redemption rules."
+                   if key == "gift-cards" else "checks covering price, specification, warranty and returns.")
             ),
             "search_intent": "commercial investigation",
         },

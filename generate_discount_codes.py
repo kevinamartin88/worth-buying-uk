@@ -20,7 +20,7 @@ from googleapiclient.errors import HttpError
 from generate_daily_articles import EVERGREEN_HIGH_INTENT, TOPICS
 from src.blogger import BloggerClient
 from src.ebay import EbayClient
-from src.rakuten import RakutenClient
+from src.rakuten import RakutenClient, _safe_tracking_url
 
 
 PAGE_TITLE = "Discount Codes"
@@ -125,8 +125,13 @@ def select_offers(offers: list[DiscountOffer], today: date) -> list[DiscountOffe
     )
     selected: list[DiscountOffer] = []
     counts: Counter[str] = Counter()
+    seen: set[tuple[str, str]] = set()
     for offer in ranked:
         merchant = offer.advertiser.casefold()
+        key = (merchant, offer.code.strip().casefold() or offer.description.strip().casefold())
+        if key in seen:
+            continue
+        seen.add(key)
         if counts[merchant] >= MAX_PER_ADVERTISER:
             continue
         counts[merchant] += 1
@@ -140,7 +145,7 @@ def render_page(offers: list[DiscountOffer], market: str, today: date) -> str:
     region = "UK" if market == "uk" else "USA"
     intro = (
         f"<p><strong>Current discount codes and retailer offers for {region} shoppers.</strong> "
-        "This page is refreshed weekly from official retailer and marketplace data available to Worth Buying. "
+        f"This page is refreshed {'daily' if market == 'us' else 'weekly'} from official retailer and marketplace data available to Worth Buying. "
         "Codes, prices, availability and end dates can change, so confirm the offer on the retailer's "
         "website before ordering.</p>"
         f"<p><strong>Last updated:</strong> {today.strftime('%d %B %Y').lstrip('0')}.</p>"
@@ -177,7 +182,8 @@ def render_page(offers: list[DiscountOffer], market: str, today: date) -> str:
             +
             f'<p class="wb-code-small"><strong>Ends:</strong> {html.escape(expiry)}</p>'
             f'<p><a class="wb-code-button" href="{html.escape(offer.url, quote=True)}" '
-            'rel="sponsored nofollow">View offer</a></p>'
+            f'rel="sponsored nofollow" data-wb-retailer="{html.escape(offer.advertiser, quote=True)}" '
+            'data-wb-placement="discount-code">View offer</a></p>'
             "</article>"
         )
 
@@ -310,7 +316,15 @@ def retailer_offers(market: str) -> list[DiscountOffer]:
     for row in records:
         if row["market"] != market:
             continue
+        starts = parse_feed_date(row.get("start_date", ""))
+        ends = parse_feed_date(row.get("end_date", ""))
+        if (starts and starts > today) or (ends and ends < today):
+            continue
         url = row["url"]
+        # Verify the public source, never visit the affiliate click URL.
+        target = row.get("affiliate_url", "")
+        if target and not _safe_tracking_url(target):
+            continue
         if url not in pages:
             try:
                 response = requests.get(url, timeout=25, headers={"User-Agent": "WorthBuying offer verification"})
@@ -331,8 +345,9 @@ def retailer_offers(market: str) -> list[DiscountOffer]:
             continue
         found.append(DiscountOffer(
             advertiser=row["advertiser"], description=row["description"],
-            url=url, code=row["code"], restriction=row["restriction"],
+            url=target or url, code=row["code"], restriction=row["restriction"],
             source="Official retailer offer page", checked_date=checked.isoformat(),
+            start_date=row.get("start_date", ""), end_date=row.get("end_date", ""),
         ))
     return found
 

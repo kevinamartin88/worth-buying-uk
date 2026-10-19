@@ -63,5 +63,42 @@
       "GOLDUS"
     ],
     "checked_date": "2026-10-05"
+  },
+  {
+    "market": "us",
+    "advertiser": "Giftcards.com",
+    "code": "SWEETDASH",
+    "description": "Save 10% on eligible DoorDash gift cards.",
+    "url": "https://www.giftcards.com/us/en/promotions",
+    "affiliate_url": "https://click.linksynergy.com/fs-bin/click?id=1H6GQFgVabs&offerid=2130390.5130&type=3&subid=0",
+    "restriction": "USA only. Up to three eligible cards per purchase and customer. Single-use code; cannot combine promotions. Retailer may withdraw early. Check eligibility at checkout.",
+    "required_text": [
+      "SWEETDASH",
+      "10% off DoorDash",
+      "October 31, 2026"
+    ],
+    "start_date": "2026-10-16",
+    "end_date": "2026-10-31",
+    "checked_date": "2026-10-19",
+    "affiliate_commission": "0% for this excluded coupon; customer saving remains valid"
+  },
+  {
+    "market": "us",
+    "advertiser": "Giftcards.com",
+    "code": "SPOOKYRIDE",
+    "description": "Save 10% on eligible $100 Uber or Uber Eats gift cards.",
+    "url": "https://www.giftcards.com/us/en/promotions",
+    "affiliate_url": "https://click.linksynergy.com/fs-bin/click?id=1H6GQFgVabs&offerid=2130390.5130&type=3&subid=0",
+    "restriction": "USA only. Up to three eligible cards per purchase and customer. Single-use code; cannot combine promotions. Retailer may withdraw early. Check eligibility at checkout.",
+    "required_text": [
+      "SPOOKYRIDE",
+      "Uber or Uber Eats",
+      "$100",
+      "October 31, 2026"
+    ],
+    "start_date": "2026-10-16",
+    "end_date": "2026-10-31",
+    "checked_date": "2026-10-19",
+    "affiliate_commission": "0% for this excluded coupon; customer saving remains valid"
   }
 ]
