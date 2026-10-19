@@ -24,6 +24,7 @@ from googleapiclient.discovery import build
 from src.search_console import TOKEN_URI, build_service, choose_site, configured
 from src.site_config import get_site_config, get_site_host, get_site_url
 from src.google_discovery_report import inspection_record, new_report, save_report, write_summary
+from src.public_urls import canonical_public_url
 
 
 ROOT = Path(__file__).resolve().parent
@@ -96,7 +97,8 @@ def public_url(url: str, market: str) -> str | None:
     backend_host = urlsplit(get_site_config(market)["blogspot_url"]).hostname
     if parts.scheme != "https" or parts.hostname not in {active_host, backend_host}:
         return None
-    return urlunsplit(("https", active_host, parts.path, parts.query, parts.fragment))
+    clean = urlsplit(canonical_public_url(url))
+    return urlunsplit(("https", active_host, clean.path, clean.query, ""))
 
 
 def sitemap_contains(session: requests.Session, sitemap: str, target: str, host: str, depth: int = 0, cache: dict | None = None) -> bool:
@@ -221,6 +223,19 @@ def search_console(market: str, urls: list[str], sitemaps: list[str], checkpoint
                     ).execute(num_retries=2)
                     status = response.get("inspectionResult", {}).get("indexStatusResult", {})
                     result["inspections"][url] = inspection_record(status)
+                    # A mobile URL may be indexed while the clean URL is unknown.
+                    if result["inspections"][url]["state"] == "not_indexed" and urlsplit(url).path.endswith('.html'):
+                        mobile_url = url + ('&' if '?' in url else '?') + 'm=1'
+                        try:
+                            mobile = service.urlInspection().index().inspect(
+                                body={"inspectionUrl": mobile_url, "siteUrl": site}
+                            ).execute(num_retries=2)
+                            mobile_status = mobile.get('inspectionResult', {}).get('indexStatusResult', {})
+                            result['inspections'][url]['mobile_variant'] = {
+                                'url': mobile_url, **inspection_record(mobile_status)}
+                        except Exception as exc:
+                            result['inspections'][url]['mobile_variant'] = {
+                                'url': mobile_url, 'state': 'unconfirmed', 'reason': type(exc).__name__}
                     print(f"[seo] GSC {url}: {status.get('coverageState', 'status unavailable')}; "
                           f"last crawl: {status.get('lastCrawlTime', 'not reported')}")
                 except Exception as exc:
@@ -341,7 +356,8 @@ def run(market: str, recent_limit: int | None = None, report_path: Path | None =
     report["complete"] = True
     report["attention_required"] = (
         any(row["state"] != "submitted" for row in report["google"]["sitemaps"])
-        or any(row["state"] != "indexed" for row in report["google"]["inspections"].values())
+        or any(row["state"] != "indexed" or (row.get('google_canonical') and row['google_canonical'] != url)
+               for url, row in report["google"]["inspections"].items())
         or any(row.get("sitemap_contains_url") is not True for row in report["public_checks"].values())
         or any(row.get("page_check_error") or row.get("outside_site") for row in report["public_checks"].values())
     )
