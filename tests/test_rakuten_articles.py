@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 
 import generate_rakuten_articles as generator
 from src.rakuten import RakutenProduct
+import pytest
 
 
 def products(count: int = 3) -> list[RakutenProduct]:
@@ -347,3 +348,45 @@ def test_wall_panel_gate_rejects_samples_and_trims():
     matches = generator.relevant_products(feed, "wall panel", "wall-panels")
 
     assert [product.name for product in matches] == ["Acoustic Slat Wall Panel Walnut"]
+
+
+def giftcards():
+    from urllib.parse import quote
+    return [RakutenProduct(
+        name=f"{brand} Gift Card", merchant="Giftcards.com", advertiser_id="44432",
+        currency="USD", price="50.00",
+        url="https://click.linksynergy.com/deeplink?id=usa&mid=44432&murl="
+            + quote(f"https://www.giftcards.com/us/en/{brand.lower()}-gift-card", safe=""),
+    ) for brand in ("DoorDash", "Uber", "Target")]
+
+
+def test_giftcards_topic_only_available_to_usa_during_accepted_offer():
+    now = datetime(2026, 10, 19, tzinfo=timezone.utc)
+    assert generator.candidate_topics(10, [], "us", now)[0] == generator.GIFT_CARDS_TOPIC
+    assert all(t[0] != "gift-cards" for t in generator.candidate_topics(10, [], "uk", now))
+    assert all(t[0] != "gift-cards" for t in generator.candidate_topics(11, [], "us", generator.GIFTCARDS_OFFER_END))
+    recent = [t[0] for t in generator.RAKUTEN_TOPICS]
+    assert all(t[0] != "gift-cards" for t in generator.candidate_topics(10, recent, "uk", now))
+
+
+def test_giftcards_article_uses_card_checks_and_rejects_wrong_market():
+    now = datetime(2026, 10, 19, tzinfo=timezone.utc)
+    article = generator.build_article(generator.GIFT_CARDS_TOPIC, giftcards(), "us", now)
+    assert article["featured_retailer"] == "Giftcards.com"
+    assert "redemption" in article["content_html"]
+    assert "warranty" not in article["content_html"]
+    assert "5%" not in article["content_html"]
+    assert "redemption" in article["_seo"]["description"]
+    with pytest.raises(ValueError):
+        generator.build_article(generator.GIFT_CARDS_TOPIC, giftcards(), "uk", now)
+    with pytest.raises(ValueError):
+        generator.build_article(generator.GIFT_CARDS_TOPIC, giftcards(), "us", generator.GIFTCARDS_OFFER_END)
+
+
+def test_giftcards_gate_requires_approved_usa_card_and_destination():
+    from dataclasses import replace
+    good = giftcards()[0]
+    bad = [replace(good, advertiser_id="other"), replace(good, currency="GBP"),
+           replace(good, name="Gift Box"),
+           replace(good, url="https://click.linksynergy.com/deeplink?id=usa&murl=https%3A%2F%2Fwww.giftcards.ca%2Fca%2Fcard")]
+    assert generator.relevant_products([good, *bad], "gift card", "gift-cards") == [good]
