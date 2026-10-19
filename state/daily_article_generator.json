@@ -1,9 +1,9 @@
 {
   "uk": {
-    "authority_cluster": "Cleaning & Home Climate",
+    "authority_cluster": "Motoring",
     "content_action": "created",
-    "date": "2026-10-18",
-    "day": "Sunday",
+    "date": "2026-10-19",
+    "day": "Monday",
     "demand_score": null,
     "google_cached": false,
     "google_observed_at": null,
@@ -17,18 +17,18 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-carpet-cleaners-worth-buying-uk",
-    "title": "Best Carpet Cleaners Worth Buying in the UK (2026)",
-    "topic": "carpet-cleaners",
+    "slug": "best-tyre-inflators-worth-buying-uk",
+    "title": "Best Tyre Inflators Worth Buying in the UK (2026)",
+    "topic": "tyre-inflators",
     "trend_traffic": null,
-    "weekend_focus": "sunday-home",
-    "weekend_priority": true
+    "weekend_focus": null,
+    "weekend_priority": false
   },
   "us": {
-    "authority_cluster": "Kitchen & Small Appliances",
+    "authority_cluster": "Gaming & Entertainment",
     "content_action": "created",
-    "date": "2026-10-18",
-    "day": "Sunday",
+    "date": "2026-10-19",
+    "day": "Monday",
     "demand_score": null,
     "google_cached": false,
     "google_observed_at": null,
@@ -42,11 +42,11 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-stand-mixers-worth-buying-us",
-    "title": "Best Stand Mixers Worth Buying in the USA (2026)",
-    "topic": "stand-mixers",
+    "slug": "best-gaming-headsets-worth-buying-us",
+    "title": "Best Gaming Headsets Worth Buying in the USA (2026)",
+    "topic": "gaming-headsets",
     "trend_traffic": null,
-    "weekend_focus": "sunday-home",
-    "weekend_priority": true
+    "weekend_focus": null,
+    "weekend_priority": false
   }
 }

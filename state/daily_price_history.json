@@ -129,7 +129,7 @@
   },
   "daily|uk|v1|126610484241|0": {
     "article_slug": "best-smartwatches-worth-buying-uk",
-    "last_attempt_date": "2026-10-13",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "GBP",
@@ -409,7 +409,7 @@
   },
   "daily|uk|v1|135568371821|0": {
     "article_slug": "best-smartwatches-worth-buying-uk",
-    "last_attempt_date": "2026-10-13",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "GBP",
@@ -422,6 +422,12 @@
         "date": "2026-10-13",
         "price": 69.95,
         "ts": "2026-10-13T04:29:48.758386+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-19",
+        "price": 69.95,
+        "ts": "2026-10-19T02:04:39.165862+01:00"
       }
     ],
     "title": "Samsung Galaxy Watch 6 Classic 47mm - Bluetooth - SM-R960 - Smartwatch - Black",
@@ -429,7 +435,7 @@
   },
   "daily|uk|v1|135873800256|0": {
     "article_slug": "best-smartwatches-worth-buying-uk",
-    "last_attempt_date": "2026-10-13",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "GBP",
@@ -442,6 +448,12 @@
         "date": "2026-10-13",
         "price": 74.95,
         "ts": "2026-10-13T04:29:48.758386+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-19",
+        "price": 74.95,
+        "ts": "2026-10-19T02:04:39.165862+01:00"
       }
     ],
     "title": "Samsung Galaxy Watch5  40mm SM-R900 Aluminium GPS Smartwatch - Rose Gold",
@@ -449,7 +461,7 @@
   },
   "daily|uk|v1|136434427088|435232721685": {
     "article_slug": "best-smartwatches-worth-buying-uk",
-    "last_attempt_date": "2026-10-13",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "GBP",
@@ -462,6 +474,12 @@
         "date": "2026-10-13",
         "price": 82.95,
         "ts": "2026-10-13T04:29:48.758386+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-19",
+        "price": 82.95,
+        "ts": "2026-10-19T02:04:39.165862+01:00"
       }
     ],
     "title": "Apple Watch Series 6 Smartwatch - Various Colours - 40&44mm",
@@ -773,13 +791,19 @@
   },
   "daily|uk|v1|146069521465|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-13",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-13",
         "price": 64.99,
         "ts": "2026-10-13T04:29:57.735369+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-19",
+        "price": 64.99,
+        "ts": "2026-10-19T02:04:39.165862+01:00"
       }
     ],
     "title": "Vytronix AMC22B Lithium Cordless Upright 3in1 Handheld Stick Vacuum Cleaner 22V",
@@ -919,6 +943,20 @@
     "title": "SanDisk 2TB SDSSDA-2T00 2TB SATA 2.5\" SSD Disk Sandisk Plus 6G/s",
     "tracking_status": "active"
   },
+  "daily|uk|v1|147495125341|0": {
+    "article_slug": "best-tyre-inflators-worth-buying-uk",
+    "last_attempt_date": "2026-10-19",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-19",
+        "price": 44.95,
+        "ts": "2026-10-19T02:04:49.711950+01:00"
+      }
+    ],
+    "title": "Ring Cordless Digital Car Tyre Inflator Handheld Rechargeable Air Compressor",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|147512467422|0": {
     "article_slug": "best-security-cameras-worth-buying-uk",
     "last_attempt_date": "2026-10-16",
@@ -973,13 +1011,19 @@
   },
   "daily|uk|v1|147522383445|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-13",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-13",
         "price": 129.99,
         "ts": "2026-10-13T04:29:57.735369+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-19",
+        "price": 129.99,
+        "ts": "2026-10-19T02:04:39.165862+01:00"
       }
     ],
     "title": "Numatic HEN100 Henry Quick Cordless Stick Vacuum Cleaner Lightweight 25.2V Red",
@@ -1305,7 +1349,7 @@
   },
   "daily|uk|v1|177918042521|477464839737": {
     "article_slug": "best-smartwatches-worth-buying-uk",
-    "last_attempt_date": "2026-10-13",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "GBP",
@@ -1321,7 +1365,7 @@
       }
     ],
     "title": "Google Pixel Watch 2 Good Condition Android Smartwatch With Strap",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|uk|v1|178530921552|0": {
     "article_slug": "best-tablets-worth-buying-uk",
@@ -1917,6 +1961,20 @@
       }
     ],
     "title": "NEW Amazon Fire HD 10 Tablet - 1080p Full HD Display in Black 32gb - 11th Gen",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|236309041806|0": {
+    "article_slug": "best-tyre-inflators-worth-buying-uk",
+    "last_attempt_date": "2026-10-19",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-19",
+        "price": 22.99,
+        "ts": "2026-10-19T02:04:49.711950+01:00"
+      }
+    ],
+    "title": "Manan Car Tyre Inflator Cordless Digital Rechargeable Tire Air Compressor Pump",
     "tracking_status": "active"
   },
   "daily|uk|v1|236540841405|0": {
@@ -2885,7 +2943,7 @@
   },
   "daily|uk|v1|326111928728|0": {
     "article_slug": "best-soundbars-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-12",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "GBP",
@@ -2898,6 +2956,12 @@
         "date": "2026-10-12",
         "price": 109.0,
         "ts": "2026-10-12T03:16:13.652576+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-19",
+        "price": 109.0,
+        "ts": "2026-10-19T02:04:39.165862+01:00"
       }
     ],
     "title": "Bose SOLO 5 Soundbar Sound Bar with Remote PSU  Optical Audio Cable 971",
@@ -2931,7 +2995,7 @@
   },
   "daily|uk|v1|336665617686|0": {
     "article_slug": "best-tvs-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-12",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "GBP",
@@ -2944,6 +3008,12 @@
         "date": "2026-10-12",
         "price": 271.15,
         "ts": "2026-10-12T03:16:13.652576+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-19",
+        "price": 257.59,
+        "ts": "2026-10-19T02:04:39.165862+01:00"
       }
     ],
     "title": "Samsung 43 Inch TV Smart 4K Ultra HD HDR Crystal TV Netflix UE43U8000HKXXU",
@@ -2951,7 +3021,7 @@
   },
   "daily|uk|v1|336807661334|546136837588": {
     "article_slug": "best-tablets-worth-buying-uk",
-    "last_attempt_date": "2026-10-12",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "GBP",
@@ -2964,6 +3034,12 @@
         "date": "2026-10-12",
         "price": 72.65,
         "ts": "2026-10-12T03:16:13.652576+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-19",
+        "price": 69.87,
+        "ts": "2026-10-19T02:04:39.165862+01:00"
       }
     ],
     "title": "2026 NEW 16GB+1TB  Wifi 5G Android Tablet 15 Dual Sim GPS 10.36in  20000mAh UK",
@@ -2971,7 +3047,7 @@
   },
   "daily|uk|v1|336833649963|0": {
     "article_slug": "best-soundbars-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-12",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "GBP",
@@ -2984,6 +3060,12 @@
         "date": "2026-10-12",
         "price": 168.0,
         "ts": "2026-10-12T03:16:13.652576+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-19",
+        "price": 168.0,
+        "ts": "2026-10-19T02:04:39.165862+01:00"
       }
     ],
     "title": "TCL Q65H 580W HOME CINEMA SOUNDBAR SUBWOOFER DOLBY ATMOS Q65HK RRP£299 No Remote",
@@ -3005,7 +3087,7 @@
   },
   "daily|uk|v1|357699968551|0": {
     "article_slug": "best-tvs-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-12",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "GBP",
@@ -3019,7 +3101,7 @@
   },
   "daily|uk|v1|358479024834|0": {
     "article_slug": "best-soundbars-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-12",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "GBP",
@@ -3079,7 +3161,7 @@
   },
   "daily|uk|v1|358833944989|0": {
     "article_slug": "best-tvs-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-12",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "GBP",
@@ -3095,7 +3177,7 @@
       }
     ],
     "title": "Samsung 50 Inch TV Smart 4K Ultra HD HDR Crystal LED TV UE50U7000HKXXU",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|uk|v1|363410362658|0": {
     "article_slug": "best-storage-bins-worth-buying-uk-2026",
@@ -3119,7 +3201,7 @@
   },
   "daily|uk|v1|364245399320|635990528642": {
     "article_slug": "best-ssds-worth-buying-uk",
-    "last_attempt_date": "2026-10-12",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "GBP",
@@ -3132,6 +3214,12 @@
         "date": "2026-10-12",
         "price": 69.99,
         "ts": "2026-10-12T03:16:13.652576+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-19",
+        "price": 69.99,
+        "ts": "2026-10-19T02:04:39.165862+01:00"
       }
     ],
     "title": "Fanxiang 2.5\" SATA SSD 256GB 512GB 1TB 2TB 4TB SSD Solid State Hard Drive Lot",
@@ -3139,7 +3227,7 @@
   },
   "daily|uk|v1|364245951633|0": {
     "article_slug": "prime-big-deal-days-ssds-uk-2026",
-    "last_attempt_date": "2026-10-12",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "GBP",
@@ -3152,6 +3240,12 @@
         "date": "2026-10-12",
         "price": 99.99,
         "ts": "2026-10-12T03:16:13.652576+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-19",
+        "price": 99.99,
+        "ts": "2026-10-19T02:04:39.165862+01:00"
       }
     ],
     "title": "Fanxiang SSD 1TB 2.5\" SATA SSD 6Gb/s 550MB/S Internal Solid State Hard Drive PC",
@@ -3189,6 +3283,20 @@
     "title": "Silentnight Airmax 800 Air Purifier for Home Bedroom Ultra Quiet Sleep Aid Pets",
     "tracking_status": "active"
   },
+  "daily|uk|v1|364624357297|0": {
+    "article_slug": "best-tyre-inflators-worth-buying-uk",
+    "last_attempt_date": "2026-10-19",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-19",
+        "price": 33.99,
+        "ts": "2026-10-19T02:04:49.711950+01:00"
+      }
+    ],
+    "title": "Goodyear Cordless Car Tyre Inflator Pump LED Portable Air Compressor Digital",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|364689067008|0": {
     "article_slug": "best-dehumidifiers-worth-buying-uk-2026",
     "last_attempt_date": "2026-10-15",
@@ -3205,7 +3313,7 @@
   },
   "daily|uk|v1|365361460352|0": {
     "article_slug": "best-coffee-machines-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-12",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "GBP",
@@ -3218,6 +3326,12 @@
         "date": "2026-10-12",
         "price": 469.99,
         "ts": "2026-10-12T03:16:13.652576+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-19",
+        "price": 469.99,
+        "ts": "2026-10-19T02:04:39.165862+01:00"
       }
     ],
     "title": "Sage The Barista Pro SES878BSS Coffee Espresso Machine Brushed Stainless Steel*",
@@ -3245,7 +3359,7 @@
   },
   "daily|uk|v1|365867899913|0": {
     "article_slug": "best-tvs-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-12",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "GBP",
@@ -3259,7 +3373,7 @@
   },
   "daily|uk|v1|366046119481|0": {
     "article_slug": "best-tvs-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-13",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "GBP",
@@ -3529,7 +3643,7 @@
   },
   "daily|uk|v1|397746603338|0": {
     "article_slug": "best-security-cameras-worth-buying-uk",
-    "last_attempt_date": "2026-10-12",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "GBP",
@@ -3542,6 +3656,12 @@
         "date": "2026-10-12",
         "price": 31.99,
         "ts": "2026-10-12T03:16:25.154300+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-19",
+        "price": 31.99,
+        "ts": "2026-10-19T02:04:39.165862+01:00"
       }
     ],
     "title": "Iegeek 5MP Indoor Home Security Camera 2.4 / 5GHz Night Vision 360 PTZ SC1 2PCS",
@@ -3560,6 +3680,20 @@
     ],
     "title": "Sharp 4T-C50HK4145KB 4K Ultra HD USB HDMI HDR Smart 50\" Tivo TV - Black A",
     "tracking_status": "unavailable"
+  },
+  "daily|uk|v1|404773233851|0": {
+    "article_slug": "best-tyre-inflators-worth-buying-uk",
+    "last_attempt_date": "2026-10-19",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-19",
+        "price": 29.99,
+        "ts": "2026-10-19T02:04:49.711950+01:00"
+      }
+    ],
+    "title": " Goodyear Cordless Digital Display Car Tyre Inflator Compressor | No Wires | ",
+    "tracking_status": "active"
   },
   "daily|uk|v1|406440401294|0": {
     "article_slug": "best-robot-vacuum-cleaners-worth-buying-uk-2026",
@@ -4333,13 +4467,19 @@
   },
   "daily|us|v1|137566235364|0": {
     "article_slug": "best-steam-mops-worth-buying-us",
-    "last_attempt_date": "2026-10-11",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-11",
         "price": 74.99,
         "ts": "2026-10-11T02:48:11.422101+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 74.99,
+        "ts": "2026-10-19T02:04:49.734376+01:00"
       }
     ],
     "title": "Kenmore SM2060 S200 Steam Mop 2 Modes Quick Heat Washable Pads Hardwood Tile",
@@ -4537,7 +4677,7 @@
   },
   "daily|us|v1|147590425272|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-11",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "USD",
@@ -4556,6 +4696,12 @@
         "date": "2026-10-11",
         "price": 77.99,
         "ts": "2026-10-11T02:47:59.918859+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 100.69,
+        "ts": "2026-10-19T02:04:49.734376+01:00"
       }
     ],
     "title": "ecozy 4-in-1 Espresso Machine, Drip Coffee & 30s Cold Brew 36s Heat-Up Over Ice",
@@ -4577,7 +4723,7 @@
   },
   "daily|us|v1|157395706031|0": {
     "article_slug": "best-soundbars-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-11",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "USD",
@@ -4590,6 +4736,12 @@
         "date": "2026-10-11",
         "price": 365.0,
         "ts": "2026-10-11T02:47:59.918859+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 365.0,
+        "ts": "2026-10-19T02:04:49.734376+01:00"
       }
     ],
     "title": "JBL Bar 500MK2 750W Peak 5.1-Ch Dolby Atmos Soundbar w/ Wireless Subwoofer",
@@ -4597,7 +4749,7 @@
   },
   "daily|us|v1|157483139974|0": {
     "article_slug": "air-fryers-for-students-us",
-    "last_attempt_date": "2026-10-11",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "USD",
@@ -4610,6 +4762,12 @@
         "date": "2026-10-11",
         "price": 41.79,
         "ts": "2026-10-11T02:47:59.918859+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 41.79,
+        "ts": "2026-10-19T02:04:49.734376+01:00"
       }
     ],
     "title": "UTEN 5.5L/5.8 Qt Air Fryer 1700 Watt Hot Air Oilless Oven Baking Cooker Silver",
@@ -4617,7 +4775,7 @@
   },
   "daily|us|v1|157835956881|459231723016": {
     "article_slug": "best-smartwatches-worth-buying-us",
-    "last_attempt_date": "2026-10-11",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "USD",
@@ -4630,6 +4788,12 @@
         "date": "2026-10-11",
         "price": 199.99,
         "ts": "2026-10-11T02:47:59.918859+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 185.99,
+        "ts": "2026-10-19T02:04:49.734376+01:00"
       }
     ],
     "title": "Samsung Galaxy Watch 8 LTE 44MM Unlocked  Smartwatch L335U Excellent",
@@ -4637,7 +4801,7 @@
   },
   "daily|us|v1|157887750828|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-11",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "USD",
@@ -4650,6 +4814,12 @@
         "date": "2026-10-11",
         "price": 100.0,
         "ts": "2026-10-11T02:47:59.918859+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 100.0,
+        "ts": "2026-10-19T02:04:49.734376+01:00"
       }
     ],
     "title": "External Solid State Drive USB 3.2 Gen2, 1TB SSD External Hard Drive with C to A",
@@ -4657,7 +4827,7 @@
   },
   "daily|us|v1|158005286292|0": {
     "article_slug": "best-tvs-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-11",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "USD",
@@ -4670,6 +4840,12 @@
         "date": "2026-10-11",
         "price": 699.8,
         "ts": "2026-10-11T02:47:59.918859+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 668.0,
+        "ts": "2026-10-19T02:04:49.734376+01:00"
       }
     ],
     "title": "Furrion Aurora Partial-Sun 50\" 4K Anti Glare LCD Outdoor Smart TV (Refurbished)",
@@ -4691,7 +4867,7 @@
   },
   "daily|us|v1|164808049794|464290224764": {
     "article_slug": "best-security-cameras-worth-buying-us",
-    "last_attempt_date": "2026-10-11",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "USD",
@@ -4704,6 +4880,12 @@
         "date": "2026-10-11",
         "price": 289.99,
         "ts": "2026-10-11T02:47:59.918859+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 339.99,
+        "ts": "2026-10-19T02:04:49.734376+01:00"
       }
     ],
     "title": "ANRAN Home Outdoor Wireless Security WiFi Camera System CCTV 5MP HD NVR 2TB HDD",
@@ -4711,7 +4893,7 @@
   },
   "daily|us|v1|166181985612|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-11",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "USD",
@@ -4730,6 +4912,12 @@
         "date": "2026-10-11",
         "price": 207.78,
         "ts": "2026-10-11T02:47:59.918859+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 207.78,
+        "ts": "2026-10-19T02:04:49.734376+01:00"
       }
     ],
     "title": "Cuisinart Burr Grind & Brew 12 Cup Automatic Coffee Maker, Stainless 12 Cup, New",
@@ -4737,7 +4925,7 @@
   },
   "daily|us|v1|166512483033|0": {
     "article_slug": "approved-retailer-slow-cookers-us-2026-10-05",
-    "last_attempt_date": "2026-10-11",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "USD",
@@ -4762,14 +4950,62 @@
         "date": "2026-10-11",
         "price": 109.11,
         "ts": "2026-10-11T02:47:59.918859+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 91.3,
+        "ts": "2026-10-19T02:04:49.734376+01:00"
       }
     ],
     "title": "8qt Crock Pot 8qt Slow Cooker Big 10 quart 9 quart 8.5 Quart Huge XL qt Large",
     "tracking_status": "active"
   },
+  "daily|us|v1|167001855558|0": {
+    "article_slug": "best-gaming-headsets-worth-buying-us",
+    "last_attempt_date": "2026-10-19",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 39.95,
+        "ts": "2026-10-19T02:05:01.715663+01:00"
+      }
+    ],
+    "title": "Honcam RGB 2.4G Wireless Gaming Headset for Nintendo Switch for PS5/PS4/PC/Xbox",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|167017878525|0": {
+    "article_slug": "best-gaming-headsets-worth-buying-us",
+    "last_attempt_date": "2026-10-19",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 114.0,
+        "ts": "2026-10-19T02:05:01.715663+01:00"
+      }
+    ],
+    "title": "HEADSET-PRO X 2 LIGHTSPEED Wireless Gaming Headset-WHITE-2.4GHZ- 981-001268",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|167017920270|0": {
+    "article_slug": "best-gaming-headsets-worth-buying-us",
+    "last_attempt_date": "2026-10-19",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 71.25,
+        "ts": "2026-10-19T02:05:01.715663+01:00"
+      }
+    ],
+    "title": "Logitech - G PRO X Wireless Gaming Headset for PC - Black",
+    "tracking_status": "active"
+  },
   "daily|us|v1|167031735841|0": {
     "article_slug": "best-soundbars-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-11",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "USD",
@@ -4782,9 +5018,29 @@
         "date": "2026-10-11",
         "price": 129.0,
         "ts": "2026-10-11T02:47:59.918859+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 129.0,
+        "ts": "2026-10-19T02:04:49.734376+01:00"
       }
     ],
     "title": "Bose Solo Soundbar 2 Home Theater, Certified Refurbished",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|167051732325|0": {
+    "article_slug": "best-gaming-headsets-worth-buying-us",
+    "last_attempt_date": "2026-10-19",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 47.5,
+        "ts": "2026-10-19T02:05:01.715663+01:00"
+      }
+    ],
+    "title": "Logitech Astro A20 Gen 2 Wireless Gaming Headset PlayStation Blue",
     "tracking_status": "active"
   },
   "daily|us|v1|168113514154|0": {
@@ -4817,7 +5073,7 @@
   },
   "daily|us|v1|168310739877|467834930780": {
     "article_slug": "best-smartwatches-worth-buying-us",
-    "last_attempt_date": "2026-10-11",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "USD",
@@ -4830,6 +5086,12 @@
         "date": "2026-10-11",
         "price": 189.99,
         "ts": "2026-10-11T02:47:59.918859+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 176.99,
+        "ts": "2026-10-19T02:04:49.734376+01:00"
       }
     ],
     "title": "Samsung Galaxy Watch 8 LTE 40mm Unlocked  Smartwatch L325U - Excellent",
@@ -4973,7 +5235,7 @@
   },
   "daily|us|v1|168698734506|0": {
     "article_slug": "best-tvs-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-11",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "USD",
@@ -4986,6 +5248,12 @@
         "date": "2026-10-11",
         "price": 999.99,
         "ts": "2026-10-11T02:47:59.918859+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 1299.99,
+        "ts": "2026-10-19T02:04:49.734376+01:00"
       }
     ],
     "title": "Hisense 75\" U7 ULED Mini-LED 4K UHD 165 Hz Smart Google TV",
@@ -5041,7 +5309,7 @@
   },
   "daily|us|v1|185935454347|0": {
     "article_slug": "best-smartwatches-worth-buying-us",
-    "last_attempt_date": "2026-10-11",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "USD",
@@ -5054,6 +5322,12 @@
         "date": "2026-10-11",
         "price": 59.95,
         "ts": "2026-10-11T02:47:59.918859+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 59.95,
+        "ts": "2026-10-19T02:04:49.734376+01:00"
       }
     ],
     "title": "Samsung Galaxy Watch4 SM-R870 Bluetooth/GPS/WiFi SmartWatch 44mm - Black SR",
@@ -5061,7 +5335,7 @@
   },
   "daily|us|v1|185953427238|0": {
     "article_slug": "best-smartwatches-worth-buying-us",
-    "last_attempt_date": "2026-10-11",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "USD",
@@ -5074,6 +5348,12 @@
         "date": "2026-10-11",
         "price": 69.95,
         "ts": "2026-10-11T02:47:59.918859+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 69.95,
+        "ts": "2026-10-19T02:04:49.734376+01:00"
       }
     ],
     "title": "Samsung Galaxy Watch Active2 SM-R820 44mm Bluetooth Smartwatch - Black SR",
@@ -5081,7 +5361,7 @@
   },
   "daily|us|v1|186068206398|695749503046": {
     "article_slug": "best-smartwatches-worth-buying-us",
-    "last_attempt_date": "2026-10-11",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "USD",
@@ -5094,6 +5374,12 @@
         "date": "2026-10-11",
         "price": 99.95,
         "ts": "2026-10-11T02:47:59.918859+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 99.95,
+        "ts": "2026-10-19T02:04:49.734376+01:00"
       }
     ],
     "title": "Samsung Galaxy Watch 7 SM-L300 | 40mm | GPS | Bluetooth - Multi Color SmartWatch",
@@ -5115,7 +5401,7 @@
   },
   "daily|us|v1|187376950418|0": {
     "article_slug": "best-soundbars-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-11",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "USD",
@@ -5128,6 +5414,12 @@
         "date": "2026-10-11",
         "price": 297.0,
         "ts": "2026-10-11T02:47:59.918859+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 297.0,
+        "ts": "2026-10-19T02:04:49.734376+01:00"
       }
     ],
     "title": "Samsung HW-Q600F Q-series 3.1.2 ch Soundbar w/ Wireless Subwoofer (2025)",
@@ -5135,7 +5427,7 @@
   },
   "daily|us|v1|187656775458|0": {
     "article_slug": "best-soundbars-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-11",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "USD",
@@ -5148,6 +5440,12 @@
         "date": "2026-10-11",
         "price": 473.0,
         "ts": "2026-10-11T02:47:59.918859+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 473.0,
+        "ts": "2026-10-19T02:04:49.734376+01:00"
       }
     ],
     "title": "JBL BAR 700MK2 7.1-Channel 780W Dolby Atmos Soundbar System w/ Subwoofer",
@@ -5155,7 +5453,7 @@
   },
   "daily|us|v1|187698678816|0": {
     "article_slug": "best-security-cameras-worth-buying-us",
-    "last_attempt_date": "2026-10-11",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "USD",
@@ -5168,6 +5466,12 @@
         "date": "2026-10-11",
         "price": 75.65,
         "ts": "2026-10-11T02:47:59.918859+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 75.65,
+        "ts": "2026-10-19T02:04:49.734376+01:00"
       }
     ],
     "title": "3-Pack 100%Wireless Solar Security Camera Outdoor Stable WiFi6,2-Way Talk",
@@ -5175,17 +5479,23 @@
   },
   "daily|us|v1|188147615353|695768445429": {
     "article_slug": "best-smartwatches-worth-buying-us",
-    "last_attempt_date": "2026-10-11",
+    "last_attempt_date": "2026-10-19",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-07",
         "price": 114.95,
         "ts": "2026-10-07T03:15:25.983315+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-19",
+        "price": 114.95,
+        "ts": "2026-10-19T02:04:49.734376+01:00"
       }
     ],
     "title": "Samsung Galaxy Watch 7 SM-L310 | 44MM | GPS | Bluetooth w. Color Band SmartWatch",
-    "tracking_status": "unavailable"
+    "tracking_status": "active"
   },
   "daily|us|v1|188591459539|0": {
     "article_slug": "best-car-jump-starters-before-winter-us-2026",
