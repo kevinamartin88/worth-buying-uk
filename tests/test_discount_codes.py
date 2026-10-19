@@ -209,3 +209,16 @@ def test_duplicate_codes_from_public_and_rakuten_sources_do_not_use_multiple_slo
     ], date(2026, 10, 19))
     assert {o.code for o in selected} == {"SWEETDASH", "SPOOKYRIDE"}
     assert len(selected) == 2
+
+
+def test_giftcards_undated_feed_codes_cannot_override_verified_public_offers(monkeypatch):
+    from src.rakuten import RakutenCoupon
+    client = MagicMock()
+    client.coupons.return_value = [
+        RakutenCoupon(advertiser="Giftcards.com", advertiser_id="44432", description="Undated creative",
+                      url="https://click.linksynergy.com/click", code="OLD"),
+        RakutenCoupon(advertiser="Sharper Image", advertiser_id="815", description="Current code",
+                      url="https://click.linksynergy.com/click", code="AFF10"),
+    ]
+    monkeypatch.setattr(discounts.RakutenClient, "for_market", lambda market: client)
+    assert [o.code for o in discounts.rakuten_offers("us")] == ["AFF10"]
