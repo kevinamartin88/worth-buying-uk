@@ -6,7 +6,7 @@ import html
 import re
 
 REVISION = 'priority-search-advice-v1'
-TOPICS = {'air-fryers', 'large-capacity-air-fryers', 'smartwatches', 'battery-chargers', 'coffee-machines'}
+TOPICS = {'air-fryers', 'large-capacity-air-fryers', 'smartwatches', 'battery-chargers', 'coffee-machines', 'slow-cookers'}
 
 
 def air_fryer_advice(market, large=False):
@@ -232,6 +232,60 @@ def coffee_advice(market):
                                      'coffee maker running costs', 'refurbished coffee machine checks']
 
 
+def slow_cooker_advice(market):
+    units = 'litres' if market == 'uk' else 'quarts'
+    advice = (
+        '<h2>How to choose a slow cooker for everyday meals</h2>'
+        '<p>Think about the meal you want ready when you get home, how many people it needs to '
+        'feed and where the cooker will sit. A larger pot is useful only if it suits your normal '
+        'recipes and you have room to lift, wash and store it.</p>'
+        f'<h3>Capacity in {units}: compare the pot, not just the headline</h3>'
+        '<p>Check the usable fill range in the exact manual rather than treating the advertised '
+        'capacity as a serving guarantee. A deep round pot and a wide oval pot can accommodate '
+        'different ingredients. For batch cooking, consider how you will portion and store the '
+        'finished meal as well as how much fits inside the cooker.</p>'
+        '<h3>Manual dial or programmable timer?</h3>'
+        '<p>A simple dial may suit a routine where someone is home to switch the cooker off. '
+        'A programmable model is worth comparing when you need a defined cooking time, but check '
+        'what happens afterwards: automatic keep-warm, a manual warm setting and delayed start '
+        'are different functions. Do not assume that every digital display includes all three.</p>'
+        '<p>For example, Crock-Pot describes its manual 8-quart model as offering High, Low and '
+        'Warm settings. That is a control example for that model, not proof that every listing '
+        'above has a timer or automatic keep-warm. '
+        '<a href="https://www.crock-pot.com/slow-cookers/7-quart-up/crock-pot-manual-8-quart-slow-cooker/SP_528880.html">'
+        'Source: Crock-Pot manual 8-quart model specifications</a>.</p>'
+        '<h3>Searing, cleaning and the weight of a full pot</h3>'
+        '<p>If you want to brown ingredients in the same vessel, confirm that the exact insert '
+        'is approved for your hob or stove. A removable bowl alone does not establish this. '
+        'Check which parts are dishwasher-safe, how the handles are held and whether the pot '
+        'fits in your sink. Follow the model instructions for cooking and cleaning.</p>'
+        '<h3>Compare running costs for your actual recipe</h3>'
+        '<p>Compare power use and cooking time for the same meal; a low wattage label alone '
+        'does not establish the total cost. A slow cooker and a pressure multi-cooker also '
+        'offer different cooking methods. Choose the functions you will use rather than '
+        'paying for a longer mode list.</p>'
+        '<h3>What makes a cheaper offer worth buying?</h3>'
+        '<p>Check the model number, pot and lid condition, included accessories, local voltage, '
+        'warranty and returns. With used or refurbished stock, a replacement pot or lid can '
+        'change the apparent saving. Reviews are most useful when they discuss the exact model, '
+        'normal meal size, controls and cleaning; seller feedback concerns the transaction.</p>'
+    )
+    questions = [
+        ('What size slow cooker should I buy?', 'Compare your usual recipe and the manufacturer’s '
+         'recommended fill range. Headline capacity alone does not guarantee a number of servings.'),
+        ('Does a slow cooker switch to warm automatically?', 'Only some models do. Check the exact '
+         'controls and what happens at the end of the cooking time before relying on this feature.'),
+        ('Can I brown ingredients in the slow cooker pot?', 'Only when the manufacturer approves '
+         'the exact insert for that hob or stove. Removable does not automatically mean hob-safe.'),
+        ('Is a slow cooker the same as a pressure cooker?', 'No. A multi-cooker may offer both '
+         'methods, but check the supported modes and recipe instructions for the appliance.'),
+    ]
+    description = (f'Compare slow cookers in the {"UK" if market == "uk" else "USA"}: capacity, '
+                   'manual vs programmable controls, keep-warm, cleaning and current retailer offers.')
+    return advice, questions, description, ['slow cooker size', 'manual vs programmable slow cooker',
+                                          'slow cooker keep warm', 'slow cooker buying guide']
+
+
 def topic_fragments(topic, market):
     if topic in {'air-fryers', 'large-capacity-air-fryers'}:
         return air_fryer_advice(market, topic == 'large-capacity-air-fryers')
@@ -239,6 +293,8 @@ def topic_fragments(topic, market):
         return smartwatch_advice(market)
     if topic == 'coffee-machines':
         return coffee_advice(market)
+    if topic == 'slow-cookers':
+        return slow_cooker_advice(market)
     return battery_advice(market)
 
 
