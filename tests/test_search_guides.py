@@ -82,7 +82,7 @@ def test_daily_generator_retains_advice_even_without_live_listings(monkeypatch, 
         assert 'wb_retailer_click' in article['content_html']
 
 
-@pytest.mark.parametrize('topic', ['air-fryers', 'large-capacity-air-fryers', 'smartwatches', 'battery-chargers', 'coffee-machines'])
+@pytest.mark.parametrize('topic', ['air-fryers', 'large-capacity-air-fryers', 'smartwatches', 'battery-chargers', 'coffee-machines', 'slow-cookers'])
 @pytest.mark.parametrize('market', ['uk', 'us'])
 def test_priority_advice_preserves_retailer_evidence_and_identity(topic, market):
     article = {'slug': 'stable-url', 'title': 'Stable title',
