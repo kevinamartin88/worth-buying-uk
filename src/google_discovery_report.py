@@ -35,6 +35,10 @@ def next_action(url: str, row: dict) -> str:
             return 'Review Google’s selected canonical before requesting this URL.'
         return 'Already indexed; allow time for Google to refresh changed content.'
     if state == 'not_indexed':
+        mobile = row.get('mobile_variant') or {}
+        if mobile.get('state') == 'indexed':
+            return ('Mobile variant is indexed; review canonical consolidation and internal links. '
+                    'The clean URL remains unindexed in this inspection.')
         if row.get('robots_state') == 'DISALLOWED' or row.get('indexing_state') in {
             'BLOCKED_BY_META_TAG', 'BLOCKED_BY_HTTP_HEADER'}:
             return 'Review the reported crawl/indexing block before requesting indexing.'
@@ -76,9 +80,14 @@ def write_summary(report: dict) -> None:
         sitemap = public.get('sitemap_contains_url')
         inclusion = 'Yes' if sitemap is True else 'No — review discovery' if sitemap is False else 'Not confirmed'
         page_status = str(public.get('http_status') or public.get('page_check_error') or 'Not rechecked')
+        mobile = record.get('mobile_variant') or {}
+        mobile_note = ('; mobile variant: ' + str(mobile.get('coverage') or mobile.get('state'))
+                       if mobile else '')
+        canonical_note = ('; Google canonical: ' + record['google_canonical']
+                          if record.get('google_canonical') and record['google_canonical'] != url else '')
         rows.append('<tr><td><a href="' + html.escape(url, quote=True) + '">' + html.escape(url) + '</a></td>'
                     '<td>' + inclusion + '</td><td>' + html.escape(page_status) + '</td>'
-                    '<td>' + html.escape(record.get('coverage') or record['state']) + '</td>'
+                    '<td>' + html.escape((record.get('coverage') or record['state']) + mobile_note + canonical_note) + '</td>'
                     '<td>' + html.escape(next_action(url, record)) + '</td></tr>')
     feeds = '\n'.join('- ' + str(x['url']) + ': **' + str(x['state']) + '**'
                       for x in google.get('sitemaps', [])) or '- No sitemap submission confirmed.'

@@ -3,6 +3,7 @@ from __future__ import annotations
 import html
 from src.price_tracking import valid_observations
 from src.price_charts import chart_html
+from src.public_urls import canonical_public_url
 import json
 from datetime import date
 from statistics import median
@@ -135,7 +136,7 @@ def load_catalog(market: str) -> list[dict]:
             {
                 "slug": slug,
                 "title": str(article.get("title") or state.get("title") or slug),
-                "url": str(state["url"]),
+                "url": canonical_public_url(str(state["url"])),
                 "cluster": cluster,
                 "categories": categories,
                 "topic": topic,
@@ -278,7 +279,7 @@ def price_watch_page(market: str) -> dict:
             continue
 
         slug = str(entry.get("article_slug") or "")
-        article_url = str((published.get(slug) or {}).get("url") or "")
+        article_url = canonical_public_url(str((published.get(slug) or {}).get("url") or ""))
         rows.append(
             {
                 "title": str(entry.get("title") or "Product listing"),
