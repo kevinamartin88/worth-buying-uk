@@ -3,6 +3,45 @@ from __future__ import annotations
 import requests
 import pytest
 
+
+def paged_coupon_xml(merchant, number, pages=2):
+    return (f"<couponfeed><TotalPages>{pages}</TotalPages><link>"
+            f"<advertisername>{merchant}</advertisername><advertiserid>{merchant}</advertiserid>"
+            f"<offerdescription>Offer {number}</offerdescription><couponcode>CODE{number}</couponcode>"
+            f"<clickurl>https://click.linksynergy.com/click?id={number}</clickurl>"
+            "</link></couponfeed>")
+
+
+def test_coupon_pages_reach_smaller_retailers_after_large_catalogue():
+    class PagedSession(FakeSession):
+        def get(self, url, **kwargs):
+            self.calls.append(("GET", url, kwargs))
+            page = kwargs["params"]["pagenumber"]
+            return FakeResponse(paged_coupon_xml("Giftcards" if page == 1 else "Sharper", page))
+    session = PagedSession("")
+    client = RakutenClient("id", "secret", "account", "USD", session=session)
+    assert {o.advertiser for o in client.coupons(1, limit=500, per_advertiser_limit=3)} == {"Giftcards", "Sharper"}
+    assert [c[2]["params"]["pagenumber"] for c in session.calls if c[0] == "GET"] == [1, 2]
+
+
+def test_coupon_pagination_is_bounded_and_failure_keeps_prior_results():
+    class LargeSession(FakeSession):
+        def get(self, url, **kwargs):
+            self.calls.append(("GET", url, kwargs))
+            page = kwargs["params"]["pagenumber"]
+            return FakeResponse(paged_coupon_xml("Giftcards", page, pages=100))
+    session = LargeSession("")
+    client = RakutenClient("id", "secret", "account", "USD", session=session)
+    assert len(client.coupons(1, limit=500, per_advertiser_limit=3)) == 3
+    assert sum(c[0] == "GET" for c in session.calls) == 5
+    class FailingSecondPage(LargeSession):
+        def get(self, url, **kwargs):
+            if kwargs["params"]["pagenumber"] == 2:
+                raise requests.HTTPError("unavailable")
+            return super().get(url, **kwargs)
+    client = RakutenClient("id", "secret", "account", "USD", session=FailingSecondPage(""))
+    assert len(client.coupons(1, limit=500, per_advertiser_limit=3)) == 1
+
 from src.rakuten import RakutenClient, RakutenProduct
 
 
