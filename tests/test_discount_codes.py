@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import date
+from datetime import date, datetime, timezone
 from unittest.mock import MagicMock
 
 import generate_discount_codes as discounts
@@ -155,3 +155,57 @@ def test_unavailable_public_sources_do_not_keep_old_codes_forever(monkeypatch):
         raise discounts.requests.RequestException("unavailable")
     monkeypatch.setattr(discounts.requests, "get", unavailable)
     assert discounts.retailer_offers("us") == []
+
+
+class October19(datetime):
+    @classmethod
+    def now(cls, tz=None):
+        return cls(2026, 10, 19, tzinfo=timezone.utc)
+
+
+def test_giftcards_codes_use_verified_source_and_usa_affiliate_link(monkeypatch):
+    monkeypatch.setattr(discounts, "datetime", October19)
+    body = ("SWEETDASH 10% off DoorDash October 31, 2026 "
+            "SPOOKYRIDE Uber or Uber Eats $100 October 31, 2026")
+    request = MagicMock(return_value=MagicMock(text=body))
+    monkeypatch.setattr(discounts.requests, "get", request)
+    found = [o for o in discounts.retailer_offers("us") if o.advertiser == "Giftcards.com"]
+    assert {o.code for o in found} == {"SWEETDASH", "SPOOKYRIDE"}
+    assert all("id=1H6GQFgVabs&offerid=2130390.5130" in o.url for o in found)
+    assert all(o.end_date == "2026-10-31" for o in found)
+    assert not any("linksynergy.com" in call.args[0] for call in request.call_args_list)
+    assert not any(o.advertiser == "Giftcards.com" for o in discounts.retailer_offers("uk"))
+    assert discounts.select_offers(found, date(2026, 11, 1)) == []
+    rendered = render_page(found, "us", date(2026, 10, 19))
+    assert "5%" not in rendered
+    assert "31 October 2026" in rendered and "daily" in rendered
+
+
+def test_giftcards_expiry_and_unsafe_tracking_do_not_publish_stale_codes(monkeypatch):
+    monkeypatch.setattr(discounts, "datetime", October19)
+    rows = [{"market": "us", "url": "https://www.giftcards.com/us/en/promotions",
+             "end_date": "2026-10-18"},
+            {"market": "us", "url": "https://www.giftcards.com/us/en/promotions",
+             "affiliate_url": "https://untrusted.example/click"}]
+    monkeypatch.setattr(discounts.json, "loads", lambda _text: rows)
+    request = MagicMock()
+    monkeypatch.setattr(discounts.requests, "get", request)
+    assert discounts.retailer_offers("us") == []
+    request.assert_not_called()
+
+
+def test_missing_giftcards_source_does_not_block_other_discount_sources(monkeypatch):
+    monkeypatch.setattr(discounts, "retailer_offers", lambda _market: [])
+    monkeypatch.setattr(discounts, "rakuten_offers", lambda _market: [offer("Other retailer", "Offer")])
+    monkeypatch.setattr(discounts, "ebay_offers", lambda _market: [])
+    assert discounts.collect_offers("us")[0].advertiser == "Other retailer"
+
+
+def test_duplicate_codes_from_public_and_rakuten_sources_do_not_use_multiple_slots():
+    selected = select_offers([
+        offer("Giftcards.com", "Public code", code="SWEETDASH"),
+        offer("Giftcards.com", "Same code in feed", code="SWEETDASH"),
+        offer("Giftcards.com", "Another card", code="SPOOKYRIDE"),
+    ], date(2026, 10, 19))
+    assert {o.code for o in selected} == {"SWEETDASH", "SPOOKYRIDE"}
+    assert len(selected) == 2
