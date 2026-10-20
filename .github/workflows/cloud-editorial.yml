@@ -91,14 +91,6 @@ jobs:
             drafts-bespoke
           if-no-files-found: ignore
           retention-days: 14
-      - name: Surface blocked editorial work for GitHub failure notifications
+      - name: Surface newly blocked research and retain warnings for earlier drafts
         if: success()
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          state = json.loads(Path("state/cloud_editorial.json").read_text())
-          blocked = {m: r.get("error") for m, r in state.get("weekly", {}).items() if r.get("status") == "blocked"}
-          if blocked:
-              raise SystemExit("Bespoke research blocked; draft and report saved: " + json.dumps(blocked))
-          PY
+        run: python cloud_editorial.py --check-current-run
