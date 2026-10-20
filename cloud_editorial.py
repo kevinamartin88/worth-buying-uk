@@ -236,8 +236,9 @@ def build_article(brief, market, picks, today):
 def weekly(now, state, briefs, collector=collect, builder=build_article, hero=create_hero):
     # Wednesday onward permits a recovery run after a temporary outage.
     today = now.date()
+    attempts = {}
     if today < START or now.weekday() < 2 or (now.weekday() == 2 and now.hour < 10):
-        return
+        return attempts
     week = today.strftime("%G-W%V")
     for market in MARKETS:
         ledger = state.setdefault("weekly", {}).setdefault(market, {})
@@ -252,10 +253,12 @@ def weekly(now, state, briefs, collector=collect, builder=build_article, hero=cr
             article = builder(brief, market, picks, today)
             hero(article, market, picks)
             save(article_dir(market) / (article["slug"] + ".json"), article)
-            ledger.update(week=week, next=index + 1, slug=article["slug"], status="generated-awaiting-publisher", error=None)
+            ledger.update(week=week, next=index + 1, slug=article["slug"], status="generated-awaiting-publisher", error=None, attempted=today.isoformat())
         except Exception as exc:
             ledger.update(status="blocked", error=f"{type(exc).__name__}: {exc}", attempted=today.isoformat())
             save(ROOT / "drafts-bespoke" / f"{market}-{brief['key']}.json", {"brief": brief, "mode": "draft", "reason": ledger["error"]})
+        attempts[market] = {"status": ledger["status"], "error": ledger.get("error")}
+    return attempts
 
 
 GROWTH_COPY = {
@@ -416,17 +419,41 @@ def reconcile_publication(state):
                 record.update(status="published", url=remote.get("url"))
 
 
-def report(state, now):
+def blocked_this_run(run_report):
+    """Historical blocked drafts are outstanding work, not a new run failure."""
+    if "current_run" not in run_report:
+        raise ValueError("Current-run editorial evidence is missing")
+    attempts = run_report["current_run"]["weekly"]
+    return {market: record.get("error") for market, record in attempts.items()
+            if record.get("status") == "blocked"}
+
+
+def check_current_run(run_report):
+    blocked = blocked_this_run(run_report)
+    if blocked:
+        raise SystemExit("Bespoke research blocked in this run; draft and report saved: " + json.dumps(blocked))
+    for market, record in run_report.get("state", {}).get("weekly", {}).items():
+        if record.get("status") == "blocked":
+            message = (f"{market.upper()} draft remains blocked from {record.get('attempted', 'an earlier run')}: "
+                       f"{record.get('error')}. It will retry in the next eligible weekly slot.")
+            message = message.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+            print("::warning title=Outstanding editorial draft::" + message)
+    print("[editorial-check] No newly blocked research in this run.")
+
+
+def report(state, now, current_run):
     lines = ["# WorthBuying cloud editorial", f"Run: {now.isoformat()}",
              "Runs on GitHub-hosted infrastructure; no desktop session required.",
-             "Generated/source-updated means awaiting the separate publisher, not confirmed live."]
+             "Generated/source-updated means awaiting the separate publisher, not confirmed live.",
+             "## This run's weekly attempts", "```json", json.dumps(current_run["weekly"], indent=2), "```",
+             "Earlier blocked drafts below remain outstanding; they are retried in the next eligible weekly slot."]
     for kind in ("weekly", "growth", "promotions", "search_metrics", "warnings"):
         lines += [f"## {kind}", "```json", json.dumps(state.get(kind, {}), indent=2), "```"]
     if now.date() >= END:
         lines += ["Growth experiment finished. No further experiment promotions will be sent.",
                   "Google search clicks, Cloudflare visits, retailer clicks and sales are different measures. No traffic or sales lift is claimed by this job."]
     text = "\n".join(lines)
-    save(ROOT / "state" / "cloud_editorial_report.json", {"run": now.isoformat(), "state": state})
+    save(ROOT / "state" / "cloud_editorial_report.json", {"run": now.isoformat(), "current_run": current_run, "state": state})
     if os.getenv("GITHUB_STEP_SUMMARY"):
         with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as f:
             f.write(text + "\n")
@@ -436,7 +463,11 @@ def report(state, now):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--preview", action="store_true", help="Validate briefs and show plan without API calls or writes")
+    parser.add_argument("--check-current-run", action="store_true", help="Check the saved run report without generating or publishing")
     args = parser.parse_args()
+    if args.check_current_run:
+        check_current_run(load(ROOT / "state" / "cloud_editorial_report.json"))
+        return
     briefs = load(ROOT / "automation" / "bespoke_briefs.json")
     now = datetime.now(ZoneInfo("Europe/London"))
     if args.preview:
@@ -448,15 +479,16 @@ def main():
         print(json.dumps({"topics": [b["key"] for b in briefs], "markets": MARKETS, "growth_end": str(END)}, indent=2))
         return
     state = load(STATE)
+    current_run = {"started_at": now.isoformat(), "weekly": {}}
     try:
         reconcile_publication(state)
-        weekly(now, state, briefs)
+        current_run["weekly"] = weekly(now, state, briefs)
         growth(now, state)
         search_metrics(now, state)
         promote(now, state)
     finally:
         save(STATE, state)
-        report(state, now)
+        report(state, now, current_run)
 
 
 if __name__ == "__main__":
