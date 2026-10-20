@@ -4,6 +4,8 @@ import sys
 import tempfile
 import types
 import unittest
+from contextlib import redirect_stdout
+from io import StringIO
 from datetime import datetime
 from pathlib import Path
 from unittest.mock import patch
@@ -63,6 +65,52 @@ class CloudEditorialTests(unittest.TestCase):
         brief = {**self.brief, "review_by": "2026-10-01"}
         c.weekly(clock(7), state, [brief], lambda *a: self.fail("expired brief"), self.builder)
         self.assertEqual(state["weekly"]["us"]["status"], "blocked")
+
+    def test_tuesday_retains_old_block_without_failing_the_current_run(self):
+        state = {"weekly": {"uk": {"status": "blocked", "attempted": "2026-10-15", "error": "No verified photo"}}}
+        original = copy.deepcopy(state)
+        attempts = c.weekly(clock(20), state, [self.brief], lambda *a: self.fail("Tuesday must not generate"))
+        self.assertEqual(attempts, {})
+        self.assertEqual(state, original)
+        report = {"current_run": {"weekly": attempts}, "state": state}
+        output = StringIO()
+        with redirect_stdout(output):
+            c.check_current_run(report)
+        self.assertIn("::warning", output.getvalue())
+        self.assertIn("2026-10-15", output.getvalue())
+        self.assertEqual(c.blocked_this_run(report), {})
+
+    def test_new_block_fails_but_other_market_still_generates(self):
+        def collector(brief, market, slug):
+            if market == "uk":
+                raise ValueError("No verified photo")
+            return ["verified"]
+        state = {}
+        attempts = c.weekly(clock(21), state, [self.brief], collector, self.builder, lambda *a: None)
+        self.assertEqual(set(attempts), {"uk", "us"})
+        with self.assertRaisesRegex(SystemExit, "blocked in this run"):
+            c.check_current_run({"current_run": {"weekly": attempts}, "state": state})
+        self.assertTrue((self.root / "articles-us/students-us.json").exists())
+        self.assertFalse((self.root / "articles/students-uk.json").exists())
+
+    def test_old_block_retries_and_success_clears_error_without_duplicate_articles(self):
+        state = {"weekly": {"uk": {"status": "blocked", "attempted": "2026-10-15", "error": "No photo"}}}
+        attempts = c.weekly(clock(21), state, [self.brief], lambda *a: ["verified"], self.builder, lambda *a: None)
+        self.assertEqual(c.blocked_this_run({"current_run": {"weekly": attempts}}), {})
+        self.assertIsNone(state["weekly"]["uk"]["error"])
+        self.assertEqual(state["weekly"]["uk"]["attempted"], "2026-10-21")
+        attempts = c.weekly(clock(22), state, [self.brief], lambda *a: self.fail("duplicate"))
+        self.assertEqual(attempts, {})
+
+    def test_run_check_requires_evidence_and_report_preserves_current_and_historical_results(self):
+        with self.assertRaises(ValueError):
+            c.blocked_this_run({"state": {}})
+        state = {"weekly": {"uk": {"status": "blocked", "attempted": "2026-10-15"}}}
+        with patch.dict("os.environ", {}, clear=True), redirect_stdout(StringIO()):
+            c.report(state, clock(20), {"weekly": {}})
+        saved = c.load(self.root / "state/cloud_editorial_report.json")
+        self.assertEqual(saved["current_run"]["weekly"], {})
+        self.assertEqual(saved["state"], state)
 
     def test_wrong_currency_spares_and_unsubstantiated_adaptive_claims_rejected(self):
         item = {"title": "Adaptive easy grip spoon", "price": {"currency": "GBP"}, "itemId": "1", "conditionId": "1000", "image": {"imageUrl": "photo"}}
