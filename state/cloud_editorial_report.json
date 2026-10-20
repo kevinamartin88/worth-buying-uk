@@ -1,5 +1,5 @@
 {
-  "run": "2026-10-15T16:06:47.543693+01:00",
+  "run": "2026-10-20T16:10:10.040699+01:00",
   "state": {
     "growth": {
       "uk": {
@@ -178,57 +178,12 @@
           ]
         },
         "latest": {
-          "start": "2026-09-29",
-          "end": "2026-10-12",
+          "start": "2026-10-04",
+          "end": "2026-10-17",
           "source": "Google Search Console web search",
-          "clicks": 6,
-          "impressions": 17,
+          "clicks": 7,
+          "impressions": 51,
           "rows": [
-            {
-              "keys": [
-                "2026-09-29"
-              ],
-              "clicks": 0,
-              "impressions": 0,
-              "ctr": 0,
-              "position": 0
-            },
-            {
-              "keys": [
-                "2026-09-30"
-              ],
-              "clicks": 0,
-              "impressions": 0,
-              "ctr": 0,
-              "position": 0
-            },
-            {
-              "keys": [
-                "2026-10-01"
-              ],
-              "clicks": 0,
-              "impressions": 0,
-              "ctr": 0,
-              "position": 0
-            },
-            {
-              "keys": [
-                "2026-10-02"
-              ],
-              "clicks": 0,
-              "impressions": 0,
-              "ctr": 0,
-              "position": 0
-            },
-            {
-              "keys": [
-                "2026-10-03"
-              ],
-              "clicks": 0,
-              "impressions": 1,
-              "ctr": 0,
-              "position": 2
-            },
             {
               "keys": [
                 "2026-10-04"
@@ -309,6 +264,51 @@
               "impressions": 6,
               "ctr": 0,
               "position": 46.833333333333336
+            },
+            {
+              "keys": [
+                "2026-10-13"
+              ],
+              "clicks": 0,
+              "impressions": 8,
+              "ctr": 0,
+              "position": 23.625
+            },
+            {
+              "keys": [
+                "2026-10-14"
+              ],
+              "clicks": 0,
+              "impressions": 6,
+              "ctr": 0,
+              "position": 37.5
+            },
+            {
+              "keys": [
+                "2026-10-15"
+              ],
+              "clicks": 0,
+              "impressions": 7,
+              "ctr": 0,
+              "position": 35.714285714285715
+            },
+            {
+              "keys": [
+                "2026-10-16"
+              ],
+              "clicks": 0,
+              "impressions": 6,
+              "ctr": 0,
+              "position": 28.333333333333332
+            },
+            {
+              "keys": [
+                "2026-10-17"
+              ],
+              "clicks": 1,
+              "impressions": 8,
+              "ctr": 0.125,
+              "position": 34.625
             }
           ]
         }
@@ -441,57 +441,12 @@
           ]
         },
         "latest": {
-          "start": "2026-09-29",
-          "end": "2026-10-12",
+          "start": "2026-10-04",
+          "end": "2026-10-17",
           "source": "Google Search Console web search",
-          "clicks": 4,
-          "impressions": 21,
+          "clicks": 5,
+          "impressions": 153,
           "rows": [
-            {
-              "keys": [
-                "2026-09-29"
-              ],
-              "clicks": 0,
-              "impressions": 0,
-              "ctr": 0,
-              "position": 0
-            },
-            {
-              "keys": [
-                "2026-09-30"
-              ],
-              "clicks": 0,
-              "impressions": 0,
-              "ctr": 0,
-              "position": 0
-            },
-            {
-              "keys": [
-                "2026-10-01"
-              ],
-              "clicks": 0,
-              "impressions": 0,
-              "ctr": 0,
-              "position": 0
-            },
-            {
-              "keys": [
-                "2026-10-02"
-              ],
-              "clicks": 0,
-              "impressions": 0,
-              "ctr": 0,
-              "position": 0
-            },
-            {
-              "keys": [
-                "2026-10-03"
-              ],
-              "clicks": 0,
-              "impressions": 1,
-              "ctr": 0,
-              "position": 5
-            },
             {
               "keys": [
                 "2026-10-04"
@@ -572,6 +527,51 @@
               "impressions": 5,
               "ctr": 0,
               "position": 52.4
+            },
+            {
+              "keys": [
+                "2026-10-13"
+              ],
+              "clicks": 0,
+              "impressions": 15,
+              "ctr": 0,
+              "position": 63.53333333333333
+            },
+            {
+              "keys": [
+                "2026-10-14"
+              ],
+              "clicks": 0,
+              "impressions": 2,
+              "ctr": 0,
+              "position": 7
+            },
+            {
+              "keys": [
+                "2026-10-15"
+              ],
+              "clicks": 1,
+              "impressions": 12,
+              "ctr": 0.08333333333333333,
+              "position": 16.916666666666664
+            },
+            {
+              "keys": [
+                "2026-10-16"
+              ],
+              "clicks": 0,
+              "impressions": 87,
+              "ctr": 0,
+              "position": 45.172413793103445
+            },
+            {
+              "keys": [
+                "2026-10-17"
+              ],
+              "clicks": 0,
+              "impressions": 17,
+              "ctr": 0,
+              "position": 26.11764705882353
             }
           ]
         }
@@ -640,6 +640,7 @@
         "slug": "air-fryers-for-students-usa",
         "url": "https://www.worthbuyingusa.com/2026/10/air-fryers-for-college-students.html"
       }
-    }
+    },
+    "metrics_finished": true
   }
 }
