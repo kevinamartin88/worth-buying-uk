@@ -1,22 +1,22 @@
 {
   "uk": {
     "action": "created",
-    "authority_cluster": "Cleaning & Home Climate",
-    "parent_topic": "storage-bins",
+    "authority_cluster": "Consumer Tech",
+    "parent_topic": "power-banks",
     "selection_basis": "gsc-opportunity-or-authority-rotation",
-    "slug": "best-value-storage-bins-worth-buying-uk",
-    "support_angle": "value",
-    "title": "Best Value Storage Bins & Organisers Worth Buying in the UK (2026)",
-    "week": "2026-W42"
+    "slug": "best-power-banks-under-80-worth-buying-uk",
+    "support_angle": "budget",
+    "title": "Best Power Banks Under £80 Worth Buying in the UK (2026)",
+    "week": "2026-W43"
   },
   "us": {
     "action": "created",
-    "authority_cluster": "Consumer Tech",
-    "parent_topic": "video-doorbells",
+    "authority_cluster": "Motoring",
+    "parent_topic": "car-vacuums",
     "selection_basis": "gsc-opportunity-or-authority-rotation",
-    "slug": "best-value-video-doorbells-worth-buying-us",
-    "support_angle": "value",
-    "title": "Best Value Video Doorbells Worth Buying in the USA (2026)",
-    "week": "2026-W42"
+    "slug": "best-car-vacuums-under-90-worth-buying-us",
+    "support_angle": "budget",
+    "title": "Best Car Vacuums Under $90 Worth Buying in the USA (2026)",
+    "week": "2026-W43"
   }
 }
