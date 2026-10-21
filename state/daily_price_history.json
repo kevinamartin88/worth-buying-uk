@@ -331,7 +331,7 @@
   },
   "daily|uk|v1|128015448408|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-21",
     "observations": [
       {
         "currency": "GBP",
@@ -356,6 +356,12 @@
         "date": "2026-10-15",
         "price": 20.19,
         "ts": "2026-10-15T16:06:49.450907+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-21",
+        "price": 20.19,
+        "ts": "2026-10-21T15:28:59.615109+01:00"
       }
     ],
     "title": "3Pcs Silicone Air Fryer Liners for Ninja Flex Drawer AF500UK, 2Pcs 5.2L + 1Pcs 1",
@@ -565,7 +571,7 @@
   },
   "daily|uk|v1|136880735758|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-21",
     "observations": [
       {
         "currency": "GBP",
@@ -578,6 +584,12 @@
         "date": "2026-10-15",
         "price": 39.99,
         "ts": "2026-10-15T16:06:53.731899+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-21",
+        "price": 39.99,
+        "ts": "2026-10-21T15:29:07.630345+01:00"
       }
     ],
     "title": "George Home GHAFN121B4C 10L Dual Drawer Digital Air Fryer Touch screen LED 3040W",
@@ -585,7 +597,7 @@
   },
   "daily|uk|v1|136954889500|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-21",
     "observations": [
       {
         "currency": "GBP",
@@ -610,6 +622,12 @@
         "date": "2026-10-15",
         "price": 39.99,
         "ts": "2026-10-15T16:06:53.731899+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-21",
+        "price": 39.99,
+        "ts": "2026-10-21T15:29:07.630345+01:00"
       }
     ],
     "title": "George Home GHAFN121B5D 9L Multi-Basket Dual Digital Air Fryer Non-Stick Black",
@@ -637,7 +655,7 @@
   },
   "daily|uk|v1|137190219990|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-21",
     "observations": [
       {
         "currency": "GBP",
@@ -656,6 +674,12 @@
         "date": "2026-10-15",
         "price": 44.99,
         "ts": "2026-10-15T16:06:53.731899+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-21",
+        "price": 44.99,
+        "ts": "2026-10-21T15:29:07.630345+01:00"
       }
     ],
     "title": "George Home SAFN121BL4Q 9.5L Digital Air Fryer Dual Drawer 2400w Black and Wood",
@@ -663,7 +687,7 @@
   },
   "daily|uk|v1|137268972796|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-21",
     "observations": [
       {
         "currency": "GBP",
@@ -688,6 +712,12 @@
         "date": "2026-10-15",
         "price": 39.99,
         "ts": "2026-10-15T16:06:50.627571+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-21",
+        "price": 39.99,
+        "ts": "2026-10-21T15:29:07.630345+01:00"
       }
     ],
     "title": "George Home GHAFN121B5M 8L Dual Drawer Digital Air Fryer 2400w Non-stick Black",
@@ -695,13 +725,19 @@
   },
   "daily|uk|v1|137309522378|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-21",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-15",
         "price": 44.99,
         "ts": "2026-10-15T16:06:50.627571+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-21",
+        "price": 44.99,
+        "ts": "2026-10-21T15:29:03.086889+01:00"
       }
     ],
     "title": "George Home GHAFS121G5B 10L Stackable Air Fryer Dual Basket Digital 2700w Green",
@@ -2943,7 +2979,7 @@
   },
   "daily|uk|v1|317809552897|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-21",
     "observations": [
       {
         "currency": "GBP",
@@ -2968,6 +3004,12 @@
         "date": "2026-10-15",
         "price": 12.52,
         "ts": "2026-10-15T16:06:49.450907+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-21",
+        "price": 12.52,
+        "ts": "2026-10-21T15:28:59.615109+01:00"
       }
     ],
     "title": "3Pcs 4.7-6.2L Silicone Air Fryer Liner Suit for Philips Airfryer 6.2L (Na230/09;",
@@ -2975,7 +3017,7 @@
   },
   "daily|uk|v1|318042236130|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-21",
     "observations": [
       {
         "currency": "GBP",
@@ -3000,6 +3042,12 @@
         "date": "2026-10-15",
         "price": 17.47,
         "ts": "2026-10-15T16:06:49.450907+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-21",
+        "price": 17.47,
+        "ts": "2026-10-21T15:28:59.615109+01:00"
       }
     ],
     "title": "KAHEIGN 3Pcs Silicone Air Fryer Liners for Ninja Flex Drawer AF500UK, 2Pcs 5.2L",
@@ -3007,7 +3055,7 @@
   },
   "daily|uk|v1|318495567333|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-21",
     "observations": [
       {
         "currency": "GBP",
@@ -3026,6 +3074,12 @@
         "date": "2026-10-15",
         "price": 11.16,
         "ts": "2026-10-15T16:06:49.450907+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-21",
+        "price": 11.16,
+        "ts": "2026-10-21T15:28:59.615109+01:00"
       }
     ],
     "title": "100PCS Air Fryer Liners for Tefal Easy Fry 5.2L/3.1L, Tower 5.2L/3.3L, Lakeland",
@@ -4411,6 +4465,20 @@
       }
     ],
     "title": "Uten 4.2Qt Electric Air Fryer XL Large Capacity with Timer & Temperature Control",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|127593521144|0": {
+    "article_slug": "affordable-homeware-for-students-us",
+    "last_attempt_date": "2026-10-21",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-21",
+        "price": 16.95,
+        "ts": "2026-10-21T15:29:14.877216+01:00"
+      }
+    ],
+    "title": "❤️VALUE 4 Pack IKEA Parkla Zippered Under Bed Storage Case/Bag  NEW",
     "tracking_status": "active"
   },
   "daily|us|v1|127716690328|0": {
@@ -6007,6 +6075,20 @@
     "title": "Toshiba - 50\" Class M450 QLED Series 4K UHD Smart Fire TV (2026)",
     "tracking_status": "active"
   },
+  "daily|us|v1|198413082421|497469446455": {
+    "article_slug": "affordable-homeware-for-students-us",
+    "last_attempt_date": "2026-10-21",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-21",
+        "price": 10.27,
+        "ts": "2026-10-21T15:29:14.877216+01:00"
+      }
+    ],
+    "title": "Flexible Zippered Under Bed Bag Large Underbed Clothes Storage 52L/90L/125L",
+    "tracking_status": "active"
+  },
   "daily|us|v1|198533036428|0": {
     "article_slug": "best-food-processors-worth-buying-us",
     "last_attempt_date": "2026-10-20",
@@ -6989,6 +7071,20 @@
       }
     ],
     "title": "SanDisk Ultra 3D SSD 1TB, SDSSDH3 2.5\" SSD Drive SATA III 6GB/S (SDSSDH3-1T02)",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|267695921738|567499642587": {
+    "article_slug": "affordable-homeware-for-students-us",
+    "last_attempt_date": "2026-10-21",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-21",
+        "price": 16.73,
+        "ts": "2026-10-21T15:29:14.877216+01:00"
+      }
+    ],
+    "title": "Under Bed Storage Bags 1/2Pack Capacity Breathable Foldable Container Bins USA",
     "tracking_status": "active"
   },
   "daily|us|v1|267803498921|0": {
@@ -8461,6 +8557,20 @@
     "title": "4-in-1 Espresso Machine Coffee Maker Combo w/ Milk Frother Cold Brew Over Ice",
     "tracking_status": "active"
   },
+  "daily|us|v1|354165590164|623531138738": {
+    "article_slug": "affordable-homeware-for-students-us",
+    "last_attempt_date": "2026-10-21",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-21",
+        "price": 16.73,
+        "ts": "2026-10-21T15:29:14.877216+01:00"
+      }
+    ],
+    "title": "1-2PCS Under Bed Storage Bag Containers Clothes Box Underbed Organizer Non-Woven",
+    "tracking_status": "active"
+  },
   "daily|us|v1|354907804870|0": {
     "article_slug": "best-storage-bins-worth-buying-us-2026",
     "last_attempt_date": "2026-10-17",
@@ -8473,6 +8583,20 @@
       }
     ],
     "title": "Sterilite 30 Qt Clear Plastic Stackable Storage Bin w/ Latch Lid, White (6 Pack)",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|356346299715|625309697559": {
+    "article_slug": "affordable-homeware-for-students-us",
+    "last_attempt_date": "2026-10-21",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-21",
+        "price": 12.95,
+        "ts": "2026-10-21T15:29:11.884497+01:00"
+      }
+    ],
+    "title": "90L Large Laundry Basket Laundry Hamper Bag Washing Bin Clothes Bag Collapsible",
     "tracking_status": "active"
   },
   "daily|us|v1|357754361154|0": {
@@ -9481,6 +9605,34 @@
     "title": "Cordless Vacuum Cleaner 20000Pa Powerful Suction Stick Lightweight 30Mins Runtim",
     "tracking_status": "active"
   },
+  "daily|us|v1|398376303191|0": {
+    "article_slug": "affordable-homeware-for-students-us",
+    "last_attempt_date": "2026-10-21",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-21",
+        "price": 10.07,
+        "ts": "2026-10-21T15:29:11.884497+01:00"
+      }
+    ],
+    "title": "GMOX 90L Laundry Basket,Waterproof Laundry Hamper with Padded Handles",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|398383617779|0": {
+    "article_slug": "affordable-homeware-for-students-us",
+    "last_attempt_date": "2026-10-21",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-21",
+        "price": 11.75,
+        "ts": "2026-10-21T15:29:11.884497+01:00"
+      }
+    ],
+    "title": "Two-Tone 90L Collapsible Laundry Basket Freestanding Foldable Hamper Soft Handle",
+    "tracking_status": "active"
+  },
   "daily|us|v1|398397137681|0": {
     "article_slug": "best-slow-cookers-worth-buying-us",
     "last_attempt_date": "2026-10-18",
@@ -9715,6 +9867,20 @@
       }
     ],
     "title": "Portable Heavy Duty 12V 150PSI Car Tyre Auto Tire Inflator Pump Air Compressor",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|407300581202|0": {
+    "article_slug": "affordable-homeware-for-students-us",
+    "last_attempt_date": "2026-10-21",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-21",
+        "price": 21.02,
+        "ts": "2026-10-21T15:29:11.884497+01:00"
+      }
+    ],
+    "title": "15in Collapsible Laundry Basket Plastic Hamper Foldable Storage Bin With Handles",
     "tracking_status": "active"
   },
   "daily|us|v1|800556776572|0": {

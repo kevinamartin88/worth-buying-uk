@@ -1,8 +1,17 @@
 {
-  "run": "2026-10-20T16:22:20.754889+01:00",
+  "run": "2026-10-21T15:28:56.317920+01:00",
   "current_run": {
-    "started_at": "2026-10-20T16:22:20.754889+01:00",
-    "weekly": {}
+    "started_at": "2026-10-21T15:28:56.317920+01:00",
+    "weekly": {
+      "uk": {
+        "status": "blocked",
+        "error": "ValueError: No verified, relevant listing with a usable photo for Smaller single-basket shortlist"
+      },
+      "us": {
+        "status": "generated-awaiting-publisher",
+        "error": null
+      }
+    }
   },
   "state": {
     "growth": {
@@ -633,15 +642,15 @@
       "uk": {
         "status": "blocked",
         "error": "ValueError: No verified, relevant listing with a usable photo for Smaller single-basket shortlist",
-        "attempted": "2026-10-15"
+        "attempted": "2026-10-21"
       },
       "us": {
-        "status": "published",
+        "status": "generated-awaiting-publisher",
         "error": null,
-        "attempted": "2026-10-08",
-        "week": "2026-W42",
-        "next": 1,
-        "slug": "air-fryers-for-students-usa",
+        "attempted": "2026-10-21",
+        "week": "2026-W43",
+        "next": 2,
+        "slug": "affordable-homeware-for-students-usa",
         "url": "https://www.worthbuyingusa.com/2026/10/air-fryers-for-college-students.html"
       }
     },
