@@ -627,16 +627,16 @@
     "uk": {
       "status": "blocked",
       "error": "ValueError: No verified, relevant listing with a usable photo for Smaller single-basket shortlist",
-      "attempted": "2026-10-21"
+      "attempted": "2026-10-22"
     },
     "us": {
-      "status": "generated-awaiting-publisher",
+      "status": "published",
       "error": null,
       "attempted": "2026-10-21",
       "week": "2026-W43",
       "next": 2,
       "slug": "affordable-homeware-for-students-usa",
-      "url": "https://www.worthbuyingusa.com/2026/10/air-fryers-for-college-students.html"
+      "url": "https://www.worthbuyingusa.com/2026/10/affordable-home-essentials-for-college.html"
     }
   },
   "metrics_finished": true
