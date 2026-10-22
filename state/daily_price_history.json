@@ -89,7 +89,7 @@
   },
   "daily|uk|v1|117371553299|0": {
     "article_slug": "best-tvs-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "GBP",
@@ -105,11 +105,11 @@
       }
     ],
     "title": "TCL 85P7K-UK 85 Inch QLED 4K Ultra HD Smart TV Bluetooth WiFi",
-    "tracking_status": "unavailable"
+    "tracking_status": "ended"
   },
   "daily|uk|v1|125687113100|0": {
     "article_slug": "best-air-fryers-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "GBP",
@@ -128,6 +128,12 @@
         "date": "2026-10-15",
         "price": 57.99,
         "ts": "2026-10-15T02:23:30.851093+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-22",
+        "price": 57.99,
+        "ts": "2026-10-22T02:26:26.065390+01:00"
       }
     ],
     "title": "EMtronics Double Basket Air Fryer Digital Dual 9L with Timer - Stainless Steel",
@@ -149,7 +155,7 @@
   },
   "daily|uk|v1|126616925330|0": {
     "article_slug": "best-tablets-worth-buying-uk",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "GBP",
@@ -168,14 +174,34 @@
         "date": "2026-10-15",
         "price": 69.98,
         "ts": "2026-10-15T02:23:30.851093+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-22",
+        "price": 69.98,
+        "ts": "2026-10-22T02:26:26.065390+01:00"
       }
     ],
     "title": "2025 NEW 12S PRO Wifi Tablet Android 15 PC 8GB+64GB Tablets 10.1 Inch 6000mAh",
     "tracking_status": "active"
   },
+  "daily|uk|v1|126669081885|0": {
+    "article_slug": "best-blenders-worth-buying-uk",
+    "last_attempt_date": "2026-10-22",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-22",
+        "price": 149.99,
+        "ts": "2026-10-22T02:26:38.846826+01:00"
+      }
+    ],
+    "title": "Ninja 3-in-1 Food Processor | Auto-iQ, Blender, 1200W | REFURB | BN800UK",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|127040307133|0": {
     "article_slug": "best-coffee-machines-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "GBP",
@@ -194,6 +220,12 @@
         "date": "2026-10-15",
         "price": 374.99,
         "ts": "2026-10-15T02:23:30.851093+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-22",
+        "price": 374.99,
+        "ts": "2026-10-22T02:26:26.065390+01:00"
       }
     ],
     "title": "Ninja Luxe Café Premier Espresso Machine | Bean to Cup | REFURB | ES601UK",
@@ -201,7 +233,7 @@
   },
   "daily|uk|v1|127281955059|428385499136": {
     "article_slug": "best-air-fryers-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "GBP",
@@ -220,6 +252,12 @@
         "date": "2026-10-15",
         "price": 51.99,
         "ts": "2026-10-15T02:23:30.851093+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-22",
+        "price": 51.99,
+        "ts": "2026-10-22T02:26:26.065390+01:00"
       }
     ],
     "title": "EMtronics Double Basket Air Fryer Dual Drawer 9 Litre - Various Colours",
@@ -227,7 +265,7 @@
   },
   "daily|uk|v1|127530818719|0": {
     "article_slug": "best-coffee-machines-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "GBP",
@@ -249,11 +287,11 @@
       }
     ],
     "title": "Ninja Prestige Dualbrew Coffee Machine | Filter and Pod | REFURB | CFN802UK",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|uk|v1|127602155859|0": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-uk",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "GBP",
@@ -284,6 +322,12 @@
         "date": "2026-10-15",
         "price": 74.99,
         "ts": "2026-10-15T02:23:30.851093+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-22",
+        "price": 74.99,
+        "ts": "2026-10-22T02:26:26.065390+01:00"
       }
     ],
     "title": "EMtronics 10L Stack Dual Air Fryer Double Basket Large Family Size - White",
@@ -369,7 +413,7 @@
   },
   "daily|uk|v1|128063528284|0": {
     "article_slug": "best-air-fryers-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "GBP",
@@ -400,6 +444,12 @@
         "date": "2026-10-15",
         "price": 59.99,
         "ts": "2026-10-15T02:23:30.851093+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-22",
+        "price": 59.99,
+        "ts": "2026-10-22T02:26:26.065390+01:00"
       }
     ],
     "title": "16L Large Air Fryer Oven w/ Rotisserie 1300W Low Fat Healthy Frying Roast Baking",
@@ -505,7 +555,7 @@
   },
   "daily|uk|v1|136880714004|0": {
     "article_slug": "best-air-fryers-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "GBP",
@@ -525,7 +575,7 @@
   },
   "daily|uk|v1|136880714337|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "GBP",
@@ -547,7 +597,7 @@
       }
     ],
     "title": "George Home GHAFN111B3Q 9L Dual Basket Digital Air Fryer Touch Screen LED Black",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|uk|v1|136880714511|0": {
     "article_slug": "air-fryers-for-students-uk",
@@ -595,6 +645,20 @@
     "title": "George Home GHAFN121B4C 10L Dual Drawer Digital Air Fryer Touch screen LED 3040W",
     "tracking_status": "active"
   },
+  "daily|uk|v1|136924993872|0": {
+    "article_slug": "best-blenders-worth-buying-uk",
+    "last_attempt_date": "2026-10-22",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-22",
+        "price": 29.99,
+        "ts": "2026-10-22T02:26:38.846826+01:00"
+      }
+    ],
+    "title": "Scoville SVMBN101B5M 1.75L 2-In-1 Digital Blender & Soup Maker Touch Screen LED",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|136954889500|0": {
     "article_slug": "air-fryers-for-students-uk",
     "last_attempt_date": "2026-10-21",
@@ -635,7 +699,7 @@
   },
   "daily|uk|v1|137183947772|0": {
     "article_slug": "best-air-fryers-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "GBP",
@@ -815,6 +879,34 @@
       }
     ],
     "title": "De'Longhi Magnifica S Smart Bean to Cup Machine ECAM250.33.TB - Refurbished",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|145494458996|0": {
+    "article_slug": "best-blenders-worth-buying-uk",
+    "last_attempt_date": "2026-10-22",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-22",
+        "price": 22.99,
+        "ts": "2026-10-22T02:26:38.846826+01:00"
+      }
+    ],
+    "title": "Tefal BL420840 Jug Blender with 2 Speeds Blendforce II 1.5L 600w Black",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|145496082525|0": {
+    "article_slug": "best-blenders-worth-buying-uk",
+    "last_attempt_date": "2026-10-22",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-22",
+        "price": 49.99,
+        "ts": "2026-10-22T02:26:38.846826+01:00"
+      }
+    ],
+    "title": "Tefal BL871D40 Glass Jug Blender High-Speed Smoothie Maker PerfectMix+ 2L Grey",
     "tracking_status": "active"
   },
   "daily|uk|v1|145572714666|0": {
@@ -1313,13 +1405,19 @@
   },
   "daily|uk|v1|168156810851|0": {
     "article_slug": "best-dehumidifiers-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-15",
         "price": 136.99,
         "ts": "2026-10-15T02:23:41.749682+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-22",
+        "price": 136.99,
+        "ts": "2026-10-22T02:26:26.065390+01:00"
       }
     ],
     "title": "Avalla X-550 4-in-1 Dehumidifier & Purifier 20L/Day, 64m³ Coverage",
@@ -1391,7 +1489,7 @@
   },
   "daily|uk|v1|176634447725|476284993939": {
     "article_slug": "best-tablets-worth-buying-uk",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "GBP",
@@ -1410,6 +1508,12 @@
         "date": "2026-10-15",
         "price": 72.25,
         "ts": "2026-10-15T02:23:30.851093+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-22",
+        "price": 85.0,
+        "ts": "2026-10-22T02:26:26.065390+01:00"
       }
     ],
     "title": "HP Pro X2 612 G2 Tablet 4GB RAM 128GB SSD Windows 11 Pro Keyboard Dock Options",
@@ -2215,13 +2319,19 @@
   },
   "daily|uk|v1|256752573578|0": {
     "article_slug": "best-dehumidifiers-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-15",
         "price": 64.99,
         "ts": "2026-10-15T02:23:41.749682+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-22",
+        "price": 64.99,
+        "ts": "2026-10-22T02:26:26.065390+01:00"
       }
     ],
     "title": "Challenge D015B 10 Litre Dehumidifier",
@@ -2573,7 +2683,7 @@
   },
   "daily|uk|v1|278411599992|2561011577739": {
     "article_slug": "best-tablets-worth-buying-uk",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "GBP",
@@ -2586,6 +2696,12 @@
         "date": "2026-10-15",
         "price": 250.0,
         "ts": "2026-10-15T02:23:30.851093+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-22",
+        "price": 250.0,
+        "ts": "2026-10-22T02:26:26.065390+01:00"
       }
     ],
     "title": "2026 NEW 16GB+1TB Wifi 5G Android Tablet 15 Dual Sim GPS 10.36in 12000mAh UK",
@@ -2619,7 +2735,7 @@
   },
   "daily|uk|v1|285682209525|0": {
     "article_slug": "best-dehumidifiers-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "GBP",
@@ -2629,7 +2745,7 @@
       }
     ],
     "title": "BLACK+DECKER BXEH60016GB 12L Smart Dehumidifier, 2.1 L Tank, White",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|uk|v1|286809554532|0": {
     "article_slug": "best-cordless-drills-worth-buying-uk",
@@ -3595,7 +3711,7 @@
   },
   "daily|uk|v1|364689067008|0": {
     "article_slug": "best-dehumidifiers-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "GBP",
@@ -3605,7 +3721,7 @@
       }
     ],
     "title": "Russell Hobbs RHDH1001 10L Portable Dehumidifier LED Display & Smart Timer White",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|uk|v1|365361460352|0": {
     "article_slug": "best-coffee-machines-worth-buying-uk-2026",
@@ -4191,7 +4307,7 @@
   },
   "daily|uk|v1|407133430190|0": {
     "article_slug": "best-robot-vacuum-cleaners-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "GBP",
@@ -4211,7 +4327,7 @@
   },
   "daily|uk|v1|407187284833|0": {
     "article_slug": "best-robot-vacuum-cleaners-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "GBP",
@@ -4230,6 +4346,12 @@
         "date": "2026-10-15",
         "price": 279.0,
         "ts": "2026-10-15T02:23:30.851093+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-22",
+        "price": 259.0,
+        "ts": "2026-10-22T02:26:26.065390+01:00"
       }
     ],
     "title": "eufy X10 Pro Omni Robot Vacuum Cleaner & Dual Mops 8000Pa Acceptable Condition",
@@ -4237,7 +4359,7 @@
   },
   "daily|uk|v1|407189764861|0": {
     "article_slug": "best-refurbished-large-capacity-air-fryers-worth-buying-uk",
-    "last_attempt_date": "2026-10-15",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "GBP",
@@ -4262,6 +4384,12 @@
         "date": "2026-10-15",
         "price": 139.99,
         "ts": "2026-10-15T02:23:30.851093+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-22",
+        "price": 139.99,
+        "ts": "2026-10-22T02:26:26.065390+01:00"
       }
     ],
     "title": "MOMOKOVA 26L Dual Zone Air Fryer Oven 10-in-1 Rotisserie Convection French Door",
@@ -4671,7 +4799,7 @@
   },
   "daily|us|v1|135536209658|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-14",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "USD",
@@ -4684,6 +4812,12 @@
         "date": "2026-10-14",
         "price": 59.99,
         "ts": "2026-10-14T02:48:04.538788+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-22",
+        "price": 59.99,
+        "ts": "2026-10-22T02:26:38.871687+01:00"
       }
     ],
     "title": "Cuisinart DCC-500FR Programmable Coffee Maker, Black - Certified Refurbished",
@@ -4833,7 +4967,7 @@
   },
   "daily|us|v1|137049344868|0": {
     "article_slug": "best-value-video-doorbells-worth-buying-us",
-    "last_attempt_date": "2026-10-14",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "USD",
@@ -4846,6 +4980,12 @@
         "date": "2026-10-14",
         "price": 27.99,
         "ts": "2026-10-14T16:50:15.543484+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-22",
+        "price": 27.99,
+        "ts": "2026-10-22T02:26:38.871687+01:00"
       }
     ],
     "title": "Arlo AVD4001-100NAR Video Doorbell 2nd Gen 2K, White - Certified Refurbished",
@@ -4853,13 +4993,19 @@
   },
   "daily|us|v1|137050935303|0": {
     "article_slug": "best-value-video-doorbells-worth-buying-us",
-    "last_attempt_date": "2026-10-14",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-14",
         "price": 16.18,
         "ts": "2026-10-14T16:50:15.543484+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-22",
+        "price": 16.18,
+        "ts": "2026-10-22T02:26:38.871687+01:00"
       }
     ],
     "title": "Arlo AC2001 Chime 2 Wireless Doorbell - Certified refurbished",
@@ -4927,7 +5073,7 @@
   },
   "daily|us|v1|137596008877|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-14",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "USD",
@@ -4967,13 +5113,19 @@
   },
   "daily|us|v1|144084457567|0": {
     "article_slug": "best-tyre-inflators-worth-buying-us",
-    "last_attempt_date": "2026-10-14",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-14",
         "price": 27.99,
         "ts": "2026-10-14T02:48:17.825930+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-22",
+        "price": 27.99,
+        "ts": "2026-10-22T02:26:38.871687+01:00"
       }
     ],
     "title": "Heavy Duty Portable Air Compressor Car Tire Inflator Electric Auto 12V DC 150PSI",
@@ -4981,7 +5133,7 @@
   },
   "daily|us|v1|146727225499|0": {
     "article_slug": "best-tablets-worth-buying-us",
-    "last_attempt_date": "2026-10-14",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "USD",
@@ -5000,6 +5152,12 @@
         "date": "2026-10-14",
         "price": 319.99,
         "ts": "2026-10-14T02:48:04.538788+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-22",
+        "price": 319.99,
+        "ts": "2026-10-22T02:26:38.871687+01:00"
       }
     ],
     "title": "Samsung Galaxy S10 10.9\" FE 128GB WiFi Tablet SM-X520NZACXAR S-Pen Keyboard 2025",
@@ -5007,7 +5165,7 @@
   },
   "daily|us|v1|147229112770|0": {
     "article_slug": "best-tablets-worth-buying-us",
-    "last_attempt_date": "2026-10-14",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "USD",
@@ -5026,6 +5184,12 @@
         "date": "2026-10-14",
         "price": 169.99,
         "ts": "2026-10-14T02:48:04.538788+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-22",
+        "price": 179.99,
+        "ts": "2026-10-22T02:26:38.871687+01:00"
       }
     ],
     "title": "Samsung Galaxy Tab A11+ 11\" WiFi Tablet 6GB 128GB Gray SM-X230NZAYXAR 2026 Model",
@@ -5053,7 +5217,7 @@
   },
   "daily|us|v1|147340013598|0": {
     "article_slug": "best-value-video-doorbells-worth-buying-us",
-    "last_attempt_date": "2026-10-14",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "USD",
@@ -5063,7 +5227,7 @@
       }
     ],
     "title": "✅Ring Video Doorbell 3 Plus Smart 5UM6E5 1080P【Two-way audio noise cancel】✅",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|us|v1|147419012907|0": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-us",
@@ -5163,7 +5327,7 @@
   },
   "daily|us|v1|147608125493|0": {
     "article_slug": "best-tablets-worth-buying-us",
-    "last_attempt_date": "2026-10-14",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "USD",
@@ -5174,6 +5338,20 @@
     ],
     "title": "HP Elite x2 G8 Tablet 13.3\" i5 2.60GHz/16GB/256GB (Silver) - 47D81UT w/Warranty",
     "tracking_status": "unavailable"
+  },
+  "daily|us|v1|147645149186|0": {
+    "article_slug": "best-webcams-worth-buying-us",
+    "last_attempt_date": "2026-10-22",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-22",
+        "price": 25.0,
+        "ts": "2026-10-22T02:26:50.769958+01:00"
+      }
+    ],
+    "title": "Logitech C920-e Webcam",
+    "tracking_status": "active"
   },
   "daily|us|v1|157395706031|0": {
     "article_slug": "best-soundbars-worth-buying-us-2026",
@@ -5499,13 +5677,19 @@
   },
   "daily|us|v1|168113514154|0": {
     "article_slug": "best-tyre-inflators-worth-buying-us",
-    "last_attempt_date": "2026-10-14",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-14",
         "price": 32.24,
         "ts": "2026-10-14T02:48:17.825930+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-22",
+        "price": 32.24,
+        "ts": "2026-10-22T02:26:38.871687+01:00"
       }
     ],
     "title": "Tire Inflator Portable Air Compressor, 180PSI Air Pump for Car Tires w/ 25000RPM",
@@ -5553,7 +5737,7 @@
   },
   "daily|us|v1|168453300138|0": {
     "article_slug": "best-tablets-worth-buying-us",
-    "last_attempt_date": "2026-10-14",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "USD",
@@ -5566,6 +5750,12 @@
         "date": "2026-10-14",
         "price": 219.99,
         "ts": "2026-10-14T02:48:04.538788+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-22",
+        "price": 239.99,
+        "ts": "2026-10-22T02:26:38.871687+01:00"
       }
     ],
     "title": "Lenovo Idea Tab 11\" 2.5K IPS Android Tablet 8GB RAM 128GB UFS",
@@ -5675,13 +5865,19 @@
   },
   "daily|us|v1|168667892800|0": {
     "article_slug": "air-fryers-for-students-us",
-    "last_attempt_date": "2026-10-14",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-14",
         "price": 59.25,
         "ts": "2026-10-14T15:30:50.713701+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-22",
+        "price": 58.06,
+        "ts": "2026-10-22T02:26:38.871687+01:00"
       }
     ],
     "title": "NUTRICOOK AIR FRYER 3.5 QUART COMPACT AFM033KUS - BLACK",
@@ -5715,7 +5911,7 @@
   },
   "daily|us|v1|168757042724|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-14",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "USD",
@@ -5728,6 +5924,12 @@
         "date": "2026-10-14",
         "price": 142.99,
         "ts": "2026-10-14T02:48:04.538788+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-22",
+        "price": 142.99,
+        "ts": "2026-10-22T02:26:38.871687+01:00"
       }
     ],
     "title": "Shark | Pet Cordless Handheld Stick Vacuum Cleaner | IX141 - XL Capacity | NIB",
@@ -5847,13 +6049,19 @@
   },
   "daily|us|v1|187039715339|0": {
     "article_slug": "best-tyre-inflators-worth-buying-us",
-    "last_attempt_date": "2026-10-14",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-14",
         "price": 29.99,
         "ts": "2026-10-14T02:48:17.825930+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-22",
+        "price": 29.99,
+        "ts": "2026-10-22T02:26:38.871687+01:00"
       }
     ],
     "title": "GOOLOO AP150 Tire Inflator Portable Air Compressor, 3X Faster 150PSI Cordless",
@@ -7013,6 +7221,20 @@
       }
     ],
     "title": "HOMZ 12-Quart Plastic Storage Bins with Snap-on Lids, White Lid, 4 Pack",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|256886021765|0": {
+    "article_slug": "best-webcams-worth-buying-us",
+    "last_attempt_date": "2026-10-22",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-22",
+        "price": 15.99,
+        "ts": "2026-10-22T02:26:50.769958+01:00"
+      }
+    ],
+    "title": "Logitech C925e Webcam USB HD Video Built-In Stereo Mic V-U0030-O 860-000508",
     "tracking_status": "active"
   },
   "daily|us|v1|257583841598|0": {
@@ -8247,6 +8469,20 @@
     "title": "Crock-Pot® 4-Quart Classic Slow Cooker, Black",
     "tracking_status": "active"
   },
+  "daily|us|v1|325373028338|0": {
+    "article_slug": "best-webcams-worth-buying-us",
+    "last_attempt_date": "2026-10-22",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-22",
+        "price": 69.99,
+        "ts": "2026-10-22T02:26:50.769958+01:00"
+      }
+    ],
+    "title": "Anker 2K USB Webcam PowerConf C200 AI-Noise Canceling Stereo Mic Privacy Cover",
+    "tracking_status": "active"
+  },
   "daily|us|v1|326645200202|0": {
     "article_slug": "best-tvs-worth-buying-us-2026",
     "last_attempt_date": "2026-10-21",
@@ -8311,6 +8547,20 @@
       }
     ],
     "title": "Ninja Blast Max Portable Blender Twist & Go 22 oz - BC251GY - Grey *NEW IN BOX*",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|327221886817|0": {
+    "article_slug": "best-webcams-worth-buying-us",
+    "last_attempt_date": "2026-10-22",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-22",
+        "price": 55.98,
+        "ts": "2026-10-22T02:26:50.769958+01:00"
+      }
+    ],
+    "title": "WB7022 Dell UltraSharp Webcam 8.3 Megapixel - 60 fps - USB Type A",
     "tracking_status": "active"
   },
   "daily|us|v1|327256191239|0": {
@@ -8569,13 +8819,19 @@
   },
   "daily|us|v1|336736997570|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-13",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-13",
         "price": 85.99,
         "ts": "2026-10-13T14:48:11.927639+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-22",
+        "price": 85.99,
+        "ts": "2026-10-22T02:26:38.871687+01:00"
       }
     ],
     "title": "Cordless Vacuum Cleaner 65KPA 60mins Stick Lightweight Pet Hair Hardwood Floor",
@@ -8617,7 +8873,7 @@
   },
   "daily|us|v1|336797764175|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-13",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "USD",
@@ -8636,6 +8892,12 @@
         "date": "2026-10-13",
         "price": 89.99,
         "ts": "2026-10-13T04:29:57.747282+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-22",
+        "price": 89.99,
+        "ts": "2026-10-22T02:26:38.871687+01:00"
       }
     ],
     "title": "4-in-1 Espresso Machine Coffee Maker Combo w/ Milk Frother Cold Brew Over Ice",
@@ -8705,7 +8967,7 @@
   },
   "daily|us|v1|358119439057|0": {
     "article_slug": "best-security-cameras-worth-buying-us",
-    "last_attempt_date": "2026-10-13",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "USD",
@@ -8718,6 +8980,12 @@
         "date": "2026-10-13",
         "price": 49.99,
         "ts": "2026-10-13T04:29:57.747282+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-22",
+        "price": 52.99,
+        "ts": "2026-10-22T02:26:38.871687+01:00"
       }
     ],
     "title": "4-Pack Wireless 5G WiFi Security Camera System Smart Outdoor Night Vision 1080P",
@@ -8793,7 +9061,7 @@
   },
   "daily|us|v1|364117692196|0": {
     "article_slug": "best-soundbars-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-13",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "USD",
@@ -8806,6 +9074,12 @@
         "date": "2026-10-13",
         "price": 106.99,
         "ts": "2026-10-13T04:29:57.747282+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-22",
+        "price": 124.98,
+        "ts": "2026-10-22T02:26:38.871687+01:00"
       }
     ],
     "title": "Samsung HW-S50B 3.0ch All in One Soundbar with Dolby 5.1 / DTS Virutal:X - Black",
@@ -8813,13 +9087,19 @@
   },
   "daily|us|v1|366199188711|0": {
     "article_slug": "best-cordless-drills-worth-buying-us",
-    "last_attempt_date": "2026-10-13",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-13",
         "price": 107.99,
         "ts": "2026-10-13T04:30:07.858452+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-22",
+        "price": 107.99,
+        "ts": "2026-10-22T02:26:38.871687+01:00"
       }
     ],
     "title": "Bosch GSR12V-140FCB22 12V Cordless Max Drill/Driver (Certified Refurbished)",
@@ -10071,13 +10351,19 @@
   },
   "daily|us|v1|860039888097|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-13",
+    "last_attempt_date": "2026-10-22",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-13",
         "price": 50.39,
         "ts": "2026-10-13T14:48:24.339415+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-22",
+        "price": 54.87,
+        "ts": "2026-10-22T02:26:38.871687+01:00"
       }
     ],
     "title": "Drip Coffee Maker - 12-Cup Capacity, Glass Carafe, Black",
