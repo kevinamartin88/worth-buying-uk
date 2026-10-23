@@ -177,6 +177,17 @@
     "title": "Best Food Processors Worth Buying in the UK (2026)",
     "url": "https://www.worthbuyinguk.co.uk/2026/10/best-food-processors-worth-buying-in-uk.html"
   },
+  "uk:best-leaf-blowers-worth-buying-uk": {
+    "delivery_mode": "manual",
+    "delivery_status": "published",
+    "market": "uk",
+    "primary_category": "Home & Kitchen",
+    "sent": false,
+    "source_file": "best-leaf-blowers-worth-buying-uk.json",
+    "source_sha": "2026-10-23-leaf-blowers-uk-daily-v6",
+    "title": "Best Leaf Blowers Worth Buying in the UK (2026)",
+    "url": "https://www.worthbuyinguk.co.uk/2026/10/best-leaf-blowers-worth-buying-in-uk.html"
+  },
   "uk:best-non-slip-hangers-worth-buying-uk-2026": {
     "delivery_mode": "manual",
     "delivery_status": "published",
@@ -510,6 +521,18 @@
     "source_sha": "2026-09-28-portable-heaters-us-daily-v4",
     "title": "Best Portable Heaters Worth Buying in the USA (2026)",
     "url": "https://www.worthbuyingusa.com/2026/09/best-portable-heaters-worth-buying-in.html"
+  },
+  "us:best-printers-worth-buying-us": {
+    "delivery_mode": "manual",
+    "delivery_status": "awaiting_manual_publish",
+    "last_sent_at": "2026-10-23T04:52:50.036717+00:00",
+    "market": "us",
+    "primary_category": "Tech",
+    "send_attempts": 1,
+    "sent": true,
+    "source_file": "best-printers-worth-buying-us.json",
+    "source_sha": "2026-10-23-printers-us-daily-v6",
+    "title": "Best Home Printers Worth Buying in the USA (2026)"
   },
   "us:best-refurbished-ipads-ebay-us-2026": {
     "market": "us",
