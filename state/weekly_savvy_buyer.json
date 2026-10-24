@@ -1,30 +1,32 @@
 {
   "uk": {
-    "date": "2026-10-19",
+    "date": "2026-10-24",
     "dates": [
       "2026-10-03",
       "2026-10-05",
       "2026-10-10",
       "2026-10-12",
       "2026-10-17",
-      "2026-10-19"
+      "2026-10-19",
+      "2026-10-24"
     ],
-    "slug": "savvy-buyer-monday-repairability-before-you-shop-uk-2026-10-19",
-    "title": "Savvy Buyer Monday: Before You Shop for Checking Repairability And Product Support (UK)",
+    "slug": "savvy-buyer-saturday-repairability-compare-options-uk-2026-10-24",
+    "title": "Savvy Buyer Saturday: How to Compare Your Options for Checking Repairability And Product Support (UK)",
     "week": "2026-W43"
   },
   "us": {
-    "date": "2026-10-19",
+    "date": "2026-10-24",
     "dates": [
       "2026-10-03",
       "2026-10-05",
       "2026-10-10",
       "2026-10-12",
       "2026-10-17",
-      "2026-10-19"
+      "2026-10-19",
+      "2026-10-24"
     ],
-    "slug": "savvy-buyer-monday-repairability-before-you-shop-us-2026-10-19",
-    "title": "Savvy Buyer Monday: Before You Shop for Checking Repairability And Product Support (US)",
+    "slug": "savvy-buyer-saturday-repairability-compare-options-us-2026-10-24",
+    "title": "Savvy Buyer Saturday: How to Compare Your Options for Checking Repairability And Product Support (US)",
     "week": "2026-W43"
   }
 }
