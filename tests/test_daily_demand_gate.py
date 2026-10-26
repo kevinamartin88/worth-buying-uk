@@ -38,7 +38,7 @@ def test_google_web_trend_is_secondary_when_shopping_unavailable(monkeypatch, tm
         "query": "dash cam",
         "traffic": 10000,
         "traffic_label": "10K+",
-        "score": 45,
+        "score": 60,
         "source": "google-trends-trending-now-rss",
     }
     monkeypatch.setattr(daily, "rank_topics_by_google_shopping", lambda topics, market: [])
@@ -55,7 +55,38 @@ def test_google_web_trend_is_secondary_when_shopping_unavailable(monkeypatch, tm
     assert topic == DASH_CAMS
     assert signal == trend
     assert gsc is None
-    assert score == 45
+    assert score == 60
+
+
+def test_weak_google_signals_are_ignored_for_seasonal_fallback(monkeypatch, tmp_path):
+    weak_shopping = {
+        "query": "dash cam",
+        "source": "google-trends-google-shopping",
+        "score": 20,
+    }
+    weak_web = {
+        "query": "dash cam",
+        "source": "google-trends-trending-now-rss",
+        "score": 45,
+        "traffic": 10000,
+    }
+    monkeypatch.setattr(
+        daily, "rank_topics_by_google_shopping",
+        lambda topics, market: [(DASH_CAMS, weak_shopping)],
+    )
+    monkeypatch.setattr(
+        daily, "rank_topics_by_trends",
+        lambda topics, market: [(DASH_CAMS, weak_web)],
+    )
+
+    topic, signal, gsc, score = daily.pick_topic(
+        tmp_path, year=2026, weekday=6, market="uk", month=9
+    )
+
+    assert topic == DEHUMIDIFIERS
+    assert signal is None
+    assert gsc is None
+    assert score is None
 
 
 def test_no_external_google_signal_still_publishes_seasonal_fallback(monkeypatch, tmp_path):
@@ -160,6 +191,38 @@ def test_listing_score_rejects_unrelated_marketplace_accessory():
         "image": {"imageUrl": "https://example.com/remote.jpg"},
     }
     assert daily.listing_score(item, 1400, "GBP", query="4K smart TV") is None
+
+
+def test_food_processor_rejects_contradictory_retailer_type():
+    item = {
+        "title": "Tomeem Food Processor 600W 12 Cup Chop Slice Shred",
+        "price": {"value": "69.99", "currency": "USD"},
+        "buyingOptions": ["FIXED_PRICE"],
+        "seller": {"feedbackPercentage": "100.0", "feedbackScore": 3785},
+        "image": {"imageUrl": "https://example.com/processor.jpg"},
+        "localizedAspects": [
+            {"name": "Type", "value": "Rear View Backup Camera"},
+        ],
+    }
+    assert daily.listing_score(
+        item, 600, "USD", query="food processor"
+    ) is None
+
+
+def test_food_processor_accepts_matching_retailer_type():
+    item = {
+        "title": "Ninja Professional Food Processor 850W",
+        "price": {"value": "99.99", "currency": "USD"},
+        "buyingOptions": ["FIXED_PRICE"],
+        "seller": {"feedbackPercentage": "99.8", "feedbackScore": 5000},
+        "image": {"imageUrl": "https://example.com/processor.jpg"},
+        "localizedAspects": [
+            {"name": "Type", "value": "Full-Size Food Processor"},
+        ],
+    }
+    assert daily.listing_score(
+        item, 600, "USD", query="food processor"
+    ) is not None
 
 
 def test_carpet_cleaner_topic_rejects_shampoo_and_solution():

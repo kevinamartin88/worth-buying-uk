@@ -54,6 +54,19 @@ class GoogleTrendsTests(unittest.TestCase):
         signal = {"query": "football results", "traffic": 1_000_000}
         self.assertEqual(score_topic_against_trend(DASH_CAMS, signal), 0)
 
+
+    def test_multiword_topic_rejects_single_word_news_or_sports_collision(self):
+        cases = [
+            (("power-banks", "Power Banks", "USB C power bank", 180, 200, "Tech", "POWER BANK GUIDE"),
+             {"query": "west bank", "traffic": 10_000}),
+            (("leaf-blowers", "Leaf Blowers", "leaf blower", 450, 500, "Home & Kitchen", "LEAF BLOWER GUIDE"),
+             {"query": "maple leafs vs rangers", "traffic": 100_000}),
+            (("game-controllers", "Game Controllers", "gaming controller", 220, 250, "Gaming", "CONTROLLER BUYING GUIDE"),
+             {"query": "asian games 2026 medal tally", "traffic": 100_000}),
+        ]
+        for topic, signal in cases:
+            self.assertEqual(score_topic_against_trend(topic, signal), 0)
+
     def test_generic_product_wording_can_influence_title(self):
         signal = {"query": "dash cam", "traffic": 100_000, "score": 70}
         self.assertEqual(trend_keyword_for_title(DASH_CAMS, signal), "Dash Cam")

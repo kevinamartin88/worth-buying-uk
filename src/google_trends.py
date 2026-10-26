@@ -205,7 +205,12 @@ def score_topic_against_trend(topic: tuple, trend: dict) -> float:
 
     if len(overlap) == 1 and not exact_query and not exact_key:
         only = next(iter(overlap))
-        if only in WEAK_SINGLE_TOKENS:
+        # Multi-word shopping topics need more than one coincidental word.
+        # This blocks false matches such as "west bank" -> Power Banks,
+        # "maple leafs" -> Leaf Blowers, and sports "games" -> controllers.
+        # A genuinely single-concept topic (for example "dehumidifier") can
+        # still match on its one distinctive token.
+        if len(topic_tokens) > 1 or only in WEAK_SINGLE_TOKENS:
             return 0.0
 
     traffic = max(int(trend.get("traffic") or 0), 100)
