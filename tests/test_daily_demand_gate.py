@@ -193,6 +193,38 @@ def test_listing_score_rejects_unrelated_marketplace_accessory():
     assert daily.listing_score(item, 1400, "GBP", query="4K smart TV") is None
 
 
+def test_food_processor_rejects_contradictory_retailer_type():
+    item = {
+        "title": "Tomeem Food Processor 600W 12 Cup Chop Slice Shred",
+        "price": {"value": "69.99", "currency": "USD"},
+        "buyingOptions": ["FIXED_PRICE"],
+        "seller": {"feedbackPercentage": "100.0", "feedbackScore": 3785},
+        "image": {"imageUrl": "https://example.com/processor.jpg"},
+        "localizedAspects": [
+            {"name": "Type", "value": "Rear View Backup Camera"},
+        ],
+    }
+    assert daily.listing_score(
+        item, 600, "USD", query="food processor"
+    ) is None
+
+
+def test_food_processor_accepts_matching_retailer_type():
+    item = {
+        "title": "Ninja Professional Food Processor 850W",
+        "price": {"value": "99.99", "currency": "USD"},
+        "buyingOptions": ["FIXED_PRICE"],
+        "seller": {"feedbackPercentage": "99.8", "feedbackScore": 5000},
+        "image": {"imageUrl": "https://example.com/processor.jpg"},
+        "localizedAspects": [
+            {"name": "Type", "value": "Full-Size Food Processor"},
+        ],
+    }
+    assert daily.listing_score(
+        item, 600, "USD", query="food processor"
+    ) is not None
+
+
 def test_carpet_cleaner_topic_rejects_shampoo_and_solution():
     for title in (
         "Carpet Shampoo Cleaner & Deodoriser 4 x 5L",
