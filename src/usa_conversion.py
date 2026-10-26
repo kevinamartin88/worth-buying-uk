@@ -15,20 +15,29 @@ EXPERIMENT = 'usa-buying-cards-v1'
 def relevant_product(title: str, query: str) -> bool:
     text = title.casefold()
     query = query.casefold()
-    if not any(key in query for key in ('cordless vacuum', 'ssd', 'slow cooker', 'air fryer', 'coffee')):
-        return True
-    if 'ssd' in query and re.search(r'\d+\s*(?:pcs|pieces)\b', text):
-        return False
-    if re.search(r'\b(for parts|not working|faulty|broken|empty box|box only|manual only|'
+
+    # Apply the accessory / broken-item gate to every product category, not
+    # only the original USA conversion pilot topics. Broad marketplace
+    # searches must not promote a spare part as the product itself.
+    if re.search(r'\\b(for parts|not working|faulty|broken|empty box|box only|manual only|'
                  r'replacement|accessories|accessory|filter only|charger only|cover|case|'
-                 r'adapter|adapters|enclosure|heatsink|caddy)\b', text):
+                 r'adapter|adapters|enclosure|heatsink|caddy)\\b', text):
         return False
+
+    supported = ('cordless vacuum', 'ssd', 'slow cooker', 'air fryer', 'coffee', 'lawn mower')
+    if not any(key in query for key in supported):
+        return True
+    if 'ssd' in query and re.search(r'\\d+\\s*(?:pcs|pieces)\\b', text):
+        return False
+
     rules = (
-        ('cordless vacuum', r'\b(?:stick|upright|vacuum cleaner)\b', r'\b(?:car|mini|handheld only)\b'),
-        ('ssd', r'\b(?:ssd|solid[- ]state)\b', r'\b(?:dummy|display only)\b'),
-        ('slow cooker', r'\b(?:slow cooker|crock[- ]?pot)\b', r'\b(?:lid only|liner|liners|knob)\b'),
-        ('air fryer', r'\bair fryer\b', r'\b(?:basket only|liner|liners|rack only)\b'),
-        ('coffee', r'\b(?:coffee (?:maker|machine)|espresso (?:maker|machine))\b', r'\b(?:pod holder|pods only|filter basket|coffee grinder)\b'),
+        ('cordless vacuum', r'\\b(?:stick|upright|vacuum cleaner)\\b', r'\\b(?:car|mini|handheld only)\\b'),
+        ('ssd', r'\\b(?:ssd|solid[- ]state)\\b', r'\\b(?:dummy|display only)\\b'),
+        ('slow cooker', r'\\b(?:slow cooker|crock[- ]?pot)\\b', r'\\b(?:lid only|liner|liners|knob)\\b'),
+        ('air fryer', r'\\bair fryer\\b', r'\\b(?:basket only|liner|liners|rack only)\\b'),
+        ('coffee', r'\\b(?:coffee (?:maker|machine)|espresso (?:maker|machine))\\b', r'\\b(?:pod holder|pods only|filter basket|coffee grinder)\\b'),
+        ('lawn mower', r'\\b(?:lawn ?mower|walk[- ]behind mower|push mower|self[- ]propelled mower|robotic mower)\\b',
+         r'\\b(?:tire|tires|tyre|tyres|wheel|wheels|blade only|belt|cover|bag|carburetor|carburettor|deck|filter|battery only|charger only)\\b'),
     )
     for key, required, excluded in rules:
         if key in query:
