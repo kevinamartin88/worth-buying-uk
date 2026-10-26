@@ -939,19 +939,20 @@ def pick_topic(
     )
     if shopping_ranked:
         topic, shopping_signal = shopping_ranked[0]
+        shopping_score = float(shopping_signal.get("score") or 0)
+        if shopping_score >= MIN_TREND_DEMAND_SCORE:
+            print(
+                f"[google-shopping-pick] {market.upper()}: {topic[1]} "
+                f"(query='{shopping_signal.get('query')}', "
+                f"score={shopping_score:.2f}, "
+                f"current={float(shopping_signal.get('shopping_current') or 0):.2f}, "
+                f"momentum={float(shopping_signal.get('shopping_momentum') or 0):.3f}, "
+                f"vs_air_fryer={float(shopping_signal.get('shopping_relative_to_anchor') or 0):.3f})"
+            )
+            return topic, shopping_signal, None, shopping_score
         print(
-            f"[google-shopping-pick] {market.upper()}: {topic[1]} "
-            f"(query='{shopping_signal.get('query')}', "
-            f"score={float(shopping_signal.get('score') or 0):.2f}, "
-            f"current={float(shopping_signal.get('shopping_current') or 0):.2f}, "
-            f"momentum={float(shopping_signal.get('shopping_momentum') or 0):.3f}, "
-            f"vs_air_fryer={float(shopping_signal.get('shopping_relative_to_anchor') or 0):.3f})"
-        )
-        return (
-            topic,
-            shopping_signal,
-            None,
-            float(shopping_signal.get("score") or 0),
+            f"[google-shopping-skip] {market.upper()}: top signal for {topic[1]} "
+            f"was too weak (score={shopping_score:.2f}; minimum={MIN_TREND_DEMAND_SCORE:.2f})"
         )
 
     # Secondary external signal: Google's Trending Now feed. This is broader
@@ -961,13 +962,18 @@ def pick_topic(
     if trend_ranked:
         topic, trend_signal = trend_ranked[0]
         trend_score = float(trend_signal.get("score") or 0)
+        if trend_score >= MIN_FRESH_TREND_SCORE:
+            print(
+                f"[google-web-trend-pick] {market.upper()}: {topic[1]} matched "
+                f"'{trend_signal.get('query')}' "
+                f"(score={trend_score:.2f}, "
+                f"traffic={trend_signal.get('traffic_label') or trend_signal.get('traffic')})"
+            )
+            return topic, trend_signal, None, trend_score
         print(
-            f"[google-web-trend-pick] {market.upper()}: {topic[1]} matched "
-            f"'{trend_signal.get('query')}' "
-            f"(score={trend_score:.2f}, "
-            f"traffic={trend_signal.get('traffic_label') or trend_signal.get('traffic')})"
+            f"[google-web-trend-skip] {market.upper()}: top web trend for {topic[1]} "
+            f"was too weak (score={trend_score:.2f}; minimum={MIN_FRESH_TREND_SCORE:.2f})"
         )
-        return topic, trend_signal, None, trend_score
 
     # Never skip a day. If Google cannot provide a usable live product signal,
     # use a seasonal commercial-intent fallback, then evergreen high-intent.
