@@ -48,6 +48,21 @@ def test_accessories_and_wrong_product_types_are_rejected(title, query):
     ('Coffee maker with built-in grinder', 'coffee maker'),
     ('iPhone protective case', 'iPhone case'),
 ])
+def test_lawn_mower_search_rejects_tires_and_accepts_actual_mower():
+    assert not relevant_product(
+        "2-Pack 24x12.00-12 Lawn Mower Tires 4 Ply Tubeless",
+        "lawn mower",
+    )
+    assert not relevant_product(
+        "Replacement Lawn Mower Wheel 8 Inch",
+        "lawn mower",
+    )
+    assert relevant_product(
+        "Greenworks 40V 21 Inch Self-Propelled Lawn Mower",
+        "lawn mower",
+    )
+
+
 def test_real_products_and_other_accessory_categories_still_pass(title, query):
     assert relevant_product(title, query)
 
