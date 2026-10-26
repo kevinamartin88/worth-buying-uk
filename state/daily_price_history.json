@@ -5395,7 +5395,7 @@
         "currency": "USD",
         "date": "2026-10-26",
         "price": 54.4,
-        "ts": "2026-10-26T01:06:27.280309+00:00"
+        "ts": "2026-10-26T22:13:05.117925+00:00"
       }
     ],
     "title": "Crock-Pot 4Qt Stainless Steel Cook&Carry  Slow Cooker with Lid (Open Box)",
@@ -5667,7 +5667,7 @@
         "currency": "USD",
         "date": "2026-10-26",
         "price": 265.0,
-        "ts": "2026-10-26T01:06:27.280309+00:00"
+        "ts": "2026-10-26T22:12:57.274121+00:00"
       }
     ],
     "title": "Shark Ip3251 Cordless Vacuum Cleaner Powerdetect Clean/ Empty System Dark Gray",
@@ -6531,7 +6531,7 @@
   },
   "daily|us|v1|168635340243|0": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-18",
+    "last_attempt_date": "2026-10-26",
     "observations": [
       {
         "currency": "USD",
@@ -6574,6 +6574,12 @@
         "date": "2026-10-18",
         "price": 68.69,
         "ts": "2026-10-18T08:08:31.507446+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-26",
+        "price": 68.69,
+        "ts": "2026-10-26T22:13:08.713297+00:00"
       }
     ],
     "title": "Whall Air Fryer Oven 12QT 12-in-1 Air Fryer Convection Oven NSE1201 - Silver",
@@ -6649,6 +6655,20 @@
       }
     ],
     "title": "NUTRICOOK AIR FRYER 3.5 QUART COMPACT AFM033KUS - BLACK",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|168690089314|0": {
+    "article_slug": "best-ssds-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-26",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-26",
+        "price": 235.31,
+        "ts": "2026-10-26T22:13:01.092811+00:00"
+      }
+    ],
+    "title": "KingSpec P3 SSD 256GB Internal 2.5\" Solid State Drive 2.5 Inch SATA III 3D NAND",
     "tracking_status": "active"
   },
   "daily|us|v1|168698734506|0": {
@@ -7825,7 +7845,7 @@
   },
   "daily|us|v1|236477220258|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-18",
+    "last_attempt_date": "2026-10-26",
     "observations": [
       {
         "currency": "USD",
@@ -7856,6 +7876,12 @@
         "date": "2026-10-18",
         "price": 599.99,
         "ts": "2026-10-18T08:08:34.853516+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-26",
+        "price": 491.0,
+        "ts": "2026-10-26T22:13:12.031592+00:00"
       }
     ],
     "title": "Ninja Luxe Cafe Pro Series 4-in-1 Coffee Machine, Silver (Certified Refurbished)",
@@ -7889,7 +7915,7 @@
   },
   "daily|us|v1|236653270970|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-18",
+    "last_attempt_date": "2026-10-26",
     "observations": [
       {
         "currency": "USD",
@@ -7920,6 +7946,12 @@
         "date": "2026-10-18",
         "price": 449.99,
         "ts": "2026-10-18T08:08:34.853516+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-26",
+        "price": 368.0,
+        "ts": "2026-10-26T22:13:12.031592+00:00"
       }
     ],
     "title": "Ninja Luxe Café Premier Series Coffee Espresso Machine, Certified Refurbished",
@@ -7927,7 +7959,7 @@
   },
   "daily|us|v1|236829884831|0": {
     "article_slug": "best-slow-cookers-worth-buying-us",
-    "last_attempt_date": "2026-10-18",
+    "last_attempt_date": "2026-10-26",
     "observations": [
       {
         "currency": "USD",
@@ -7970,6 +8002,12 @@
         "date": "2026-10-18",
         "price": 54.99,
         "ts": "2026-10-18T08:08:28.184444+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-26",
+        "price": 59.99,
+        "ts": "2026-10-26T22:13:05.117925+00:00"
       }
     ],
     "title": "Crock-Pot Design Series 7-Quart Cook & Carry Slow Cooker with Thermal Bag",
@@ -8001,7 +8039,7 @@
         "currency": "USD",
         "date": "2026-10-26",
         "price": 115.23,
-        "ts": "2026-10-26T01:06:27.280309+00:00"
+        "ts": "2026-10-26T22:13:08.713297+00:00"
       }
     ],
     "title": "Cuisinart 14-in-1 Space-Saving Digital Air Fryer Oven, TOA-105",
@@ -8367,7 +8405,7 @@
   },
   "daily|us|v1|277682426477|0": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-18",
+    "last_attempt_date": "2026-10-26",
     "observations": [
       {
         "currency": "USD",
@@ -8392,6 +8430,12 @@
         "date": "2026-10-18",
         "price": 199.99,
         "ts": "2026-10-18T08:08:31.507446+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-26",
+        "price": 199.99,
+        "ts": "2026-10-26T22:13:08.713297+00:00"
       }
     ],
     "title": "Ninja DoubleStack XL Countertop Oven & Air Fryer DCT601 (Certified Refurbished)",
@@ -8631,7 +8675,7 @@
   },
   "daily|us|v1|298739307632|0": {
     "article_slug": "best-slow-cookers-worth-buying-us",
-    "last_attempt_date": "2026-10-18",
+    "last_attempt_date": "2026-10-26",
     "observations": [
       {
         "currency": "USD",
@@ -8650,9 +8694,29 @@
         "date": "2026-10-18",
         "price": 41.95,
         "ts": "2026-10-18T08:08:28.184444+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-26",
+        "price": 41.95,
+        "ts": "2026-10-26T22:13:05.117925+00:00"
       }
     ],
     "title": "Crock-Pot 7 Quart Manual Slow Cooker with 3 Heat Settings, Large Slow Cooker",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|298739311060|0": {
+    "article_slug": "best-slow-cookers-worth-buying-us",
+    "last_attempt_date": "2026-10-26",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-26",
+        "price": 29.95,
+        "ts": "2026-10-26T22:13:05.117925+00:00"
+      }
+    ],
+    "title": "Crockpot 4-Quart Classic Slow Cooker, Black",
     "tracking_status": "active"
   },
   "daily|us|v1|306803503917|0": {
@@ -8837,9 +8901,23 @@
     "title": "Netac 256GB SSD 2.5'' SATA III 6Gb/s Internal Solid State Drive 500MB/s PC/Latop",
     "tracking_status": "active"
   },
+  "daily|us|v1|313842634903|0": {
+    "article_slug": "best-ssds-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-26",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-26",
+        "price": 75.99,
+        "ts": "2026-10-26T22:13:01.092811+00:00"
+      }
+    ],
+    "title": "Netac 512GB SSD 2.5'' SATA III 6 Gb/s Internal Solid State Drive 500MB/s",
+    "tracking_status": "active"
+  },
   "daily|us|v1|313969708276|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-24",
+    "last_attempt_date": "2026-10-26",
     "observations": [
       {
         "currency": "USD",
@@ -8864,6 +8942,12 @@
         "date": "2026-10-24",
         "price": 120.0,
         "ts": "2026-10-24T02:29:38.768129+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-26",
+        "price": 120.0,
+        "ts": "2026-10-26T22:13:01.092811+00:00"
       }
     ],
     "title": "Netac 1TB SSD 2.5'' SATA III 6 Gb/s Internal Solid State Drive 500MB/s MAC/PC",
@@ -8967,7 +9051,7 @@
   },
   "daily|us|v1|314491550846|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-18",
+    "last_attempt_date": "2026-10-26",
     "observations": [
       {
         "currency": "USD",
@@ -9010,6 +9094,12 @@
         "date": "2026-10-18",
         "price": 72.99,
         "ts": "2026-10-18T08:08:25.222222+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-26",
+        "price": 79.99,
+        "ts": "2026-10-26T22:13:01.092811+00:00"
       }
     ],
     "title": "Netac Internal SSD 500GB Solid State Drive M.2 2280 PCIe Gen3.0 NVMe 3100MB/s",
@@ -9057,7 +9147,7 @@
   },
   "daily|us|v1|315403607769|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-18",
+    "last_attempt_date": "2026-10-26",
     "observations": [
       {
         "currency": "USD",
@@ -9100,6 +9190,12 @@
         "date": "2026-10-18",
         "price": 79.95,
         "ts": "2026-10-18T08:08:34.853516+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-26",
+        "price": 67.06,
+        "ts": "2026-10-26T22:13:12.031592+00:00"
       }
     ],
     "title": "Ninja CFP105 DualBrew Hot & Iced Coffee Maker (Black)",
@@ -9707,7 +9803,7 @@
   },
   "daily|us|v1|327378928187|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-18",
+    "last_attempt_date": "2026-10-26",
     "observations": [
       {
         "currency": "USD",
@@ -9738,6 +9834,12 @@
         "date": "2026-10-18",
         "price": 198.0,
         "ts": "2026-10-18T08:08:21.170126+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-26",
+        "price": 174.0,
+        "ts": "2026-10-26T22:12:57.274121+00:00"
       }
     ],
     "title": "Shark IP1251 PowerDetect Cordless Stick Vacuum",
@@ -9885,7 +9987,7 @@
   },
   "daily|us|v1|336736997570|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-22",
+    "last_attempt_date": "2026-10-26",
     "observations": [
       {
         "currency": "USD",
@@ -9898,6 +10000,12 @@
         "date": "2026-10-22",
         "price": 85.99,
         "ts": "2026-10-22T02:26:38.871687+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-26",
+        "price": 85.99,
+        "ts": "2026-10-26T22:12:57.274121+00:00"
       }
     ],
     "title": "Cordless Vacuum Cleaner 65KPA 60mins Stick Lightweight Pet Hair Hardwood Floor",
@@ -9973,6 +10081,20 @@
       }
     ],
     "title": "4-in-1 Espresso Machine Coffee Maker Combo w/ Milk Frother Cold Brew Over Ice",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|336853306461|0": {
+    "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-26",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-26",
+        "price": 77.66,
+        "ts": "2026-10-26T22:12:57.274121+00:00"
+      }
+    ],
+    "title": "Cordless Vacuum Cleaner 55KPA Stick for Pet Hair Hardwood Wooden Floor Carpet",
     "tracking_status": "active"
   },
   "daily|us|v1|354165590164|623531138738": {
@@ -11163,13 +11285,19 @@
   },
   "daily|us|v1|398203622120|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-17",
+    "last_attempt_date": "2026-10-26",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-17",
         "price": 55.16,
         "ts": "2026-10-17T12:49:25.061625+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-26",
+        "price": 55.16,
+        "ts": "2026-10-26T22:13:12.031592+00:00"
       }
     ],
     "title": "bella PRO - MultiBrew 12-Cup Drip & Single-Serve Coffee Maker - Oatmilk",
@@ -11631,6 +11759,20 @@
       }
     ],
     "title": "PIXMA TS3722 Wireless All-in-One Home Printer with Scanner and Copier",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|880054064905|0": {
+    "article_slug": "best-air-fryers-worth-buying-us-2026",
+    "last_attempt_date": "2026-10-26",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-26",
+        "price": 64.99,
+        "ts": "2026-10-26T22:13:08.713297+00:00"
+      }
+    ],
+    "title": "Instant Pot 5.3qt Air Fryer with Odor Erase + Clearcook",
     "tracking_status": "active"
   },
   "daily|us|v1|920004862277|0": {
