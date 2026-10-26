@@ -38,7 +38,7 @@ def test_google_web_trend_is_secondary_when_shopping_unavailable(monkeypatch, tm
         "query": "dash cam",
         "traffic": 10000,
         "traffic_label": "10K+",
-        "score": 45,
+        "score": 60,
         "source": "google-trends-trending-now-rss",
     }
     monkeypatch.setattr(daily, "rank_topics_by_google_shopping", lambda topics, market: [])
@@ -55,7 +55,38 @@ def test_google_web_trend_is_secondary_when_shopping_unavailable(monkeypatch, tm
     assert topic == DASH_CAMS
     assert signal == trend
     assert gsc is None
-    assert score == 45
+    assert score == 60
+
+
+def test_weak_google_signals_are_ignored_for_seasonal_fallback(monkeypatch, tmp_path):
+    weak_shopping = {
+        "query": "dash cam",
+        "source": "google-trends-google-shopping",
+        "score": 20,
+    }
+    weak_web = {
+        "query": "dash cam",
+        "source": "google-trends-trending-now-rss",
+        "score": 45,
+        "traffic": 10000,
+    }
+    monkeypatch.setattr(
+        daily, "rank_topics_by_google_shopping",
+        lambda topics, market: [(DASH_CAMS, weak_shopping)],
+    )
+    monkeypatch.setattr(
+        daily, "rank_topics_by_trends",
+        lambda topics, market: [(DASH_CAMS, weak_web)],
+    )
+
+    topic, signal, gsc, score = daily.pick_topic(
+        tmp_path, year=2026, weekday=6, market="uk", month=9
+    )
+
+    assert topic == DEHUMIDIFIERS
+    assert signal is None
+    assert gsc is None
+    assert score is None
 
 
 def test_no_external_google_signal_still_publishes_seasonal_fallback(monkeypatch, tmp_path):
