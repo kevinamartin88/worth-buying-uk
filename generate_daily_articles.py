@@ -1087,6 +1087,35 @@ def _topic_specific_listing_match(title: str, query: str) -> bool:
     return True
 
 
+def _topic_specific_aspect_match(item: dict, query: str) -> bool:
+    """Reject obviously contradictory retailer metadata when a type is supplied."""
+    query_cf = query.casefold()
+    type_values = []
+    for aspect in item.get("localizedAspects") or []:
+        if normalise(str(aspect.get("name") or "")) == "type":
+            value = normalise(str(aspect.get("value") or ""))
+            if value:
+                type_values.append(value)
+
+    if not type_values:
+        return True
+
+    if "food processor" in query_cf:
+        return any(
+            any(term in value for term in ("food processor", "processor", "food chopper", "chopper"))
+            for value in type_values
+        )
+
+    if "lawn mower" in query_cf:
+        return any(
+            any(term in value for term in ("lawn mower", "lawnmower", "mower"))
+            and not any(term in value for term in ("tire", "tyre", "wheel", "part", "accessory"))
+            for value in type_values
+        )
+
+    return True
+
+
 def _has_product_image(item: dict) -> bool:
     return bool(str(((item.get("image") or {}).get("imageUrl") or "")).strip())
 
@@ -1108,6 +1137,8 @@ def listing_score(
     if query and not _query_relevant(title_raw, query):
         return None
     if query and not _topic_specific_listing_match(title_raw, query):
+        return None
+    if query and not _topic_specific_aspect_match(item, query):
         return None
     if expected_currency == "USD" and not relevant_product(title_raw, query):
         return None
