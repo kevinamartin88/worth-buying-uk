@@ -20,8 +20,7 @@ def relevant_product(title: str, query: str) -> bool:
     # only the original USA conversion pilot topics. Broad marketplace
     # searches must not promote a spare part as the product itself.
     if re.search(r'\b(for parts|not working|faulty|broken|empty box|box only|manual only|'
-                 r'replacement|accessories|accessory|filter only|charger only|cover|case|'
-                 r'adapter|adapters|enclosure|heatsink|caddy)\b', text):
+                 r'replacement|filter only|charger only|adapter|adapters|enclosure|heatsink|caddy)\b', text):
         return False
 
     supported = ('cordless vacuum', 'ssd', 'slow cooker', 'air fryer', 'coffee', 'lawn mower')
