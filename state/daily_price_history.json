@@ -5531,6 +5531,20 @@
     "title": "LOT of (2) 960GB SATA 2.5\" SSD Intel D3-S4510 Series Laptop Solid State Drive",
     "tracking_status": "unavailable"
   },
+  "daily|us|v1|135030277743|0": {
+    "article_slug": "best-lawn-mowers-worth-buying-us",
+    "last_attempt_date": "2026-10-26",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-26",
+        "price": 119.99,
+        "ts": "2026-10-26T22:13:50.828146+00:00"
+      }
+    ],
+    "title": "LawnMaster MEB1114K Electric Corded Lawn Mower 15-Inch 11AMP",
+    "tracking_status": "active"
+  },
   "daily|us|v1|135536209658|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
     "last_attempt_date": "2026-10-22",
@@ -5777,6 +5791,20 @@
       }
     ],
     "title": "Arlo AC2001 Chime 2 Wireless Doorbell - Certified refurbished",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|137076667763|0": {
+    "article_slug": "best-lawn-mowers-worth-buying-us",
+    "last_attempt_date": "2026-10-26",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-26",
+        "price": 118.98,
+        "ts": "2026-10-26T22:13:50.828146+00:00"
+      }
+    ],
+    "title": "LawnMaster MEB1216K Electric Lawn Mower 16-Inch 12AMP Corded Lightweight Compact",
     "tracking_status": "active"
   },
   "daily|us|v1|137227272209|0": {
@@ -7341,13 +7369,19 @@
   },
   "daily|us|v1|205117450775|0": {
     "article_slug": "best-lawn-mowers-worth-buying-us",
-    "last_attempt_date": "2026-10-24",
+    "last_attempt_date": "2026-10-26",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-24",
         "price": 349.99,
         "ts": "2026-10-24T02:29:52.459546+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-26",
+        "price": 349.99,
+        "ts": "2026-10-26T22:13:50.828146+00:00"
       }
     ],
     "title": "Greenworks - 80-Volt 21-Inch Self-Propelled Lawn Mower with 4.0Ah Battery and...",
@@ -8261,13 +8295,19 @@
   },
   "daily|us|v1|267164286760|0": {
     "article_slug": "best-lawn-mowers-worth-buying-us",
-    "last_attempt_date": "2026-10-24",
+    "last_attempt_date": "2026-10-26",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-24",
         "price": 169.0,
         "ts": "2026-10-24T02:29:52.459546+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-26",
+        "price": 169.0,
+        "ts": "2026-10-26T22:13:50.828146+00:00"
       }
     ],
     "title": "BLACK+DECKER Electric Lawn Mower  15-Inch, 10-Amp, Corded - BEMW472BH",
