@@ -176,7 +176,7 @@ def cards_html(items, retailer_urls, query):
         if direct:
             links += retailer_link(
                 amazon,
-                f'Check exact match on Amazon — \${offer["price"]:.2f}',
+                f'Check exact match on Amazon — ${offer["price"]:.2f}',
                 'amazon',
                 'quick-pick-exact',
                 item.get('itemId', ''),
@@ -195,7 +195,7 @@ def cards_html(items, retailer_urls, query):
             f'<h3>{html.escape(title)}</h3>'
             + spec_html
             + (product_image_html(photo, title) if photo else '')
-            + f'<p><strong>eBay listing price: \${float(item["price"]["value"]):.2f}</strong> · '
+            + f'<p><strong>eBay listing price: ${float(item["price"]["value"]):.2f}</strong> · '
             f'{html.escape(str(item.get("condition") or "Check condition"))}</p>'
             f'<p>{html.escape(shipping_text(item))}</p>'
             f'<p><strong>Best for:</strong> {html.escape(best_for)}.</p>'
@@ -239,12 +239,20 @@ gtag('config', '{measurement_id}');
     var link = event.target.closest && event.target.closest('a[data-wb-retailer]');
     if (!link || typeof window.gtag !== 'function') return;
     var root = link.closest('[data-wb-article]');
-    gtag('event', 'wb_retailer_click', {{
+    var card = link.closest('[data-wb-product]');
+    var params = {{
       article_slug: root ? root.getAttribute('data-wb-article') : {json.dumps(slug)},
-      experiment_id: '{EXPERIMENT}', retailer: link.getAttribute('data-wb-retailer'),
+      experiment_id: '{EXPERIMENT}',
+      retailer: link.getAttribute('data-wb-retailer'),
       placement: link.getAttribute('data-wb-placement'),
-      link_url: link.href, transport_type: 'beacon'
-    }});
+      product_title: link.getAttribute('data-wb-product-title') ||
+        (card ? card.getAttribute('data-wb-product') : ''),
+      link_url: link.href,
+      transport_type: 'beacon'
+    }};
+    gtag('event', 'wb_retailer_click', params);
+    gtag('event', (params.retailer || 'retailer') + '_click', params);
+    gtag('event', 'article_product_click', params);
   }});
 }})();
 </script>"""
