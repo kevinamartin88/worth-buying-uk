@@ -211,3 +211,46 @@ def test_smartwatch_variety_prefers_apple_and_distinct_models():
     assert sum("Galaxy Watch 6" in title for title in titles) == 1
     assert sum(title.startswith("Samsung") for title in titles) <= 2
     assert len({daily._smartwatch_brand(title) for title in titles}) >= 3
+
+
+def test_asin_identity_is_used_as_strongest_amazon_match(monkeypatch):
+    item = {
+        "title": "Ninja Dual Zone Air Fryer",
+        "condition": "New",
+        "price": {"value": "129.99", "currency": "GBP"},
+        "localizedAspects": [
+            {"name": "Brand", "value": "Ninja"},
+            {"name": "ASIN", "value": "B0ABCDEF12"},
+        ],
+    }
+
+    class AsinClient:
+        def __init__(self):
+            self.queries = []
+        def search_offers(self, keywords: str):
+            self.queries.append(keywords)
+            return [
+                AmazonOffer(
+                    title="Ninja Dual Zone Air Fryer",
+                    price=149.99,
+                    currency="GBP",
+                    url="https://www.amazon.co.uk/dp/B0ABCDEF12",
+                    asin="B0ABCDEF12",
+                    brand="Ninja",
+                )
+            ]
+
+    client = AsinClient()
+    monkeypatch.setattr(
+        daily.AmazonCreatorsClient,
+        "from_env",
+        classmethod(lambda cls, market: client),
+    )
+
+    daily.add_amazon_prices([item], "uk", "air fryer")
+
+    assert client.queries[0] == "B0ABCDEF12"
+    assert item["_amazon_offer"]["asin"] == "B0ABCDEF12"
+    rendered = daily.quick_picks_html([item], "uk", "air fryer")
+    assert "Check exact match on Amazon UK" in rendered
+    assert "amazon.co.uk/dp/B0ABCDEF12" in rendered
