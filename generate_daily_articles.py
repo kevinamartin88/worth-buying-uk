@@ -979,8 +979,6 @@ def pick_topic(
         rescored.sort(key=lambda row: (row[0], row[1]), reverse=True)
         composite, shopping_score, topic, shopping_signal = rescored[0]
         if shopping_score >= MIN_TREND_DEMAND_SCORE:
-            shopping_signal = dict(shopping_signal)
-            shopping_signal["traffic_opportunity_score"] = composite
             print(
                 f"[google-shopping-pick] {market.upper()}: {topic[1]} "
                 f"(query='{shopping_signal.get('query')}', "
@@ -1017,8 +1015,6 @@ def pick_topic(
         rescored.sort(key=lambda row: (row[0], row[1]), reverse=True)
         composite, trend_score, topic, trend_signal = rescored[0]
         if trend_score >= MIN_FRESH_TREND_SCORE:
-            trend_signal = dict(trend_signal)
-            trend_signal["traffic_opportunity_score"] = composite
             print(
                 f"[google-web-trend-pick] {market.upper()}: {topic[1]} matched "
                 f"'{trend_signal.get('query')}' "
