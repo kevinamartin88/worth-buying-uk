@@ -93,7 +93,7 @@ def test_cards_show_evidence_images_shipping_and_honest_search_labels():
     assert 'WorthBuying score:' in text
     assert 'Best overall' in text or 'Best value' in text
     assert 'Search Amazon for this product' in text
-    assert 'exact match and price not verified' in text
+    assert 'exact product identity and price were not verified' in text
     assert 'Check Amazon price' not in text
     assert 'Before buying' in text
     assert 'data-wb-placement="quick-pick"' in text
