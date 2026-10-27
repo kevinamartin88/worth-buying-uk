@@ -1769,6 +1769,7 @@ def ebay_product_identity(item: dict, fallback_query: str = "") -> dict:
     model = first("Model", "Model Number", "Model No", "Product Model")
     eans = identifiers("EAN", "EAN13", "EAN-13", "GTIN", "GTIN13", "GTIN-13")
     upcs = identifiers("UPC", "UPC-A", "GTIN12", "GTIN-12")
+    asin = first("ASIN", "Amazon ASIN")
 
     if not model:
         model_query, exact = amazon_model_query(title, fallback_query or title)
@@ -1781,6 +1782,7 @@ def ebay_product_identity(item: dict, fallback_query: str = "") -> dict:
         "model": model,
         "eans": eans,
         "upcs": upcs,
+        "asin": _clean_identifier(asin).upper(),
     }
 
 
@@ -1789,7 +1791,11 @@ def _amazon_identity_match(item: dict, offer: object, fallback_query: str) -> bo
     offer_eans = {_clean_identifier(v) for v in getattr(offer, "eans", ()) if _clean_identifier(v)}
     offer_upcs = {_clean_identifier(v) for v in getattr(offer, "upcs", ()) if _clean_identifier(v)}
 
-    # A shared barcode is the strongest signal that both retailers carry the same product.
+    # An explicit Amazon identifier or shared barcode is the strongest cross-retailer signal.
+    ebay_asin = str(identity.get("asin") or "").upper()
+    offer_asin = str(getattr(offer, "asin", "") or "").upper()
+    if ebay_asin and offer_asin and ebay_asin == offer_asin:
+        return True
     if identity["eans"] and offer_eans and identity["eans"] & offer_eans:
         return True
     if identity["upcs"] and offer_upcs and identity["upcs"] & offer_upcs:
@@ -1840,6 +1846,10 @@ def verified_amazon_offer(item: dict, market: str, fallback_query: str) -> dict:
     amazon_eans = {_clean_identifier(v) for v in offer.get("eans", []) if _clean_identifier(v)}
     amazon_upcs = {_clean_identifier(v) for v in offer.get("upcs", []) if _clean_identifier(v)}
 
+    ebay_asin = str(identity.get("asin") or "").upper()
+    amazon_asin = str(offer.get("asin") or "").upper()
+    if ebay_asin and amazon_asin and ebay_asin == amazon_asin:
+        return offer
     if ebay_eans and amazon_eans and ebay_eans & amazon_eans:
         return offer
     if ebay_upcs and amazon_upcs and ebay_upcs & amazon_upcs:
@@ -1878,6 +1888,8 @@ def add_amazon_prices(items: list[dict], market: str, fallback_query: str) -> No
         model_query, _ = amazon_model_query(title, fallback_query)
 
         queries: list[str] = []
+        if identity.get("asin"):
+            queries.append(identity["asin"])
         if identity["eans"]:
             queries.append(sorted(identity["eans"])[0])
         elif identity["upcs"]:
