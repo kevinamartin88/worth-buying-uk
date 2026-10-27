@@ -15,9 +15,9 @@ for(const [hostname,property] of [['www.worthbuyinguk.co.uk','G-KL9MHT5ZJ1'],['w
  assert.equal(listeners.length,1);
  const link={href:'https://www.ebay.co.uk/itm/123',getAttribute:()=>null,closest:()=>null};
  listeners[0]({target:{closest:()=>link}});
- assert.equal(calls.length,1);assert.equal(calls[0][1],'wb_retailer_click');assert.equal(calls[0][2].send_to,property);
- link.href='https://example.com/';listeners[0]({target:{closest:()=>link}});assert.equal(calls.length,1);
- link.href='https://ebay.com.evil.test/';listeners[0]({target:{closest:()=>link}});assert.equal(calls.length,1);
+ assert.equal(calls.length,3);assert.equal(calls[0][1],'wb_retailer_click');assert.equal(calls[1][1],'ebay_click');assert.equal(calls[2][1],'article_product_click');assert.equal(calls[0][2].send_to,property);
+ link.href='https://example.com/';listeners[0]({target:{closest:()=>link}});assert.equal(calls.length,3);
+ link.href='https://ebay.com.evil.test/';listeners[0]({target:{closest:()=>link}});assert.equal(calls.length,3);
 }
 '''.replace('SOURCE', json.dumps(source))
     subprocess.run(['node', '-e', harness], check=True, capture_output=True, text=True)

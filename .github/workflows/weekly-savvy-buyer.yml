@@ -1,14 +1,12 @@
-name: Monday and Saturday Savvy Buyer articles
+name: Weekly Savvy Buyer authority article
 
 on:
   workflow_dispatch:
   schedule:
-    # 07:30 UTC every Monday and Saturday. This is additional to the normal
-    # daily affiliate buying-guide run, so both article types publish.
-    - cron: "30 7 * * 1,6"
-    # One-time catch-up at 08:30 BST on 11 October 2026; selection below
-    # prevents this annual cron from creating another catch-up in later years.
-    - cron: "30 7 11 10 *"
+    # One useful authority/support article each Monday. Daily commercial
+    # buying guides continue every day; we deliberately avoid a second generic
+    # Saturday article so crawl and internal-link equity stays product-focused.
+    - cron: "30 7 * * 1"
 
 permissions:
   contents: write

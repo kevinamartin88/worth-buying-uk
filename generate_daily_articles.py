@@ -18,6 +18,15 @@ from src.product_image_quality import checked_product_image, product_image_html
 from src.price_tracking import refresh_tracked_prices
 from src.google_trends import rank_topics_by_trends, trend_keyword_for_title
 from src.google_shopping_trends import rank_topics_by_google_shopping
+from src.traffic_growth import (
+    buyer_fit_copy,
+    ctr_description,
+    ctr_title,
+    factual_pros_cons,
+    pick_badges,
+    traffic_opportunity_score,
+    worth_buying_score,
+)
 from src.usa_conversion import (
     relevant_product, live_listing, cards_html, amazon_direct, tracking_script, EXPERIMENT,
 )
@@ -561,6 +570,8 @@ def quick_picks_html(items: list[dict], market: str, query: str) -> str:
 
     retailer = "eBay UK" if market == "uk" else "eBay"
     amazon = "Amazon UK" if market == "uk" else "Amazon"
+    exact_offers = [bool(verified_amazon_offer(item, market, query)) for item in items]
+    badges = pick_badges(items, exact_offers)
     cards: list[str] = []
 
     for index, item in enumerate(items, start=1):
@@ -573,7 +584,6 @@ def quick_picks_html(items: list[dict], market: str, query: str) -> str:
             amazon_url = str(amazon_offer["url"])
 
         image_url = str(((item.get("image") or {}).get("imageUrl") or "")).strip()
-
         seller = item.get("seller") or {}
         feedback_pct = safe_float(seller.get("feedbackPercentage"))
         seller_signal = (
@@ -581,6 +591,11 @@ def quick_picks_html(items: list[dict], market: str, query: str) -> str:
             if feedback_pct is not None
             else "Check current seller feedback"
         )
+        score = worth_buying_score(item, items, bool(amazon_offer))
+        pros, cons = factual_pros_cons(item, items, bool(amazon_offer))
+        best_for, avoid_if = buyer_fit_copy(item, bool(amazon_offer))
+        pros_html = "".join(f"<li>{html.escape(value)}</li>" for value in pros)
+        cons_html = "".join(f"<li>{html.escape(value)}</li>" for value in cons)
 
         history = item.get("_worthbuying_price_history") or {}
         history_line = ""
@@ -597,42 +612,51 @@ def quick_picks_html(items: list[dict], market: str, query: str) -> str:
                 )
 
         amazon_label = (
-            f"Check {amazon} price"
+            f"Check exact match on {amazon}"
             if amazon_offer
-            else (f"Search {amazon} for this model" if exact_model else f"Search {amazon} for alternatives")
+            else (f"Search {amazon} for this model" if exact_model else f"Search {amazon} for this product")
         )
         amazon_link = (
             f'<a href="{html.escape(amazon_url, quote=True)}" rel="sponsored nofollow" '
             'data-wb-retailer="amazon" '
-            'data-wb-placement="' + ('quick-pick' if amazon_offer else 'search-alternative') + '" '
+            f'data-wb-product-title="{html.escape(title, quote=True)}" '
+            'data-wb-placement="' + ('quick-pick-exact' if amazon_offer else 'search-alternative') + '" '
             'style="display:inline-block;padding:11px 16px;margin:0 8px 8px 0;'
             'background:#f2f4f7;color:#082f5b;text-decoration:none;border-radius:8px;font-weight:700">'
             f'{html.escape(amazon_label)}</a>'
         )
         image_html = product_image_html(image_url, title) if image_url else ""
         cards.append(
-            '<div style="border:1px solid #dfe6ee;border-radius:14px;padding:18px;'
-            'margin:14px 0;background:#fff;">'
+            '<article class="wb-buying-card" data-wb-product="' + html.escape(title, quote=True) + '" '
+            'style="border:1px solid #dfe6ee;border-radius:14px;padding:18px;margin:14px 0;background:#fff;">'
+            f'<p style="margin:0 0 6px"><strong>{html.escape(badges[index - 1])}</strong> · '
+            f'WorthBuying score {score}/100</p>'
             f'{image_html}'
-            f'<p style="margin:0 0 8px"><strong>{index}. {html.escape(title)}</strong></p>'
+            f'<h3 style="margin:4px 0 8px">{html.escape(title)}</h3>'
             f'<p style="margin:6px 0"><strong>eBay price checked:</strong> {html.escape(price)}'
             f' · {html.escape(condition)}</p>'
             f'<p style="margin:6px 0">{html.escape(seller_signal)}</p>'
             f'{history_line}'
+            f'<p><strong>Best for:</strong> {html.escape(best_for)}.</p>'
+            f'<p><strong>Consider another option if:</strong> {html.escape(avoid_if)}.</p>'
+            f'<p><strong>Why it made the shortlist</strong></p><ul>{pros_html}</ul>'
+            f'<p><strong>Trade-offs to check</strong></p><ul>{cons_html}</ul>'
             '<p style="margin:14px 0 2px">'
             f'<a href="{html.escape(ebay_url, quote=True)}" rel="sponsored nofollow" '
+            'data-wb-retailer="ebay" data-wb-placement="quick-pick" '
+            f'data-wb-product-title="{html.escape(title, quote=True)}" '
             'style="display:inline-block;padding:11px 16px;margin:0 8px 8px 0;'
             'background:#082f5b;color:#fff;text-decoration:none;border-radius:8px;font-weight:700">'
             f'Check {retailer} price</a>'
             f'{amazon_link}'
-            '</p></div>'
+            '</p></article>'
         )
 
     return (
         "<h2>Best current options at a glance</h2>\n"
+        "<p>These labels and scores are based on the retailer data available when checked, not hands-on lab testing.</p>"
         + "".join(cards)
     )
-
 
 def _site_page_url(market: str, key: str) -> str:
     state_path = ROOT / "state" / (
@@ -938,21 +962,35 @@ def pick_topic(
         market,
     )
     if shopping_ranked:
-        topic, shopping_signal = shopping_ranked[0]
-        shopping_score = float(shopping_signal.get("score") or 0)
+        rescored = []
+        for candidate_topic, signal in shopping_ranked:
+            raw_score = float(signal.get("score") or 0)
+            query_text = str(signal.get("query") or candidate_topic[2])
+            composite = traffic_opportunity_score(
+                candidate_topic[0],
+                raw_score,
+                month=month,
+                seasonal_keys=SEASONAL_FALLBACKS.get(month, ()),
+                evergreen_keys=EVERGREEN_HIGH_INTENT,
+                previously_covered=topic_last_generated_date(article_dir, candidate_topic, year) is not None,
+                query=query_text,
+            )
+            rescored.append((composite, raw_score, candidate_topic, signal))
+        rescored.sort(key=lambda row: (row[0], row[1]), reverse=True)
+        composite, shopping_score, topic, shopping_signal = rescored[0]
         if shopping_score >= MIN_TREND_DEMAND_SCORE:
             print(
                 f"[google-shopping-pick] {market.upper()}: {topic[1]} "
                 f"(query='{shopping_signal.get('query')}', "
-                f"score={shopping_score:.2f}, "
+                f"demand={shopping_score:.2f}, opportunity={composite:.2f}, "
                 f"current={float(shopping_signal.get('shopping_current') or 0):.2f}, "
                 f"momentum={float(shopping_signal.get('shopping_momentum') or 0):.3f}, "
                 f"vs_air_fryer={float(shopping_signal.get('shopping_relative_to_anchor') or 0):.3f})"
             )
             return topic, shopping_signal, None, shopping_score
         print(
-            f"[google-shopping-skip] {market.upper()}: top signal for {topic[1]} "
-            f"was too weak (score={shopping_score:.2f}; minimum={MIN_TREND_DEMAND_SCORE:.2f})"
+            f"[google-shopping-skip] {market.upper()}: top opportunity for {topic[1]} "
+            f"had weak live demand (score={shopping_score:.2f}; minimum={MIN_TREND_DEMAND_SCORE:.2f})"
         )
 
     # Secondary external signal: Google's Trending Now feed. This is broader
@@ -960,19 +998,33 @@ def pick_topic(
     # the Shopping comparison endpoint is unavailable or returns no product data.
     trend_ranked = rank_topics_by_trends(candidate_pool, market)
     if trend_ranked:
-        topic, trend_signal = trend_ranked[0]
-        trend_score = float(trend_signal.get("score") or 0)
+        rescored = []
+        for candidate_topic, signal in trend_ranked:
+            raw_score = float(signal.get("score") or 0)
+            query_text = str(signal.get("query") or candidate_topic[2])
+            composite = traffic_opportunity_score(
+                candidate_topic[0],
+                raw_score,
+                month=month,
+                seasonal_keys=SEASONAL_FALLBACKS.get(month, ()),
+                evergreen_keys=EVERGREEN_HIGH_INTENT,
+                previously_covered=topic_last_generated_date(article_dir, candidate_topic, year) is not None,
+                query=query_text,
+            )
+            rescored.append((composite, raw_score, candidate_topic, signal))
+        rescored.sort(key=lambda row: (row[0], row[1]), reverse=True)
+        composite, trend_score, topic, trend_signal = rescored[0]
         if trend_score >= MIN_FRESH_TREND_SCORE:
             print(
                 f"[google-web-trend-pick] {market.upper()}: {topic[1]} matched "
                 f"'{trend_signal.get('query')}' "
-                f"(score={trend_score:.2f}, "
+                f"(demand={trend_score:.2f}, opportunity={composite:.2f}, "
                 f"traffic={trend_signal.get('traffic_label') or trend_signal.get('traffic')})"
             )
             return topic, trend_signal, None, trend_score
         print(
-            f"[google-web-trend-skip] {market.upper()}: top web trend for {topic[1]} "
-            f"was too weak (score={trend_score:.2f}; minimum={MIN_FRESH_TREND_SCORE:.2f})"
+            f"[google-web-trend-skip] {market.upper()}: top opportunity for {topic[1]} "
+            f"had weak web demand (score={trend_score:.2f}; minimum={MIN_FRESH_TREND_SCORE:.2f})"
         )
 
     # Never skip a day. If Google cannot provide a usable live product signal,
@@ -1713,6 +1765,7 @@ def ebay_product_identity(item: dict, fallback_query: str = "") -> dict:
     model = first("Model", "Model Number", "Model No", "Product Model")
     eans = identifiers("EAN", "EAN13", "EAN-13", "GTIN", "GTIN13", "GTIN-13")
     upcs = identifiers("UPC", "UPC-A", "GTIN12", "GTIN-12")
+    asin = first("ASIN", "Amazon ASIN")
 
     if not model:
         model_query, exact = amazon_model_query(title, fallback_query or title)
@@ -1725,6 +1778,7 @@ def ebay_product_identity(item: dict, fallback_query: str = "") -> dict:
         "model": model,
         "eans": eans,
         "upcs": upcs,
+        "asin": _clean_identifier(asin).upper(),
     }
 
 
@@ -1733,7 +1787,11 @@ def _amazon_identity_match(item: dict, offer: object, fallback_query: str) -> bo
     offer_eans = {_clean_identifier(v) for v in getattr(offer, "eans", ()) if _clean_identifier(v)}
     offer_upcs = {_clean_identifier(v) for v in getattr(offer, "upcs", ()) if _clean_identifier(v)}
 
-    # A shared barcode is the strongest signal that both retailers carry the same product.
+    # An explicit Amazon identifier or shared barcode is the strongest cross-retailer signal.
+    ebay_asin = str(identity.get("asin") or "").upper()
+    offer_asin = str(getattr(offer, "asin", "") or "").upper()
+    if ebay_asin and offer_asin and ebay_asin == offer_asin:
+        return True
     if identity["eans"] and offer_eans and identity["eans"] & offer_eans:
         return True
     if identity["upcs"] and offer_upcs and identity["upcs"] & offer_upcs:
@@ -1784,6 +1842,10 @@ def verified_amazon_offer(item: dict, market: str, fallback_query: str) -> dict:
     amazon_eans = {_clean_identifier(v) for v in offer.get("eans", []) if _clean_identifier(v)}
     amazon_upcs = {_clean_identifier(v) for v in offer.get("upcs", []) if _clean_identifier(v)}
 
+    ebay_asin = str(identity.get("asin") or "").upper()
+    amazon_asin = str(offer.get("asin") or "").upper()
+    if ebay_asin and amazon_asin and ebay_asin == amazon_asin:
+        return offer
     if ebay_eans and amazon_eans and ebay_eans & amazon_eans:
         return offer
     if ebay_upcs and amazon_upcs and ebay_upcs & amazon_upcs:
@@ -1822,6 +1884,8 @@ def add_amazon_prices(items: list[dict], market: str, fallback_query: str) -> No
         model_query, _ = amazon_model_query(title, fallback_query)
 
         queries: list[str] = []
+        if identity.get("asin"):
+            queries.append(identity["asin"])
         if identity["eans"]:
             queries.append(sorted(identity["eans"])[0])
         elif identity["upcs"]:
@@ -1891,6 +1955,11 @@ def live_sections(items: list[dict], market: str, topic_name: str, query: str) -
     parts: list[str] = []
     retailer = "eBay UK" if market == "uk" else "eBay"
     amazon = "Amazon UK" if market == "uk" else "Amazon"
+    exact_flags = [
+        bool(verified_amazon_offer(item, market, query) if market == "uk" else (item.get("_amazon_offer") or {}))
+        for item in items
+    ]
+    badges = pick_badges(items, exact_flags)
 
     for index, item in enumerate(items, start=1):
         title = " ".join(str(item.get("title", "")).split())
@@ -1915,18 +1984,26 @@ def live_sections(items: list[dict], market: str, topic_name: str, query: str) -
                 + money_text(float(amazon_offer["price"]), str(amazon_offer["currency"]))
             )
         prices = "; ".join(price_parts)
+        score = worth_buying_score(item, items, bool(amazon_offer))
+        pros, cons = factual_pros_cons(item, items, bool(amazon_offer))
+        best_for, avoid_if = buyer_fit_copy(item, bool(amazon_offer))
+        pros_html = "".join(f"<li>{html.escape(value)}</li>" for value in pros)
+        cons_html = "".join(f"<li>{html.escape(value)}</li>" for value in cons)
+
         amazon_link_label = (
             f"Search {amazon} for this model"
             if exact_model_search
             else f"Search {amazon} for this product"
         )
         if amazon_offer and (market != "us" or amazon_direct(amazon_offer)):
-            amazon_link_label = f"Check this model on {amazon}"
-        ebay_attrs = (' data-wb-retailer="ebay" data-wb-placement="detail"' if market == "us" else "")
+            amazon_link_label = f"Check exact match on {amazon}"
+        ebay_attrs = (
+            f' data-wb-retailer="ebay" data-wb-placement="detail" data-wb-product-title="{html.escape(title, quote=True)}"'
+        )
         amazon_attrs = (
             ' data-wb-retailer="amazon" data-wb-placement="'
-            + ('detail' if amazon_offer and (market != "us" or amazon_direct(amazon_offer)) else 'search-alternative')
-            + '"'
+            + ('detail-exact' if amazon_offer and (market != "us" or amazon_direct(amazon_offer)) else 'search-alternative')
+            + f'" data-wb-product-title="{html.escape(title, quote=True)}"'
         )
         amazon_link = (
             f'<a href="{html.escape(amazon_url, quote=True)}" rel="sponsored nofollow"{amazon_attrs}>'
@@ -1935,10 +2012,13 @@ def live_sections(items: list[dict], market: str, topic_name: str, query: str) -
 
         parts.append(
             f"<h3>{index}. {safe_title}</h3>\n"
+            f"<p><strong>{html.escape(badges[index - 1])}</strong> · <strong>WorthBuying score:</strong> {score}/100.</p>\n"
             f"<p><strong>Prices when checked:</strong> {html.escape(prices)}."
-            f"{condition_text} This listing made the shortlist because it passed our automated price, "
-            f"fixed-price and seller-quality checks for {html.escape(topic_name)}."
-            f"{html.escape(discount_text(item))}</p>\n"
+            f"{condition_text}</p>\n"
+            f"<p><strong>Best for:</strong> {html.escape(best_for)}. "
+            f"<strong>Consider another option if:</strong> {html.escape(avoid_if)}.</p>\n"
+            f"<p><strong>Why it made the shortlist</strong></p><ul>{pros_html}</ul>\n"
+            f"<p><strong>Trade-offs to check</strong></p><ul>{cons_html}</ul>\n"
             f"<p>{html.escape(seller_text(item))} Availability, condition and price can change quickly, "
             "so verify the exact model, specification, warranty, delivery and returns on the retailer page.</p>\n"
             + (
@@ -1951,13 +2031,12 @@ def live_sections(items: list[dict], market: str, topic_name: str, query: str) -
                 else ""
             )
             + f'<p><a href="{html.escape(ebay_url, quote=True)}" rel="sponsored nofollow"{ebay_attrs}>'
-            f"View on {retailer}</a>\n"
+            f"View on {retailer}</a> "
             f"{amazon_link}</p>\n"
             + owner_review_html(item, market)
         )
 
     return "\n".join(parts)
-
 
 def fallback_sections(market: str, topic_name: str, query: str) -> str:
     ebay_base = "https://www.ebay.co.uk/sch/i.html" if market == "uk" else "https://www.ebay.com/sch/i.html"
@@ -2082,8 +2161,8 @@ def build_article(
 
     trend_title_phrase = trend_keyword_for_title(topic, trend_signal)
     title_subject = trend_title_phrase or display
-    title = f"Best {title_subject} Worth Buying in the {region} ({year})"
-    source_sha = f"{datetime.now(LONDON_TZ).date().isoformat()}-{key}-{market}-daily-v6"
+    title = ctr_title(title_subject, region, year, picks if live else [])
+    source_sha = f"{datetime.now(LONDON_TZ).date().isoformat()}-{key}-{market}-daily-v7"
     primary_keyword = f"best {title_subject.lower()} {region.lower()} {year}"
     secondary_keywords = [
         f"{display.lower()} buying guide {region.lower()}",
@@ -2093,7 +2172,7 @@ def build_article(
     if trend_signal and trend_signal.get("query"):
         trend_query = " ".join(str(trend_signal["query"]).split())
         secondary_keywords.insert(0, trend_query)
-    description = seo_description(display, region, year)
+    description = ctr_description(display, region, year, picks if live else [])
     checked_at = datetime.now(LONDON_TZ)
     checked_date = (
         checked_at.strftime("%d %B %Y").lstrip("0")
@@ -2172,20 +2251,20 @@ def build_article(
         "pinterest_enabled": True,
         "hero_image_kicker": kicker,
         "pinterest_title": title,
-        "pinterest_subtitle": f"Current {display.lower()} worth comparing before you buy",
+        "pinterest_subtitle": "Best overall • Best value • Amazon + eBay price checks",
         "x_image_title": f"Best {display} Worth Buying",
         "x_kicker": kicker,
-        "x_subtitle": f"Current {display.lower()} worth comparing in {year}",
+        "x_subtitle": "Best overall • Best value • Amazon + eBay comparison",
         "x_text": (
-            f"🔎 Looking for {display.lower()} worth comparing?\n\n"
-            f"Our latest {region} guide checks current marketplace options, seller details and value.\n\n"
+            f"🔎 {title}\n\n"
+            f"See our best current picks, value options, Amazon/eBay comparisons and the trade-offs to check before buying.\n\n"
             "See the full guide 👇\n"
             "Read the guide 🔗 {url}\n"
             "#BuyingGuide #WorthBuying"
         ),
         "content_html": content,
         "_seo": {
-            "version": "daily-seo-v7-authority-revenue",
+            "version": "daily-seo-v8-traffic-growth",
             "target_country": "GB" if market == "uk" else "US",
             "language": "en-GB" if market == "uk" else "en-US",
             "primary_keyword": primary_keyword,
@@ -2201,6 +2280,19 @@ def build_article(
             "stable_slug": True,
             "authority_cluster": authority_cluster_for_topic(key),
             "editorial_method": "retailer-data-plus-quality-filters",
+            "traffic_opportunity_score": (
+                traffic_opportunity_score(
+                    key,
+                    float(demand_score or 0),
+                    month=checked_at.month,
+                    seasonal_keys=SEASONAL_FALLBACKS.get(checked_at.month, ()),
+                    evergreen_keys=EVERGREEN_HIGH_INTENT,
+                    previously_covered=is_refresh,
+                    query=str((trend_signal or {}).get("query") or query),
+                )
+                if demand_score is not None
+                else None
+            ),
         },
         "_monetisation": {
             "version": EXPERIMENT if market == "us" else "affiliate-conversion-v2",

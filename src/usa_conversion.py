@@ -7,9 +7,10 @@ import re
 from urllib.parse import urlsplit
 
 from src.product_image_quality import product_image_html
+from src.traffic_growth import buyer_fit_copy, factual_pros_cons, pick_badges, worth_buying_score
 
 PILOT_TOPICS = ('cordless-vacuums', 'ssds', 'slow-cookers', 'air-fryers', 'coffee-machines')
-EXPERIMENT = 'usa-buying-cards-v1'
+EXPERIMENT = 'usa-buying-cards-v2-traffic-growth'
 
 
 def relevant_product(title: str, query: str) -> bool:
@@ -143,7 +144,12 @@ def retailer_link(url, label, retailer, placement, item_id):
 
 def cards_html(items, retailer_urls, query):
     cards = []
-    for role, item in select_cards(items):
+    selected = select_cards(items)
+    selected_items = [item for _, item in selected]
+    exact_flags = [amazon_direct(item.get('_amazon_offer') or {}) for item in selected_items]
+    badges = pick_badges(selected_items, exact_flags)
+
+    for index, (_, item) in enumerate(selected):
         title = str(item.get('title') or '')
         ebay, amazon, _ = retailer_urls(item, 'us', query)
         offer = item.get('_amazon_offer') or {}
@@ -158,32 +164,53 @@ def cards_html(items, retailer_urls, query):
                 'interface', 'power', 'features', 'coffee type', 'number of cups',
             } and aspect.get('value'):
                 specs.append(f'{aspect["name"]}: {aspect["value"]}')
-        spec_html = '<p>' + html.escape(' · '.join(specs[:4])) + '</p>' if specs else ''
+        spec_html = '<p><strong>Key listing specs:</strong> ' + html.escape(' · '.join(specs[:4])) + '</p>' if specs else ''
         photo = str((item.get('image') or {}).get('imageUrl') or '')
+        score = worth_buying_score(item, selected_items, direct)
+        pros, cons = factual_pros_cons(item, selected_items, direct)
+        best_for, avoid_if = buyer_fit_copy(item, direct)
+        pros_html = ''.join(f'<li>{html.escape(value)}</li>' for value in pros)
+        cons_html = ''.join(f'<li>{html.escape(value)}</li>' for value in cons)
+
         links = retailer_link(ebay, 'Check this listing on eBay', 'ebay', 'quick-pick', item.get('itemId', ''))
         if direct:
-            links += retailer_link(amazon, f'Check this model on Amazon — ${offer["price"]:.2f}', 'amazon', 'quick-pick', item.get('itemId', ''))
+            links += retailer_link(
+                amazon,
+                f'Check exact match on Amazon — ${offer["price"]:.2f}',
+                'amazon',
+                'quick-pick-exact',
+                item.get('itemId', ''),
+            )
         else:
-            # A search remains useful, but it must never look like an exact offer.
-            links += (f'<p><a href="{html.escape(amazon, quote=True)}" rel="sponsored nofollow" '
-                      'data-wb-retailer="amazon" data-wb-placement="search-alternative">'
-                      'Search Amazon for alternatives</a> — exact match and price not verified.</p>')
+            links += (
+                f'<p><a href="{html.escape(amazon, quote=True)}" rel="sponsored nofollow" '
+                'data-wb-retailer="amazon" data-wb-placement="search-alternative" '
+                f'data-wb-product-title="{html.escape(title, quote=True)}">'
+                'Search Amazon for this product</a> — exact product identity and price were not verified.</p>'
+            )
         cards.append(
-            '<article class="wb-buying-card" style="border:1px solid #dfe6ee;border-radius:14px;padding:18px;margin:16px 0">'
-            f'<p><strong>{role}</strong></p><h3>{html.escape(title)}</h3>'
+            '<article class="wb-buying-card" data-wb-product="' + html.escape(title, quote=True) + '" '
+            'style="border:1px solid #dfe6ee;border-radius:14px;padding:18px;margin:16px 0">'
+            f'<p><strong>{html.escape(badges[index])}</strong> · <strong>WorthBuying score:</strong> {score}/100</p>'
+            f'<h3>{html.escape(title)}</h3>'
             + spec_html
             + (product_image_html(photo, title) if photo else '')
             + f'<p><strong>eBay listing price: ${float(item["price"]["value"]):.2f}</strong> · '
             f'{html.escape(str(item.get("condition") or "Check condition"))}</p>'
             f'<p>{html.escape(shipping_text(item))}</p>'
-            f'<p><strong>Why compare it:</strong> seller feedback of {float(seller.get("feedbackPercentage") or 0):.1f}% '
+            f'<p><strong>Best for:</strong> {html.escape(best_for)}.</p>'
+            f'<p><strong>Consider another option if:</strong> {html.escape(avoid_if)}.</p>'
+            f'<p><strong>Why it made the shortlist</strong></p><ul>{pros_html}</ul>'
+            f'<p><strong>Trade-offs to check</strong></p><ul>{cons_html}</ul>'
+            f'<p><strong>Seller signal:</strong> {float(seller.get("feedbackPercentage") or 0):.1f}% positive feedback '
             f'across {int(seller.get("feedbackScore") or 0):,} entries when checked.</p>'
             f'<p><strong>Before buying:</strong> {html.escape(tradeoff(item))}</p>{links}</article>'
         )
-    return ('<section class="wb-usa-buying-cards"><h2>Three current options to compare</h2>'
-            '<p>Start with the listing that suits your budget and condition preferences. '
-            'These labels compare listing facts, not hands-on performance.</p>' + ''.join(cards) + '</section>')
-
+    return (
+        '<section class="wb-usa-buying-cards"><h2>Three current options to compare</h2>'
+        '<p>Labels and scores use current retailer data, price position and product-identity checks; '
+        'they are not hands-on laboratory test scores.</p>' + ''.join(cards) + '</section>'
+    )
 
 def tracking_script(slug, measurement_id=''):
     """Use an existing GA4 tag, or load the explicitly configured USA property."""
@@ -212,12 +239,20 @@ gtag('config', '{measurement_id}');
     var link = event.target.closest && event.target.closest('a[data-wb-retailer]');
     if (!link || typeof window.gtag !== 'function') return;
     var root = link.closest('[data-wb-article]');
-    gtag('event', 'wb_retailer_click', {{
+    var card = link.closest('[data-wb-product]');
+    var params = {{
       article_slug: root ? root.getAttribute('data-wb-article') : {json.dumps(slug)},
-      experiment_id: '{EXPERIMENT}', retailer: link.getAttribute('data-wb-retailer'),
+      experiment_id: '{EXPERIMENT}',
+      retailer: link.getAttribute('data-wb-retailer'),
       placement: link.getAttribute('data-wb-placement'),
-      link_url: link.href, transport_type: 'beacon'
-    }});
+      product_title: link.getAttribute('data-wb-product-title') ||
+        (card ? card.getAttribute('data-wb-product') : ''),
+      link_url: link.href,
+      transport_type: 'beacon'
+    }};
+    gtag('event', 'wb_retailer_click', params);
+    gtag('event', (params.retailer || 'retailer') + '_click', params);
+    gtag('event', 'article_product_click', params);
   }});
 }})();
 </script>"""

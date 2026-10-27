@@ -90,9 +90,10 @@ def test_cards_show_evidence_images_shipping_and_honest_search_labels():
     assert text.count('class="wb-product-image"') == 3
     assert '$65.00 before sales tax' in text
     assert 'Brand: Dyson' in text
-    assert 'Lowest checked listing price' in text
-    assert 'Search Amazon for alternatives' in text
-    assert 'exact match and price not verified' in text
+    assert 'WorthBuying score:' in text
+    assert 'Best overall' in text or 'Best value' in text
+    assert 'Search Amazon for this product' in text
+    assert 'exact product identity and price were not verified' in text
     assert 'Check Amazon price' not in text
     assert 'Before buying' in text
     assert 'data-wb-placement="quick-pick"' in text
@@ -102,8 +103,8 @@ def test_verified_amazon_offer_links_directly_with_a_price():
     row = item()
     row['_amazon_offer'] = {'url': 'https://www.amazon.com/dp/B012345678', 'price': 90.0, 'currency': 'USD'}
     text = cards_html([row], daily.retailer_urls, 'cordless vacuum')
-    assert 'Check this model on Amazon — $90.00' in text
-    assert 'Search Amazon for alternatives' not in text
+    assert 'Check exact match on Amazon — $90.00' in text
+    assert 'Search Amazon for this product' not in text
     assert not amazon_direct({'url': 'https://www.amazon.co.uk/dp/B012345678', 'price': 90, 'currency': 'GBP'})
     assert not amazon_direct({'url': 'https://www.amazon.com/s?k=Dyson', 'price': 90, 'currency': 'USD'})
 
@@ -224,7 +225,7 @@ def test_usa_article_puts_real_choices_before_methodology_and_reuses_slug(monkey
     assert body.count('class="wb-buying-card"') == 3
     assert article['slug'] == 'best-cordless-vacuums-worth-buying-us-2026'
     assert 'data-wb-article=' in body
-    assert article['_monetisation']['version'] == 'usa-buying-cards-v1'
+    assert article['_monetisation']['version'] == 'usa-buying-cards-v2-traffic-growth'
 
 
 def test_pilot_prepares_all_five_before_writing(monkeypatch, tmp_path):
@@ -247,6 +248,9 @@ def test_pilot_prepares_all_five_before_writing(monkeypatch, tmp_path):
 def test_tracking_does_not_install_an_unknown_property_or_block_navigation():
     script = tracking_script('guide')
     assert 'wb_retailer_click' in script
+    assert "amazon_click" not in script  # event name is derived safely at runtime
+    assert "article_product_click" in script
+    assert "+ '_click'" in script
     assert "typeof window.gtag !== 'function'" in script
     assert 'preventDefault' not in script
     assert 'googletagmanager.com/gtag/js' not in script
