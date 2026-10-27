@@ -987,7 +987,7 @@ def pick_topic(
                 f"momentum={float(shopping_signal.get('shopping_momentum') or 0):.3f}, "
                 f"vs_air_fryer={float(shopping_signal.get('shopping_relative_to_anchor') or 0):.3f})"
             )
-            return topic, shopping_signal, None, composite
+            return topic, shopping_signal, None, shopping_score
         print(
             f"[google-shopping-skip] {market.upper()}: top opportunity for {topic[1]} "
             f"had weak live demand (score={shopping_score:.2f}; minimum={MIN_TREND_DEMAND_SCORE:.2f})"
@@ -1021,7 +1021,7 @@ def pick_topic(
                 f"(demand={trend_score:.2f}, opportunity={composite:.2f}, "
                 f"traffic={trend_signal.get('traffic_label') or trend_signal.get('traffic')})"
             )
-            return topic, trend_signal, None, composite
+            return topic, trend_signal, None, trend_score
         print(
             f"[google-web-trend-skip] {market.upper()}: top opportunity for {topic[1]} "
             f"had weak web demand (score={trend_score:.2f}; minimum={MIN_FRESH_TREND_SCORE:.2f})"
@@ -2280,7 +2280,19 @@ def build_article(
             "stable_slug": True,
             "authority_cluster": authority_cluster_for_topic(key),
             "editorial_method": "retailer-data-plus-quality-filters",
-            "traffic_opportunity_score": demand_score,
+            "traffic_opportunity_score": (
+                traffic_opportunity_score(
+                    key,
+                    float(demand_score or 0),
+                    month=checked_at.month,
+                    seasonal_keys=SEASONAL_FALLBACKS.get(checked_at.month, ()),
+                    evergreen_keys=EVERGREEN_HIGH_INTENT,
+                    previously_covered=is_refresh,
+                    query=str((trend_signal or {}).get("query") or query),
+                )
+                if demand_score is not None
+                else None
+            ),
         },
         "_monetisation": {
             "version": EXPERIMENT if market == "us" else "affiliate-conversion-v2",
