@@ -2166,7 +2166,7 @@ def build_article(
     trend_title_phrase = trend_keyword_for_title(topic, trend_signal)
     title_subject = trend_title_phrase or display
     title = ctr_title(title_subject, region, year, picks if live else [])
-    source_sha = f"{datetime.now(LONDON_TZ).date().isoformat()}-{key}-{market}-daily-v6"
+    source_sha = f"{datetime.now(LONDON_TZ).date().isoformat()}-{key}-{market}-daily-v7"
     primary_keyword = f"best {title_subject.lower()} {region.lower()} {year}"
     secondary_keywords = [
         f"{display.lower()} buying guide {region.lower()}",
@@ -2255,10 +2255,10 @@ def build_article(
         "pinterest_enabled": True,
         "hero_image_kicker": kicker,
         "pinterest_title": title,
-        "pinterest_subtitle": f"Current {display.lower()} worth comparing before you buy",
+        "pinterest_subtitle": "Best overall • Best value • Amazon + eBay price checks",
         "x_image_title": f"Best {display} Worth Buying",
         "x_kicker": kicker,
-        "x_subtitle": f"Current {display.lower()} worth comparing in {year}",
+        "x_subtitle": "Best overall • Best value • Amazon + eBay comparison",
         "x_text": (
             f"🔎 {title}\n\n"
             f"See our best current picks, value options, Amazon/eBay comparisons and the trade-offs to check before buying.\n\n"
