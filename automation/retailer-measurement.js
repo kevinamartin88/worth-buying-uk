@@ -28,11 +28,14 @@
     var root = link.closest('[data-wb-article]');
     var post = link.closest('.post-body');
     var metadata = post && post.querySelector('script.wb-published-seo[data-wb-article]');
+    var card = link.closest('[data-wb-product]');
     var params = {
       article_slug: root ? root.getAttribute('data-wb-article') :
         (metadata ? metadata.getAttribute('data-wb-article') : location.pathname),
       retailer: retailer,
       placement: link.getAttribute('data-wb-placement') || 'article',
+      product_title: link.getAttribute('data-wb-product-title') ||
+        (card ? card.getAttribute('data-wb-product') : ''),
       link_url: link.href,
       transport_type: 'beacon',
       send_to: property
@@ -40,5 +43,7 @@
     var experiment = root && root.getAttribute('data-wb-experiment');
     if (experiment) params.experiment_id = experiment;
     window.gtag('event', 'wb_retailer_click', params);
+    window.gtag('event', retailer + '_click', params);
+    window.gtag('event', 'article_product_click', params);
   });
 }());
