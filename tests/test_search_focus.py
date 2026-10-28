@@ -29,6 +29,7 @@ def test_real_article_refresh_preserves_commercial_and_publication_evidence(mark
         for fragment in re.findall(pattern, original['content_html'], re.S):
             assert fragment in updated['content_html'], fragment[:100]
     assert updated['content_html'].count(START) == 1
+    assert FOCUS[(market, slug)]['intro'] in updated['content_html']
     assert updated['_seo']['search_focus_revision'] == REVISION
     assert 90 <= len(updated['_seo']['description']) <= 160
     from src.publication_quality import choose_description

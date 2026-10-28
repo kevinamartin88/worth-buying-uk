@@ -136,6 +136,11 @@ def enhance_search_focus(article: dict, market: str) -> dict:
     # Do not alter price-checked paragraphs, product cards or the review methodology.
     if re.match(r'^\s*<p><strong>.*?</strong></p>', content, re.S):
         content = re.sub(r'^\s*<p><strong>.*?</strong></p>', lambda _: intro, content, count=1, flags=re.S)
+    else:
+        # USA buying-card articles wrap the intro after a dated badge. Replace
+        # only the generated shopping summary, leaving that badge untouched.
+        content = re.sub(r'<p><strong>Shopping for .*?</strong></p>', lambda _: intro,
+                         content, count=1, flags=re.S)
     block = START + section(config['heading'], config['paragraphs']) + END
     if START in content and END in content:
         content = re.sub(re.escape(START) + '.*?' + re.escape(END), lambda _: block, content, flags=re.S)
