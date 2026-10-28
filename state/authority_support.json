@@ -1,22 +1,22 @@
 {
   "uk": {
     "action": "created",
-    "authority_cluster": "Consumer Tech",
-    "parent_topic": "power-banks",
-    "selection_basis": "gsc-opportunity-or-authority-rotation",
-    "slug": "best-power-banks-under-80-worth-buying-uk",
-    "support_angle": "budget",
-    "title": "Best Power Banks Under £80 Worth Buying in the UK (2026)",
-    "week": "2026-W43"
-  },
-  "us": {
-    "action": "created",
     "authority_cluster": "Motoring",
     "parent_topic": "car-vacuums",
     "selection_basis": "gsc-opportunity-or-authority-rotation",
-    "slug": "best-car-vacuums-under-90-worth-buying-us",
-    "support_angle": "budget",
-    "title": "Best Car Vacuums Under $90 Worth Buying in the USA (2026)",
-    "week": "2026-W43"
+    "slug": "best-value-car-vacuums-worth-buying-uk",
+    "support_angle": "value",
+    "title": "4 Best Value Car Vacuum Cleaners UK 2026: Picks from £17.99–£21",
+    "week": "2026-W44"
+  },
+  "us": {
+    "action": "created",
+    "authority_cluster": "DIY & Garden",
+    "parent_topic": "cordless-drills",
+    "selection_basis": "gsc-opportunity-or-authority-rotation",
+    "slug": "best-refurbished-cordless-drills-worth-buying-us",
+    "support_angle": "refurbished",
+    "title": "4 Best Refurbished Cordless Drills USA 2026: Picks from $108–$300",
+    "week": "2026-W44"
   }
 }

@@ -2219,6 +2219,20 @@
     "title": "Shark NeverChange5 Air Purifier | Compact Pro, HEPA Filter | REFURB | HP072UK",
     "tracking_status": "unavailable"
   },
+  "daily|uk|v1|187943205267|0": {
+    "article_slug": "best-value-car-vacuums-worth-buying-uk",
+    "last_attempt_date": "2026-10-28",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-28",
+        "price": 20.89,
+        "ts": "2026-10-28T17:11:07.680787+00:00"
+      }
+    ],
+    "title": "Handheld High Power Car Vacuum Cleaner Cordless, 22000PA Powerful 3 Gear Suction",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|188399513432|0": {
     "article_slug": "best-robot-vacuum-cleaners-worth-buying-uk-2026",
     "last_attempt_date": "2026-10-24",
@@ -3827,6 +3841,20 @@
     "title": "Crucial BX500 3D NAND CT480BX500SSD1 480GB 2.5\" Laptop PC Solid State Drive SSD",
     "tracking_status": "ended"
   },
+  "daily|uk|v1|298729703350|595432106242": {
+    "article_slug": "best-value-car-vacuums-worth-buying-uk",
+    "last_attempt_date": "2026-10-28",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-28",
+        "price": 17.99,
+        "ts": "2026-10-28T17:11:07.680787+00:00"
+      }
+    ],
+    "title": "Strong Car Vacuum Cleaner Blower Cordless Strong Suction Handheld Cleaning Home",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|298739739128|0": {
     "article_slug": "prime-big-deal-days-ssds-uk-2026",
     "last_attempt_date": "2026-10-18",
@@ -4709,6 +4737,20 @@
     "title": "Fanxiang SSD 1TB 2.5\" SATA SSD 6Gb/s 550MB/S Internal Solid State Hard Drive PC",
     "tracking_status": "active"
   },
+  "daily|uk|v1|364521418915|0": {
+    "article_slug": "best-value-car-vacuums-worth-buying-uk",
+    "last_attempt_date": "2026-10-28",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-28",
+        "price": 19.99,
+        "ts": "2026-10-28T17:11:07.680787+00:00"
+      }
+    ],
+    "title": "Goodyear Cordless Car Vacuum Cleaner with Hepa Filter | Wet | Dry |USB |Wireless",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|364528031940|634033027227": {
     "article_slug": "best-air-purifiers-worth-buying-uk",
     "last_attempt_date": "2026-10-21",
@@ -5533,6 +5575,20 @@
       }
     ],
     "title": "MOMOKOVA 26L Dual Zone Air Fryer Oven 10-in-1 Rotisserie Convection French Door",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|407223678791|0": {
+    "article_slug": "best-value-car-vacuums-worth-buying-uk",
+    "last_attempt_date": "2026-10-28",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-28",
+        "price": 20.89,
+        "ts": "2026-10-28T17:11:07.680787+00:00"
+      }
+    ],
+    "title": "5 In 1 28000Pa Powerful Car Vacuum Cleaner Cordless Strong Handheld Cleaning UK",
     "tracking_status": "active"
   },
   "daily|uk|v1|800154077602|0": {
@@ -9225,6 +9281,34 @@
     "title": "TEAMGROUP AX2 2TB 3D NAND TLC 2.5 Inch SATA III SSD",
     "tracking_status": "active"
   },
+  "daily|us|v1|277130534164|0": {
+    "article_slug": "best-refurbished-cordless-drills-worth-buying-us",
+    "last_attempt_date": "2026-10-28",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-28",
+        "price": 299.99,
+        "ts": "2026-10-28T17:11:13.102365+00:00"
+      }
+    ],
+    "title": "Milwaukee M18 Fuel Super Hawg 1/2Inch Right Angle Drill (Bare Tool) Refurbished",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|277674976342|0": {
+    "article_slug": "best-refurbished-cordless-drills-worth-buying-us",
+    "last_attempt_date": "2026-10-28",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-28",
+        "price": 111.48,
+        "ts": "2026-10-28T17:11:13.102365+00:00"
+      }
+    ],
+    "title": "Bosch Corded Hammer Drill Refurbished",
+    "tracking_status": "active"
+  },
   "daily|us|v1|277682426477|0": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
     "last_attempt_date": "2026-10-27",
@@ -11278,8 +11362,8 @@
     "tracking_status": "active"
   },
   "daily|us|v1|366199188711|0": {
-    "article_slug": "best-cordless-drills-worth-buying-us",
-    "last_attempt_date": "2026-10-22",
+    "article_slug": "best-refurbished-cordless-drills-worth-buying-us",
+    "last_attempt_date": "2026-10-28",
     "observations": [
       {
         "currency": "USD",
@@ -11292,6 +11376,12 @@
         "date": "2026-10-22",
         "price": 107.99,
         "ts": "2026-10-22T02:26:38.871687+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-28",
+        "price": 107.99,
+        "ts": "2026-10-28T17:11:13.102365+00:00"
       }
     ],
     "title": "Bosch GSR12V-140FCB22 12V Cordless Max Drill/Driver (Certified Refurbished)",
@@ -12959,6 +13049,20 @@
       }
     ],
     "title": "KitchenAid Deluxe 4.5QT Tilt-Head Stand Mixer Contour Silver (KSM97CU) NEW",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|940034182466|0": {
+    "article_slug": "best-refurbished-cordless-drills-worth-buying-us",
+    "last_attempt_date": "2026-10-28",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-28",
+        "price": 195.49,
+        "ts": "2026-10-28T17:11:13.102365+00:00"
+      }
+    ],
+    "title": "Bosch 12V Max Ec Flexiclick 5 In 1 Drill/driver System Kit Factory Refurbished",
     "tracking_status": "active"
   },
   "daily|us|v1|960021373865|0": {
