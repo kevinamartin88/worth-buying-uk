@@ -31,6 +31,10 @@ def test_real_article_refresh_preserves_commercial_and_publication_evidence(mark
     assert updated['content_html'].count(START) == 1
     assert updated['_seo']['search_focus_revision'] == REVISION
     assert 90 <= len(updated['_seo']['description']) <= 160
+    from src.publication_quality import choose_description
+    selected, issues = choose_description(updated, market)
+    assert issues == []
+    assert selected == updated['_seo']['description']
     assert enhance_search_guide(updated, market) == updated
 
 
