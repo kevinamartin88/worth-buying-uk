@@ -98,7 +98,7 @@ def pressure_faq(market: str) -> str:
     ) + '\n' + FAQ_END
 
 
-def enhance_search_guide(article: dict, market: str) -> dict:
+def _enhance_base_search_guide(article: dict, market: str) -> dict:
     """Enhance only the selected topic; unrelated articles stay byte-for-byte equal."""
     if (article.get('_generator') or {}).get('topic') != 'pressure-washers':
         from src.topic_advice import enhance_topic_advice
@@ -137,4 +137,9 @@ def enhance_search_guide(article: dict, market: str) -> dict:
     ]))
     seo['editorial_revision'] = REVISION
     return result
+
+
+def enhance_search_guide(article: dict, market: str) -> dict:
+    from src.search_focus import enhance_search_focus
+    return enhance_search_focus(_enhance_base_search_guide(article, market), market)
 
