@@ -1,8 +1,17 @@
 {
-  "run": "2026-10-27T15:55:04.908436+00:00",
+  "run": "2026-10-28T15:59:43.187015+00:00",
   "current_run": {
-    "started_at": "2026-10-27T15:55:04.908436+00:00",
-    "weekly": {}
+    "started_at": "2026-10-28T15:59:43.187015+00:00",
+    "weekly": {
+      "uk": {
+        "status": "generated-awaiting-publisher",
+        "error": null
+      },
+      "us": {
+        "status": "generated-awaiting-publisher",
+        "error": null
+      }
+    }
   },
   "state": {
     "growth": {
@@ -631,17 +640,20 @@
     },
     "weekly": {
       "uk": {
-        "status": "blocked",
-        "error": "ValueError: No verified, relevant listing with a usable photo for Smaller single-basket shortlist",
-        "attempted": "2026-10-22"
+        "status": "generated-awaiting-publisher",
+        "error": null,
+        "attempted": "2026-10-28",
+        "week": "2026-W44",
+        "next": 1,
+        "slug": "air-fryers-for-students-uk"
       },
       "us": {
-        "status": "published",
+        "status": "generated-awaiting-publisher",
         "error": null,
-        "attempted": "2026-10-21",
-        "week": "2026-W43",
-        "next": 2,
-        "slug": "affordable-homeware-for-students-usa",
+        "attempted": "2026-10-28",
+        "week": "2026-W44",
+        "next": 3,
+        "slug": "easy-grip-cutlery-usa",
         "url": "https://www.worthbuyingusa.com/2026/10/affordable-home-essentials-for-college.html"
       }
     },
