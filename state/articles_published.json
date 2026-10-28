@@ -690,12 +690,12 @@
     "image_required": true,
     "post_id": "6980345072697007961",
     "promotion_token": "2026-10-09:uk:best-tablets-worth-buying-uk",
-    "publish_fingerprint": "bf57e0cf18bb1853923bb27cd433b7a0566edc27730cda611034f0e6606d5a79",
+    "publish_fingerprint": "fafb901ebbb42bc7019a0383be05a1b279d776548da03055ead52a4033e460f0",
     "seo_revision": "published-seo-v1",
     "source_file": "best-tablets-worth-buying-uk.json",
-    "source_sha": "2026-10-09-tablets-uk-daily-v6",
+    "source_sha": "2026-10-09-tablets-uk-daily-v6-search-focus-2026-10-28",
     "status": "published",
-    "title": "Best Tablets Worth Buying in the UK (2026)",
+    "title": "Tablets UK: Streaming, Study & Refurbished Buying Guide",
     "url": "https://www.worthbuyinguk.co.uk/2026/10/best-tablets-worth-buying-in-uk-2026.html"
   },
   "best-toasters-worth-buying-uk-2026": {
@@ -721,13 +721,13 @@
     "post_id": "4064744471392522144",
     "primary_category": "Tech",
     "promotion_token": "2026-10-07:uk:best-tvs-worth-buying-uk-2026",
-    "publish_fingerprint": "4e10fb39b40f71c9bebaa8d150ae1c2b9884012fa0395a97be5a5f7c50c238bc",
+    "publish_fingerprint": "9a719d47a08e6b45fb0dca79fa041395c4438fe479eab62946559e46a9891368",
     "publisher": "email",
     "seo_revision": "published-seo-v1",
     "source_file": "best-tvs-worth-buying-uk-2026.json",
-    "source_sha": "2026-10-07-tvs-uk-daily-v6",
+    "source_sha": "2026-10-07-tvs-uk-daily-v6-search-focus-2026-10-28",
     "status": "published",
-    "title": "Best TVs Worth Buying in the UK (2026)",
+    "title": "TV Buying Guide UK: Screen Size, Gaming & Refurbished Checks",
     "url": "https://www.worthbuyinguk.co.uk/2026/09/best-tvs-worth-buying-in-uk-2026.html"
   },
   "best-tyre-inflators-worth-buying-uk": {
@@ -736,12 +736,12 @@
     "image_required": true,
     "post_id": "7423570522420802401",
     "promotion_token": "2026-10-19:uk:best-tyre-inflators-worth-buying-uk",
-    "publish_fingerprint": "4d598c734e690c954d9878676715761f1281ed5e1cf2f3fc814a95237e7649cd",
+    "publish_fingerprint": "203c22a826b5eeb012f5e9b533eabec24cd6f6959dcb2544cbc6d66d9c0b2e83",
     "seo_revision": "published-seo-v1",
     "source_file": "best-tyre-inflators-worth-buying-uk.json",
-    "source_sha": "2026-10-19-tyre-inflators-uk-daily-v6",
+    "source_sha": "2026-10-19-tyre-inflators-uk-daily-v6-search-focus-2026-10-28",
     "status": "published",
-    "title": "Best Tyre Inflators Worth Buying in the UK (2026)",
+    "title": "Tyre Inflators UK: Cordless vs 12V Buying Guide",
     "url": "https://www.worthbuyinguk.co.uk/2026/10/best-tyre-inflators-worth-buying-in-uk.html"
   },
   "best-value-storage-bins-worth-buying-uk": {
