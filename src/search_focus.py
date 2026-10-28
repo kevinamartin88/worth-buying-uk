@@ -42,7 +42,7 @@ FOCUS = {
     ('uk', 'best-tablets-worth-buying-uk'): {
         'topic': 'tablets',
         'title': 'Tablets UK: Streaming, Study & Refurbished Buying Guide',
-        'description': 'Choose a tablet for streaming, study or everyday use. Compare software support, real storage, Wi-Fi vs cellular, accessories and refurbished condition.',
+        'description': 'Choose a UK tablet for streaming or study. Compare software support, storage, Wi-Fi vs cellular, accessories and refurbished condition.',
         'intro': 'A tablet for watching films, schoolwork and replacing a laptop can mean three different purchases. Start with the apps and accessories you need, then compare the exact model and its supported software.',
         'heading': 'Choose a tablet around the job it needs to do',
         'paragraphs': [
@@ -78,7 +78,7 @@ FOCUS = {
     ('us', 'best-cordless-drills-worth-buying-us'): {
         'topic': 'cordless-drills',
         'title': 'Cordless Drills USA: Bare Tool vs Kit Buying Guide',
-        'description': 'Compare cordless drills for home DIY. Check bare-tool vs kit costs, battery compatibility, chuck size, drilling modes and refurbished accessories.',
+        'description': 'Compare US cordless drills for home DIY. Check bare-tool vs kit costs, battery compatibility, chuck size, drilling modes and refurbished accessories.',
         'intro': 'The cheapest drill body is not always the cheapest way to finish a DIY job. Compare a usable kit: drill, compatible battery, charger and the bits or attachments your job needs.',
         'heading': 'How to compare a cordless drill kit with a bare tool',
         'paragraphs': [
@@ -96,7 +96,7 @@ FOCUS = {
     ('us', 'best-pressure-washers-worth-buying-us'): {
         'topic': 'pressure-washers',
         'title': 'Pressure Washers USA: PSI, GPM & Buying Guide',
-        'description': 'Choose a pressure washer for cars, patios or driveways. Compare rated PSI and GPM, electric vs gas, hose reach, accessories and total cost.',
+        'description': 'Choose a US pressure washer for cars, patios or driveways. Compare rated PSI and GPM, electric vs gas, hose reach, accessories and total cost.',
         'intro': 'A pressure washer for a car and one for a large driveway can be very different purchases. Use PSI and GPM together, then check reach, attachments and the practical cost of owning the machine.',
         'heading': 'Before choosing a pressure washer: three buying decisions',
         'paragraphs': [
@@ -109,7 +109,7 @@ FOCUS = {
     ('us', 'best-slow-cookers-worth-buying-us'): {
         'topic': 'slow-cookers',
         'title': 'Slow Cookers USA: Size, Timers & Running Costs',
-        'description': 'Choose a slow cooker for your household. Compare usable quart capacity, manual vs programmable controls, keep-warm, cleaning and running costs.',
+        'description': 'Choose a US slow cooker for your household. Compare usable quart capacity, manual vs programmable controls, keep-warm, cleaning and running costs.',
         'intro': 'Choose a slow cooker around your normal meal and routine: a manageable pot, controls you will actually use and clear cleaning instructions matter more than the longest feature list.',
         'heading': 'Small household, batch cooking or a meal ready after work?',
         'paragraphs': [
@@ -136,6 +136,11 @@ def enhance_search_focus(article: dict, market: str) -> dict:
     # Do not alter price-checked paragraphs, product cards or the review methodology.
     if re.match(r'^\s*<p><strong>.*?</strong></p>', content, re.S):
         content = re.sub(r'^\s*<p><strong>.*?</strong></p>', lambda _: intro, content, count=1, flags=re.S)
+    else:
+        # USA buying-card articles wrap the intro after a dated badge. Replace
+        # only the generated shopping summary, leaving that badge untouched.
+        content = re.sub(r'<p><strong>Shopping for .*?</strong></p>', lambda _: intro,
+                         content, count=1, flags=re.S)
     block = START + section(config['heading'], config['paragraphs']) + END
     if START in content and END in content:
         content = re.sub(re.escape(START) + '.*?' + re.escape(END), lambda _: block, content, flags=re.S)
