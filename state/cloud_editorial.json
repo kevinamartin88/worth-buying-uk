@@ -625,21 +625,22 @@
   },
   "weekly": {
     "uk": {
-      "status": "generated-awaiting-publisher",
+      "status": "published",
       "error": null,
       "attempted": "2026-10-28",
       "week": "2026-W44",
       "next": 1,
-      "slug": "air-fryers-for-students-uk"
+      "slug": "air-fryers-for-students-uk",
+      "url": "https://www.worthbuyinguk.co.uk/2026/10/air-fryers-for-university-students.html"
     },
     "us": {
-      "status": "generated-awaiting-publisher",
+      "status": "published",
       "error": null,
       "attempted": "2026-10-28",
       "week": "2026-W44",
       "next": 3,
       "slug": "easy-grip-cutlery-usa",
-      "url": "https://www.worthbuyingusa.com/2026/10/affordable-home-essentials-for-college.html"
+      "url": "https://www.worthbuyingusa.com/2026/10/easy-grip-utensils-for-reduced-hand.html"
     }
   },
   "metrics_finished": true
