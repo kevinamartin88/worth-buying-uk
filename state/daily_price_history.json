@@ -175,7 +175,7 @@
   },
   "daily|uk|v1|125687113100|0": {
     "article_slug": "best-air-fryers-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-22",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "GBP",
@@ -200,6 +200,12 @@
         "date": "2026-10-22",
         "price": 57.99,
         "ts": "2026-10-22T02:26:26.065390+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-30",
+        "price": 57.99,
+        "ts": "2026-10-30T02:32:03.415382+00:00"
       }
     ],
     "title": "EMtronics Double Basket Air Fryer Digital Dual 9L with Timer - Stainless Steel",
@@ -221,7 +227,7 @@
   },
   "daily|uk|v1|126616925330|0": {
     "article_slug": "best-tablets-worth-buying-uk",
-    "last_attempt_date": "2026-10-22",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "GBP",
@@ -246,6 +252,12 @@
         "date": "2026-10-22",
         "price": 69.98,
         "ts": "2026-10-22T02:26:26.065390+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-30",
+        "price": 69.68,
+        "ts": "2026-10-30T02:32:03.415382+00:00"
       }
     ],
     "title": "2025 NEW 12S PRO Wifi Tablet Android 15 PC 8GB+64GB Tablets 10.1 Inch 6000mAh",
@@ -253,21 +265,41 @@
   },
   "daily|uk|v1|126669081885|0": {
     "article_slug": "best-blenders-worth-buying-uk",
-    "last_attempt_date": "2026-10-22",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-22",
         "price": 149.99,
         "ts": "2026-10-22T02:26:38.846826+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-30",
+        "price": 149.99,
+        "ts": "2026-10-30T02:32:03.415382+00:00"
       }
     ],
     "title": "Ninja 3-in-1 Food Processor | Auto-iQ, Blender, 1200W | REFURB | BN800UK",
     "tracking_status": "active"
   },
+  "daily|uk|v1|126976494516|0": {
+    "article_slug": "best-smart-plugs-worth-buying-uk",
+    "last_attempt_date": "2026-10-30",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-30",
+        "price": 11.95,
+        "ts": "2026-10-30T02:32:14.099289+00:00"
+      }
+    ],
+    "title": "Amazon Alexa Smart Plug - Make Your Home Smart - Simple to Set up and Use",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|127040307133|0": {
     "article_slug": "best-coffee-machines-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-22",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "GBP",
@@ -292,6 +324,12 @@
         "date": "2026-10-22",
         "price": 374.99,
         "ts": "2026-10-22T02:26:26.065390+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-30",
+        "price": 404.99,
+        "ts": "2026-10-30T02:32:03.415382+00:00"
       }
     ],
     "title": "Ninja Luxe Café Premier Espresso Machine | Bean to Cup | REFURB | ES601UK",
@@ -299,7 +337,7 @@
   },
   "daily|uk|v1|127281955059|428385499136": {
     "article_slug": "best-air-fryers-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-22",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "GBP",
@@ -324,6 +362,12 @@
         "date": "2026-10-22",
         "price": 51.99,
         "ts": "2026-10-22T02:26:26.065390+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-30",
+        "price": 54.99,
+        "ts": "2026-10-30T02:32:03.415382+00:00"
       }
     ],
     "title": "EMtronics Double Basket Air Fryer Dual Drawer 9 Litre - Various Colours",
@@ -331,7 +375,7 @@
   },
   "daily|uk|v1|127530818719|0": {
     "article_slug": "best-coffee-machines-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-22",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "GBP",
@@ -350,10 +394,16 @@
         "date": "2026-10-15",
         "price": 144.99,
         "ts": "2026-10-15T02:23:30.851093+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-30",
+        "price": 134.99,
+        "ts": "2026-10-30T02:32:03.415382+00:00"
       }
     ],
     "title": "Ninja Prestige Dualbrew Coffee Machine | Filter and Pod | REFURB | CFN802UK",
-    "tracking_status": "unavailable"
+    "tracking_status": "active"
   },
   "daily|uk|v1|127542080313|0": {
     "article_slug": "best-mesh-wifi-worth-buying-uk",
@@ -1885,6 +1935,20 @@
     "title": "Avalla X-550 4-in-1 Dehumidifier & Purifier 20L/Day, 64m³ Coverage",
     "tracking_status": "active"
   },
+  "daily|uk|v1|168193684038|0": {
+    "article_slug": "best-smart-plugs-worth-buying-uk",
+    "last_attempt_date": "2026-10-30",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-30",
+        "price": 12.61,
+        "ts": "2026-10-30T02:32:14.099289+00:00"
+      }
+    ],
+    "title": "Tapo P110M Smart Plug, WiFi Plug, Energy Monitoring, Electricity Usage Monitor,",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|174227029013|0": {
     "article_slug": "best-air-purifiers-worth-buying-uk",
     "last_attempt_date": "2026-10-23",
@@ -2006,6 +2070,20 @@
     ],
     "title": "Google Pixel Watch 2 Good Condition Android Smartwatch With Strap",
     "tracking_status": "unavailable"
+  },
+  "daily|uk|v1|178310047316|0": {
+    "article_slug": "best-smart-plugs-worth-buying-uk",
+    "last_attempt_date": "2026-10-30",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-30",
+        "price": 14.95,
+        "ts": "2026-10-30T02:32:14.099289+00:00"
+      }
+    ],
+    "title": "3PACK TP Link Smart Wi-Fi Plug HS100 Works With Google & Alexa Kasa App EU PLUG",
+    "tracking_status": "active"
   },
   "daily|uk|v1|178357009402|0": {
     "article_slug": "best-power-banks-under-80-worth-buying-uk",
@@ -2855,6 +2933,20 @@
       }
     ],
     "title": "NEW Amazon Fire HD 10 Tablet - 1080p Full HD Display in Black 32gb - 11th Gen",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|236067022620|0": {
+    "article_slug": "best-smart-plugs-worth-buying-uk",
+    "last_attempt_date": "2026-10-30",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-10-30",
+        "price": 31.49,
+        "ts": "2026-10-30T02:32:14.099289+00:00"
+      }
+    ],
+    "title": "Smart Plug, Wireless Socket Remote Control Timer Plug Switch 13A",
     "tracking_status": "active"
   },
   "daily|uk|v1|236309041806|0": {
@@ -4269,7 +4361,7 @@
   },
   "daily|uk|v1|318589740161|0": {
     "article_slug": "best-value-storage-bins-worth-buying-uk",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "GBP",
@@ -4285,7 +4377,7 @@
       }
     ],
     "title": "135L Stackable Storage Bins with Lids & Wheels, Foldable Closet Organizer Box",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|uk|v1|318843013240|0": {
     "article_slug": "best-soundbars-worth-buying-uk-2026",
@@ -4321,7 +4413,7 @@
   },
   "daily|uk|v1|318897959885|0": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-uk",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "GBP",
@@ -4346,6 +4438,12 @@
         "date": "2026-10-21",
         "price": 79.99,
         "ts": "2026-10-21T02:27:47.845128+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-30",
+        "price": 79.99,
+        "ts": "2026-10-30T02:32:03.415382+00:00"
       }
     ],
     "title": "Air Fryer Kitchen Master 8L Digital Dual Basket Large Family CSB97466 New",
@@ -4399,7 +4497,7 @@
   },
   "daily|uk|v1|326774568772|0": {
     "article_slug": "best-slow-cookers-worth-buying-uk",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "GBP",
@@ -4424,6 +4522,12 @@
         "date": "2026-10-21",
         "price": 31.99,
         "ts": "2026-10-21T02:27:47.845128+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-30",
+        "price": 31.99,
+        "ts": "2026-10-30T02:32:03.415382+00:00"
       }
     ],
     "title": "ProCook 4.8L Digital Slow Cooker 3 Heat Settings Delay Start Function Black 9440",
@@ -4525,13 +4629,19 @@
   },
   "daily|uk|v1|336750481720|0": {
     "article_slug": "best-gaming-headsets-worth-buying-uk",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-21",
         "price": 106.14,
         "ts": "2026-10-21T02:27:58.584282+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-30",
+        "price": 179.9,
+        "ts": "2026-10-30T02:32:03.415382+00:00"
       }
     ],
     "title": "SteelSeries Arctis Nova 7X Gen 2 Wireless 2.4GHz/Bluetooth  Gaming Headset",
@@ -4539,13 +4649,19 @@
   },
   "daily|uk|v1|336760975295|0": {
     "article_slug": "best-power-banks-under-80-worth-buying-uk",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-21",
         "price": 15.69,
         "ts": "2026-10-21T16:58:26.197472+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-30",
+        "price": 21.27,
+        "ts": "2026-10-30T02:32:03.415382+00:00"
       }
     ],
     "title": "POWER BANK 20000mAh PD20W Fast Charging USB C 22.5W Portable Charger black",
@@ -4705,7 +4821,7 @@
   },
   "daily|uk|v1|358703800622|0": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-uk",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "GBP",
@@ -4730,6 +4846,12 @@
         "date": "2026-10-21",
         "price": 89.1,
         "ts": "2026-10-21T02:27:47.845128+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-30",
+        "price": 89.1,
+        "ts": "2026-10-30T02:32:03.415382+00:00"
       }
     ],
     "title": "11L Double Stack Air Fryer, Family Size Digital with 2x5.5L Baskets Cook",
@@ -4861,7 +4983,7 @@
   },
   "daily|uk|v1|364528031940|634033027227": {
     "article_slug": "best-air-purifiers-worth-buying-uk",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "GBP",
@@ -4892,6 +5014,12 @@
         "date": "2026-10-21",
         "price": 49.99,
         "ts": "2026-10-21T02:27:47.845128+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-30",
+        "price": 49.99,
+        "ts": "2026-10-30T02:32:03.415382+00:00"
       }
     ],
     "title": "Silentnight Airmax 800 Air Purifier for Home Bedroom Ultra Quiet Sleep Aid Pets",
@@ -4965,7 +5093,7 @@
   },
   "daily|uk|v1|365401219008|0": {
     "article_slug": "best-wireless-earbuds-worth-buying-uk",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "GBP",
@@ -4984,6 +5112,12 @@
         "date": "2026-10-21",
         "price": 17.79,
         "ts": "2026-10-21T02:27:47.845128+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-30",
+        "price": 17.59,
+        "ts": "2026-10-30T02:32:03.415382+00:00"
       }
     ],
     "title": "Sony True Wireless Bluetooth Earphones Waterproof In-Ear Fitness Music Headset",
@@ -5297,13 +5431,19 @@
   },
   "daily|uk|v1|395904775809|0": {
     "article_slug": "best-power-banks-under-80-worth-buying-uk",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-21",
         "price": 18.99,
         "ts": "2026-10-21T16:58:26.197472+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-30",
+        "price": 18.99,
+        "ts": "2026-10-30T02:32:03.415382+00:00"
       }
     ],
     "title": "Power Bank 30000mAh QC3.0 22.5W & USB C PD20W Fast Charging APD101 - NEW",
@@ -5337,7 +5477,7 @@
   },
   "daily|uk|v1|397178813318|0": {
     "article_slug": "best-slow-cookers-worth-buying-uk",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "GBP",
@@ -5362,6 +5502,12 @@
         "date": "2026-10-21",
         "price": 34.59,
         "ts": "2026-10-21T02:27:47.845128+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-30",
+        "price": 34.59,
+        "ts": "2026-10-30T02:32:03.415382+00:00"
       }
     ],
     "title": "SUPERLEX 6.5L Slow Cooker – Removable Ceramic Pot, 3 Heat Settings, Timer, 270W",
@@ -5369,7 +5515,7 @@
   },
   "daily|uk|v1|397479343812|0": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-uk",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "GBP",
@@ -5400,6 +5546,12 @@
         "date": "2026-10-21",
         "price": 72.99,
         "ts": "2026-10-21T02:27:47.845128+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-30",
+        "price": 72.99,
+        "ts": "2026-10-30T02:32:03.415382+00:00"
       }
     ],
     "title": "12L Air fryer Oven Family Size Large Air fryer With Accessories 1800W",
@@ -5513,7 +5665,7 @@
   },
   "daily|uk|v1|406595417621|0": {
     "article_slug": "best-power-banks-under-80-worth-buying-uk",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "GBP",
@@ -5523,11 +5675,11 @@
       }
     ],
     "title": "Anker Zolo Power Bank(2025 Upgrade),20000mAh 30W High Speed Built in USB-C Cable",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|uk|v1|406914955172|0": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-uk",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "GBP",
@@ -5552,6 +5704,12 @@
         "date": "2026-10-21",
         "price": 74.99,
         "ts": "2026-10-21T02:27:47.845128+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-30",
+        "price": 74.99,
+        "ts": "2026-10-30T02:32:03.415382+00:00"
       }
     ],
     "title": "Hawthyhome Dual Air Fryer 8L Large for Family 2 Non-Stick Drawers Visible Window",
@@ -5559,7 +5717,7 @@
   },
   "daily|uk|v1|406921375942|677133597757": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-uk",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "GBP",
@@ -5584,6 +5742,12 @@
         "date": "2026-10-21",
         "price": 64.99,
         "ts": "2026-10-21T02:27:47.845128+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-10-30",
+        "price": 74.99,
+        "ts": "2026-10-30T02:32:03.415382+00:00"
       }
     ],
     "title": "EMtronics 10L Stack Dual Air Fryer Double Basket Large Family Size",
@@ -7123,6 +7287,20 @@
     "title": "Bose SoundLink Flex Portable Speaker (2nd Gen), Certified Refurbished",
     "tracking_status": "active"
   },
+  "daily|us|v1|158205973055|0": {
+    "article_slug": "best-projectors-worth-buying-us",
+    "last_attempt_date": "2026-10-30",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-30",
+        "price": 380.0,
+        "ts": "2026-10-30T02:32:24.566863+00:00"
+      }
+    ],
+    "title": "Optoma Photon Life PK31 4K UHD 3LED Compact Home Entertainment Projector",
+    "tracking_status": "active"
+  },
   "daily|us|v1|158275521393|0": {
     "article_slug": "best-stand-mixers-worth-buying-us",
     "last_attempt_date": "2026-10-28",
@@ -7139,7 +7317,7 @@
   },
   "daily|us|v1|164808049794|464290224764": {
     "article_slug": "best-security-cameras-worth-buying-us",
-    "last_attempt_date": "2026-10-19",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "USD",
@@ -7158,6 +7336,12 @@
         "date": "2026-10-19",
         "price": 339.99,
         "ts": "2026-10-19T02:04:49.734376+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-30",
+        "price": 289.99,
+        "ts": "2026-10-30T02:32:14.129896+00:00"
       }
     ],
     "title": "ANRAN Home Outdoor Wireless Security WiFi Camera System CCTV 5MP HD NVR 2TB HDD",
@@ -7165,7 +7349,7 @@
   },
   "daily|us|v1|166181985612|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-19",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "USD",
@@ -7193,11 +7377,11 @@
       }
     ],
     "title": "Cuisinart Burr Grind & Brew 12 Cup Automatic Coffee Maker, Stainless 12 Cup, New",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|us|v1|166512483033|0": {
     "article_slug": "approved-retailer-slow-cookers-us-2026-10-05",
-    "last_attempt_date": "2026-10-19",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "USD",
@@ -7228,6 +7412,12 @@
         "date": "2026-10-19",
         "price": 91.3,
         "ts": "2026-10-19T02:04:49.734376+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-30",
+        "price": 86.73,
+        "ts": "2026-10-30T02:32:14.129896+00:00"
       }
     ],
     "title": "8qt Crock Pot 8qt Slow Cooker Big 10 quart 9 quart 8.5 Quart Huge XL qt Large",
@@ -7249,13 +7439,19 @@
   },
   "daily|us|v1|167001855558|0": {
     "article_slug": "best-gaming-headsets-worth-buying-us",
-    "last_attempt_date": "2026-10-19",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-19",
         "price": 39.95,
         "ts": "2026-10-19T02:05:01.715663+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-30",
+        "price": 39.95,
+        "ts": "2026-10-30T02:32:14.129896+00:00"
       }
     ],
     "title": "Honcam RGB 2.4G Wireless Gaming Headset for Nintendo Switch for PS5/PS4/PC/Xbox",
@@ -7263,13 +7459,19 @@
   },
   "daily|us|v1|167017878525|0": {
     "article_slug": "best-gaming-headsets-worth-buying-us",
-    "last_attempt_date": "2026-10-19",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-19",
         "price": 114.0,
         "ts": "2026-10-19T02:05:01.715663+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-30",
+        "price": 114.0,
+        "ts": "2026-10-30T02:32:14.129896+00:00"
       }
     ],
     "title": "HEADSET-PRO X 2 LIGHTSPEED Wireless Gaming Headset-WHITE-2.4GHZ- 981-001268",
@@ -7277,13 +7479,19 @@
   },
   "daily|us|v1|167017920270|0": {
     "article_slug": "best-gaming-headsets-worth-buying-us",
-    "last_attempt_date": "2026-10-19",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-19",
         "price": 71.25,
         "ts": "2026-10-19T02:05:01.715663+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-30",
+        "price": 71.25,
+        "ts": "2026-10-30T02:32:14.129896+00:00"
       }
     ],
     "title": "Logitech - G PRO X Wireless Gaming Headset for PC - Black",
@@ -7291,7 +7499,7 @@
   },
   "daily|us|v1|167031735841|0": {
     "article_slug": "best-soundbars-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-19",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "USD",
@@ -7310,6 +7518,12 @@
         "date": "2026-10-19",
         "price": 129.0,
         "ts": "2026-10-19T02:04:49.734376+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-30",
+        "price": 94.0,
+        "ts": "2026-10-30T02:32:14.129896+00:00"
       }
     ],
     "title": "Bose Solo Soundbar 2 Home Theater, Certified Refurbished",
@@ -7317,13 +7531,19 @@
   },
   "daily|us|v1|167051732325|0": {
     "article_slug": "best-gaming-headsets-worth-buying-us",
-    "last_attempt_date": "2026-10-19",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-19",
         "price": 47.5,
         "ts": "2026-10-19T02:05:01.715663+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-30",
+        "price": 47.5,
+        "ts": "2026-10-30T02:32:14.129896+00:00"
       }
     ],
     "title": "Logitech Astro A20 Gen 2 Wireless Gaming Headset PlayStation Blue",
@@ -7379,7 +7599,7 @@
   },
   "daily|us|v1|168310739877|467834930780": {
     "article_slug": "best-smartwatches-worth-buying-us",
-    "last_attempt_date": "2026-10-19",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "USD",
@@ -7398,6 +7618,12 @@
         "date": "2026-10-19",
         "price": 176.99,
         "ts": "2026-10-19T02:04:49.734376+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-30",
+        "price": 176.99,
+        "ts": "2026-10-30T02:32:14.129896+00:00"
       }
     ],
     "title": "Samsung Galaxy Watch 8 LTE 40mm Unlocked  Smartwatch L325U - Excellent",
@@ -7585,7 +7811,7 @@
   },
   "daily|us|v1|168698734506|0": {
     "article_slug": "best-tvs-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-19",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "USD",
@@ -7607,7 +7833,7 @@
       }
     ],
     "title": "Hisense 75\" U7 ULED Mini-LED 4K UHD 165 Hz Smart Google TV",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|us|v1|168757042724|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
@@ -7665,7 +7891,7 @@
   },
   "daily|us|v1|178175236041|0": {
     "article_slug": "best-video-doorbells-worth-buying-us",
-    "last_attempt_date": "2026-10-20",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "USD",
@@ -7678,6 +7904,12 @@
         "date": "2026-10-20",
         "price": 53.99,
         "ts": "2026-10-20T02:42:16.085023+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-30",
+        "price": 53.99,
+        "ts": "2026-10-30T02:32:14.129896+00:00"
       }
     ],
     "title": "Wireless Video Doorbell No Subscription, 2K HD with 166° Wide View Night Vision",
@@ -7685,7 +7917,7 @@
   },
   "daily|us|v1|185935454347|0": {
     "article_slug": "best-smartwatches-worth-buying-us",
-    "last_attempt_date": "2026-10-19",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "USD",
@@ -7704,6 +7936,12 @@
         "date": "2026-10-19",
         "price": 59.95,
         "ts": "2026-10-19T02:04:49.734376+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-30",
+        "price": 69.95,
+        "ts": "2026-10-30T02:32:14.129896+00:00"
       }
     ],
     "title": "Samsung Galaxy Watch4 SM-R870 Bluetooth/GPS/WiFi SmartWatch 44mm - Black SR",
@@ -7711,7 +7949,7 @@
   },
   "daily|us|v1|185953427238|0": {
     "article_slug": "best-smartwatches-worth-buying-us",
-    "last_attempt_date": "2026-10-19",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "USD",
@@ -7733,11 +7971,11 @@
       }
     ],
     "title": "Samsung Galaxy Watch Active2 SM-R820 44mm Bluetooth Smartwatch - Black SR",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|us|v1|186068206398|695749503046": {
     "article_slug": "best-smartwatches-worth-buying-us",
-    "last_attempt_date": "2026-10-19",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "USD",
@@ -7756,6 +7994,12 @@
         "date": "2026-10-19",
         "price": 99.95,
         "ts": "2026-10-19T02:04:49.734376+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-30",
+        "price": 99.95,
+        "ts": "2026-10-30T02:32:14.129896+00:00"
       }
     ],
     "title": "Samsung Galaxy Watch 7 SM-L300 | 40mm | GPS | Bluetooth - Multi Color SmartWatch",
@@ -7783,7 +8027,7 @@
   },
   "daily|us|v1|187376950418|0": {
     "article_slug": "best-soundbars-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-19",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "USD",
@@ -7802,6 +8046,12 @@
         "date": "2026-10-19",
         "price": 297.0,
         "ts": "2026-10-19T02:04:49.734376+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-30",
+        "price": 297.0,
+        "ts": "2026-10-30T02:32:14.129896+00:00"
       }
     ],
     "title": "Samsung HW-Q600F Q-series 3.1.2 ch Soundbar w/ Wireless Subwoofer (2025)",
@@ -7823,7 +8073,7 @@
   },
   "daily|us|v1|187656775458|0": {
     "article_slug": "best-soundbars-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-19",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "USD",
@@ -7842,6 +8092,12 @@
         "date": "2026-10-19",
         "price": 473.0,
         "ts": "2026-10-19T02:04:49.734376+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-30",
+        "price": 473.0,
+        "ts": "2026-10-30T02:32:14.129896+00:00"
       }
     ],
     "title": "JBL BAR 700MK2 7.1-Channel 780W Dolby Atmos Soundbar System w/ Subwoofer",
@@ -7849,7 +8105,7 @@
   },
   "daily|us|v1|187698678816|0": {
     "article_slug": "best-security-cameras-worth-buying-us",
-    "last_attempt_date": "2026-10-19",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "USD",
@@ -7868,6 +8124,12 @@
         "date": "2026-10-19",
         "price": 75.65,
         "ts": "2026-10-19T02:04:49.734376+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-30",
+        "price": 75.65,
+        "ts": "2026-10-30T02:32:14.129896+00:00"
       }
     ],
     "title": "3-Pack 100%Wireless Solar Security Camera Outdoor Stable WiFi6,2-Way Talk",
@@ -7875,7 +8137,7 @@
   },
   "daily|us|v1|188147615353|695768445429": {
     "article_slug": "best-smartwatches-worth-buying-us",
-    "last_attempt_date": "2026-10-19",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "USD",
@@ -7888,6 +8150,12 @@
         "date": "2026-10-19",
         "price": 114.95,
         "ts": "2026-10-19T02:04:49.734376+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-10-30",
+        "price": 114.95,
+        "ts": "2026-10-30T02:32:14.129896+00:00"
       }
     ],
     "title": "Samsung Galaxy Watch 7 SM-L310 | 44MM | GPS | Bluetooth w. Color Band SmartWatch",
@@ -7929,7 +8197,7 @@
   },
   "daily|us|v1|188703139446|0": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-us",
-    "last_attempt_date": "2026-10-20",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "USD",
@@ -7957,11 +8225,11 @@
       }
     ],
     "title": "Versatile 9 Qt Air Fryer with Nonstick Basket - Perfect for Family Meals",
-    "tracking_status": "active"
+    "tracking_status": "ended"
   },
   "daily|us|v1|188904914165|696112662136": {
     "article_slug": "best-smartwatches-worth-buying-us",
-    "last_attempt_date": "2026-10-20",
+    "last_attempt_date": "2026-10-30",
     "observations": [
       {
         "currency": "USD",
@@ -8681,6 +8949,20 @@
       }
     ],
     "title": "Soundcore P30i Noise Cancelling Wireless Earbuds 2in1 Phone Stand Case 45H Play",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|226343182136|0": {
+    "article_slug": "best-projectors-worth-buying-us",
+    "last_attempt_date": "2026-10-30",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-30",
+        "price": 160.35,
+        "ts": "2026-10-30T02:32:24.566863+00:00"
+      }
+    ],
+    "title": "Refurbished NEC P401W 3LCD Projector 4000 Lumens WXGA HDMI - 6 Months Warranty",
     "tracking_status": "active"
   },
   "daily|us|v1|226439671399|0": {
@@ -10853,6 +11135,34 @@
       }
     ],
     "title": "Anker 2K USB Webcam PowerConf C200 AI-Noise Canceling Stereo Mic Privacy Cover",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|325495290283|0": {
+    "article_slug": "best-projectors-worth-buying-us",
+    "last_attempt_date": "2026-10-30",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-30",
+        "price": 187.0,
+        "ts": "2026-10-30T02:32:24.566863+00:00"
+      }
+    ],
+    "title": "REFURBISHED - NEC P401W 3LCD Projector 4000 ANSI HD HDMI w/Remote + EXTRA LAMP",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|326441322186|0": {
+    "article_slug": "best-projectors-worth-buying-us",
+    "last_attempt_date": "2026-10-30",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-10-30",
+        "price": 129.62,
+        "ts": "2026-10-30T02:32:24.566863+00:00"
+      }
+    ],
+    "title": "Refurbished - InFocus IN2124a DLP Projector 3500 ANSI HD 1080p HDMI w/Bundle",
     "tracking_status": "active"
   },
   "daily|us|v1|326645200202|0": {
