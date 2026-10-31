@@ -1,9 +1,9 @@
 {
   "uk": {
-    "authority_cluster": "Smart Home & Connectivity",
+    "authority_cluster": "DIY & Garden",
     "content_action": "created",
-    "date": "2026-10-30",
-    "day": "Friday",
+    "date": "2026-10-31",
+    "day": "Saturday",
     "demand_score": null,
     "google_cached": false,
     "google_observed_at": null,
@@ -17,18 +17,18 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-smart-plugs-worth-buying-uk",
-    "title": "4 Best Smart Plugs UK 2026: Picks from £11.95–£31",
-    "topic": "smart-plugs",
+    "slug": "best-lawn-mowers-worth-buying-uk",
+    "title": "4 Best Lawn Mowers UK 2026: Picks from £189–£288",
+    "topic": "lawn-mowers",
     "trend_traffic": null,
-    "weekend_focus": null,
-    "weekend_priority": false
+    "weekend_focus": "saturday-home-diy",
+    "weekend_priority": true
   },
   "us": {
-    "authority_cluster": "Gaming & Entertainment",
+    "authority_cluster": "DIY & Garden",
     "content_action": "created",
-    "date": "2026-10-30",
-    "day": "Friday",
+    "date": "2026-10-31",
+    "day": "Saturday",
     "demand_score": null,
     "google_cached": false,
     "google_observed_at": null,
@@ -42,11 +42,11 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-projectors-worth-buying-us",
-    "title": "4 Best Home Projectors USA 2026: Picks from $130–$380",
-    "topic": "projectors",
+    "slug": "best-garden-tool-sets-worth-buying-us",
+    "title": "4 Best Garden Tool Sets USA 2026: Picks from $30–$76",
+    "topic": "garden-tool-sets",
     "trend_traffic": null,
-    "weekend_focus": null,
-    "weekend_priority": false
+    "weekend_focus": "saturday-home-diy",
+    "weekend_priority": true
   }
 }
