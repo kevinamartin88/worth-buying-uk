@@ -531,7 +531,7 @@
   },
   "daily|uk|v1|127872614467|0": {
     "article_slug": "best-pressure-washers-worth-buying-uk",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "GBP",
@@ -550,6 +550,12 @@
         "date": "2026-10-23",
         "price": 143.99,
         "ts": "2026-10-23T02:24:43.133373+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-01",
+        "price": 143.99,
+        "ts": "2026-11-01T02:06:23.510105+00:00"
       }
     ],
     "title": "Heavy Duty 2200PSI Petrol Pressure Washer 7HP 5 Nozzles 10M Hose Jet Wash PPW01",
@@ -557,13 +563,19 @@
   },
   "daily|uk|v1|127878891919|0": {
     "article_slug": "best-leaf-blowers-worth-buying-uk",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-23",
         "price": 59.99,
         "ts": "2026-10-23T02:25:15.767412+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-01",
+        "price": 59.99,
+        "ts": "2026-11-01T02:06:23.510105+00:00"
       }
     ],
     "title": "SwitZer Handheld Petrol Leaf Blower 25.4cc Garden Yard Patio Cleaner 2 Stroke",
@@ -1183,7 +1195,7 @@
   },
   "daily|uk|v1|141700613839|0": {
     "article_slug": "best-car-jump-starters-before-winter-uk-2026",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "GBP",
@@ -1196,6 +1208,12 @@
         "date": "2026-10-23",
         "price": 99.0,
         "ts": "2026-10-23T02:24:43.133373+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-01",
+        "price": 99.0,
+        "ts": "2026-11-01T02:06:23.510105+00:00"
       }
     ],
     "title": "Portable Car Battery Power Booster Jump Start Starter Rescue Pack 1800 AMP 12v",
@@ -1203,7 +1221,7 @@
   },
   "daily|uk|v1|144301668983|0": {
     "article_slug": "best-coffee-machines-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "GBP",
@@ -1228,6 +1246,12 @@
         "date": "2026-10-23",
         "price": 224.99,
         "ts": "2026-10-23T02:24:43.133373+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-01",
+        "price": 224.99,
+        "ts": "2026-11-01T02:06:23.510105+00:00"
       }
     ],
     "title": "De'Longhi Magnifica S Smart Bean to Cup Machine ECAM250.33.TB - Refurbished",
@@ -1269,7 +1293,7 @@
   },
   "daily|uk|v1|145572714666|0": {
     "article_slug": "best-coffee-machines-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "GBP",
@@ -1291,7 +1315,7 @@
       }
     ],
     "title": "De'Longhi Bean To Cup Machine Magnifica Start ECAM220.60.B - Refurbished",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|uk|v1|146069521465|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-uk-2026",
@@ -1335,7 +1359,7 @@
   },
   "daily|uk|v1|146583641088|0": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-uk",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "GBP",
@@ -1372,6 +1396,12 @@
         "date": "2026-10-23",
         "price": 37.99,
         "ts": "2026-10-23T02:24:43.133373+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-01",
+        "price": 37.99,
+        "ts": "2026-11-01T02:06:23.510105+00:00"
       }
     ],
     "title": "EMtronics EMAF45L Large Family Air Fryer with 4.5L Basket and Timer - Black",
@@ -1379,7 +1409,7 @@
   },
   "daily|uk|v1|146749103647|445371183801": {
     "article_slug": "best-refurbished-large-capacity-air-fryers-worth-buying-uk",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "GBP",
@@ -1416,6 +1446,12 @@
         "date": "2026-10-23",
         "price": 57.99,
         "ts": "2026-10-23T02:24:43.133373+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-01",
+        "price": 57.99,
+        "ts": "2026-11-01T02:06:23.510105+00:00"
       }
     ],
     "title": "Air Fryer Oven Toaster 2 in 1 Large 16L 1300W Low Fat Healthy Roast Baking 230℃",
@@ -1423,7 +1459,7 @@
   },
   "daily|uk|v1|147147281171|0": {
     "article_slug": "best-slow-cookers-worth-buying-uk",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "GBP",
@@ -1454,6 +1490,12 @@
         "date": "2026-10-23",
         "price": 74.99,
         "ts": "2026-10-23T02:24:43.133373+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-01",
+        "price": 74.99,
+        "ts": "2026-11-01T02:06:23.510105+00:00"
       }
     ],
     "title": "Laura Ashley 6.5L Slow Cooker with Ceramic Pot Glass Lid 3 Heat Settings",
@@ -1461,7 +1503,7 @@
   },
   "daily|uk|v1|147405514393|0": {
     "article_slug": "prime-big-deal-days-ssds-uk-2026",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "GBP",
@@ -1486,6 +1528,12 @@
         "date": "2026-10-23",
         "price": 137.95,
         "ts": "2026-10-23T02:24:43.133373+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-01",
+        "price": 137.95,
+        "ts": "2026-11-01T02:06:23.510105+00:00"
       }
     ],
     "title": "SanDisk 2TB SDSSDA-2T00 2TB SATA 2.5\" SSD Disk Sandisk Plus 6G/s",
@@ -1527,7 +1575,7 @@
   },
   "daily|uk|v1|147512467422|0": {
     "article_slug": "best-security-cameras-worth-buying-uk",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "GBP",
@@ -1552,6 +1600,12 @@
         "date": "2026-10-23",
         "price": 39.99,
         "ts": "2026-10-23T02:24:43.133373+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-01",
+        "price": 39.99,
+        "ts": "2026-11-01T02:06:23.510105+00:00"
       }
     ],
     "title": "ARCCTV 360° PTZ Security Camera Wifi 5Ghz Wifi Night Vision Home Outdoor 2PACK",
@@ -1573,7 +1627,7 @@
   },
   "daily|uk|v1|147517558047|0": {
     "article_slug": "best-air-fryers-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "GBP",
@@ -1598,6 +1652,12 @@
         "date": "2026-10-23",
         "price": 50.99,
         "ts": "2026-10-23T02:24:43.133373+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-01",
+        "price": 51.99,
+        "ts": "2026-11-01T02:06:23.510105+00:00"
       }
     ],
     "title": "16L Large Air Fryer Oven Oil‑Free Low‑Fat Healthy Roast Baking Kitchen Cooker",
@@ -1657,7 +1717,7 @@
   },
   "daily|uk|v1|154550275232|0": {
     "article_slug": "best-wireless-earbuds-worth-buying-uk",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "GBP",
@@ -1688,6 +1748,12 @@
         "date": "2026-10-23",
         "price": 21.85,
         "ts": "2026-10-23T02:24:43.133373+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-01",
+        "price": 21.85,
+        "ts": "2026-11-01T02:06:23.510105+00:00"
       }
     ],
     "title": "Wireless Bluetooth Earphones Sports Headphones Ear Hook Running Earbuds Headset",
@@ -1695,7 +1761,7 @@
   },
   "daily|uk|v1|154594385266|0": {
     "article_slug": "best-leaf-blowers-worth-buying-uk",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "GBP",
@@ -1705,11 +1771,11 @@
       }
     ],
     "title": "Terratek Leaf Blower Vacuum Mulcher 3 in 1 Electric Garden 10m Cable Sucker",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|uk|v1|157412559803|458899331732": {
     "article_slug": "best-refurbished-large-capacity-air-fryers-worth-buying-uk",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "GBP",
@@ -1746,6 +1812,12 @@
         "date": "2026-10-23",
         "price": 89.99,
         "ts": "2026-10-23T02:24:43.133373+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-01",
+        "price": 89.99,
+        "ts": "2026-11-01T02:06:23.510105+00:00"
       }
     ],
     "title": "16L Air Fryer Oven Digital Spacious Extra Large Capacity 6 Accessories 1800W",
@@ -1793,7 +1865,7 @@
   },
   "daily|uk|v1|166421291989|0": {
     "article_slug": "best-slow-cookers-worth-buying-uk",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "GBP",
@@ -1824,6 +1896,12 @@
         "date": "2026-10-23",
         "price": 34.99,
         "ts": "2026-10-23T02:24:43.133373+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-01",
+        "price": 34.99,
+        "ts": "2026-11-01T02:06:23.510105+00:00"
       }
     ],
     "title": "Tower 6.5L Slow Cooker, Cavaletto, 3 Heat Setting, T16043GRY, Grey and Rose Gold",
@@ -1903,7 +1981,7 @@
   },
   "daily|uk|v1|167622941886|0": {
     "article_slug": "best-air-purifiers-worth-buying-uk",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "GBP",
@@ -1940,6 +2018,12 @@
         "date": "2026-10-23",
         "price": 64.99,
         "ts": "2026-10-23T02:24:43.133373+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-01",
+        "price": 64.99,
+        "ts": "2026-11-01T02:06:23.510105+00:00"
       }
     ],
     "title": "Hoover 300 Air Purifier with Fast Acting H-TRIFILTER Bluetooth-Enabled White",
@@ -2001,7 +2085,7 @@
   },
   "daily|uk|v1|174227029013|0": {
     "article_slug": "best-air-purifiers-worth-buying-uk",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "GBP",
@@ -2038,6 +2122,12 @@
         "date": "2026-10-23",
         "price": 94.99,
         "ts": "2026-10-23T02:24:43.133373+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-01",
+        "price": 94.99,
+        "ts": "2026-11-01T02:06:23.510105+00:00"
       }
     ],
     "title": "Air Purifier, HEPA Air Purifier with Ioniser & UV-C Eliminates viruses - 22 inch",
@@ -2045,7 +2135,7 @@
   },
   "daily|uk|v1|176053751709|0": {
     "article_slug": "best-tablets-worth-buying-uk",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "GBP",
@@ -2067,7 +2157,7 @@
       }
     ],
     "title": "HP Pro X2 612 G2 Tablet Intel Pentium 4GB RAM 128GB SSD Windows 11 Pro Grade A",
-    "tracking_status": "unavailable"
+    "tracking_status": "ended"
   },
   "daily|uk|v1|176634447725|476284993939": {
     "article_slug": "best-tablets-worth-buying-uk",
@@ -2151,7 +2241,7 @@
   },
   "daily|uk|v1|178530921552|0": {
     "article_slug": "best-tablets-worth-buying-uk",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "GBP",
@@ -2176,6 +2266,12 @@
         "date": "2026-10-23",
         "price": 59.0,
         "ts": "2026-10-23T02:24:43.133373+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-01",
+        "price": 59.0,
+        "ts": "2026-11-01T02:06:23.510105+00:00"
       }
     ],
     "title": "Amazon Fire HD 10 13th Gen 10.1in 32GB Wi-Fi Tablet Black 2023 1080p Full HD",
@@ -2183,7 +2279,7 @@
   },
   "daily|uk|v1|184194713405|0": {
     "article_slug": "best-air-purifiers-worth-buying-uk",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "GBP",
@@ -2220,6 +2316,12 @@
         "date": "2026-10-23",
         "price": 84.99,
         "ts": "2026-10-23T02:24:43.133373+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-01",
+        "price": 84.99,
+        "ts": "2026-11-01T02:06:23.510105+00:00"
       }
     ],
     "title": "Air Purifier, 5-in-1 Air Purifier with True HEPA Filter, Carbon & Negative Ions",
@@ -3065,6 +3167,20 @@
       }
     ],
     "title": "CAR JUMP STARTER TYRE INFLATOR PACK BOOSTER BATTERY CHARGER POWER BANK LED UK",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|236606844953|0": {
+    "article_slug": "best-office-chairs-worth-buying-uk",
+    "last_attempt_date": "2026-11-01",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-01",
+        "price": 84.99,
+        "ts": "2026-11-01T02:06:34.167055+00:00"
+      }
+    ],
+    "title": "Office Computer Chair Mesh Ergonomic Lumbar Support with 3D Armrest Headrest",
     "tracking_status": "active"
   },
   "daily|uk|v1|236880763740|0": {
@@ -4179,6 +4295,20 @@
     "title": "48V Cordless Drill Combi Driver High Power Electric Screwdriver Set 2 Battery",
     "tracking_status": "active"
   },
+  "daily|uk|v1|306030860716|0": {
+    "article_slug": "best-office-chairs-worth-buying-uk",
+    "last_attempt_date": "2026-11-01",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-01",
+        "price": 129.99,
+        "ts": "2026-11-01T02:06:34.167055+00:00"
+      }
+    ],
+    "title": "HOMCOM Ergonomic Swivel Office Chair Computer Chair with 3D Armrest, Grey",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|306813502008|0": {
     "article_slug": "best-garden-tool-sets-worth-buying-uk",
     "last_attempt_date": "2026-10-24",
@@ -4635,6 +4765,20 @@
       }
     ],
     "title": "HP Presence See 4K AI Webcam 4V975AA Ultra HD USB Camera New Boxed UK",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|327392933545|0": {
+    "article_slug": "best-office-chairs-worth-buying-uk",
+    "last_attempt_date": "2026-11-01",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-01",
+        "price": 119.99,
+        "ts": "2026-11-01T02:06:34.167055+00:00"
+      }
+    ],
+    "title": "Cross Legged Office Chair with Footrest180° Flip Armrests Computer Desk Chair",
     "tracking_status": "active"
   },
   "daily|uk|v1|327423693520|0": {
@@ -5467,6 +5611,20 @@
     "title": "Russell Hobbs RHSM1001-G NEW Steam and Clean Steam Mop 0.38L 1450W White & Aqua",
     "tracking_status": "active"
   },
+  "daily|uk|v1|388807342842|0": {
+    "article_slug": "best-office-chairs-worth-buying-uk",
+    "last_attempt_date": "2026-11-01",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-01",
+        "price": 78.99,
+        "ts": "2026-11-01T02:06:34.167055+00:00"
+      }
+    ],
+    "title": "HOMCOM Fabric Office Chair, Computer Desk Chair for Home, Light Grey",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|389741281452|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-uk-2026",
     "last_attempt_date": "2026-10-28",
@@ -6205,7 +6363,7 @@
   },
   "daily|us|v1|115320506953|0": {
     "article_slug": "best-cordless-drills-worth-buying-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "USD",
@@ -6218,6 +6376,12 @@
         "date": "2026-10-21",
         "price": 68.19,
         "ts": "2026-10-21T02:27:58.607529+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-01",
+        "price": 68.19,
+        "ts": "2026-11-01T02:06:34.185462+00:00"
       }
     ],
     "title": "New Dewalt DCD777B 20V 20 Volt Max 1/2\" Compact 2 Speed Brushless Drill Driver",
@@ -6347,13 +6511,19 @@
   },
   "daily|us|v1|127593521144|0": {
     "article_slug": "affordable-homeware-for-students-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-21",
         "price": 16.95,
         "ts": "2026-10-21T15:29:14.877216+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-01",
+        "price": 16.95,
+        "ts": "2026-11-01T02:06:34.185462+00:00"
       }
     ],
     "title": "❤️VALUE 4 Pack IKEA Parkla Zippered Under Bed Storage Case/Bag  NEW",
@@ -6387,7 +6557,7 @@
   },
   "daily|us|v1|127856095053|0": {
     "article_slug": "best-cordless-drills-worth-buying-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "USD",
@@ -6403,7 +6573,7 @@
       }
     ],
     "title": "21V Cordless Drill Electric Screwdriver 3/8in Keyless Chuck Work Light Kit",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|us|v1|127992800692|0": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
@@ -6955,7 +7125,7 @@
   },
   "daily|us|v1|137644204586|0": {
     "article_slug": "best-carpet-cleaners-worth-buying-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "USD",
@@ -6965,7 +7135,7 @@
       }
     ],
     "title": "Portable Carpet Cleaner Machine - 450W Upholstery Shampooer for Rugs, Sofas, & C",
-    "tracking_status": "active"
+    "tracking_status": "ended"
   },
   "daily|us|v1|137881194005|0": {
     "article_slug": "easy-grip-cutlery-us",
@@ -8013,6 +8183,20 @@
     "title": "Crock-Pot 8qt Manual Slow Cooker Black",
     "tracking_status": "unavailable"
   },
+  "daily|us|v1|177849629250|477421712811": {
+    "article_slug": "best-loungewear-worth-buying-us",
+    "last_attempt_date": "2026-11-01",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-01",
+        "price": 62.1,
+        "ts": "2026-11-01T02:06:44.621434+00:00"
+      }
+    ],
+    "title": "PJ Salvage Peri Vacay Vibes Waffle Hoodie Loungewear Set RUVVHD/RUVVP1",
+    "tracking_status": "active"
+  },
   "daily|us|v1|178175236041|0": {
     "article_slug": "best-video-doorbells-worth-buying-us",
     "last_attempt_date": "2026-10-30",
@@ -8479,6 +8663,20 @@
     "title": "Samsung - 50Class U8000H Series Crystal UHD 4K Smart Tizen TV (2026)",
     "tracking_status": "active"
   },
+  "daily|us|v1|198266785581|497375562867": {
+    "article_slug": "best-loungewear-worth-buying-us",
+    "last_attempt_date": "2026-11-01",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-01",
+        "price": 76.5,
+        "ts": "2026-11-01T02:06:44.621434+00:00"
+      }
+    ],
+    "title": "PJ Salvage Sweater Weather Hoodie Pants Set RVSWHD/RVSWP",
+    "tracking_status": "active"
+  },
   "daily|us|v1|198395708997|0": {
     "article_slug": "best-tvs-worth-buying-us-2026",
     "last_attempt_date": "2026-10-31",
@@ -8513,13 +8711,19 @@
   },
   "daily|us|v1|198413082421|497469446455": {
     "article_slug": "affordable-homeware-for-students-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-21",
         "price": 10.27,
         "ts": "2026-10-21T15:29:14.877216+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-01",
+        "price": 10.27,
+        "ts": "2026-11-01T02:06:34.185462+00:00"
       }
     ],
     "title": "Flexible Zippered Under Bed Bag Large Underbed Clothes Storage 52L/90L/125L",
@@ -8527,13 +8731,19 @@
   },
   "daily|us|v1|198486919960|0": {
     "article_slug": "best-car-vacuums-under-90-worth-buying-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-21",
         "price": 13.94,
         "ts": "2026-10-21T16:58:29.622680+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-01",
+        "price": 13.94,
+        "ts": "2026-11-01T02:06:34.185462+00:00"
       }
     ],
     "title": "29000PA Cordless Hand Held Vacuum Cleaner Mini Wireless Portable Car Auto Home",
@@ -8699,13 +8909,19 @@
   },
   "daily|us|v1|198657564351|0": {
     "article_slug": "best-carpet-cleaners-worth-buying-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-21",
         "price": 139.95,
         "ts": "2026-10-21T02:28:09.421263+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-01",
+        "price": 139.95,
+        "ts": "2026-11-01T02:06:34.185462+00:00"
       }
     ],
     "title": "Hoover Compact Clean Dual Power Carpet Washer New in Box ",
@@ -9325,7 +9541,7 @@
   },
   "daily|us|v1|235198697187|0": {
     "article_slug": "best-soundbars-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "USD",
@@ -9344,6 +9560,12 @@
         "date": "2026-10-21",
         "price": 59.77,
         "ts": "2026-10-21T02:27:58.607529+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-01",
+        "price": 59.77,
+        "ts": "2026-11-01T02:06:34.185462+00:00"
       }
     ],
     "title": "Samsung 2.0Ch Soundbar with Built-in Woofer - Black HW-C400",
@@ -9421,7 +9643,7 @@
   },
   "daily|us|v1|236489942548|537028886326": {
     "article_slug": "air-fryers-for-students-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "USD",
@@ -9443,7 +9665,7 @@
       }
     ],
     "title": "3 Quart Digital Air Fryer TurboCrisp Technology Nonstick Dishwasher Safe 1200W",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|us|v1|236616291064|0": {
     "article_slug": "best-smart-plugs-worth-buying-us",
@@ -9609,6 +9831,20 @@
     "title": "Cuisinart 14-in-1 Space-Saving Digital Air Fryer Oven, TOA-105",
     "tracking_status": "active"
   },
+  "daily|us|v1|237040660463|0": {
+    "article_slug": "best-loungewear-worth-buying-us",
+    "last_attempt_date": "2026-11-01",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-01",
+        "price": 15.6,
+        "ts": "2026-11-01T02:06:44.621434+00:00"
+      }
+    ],
+    "title": "2 Pc Loungewear Set Cropped Top Long Sleeve Pants Gray Size Medium",
+    "tracking_status": "active"
+  },
   "daily|us|v1|237056338989|0": {
     "article_slug": "approved-retailer-slow-cookers-us-2026-10-05",
     "last_attempt_date": "2026-10-24",
@@ -9643,7 +9879,7 @@
   },
   "daily|us|v1|237110448834|0": {
     "article_slug": "best-tvs-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "USD",
@@ -9877,13 +10113,19 @@
   },
   "daily|us|v1|267695921738|567499642587": {
     "article_slug": "affordable-homeware-for-students-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-21",
         "price": 16.73,
         "ts": "2026-10-21T15:29:14.877216+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-01",
+        "price": 16.73,
+        "ts": "2026-11-01T02:06:34.185462+00:00"
       }
     ],
     "title": "Under Bed Storage Bags 1/2Pack Capacity Breathable Foldable Container Bins USA",
@@ -10161,7 +10403,7 @@
   },
   "daily|us|v1|286792251512|0": {
     "article_slug": "best-cordless-drills-worth-buying-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "USD",
@@ -10174,6 +10416,12 @@
         "date": "2026-10-21",
         "price": 69.9,
         "ts": "2026-10-21T02:27:58.607529+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-01",
+        "price": 69.9,
+        "ts": "2026-11-01T02:06:34.185462+00:00"
       }
     ],
     "title": "VEVOR Cordless Drill Driver 5-In-1 Drill Driver Kit Metal Chuck 2 Batteries",
@@ -10233,13 +10481,19 @@
   },
   "daily|us|v1|298258073093|0": {
     "article_slug": "best-carpet-cleaners-worth-buying-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-21",
         "price": 125.99,
         "ts": "2026-10-21T02:28:09.421263+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-01",
+        "price": 139.99,
+        "ts": "2026-11-01T02:06:34.185462+00:00"
       }
     ],
     "title": "6 Gal 5-in-1 Steam Carpet Upholstery Cleaner Hot Water Extractor Wet Dry Vacuum",
@@ -10261,7 +10515,7 @@
   },
   "daily|us|v1|298491432151|0": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "USD",
@@ -10286,6 +10540,12 @@
         "date": "2026-10-21",
         "price": 115.35,
         "ts": "2026-10-21T02:27:58.607529+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-01",
+        "price": 115.35,
+        "ts": "2026-11-01T02:06:34.185462+00:00"
       }
     ],
     "title": "Kitchen Elite 26 Qt Air Fryer Oven KE-AFO-107-26 Stainless Steel",
@@ -10387,7 +10647,7 @@
   },
   "daily|us|v1|306803503917|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "USD",
@@ -10409,7 +10669,7 @@
       }
     ],
     "title": "bella PRO  MultiBrew 12-Cup Drip & Keurig cups Single Serve Coffee Maker",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|us|v1|307089193294|0": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-us",
@@ -10685,7 +10945,7 @@
   },
   "daily|us|v1|314002724093|612681955175": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "USD",
@@ -10710,6 +10970,12 @@
         "date": "2026-10-21",
         "price": 119.99,
         "ts": "2026-10-21T02:27:58.607529+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-01",
+        "price": 119.99,
+        "ts": "2026-11-01T02:06:34.185462+00:00"
       }
     ],
     "title": "Netac 120GB 256GB 512GB SSD 2.5\" SATA III 6GB/s Internal Solid State Drive lot",
@@ -10825,7 +11091,7 @@
   },
   "daily|us|v1|314583757070|613125428107": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "USD",
@@ -10977,7 +11243,7 @@
   },
   "daily|us|v1|317773979994|616359219107": {
     "article_slug": "air-fryers-for-students-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "USD",
@@ -11081,7 +11347,7 @@
   },
   "daily|us|v1|318181056019|616724865540": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "USD",
@@ -11106,6 +11372,12 @@
         "date": "2026-10-21",
         "price": 82.0,
         "ts": "2026-10-21T02:27:58.607529+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-01",
+        "price": 82.0,
+        "ts": "2026-11-01T02:06:34.185462+00:00"
       }
     ],
     "title": "9.5 QT Dual Basket Air Fryer,Large Air Fryer with Double Basket TEMP Control",
@@ -11837,13 +12109,19 @@
   },
   "daily|us|v1|336795469547|0": {
     "article_slug": "best-food-processors-worth-buying-us",
-    "last_attempt_date": "2026-10-20",
+    "last_attempt_date": "2026-11-01",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-20",
         "price": 137.0,
         "ts": "2026-10-20T02:42:28.373215+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-01",
+        "price": 137.0,
+        "ts": "2026-11-01T02:06:34.185462+00:00"
       }
     ],
     "title": "Ninja Pro Plus Kitchen System 5-in-1 Blender 1400W Food Processor - BN805A",
@@ -13226,6 +13504,20 @@
     ],
     "title": "PowerXL Smart Brew 10-Cup Drip Coffee Maker with Strength & Flavor Control",
     "tracking_status": "ended"
+  },
+  "daily|us|v1|397863501267|0": {
+    "article_slug": "best-loungewear-worth-buying-us",
+    "last_attempt_date": "2026-11-01",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-01",
+        "price": 19.96,
+        "ts": "2026-11-01T02:06:44.621434+00:00"
+      }
+    ],
+    "title": "NWT STATE OF DAY 2 Piece Indulge & Rest Loungewear Sweater Pants Set Sz S",
+    "tracking_status": "active"
   },
   "daily|us|v1|398080857258|0": {
     "article_slug": "best-garden-tool-sets-worth-buying-us",
