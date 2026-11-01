@@ -1,1 +1,16 @@
-{}
+{
+  "uk": {
+    "month": "2026-11",
+    "movers": 16,
+    "slug": "worthbuying-market-watch-uk-2026-11",
+    "title": "WorthBuying Market Watch: UK Price Moves (November 2026)",
+    "tracked_products": 101
+  },
+  "us": {
+    "month": "2026-11",
+    "movers": 32,
+    "slug": "worthbuying-market-watch-us-2026-11",
+    "title": "WorthBuying Market Watch: USA Price Moves (November 2026)",
+    "tracked_products": 94
+  }
+}
