@@ -1,6 +1,6 @@
 {
   "uk": {
-    "date": "2026-10-26",
+    "date": "2026-11-02",
     "dates": [
       "2026-10-03",
       "2026-10-05",
@@ -9,14 +9,15 @@
       "2026-10-17",
       "2026-10-19",
       "2026-10-24",
-      "2026-10-26"
+      "2026-10-26",
+      "2026-11-02"
     ],
-    "slug": "savvy-buyer-monday-repairability-avoid-traps-uk-2026-10-26",
-    "title": "Savvy Buyer Monday: Common Traps to Avoid for Checking Repairability And Product Support (UK)",
-    "week": "2026-W44"
+    "slug": "savvy-buyer-monday-safety-authenticity-before-you-shop-uk-2026-11-02",
+    "title": "Savvy Buyer Monday: Before You Shop for Checking Safety And Authenticity (UK)",
+    "week": "2026-W45"
   },
   "us": {
-    "date": "2026-10-26",
+    "date": "2026-11-02",
     "dates": [
       "2026-10-03",
       "2026-10-05",
@@ -25,10 +26,11 @@
       "2026-10-17",
       "2026-10-19",
       "2026-10-24",
-      "2026-10-26"
+      "2026-10-26",
+      "2026-11-02"
     ],
-    "slug": "savvy-buyer-monday-repairability-avoid-traps-us-2026-10-26",
-    "title": "Savvy Buyer Monday: Common Traps to Avoid for Checking Repairability And Product Support (US)",
-    "week": "2026-W44"
+    "slug": "savvy-buyer-monday-safety-authenticity-before-you-shop-us-2026-11-02",
+    "title": "Savvy Buyer Monday: Before You Shop for Checking Safety And Authenticity (US)",
+    "week": "2026-W45"
   }
 }
