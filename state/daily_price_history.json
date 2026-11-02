@@ -55,7 +55,7 @@
   },
   "daily|uk|v1|116282293633|0": {
     "article_slug": "best-storage-bins-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-24",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "GBP",
@@ -68,6 +68,12 @@
         "date": "2026-10-24",
         "price": 34.75,
         "ts": "2026-10-24T02:29:24.206025+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-02",
+        "price": 34.75,
+        "ts": "2026-11-02T02:21:24.015063+00:00"
       }
     ],
     "title": "72pc Wall Storage Board Peg Set Garage Bins Workshop Rack Shed Tool Organiser",
@@ -495,6 +501,20 @@
       }
     ],
     "title": "5G Router - Zyxel NR5103E - Wi-Fi 6 - White",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|127815131714|0": {
+    "article_slug": "best-bluetooth-speakers-worth-buying-uk",
+    "last_attempt_date": "2026-11-02",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-02",
+        "price": 179.0,
+        "ts": "2026-11-02T02:21:35.831725+00:00"
+      }
+    ],
+    "title": "JBL Portable Bluetooth Speaker Xtreme 4 Blue Waterproof IP67 24H Battery",
     "tracking_status": "active"
   },
   "daily|uk|v1|127872614408|0": {
@@ -1155,7 +1175,7 @@
   },
   "daily|uk|v1|137743556896|0": {
     "article_slug": "best-storage-bins-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-24",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "GBP",
@@ -1168,6 +1188,12 @@
         "date": "2026-10-24",
         "price": 59.99,
         "ts": "2026-10-24T02:29:24.206025+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-02",
+        "price": 59.99,
+        "ts": "2026-11-02T02:21:24.015063+00:00"
       }
     ],
     "title": "5 x 80L Clear Plastic Storage Boxes with Black Lids Stackable Boxes Home Kitchen",
@@ -1909,7 +1935,7 @@
   },
   "daily|uk|v1|166673830027|0": {
     "article_slug": "best-steam-mops-worth-buying-uk",
-    "last_attempt_date": "2026-10-24",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "GBP",
@@ -1928,6 +1954,12 @@
         "date": "2026-10-24",
         "price": 45.08,
         "ts": "2026-10-24T02:29:24.206025+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-02",
+        "price": 45.08,
+        "ts": "2026-11-02T02:21:24.015063+00:00"
       }
     ],
     "title": "Tower 12-in-1 Steam Mop, TSM12 Multi-Functional, T134001PL, Black & Platinum",
@@ -1955,7 +1987,7 @@
   },
   "daily|uk|v1|167547716183|0": {
     "article_slug": "best-steam-mops-worth-buying-uk",
-    "last_attempt_date": "2026-10-24",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "GBP",
@@ -1974,6 +2006,12 @@
         "date": "2026-10-24",
         "price": 37.99,
         "ts": "2026-10-24T02:29:24.206025+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-02",
+        "price": 39.99,
+        "ts": "2026-11-02T02:21:24.015063+00:00"
       }
     ],
     "title": "Shark Classic Corded Steam Mop - White/Mint Green - [S1000UKREF]",
@@ -2031,13 +2069,19 @@
   },
   "daily|uk|v1|167955152520|0": {
     "article_slug": "best-garden-tool-sets-worth-buying-uk",
-    "last_attempt_date": "2026-10-24",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-24",
         "price": 30.41,
         "ts": "2026-10-24T02:29:38.752251+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-02",
+        "price": 30.41,
+        "ts": "2026-11-02T02:21:24.015063+00:00"
       }
     ],
     "title": "Draper Heritage 7-Piece Stainless Steel Garden Tool Set Ash Handles",
@@ -2349,7 +2393,7 @@
   },
   "daily|uk|v1|186164205541|694499744082": {
     "article_slug": "best-storage-bins-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-24",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "GBP",
@@ -2362,6 +2406,12 @@
         "date": "2026-10-24",
         "price": 23.8,
         "ts": "2026-10-24T02:29:24.206025+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-02",
+        "price": 23.8,
+        "ts": "2026-11-02T02:21:24.015063+00:00"
       }
     ],
     "title": "39/60Pcs Storage Bins Organiser Garage Containers Workshop Box Premium Quality",
@@ -2369,7 +2419,7 @@
   },
   "daily|uk|v1|186839037770|0": {
     "article_slug": "best-tablets-worth-buying-uk",
-    "last_attempt_date": "2026-10-24",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "GBP",
@@ -2394,6 +2444,12 @@
         "date": "2026-10-24",
         "price": 59.96,
         "ts": "2026-10-24T02:29:24.206025+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-02",
+        "price": 59.96,
+        "ts": "2026-11-02T02:21:24.015063+00:00"
       }
     ],
     "title": "Acer ACTAB1422 10.3\" Android Tablet 64GB Wi-Fi Black HD Screen Tab – Grade B",
@@ -2401,7 +2457,7 @@
   },
   "daily|uk|v1|187539598974|0": {
     "article_slug": "best-steam-mops-worth-buying-uk",
-    "last_attempt_date": "2026-10-24",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "GBP",
@@ -2423,7 +2479,7 @@
       }
     ],
     "title": "Shark SteamSpot with Steam Blaster Technology | REFURB | S2001UK",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|uk|v1|187636670092|0": {
     "article_slug": "best-security-cameras-worth-buying-uk",
@@ -2453,7 +2509,7 @@
   },
   "daily|uk|v1|187760022244|695535222973": {
     "article_slug": "best-air-purifiers-worth-buying-uk",
-    "last_attempt_date": "2026-10-24",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "GBP",
@@ -2478,10 +2534,16 @@
         "date": "2026-10-10",
         "price": 109.99,
         "ts": "2026-10-10T03:15:26.043154+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-02",
+        "price": 109.99,
+        "ts": "2026-11-02T02:21:24.015063+00:00"
       }
     ],
     "title": "Shark NeverChange5 Air Purifier | Compact Pro, HEPA Filter | REFURB | HP072UK",
-    "tracking_status": "unavailable"
+    "tracking_status": "active"
   },
   "daily|uk|v1|187943205267|0": {
     "article_slug": "best-value-car-vacuums-worth-buying-uk",
@@ -2499,7 +2561,7 @@
   },
   "daily|uk|v1|188399513432|0": {
     "article_slug": "best-robot-vacuum-cleaners-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-24",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "GBP",
@@ -2530,6 +2592,12 @@
         "date": "2026-10-24",
         "price": 229.99,
         "ts": "2026-10-24T02:29:24.206025+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-02",
+        "price": 229.99,
+        "ts": "2026-11-02T02:21:24.015063+00:00"
       }
     ],
     "title": "Shark Matrix Plus 2-in-1 Robot Vacuum & Mop - Refurbished [RV2620WDUK]",
@@ -2537,7 +2605,7 @@
   },
   "daily|uk|v1|189034210740|0": {
     "article_slug": "best-robot-vacuum-cleaners-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-24",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "GBP",
@@ -2557,7 +2625,7 @@
   },
   "daily|uk|v1|192487284718|0": {
     "article_slug": "best-car-jump-starters-before-winter-uk-2026",
-    "last_attempt_date": "2026-10-24",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "GBP",
@@ -2570,6 +2638,12 @@
         "date": "2026-10-24",
         "price": 66.34,
         "ts": "2026-10-24T02:29:24.206025+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-02",
+        "price": 67.17,
+        "ts": "2026-11-02T02:21:24.015063+00:00"
       }
     ],
     "title": "Sealey RS131 RoadStart Emergency Power Pack 12V 900A Car Battery Jump Starter",
@@ -2577,7 +2651,7 @@
   },
   "daily|uk|v1|195927448874|0": {
     "article_slug": "best-soundbars-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-24",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "GBP",
@@ -2602,6 +2676,12 @@
         "date": "2026-10-24",
         "price": 449.0,
         "ts": "2026-10-24T02:29:24.206025+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-02",
+        "price": 449.0,
+        "ts": "2026-11-02T02:21:24.015063+00:00"
       }
     ],
     "title": "Sonos Arc White Certified Refurbished - Smart soundbar - Dolby Atmos - AirPlay 2",
@@ -2609,7 +2689,7 @@
   },
   "daily|uk|v1|198218212453|0": {
     "article_slug": "best-security-cameras-worth-buying-uk",
-    "last_attempt_date": "2026-10-24",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "GBP",
@@ -2634,6 +2714,12 @@
         "date": "2026-10-24",
         "price": 26.95,
         "ts": "2026-10-24T02:29:24.206025+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-02",
+        "price": 26.95,
+        "ts": "2026-11-02T02:21:24.015063+00:00"
       }
     ],
     "title": "8MP Wireless IP Camera WIFI Outdoor CCTV PTZ Smart Home Security Cam Audio 4K UK",
@@ -2641,7 +2727,7 @@
   },
   "daily|uk|v1|198251370445|497367675075": {
     "article_slug": "prime-big-deal-days-ssds-uk-2026",
-    "last_attempt_date": "2026-10-24",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "GBP",
@@ -2666,6 +2752,12 @@
         "date": "2026-10-24",
         "price": 49.99,
         "ts": "2026-10-24T02:29:24.206025+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-02",
+        "price": 49.99,
+        "ts": "2026-11-02T02:21:24.015063+00:00"
       }
     ],
     "title": "Solid State Drive SSD 120GB 128GB 240GB 256GB 480GB 512GB SATA Laptop Lot 2.5\"",
@@ -2673,7 +2765,7 @@
   },
   "daily|uk|v1|198657030777|497606577093": {
     "article_slug": "best-security-cameras-worth-buying-uk",
-    "last_attempt_date": "2026-10-24",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "GBP",
@@ -2701,11 +2793,11 @@
       }
     ],
     "title": "5G Window Home Security Camera WiFi 2.4/5GHz 3MP 2K Full Color Night Vision UK",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|uk|v1|204626609859|0": {
     "article_slug": "best-storage-bins-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-24",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "GBP",
@@ -2718,6 +2810,12 @@
         "date": "2026-10-24",
         "price": 89.99,
         "ts": "2026-10-24T02:29:24.206025+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-02",
+        "price": 89.99,
+        "ts": "2026-11-02T02:21:24.015063+00:00"
       }
     ],
     "title": "10 x 80L Plastic XL Storage Boxes Clear With Lids Organise The Home & Office",
@@ -4169,13 +4267,19 @@
   },
   "daily|uk|v1|297376555401|0": {
     "article_slug": "best-leaf-blowers-worth-buying-uk",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-23",
         "price": 53.99,
         "ts": "2026-10-23T02:25:15.767412+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-02",
+        "price": 53.99,
+        "ts": "2026-11-02T02:21:24.015063+00:00"
       }
     ],
     "title": "Hyundai Cordless Leaf Blower 4 in 1 20V 200Km/h Speed 2Ah Battery & Charger",
@@ -4183,13 +4287,19 @@
   },
   "daily|uk|v1|298343250681|0": {
     "article_slug": "best-leaf-blowers-worth-buying-uk",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-23",
         "price": 37.99,
         "ts": "2026-10-23T02:25:15.767412+01:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-02",
+        "price": 31.99,
+        "ts": "2026-11-02T02:21:24.015063+00:00"
       }
     ],
     "title": "Hyundai 3 in 1 Leaf Blower Vacuum Shredder Mulcher 3000W 34L Bag 10m Cable",
@@ -4519,6 +4629,20 @@
       }
     ],
     "title": "KAHEIGN 3Pcs Silicone Air Fryer Liners for Ninja Flex Drawer AF500UK, 2Pcs 5.2L",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|318414619206|0": {
+    "article_slug": "best-bluetooth-speakers-worth-buying-uk",
+    "last_attempt_date": "2026-11-02",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-02",
+        "price": 69.0,
+        "ts": "2026-11-02T02:21:35.831725+00:00"
+      }
+    ],
+    "title": "Ultimate Ears BOOM 3 Wireless Bluetooth Speaker - Lagoon Blue",
     "tracking_status": "active"
   },
   "daily|uk|v1|318495567333|0": {
@@ -5012,6 +5136,20 @@
     ],
     "title": "PHILIPS Ambilight 43\" Smart 4K Ultra HD HDR LED TV - REFURB-A",
     "tracking_status": "unavailable"
+  },
+  "daily|uk|v1|358402874644|0": {
+    "article_slug": "best-bluetooth-speakers-worth-buying-uk",
+    "last_attempt_date": "2026-11-02",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-02",
+        "price": 37.95,
+        "ts": "2026-11-02T02:21:35.831725+00:00"
+      }
+    ],
+    "title": "Majority Pulse 2 Bluetooth PARTY SPEAKER MIC NOT INCLUDED",
+    "tracking_status": "active"
   },
   "daily|uk|v1|358479024834|0": {
     "article_slug": "best-soundbars-worth-buying-uk-2026",
@@ -5551,6 +5689,20 @@
       }
     ],
     "title": "Vax Platinum Power Max Carpet Upholstery Upright Washer (Machine Only) USED ITEM",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|384169464922|0": {
+    "article_slug": "best-bluetooth-speakers-worth-buying-uk",
+    "last_attempt_date": "2026-11-02",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-02",
+        "price": 46.99,
+        "ts": "2026-11-02T02:21:35.831725+00:00"
+      }
+    ],
+    "title": "Anker Soundcore3 Bluetooth Speaker Stereo Sound Party Cast 24H Playtime IPX7 App",
     "tracking_status": "active"
   },
   "daily|uk|v1|386118922277|0": {
@@ -6191,7 +6343,7 @@
   },
   "daily|uk|v1|800484897301|0": {
     "article_slug": "best-robot-vacuum-cleaners-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-23",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "GBP",
@@ -6735,7 +6887,7 @@
   },
   "daily|us|v1|135536209658|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-22",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "USD",
@@ -6754,6 +6906,12 @@
         "date": "2026-10-22",
         "price": 59.99,
         "ts": "2026-10-22T02:26:38.871687+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-02",
+        "price": 59.99,
+        "ts": "2026-11-02T02:21:35.863286+00:00"
       }
     ],
     "title": "Cuisinart DCC-500FR Programmable Coffee Maker, Black - Certified Refurbished",
@@ -6961,7 +7119,7 @@
   },
   "daily|us|v1|137049344868|0": {
     "article_slug": "best-value-video-doorbells-worth-buying-us",
-    "last_attempt_date": "2026-10-22",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "USD",
@@ -6980,6 +7138,12 @@
         "date": "2026-10-22",
         "price": 27.99,
         "ts": "2026-10-22T02:26:38.871687+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-02",
+        "price": 34.99,
+        "ts": "2026-11-02T02:21:35.863286+00:00"
       }
     ],
     "title": "Arlo AVD4001-100NAR Video Doorbell 2nd Gen 2K, White - Certified Refurbished",
@@ -6987,7 +7151,7 @@
   },
   "daily|us|v1|137050935303|0": {
     "article_slug": "best-value-video-doorbells-worth-buying-us",
-    "last_attempt_date": "2026-10-22",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "USD",
@@ -7003,7 +7167,7 @@
       }
     ],
     "title": "Arlo AC2001 Chime 2 Wireless Doorbell - Certified refurbished",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|us|v1|137076667763|0": {
     "article_slug": "best-lawn-mowers-worth-buying-us",
@@ -7099,7 +7263,7 @@
   },
   "daily|us|v1|137596008877|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-22",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "USD",
@@ -7153,7 +7317,7 @@
   },
   "daily|us|v1|144084457567|0": {
     "article_slug": "best-tyre-inflators-worth-buying-us",
-    "last_attempt_date": "2026-10-22",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "USD",
@@ -7166,6 +7330,12 @@
         "date": "2026-10-22",
         "price": 27.99,
         "ts": "2026-10-22T02:26:38.871687+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-02",
+        "price": 27.99,
+        "ts": "2026-11-02T02:21:35.863286+00:00"
       }
     ],
     "title": "Heavy Duty Portable Air Compressor Car Tire Inflator Electric Auto 12V DC 150PSI",
@@ -9247,6 +9417,20 @@
     "title": "Gourmia Digital 4-Slice Toaster Oven Air Fryer with 11 Cooking",
     "tracking_status": "unavailable"
   },
+  "daily|us|v1|206614765677|507343883286": {
+    "article_slug": "best-luggage-worth-buying-us",
+    "last_attempt_date": "2026-11-02",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-02",
+        "price": 58.99,
+        "ts": "2026-11-02T02:21:47.712421+00:00"
+      }
+    ],
+    "title": "SWISSGEAR Energie Hardside Medium Checked Spinner Suitcase",
+    "tracking_status": "active"
+  },
   "daily|us|v1|221605928059|0": {
     "article_slug": "best-security-cameras-worth-buying-us",
     "last_attempt_date": "2026-10-25",
@@ -9499,6 +9683,20 @@
     "title": "Crucial MX500 CT5000MX500SSD1 500GB 2.5 Inch SATA III Internal Solid State Drive",
     "tracking_status": "active"
   },
+  "daily|us|v1|227384601917|0": {
+    "article_slug": "best-luggage-worth-buying-us",
+    "last_attempt_date": "2026-11-02",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-02",
+        "price": 79.9,
+        "ts": "2026-11-02T02:21:47.712421+00:00"
+      }
+    ],
+    "title": "16\"20\"24\"28\" Trolley Case 4PCS Hardside Lightweight Spinner Luggage Bag Set TSA",
+    "tracking_status": "active"
+  },
   "daily|us|v1|227450965136|0": {
     "article_slug": "best-pressure-washers-worth-buying-us",
     "last_attempt_date": "2026-10-28",
@@ -9590,6 +9788,20 @@
     ],
     "title": "Nespresso Vertuo Pop+ Combination Espresso and Coffee Maker - Black/Gold (/RT...",
     "tracking_status": "unavailable"
+  },
+  "daily|us|v1|236334902375|0": {
+    "article_slug": "best-luggage-worth-buying-us",
+    "last_attempt_date": "2026-11-02",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-02",
+        "price": 84.99,
+        "ts": "2026-11-02T02:21:47.712421+00:00"
+      }
+    ],
+    "title": "Luggage Set 3 Piece Suitcase  Double Spinner Wheels HardSide",
+    "tracking_status": "active"
   },
   "daily|us|v1|236477220258|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
@@ -10012,6 +10224,20 @@
     ],
     "title": "Cook's Essentials CM15901 3-Quart Digital Air Fryer 1500 Watt White READ!!!",
     "tracking_status": "ended"
+  },
+  "daily|us|v1|257757668040|0": {
+    "article_slug": "best-luggage-worth-buying-us",
+    "last_attempt_date": "2026-11-02",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-02",
+        "price": 68.45,
+        "ts": "2026-11-02T02:21:47.712421+00:00"
+      }
+    ],
+    "title": "18\" Boarding Suitcase Travel Underseat Carry On Luggage with Wheels Front Pocket",
+    "tracking_status": "active"
   },
   "daily|us|v1|257785540735|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
@@ -11505,7 +11731,7 @@
   },
   "daily|us|v1|318561189043|616918270874": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "USD",
@@ -11530,6 +11756,12 @@
         "date": "2026-10-21",
         "price": 119.99,
         "ts": "2026-10-21T02:27:58.607529+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-02",
+        "price": 119.99,
+        "ts": "2026-11-02T02:21:35.863286+00:00"
       }
     ],
     "title": "Netac 120GB 256GB 1TB 2TB Internal SSD 2.5'' SATAIII 6Gb/s Solid State Drive lot",
@@ -11667,7 +11899,7 @@
   },
   "daily|us|v1|326645200202|0": {
     "article_slug": "best-tvs-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "USD",
@@ -11689,11 +11921,11 @@
       }
     ],
     "title": "Insignia- 50\" Class F50 Series LED 4K UHD Smart Fire TV",
-    "tracking_status": "active"
+    "tracking_status": "ended"
   },
   "daily|us|v1|326666680201|0": {
     "article_slug": "best-tablets-worth-buying-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "USD",
@@ -11712,6 +11944,12 @@
         "date": "2026-10-21",
         "price": 99.99,
         "ts": "2026-10-21T02:27:58.607529+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-02",
+        "price": 169.99,
+        "ts": "2026-11-02T02:21:35.863286+00:00"
       }
     ],
     "title": "Lenovo - Tab One - 8.7\" HD Tablet - 4GB RAM - 64GB eMMC - Luna Grey",
@@ -11787,7 +12025,7 @@
   },
   "daily|us|v1|327285234753|0": {
     "article_slug": "best-tvs-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "USD",
@@ -11806,6 +12044,12 @@
         "date": "2026-10-21",
         "price": 499.99,
         "ts": "2026-10-21T02:27:58.607529+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-02",
+        "price": 499.99,
+        "ts": "2026-11-02T02:21:35.863286+00:00"
       }
     ],
     "title": "TCL - 50\" Class QM6K Series 4K UHD HDR QD Mini LED Smart TV with Google TV (2...",
@@ -11813,7 +12057,7 @@
   },
   "daily|us|v1|327296803741|0": {
     "article_slug": "best-tvs-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "USD",
@@ -11832,6 +12076,12 @@
         "date": "2026-10-21",
         "price": 279.99,
         "ts": "2026-10-21T02:27:58.607529+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-02",
+        "price": 279.99,
+        "ts": "2026-11-02T02:21:35.863286+00:00"
       }
     ],
     "title": "TCL - 50\" Class Q6LR Series 4K UHD HDR QLED Smart TV with Roku TV (2026)",
@@ -12009,13 +12259,19 @@
   },
   "daily|us|v1|336581273947|0": {
     "article_slug": "best-car-vacuums-under-90-worth-buying-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-21",
         "price": 27.19,
         "ts": "2026-10-21T16:58:29.622680+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-02",
+        "price": 27.19,
+        "ts": "2026-11-02T02:21:35.863286+00:00"
       }
     ],
     "title": "Handheld Cordless Vacuum Cleaner 25KPA Portable 120W HEPA Filter Home Car Pet",
@@ -12175,13 +12431,19 @@
   },
   "daily|us|v1|354165590164|623531138738": {
     "article_slug": "affordable-homeware-for-students-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-21",
         "price": 16.73,
         "ts": "2026-10-21T15:29:14.877216+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-02",
+        "price": 16.73,
+        "ts": "2026-11-02T02:21:35.863286+00:00"
       }
     ],
     "title": "1-2PCS Under Bed Storage Bag Containers Clothes Box Underbed Organizer Non-Woven",
@@ -12209,13 +12471,19 @@
   },
   "daily|us|v1|356346299715|625309697559": {
     "article_slug": "affordable-homeware-for-students-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-21",
         "price": 12.95,
         "ts": "2026-10-21T15:29:11.884497+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-02",
+        "price": 12.95,
+        "ts": "2026-11-02T02:21:35.863286+00:00"
       }
     ],
     "title": "90L Large Laundry Basket Laundry Hamper Bag Washing Bin Clothes Bag Collapsible",
@@ -12321,13 +12589,19 @@
   },
   "daily|us|v1|358861430696|0": {
     "article_slug": "best-car-vacuums-under-90-worth-buying-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-21",
         "price": 24.54,
         "ts": "2026-10-21T16:58:29.622680+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-02",
+        "price": 24.54,
+        "ts": "2026-11-02T02:21:35.863286+00:00"
       }
     ],
     "title": "10000PA Cordless Hand Held Vacuum Cleaner Mini Portable Car Auto Home Wireless",
@@ -12335,13 +12609,19 @@
   },
   "daily|us|v1|358899065925|0": {
     "article_slug": "best-car-vacuums-under-90-worth-buying-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-21",
         "price": 23.79,
         "ts": "2026-10-21T16:58:29.622680+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-02",
+        "price": 23.79,
+        "ts": "2026-11-02T02:21:35.863286+00:00"
       }
     ],
     "title": "Ofuzzi H8 Apex Car Vacuum Cleaner, Portable Handheld Vacuum with 12000Pa High Po",
@@ -12665,13 +12945,19 @@
   },
   "daily|us|v1|374274658971|0": {
     "article_slug": "best-carpet-cleaners-worth-buying-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-21",
         "price": 503.84,
         "ts": "2026-10-21T02:28:09.421263+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-02",
+        "price": 503.84,
+        "ts": "2026-11-02T02:21:35.863286+00:00"
       }
     ],
     "title": "Multifuction Hotel Carpet Cleaning Washing Machine Carpet Extractor Cleaners 30L",
@@ -12937,7 +13223,7 @@
   },
   "daily|us|v1|385826161635|0": {
     "article_slug": "best-video-doorbells-worth-buying-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "USD",
@@ -12950,6 +13236,12 @@
         "date": "2026-10-21",
         "price": 59.99,
         "ts": "2026-10-21T02:27:58.607529+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-02",
+        "price": 52.99,
+        "ts": "2026-11-02T02:21:35.863286+00:00"
       }
     ],
     "title": "eufy Video Doorbell Camera C31 2K FHD Security Phone Door Ring Intercom |Refurb",
@@ -13601,13 +13893,19 @@
   },
   "daily|us|v1|398376303191|0": {
     "article_slug": "affordable-homeware-for-students-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-21",
         "price": 10.07,
         "ts": "2026-10-21T15:29:11.884497+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-02",
+        "price": 10.07,
+        "ts": "2026-11-02T02:21:35.863286+00:00"
       }
     ],
     "title": "GMOX 90L Laundry Basket,Waterproof Laundry Hamper with Padded Handles",
@@ -13615,13 +13913,19 @@
   },
   "daily|us|v1|398383617779|0": {
     "article_slug": "affordable-homeware-for-students-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-21",
         "price": 11.75,
         "ts": "2026-10-21T15:29:11.884497+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-02",
+        "price": 11.75,
+        "ts": "2026-11-02T02:21:35.863286+00:00"
       }
     ],
     "title": "Two-Tone 90L Collapsible Laundry Basket Freestanding Foldable Hamper Soft Handle",
@@ -13943,13 +14247,19 @@
   },
   "daily|us|v1|407300581202|0": {
     "article_slug": "affordable-homeware-for-students-us",
-    "last_attempt_date": "2026-10-21",
+    "last_attempt_date": "2026-11-02",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-21",
         "price": 21.02,
         "ts": "2026-10-21T15:29:11.884497+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-02",
+        "price": 28.03,
+        "ts": "2026-11-02T02:21:35.863286+00:00"
       }
     ],
     "title": "15in Collapsible Laundry Basket Plastic Hamper Foldable Storage Bin With Handles",
