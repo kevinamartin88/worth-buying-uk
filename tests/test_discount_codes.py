@@ -115,6 +115,8 @@ def forbidden_error() -> HttpError:
 
 
 def test_refresh_emails_manual_package_when_all_blogger_writes_are_forbidden(monkeypatch):
+    # Keep the dated sample offer active regardless of the real calendar date.
+    monkeypatch.setattr(discounts, "datetime", October19)
     blogger = MagicMock()
     blogger.upsert_page.side_effect = forbidden_error()
     blogger.upsert_post.side_effect = forbidden_error()
