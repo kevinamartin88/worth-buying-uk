@@ -1,8 +1,17 @@
 {
-  "run": "2026-11-03T17:54:20.101707+00:00",
+  "run": "2026-11-04T17:13:53.404233+00:00",
   "current_run": {
-    "started_at": "2026-11-03T17:54:20.101707+00:00",
-    "weekly": {}
+    "started_at": "2026-11-04T17:13:53.404233+00:00",
+    "weekly": {
+      "uk": {
+        "status": "generated-awaiting-publisher",
+        "error": null
+      },
+      "us": {
+        "status": "generated-awaiting-publisher",
+        "error": null
+      }
+    }
   },
   "state": {
     "growth": {
@@ -631,21 +640,21 @@
     },
     "weekly": {
       "uk": {
-        "status": "published",
+        "status": "generated-awaiting-publisher",
         "error": null,
-        "attempted": "2026-10-28",
-        "week": "2026-W44",
-        "next": 1,
-        "slug": "air-fryers-for-students-uk",
+        "attempted": "2026-11-04",
+        "week": "2026-W45",
+        "next": 2,
+        "slug": "affordable-homeware-for-students-uk",
         "url": "https://www.worthbuyinguk.co.uk/2026/10/air-fryers-for-university-students.html"
       },
       "us": {
-        "status": "published",
+        "status": "generated-awaiting-publisher",
         "error": null,
-        "attempted": "2026-10-28",
-        "week": "2026-W44",
-        "next": 3,
-        "slug": "easy-grip-cutlery-usa",
+        "attempted": "2026-11-04",
+        "week": "2026-W45",
+        "next": 4,
+        "slug": "small-bedroom-air-purifiers-usa",
         "url": "https://www.worthbuyingusa.com/2026/10/easy-grip-utensils-for-reduced-hand.html"
       }
     },
