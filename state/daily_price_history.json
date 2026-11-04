@@ -2092,8 +2092,8 @@
     "tracking_status": "active"
   },
   "daily|uk|v1|167955152520|0": {
-    "article_slug": "best-garden-tool-sets-worth-buying-uk",
-    "last_attempt_date": "2026-11-02",
+    "article_slug": "best-value-garden-tool-sets-worth-buying-uk",
+    "last_attempt_date": "2026-11-04",
     "observations": [
       {
         "currency": "GBP",
@@ -2106,6 +2106,12 @@
         "date": "2026-11-02",
         "price": 30.41,
         "ts": "2026-11-02T02:21:24.015063+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-04",
+        "price": 30.41,
+        "ts": "2026-11-04T18:39:41.767387+00:00"
       }
     ],
     "title": "Draper Heritage 7-Piece Stainless Steel Garden Tool Set Ash Handles",
@@ -3336,8 +3342,8 @@
     "tracking_status": "active"
   },
   "daily|uk|v1|236532950927|0": {
-    "article_slug": "best-garden-tool-sets-worth-buying-uk",
-    "last_attempt_date": "2026-11-03",
+    "article_slug": "best-value-garden-tool-sets-worth-buying-uk",
+    "last_attempt_date": "2026-11-04",
     "observations": [
       {
         "currency": "GBP",
@@ -3350,6 +3356,12 @@
         "date": "2026-11-03",
         "price": 24.99,
         "ts": "2026-11-03T03:54:17.769330+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-04",
+        "price": 24.99,
+        "ts": "2026-11-04T18:39:41.767387+00:00"
       }
     ],
     "title": "Draper 11pc Aluminium Garden Tool Set Fork Trowel Gardening Gloves + Storage Bag",
@@ -4728,8 +4740,8 @@
     "tracking_status": "active"
   },
   "daily|uk|v1|306813502008|0": {
-    "article_slug": "best-garden-tool-sets-worth-buying-uk",
-    "last_attempt_date": "2026-11-03",
+    "article_slug": "best-value-garden-tool-sets-worth-buying-uk",
+    "last_attempt_date": "2026-11-04",
     "observations": [
       {
         "currency": "GBP",
@@ -4742,6 +4754,12 @@
         "date": "2026-11-03",
         "price": 21.99,
         "ts": "2026-11-03T03:54:17.769330+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-04",
+        "price": 21.99,
+        "ts": "2026-11-04T18:39:41.767387+00:00"
       }
     ],
     "title": "3pc Telescopic Garden Hand Tools Set Extending Handles Fork Trowel Weeder / Hoe",
@@ -6361,6 +6379,20 @@
     "title": "12L Air fryer Oven Family Size Large Air fryer With Accessories 1800W",
     "tracking_status": "active"
   },
+  "daily|uk|v1|397696385063|0": {
+    "article_slug": "best-value-garden-tool-sets-worth-buying-uk",
+    "last_attempt_date": "2026-11-04",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-04",
+        "price": 21.13,
+        "ts": "2026-11-04T18:39:41.767387+00:00"
+      }
+    ],
+    "title": "3pc Telescopic Garden Hand Tools Set Fork Trowel Weeder / Hoe Extending Handles",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|397746603338|0": {
     "article_slug": "best-security-cameras-worth-buying-uk",
     "last_attempt_date": "2026-10-28",
@@ -7765,6 +7797,20 @@
     "title": "Heavy Duty Portable Air Compressor Car Tire Inflator Electric Auto 12V DC 150PSI",
     "tracking_status": "active"
   },
+  "daily|us|v1|146502308083|0": {
+    "article_slug": "best-value-cordless-drills-worth-buying-us",
+    "last_attempt_date": "2026-11-04",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-04",
+        "price": 36.89,
+        "ts": "2026-11-04T18:39:45.399745+00:00"
+      }
+    ],
+    "title": "Hammer Drill Cordless Brushless Impact Driver Combo Kit With 2 Battery & Charger",
+    "tracking_status": "active"
+  },
   "daily|us|v1|146599201986|0": {
     "article_slug": "small-bedroom-air-purifiers-us",
     "last_attempt_date": "2026-11-04",
@@ -9049,6 +9095,20 @@
       }
     ],
     "title": "Bose SoundLink Max Portable Speaker, Certified Refurbished",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|187581754551|0": {
+    "article_slug": "best-value-cordless-drills-worth-buying-us",
+    "last_attempt_date": "2026-11-04",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-04",
+        "price": 21.07,
+        "ts": "2026-11-04T18:39:45.399745+00:00"
+      }
+    ],
+    "title": "20V Max Cordless Drill Driver Kit 2 Batteries 330In-lbs Torque LED Light",
     "tracking_status": "active"
   },
   "daily|us|v1|187656775458|0": {
@@ -11261,6 +11321,20 @@
     "title": "Bella - 6-qt. Programmable Slow Cooker & 2-qt. Slow Cooker Set - Oatmilk",
     "tracking_status": "active"
   },
+  "daily|us|v1|287663402239|0": {
+    "article_slug": "best-value-cordless-drills-worth-buying-us",
+    "last_attempt_date": "2026-11-04",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-04",
+        "price": 35.0,
+        "ts": "2026-11-04T18:39:45.399745+00:00"
+      }
+    ],
+    "title": "Makita FD02 10.8V/12V Max Compact Cordless Drill/Driver 3/8\" Keyless Black/White",
+    "tracking_status": "active"
+  },
   "daily|us|v1|298258073093|0": {
     "article_slug": "best-carpet-cleaners-worth-buying-us",
     "last_attempt_date": "2026-11-01",
@@ -13314,8 +13388,8 @@
     "tracking_status": "active"
   },
   "daily|us|v1|366199188711|0": {
-    "article_slug": "best-refurbished-cordless-drills-worth-buying-us",
-    "last_attempt_date": "2026-10-28",
+    "article_slug": "best-value-cordless-drills-worth-buying-us",
+    "last_attempt_date": "2026-11-04",
     "observations": [
       {
         "currency": "USD",
@@ -13334,6 +13408,12 @@
         "date": "2026-10-28",
         "price": 107.99,
         "ts": "2026-10-28T17:11:13.102365+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-04",
+        "price": 107.99,
+        "ts": "2026-11-04T18:39:45.399745+00:00"
       }
     ],
     "title": "Bosch GSR12V-140FCB22 12V Cordless Max Drill/Driver (Certified Refurbished)",
