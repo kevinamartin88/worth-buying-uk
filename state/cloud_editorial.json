@@ -625,22 +625,22 @@
   },
   "weekly": {
     "uk": {
-      "status": "generated-awaiting-publisher",
+      "status": "published",
       "error": null,
       "attempted": "2026-11-04",
       "week": "2026-W45",
       "next": 2,
       "slug": "affordable-homeware-for-students-uk",
-      "url": "https://www.worthbuyinguk.co.uk/2026/10/air-fryers-for-university-students.html"
+      "url": "https://www.worthbuyinguk.co.uk/2026/11/affordable-homeware-for-university.html"
     },
     "us": {
-      "status": "generated-awaiting-publisher",
+      "status": "published",
       "error": null,
       "attempted": "2026-11-04",
       "week": "2026-W45",
       "next": 4,
       "slug": "small-bedroom-air-purifiers-usa",
-      "url": "https://www.worthbuyingusa.com/2026/10/easy-grip-utensils-for-reduced-hand.html"
+      "url": "https://www.worthbuyingusa.com/2026/11/air-purifiers-for-small-bedrooms-filter.html"
     }
   },
   "metrics_finished": true
