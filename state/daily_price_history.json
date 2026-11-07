@@ -521,13 +521,19 @@
   },
   "daily|uk|v1|127813661254|0": {
     "article_slug": "best-wifi-routers-worth-buying-uk",
-    "last_attempt_date": "2026-10-28",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-28",
         "price": 99.95,
         "ts": "2026-10-28T02:07:35.187845+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-07",
+        "price": 99.95,
+        "ts": "2026-11-07T02:41:17.410461+00:00"
       }
     ],
     "title": "5G Router - Zyxel NR5103E - Wi-Fi 6 - White",
@@ -633,7 +639,7 @@
   },
   "daily|uk|v1|128015448408|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-28",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "GBP",
@@ -676,6 +682,12 @@
         "date": "2026-10-28",
         "price": 20.19,
         "ts": "2026-10-28T15:59:46.687019+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-07",
+        "price": 20.19,
+        "ts": "2026-11-07T02:41:17.410461+00:00"
       }
     ],
     "title": "3Pcs Silicone Air Fryer Liners for Ninja Flex Drawer AF500UK, 2Pcs 5.2L + 1Pcs 1",
@@ -733,7 +745,7 @@
   },
   "daily|uk|v1|128131238944|0": {
     "article_slug": "best-cordless-drills-worth-buying-uk",
-    "last_attempt_date": "2026-10-28",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "GBP",
@@ -752,6 +764,12 @@
         "date": "2026-10-28",
         "price": 83.89,
         "ts": "2026-10-28T02:07:21.373036+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-07",
+        "price": 83.89,
+        "ts": "2026-11-07T02:41:17.410461+00:00"
       }
     ],
     "title": "BLACK+DECKER 18V Li-Ion Hammer Drill BDCHD18KB 2.0Ah, Case & Charger",
@@ -941,7 +959,7 @@
   },
   "daily|uk|v1|136880714511|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-28",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "GBP",
@@ -963,11 +981,11 @@
       }
     ],
     "title": "George Home GHAFN011B4B 9L Multi-Basket Air Fryer Touch Screen Stainless Steel",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|uk|v1|136880735758|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-28",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "GBP",
@@ -1001,7 +1019,7 @@
       }
     ],
     "title": "George Home GHAFN121B4C 10L Dual Drawer Digital Air Fryer Touch screen LED 3040W",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|uk|v1|136924993872|0": {
     "article_slug": "best-blenders-worth-buying-uk",
@@ -1089,7 +1107,7 @@
   },
   "daily|uk|v1|137190219990|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-28",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "GBP",
@@ -1120,6 +1138,12 @@
         "date": "2026-10-28",
         "price": 44.99,
         "ts": "2026-10-28T15:59:53.254899+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-07",
+        "price": 44.99,
+        "ts": "2026-11-07T02:41:17.410461+00:00"
       }
     ],
     "title": "George Home SAFN121BL4Q 9.5L Digital Air Fryer Dual Drawer 2400w Black and Wood",
@@ -1127,7 +1151,7 @@
   },
   "daily|uk|v1|137268972796|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-28",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "GBP",
@@ -1170,6 +1194,12 @@
         "date": "2026-10-28",
         "price": 39.99,
         "ts": "2026-10-28T15:59:53.254899+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-07",
+        "price": 39.99,
+        "ts": "2026-11-07T02:41:17.410461+00:00"
       }
     ],
     "title": "George Home GHAFN121B5M 8L Dual Drawer Digital Air Fryer 2400w Non-stick Black",
@@ -1203,7 +1233,7 @@
   },
   "daily|uk|v1|137320777589|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-28",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "GBP",
@@ -1213,7 +1243,7 @@
       }
     ],
     "title": "George Home GHAFN121B5B 9L Dual Drawer Air Fryer Touch Screen LED 2850w Black",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|uk|v1|137743556896|0": {
     "article_slug": "best-storage-bins-worth-buying-uk-2026",
@@ -1419,13 +1449,19 @@
   },
   "daily|uk|v1|146567146148|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-28",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-28",
         "price": 31.99,
         "ts": "2026-10-28T16:00:02.003877+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-07",
+        "price": 31.99,
+        "ts": "2026-11-07T02:41:17.410461+00:00"
       }
     ],
     "title": "EMtronics EMDAF45L Digital Large 4.5L Air Fryer with 60 Minute Timer - Black",
@@ -1693,13 +1729,19 @@
   },
   "daily|uk|v1|147514969154|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-28",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-28",
         "price": 39.99,
         "ts": "2026-10-28T16:00:02.003877+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-07",
+        "price": 39.99,
+        "ts": "2026-11-07T02:41:17.410461+00:00"
       }
     ],
     "title": "EMtronics EMDAF45LWH Digital Large 4.5L Air Fryer with 60 Minute Timer - White",
@@ -1777,7 +1819,7 @@
   },
   "daily|uk|v1|153016383996|0": {
     "article_slug": "best-cordless-drills-worth-buying-uk",
-    "last_attempt_date": "2026-10-28",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "GBP",
@@ -1796,6 +1838,12 @@
         "date": "2026-10-28",
         "price": 22.99,
         "ts": "2026-10-28T02:07:21.373036+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-07",
+        "price": 22.99,
+        "ts": "2026-11-07T02:41:17.410461+00:00"
       }
     ],
     "title": "Terratek Cordless Drill 18V Driver Set Battery Charger Electric Screwdriver Kit",
@@ -2039,7 +2087,7 @@
   },
   "daily|uk|v1|167408808628|0": {
     "article_slug": "best-streaming-devices-worth-buying-uk",
-    "last_attempt_date": "2026-10-28",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "GBP",
@@ -2052,6 +2100,12 @@
         "date": "2026-10-28",
         "price": 44.96,
         "ts": "2026-10-28T02:07:21.373036+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-07",
+        "price": 44.6,
+        "ts": "2026-11-07T02:41:17.410461+00:00"
       }
     ],
     "title": "Smart Streamer 5-Device Backlit Universal Remote",
@@ -3111,7 +3165,7 @@
   },
   "daily|uk|v1|206549068942|0": {
     "article_slug": "best-streaming-devices-worth-buying-uk",
-    "last_attempt_date": "2026-10-28",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "GBP",
@@ -3124,6 +3178,12 @@
         "date": "2026-10-28",
         "price": 29.67,
         "ts": "2026-10-28T02:07:21.373036+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-07",
+        "price": 26.49,
+        "ts": "2026-11-07T02:41:17.410461+00:00"
       }
     ],
     "title": "HDMI to RCA Converter Adapter for Older TVs - Compatible with Apple TV, Roku, Fi",
@@ -3285,7 +3345,7 @@
   },
   "daily|uk|v1|227270118662|0": {
     "article_slug": "best-value-storage-bins-worth-buying-uk",
-    "last_attempt_date": "2026-10-28",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "GBP",
@@ -3304,6 +3364,12 @@
         "date": "2026-10-28",
         "price": 19.99,
         "ts": "2026-10-28T02:07:21.373036+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-07",
+        "price": 14.99,
+        "ts": "2026-11-07T02:41:17.410461+00:00"
       }
     ],
     "title": "Foldable Storage Boxes with Lids Grey Fabric Organizer Closet Bins-5 Pack",
@@ -3331,13 +3397,19 @@
   },
   "daily|uk|v1|227551683034|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-28",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-28",
         "price": 30.0,
         "ts": "2026-10-28T15:59:49.501469+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-07",
+        "price": 30.0,
+        "ts": "2026-11-07T02:41:17.410461+00:00"
       }
     ],
     "title": "Swiss Home PETIT Air Fryer 2.5L 1200W Black SH-6653 Compact Healthy Cooker Boxed",
@@ -3999,7 +4071,7 @@
   },
   "daily|uk|v1|277202861854|0": {
     "article_slug": "best-streaming-devices-worth-buying-uk",
-    "last_attempt_date": "2026-10-28",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "GBP",
@@ -4012,6 +4084,12 @@
         "date": "2026-10-28",
         "price": 22.48,
         "ts": "2026-10-28T02:07:21.373036+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-07",
+        "price": 22.3,
+        "ts": "2026-11-07T02:41:17.410461+00:00"
       }
     ],
     "title": "RCA RCS03WB Universal Rechargeable 3-Device Streaming Remote Control",
@@ -4019,7 +4097,7 @@
   },
   "daily|uk|v1|277352299657|0": {
     "article_slug": "best-slow-cookers-worth-buying-uk",
-    "last_attempt_date": "2026-10-28",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "GBP",
@@ -4050,6 +4128,12 @@
         "date": "2026-10-28",
         "price": 42.99,
         "ts": "2026-10-28T02:07:21.373036+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-07",
+        "price": 42.99,
+        "ts": "2026-11-07T02:41:17.410461+00:00"
       }
     ],
     "title": "Salter 6.5L Digital Slow Cooker – LED Display, 3 Heat Settings, Timer, 320W",
@@ -4153,13 +4237,19 @@
   },
   "daily|uk|v1|278071107409|0": {
     "article_slug": "best-wifi-routers-worth-buying-uk",
-    "last_attempt_date": "2026-10-28",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-28",
         "price": 69.99,
         "ts": "2026-10-28T02:07:35.187845+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-07",
+        "price": 69.99,
+        "ts": "2026-11-07T02:41:17.410461+00:00"
       }
     ],
     "title": "TP-Link Archer AX72 AX5400 Dual-Band Stream Gigabit Wi-Fi 6 Router 4.8Gbps UK",
@@ -4455,13 +4545,19 @@
   },
   "daily|uk|v1|287262407431|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-28",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-28",
         "price": 39.99,
         "ts": "2026-10-28T15:59:49.501469+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-07",
+        "price": 39.99,
+        "ts": "2026-11-07T02:41:17.410461+00:00"
       }
     ],
     "title": "LIVIVO Electric Deep Fat Fryer White Compact Chip Fryer with Odour Filter",
@@ -4943,6 +5039,20 @@
     "title": "Brand New | Dell WB5023 Pro Webcam 2K Ultra HD Resolution",
     "tracking_status": "active"
   },
+  "daily|uk|v1|314931709668|0": {
+    "article_slug": "best-hedge-trimmers-worth-buying-uk",
+    "last_attempt_date": "2026-11-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-07",
+        "price": 114.99,
+        "ts": "2026-11-07T02:41:29.234138+00:00"
+      }
+    ],
+    "title": "Makita DUH507Z 18V LXT Cordless 50cm Hedge Trimmer Electric Break Bare",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|315284304181|616318631479": {
     "article_slug": "best-backpacks-worth-buying-uk",
     "last_attempt_date": "2026-11-05",
@@ -5009,9 +5119,23 @@
     "title": "Air Fryer Oven Combi, Rotisserie and Grill, Large Family Size 12L with 16 Pre-Se",
     "tracking_status": "active"
   },
+  "daily|uk|v1|317790542952|0": {
+    "article_slug": "best-hedge-trimmers-worth-buying-uk",
+    "last_attempt_date": "2026-11-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-07",
+        "price": 208.99,
+        "ts": "2026-11-07T02:41:29.234138+00:00"
+      }
+    ],
+    "title": "Dewalt DCMPH566N 18v XR Brushless Pole Hedge Trimmer 55cm Long Reach 3.35m Bare",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|317809552897|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-28",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "GBP",
@@ -5054,9 +5178,29 @@
         "date": "2026-10-28",
         "price": 12.52,
         "ts": "2026-10-28T15:59:46.687019+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-07",
+        "price": 12.52,
+        "ts": "2026-11-07T02:41:17.410461+00:00"
       }
     ],
     "title": "3Pcs 4.7-6.2L Silicone Air Fryer Liner Suit for Philips Airfryer 6.2L (Na230/09;",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|317871731597|0": {
+    "article_slug": "best-hedge-trimmers-worth-buying-uk",
+    "last_attempt_date": "2026-11-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-07",
+        "price": 119.99,
+        "ts": "2026-11-07T02:41:29.234138+00:00"
+      }
+    ],
+    "title": "Dewalt DCMHT562N XR Cordless 55cm Hedge Trimmer Cutter 19mm Cutting Width - Bare",
     "tracking_status": "active"
   },
   "daily|uk|v1|318042236130|0": {
@@ -7175,6 +7319,20 @@
     "title": "2L Carpet Cleaner Solution for Shark StainStriker CarpetXpert PX200UK EX150UK",
     "tracking_status": "active"
   },
+  "daily|uk|v1|840085699823|0": {
+    "article_slug": "best-hedge-trimmers-worth-buying-uk",
+    "last_attempt_date": "2026-11-07",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-07",
+        "price": 89.99,
+        "ts": "2026-11-07T02:41:29.234138+00:00"
+      }
+    ],
+    "title": "Ryobi OPT1845 ONE+ 18V Cordless Pole Hedge Trimmer 45cm Blade Bare Tool",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|880010753824|0": {
     "article_slug": "best-webcams-worth-buying-uk",
     "last_attempt_date": "2026-11-05",
@@ -7245,7 +7403,7 @@
   },
   "daily|us|v1|115616630395|417139470690": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-26",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "USD",
@@ -7276,6 +7434,12 @@
         "date": "2026-10-26",
         "price": 30.68,
         "ts": "2026-10-26T01:06:27.280309+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-07",
+        "price": 30.68,
+        "ts": "2026-11-07T02:41:29.268069+00:00"
       }
     ],
     "title": "UTEN Air Fryer XXL 1700W 4.2QT/5.8QT/6.9QT Oven Hot Electric Air Fryer Cooker US",
@@ -7283,7 +7447,7 @@
   },
   "daily|us|v1|115616630395|417139470691": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-26",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "USD",
@@ -7314,6 +7478,12 @@
         "date": "2026-10-26",
         "price": 40.84,
         "ts": "2026-10-26T01:06:27.280309+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-07",
+        "price": 40.84,
+        "ts": "2026-11-07T02:41:29.268069+00:00"
       }
     ],
     "title": "UTEN Air Fryer XXL 1700W 4.2QT/5.8QT/6.9QT Oven Hot Electric Air Fryer Cooker US",
@@ -7335,7 +7505,7 @@
   },
   "daily|us|v1|126785282007|0": {
     "article_slug": "air-fryers-for-students-us",
-    "last_attempt_date": "2026-10-26",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "USD",
@@ -7360,6 +7530,12 @@
         "date": "2026-10-26",
         "price": 30.68,
         "ts": "2026-10-26T01:06:27.280309+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-07",
+        "price": 33.53,
+        "ts": "2026-11-07T02:41:29.268069+00:00"
       }
     ],
     "title": "Uten 4.2Qt Electric Air Fryer XL Large Capacity with Timer & Temperature Control",
@@ -7465,7 +7641,7 @@
   },
   "daily|us|v1|128021889205|0": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-us",
-    "last_attempt_date": "2026-10-26",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "USD",
@@ -7496,6 +7672,12 @@
         "date": "2026-10-26",
         "price": 149.16,
         "ts": "2026-10-26T01:06:27.280309+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-07",
+        "price": 143.98,
+        "ts": "2026-11-07T02:41:29.268069+00:00"
       }
     ],
     "title": "Effortless 10.2 QT Air Fryer - 1700W, Stain Resistant, Family-Friendly Design",
@@ -7503,7 +7685,7 @@
   },
   "daily|us|v1|128110620411|0": {
     "article_slug": "air-fryers-for-students-us",
-    "last_attempt_date": "2026-10-26",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "USD",
@@ -7531,11 +7713,11 @@
       }
     ],
     "title": "AEWHALE 3-in-1 Air Fryer with 4QT & 8-Cup Stainless Steel Containers",
-    "tracking_status": "active"
+    "tracking_status": "ended"
   },
   "daily|us|v1|128116695179|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-26",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "USD",
@@ -7577,13 +7759,19 @@
   },
   "daily|us|v1|135030277743|0": {
     "article_slug": "best-lawn-mowers-worth-buying-us",
-    "last_attempt_date": "2026-10-26",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-26",
         "price": 119.99,
         "ts": "2026-10-26T22:13:50.828146+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-07",
+        "price": 114.99,
+        "ts": "2026-11-07T02:41:29.268069+00:00"
       }
     ],
     "title": "LawnMaster MEB1114K Electric Corded Lawn Mower 15-Inch 11AMP",
@@ -7757,13 +7945,19 @@
   },
   "daily|us|v1|136009238820|0": {
     "article_slug": "best-wifi-routers-worth-buying-us",
-    "last_attempt_date": "2026-10-26",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-26",
         "price": 149.99,
         "ts": "2026-10-26T01:06:40.189170+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-07",
+        "price": 149.99,
+        "ts": "2026-11-07T02:41:29.268069+00:00"
       }
     ],
     "title": "NETGEAR RS300-100NAR Nighthawk RS300 WiFi 7 Router, Black-Certified Refurbished",
@@ -7809,13 +8003,19 @@
   },
   "daily|us|v1|136877862027|0": {
     "article_slug": "best-wifi-routers-worth-buying-us",
-    "last_attempt_date": "2026-10-26",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-26",
         "price": 64.39,
         "ts": "2026-10-26T01:06:40.189170+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-07",
+        "price": 69.99,
+        "ts": "2026-11-07T02:41:29.268069+00:00"
       }
     ],
     "title": "NETGEAR RS100-100NAR Nighthawk Dual-Band WiFi 7 Router - Certified Refurbished",
@@ -7875,13 +8075,19 @@
   },
   "daily|us|v1|137076667763|0": {
     "article_slug": "best-lawn-mowers-worth-buying-us",
-    "last_attempt_date": "2026-10-26",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-26",
         "price": 118.98,
         "ts": "2026-10-26T22:13:50.828146+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-07",
+        "price": 118.98,
+        "ts": "2026-11-07T02:41:29.268069+00:00"
       }
     ],
     "title": "LawnMaster MEB1216K Electric Lawn Mower 16-Inch 12AMP Corded Lightweight Compact",
@@ -8885,6 +9091,20 @@
     "title": "Samsung Galaxy Watch 8 LTE 40mm Unlocked  Smartwatch L325U - Excellent",
     "tracking_status": "active"
   },
+  "daily|us|v1|168414680102|0": {
+    "article_slug": "best-leaf-blowers-worth-buying-us",
+    "last_attempt_date": "2026-11-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-07",
+        "price": 50.89,
+        "ts": "2026-11-07T02:41:41.227878+00:00"
+      }
+    ],
+    "title": "Cordless Leaf Blower 650CFM 280MPH 6 Speed Electric Lawn Blower w/ 2 Batteries",
+    "tracking_status": "active"
+  },
   "daily|us|v1|168453300138|0": {
     "article_slug": "best-tablets-worth-buying-us",
     "last_attempt_date": "2026-11-03",
@@ -9007,7 +9227,7 @@
   },
   "daily|us|v1|168664473154|0": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-26",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "USD",
@@ -9065,13 +9285,19 @@
   },
   "daily|us|v1|168690089314|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-26",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-26",
         "price": 235.31,
         "ts": "2026-10-26T22:13:01.092811+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-07",
+        "price": 235.31,
+        "ts": "2026-11-07T02:41:29.268069+00:00"
       }
     ],
     "title": "KingSpec P3 SSD 256GB Internal 2.5\" Solid State Drive 2.5 Inch SATA III 3D NAND",
@@ -9145,7 +9371,7 @@
   },
   "daily|us|v1|177457767333|0": {
     "article_slug": "best-slow-cookers-worth-buying-us",
-    "last_attempt_date": "2026-10-26",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "USD",
@@ -9647,7 +9873,7 @@
   },
   "daily|us|v1|191989294122|0": {
     "article_slug": "best-storage-bins-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-26",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "USD",
@@ -9660,6 +9886,12 @@
         "date": "2026-10-26",
         "price": 29.99,
         "ts": "2026-10-26T01:06:27.280309+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-07",
+        "price": 29.99,
+        "ts": "2026-11-07T02:41:29.268069+00:00"
       }
     ],
     "title": "Wall Mounted Storage Bins Parts Rack 30 Bin Organizer Garage Plastic Shop Tool",
@@ -9667,13 +9899,19 @@
   },
   "daily|us|v1|196244766249|0": {
     "article_slug": "best-food-processors-worth-buying-us",
-    "last_attempt_date": "2026-10-26",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-26",
         "price": 99.99,
         "ts": "2026-10-26T22:22:06.468015+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-07",
+        "price": 89.99,
+        "ts": "2026-11-07T02:41:29.268069+00:00"
       }
     ],
     "title": "Ninja - Professional Plus Food Processor, 1000 Peak Watts, 9-Cup Capacity, 4 ...",
@@ -9935,13 +10173,19 @@
   },
   "daily|us|v1|198647068197|0": {
     "article_slug": "best-wifi-routers-worth-buying-us",
-    "last_attempt_date": "2026-10-26",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-26",
         "price": 74.95,
         "ts": "2026-10-26T01:06:40.189170+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-07",
+        "price": 72.95,
+        "ts": "2026-11-07T02:41:29.268069+00:00"
       }
     ],
     "title": "Linksys Max-Stream Tri-Band AC3000 WiFi 5 Mesh Router MR9000",
@@ -10049,7 +10293,7 @@
   },
   "daily|us|v1|205117450775|0": {
     "article_slug": "best-lawn-mowers-worth-buying-us",
-    "last_attempt_date": "2026-10-26",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "USD",
@@ -10062,6 +10306,12 @@
         "date": "2026-10-26",
         "price": 349.99,
         "ts": "2026-10-26T22:13:50.828146+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-07",
+        "price": 349.99,
+        "ts": "2026-11-07T02:41:29.268069+00:00"
       }
     ],
     "title": "Greenworks - 80-Volt 21-Inch Self-Propelled Lawn Mower with 4.0Ah Battery and...",
@@ -12533,6 +12783,20 @@
     "title": "Netac 512GB M.2 2280 Internal SSD PCIe Gen3x4 NVMe Solid State Drive 2500MB/s",
     "tracking_status": "active"
   },
+  "daily|us|v1|316912381687|0": {
+    "article_slug": "best-leaf-blowers-worth-buying-us",
+    "last_attempt_date": "2026-11-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-07",
+        "price": 62.99,
+        "ts": "2026-11-07T02:41:41.227878+00:00"
+      }
+    ],
+    "title": "Cordless Leaf Blower 850CFM/280MPH & 5 Speed Turbo Electric w/2 Batteries 6.0Ah",
+    "tracking_status": "active"
+  },
   "daily|us|v1|317773979994|616359219107": {
     "article_slug": "air-fryers-for-students-us",
     "last_attempt_date": "2026-11-01",
@@ -14645,13 +14909,19 @@
   },
   "daily|us|v1|389201806445|0": {
     "article_slug": "best-office-chairs-worth-buying-us",
-    "last_attempt_date": "2026-10-25",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-25",
         "price": 199.99,
         "ts": "2026-10-25T01:01:20.466785+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-07",
+        "price": 179.99,
+        "ts": "2026-11-07T02:41:29.268069+00:00"
       }
     ],
     "title": "Big and Tall Office Chair Reclin with Footrest High Back Desk Chair 400LBS Brown",
@@ -14767,6 +15037,34 @@
     "title": "ANRAN Home Security Camera System Solar Panel 360° PTZ Wireless 5MP Outdoor IP65",
     "tracking_status": "active"
   },
+  "daily|us|v1|392300380601|0": {
+    "article_slug": "best-leaf-blowers-worth-buying-us",
+    "last_attempt_date": "2026-11-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-07",
+        "price": 89.99,
+        "ts": "2026-11-07T02:41:41.227878+00:00"
+      }
+    ],
+    "title": "WG547 Worx 20V PowerShare 2-Speed Cordless Turbine Leaf Blower",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|392652903326|0": {
+    "article_slug": "best-leaf-blowers-worth-buying-us",
+    "last_attempt_date": "2026-11-07",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-07",
+        "price": 89.99,
+        "ts": "2026-11-07T02:41:41.227878+00:00"
+      }
+    ],
+    "title": "WORX WG521 Electric TURBINE 800 Electric Leaf Blower",
+    "tracking_status": "active"
+  },
   "daily|us|v1|394152972167|0": {
     "article_slug": "best-storage-bins-worth-buying-us-2026",
     "last_attempt_date": "2026-10-27",
@@ -14803,13 +15101,19 @@
   },
   "daily|us|v1|395089805306|0": {
     "article_slug": "best-office-chairs-worth-buying-us",
-    "last_attempt_date": "2026-10-25",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-25",
         "price": 113.99,
         "ts": "2026-10-25T01:01:20.466785+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-07",
+        "price": 113.99,
+        "ts": "2026-11-07T02:41:29.268069+00:00"
       }
     ],
     "title": "Big and Tall Office Chair 400lbs Wide Seat Ergonomic Desk Chair with Lumbar Arms",
@@ -15663,13 +15967,19 @@
   },
   "daily|us|v1|800786127760|0": {
     "article_slug": "best-office-chairs-worth-buying-us",
-    "last_attempt_date": "2026-10-25",
+    "last_attempt_date": "2026-11-07",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-25",
         "price": 119.98,
         "ts": "2026-10-25T01:01:20.466785+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-07",
+        "price": 109.98,
+        "ts": "2026-11-07T02:41:29.268069+00:00"
       }
     ],
     "title": "Big & Tall Office Chair 500lbs Executive Desk Chair Lumbar Support Flip Up Arms",

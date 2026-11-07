@@ -1,9 +1,9 @@
 {
   "uk": {
-    "authority_cluster": "Motoring",
+    "authority_cluster": "DIY & Garden",
     "content_action": "created",
-    "date": "2026-11-06",
-    "day": "Friday",
+    "date": "2026-11-07",
+    "day": "Saturday",
     "demand_score": null,
     "google_cached": false,
     "google_observed_at": null,
@@ -17,18 +17,18 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-car-vacuums-worth-buying-uk",
-    "title": "4 Best Car Vacuum Cleaners UK 2026: Picks from £17.99–£22",
-    "topic": "car-vacuums",
+    "slug": "best-hedge-trimmers-worth-buying-uk",
+    "title": "4 Best Hedge Trimmers UK 2026: Picks from £90–£209",
+    "topic": "hedge-trimmers",
     "trend_traffic": null,
-    "weekend_focus": null,
-    "weekend_priority": false
+    "weekend_focus": "saturday-home-diy",
+    "weekend_priority": true
   },
   "us": {
-    "authority_cluster": "Gaming & Entertainment",
+    "authority_cluster": "DIY & Garden",
     "content_action": "created",
-    "date": "2026-11-06",
-    "day": "Friday",
+    "date": "2026-11-07",
+    "day": "Saturday",
     "demand_score": null,
     "google_cached": false,
     "google_observed_at": null,
@@ -42,11 +42,11 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-gaming-keyboards-worth-buying-us",
-    "title": "4 Best Gaming Keyboards USA 2026: Picks from $43–$85",
-    "topic": "gaming-keyboards",
+    "slug": "best-leaf-blowers-worth-buying-us",
+    "title": "4 Best Leaf Blowers USA 2026: Picks from $51–$90",
+    "topic": "leaf-blowers",
     "trend_traffic": null,
-    "weekend_focus": null,
-    "weekend_priority": false
+    "weekend_focus": "saturday-home-diy",
+    "weekend_priority": true
   }
 }
