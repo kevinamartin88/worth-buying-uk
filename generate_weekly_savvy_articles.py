@@ -299,7 +299,8 @@ def build_article(market: str, publish_date: date) -> dict:
     }
 
     from src.usa_editorial import enhance_savvy_article
-    return enhance_savvy_article(article, market)
+    from src.uk_editorial import enhance_uk_savvy
+    return enhance_uk_savvy(enhance_savvy_article(article, market), market)
 
 
 def load_state() -> dict:

@@ -198,6 +198,9 @@ def render(deals, market, now, discovered_at):
         )
     if not deals:
         content += '<p>No verified eBay deals currently qualify. Check again after the next weekly refresh.</p>'
+    if market == 'uk':
+        from src.uk_editorial import weekly_deal_advice
+        content += weekly_deal_advice()
     content += '</div>'
     tracker = add_uk_epn_tracking if market == "uk" else add_us_epn_tracking
     content = tracker(content, custom_id=f"weekly-ebay-deals-{market}")

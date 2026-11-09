@@ -488,7 +488,8 @@ def build_article(topic: tuple, products: list[RakutenProduct], market: str, now
     }
 
     from src.usa_editorial import enhance_usa_article
-    return enhance_usa_article(article, market)
+    from src.uk_editorial import enhance_uk_article
+    return enhance_uk_article(enhance_usa_article(article, market), market)
 
 
 def main() -> None:
