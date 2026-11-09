@@ -1,5 +1,7 @@
 import copy
+import json
 import re
+from pathlib import Path
 
 import pytest
 
@@ -94,3 +96,15 @@ def test_event_context_does_not_present_an_old_event_as_current_discount():
     assert 'Historical event guide' in b['content_html']
     assert 'does not establish an active event discount today' in b['content_html']
     assert enhance_usa_article(b, 'us') == b
+
+
+def test_edited_corpus_descriptions_pass_actual_publication_selection():
+    from src.publication_quality import choose_description, duplicate_descriptions
+    duplicate_descriptions.cache_clear()
+    duplicates = duplicate_descriptions('us')
+    for path in (Path(__file__).resolve().parents[1] / 'articles-us').glob('*.json'):
+        article = json.loads(path.read_text(encoding='utf-8'))
+        if article.get('_seo', {}).get('usa_editorial_revision'):
+            selected, issues = choose_description(article, 'us', duplicates)
+            assert not issues, (path.name, issues)
+            assert selected == article['_seo']['description']
