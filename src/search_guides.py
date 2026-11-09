@@ -142,5 +142,6 @@ def _enhance_base_search_guide(article: dict, market: str) -> dict:
 def enhance_search_guide(article: dict, market: str) -> dict:
     from src.search_focus import enhance_search_focus
     from src.usa_editorial import enhance_usa_article
-    return enhance_usa_article(enhance_search_focus(_enhance_base_search_guide(article, market), market), market)
+    from src.uk_editorial import enhance_uk_article
+    return enhance_uk_article(enhance_usa_article(enhance_search_focus(_enhance_base_search_guide(article, market), market), market), market)
 

@@ -1194,6 +1194,10 @@ def listing_score(
         return None
     if expected_currency == "USD" and not relevant_product(title_raw, query):
         return None
+    if expected_currency == "GBP":
+        from src.uk_editorial import relevant_uk_product
+        if not relevant_uk_product(title_raw, query):
+            return None
     if not _has_product_image(item):
         return None
 
