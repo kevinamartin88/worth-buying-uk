@@ -276,7 +276,7 @@ def build_article(market: str, publish_date: date) -> dict:
 <p>The aim is not to find the cheapest listing at any cost. A savvy purchase balances price, suitability, seller reliability, support and the likely cost of owning the product. Use this guide as a practical framework and always check the live product information and current policies before paying.</p>
 """.strip()
 
-    return {
+    article = {
         "slug": slug,
         "source_sha": f"savvy-{publish_date.isoformat()}-{edition_slug}-{market}-v2",
         "mode": "publish",
@@ -297,6 +297,9 @@ def build_article(market: str, publish_date: date) -> dict:
         ),
         "content_html": content,
     }
+
+    from src.usa_editorial import enhance_savvy_article
+    return enhance_savvy_article(article, market)
 
 
 def load_state() -> dict:

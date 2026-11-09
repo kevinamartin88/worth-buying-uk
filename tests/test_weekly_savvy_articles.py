@@ -72,9 +72,13 @@ def test_published_savvy_guides_keep_advice_first_and_one_footer_disclosure():
         for run_date in (date(2026, 10, 5), date(2026, 10, 10)):
             article = build_article(market, run_date)
             published = clean_article_disclosures(article["content_html"])
-            assert published.index("Before you buy") < published.index("This week's buying lesson")
-            assert published.index("Your five-minute checkout checklist") < published.index("About this guide")
-            assert published.index("About this guide") < published.index("Affiliate links:")
+            if article.get('_seo', {}).get('usa_editorial_revision'):
+                assert published.index("Before you buy") < published.index("<h2>")
+                assert published.index("Worked") < published.index("Affiliate links:")
+            else:
+                assert published.index("Before you buy") < published.index("This week's buying lesson")
+                assert published.index("Your five-minute checkout checklist") < published.index("About this guide")
+                assert published.index("About this guide") < published.index("Affiliate links:")
             assert published.count("Affiliate links:") == 1
             assert clean_article_disclosures(published) == published
 

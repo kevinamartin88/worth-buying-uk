@@ -120,7 +120,7 @@ TOPIC_PRODUCT_RULES = {
     },
     "slow-cookers": {
         "required_any": ("slow cooker", "crock pot", "crock-pot"),
-        "exclude_any": ("liner", "replacement lid", "replacement pot", "accessory"),
+        "exclude_any": ("liner", "replacement lid", "replacement pot", "accessory", "sous vide", "sous-vide"),
     },
 }
 
@@ -434,7 +434,7 @@ def build_article(topic: tuple, products: list[RakutenProduct], market: str, now
         "buyer. Check independent reviews where performance, safety or durability is important.</p>"
     )
 
-    return {
+    article = {
         "slug": slug,
         "source_sha": f"{date_key}-{key}-{market}-rakuten-v2",
         "mode": "publish",
@@ -486,6 +486,9 @@ def build_article(topic: tuple, products: list[RakutenProduct], market: str, now
             "article_directory": "articles" if market == "uk" else "articles-us",
         },
     }
+
+    from src.usa_editorial import enhance_usa_article
+    return enhance_usa_article(article, market)
 
 
 def main() -> None:

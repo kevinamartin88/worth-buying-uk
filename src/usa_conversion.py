@@ -13,7 +13,7 @@ PILOT_TOPICS = ('cordless-vacuums', 'ssds', 'slow-cookers', 'air-fryers', 'coffe
 EXPERIMENT = 'usa-buying-cards-v2-traffic-growth'
 
 
-def relevant_product(title: str, query: str) -> bool:
+def relevant_product(title: str, query: str, market: str = 'us') -> bool:
     text = title.casefold()
     query = query.casefold()
 
@@ -22,6 +22,13 @@ def relevant_product(title: str, query: str) -> bool:
     # searches must not promote a spare part as the product itself.
     if re.search(r'\b(for parts|not working|faulty|broken|empty box|box only|manual only|'
                  r'replacement|filter only|charger only|adapter|adapters|enclosure|heatsink|caddy)\b', text):
+        return False
+
+    if 'doorbell' in query and re.search(r'\b(?:add[- ]on chime|chime 2|chime only|mounting wedge|transformer only)\b', text):
+        return False
+    if 'slow cooker' in query and re.search(r'\bsous[- ]vide\b', text):
+        return False
+    if market == 'us' and re.search(r'\b(?:not for (?:the )?usa|220[- ]?240 volt|220[- ]?240v)\b', text):
         return False
 
     supported = ('cordless vacuum', 'ssd', 'slow cooker', 'air fryer', 'coffee', 'lawn mower')

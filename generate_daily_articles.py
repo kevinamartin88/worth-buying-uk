@@ -1833,7 +1833,7 @@ def verified_amazon_offer(item: dict, market: str, fallback_query: str) -> dict:
         return {}
 
     offer_title = str(offer.get("title") or "")
-    if not relevant_product(offer_title, fallback_query):
+    if not relevant_product(offer_title, fallback_query, market):
         return {}
 
     identity = ebay_product_identity(item, fallback_query)
