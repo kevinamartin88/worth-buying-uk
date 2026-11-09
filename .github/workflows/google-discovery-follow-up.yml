@@ -38,7 +38,7 @@ jobs:
         env:
           PYTHONPATH: .
         run: pytest -q tests/test_post_publish_seo.py
-      - name: Recheck the ten most recently featured guides
+      - name: Recheck recent guides and a rotating recovery sample within ten URLs
         continue-on-error: true
         timeout-minutes: 6
         env:

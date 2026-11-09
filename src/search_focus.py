@@ -1,4 +1,4 @@
-"""Persistent buying advice for six pages selected from Search Console.
+"""Persistent buying advice for pages selected from Search Console.
 
 Local copy adds no API dependency to publishing. Dates, offers and promotion
 tokens remain owned by their existing generators.
@@ -21,6 +21,25 @@ def section(heading, paragraphs):
 
 
 FOCUS = {
+    ('us', 'best-non-slip-hangers-worth-buying-us-2026'): {
+        'topic': 'non-slip-hangers',
+        'title': 'Best Non-Slip Hangers Worth Buying in the USA (2026)',
+        'description': 'Compare non-slip hangers in the USA by garment type, shoulder shape, usable pack quantity, clip design and closet space before choosing a listing.',
+        'intro': 'A hanger that keeps a dress in place may be awkward for a heavy coat or trousers. Compare the shape and garment first, then the cost per usable hanger.',
+        'heading': 'Which hanger type solves your closet problem?',
+        'paragraphs': [
+            '<h3>Coated shoulder hangers: check shape as well as grip</h3><p>The PVC-coated sweater hanger and rubberized 50-pack above are shoulder-hanger options. A coating description does not establish shoulder width, load capacity or how a delicate fabric will release. Ask for width and a side-on photograph, then compare them with a hanger that fits your garment. Grip cannot correct an unsuitable shoulder shape. Follow the garment care label, especially for knitwear that may be better stored folded.</p>',
+            '<h3>A 10-pack versus a 50-pack: count what you will use</h3><p>Compare the selected pack variation and delivered cost per complete hanger. A hypothetical $8 delivered 10-pack costs $0.80 each; a $30 50-pack costs $0.60 each, but only saves money if you need that quantity. These are calculation examples, not current offers. Check that the lowest headline price is for the pictured quantity rather than a smaller variant or accessories.</p>',
+            '<h3>Clip hangers solve a different problem</h3><p>The metal clip-hanger listing is a separate choice for trousers and skirts, not an interchangeable alternative to every shoulder hanger. Check clip spacing, contact pads and any stated weight limit against your garment. Count complete hangers in the chosen offer. For delicate fabric, follow the garment instructions and test a suitable design before rehanging the whole wardrobe.</p>',
+            '<h3>Structured jackets need support, not simply slim hooks</h3><p>IKEA sells a BUMERANG shoulder shaper that widens support on its compatible hanger. This illustrates why slim storage and jacket support are different priorities; it does not mean that accessory fits the marketplace hangers above. <a href="https://www.ikea.com/us/en/p/bumerang-shoulder-shaper-for-hanger-white-70293274/">IKEA shoulder-shaper details</a>. Allow space for the garment as well as the hook, and check how much the hanger hangs below your closet rail.</p>',
+            '<h3>Our buying decision</h3><p>Start with a smaller pack if you are changing hanger style. Compare the shoulder designs for ordinary tops, clip spacing for trousers, and broader support for structured jackets. Seller feedback helps assess the transaction, but does not prove that a coating lasts or that clips leave no marks. For folded clothes and shelves, our <a href="https://www.worthbuyingusa.com/2026/09/best-storage-bins-organisers-worth.html">USA storage-bin guide</a> covers a different use of the same closet.</p>',
+        ],
+        'questions': [
+            ('Are larger hanger packs always better value?', 'Compare delivered cost per usable hanger, selected quantity and garment fit. A bulk pack is useful only if you need that many.'),
+            ('Can clip hangers replace shoulder hangers?', 'They suit different garments. Compare clip spacing and pads for trousers or skirts, and shoulder width and shape for tops and jackets.'),
+            ('Does non-slip mean suitable for every fabric?', 'No. Check the garment care label, hanger shape, finish and stated load limit. Grip alone does not establish fabric compatibility.'),
+        ],
+    },
     ('uk', 'best-tvs-worth-buying-uk-2026'): {
         'topic': 'tvs',
         'title': 'TV Buying Guide UK: Screen Size, Gaming & Refurbished Checks',
