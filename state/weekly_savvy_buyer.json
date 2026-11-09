@@ -1,6 +1,6 @@
 {
   "uk": {
-    "date": "2026-11-02",
+    "date": "2026-11-09",
     "dates": [
       "2026-10-03",
       "2026-10-05",
@@ -10,14 +10,15 @@
       "2026-10-19",
       "2026-10-24",
       "2026-10-26",
-      "2026-11-02"
+      "2026-11-02",
+      "2026-11-09"
     ],
-    "slug": "savvy-buyer-monday-safety-authenticity-before-you-shop-uk-2026-11-02",
-    "title": "Savvy Buyer Monday: Before You Shop for Checking Safety And Authenticity (UK)",
-    "week": "2026-W45"
+    "slug": "savvy-buyer-monday-safety-authenticity-avoid-traps-uk-2026-11-09",
+    "title": "Savvy Buyer Monday: Common Traps to Avoid for Checking Safety And Authenticity (UK)",
+    "week": "2026-W46"
   },
   "us": {
-    "date": "2026-11-02",
+    "date": "2026-11-09",
     "dates": [
       "2026-10-03",
       "2026-10-05",
@@ -27,10 +28,11 @@
       "2026-10-19",
       "2026-10-24",
       "2026-10-26",
-      "2026-11-02"
+      "2026-11-02",
+      "2026-11-09"
     ],
-    "slug": "savvy-buyer-monday-safety-authenticity-before-you-shop-us-2026-11-02",
-    "title": "Savvy Buyer Monday: Before You Shop for Checking Safety And Authenticity (US)",
-    "week": "2026-W45"
+    "slug": "savvy-buyer-monday-safety-authenticity-avoid-traps-us-2026-11-09",
+    "title": "Savvy Buyer Monday: Common Traps to Avoid for Checking Safety And Authenticity (US)",
+    "week": "2026-W46"
   }
 }
