@@ -53,13 +53,19 @@
   },
   "daily|uk|v1|115918707795|0": {
     "article_slug": "best-mesh-wifi-worth-buying-uk",
-    "last_attempt_date": "2026-10-29",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-29",
         "price": 39.95,
         "ts": "2026-10-29T02:19:29.443709+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-09",
+        "price": 39.95,
+        "ts": "2026-11-09T02:34:04.364181+00:00"
       }
     ],
     "title": "Google Nest Wi-Fi Router | GA00595 | Mesh Wifi system | White",
@@ -113,7 +119,7 @@
   },
   "daily|uk|v1|117218276686|0": {
     "article_slug": "best-tablets-worth-buying-uk",
-    "last_attempt_date": "2026-10-29",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "GBP",
@@ -127,7 +133,7 @@
   },
   "daily|uk|v1|117221169668|0": {
     "article_slug": "best-tvs-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-29",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "GBP",
@@ -158,6 +164,12 @@
         "date": "2026-10-29",
         "price": 266.0,
         "ts": "2026-10-29T02:19:17.111503+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-09",
+        "price": 266.0,
+        "ts": "2026-11-09T02:34:04.364181+00:00"
       }
     ],
     "title": "TCL 50V6D-UK 50 Inch LED 4K Ultra HD Smart TV Bluetooth WiFi",
@@ -437,13 +449,19 @@
   },
   "daily|uk|v1|127542080313|0": {
     "article_slug": "best-mesh-wifi-worth-buying-uk",
-    "last_attempt_date": "2026-10-29",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-29",
         "price": 249.88,
         "ts": "2026-10-29T02:19:29.443709+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-09",
+        "price": 249.88,
+        "ts": "2026-11-09T02:34:04.364181+00:00"
       }
     ],
     "title": "Linksys Velop Pro 6E Tri-Band Mesh WiFi System 3 Pack AXE5400 Large Area Coverag",
@@ -3051,7 +3069,7 @@
   },
   "daily|uk|v1|205670257977|0": {
     "article_slug": "best-gaming-headsets-worth-buying-uk",
-    "last_attempt_date": "2026-10-29",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "GBP",
@@ -3064,6 +3082,12 @@
         "date": "2026-10-29",
         "price": 169.0,
         "ts": "2026-10-29T02:19:17.111503+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-09",
+        "price": 169.0,
+        "ts": "2026-11-09T02:34:04.364181+00:00"
       }
     ],
     "title": "Steelseries Arctis Nova Pro Wireless Gaming Headset PS5 PC Switch + Base Station",
@@ -3071,7 +3095,7 @@
   },
   "daily|uk|v1|205820662263|0": {
     "article_slug": "best-gaming-headsets-worth-buying-uk",
-    "last_attempt_date": "2026-10-29",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "GBP",
@@ -3084,6 +3108,12 @@
         "date": "2026-10-29",
         "price": 69.99,
         "ts": "2026-10-29T02:19:17.111503+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-09",
+        "price": 72.99,
+        "ts": "2026-11-09T02:34:04.364181+00:00"
       }
     ],
     "title": "SteelSeries Arctis Nova 5 Wireless Gaming Headset for PS5 PS4 PC Switch Mobile",
@@ -3129,7 +3159,7 @@
   },
   "daily|uk|v1|206080495925|0": {
     "article_slug": "best-gaming-headsets-worth-buying-uk",
-    "last_attempt_date": "2026-10-29",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "GBP",
@@ -3142,6 +3172,12 @@
         "date": "2026-10-29",
         "price": 73.99,
         "ts": "2026-10-29T02:19:17.111503+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-09",
+        "price": 75.99,
+        "ts": "2026-11-09T02:34:04.364181+00:00"
       }
     ],
     "title": "Razer Kraken V4 Wireless Gaming Headset RGB THX Spatial Audio Black PC PS5",
@@ -3689,13 +3725,19 @@
   },
   "daily|uk|v1|256601164566|0": {
     "article_slug": "best-mesh-wifi-worth-buying-uk",
-    "last_attempt_date": "2026-10-29",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-29",
         "price": 639.99,
         "ts": "2026-10-29T02:19:29.443709+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-09",
+        "price": 639.99,
+        "ts": "2026-11-09T02:34:04.364181+00:00"
       }
     ],
     "title": "TP-Link Deco BE8 19 Gbps Tri-Band WiFi 7 Whole Home Mesh System 10 Gbps 2 pack",
@@ -4299,7 +4341,7 @@
   },
   "daily|uk|v1|278080827909|0": {
     "article_slug": "best-air-purifiers-worth-buying-uk",
-    "last_attempt_date": "2026-10-29",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "GBP",
@@ -4336,6 +4378,12 @@
         "date": "2026-10-29",
         "price": 59.99,
         "ts": "2026-10-29T02:19:17.111503+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-09",
+        "price": 59.99,
+        "ts": "2026-11-09T02:34:04.364181+00:00"
       }
     ],
     "title": "Philips GoPure In-Car Air Purifier GP5212 New & Boxed",
@@ -4343,7 +4391,7 @@
   },
   "daily|uk|v1|278081309946|0": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-uk",
-    "last_attempt_date": "2026-10-29",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "GBP",
@@ -4380,6 +4428,12 @@
         "date": "2026-10-29",
         "price": 64.99,
         "ts": "2026-10-29T02:19:17.111503+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-09",
+        "price": 64.99,
+        "ts": "2026-11-09T02:34:04.364181+00:00"
       }
     ],
     "title": "VonShef Air Fryer 6L - Large Family Size, Nordic Design with Timer - Fika Range",
@@ -4485,7 +4539,7 @@
   },
   "daily|uk|v1|286809554532|0": {
     "article_slug": "best-cordless-drills-worth-buying-uk",
-    "last_attempt_date": "2026-10-29",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "GBP",
@@ -4504,6 +4558,12 @@
         "date": "2026-10-29",
         "price": 27.99,
         "ts": "2026-10-29T02:19:17.111503+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-09",
+        "price": 27.99,
+        "ts": "2026-11-09T02:34:04.364181+00:00"
       }
     ],
     "title": "48V Cordless Drill Driver Kit 2 Speed w/ 2x2.0ah Battery Charger & Case - Orange",
@@ -4607,7 +4667,7 @@
   },
   "daily|uk|v1|287317176472|0": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-uk",
-    "last_attempt_date": "2026-10-29",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "GBP",
@@ -4638,6 +4698,12 @@
         "date": "2026-10-29",
         "price": 64.99,
         "ts": "2026-10-29T02:19:17.111503+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-09",
+        "price": 64.99,
+        "ts": "2026-11-09T02:34:04.364181+00:00"
       }
     ],
     "title": "VonShef Air Fryer 6L - Large Family Size, 10-in-1, Healthy Cooking - Fika Range",
@@ -4775,7 +4841,7 @@
   },
   "daily|uk|v1|296936293078|594677298569": {
     "article_slug": "best-air-purifiers-worth-buying-uk",
-    "last_attempt_date": "2026-10-29",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "GBP",
@@ -4812,6 +4878,12 @@
         "date": "2026-10-29",
         "price": 49.99,
         "ts": "2026-10-29T02:19:17.111503+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-09",
+        "price": 49.99,
+        "ts": "2026-11-09T02:34:04.364181+00:00"
       }
     ],
     "title": "Medify Air Purifier MA-25 Includes True Hepa Filter Black Nightlight In Black",
@@ -4959,7 +5031,7 @@
   },
   "daily|uk|v1|305902341598|0": {
     "article_slug": "best-cordless-drills-worth-buying-uk",
-    "last_attempt_date": "2026-10-29",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "GBP",
@@ -4978,6 +5050,12 @@
         "date": "2026-10-29",
         "price": 27.99,
         "ts": "2026-10-29T02:19:17.111503+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-09",
+        "price": 27.99,
+        "ts": "2026-11-09T02:34:04.364181+00:00"
       }
     ],
     "title": "48V Cordless Drill Combi Driver High Power Electric Screwdriver Set 2 Battery",
@@ -5125,7 +5203,7 @@
   },
   "daily|uk|v1|316959523090|0": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-uk",
-    "last_attempt_date": "2026-10-29",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "GBP",
@@ -5156,6 +5234,12 @@
         "date": "2026-10-29",
         "price": 68.61,
         "ts": "2026-10-29T02:19:17.111503+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-09",
+        "price": 68.61,
+        "ts": "2026-11-09T02:34:04.364181+00:00"
       }
     ],
     "title": "Air Fryer Oven Combi, Rotisserie and Grill, Large Family Size 12L with 16 Pre-Se",
@@ -5571,6 +5655,20 @@
     "title": "ProCook 4.8L Digital Slow Cooker 3 Heat Settings Delay Start Function Black 9440",
     "tracking_status": "active"
   },
+  "daily|uk|v1|326933387628|0": {
+    "article_slug": "best-car-phone-mounts-worth-buying-uk",
+    "last_attempt_date": "2026-11-09",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-09",
+        "price": 9.99,
+        "ts": "2026-11-09T02:34:16.762663+00:00"
+      }
+    ],
+    "title": "Car Phone Holder Suction Mount | Dashboard Windscreen Universal Rotatable",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|327067443736|0": {
     "article_slug": "best-webcams-worth-buying-uk",
     "last_attempt_date": "2026-11-05",
@@ -5612,6 +5710,20 @@
     ],
     "title": "YQL Silicone Air Fryer Liners Square for Single Baskets 3.5L-5.5L | Non-Stick Re",
     "tracking_status": "ended"
+  },
+  "daily|uk|v1|332096129456|0": {
+    "article_slug": "best-car-phone-mounts-worth-buying-uk",
+    "last_attempt_date": "2026-11-09",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-09",
+        "price": 8.49,
+        "ts": "2026-11-09T02:34:16.762663+00:00"
+      }
+    ],
+    "title": "360° Universal Car Windscreen Dashboard Holder Mount For GPS PDA Mobile Phone",
+    "tracking_status": "active"
   },
   "daily|uk|v1|334832955549|0": {
     "article_slug": "best-streaming-devices-worth-buying-uk",
@@ -5893,6 +6005,20 @@
       }
     ],
     "title": "Sealey 12v 900A Portable Emergency Car Battery Jump Starter Power Pack RS1312HV",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|357351988952|626036526879": {
+    "article_slug": "best-car-phone-mounts-worth-buying-uk",
+    "last_attempt_date": "2026-11-09",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-09",
+        "price": 13.6,
+        "ts": "2026-11-09T02:34:16.762663+00:00"
+      }
+    ],
+    "title": "Car Phone Holder Universal Mount Mobile iPhone Windscreen Dashboard or Air Vent",
     "tracking_status": "active"
   },
   "daily|uk|v1|357699968551|0": {
@@ -6557,6 +6683,20 @@
     "title": "Vax Platinum Power Max Carpet Upholstery Upright Washer (Machine Only) USED ITEM",
     "tracking_status": "active"
   },
+  "daily|uk|v1|376661876676|0": {
+    "article_slug": "best-car-phone-mounts-worth-buying-uk",
+    "last_attempt_date": "2026-11-09",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-09",
+        "price": 12.95,
+        "ts": "2026-11-09T02:34:16.762663+00:00"
+      }
+    ],
+    "title": "Car Phone Holder 360 Rotation Magnetic Vacuum Suction Cup Windscreen Dashboard",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|376732044516|0": {
     "article_slug": "best-backpacks-worth-buying-uk",
     "last_attempt_date": "2026-11-05",
@@ -6723,13 +6863,19 @@
   },
   "daily|uk|v1|395510439299|0": {
     "article_slug": "best-mesh-wifi-worth-buying-uk",
-    "last_attempt_date": "2026-10-29",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-10-29",
         "price": 109.99,
         "ts": "2026-10-29T02:19:29.443709+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-09",
+        "price": 109.99,
+        "ts": "2026-11-09T02:34:04.364181+00:00"
       }
     ],
     "title": "TP-Link Deco X10 AX1500 Whole Home Dual-Band Mesh Wi-Fi 6 System 3 Pack",
@@ -6757,7 +6903,7 @@
   },
   "daily|uk|v1|396206956310|664891158884": {
     "article_slug": "best-tablets-worth-buying-uk",
-    "last_attempt_date": "2026-10-29",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "GBP",
@@ -6779,7 +6925,7 @@
       }
     ],
     "title": "Apple iPad Air 4th Gen 10.9\" 64GB 256GB Unlocked Tablet EXCELLENT CONDITION A++",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|uk|v1|397178813318|0": {
     "article_slug": "best-slow-cookers-worth-buying-uk",
@@ -6945,7 +7091,7 @@
   },
   "daily|uk|v1|398303550934|0": {
     "article_slug": "best-tvs-worth-buying-uk-2026",
-    "last_attempt_date": "2026-10-29",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "GBP",
@@ -7101,7 +7247,7 @@
   },
   "daily|uk|v1|407005304654|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-10-29",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "GBP",
@@ -7126,6 +7272,12 @@
         "date": "2026-10-29",
         "price": 15.59,
         "ts": "2026-10-29T02:19:17.111503+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-09",
+        "price": 15.59,
+        "ts": "2026-11-09T02:34:04.364181+00:00"
       }
     ],
     "title": "120PCS Round Air Fryer Liners - Non-Stick Parchment Paper for 2L & 3L Baskets",
@@ -7257,7 +7409,7 @@
   },
   "daily|uk|v1|800154077602|0": {
     "article_slug": "best-security-cameras-worth-buying-uk",
-    "last_attempt_date": "2026-10-29",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "GBP",
@@ -7282,6 +7434,12 @@
         "date": "2026-10-29",
         "price": 39.99,
         "ts": "2026-10-29T02:19:17.111503+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-09",
+        "price": 39.99,
+        "ts": "2026-11-09T02:34:04.364181+00:00"
       }
     ],
     "title": "ieGeek Outdoor 360° Wireless Solar Security Camera Home Wifi Battery PTZ CCTV",
@@ -7731,7 +7889,7 @@
   },
   "daily|us|v1|127992800692|0": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-27",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "USD",
@@ -7759,7 +7917,7 @@
       }
     ],
     "title": "Cuisinart Air Fryer Toaster Oven 7-in-1 1800W CTOA-122NAS Steel Finish Open Box",
-    "tracking_status": "active"
+    "tracking_status": "ended"
   },
   "daily|us|v1|128021889205|0": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-us",
@@ -7853,7 +8011,7 @@
   },
   "daily|us|v1|133805013004|0": {
     "article_slug": "best-mesh-wifi-worth-buying-us",
-    "last_attempt_date": "2026-10-27",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "USD",
@@ -7863,17 +8021,23 @@
       }
     ],
     "title": "NETGEAR MK63-100NAR Nighthawk Home Mesh WiFi6 System 3Pack Certified Refurbished",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|us|v1|134577520644|0": {
     "article_slug": "best-mesh-wifi-worth-buying-us",
-    "last_attempt_date": "2026-10-27",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-27",
         "price": 459.99,
         "ts": "2026-10-27T01:59:42.258886+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-09",
+        "price": 499.99,
+        "ts": "2026-11-09T02:34:16.798301+00:00"
       }
     ],
     "title": "NETGEAR RBKE963-100NAR Orbi 960 Series Mesh System 3-pack -Certified Refurbished",
@@ -8011,7 +8175,7 @@
   },
   "daily|us|v1|135834794086|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-27",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "USD",
@@ -8060,6 +8224,12 @@
         "date": "2026-10-27",
         "price": 265.0,
         "ts": "2026-10-27T12:43:21.355885+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-09",
+        "price": 265.0,
+        "ts": "2026-11-09T02:34:16.798301+00:00"
       }
     ],
     "title": "Shark Ip3251 Cordless Vacuum Cleaner Powerdetect Clean/ Empty System Dark Gray",
@@ -9155,6 +9325,34 @@
     "title": "Norco Big-Grip Adaptive Eating Bendable Utensil Spoon, Fork, Knife 281600519NC",
     "tracking_status": "active"
   },
+  "daily|us|v1|167817560267|0": {
+    "article_slug": "best-gaming-mice-worth-buying-us",
+    "last_attempt_date": "2026-11-09",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-09",
+        "price": 49.5,
+        "ts": "2026-11-09T02:34:28.742836+00:00"
+      }
+    ],
+    "title": "G903 LIGHTSPEED Gaming Mouse with HERO 25K sensor-2.4GHZ- 910-005670",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|168047102259|0": {
+    "article_slug": "best-gaming-mice-worth-buying-us",
+    "last_attempt_date": "2026-11-09",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-09",
+        "price": 76.5,
+        "ts": "2026-11-09T02:34:28.742836+00:00"
+      }
+    ],
+    "title": "G PRO X SUPERLIGHT 2 LIGHTSPEED Gaming Mouse-MAGENTA-2.4GHZ-#215 910-006795",
+    "tracking_status": "active"
+  },
   "daily|us|v1|168113514154|0": {
     "article_slug": "best-tyre-inflators-worth-buying-us",
     "last_attempt_date": "2026-11-03",
@@ -9275,7 +9473,7 @@
   },
   "daily|us|v1|168635340243|0": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-27",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "USD",
@@ -9330,6 +9528,12 @@
         "date": "2026-10-27",
         "price": 68.69,
         "ts": "2026-10-27T12:43:30.977945+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-09",
+        "price": 99.0,
+        "ts": "2026-11-09T02:34:16.798301+00:00"
       }
     ],
     "title": "Whall Air Fryer Oven 12QT 12-in-1 Air Fryer Convection Oven NSE1201 - Silver",
@@ -10277,13 +10481,19 @@
   },
   "daily|us|v1|198611097099|0": {
     "article_slug": "best-mesh-wifi-worth-buying-us",
-    "last_attempt_date": "2026-10-27",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-27",
         "price": 139.95,
         "ts": "2026-10-27T01:59:42.258886+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-09",
+        "price": 144.95,
+        "ts": "2026-11-09T02:34:16.798301+00:00"
       }
     ],
     "title": "Linksys Velop 6 MX12600 Tri-Band AX4200 Router WiFi 6 Mesh System x 3 Pack",
@@ -10343,13 +10553,19 @@
   },
   "daily|us|v1|198647154188|0": {
     "article_slug": "best-mesh-wifi-worth-buying-us",
-    "last_attempt_date": "2026-10-27",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-27",
         "price": 64.95,
         "ts": "2026-10-27T01:59:42.258886+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-09",
+        "price": 62.95,
+        "ts": "2026-11-09T02:34:16.798301+00:00"
       }
     ],
     "title": "Linksys Velop Dual-Band AC1300 Whole Home WiFi Mesh System WHW0103 3-Pack",
@@ -10641,7 +10857,7 @@
   },
   "daily|us|v1|206374590891|0": {
     "article_slug": "best-slow-cookers-worth-buying-us",
-    "last_attempt_date": "2026-10-27",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "USD",
@@ -10651,7 +10867,7 @@
       }
     ],
     "title": "bella 6qt Programmable Slow Cooker Oatmilk: bella Housewares 3 Settings",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|us|v1|206562589425|0": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
@@ -11015,13 +11231,19 @@
   },
   "daily|us|v1|227233871083|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-27",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-27",
         "price": 74.99,
         "ts": "2026-10-27T12:43:24.665312+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-09",
+        "price": 74.99,
+        "ts": "2026-11-09T02:34:16.798301+00:00"
       }
     ],
     "title": "Crucial MX500 CT5000MX500SSD1 500GB 2.5 Inch SATA III Internal Solid State Drive",
@@ -11155,7 +11377,7 @@
   },
   "daily|us|v1|236477220258|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-27",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "USD",
@@ -11198,6 +11420,12 @@
         "date": "2026-10-27",
         "price": 491.0,
         "ts": "2026-10-27T12:43:34.415744+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-09",
+        "price": 599.99,
+        "ts": "2026-11-09T02:34:16.798301+00:00"
       }
     ],
     "title": "Ninja Luxe Cafe Pro Series 4-in-1 Coffee Machine, Silver (Certified Refurbished)",
@@ -11245,7 +11473,7 @@
   },
   "daily|us|v1|236653270970|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-27",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "USD",
@@ -11288,6 +11516,12 @@
         "date": "2026-10-27",
         "price": 368.0,
         "ts": "2026-10-27T12:43:34.415744+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-09",
+        "price": 399.99,
+        "ts": "2026-11-09T02:34:16.798301+00:00"
       }
     ],
     "title": "Ninja Luxe Café Premier Series Coffee Espresso Machine, Certified Refurbished",
@@ -11295,7 +11529,7 @@
   },
   "daily|us|v1|236829884831|0": {
     "article_slug": "best-slow-cookers-worth-buying-us",
-    "last_attempt_date": "2026-10-27",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "USD",
@@ -11350,6 +11584,12 @@
         "date": "2026-10-27",
         "price": 59.99,
         "ts": "2026-10-27T12:43:27.852989+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-09",
+        "price": 57.61,
+        "ts": "2026-11-09T02:34:16.798301+00:00"
       }
     ],
     "title": "Crock-Pot Design Series 7-Quart Cook & Carry Slow Cooker with Thermal Bag",
@@ -11357,7 +11597,7 @@
   },
   "daily|us|v1|236867213528|0": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-27",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "USD",
@@ -11391,7 +11631,7 @@
       }
     ],
     "title": "Cuisinart 14-in-1 Space-Saving Digital Air Fryer Oven, TOA-105",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|us|v1|237040660463|0": {
     "article_slug": "best-loungewear-worth-buying-us",
@@ -11835,7 +12075,7 @@
   },
   "daily|us|v1|267823528888|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-27",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "USD",
@@ -11845,7 +12085,7 @@
       }
     ],
     "title": "TEAMGROUP AX2 2TB 3D NAND TLC 2.5 Inch SATA III SSD",
-    "tracking_status": "active"
+    "tracking_status": "ended"
   },
   "daily|us|v1|277130534164|0": {
     "article_slug": "best-refurbished-cordless-drills-worth-buying-us",
@@ -11877,7 +12117,7 @@
   },
   "daily|us|v1|277682426477|0": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-27",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "USD",
@@ -11914,6 +12154,12 @@
         "date": "2026-10-27",
         "price": 199.99,
         "ts": "2026-10-27T12:43:30.977945+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-09",
+        "price": 199.99,
+        "ts": "2026-11-09T02:34:16.798301+00:00"
       }
     ],
     "title": "Ninja DoubleStack XL Countertop Oven & Air Fryer DCT601 (Certified Refurbished)",
@@ -12317,7 +12563,7 @@
   },
   "daily|us|v1|298739311060|0": {
     "article_slug": "best-slow-cookers-worth-buying-us",
-    "last_attempt_date": "2026-10-27",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "USD",
@@ -12333,7 +12579,7 @@
       }
     ],
     "title": "Crockpot 4-Quart Classic Slow Cooker, Black",
-    "tracking_status": "active"
+    "tracking_status": "ended"
   },
   "daily|us|v1|305941684227|0": {
     "article_slug": "best-food-processors-worth-buying-us",
@@ -12507,7 +12753,7 @@
   },
   "daily|us|v1|307250631918|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-27",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "USD",
@@ -12517,7 +12763,7 @@
       }
     ],
     "title": "Ryobi PBLSV716B One+HP 18V Brushless Cordless Pet Stick Vacuum TOOL ONLY New",
-    "tracking_status": "active"
+    "tracking_status": "ended"
   },
   "daily|us|v1|313501406620|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
@@ -12565,7 +12811,7 @@
   },
   "daily|us|v1|313842634903|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-27",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "USD",
@@ -12578,6 +12824,12 @@
         "date": "2026-10-27",
         "price": 75.99,
         "ts": "2026-10-27T12:43:24.665312+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-09",
+        "price": 75.99,
+        "ts": "2026-11-09T02:34:16.798301+00:00"
       }
     ],
     "title": "Netac 512GB SSD 2.5'' SATA III 6 Gb/s Internal Solid State Drive 500MB/s",
@@ -12629,7 +12881,7 @@
   },
   "daily|us|v1|314002671508|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-27",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "USD",
@@ -12660,6 +12912,12 @@
         "date": "2026-10-27",
         "price": 39.99,
         "ts": "2026-10-27T01:59:29.572311+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-09",
+        "price": 39.99,
+        "ts": "2026-11-09T02:34:16.798301+00:00"
       }
     ],
     "title": "Netac 256GB SSD 3D NAND 2.5'' SATA III 6GB/s Internal Solid State Drive 500MB/s",
@@ -12743,7 +13001,7 @@
   },
   "daily|us|v1|314491550846|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-27",
+    "last_attempt_date": "2026-11-09",
     "observations": [
       {
         "currency": "USD",
@@ -12798,6 +13056,12 @@
         "date": "2026-10-27",
         "price": 79.99,
         "ts": "2026-10-27T12:43:24.665312+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-09",
+        "price": 79.99,
+        "ts": "2026-11-09T02:34:16.798301+00:00"
       }
     ],
     "title": "Netac Internal SSD 500GB Solid State Drive M.2 2280 PCIe Gen3.0 NVMe 3100MB/s",
@@ -13319,6 +13583,20 @@
     "title": "Netac 120GB 256GB 1TB 2TB Internal SSD 2.5'' SATAIII 6Gb/s Solid State Drive lot",
     "tracking_status": "active"
   },
+  "daily|us|v1|318643339183|0": {
+    "article_slug": "best-gaming-mice-worth-buying-us",
+    "last_attempt_date": "2026-11-09",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-09",
+        "price": 34.99,
+        "ts": "2026-11-09T02:34:28.742836+00:00"
+      }
+    ],
+    "title": "New Higround Yuma Dragon Ball Z Wireless Gaming Mouse 6400DPI HG05WM-DBGKBRM5",
+    "tracking_status": "active"
+  },
   "daily|us|v1|318931450381|0": {
     "article_slug": "best-slow-cookers-worth-buying-us",
     "last_attempt_date": "2026-10-28",
@@ -13697,6 +13975,20 @@
       }
     ],
     "title": "7-Piece Everyday Glam Beauty and Self-Care Box | Skincare, Hair, Nails",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|327338623128|0": {
+    "article_slug": "best-gaming-mice-worth-buying-us",
+    "last_attempt_date": "2026-11-09",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-09",
+        "price": 47.18,
+        "ts": "2026-11-09T02:34:28.742836+00:00"
+      }
+    ],
+    "title": "Dell Alienware Wired/Wireless Gaming Mouse AW610M, 16000 DPI, 7 Buttons - Dark",
     "tracking_status": "active"
   },
   "daily|us|v1|327346178650|0": {

@@ -1,9 +1,9 @@
 {
   "uk": {
-    "authority_cluster": "Lifestyle & Personal Care",
+    "authority_cluster": "Motoring",
     "content_action": "created",
-    "date": "2026-11-08",
-    "day": "Sunday",
+    "date": "2026-11-09",
+    "day": "Monday",
     "demand_score": null,
     "google_cached": false,
     "google_observed_at": null,
@@ -17,18 +17,18 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-loungewear-worth-buying-uk",
-    "title": "4 Best Comfortable Loungewear UK 2026: Picks from £12.95–£32",
-    "topic": "loungewear",
+    "slug": "best-car-phone-mounts-worth-buying-uk",
+    "title": "4 Best Car Phone Mounts UK 2026: Picks from £8.49–£13.60",
+    "topic": "car-phone-mounts",
     "trend_traffic": null,
-    "weekend_focus": "sunday-home",
-    "weekend_priority": true
+    "weekend_focus": null,
+    "weekend_priority": false
   },
   "us": {
-    "authority_cluster": "Lifestyle & Personal Care",
+    "authority_cluster": "Gaming & Entertainment",
     "content_action": "created",
-    "date": "2026-11-08",
-    "day": "Sunday",
+    "date": "2026-11-09",
+    "day": "Monday",
     "demand_score": null,
     "google_cached": false,
     "google_observed_at": null,
@@ -42,11 +42,11 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-beauty-sets-worth-buying-us",
-    "title": "4 Best Beauty & Self-Care Sets USA 2026: Picks from $15.99–$42",
-    "topic": "beauty-sets",
+    "slug": "best-gaming-mice-worth-buying-us",
+    "title": "4 Best Gaming Mice USA 2026: Picks from $35–$76",
+    "topic": "gaming-mice",
     "trend_traffic": null,
-    "weekend_focus": "sunday-home",
-    "weekend_priority": true
+    "weekend_focus": null,
+    "weekend_priority": false
   }
 }
