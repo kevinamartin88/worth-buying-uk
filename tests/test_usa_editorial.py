@@ -1,5 +1,7 @@
 import copy
+import json
 import re
+from pathlib import Path
 
 import pytest
 
@@ -80,6 +82,15 @@ def test_savvy_angles_answer_different_questions_and_keep_identity():
     assert results[0] != results[1]
 
 
+def test_purifier_component_labels_apply_to_products_only():
+    a = {'_generator': {'topic': 'air-purifiers', 'channel': 'rakuten'}, 'content_html':
+         '<h3>1. HEPA Filter for Basement Air Purifier</h3><p>Offer</p>'
+         '<h2>How to compare these retailer offers</h2><p>Generic</p><h2>Evidence</h2>'}
+    b = enhance_usa_article(a, 'us')
+    assert b['content_html'].count('class="wb-component-note"') == 1
+    assert enhance_usa_article(b, 'us') == b
+
+
 def test_daily_and_support_generators_keep_editorial_hook():
     from src.search_guides import enhance_search_guide
     a = {'slug': 'stable', '_generator': {'topic': 'blenders'}, 'content_html':
@@ -94,3 +105,15 @@ def test_event_context_does_not_present_an_old_event_as_current_discount():
     assert 'Historical event guide' in b['content_html']
     assert 'does not establish an active event discount today' in b['content_html']
     assert enhance_usa_article(b, 'us') == b
+
+
+def test_edited_corpus_descriptions_pass_actual_publication_selection():
+    from src.publication_quality import choose_description, duplicate_descriptions
+    duplicate_descriptions.cache_clear()
+    duplicates = duplicate_descriptions('us')
+    for path in (Path(__file__).resolve().parents[1] / 'articles-us').glob('*.json'):
+        article = json.loads(path.read_text(encoding='utf-8'))
+        if article.get('_seo', {}).get('usa_editorial_revision'):
+            selected, issues = choose_description(article, 'us', duplicates)
+            assert not issues, (path.name, issues)
+            assert selected == article['_seo']['description']

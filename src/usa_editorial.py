@@ -333,7 +333,9 @@ def enhance_savvy_article(article: dict, market: str) -> dict:
         'to compare the exact offer. The examples use assumed figures and situations; '
         'confirm the current product details and terms before ordering.</p>' + _block(config) +
         '<p>For model-specific comparisons, browse the <a href="https://www.worthbuyingusa.com/">Worth Buying USA buying guides</a>.</p>')
-    result.setdefault('_seo', {})['description'] = config[0] + '. Practical USA shopping checks, worked examples and the evidence to confirm before ordering.'
+    subjects = {'price-comparison': 'price comparison', 'repairability': 'repairability and product support',
+                'specifications': 'specifications', 'safety-authenticity': 'safety and authenticity'}
+    result.setdefault('_seo', {})['description'] = 'USA ' + subjects[key[0]] + ' advice: ' + config[0].lower() + '.'
     result['_seo']['usa_editorial_revision'] = REVISION
     return result
 
@@ -423,7 +425,8 @@ def enhance_usa_article(article: dict, market: str) -> dict:
         component = (topic in {'video-doorbells', 'value-video-doorbells'} and
                      re.search(r'add[- ]on chime|chime 2', text))
         component = component or (generator.get('channel') == 'rakuten' and
-                     topic == 'air-purifiers' and re.search(r'filter|refill|wire kit|capsule', text))
+                     topic == 'air-purifiers' and re.match(r'^\s*\d+\.', text)
+                     and re.search(r'filter|refill|wire kit|capsule', text))
         different = 'sous vide' in text and topic == 'slow-cookers'
         if not component and not different:
             return heading
@@ -437,9 +440,17 @@ def enhance_usa_article(article: dict, market: str) -> dict:
     seo = result.setdefault('_seo', {})
     seo['usa_editorial_revision'] = REVISION
     # Avoid replacing existing model-specific descriptions on sourced guides.
-    description = (config[0] + '. ' +
-        re.sub('<[^>]+>', '', config[1][0][1]).split('. ')[0].rstrip('.') + '.')
-    if len(description) > 160:
-        description = config[0] + '. Practical checks before buying in the USA.'
+    subject = config[0].replace('$', '')
+    if topic == 'tvs':
+        subject = 'Compare TVs for your room, signal sources and actual panel features'
+    elif topic == 'ssds':
+        subject = 'Choose solid-state drives (SSDs) by socket, interface, capacity and workload'
+    names = {'dehumidifiers': 'Dehumidifiers', 'printers': 'Printers',
+             'smartwatches': 'Smartwatches', 'stand-mixers': 'Stand mixers'}
+    if topic in names:
+        subject = names[topic] + ': ' + subject.lower()
+    description = subject + '. USA buying guide.'
+    if article.get('_event'):
+        description = 'USA historical Prime guide: ' + subject.lower() + '. Check current Amazon offers.'
     seo['description'] = description
     return result
