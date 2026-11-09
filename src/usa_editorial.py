@@ -425,7 +425,8 @@ def enhance_usa_article(article: dict, market: str) -> dict:
         component = (topic in {'video-doorbells', 'value-video-doorbells'} and
                      re.search(r'add[- ]on chime|chime 2', text))
         component = component or (generator.get('channel') == 'rakuten' and
-                     topic == 'air-purifiers' and re.search(r'filter|refill|wire kit|capsule', text))
+                     topic == 'air-purifiers' and re.match(r'^\s*\d+\.', text)
+                     and re.search(r'filter|refill|wire kit|capsule', text))
         different = 'sous vide' in text and topic == 'slow-cookers'
         if not component and not different:
             return heading

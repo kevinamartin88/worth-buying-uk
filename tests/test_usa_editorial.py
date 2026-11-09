@@ -82,6 +82,15 @@ def test_savvy_angles_answer_different_questions_and_keep_identity():
     assert results[0] != results[1]
 
 
+def test_purifier_component_labels_apply_to_products_only():
+    a = {'_generator': {'topic': 'air-purifiers', 'channel': 'rakuten'}, 'content_html':
+         '<h3>1. HEPA Filter for Basement Air Purifier</h3><p>Offer</p>'
+         '<h2>How to compare these retailer offers</h2><p>Generic</p><h2>Evidence</h2>'}
+    b = enhance_usa_article(a, 'us')
+    assert b['content_html'].count('class="wb-component-note"') == 1
+    assert enhance_usa_article(b, 'us') == b
+
+
 def test_daily_and_support_generators_keep_editorial_hook():
     from src.search_guides import enhance_search_guide
     a = {'slug': 'stable', '_generator': {'topic': 'blenders'}, 'content_html':
