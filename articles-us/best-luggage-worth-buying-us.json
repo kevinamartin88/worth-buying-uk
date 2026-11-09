@@ -30,7 +30,7 @@
       "luggage worth buying 2026",
       "compare luggage usa"
     ],
-    "description": "Choose luggage around the trip and airline limits. Compare the airline's current allowance with the complete case dimensions and empty.",
+    "description": "Choose luggage around the trip and airline limits. Compare the airline's current allowance with the complete case dimensions and empty weight.",
     "search_intent": "commercial investigation",
     "related_guide_count": 4,
     "google_demand_signal": null,

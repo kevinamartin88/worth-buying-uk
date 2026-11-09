@@ -437,6 +437,9 @@ def enhance_usa_article(article: dict, market: str) -> dict:
     seo = result.setdefault('_seo', {})
     seo['usa_editorial_revision'] = REVISION
     # Avoid replacing existing model-specific descriptions on sourced guides.
-    seo['description'] = (config[0] + '. ' +
-        re.sub('<[^>]+>', '', config[1][0][1]).split('. ')[0] + '.')[:160].rsplit(' ', 1)[0].rstrip('.,') + '.'
+    description = (config[0] + '. ' +
+        re.sub('<[^>]+>', '', config[1][0][1]).split('. ')[0].rstrip('.') + '.')
+    if len(description) > 160:
+        description = config[0] + '. Practical checks before buying in the USA.'
+    seo['description'] = description
     return result
