@@ -423,7 +423,8 @@ def make_prime_article_amazon_only(
             "Check the live Amazon page for current Prime eligibility",
         ]
     )
-    return article
+    from src.usa_editorial import enhance_usa_article
+    return enhance_usa_article(article, market)
 def validate_prime_article(article: dict, market: str) -> None:
     content = str(article.get("content_html") or "")
     lowered = content.casefold()

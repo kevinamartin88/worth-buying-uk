@@ -182,7 +182,8 @@ def build_support_article(base: tuple, market: str, year: int, iso_week: int) ->
     article["_generator"]["parent_topic"] = base_key
     article["_generator"]["content_type"] = "authority-support"
     article["_generator"]["support_angle"] = angle
-    return article
+    from src.usa_editorial import enhance_usa_article
+    return enhance_usa_article(article, market)
 
 
 def main() -> None:
