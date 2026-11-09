@@ -93,6 +93,8 @@ def write_summary(report: dict) -> None:
                       for x in google.get('sitemaps', [])) or '- No sitemap submission confirmed.'
     summary = (f'\n## {report["market"].upper()} Google discovery: {report["mode"]}\n\n'
                f'Report complete: **{report["complete"]}**. Individual indexing requests submitted by this workflow: **No**.\n\n'
+               + (f'Includes **{len(report["recovery_urls"])} older excluded URLs** from the recovery inventory; these rotate within the existing inspection limit.\n\n'
+                  if report.get('recovery_urls') else '')
                + (f'[Open the matching Search Console property]({property_link})\n\n' if property_link else
                   'Search Console property not confirmed.\n\n')
                + feeds + '\n\n<table><tr><th>Guide</th><th>In sitemap</th><th>Public HTTP check</th><th>Google index status</th><th>Next action</th></tr>'

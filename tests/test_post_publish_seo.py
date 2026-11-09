@@ -5,6 +5,40 @@ from unittest.mock import Mock
 from post_publish_seo import PageSignals, public_url, same_site, sitemap_contains
 
 
+def test_recovery_rotation_is_bounded_same_site_and_keeps_recent_guides(monkeypatch, tmp_path):
+    import json
+    from datetime import date, timedelta
+    import post_publish_seo as seo
+    folder = tmp_path / 'automation'
+    folder.mkdir()
+    urls = [f'https://www.worthbuyingusa.com/2026/10/old-{i}.html' for i in range(13)]
+    invalid = ['https://example.com/2026/10/other.html', 'https://www.worthbuyingusa.com/feeds/posts/default', urls[0]+'?m=1']
+    (folder/'indexing-recovery-us.json').write_text(json.dumps({'urls': urls + invalid + [urls[0]]}))
+    recent = [{'url': f'https://www.worthbuyingusa.com/2026/11/new-{i}.html'} for i in range(10)]
+    monkeypatch.setattr(seo, 'ROOT', tmp_path)
+    monkeypatch.setattr(seo, 'recent_posts', lambda market, limit: recent[:limit])
+    seen = set()
+    for offset in range(3):
+        selected = seo.follow_up_posts('us', 10, date(2026, 11, 9)+timedelta(days=offset))
+        assert len(selected) == len({x['url'] for x in selected}) == 10
+        assert sum(bool(x.get('_indexing_recovery')) for x in selected) == 5
+        assert selected[-1] == recent[4]
+        seen.update(x['url'] for x in selected if x.get('_indexing_recovery'))
+    assert seen == set(urls)
+    assert seo.follow_up_posts('uk', 10) == recent
+
+
+def test_malformed_recovery_inventory_retains_existing_recent_check(monkeypatch, tmp_path):
+    import post_publish_seo as seo
+    folder=tmp_path/'automation'
+    folder.mkdir()
+    (folder/'indexing-recovery-us.json').write_text('{invalid')
+    recent=[{'url':'https://www.worthbuyingusa.com/2026/11/new.html'}]
+    monkeypatch.setattr(seo,'ROOT',tmp_path)
+    monkeypatch.setattr(seo,'recent_posts',lambda market,limit: recent)
+    assert seo.follow_up_posts('us',10)==recent
+
+
 def test_manual_review_summary_filters_urls_and_makes_no_submission(monkeypatch, tmp_path):
     import post_publish_seo as seo
     p = tmp_path / 'summary.txt'

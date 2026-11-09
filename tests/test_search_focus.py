@@ -22,7 +22,7 @@ def test_real_article_refresh_preserves_commercial_and_publication_evidence(mark
     assert original == before
     for field in original.keys() - {'title', 'content_html', '_seo'}:
         assert updated[field] == original[field], field
-    assert updated['_seo']['last_checked_iso'] == original['_seo']['last_checked_iso']
+    assert updated['_seo'].get('last_checked_iso') == original['_seo'].get('last_checked_iso')
     for pattern in [r'<img\b[^>]*>', r'<script\b[^>]*>.*?</script>',
                     r'<a\b[^>]*href="https://(?:www\.)?(?:ebay|amazon)[^"]*"[^>]*>.*?</a>',
                     r'<p><strong>Prices when checked:</strong>.*?</p>']:

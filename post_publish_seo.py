@@ -307,12 +307,45 @@ def recent_posts(market: str, limit: int = 10) -> list[dict]:
     return selected
 
 
+def follow_up_posts(market: str, limit: int = 10, today: date | None = None) -> list[dict]:
+    """Rotate older exclusions into the existing quota, alongside recent posts."""
+    recent = recent_posts(market, limit)
+    try:
+        data = json.loads((ROOT / 'automation' / f'indexing-recovery-{market}.json').read_text(encoding='utf-8'))
+        candidates = data.get('urls', [])
+        if not isinstance(candidates, list):
+            return recent
+        urls = list(dict.fromkeys(url for url in candidates if isinstance(url, str)
+                    and same_site(url, get_site_host(market))
+                    and urlsplit(url).path.endswith('.html')
+                    and not urlsplit(url).query and not urlsplit(url).fragment
+                    and urlsplit(url).path.startswith(('/2026/', '/p/'))))
+    except (OSError, ValueError, AttributeError):
+        return recent
+    if not urls:
+        return recent
+    slots = min(5, max(1, limit // 2), len(urls))
+    start = ((today or date.today()).toordinal() * slots) % len(urls)
+    rotated = urls[start:] + urls[:start]
+    selected = [{'url': url, '_indexing_recovery': True} for url in rotated[:slots]]
+    seen = set(rotated[:slots])
+    for row in recent:
+        url = public_url(str(row['url']), market)
+        if url and url not in seen:
+            selected.append(row)
+            seen.add(url)
+        if len(selected) >= limit:
+            break
+    return selected[:limit]
+
+
 def run(market: str, recent_limit: int | None = None, report_path: Path | None = None) -> dict:
     mode = "daily-follow-up" if recent_limit is not None else "after-publication"
-    posts = recent_posts(market, recent_limit) if recent_limit is not None else changed_posts(market)
+    posts = follow_up_posts(market, recent_limit) if recent_limit is not None else changed_posts(market)
     urls = list(dict.fromkeys(url for post in posts
                 if (url := public_url(str(post["url"]), market))))
     report = new_report(market, urls, mode)
+    report['recovery_urls'] = [post['url'] for post in posts if post.get('_indexing_recovery')]
     report_path = report_path or ROOT / "reports" / f"google-discovery-{market}.json"
     save_report(report_path, report)
     if not urls:
