@@ -1,0 +1,70 @@
+{
+  "brief": {
+    "key": "easy-grip-cutlery",
+    "parent": "kitchen-utensils",
+    "review_by": "2027-01-05",
+    "title_uk": "Easy-Grip Cutlery for Reduced Hand Mobility: How to Compare Options",
+    "title_us": "Easy-Grip Utensils for Reduced Hand Mobility: How to Compare Options",
+    "intro_uk": "The right cutlery depends on the movement or grip that is difficult. Compare handle shape, utensil weight and angle separately rather than assuming one adaptive set suits everyone.",
+    "intro_us": "Adaptive eating utensils differ in grip size, weight and angle. Compare the task you find difficult before choosing a set; a product advertised for reduced mobility is not automatically the best fit for you.",
+    "sections": [
+      [
+        "Start with the task",
+        "Is the main difficulty gripping a narrow handle, lifting weight, rotating the wrist or keeping food on the utensil? Those are different purchasing questions. If you are uncertain which design to try, an occupational therapist can help assess the task and, where available, arrange a trial. This guide compares shopping features and does not prescribe treatment."
+      ],
+      [
+        "Handle size and weight are separate choices",
+        "A larger or cushioned handle changes the surface you hold. Added weight changes the effort needed to lift it. Do not assume heavier automatically means easier: check the product's actual weight and handle measurements. Try a single utensil before buying an entire set where returns and hygiene rules allow."
+      ],
+      [
+        "Check the angle and intended hand",
+        "An angled or bendable utensil may offer a different approach to scooping, but confirm whether it is designed for left-hand, right-hand or either-hand use. Follow the manufacturer's instructions for any adjustment; do not bend a utensil that is not designed for it. Check the spoon bowl or fork head as well as the handle."
+      ],
+      [
+        "Compare maintenance and replacement options",
+        "Confirm dishwasher suitability, temperature limits and how any removable grip is cleaned and dried. Check whether a lost or worn utensil can be replaced individually. Ask the retailer about returns before opening a hygiene-sensitive product. The listing must identify the exact design and condition; a diagnosis keyword in its title is not evidence that it will work for a particular person."
+      ],
+      [
+        "What the evidence does and does not establish",
+        "NHS occupational-therapy guidance describes cushioned, weighted and angled designs and encourages trying aids to find a suitable option. It does not establish a universal best brand or verify the performance of the marketplace listings below. We have not tested these items with users and do not claim they treat symptoms or restore movement."
+      ]
+    ],
+    "sources": [
+      [
+        "NHS small aids and trying equipment",
+        "https://www.cntw.nhs.uk/resources/small-aids-help-you-home"
+      ]
+    ],
+    "groups": [
+      {
+        "label": "Built-up handle option",
+        "query": "adaptive cutlery easy grip",
+        "query_us": "adaptive utensils easy grip",
+        "match": "cutlery|utensil|spoon|fork",
+        "specifics": "adaptive|easy.?grip|built.?up|large.?handle|ergonomic",
+        "new_only": true,
+        "ceiling": {
+          "uk": 55,
+          "us": 60
+        },
+        "decision": "Compare this option when handle shape is your main shopping consideration. Retailer-supplied adaptive features are shown below; personal suitability has not been tested.",
+        "check": "Confirm handle dimensions, weight and whether a single utensil can be tried first."
+      },
+      {
+        "label": "Angled or bendable option",
+        "query": "bendable adaptive spoon",
+        "match": "spoon|utensil|cutlery",
+        "specifics": "bendable|angled|adjustable",
+        "new_only": true,
+        "ceiling": {
+          "uk": 45,
+          "us": 50
+        },
+        "decision": "Compare the adjustment and intended hand if utensil angle matters for your usual eating position. Do not assume every adaptive spoon is bendable.",
+        "check": "Confirm handedness and adjustment instructions with the manufacturer."
+      }
+    ]
+  },
+  "mode": "draft",
+  "reason": "ValueError: No verified, relevant listing with a usable photo for Built-up handle option"
+}
