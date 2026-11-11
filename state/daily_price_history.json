@@ -2333,6 +2333,20 @@
     "title": "Hoover 300 Air Purifier with Fast Acting H-TRIFILTER Bluetooth-Enabled White",
     "tracking_status": "active"
   },
+  "daily|uk|v1|167742134256|0": {
+    "article_slug": "best-streaming-devices-under-100-worth-buying-uk",
+    "last_attempt_date": "2026-11-11",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-11",
+        "price": 19.3,
+        "ts": "2026-11-11T18:42:54.768820+00:00"
+      }
+    ],
+    "title": "USB Power Cable Adapter for Fire TV Stick,Powers Streaming Sticks Black ",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|167955152520|0": {
     "article_slug": "best-value-garden-tool-sets-worth-buying-uk",
     "last_attempt_date": "2026-11-04",
@@ -3412,8 +3426,8 @@
     "tracking_status": "ended"
   },
   "daily|uk|v1|206549068942|0": {
-    "article_slug": "best-streaming-devices-worth-buying-uk",
-    "last_attempt_date": "2026-11-07",
+    "article_slug": "best-streaming-devices-under-100-worth-buying-uk",
+    "last_attempt_date": "2026-11-11",
     "observations": [
       {
         "currency": "GBP",
@@ -3432,6 +3446,12 @@
         "date": "2026-11-07",
         "price": 26.49,
         "ts": "2026-11-07T02:41:17.410461+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-11",
+        "price": 26.7,
+        "ts": "2026-11-11T18:42:54.768820+00:00"
       }
     ],
     "title": "HDMI to RCA Converter Adapter for Older TVs - Compatible with Apple TV, Roku, Fi",
@@ -7671,6 +7691,20 @@
     "title": "MOMOKOVA 26L Dual Zone Air Fryer Oven 10-in-1 Rotisserie Convection French Door",
     "tracking_status": "active"
   },
+  "daily|uk|v1|407215313401|0": {
+    "article_slug": "best-streaming-devices-under-100-worth-buying-uk",
+    "last_attempt_date": "2026-11-11",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-11",
+        "price": 31.66,
+        "ts": "2026-11-11T18:42:54.768820+00:00"
+      }
+    ],
+    "title": "Roku® Streaming Stick™ 2025 – HD Roku Streaming Device for TV with Voice Remote",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|407223678791|0": {
     "article_slug": "best-value-car-vacuums-worth-buying-uk",
     "last_attempt_date": "2026-11-08",
@@ -7917,6 +7951,20 @@
       }
     ],
     "title": "Ryobi OPT1845 ONE+ 18V Cordless Pole Hedge Trimmer 45cm Blade Bare Tool",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|860107365670|0": {
+    "article_slug": "best-streaming-devices-under-100-worth-buying-uk",
+    "last_attempt_date": "2026-11-11",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-11",
+        "price": 41.46,
+        "ts": "2026-11-11T18:42:54.768820+00:00"
+      }
+    ],
+    "title": "Roku® Streaming Stick™ Plus 2025 4K and HDR Roku Streaming Device for TV with",
     "tracking_status": "active"
   },
   "daily|uk|v1|880010753824|0": {
@@ -11335,6 +11383,20 @@
     "title": "bella 6qt Programmable Slow Cooker Oatmilk: bella Housewares 3 Settings",
     "tracking_status": "unavailable"
   },
+  "daily|us|v1|206470706864|0": {
+    "article_slug": "best-cordless-drills-under-220-worth-buying-us",
+    "last_attempt_date": "2026-11-11",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-11",
+        "price": 29.0,
+        "ts": "2026-11-11T18:42:58.452907+00:00"
+      }
+    ],
+    "title": "Ryobi ONE+ 18V Cordless 3/8 in. Drill/Driver PCL201 (Tool Only) O.B.",
+    "tracking_status": "active"
+  },
   "daily|us|v1|206562589425|0": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
     "last_attempt_date": "2026-10-31",
@@ -12963,15 +13025,35 @@
     "title": "360° Car Windshield Mount Holder Suction Cup Long Gooseneck Cell Phone GPS Stand",
     "tracking_status": "active"
   },
+  "daily|us|v1|287555050512|0": {
+    "article_slug": "best-cordless-drills-under-220-worth-buying-us",
+    "last_attempt_date": "2026-11-11",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-11",
+        "price": 49.99,
+        "ts": "2026-11-11T18:42:58.452907+00:00"
+      }
+    ],
+    "title": "Craftsman V20 Cordless 3/8-Inch Right Angle Drill (Tool Only) CMCD750B - New",
+    "tracking_status": "active"
+  },
   "daily|us|v1|287663402239|0": {
-    "article_slug": "best-value-cordless-drills-worth-buying-us",
-    "last_attempt_date": "2026-11-04",
+    "article_slug": "best-cordless-drills-under-220-worth-buying-us",
+    "last_attempt_date": "2026-11-11",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-11-04",
         "price": 35.0,
         "ts": "2026-11-04T18:39:45.399745+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-11",
+        "price": 35.0,
+        "ts": "2026-11-11T18:42:58.452907+00:00"
       }
     ],
     "title": "Makita FD02 10.8V/12V Max Compact Cordless Drill/Driver 3/8\" Keyless Black/White",
@@ -15362,8 +15444,8 @@
     "tracking_status": "active"
   },
   "daily|us|v1|366199188711|0": {
-    "article_slug": "best-value-cordless-drills-worth-buying-us",
-    "last_attempt_date": "2026-11-04",
+    "article_slug": "best-cordless-drills-under-220-worth-buying-us",
+    "last_attempt_date": "2026-11-11",
     "observations": [
       {
         "currency": "USD",
@@ -15388,6 +15470,12 @@
         "date": "2026-11-04",
         "price": 107.99,
         "ts": "2026-11-04T18:39:45.399745+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-11",
+        "price": 107.99,
+        "ts": "2026-11-11T18:42:58.452907+00:00"
       }
     ],
     "title": "Bosch GSR12V-140FCB22 12V Cordless Max Drill/Driver (Certified Refurbished)",

@@ -1,22 +1,22 @@
 {
   "uk": {
     "action": "created",
-    "authority_cluster": "DIY & Garden",
-    "parent_topic": "garden-tool-sets",
+    "authority_cluster": "Gaming & Entertainment",
+    "parent_topic": "streaming-devices",
     "selection_basis": "gsc-opportunity-or-authority-rotation",
-    "slug": "best-value-garden-tool-sets-worth-buying-uk",
-    "support_angle": "value",
-    "title": "4 Best Value Garden Tool Sets UK 2026: Picks from £21–£30",
-    "week": "2026-W45"
+    "slug": "best-streaming-devices-under-100-worth-buying-uk",
+    "support_angle": "budget",
+    "title": "4 Best Streaming Devices Under £100 UK 2026: Picks from £19.30–£41",
+    "week": "2026-W46"
   },
   "us": {
     "action": "created",
     "authority_cluster": "DIY & Garden",
     "parent_topic": "cordless-drills",
     "selection_basis": "gsc-opportunity-or-authority-rotation",
-    "slug": "best-value-cordless-drills-worth-buying-us",
-    "support_angle": "value",
-    "title": "4 Best Value Cordless Drills USA 2026: Picks from $21–$108",
-    "week": "2026-W45"
+    "slug": "best-cordless-drills-under-220-worth-buying-us",
+    "support_angle": "budget",
+    "title": "4 Best Cordless Drills Under $220 USA 2026: Picks from $29–$108",
+    "week": "2026-W46"
   }
 }
