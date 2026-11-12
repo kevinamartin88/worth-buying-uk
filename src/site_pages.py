@@ -5,6 +5,7 @@ from src.price_tracking import valid_observations
 from src.price_charts import chart_html
 from src.public_urls import canonical_public_url
 import json
+import re
 from datetime import date
 from statistics import median
 from pathlib import Path
@@ -15,16 +16,17 @@ ROOT = Path(__file__).resolve().parents[1]
 AUTHORITY_CLUSTERS = {
     "Kitchen & Small Appliances": (
         "air-fryers", "large-capacity-air-fryers", "coffee-machines",
-        "food-processors", "slow-cookers", "blenders", "stand-mixers",
+        "food-processors", "slow-cookers", "blenders", "stand-mixers", "toasters",
     ),
     "Cleaning & Home Climate": (
         "cordless-vacuums", "robot-vacuums", "dehumidifiers", "air-purifiers",
         "portable-heaters", "electric-blankets", "carpet-cleaners", "steam-mops",
-        "storage-bins", "non-slip-hangers",
+        "storage-bins", "non-slip-hangers", "tower-fans", "fans",
     ),
     "Consumer Tech": (
         "tvs", "soundbars", "wireless-earbuds", "smartwatches", "tablets",
         "power-banks", "ssds", "security-cameras", "video-doorbells",
+        "wifi-routers", "mesh-wifi", "streaming-devices", "printers", "webcams",
     ),
     "Motoring": (
         "dash-cams", "tyre-inflators", "jump-starters", "battery-chargers",
@@ -42,6 +44,27 @@ TOPIC_TO_CLUSTER = {
     for topic in topics
 }
 
+
+def article_topic(article: dict, slug: str = "") -> str:
+    """Recover taxonomy for legacy guides that predate generator metadata.
+
+    Match complete topic phrases, longest first; do not put general shopping
+    advice into a product cluster just to give it a hub.
+    """
+    explicit = str((article.get("_generator") or {}).get("topic") or "").strip()
+    if explicit:
+        return explicit
+    text = " ".join((slug, str(article.get("title") or ""),
+                     " ".join(article.get("labels") or []))).casefold()
+    text = re.sub(r"[^a-z0-9]+", "-", text).strip("-")
+    aliases = {"apple-watch": "smartwatches", "wi-fi-routers": "wifi-routers"}
+    phrases = {topic: topic for topic in TOPIC_TO_CLUSTER}
+    phrases.update(aliases)
+    for phrase in sorted(phrases, key=len, reverse=True):
+        if re.search(r"(?:^|-)" + re.escape(phrase) + r"(?:-|$)", text):
+            return phrases[phrase]
+    return ""
+
 CATEGORIES = ("Home & Kitchen", "Tech", "Motoring", "Gaming", "Cleaning", "Seasonal")
 
 
@@ -53,7 +76,7 @@ def category_key(category: str) -> str:
 
 
 def article_categories(article: dict) -> list[str]:
-    topic = str((article.get("_generator") or {}).get("topic") or "")
+    topic = article_topic(article, str(article.get("slug") or ""))
     text = " ".join([str(article.get("title") or ""), topic,
                      str(article.get("primary_category") or ""),
                      " ".join(article.get("labels") or [])]).casefold()
@@ -61,6 +84,11 @@ def article_categories(article: dict) -> list[str]:
     primary = str(article.get("primary_category") or "")
     if primary in CATEGORIES:
         categories.append(primary)
+    cluster = TOPIC_TO_CLUSTER.get(topic)
+    if cluster == "Kitchen & Small Appliances":
+        categories.append("Home & Kitchen")
+    elif cluster == "Consumer Tech":
+        categories.append("Tech")
     if any(word in text for word in ("vacuum", "cleaner", "steam mop", "pressure washer")):
         categories.append("Cleaning")
     if any(word in text for word in ("gaming", "game controller", "console")):
@@ -126,7 +154,7 @@ def load_catalog(market: str) -> list[dict]:
         if not path.exists():
             continue
         article = _load_json(path)
-        topic = str((article.get("_generator") or {}).get("topic") or "").strip()
+        topic = article_topic(article, slug)
         cluster = str((article.get("_seo") or {}).get("authority_cluster") or "").strip()
         if not cluster:
             cluster = TOPIC_TO_CLUSTER.get(topic, "")
