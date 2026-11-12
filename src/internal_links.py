@@ -57,6 +57,14 @@ def related_graph(catalog: list[dict], limit: int = 3) -> dict[str, list[dict]]:
 
 def discovery_html(row: dict, related: list[dict], pages: dict) -> str:
     links = []
+    # Category navigation alone left specific authority hubs without incoming
+    # links. Reuse the actual saved permalink, including legacy Blogger slugs.
+    cluster = row.get("cluster")
+    if cluster:
+        key = "cluster-" + cluster.casefold().replace("&", "and").replace(" ", "-")
+        hub = pages.get(key) or {}
+        if hub.get("url"):
+            links.append((canonical_public_url(hub["url"]), cluster + " buying guides"))
     for category in row.get("categories", []):
         page = pages.get(category_key(category)) or {}
         if page.get("url"):
