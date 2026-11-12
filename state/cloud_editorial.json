@@ -627,20 +627,20 @@
     "uk": {
       "status": "blocked",
       "error": "ValueError: No verified, relevant listing with a usable photo for Built-up handle option",
-      "attempted": "2026-11-11",
+      "attempted": "2026-11-12",
       "week": "2026-W45",
       "next": 2,
       "slug": "affordable-homeware-for-students-uk",
       "url": "https://www.worthbuyinguk.co.uk/2026/11/affordable-homeware-for-university.html"
     },
     "us": {
-      "status": "generated-awaiting-publisher",
+      "status": "published",
       "error": null,
       "attempted": "2026-11-11",
       "week": "2026-W46",
       "next": 1,
       "slug": "air-fryers-for-students-usa",
-      "url": "https://www.worthbuyingusa.com/2026/11/air-purifiers-for-small-bedrooms-filter.html"
+      "url": "https://www.worthbuyingusa.com/2026/10/air-fryers-for-college-students.html"
     }
   },
   "metrics_finished": true

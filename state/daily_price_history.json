@@ -217,13 +217,19 @@
   },
   "daily|uk|v1|117505539805|0": {
     "article_slug": "easy-grip-cutlery-uk",
-    "last_attempt_date": "2026-11-11",
+    "last_attempt_date": "2026-11-12",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-11-11",
         "price": 15.3,
         "ts": "2026-11-11T17:06:30.352016+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-12",
+        "price": 15.3,
+        "ts": "2026-11-12T18:23:48.532025+00:00"
       }
     ],
     "title": "3 Pieces Adaptive Cutlery Set Easy Grip Cutlery with Rubberized Handles",
@@ -2155,6 +2161,20 @@
       }
     ],
     "title": "16L Air Fryer Oven Digital Spacious Extra Large Capacity 6 Accessories 1800W",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|158051109546|0": {
+    "article_slug": "easy-grip-cutlery-uk",
+    "last_attempt_date": "2026-11-12",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-12",
+        "price": 13.62,
+        "ts": "2026-11-12T18:23:48.532025+00:00"
+      }
+    ],
+    "title": "3 Pieces Adaptive Cutlery Set Easy Grip Utensils with Nonslip Handle Flexible",
     "tracking_status": "active"
   },
   "daily|uk|v1|165585759815|0": {
@@ -4179,13 +4199,19 @@
   },
   "daily|uk|v1|257482991658|0": {
     "article_slug": "easy-grip-cutlery-uk",
-    "last_attempt_date": "2026-11-11",
+    "last_attempt_date": "2026-11-12",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-11-11",
         "price": 12.9,
         "ts": "2026-11-11T17:06:30.352016+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-12",
+        "price": 12.9,
+        "ts": "2026-11-12T18:23:48.532025+00:00"
       }
     ],
     "title": "Easy Grip Cutlery Set 4pc Red Arthritis Weak Grip Mobility Adaptive Eating Aid",
@@ -7099,13 +7125,19 @@
   },
   "daily|uk|v1|377474533503|0": {
     "article_slug": "easy-grip-cutlery-uk",
-    "last_attempt_date": "2026-11-11",
+    "last_attempt_date": "2026-11-12",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-11-11",
         "price": 12.01,
         "ts": "2026-11-11T17:06:30.352016+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-12",
+        "price": 12.01,
+        "ts": "2026-11-12T18:23:48.532025+00:00"
       }
     ],
     "title": "3 Pieces Adaptive Cutlery Set Easy Grip Cutlery with Rubberized Handles Flexible",
