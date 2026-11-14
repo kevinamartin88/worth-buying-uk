@@ -1,9 +1,9 @@
 {
   "uk": {
-    "authority_cluster": "Lifestyle & Personal Care",
+    "authority_cluster": "Smart Home & Connectivity",
     "content_action": "created",
-    "date": "2026-11-13",
-    "day": "Friday",
+    "date": "2026-11-14",
+    "day": "Saturday",
     "demand_score": null,
     "google_cached": false,
     "google_observed_at": null,
@@ -17,18 +17,18 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-hair-dryers-worth-buying-uk",
-    "title": "4 Best Hair Dryers UK 2026: Picks from £28–£130",
-    "topic": "hair-dryers",
+    "slug": "best-smart-light-switches-worth-buying-uk",
+    "title": "4 Best Smart Light Switches UK 2026: Picks from £12.60–£17.02",
+    "topic": "smart-light-switches",
     "trend_traffic": null,
-    "weekend_focus": null,
-    "weekend_priority": false
+    "weekend_focus": "saturday-home-diy",
+    "weekend_priority": true
   },
   "us": {
-    "authority_cluster": "Lifestyle & Personal Care",
+    "authority_cluster": "DIY & Garden",
     "content_action": "created",
-    "date": "2026-11-13",
-    "day": "Friday",
+    "date": "2026-11-14",
+    "day": "Saturday",
     "demand_score": null,
     "google_cached": false,
     "google_observed_at": null,
@@ -42,11 +42,11 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-hair-straighteners-worth-buying-us",
-    "title": "4 Best Hair Straighteners USA 2026: Picks from $23–$75",
-    "topic": "hair-straighteners",
+    "slug": "best-hedge-trimmers-worth-buying-us",
+    "title": "4 Best Hedge Trimmers USA 2026: Picks from $60–$180",
+    "topic": "hedge-trimmers",
     "trend_traffic": null,
-    "weekend_focus": null,
-    "weekend_priority": false
+    "weekend_focus": "saturday-home-diy",
+    "weekend_priority": true
   }
 }

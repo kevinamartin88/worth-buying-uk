@@ -1,7 +1,7 @@
 {
   "daily|uk|v1|111336230718|412726076193": {
     "article_slug": "best-carpet-cleaners-worth-buying-uk",
-    "last_attempt_date": "2026-11-03",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "GBP",
@@ -20,6 +20,12 @@
         "date": "2026-11-03",
         "price": 39.95,
         "ts": "2026-11-03T03:54:17.769330+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-14",
+        "price": 39.95,
+        "ts": "2026-11-14T03:02:38.714000+00:00"
       }
     ],
     "title": "ProKleen Carpet Shampoo Cleaning Solution Upholstery Stain Remover Deodoriser",
@@ -27,7 +33,7 @@
   },
   "daily|uk|v1|112811515933|0": {
     "article_slug": "best-carpet-cleaners-worth-buying-uk",
-    "last_attempt_date": "2026-11-03",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "GBP",
@@ -46,6 +52,12 @@
         "date": "2026-11-03",
         "price": 30.49,
         "ts": "2026-11-03T03:54:17.769330+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-14",
+        "price": 30.49,
+        "ts": "2026-11-14T03:02:38.714000+00:00"
       }
     ],
     "title": "Carpet Shampoo Cleaner & Deodoriser 4 x 5L (20L Total) Shagtastic",
@@ -748,6 +760,20 @@
     ],
     "title": "SwitZer Handheld Petrol Leaf Blower 25.4cc Garden Yard Patio Cleaner 2 Stroke",
     "tracking_status": "unavailable"
+  },
+  "daily|uk|v1|127891612886|0": {
+    "article_slug": "best-smart-light-switches-worth-buying-uk",
+    "last_attempt_date": "2026-11-14",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-14",
+        "price": 12.6,
+        "ts": "2026-11-14T03:02:49.039466+00:00"
+      }
+    ],
+    "title": "SONOFF SNZB-01P Zigbee Wireless Smart Switch Scene Controller Alexa ButtonRemote",
+    "tracking_status": "active"
   },
   "daily|uk|v1|128015448408|0": {
     "article_slug": "air-fryers-for-students-uk",
@@ -1871,7 +1897,7 @@
   },
   "daily|uk|v1|147489085356|0": {
     "article_slug": "best-stand-mixers-worth-buying-uk",
-    "last_attempt_date": "2026-11-03",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "GBP",
@@ -1887,7 +1913,7 @@
       }
     ],
     "title": "Swan SP10110GYN Retro Stand Mixer 6 Speed Settings Kitchen Machine 4L 800W Grey",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|uk|v1|147495125341|0": {
     "article_slug": "best-tyre-inflators-worth-buying-uk",
@@ -2223,7 +2249,7 @@
   },
   "daily|uk|v1|165585759815|0": {
     "article_slug": "best-security-cameras-worth-buying-uk",
-    "last_attempt_date": "2026-11-03",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "GBP",
@@ -2248,6 +2274,12 @@
         "date": "2026-11-03",
         "price": 23.99,
         "ts": "2026-11-03T03:54:17.769330+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-14",
+        "price": 23.99,
+        "ts": "2026-11-14T03:02:38.714000+00:00"
       }
     ],
     "title": "ZOSI 2MP Outdoor Security WiFi Security Cam Home PTZ 360° View ColorVu HD CCTV",
@@ -2885,9 +2917,23 @@
     "title": "Air Purifier, 5-in-1 Air Purifier with True HEPA Filter, Carbon & Negative Ions",
     "tracking_status": "active"
   },
+  "daily|uk|v1|185894688218|693875348749": {
+    "article_slug": "best-smart-light-switches-worth-buying-uk",
+    "last_attempt_date": "2026-11-14",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-14",
+        "price": 17.02,
+        "ts": "2026-11-14T03:02:49.039466+00:00"
+      }
+    ],
+    "title": "Tuya Smart Life WiFi Wall Light Switch Push Button 1/2 Way 1/2/3Gang F Alexa/APP",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|185942213108|0": {
     "article_slug": "best-carpet-cleaners-worth-buying-uk",
-    "last_attempt_date": "2026-11-03",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "GBP",
@@ -2906,6 +2952,12 @@
         "date": "2026-11-03",
         "price": 135.99,
         "ts": "2026-11-03T03:54:17.769330+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-14",
+        "price": 135.99,
+        "ts": "2026-11-14T03:02:38.714000+00:00"
       }
     ],
     "title": "Carpet Washer 3in1 Multi Curtains Sofa Cleaning Machine Home Vacuum Cleaner",
@@ -3069,7 +3121,7 @@
   },
   "daily|uk|v1|187760022244|695535222973": {
     "article_slug": "best-air-purifiers-worth-buying-uk",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "GBP",
@@ -3100,6 +3152,12 @@
         "date": "2026-11-02",
         "price": 109.99,
         "ts": "2026-11-02T02:21:24.015063+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-14",
+        "price": 89.99,
+        "ts": "2026-11-14T03:02:38.714000+00:00"
       }
     ],
     "title": "Shark NeverChange5 Air Purifier | Compact Pro, HEPA Filter | REFURB | HP072UK",
@@ -3127,7 +3185,7 @@
   },
   "daily|uk|v1|188399513432|0": {
     "article_slug": "best-robot-vacuum-cleaners-worth-buying-uk-2026",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "GBP",
@@ -3164,6 +3222,12 @@
         "date": "2026-11-02",
         "price": 229.99,
         "ts": "2026-11-02T02:21:24.015063+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-14",
+        "price": 229.99,
+        "ts": "2026-11-14T03:02:38.714000+00:00"
       }
     ],
     "title": "Shark Matrix Plus 2-in-1 Robot Vacuum & Mop - Refurbished [RV2620WDUK]",
@@ -3185,7 +3249,7 @@
   },
   "daily|uk|v1|189034210740|0": {
     "article_slug": "best-robot-vacuum-cleaners-worth-buying-uk-2026",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "GBP",
@@ -3205,7 +3269,7 @@
   },
   "daily|uk|v1|192487284718|0": {
     "article_slug": "best-car-jump-starters-before-winter-uk-2026",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "GBP",
@@ -3224,6 +3288,12 @@
         "date": "2026-11-02",
         "price": 67.17,
         "ts": "2026-11-02T02:21:24.015063+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-14",
+        "price": 72.77,
+        "ts": "2026-11-14T03:02:38.714000+00:00"
       }
     ],
     "title": "Sealey RS131 RoadStart Emergency Power Pack 12V 900A Car Battery Jump Starter",
@@ -3231,7 +3301,7 @@
   },
   "daily|uk|v1|195927448874|0": {
     "article_slug": "best-soundbars-worth-buying-uk-2026",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "GBP",
@@ -3262,6 +3332,12 @@
         "date": "2026-11-02",
         "price": 449.0,
         "ts": "2026-11-02T02:21:24.015063+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-14",
+        "price": 449.0,
+        "ts": "2026-11-14T03:02:38.714000+00:00"
       }
     ],
     "title": "Sonos Arc White Certified Refurbished - Smart soundbar - Dolby Atmos - AirPlay 2",
@@ -3269,7 +3345,7 @@
   },
   "daily|uk|v1|198218212453|0": {
     "article_slug": "best-security-cameras-worth-buying-uk",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "GBP",
@@ -3300,6 +3376,12 @@
         "date": "2026-11-02",
         "price": 26.95,
         "ts": "2026-11-02T02:21:24.015063+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-14",
+        "price": 26.95,
+        "ts": "2026-11-14T03:02:38.714000+00:00"
       }
     ],
     "title": "8MP Wireless IP Camera WIFI Outdoor CCTV PTZ Smart Home Security Cam Audio 4K UK",
@@ -3307,7 +3389,7 @@
   },
   "daily|uk|v1|198251370445|497367675075": {
     "article_slug": "prime-big-deal-days-ssds-uk-2026",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "GBP",
@@ -3338,6 +3420,12 @@
         "date": "2026-11-02",
         "price": 49.99,
         "ts": "2026-11-02T02:21:24.015063+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-14",
+        "price": 49.99,
+        "ts": "2026-11-14T03:02:38.714000+00:00"
       }
     ],
     "title": "Solid State Drive SSD 120GB 128GB 240GB 256GB 480GB 512GB SATA Laptop Lot 2.5\"",
@@ -3345,7 +3433,7 @@
   },
   "daily|uk|v1|198657030777|497606577093": {
     "article_slug": "best-security-cameras-worth-buying-uk",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "GBP",
@@ -3391,7 +3479,7 @@
   },
   "daily|uk|v1|204626609859|0": {
     "article_slug": "best-storage-bins-worth-buying-uk-2026",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "GBP",
@@ -3410,6 +3498,12 @@
         "date": "2026-11-02",
         "price": 89.99,
         "ts": "2026-11-02T02:21:24.015063+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-14",
+        "price": 89.99,
+        "ts": "2026-11-14T03:02:38.714000+00:00"
       }
     ],
     "title": "10 x 80L Plastic XL Storage Boxes Clear With Lids Organise The Home & Office",
@@ -5407,7 +5501,7 @@
   },
   "daily|uk|v1|297376555401|0": {
     "article_slug": "best-leaf-blowers-worth-buying-uk",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "GBP",
@@ -5420,14 +5514,34 @@
         "date": "2026-11-02",
         "price": 53.99,
         "ts": "2026-11-02T02:21:24.015063+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-14",
+        "price": 53.99,
+        "ts": "2026-11-14T03:02:38.714000+00:00"
       }
     ],
     "title": "Hyundai Cordless Leaf Blower 4 in 1 20V 200Km/h Speed 2Ah Battery & Charger",
     "tracking_status": "active"
   },
+  "daily|uk|v1|298165383461|0": {
+    "article_slug": "best-smart-light-switches-worth-buying-uk",
+    "last_attempt_date": "2026-11-14",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-14",
+        "price": 13.19,
+        "ts": "2026-11-14T03:02:49.039466+00:00"
+      }
+    ],
+    "title": "SONOFF Smart Light Switch 2.4GHz Wi-Fi 3-Gang Wall Switch Timer & Voice Control",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|298343250681|0": {
     "article_slug": "best-leaf-blowers-worth-buying-uk",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "GBP",
@@ -5440,6 +5554,12 @@
         "date": "2026-11-02",
         "price": 31.99,
         "ts": "2026-11-02T02:21:24.015063+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-14",
+        "price": 35.99,
+        "ts": "2026-11-14T03:02:38.714000+00:00"
       }
     ],
     "title": "Hyundai 3 in 1 Leaf Blower Vacuum Shredder Mulcher 3000W 34L Bag 10m Cable",
@@ -5909,13 +6029,19 @@
   },
   "daily|uk|v1|318414619206|0": {
     "article_slug": "best-bluetooth-speakers-worth-buying-uk",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-11-02",
         "price": 69.0,
         "ts": "2026-11-02T02:21:35.831725+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-14",
+        "price": 69.0,
+        "ts": "2026-11-14T03:02:38.714000+00:00"
       }
     ],
     "title": "Ultimate Ears BOOM 3 Wireless Bluetooth Speaker - Lagoon Blue",
@@ -6583,13 +6709,19 @@
   },
   "daily|uk|v1|358402874644|0": {
     "article_slug": "best-bluetooth-speakers-worth-buying-uk",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-11-02",
         "price": 37.95,
         "ts": "2026-11-02T02:21:35.831725+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-14",
+        "price": 37.95,
+        "ts": "2026-11-14T03:02:38.714000+00:00"
       }
     ],
     "title": "Majority Pulse 2 Bluetooth PARTY SPEAKER MIC NOT INCLUDED",
@@ -7033,6 +7165,20 @@
     "title": "Sony True Wireless Bluetooth Earphones Waterproof In-Ear Fitness Music Headset",
     "tracking_status": "active"
   },
+  "daily|uk|v1|365557537360|0": {
+    "article_slug": "best-smart-light-switches-worth-buying-uk",
+    "last_attempt_date": "2026-11-14",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-14",
+        "price": 12.99,
+        "ts": "2026-11-14T03:02:49.039466+00:00"
+      }
+    ],
+    "title": "SONOFF WiFi Smart Touch Switch Wall Light, 1 Gang, T0UK1C (R83)",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|365867899913|0": {
     "article_slug": "best-tvs-worth-buying-uk-2026",
     "last_attempt_date": "2026-11-08",
@@ -7303,13 +7449,19 @@
   },
   "daily|uk|v1|384169464922|0": {
     "article_slug": "best-bluetooth-speakers-worth-buying-uk",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-11-02",
         "price": 46.99,
         "ts": "2026-11-02T02:21:35.831725+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-14",
+        "price": 46.99,
+        "ts": "2026-11-14T03:02:38.714000+00:00"
       }
     ],
     "title": "Anker Soundcore3 Bluetooth Speaker Stereo Sound Party Cast 24H Playtime IPX7 App",
@@ -8101,7 +8253,7 @@
   },
   "daily|uk|v1|800484897301|0": {
     "article_slug": "best-robot-vacuum-cleaners-worth-buying-uk-2026",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "GBP",
@@ -8473,13 +8625,19 @@
   },
   "daily|us|v1|117374153945|0": {
     "article_slug": "best-garden-tool-sets-worth-buying-us",
-    "last_attempt_date": "2026-10-31",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-31",
         "price": 75.78,
         "ts": "2026-10-31T02:15:00.834468+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-14",
+        "price": 75.78,
+        "ts": "2026-11-14T03:02:49.077675+00:00"
       }
     ],
     "title": "Kemaier 5-Piece Garden Tool Set, Heavy-Duty Stainless Steel Premium Black",
@@ -9725,6 +9883,20 @@
     "title": "UTEN 5.5L/5.8 Qt Air Fryer 1700 Watt Hot Air Oilless Oven Baking Cooker Silver",
     "tracking_status": "active"
   },
+  "daily|us|v1|157638532337|0": {
+    "article_slug": "best-hedge-trimmers-worth-buying-us",
+    "last_attempt_date": "2026-11-14",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-14",
+        "price": 99.39,
+        "ts": "2026-11-14T03:02:58.376630+00:00"
+      }
+    ],
+    "title": "Greenworks 40V 24'' Cordless Battery Hedge Trimmer  HT40B02 (Tool Only)",
+    "tracking_status": "active"
+  },
   "daily|us|v1|157835956881|459231723016": {
     "article_slug": "best-smartwatches-worth-buying-us",
     "last_attempt_date": "2026-11-12",
@@ -10545,7 +10717,7 @@
   },
   "daily|us|v1|168698734506|0": {
     "article_slug": "best-tvs-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-30",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "USD",
@@ -10679,7 +10851,7 @@
   },
   "daily|us|v1|178175236041|0": {
     "article_slug": "best-video-doorbells-worth-buying-us",
-    "last_attempt_date": "2026-10-30",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "USD",
@@ -10698,6 +10870,12 @@
         "date": "2026-10-30",
         "price": 53.99,
         "ts": "2026-10-30T02:32:14.129896+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-14",
+        "price": 53.99,
+        "ts": "2026-11-14T03:02:49.077675+00:00"
       }
     ],
     "title": "Wireless Video Doorbell No Subscription, 2K HD with 166° Wide View Night Vision",
@@ -10747,7 +10925,7 @@
   },
   "daily|us|v1|185935454347|0": {
     "article_slug": "best-smartwatches-worth-buying-us",
-    "last_attempt_date": "2026-10-30",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "USD",
@@ -10772,6 +10950,12 @@
         "date": "2026-10-30",
         "price": 69.95,
         "ts": "2026-10-30T02:32:14.129896+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-14",
+        "price": 69.95,
+        "ts": "2026-11-14T03:02:49.077675+00:00"
       }
     ],
     "title": "Samsung Galaxy Watch4 SM-R870 Bluetooth/GPS/WiFi SmartWatch 44mm - Black SR",
@@ -10779,7 +10963,7 @@
   },
   "daily|us|v1|185953427238|0": {
     "article_slug": "best-smartwatches-worth-buying-us",
-    "last_attempt_date": "2026-10-30",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "USD",
@@ -10805,7 +10989,7 @@
   },
   "daily|us|v1|186068206398|695749503046": {
     "article_slug": "best-smartwatches-worth-buying-us",
-    "last_attempt_date": "2026-10-30",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "USD",
@@ -10830,6 +11014,12 @@
         "date": "2026-10-30",
         "price": 99.95,
         "ts": "2026-10-30T02:32:14.129896+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-14",
+        "price": 99.95,
+        "ts": "2026-11-14T03:02:49.077675+00:00"
       }
     ],
     "title": "Samsung Galaxy Watch 7 SM-L300 | 40mm | GPS | Bluetooth - Multi Color SmartWatch",
@@ -10863,7 +11053,7 @@
   },
   "daily|us|v1|187376950418|0": {
     "article_slug": "best-soundbars-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-30",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "USD",
@@ -10888,6 +11078,12 @@
         "date": "2026-10-30",
         "price": 297.0,
         "ts": "2026-10-30T02:32:14.129896+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-14",
+        "price": 298.0,
+        "ts": "2026-11-14T03:02:49.077675+00:00"
       }
     ],
     "title": "Samsung HW-Q600F Q-series 3.1.2 ch Soundbar w/ Wireless Subwoofer (2025)",
@@ -10929,7 +11125,7 @@
   },
   "daily|us|v1|187656775458|0": {
     "article_slug": "best-soundbars-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-30",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "USD",
@@ -10954,6 +11150,12 @@
         "date": "2026-10-30",
         "price": 473.0,
         "ts": "2026-10-30T02:32:14.129896+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-14",
+        "price": 472.0,
+        "ts": "2026-11-14T03:02:49.077675+00:00"
       }
     ],
     "title": "JBL BAR 700MK2 7.1-Channel 780W Dolby Atmos Soundbar System w/ Subwoofer",
@@ -10961,7 +11163,7 @@
   },
   "daily|us|v1|187698678816|0": {
     "article_slug": "best-security-cameras-worth-buying-us",
-    "last_attempt_date": "2026-10-30",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "USD",
@@ -10989,11 +11191,11 @@
       }
     ],
     "title": "3-Pack 100%Wireless Solar Security Camera Outdoor Stable WiFi6,2-Way Talk",
-    "tracking_status": "active"
+    "tracking_status": "ended"
   },
   "daily|us|v1|188147615353|695768445429": {
     "article_slug": "best-smartwatches-worth-buying-us",
-    "last_attempt_date": "2026-10-30",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "USD",
@@ -11012,6 +11214,12 @@
         "date": "2026-10-30",
         "price": 114.95,
         "ts": "2026-10-30T02:32:14.129896+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-14",
+        "price": 114.95,
+        "ts": "2026-11-14T03:02:49.077675+00:00"
       }
     ],
     "title": "Samsung Galaxy Watch 7 SM-L310 | 44MM | GPS | Bluetooth w. Color Band SmartWatch",
@@ -11125,7 +11333,7 @@
   },
   "daily|us|v1|188904914165|696112662136": {
     "article_slug": "best-smartwatches-worth-buying-us",
-    "last_attempt_date": "2026-10-30",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "USD",
@@ -11239,7 +11447,7 @@
   },
   "daily|us|v1|198243040358|0": {
     "article_slug": "best-tvs-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-31",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "USD",
@@ -11264,6 +11472,12 @@
         "date": "2026-10-31",
         "price": 229.99,
         "ts": "2026-10-31T02:14:48.743213+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-14",
+        "price": 229.99,
+        "ts": "2026-11-14T03:02:49.077675+00:00"
       }
     ],
     "title": "Samsung - 50Class U8000H Series Crystal UHD 4K Smart Tizen TV (2026)",
@@ -11285,7 +11499,7 @@
   },
   "daily|us|v1|198395708997|0": {
     "article_slug": "best-tvs-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-31",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "USD",
@@ -11310,6 +11524,12 @@
         "date": "2026-10-31",
         "price": 249.99,
         "ts": "2026-10-31T02:14:48.743213+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-14",
+        "price": 249.99,
+        "ts": "2026-11-14T03:02:49.077675+00:00"
       }
     ],
     "title": "Toshiba - 50\" Class M450 QLED Series 4K UHD Smart Fire TV (2026)",
@@ -11357,7 +11577,7 @@
   },
   "daily|us|v1|198533036428|0": {
     "article_slug": "best-food-processors-worth-buying-us",
-    "last_attempt_date": "2026-10-31",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "USD",
@@ -11370,6 +11590,12 @@
         "date": "2026-10-31",
         "price": 99.99,
         "ts": "2026-10-31T02:14:48.743213+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-14",
+        "price": 99.99,
+        "ts": "2026-11-14T03:02:49.077675+00:00"
       }
     ],
     "title": "Ninja - PrecisionPro 9-Cup, 1000-Peak-Watt Food Processor for Chopping, Slici...",
@@ -11377,7 +11603,7 @@
   },
   "daily|us|v1|198570338061|0": {
     "article_slug": "air-fryers-for-students-us",
-    "last_attempt_date": "2026-10-31",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "USD",
@@ -11405,11 +11631,11 @@
       }
     ],
     "title": "Air Fryer Small Digital 3 Qt Compact Space Saving Bake Reheat Roast",
-    "tracking_status": "active"
+    "tracking_status": "ended"
   },
   "daily|us|v1|198583800405|0": {
     "article_slug": "best-robot-vacuum-cleaners-worth-buying-us-2026",
-    "last_attempt_date": "2026-10-31",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "USD",
@@ -11440,6 +11666,12 @@
         "date": "2026-10-31",
         "price": 349.99,
         "ts": "2026-10-31T02:14:48.743213+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-14",
+        "price": 349.99,
+        "ts": "2026-11-14T03:02:49.077675+00:00"
       }
     ],
     "title": "ECOVACS DEEBOT T50 PRO Omni Robot Vacuum and Mop 15000Pa - Certified Refurbished",
@@ -11559,7 +11791,7 @@
   },
   "daily|us|v1|198691258410|0": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-us",
-    "last_attempt_date": "2026-10-31",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "USD",
@@ -11593,7 +11825,7 @@
       }
     ],
     "title": "Paula Deen 8.5QT Family XXL Large Air Fryer PDAF8TX-2 - NOS Open Box",
-    "tracking_status": "active"
+    "tracking_status": "ended"
   },
   "daily|us|v1|198695509319|0": {
     "article_slug": "air-fryers-for-students-us",
@@ -12145,13 +12377,19 @@
   },
   "daily|us|v1|226343182136|0": {
     "article_slug": "best-projectors-worth-buying-us",
-    "last_attempt_date": "2026-10-30",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-30",
         "price": 160.35,
         "ts": "2026-10-30T02:32:24.566863+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-14",
+        "price": 163.56,
+        "ts": "2026-11-14T03:02:49.077675+00:00"
       }
     ],
     "title": "Refurbished NEC P401W 3LCD Projector 4000 Lumens WXGA HDMI - 6 Months Warranty",
@@ -13394,6 +13632,20 @@
     ],
     "title": "KitchenAid KSM90 White Ultra Power Stand Mixer W/Bowl and Whisk",
     "tracking_status": "ended"
+  },
+  "daily|us|v1|283626721962|0": {
+    "article_slug": "best-hedge-trimmers-worth-buying-us",
+    "last_attempt_date": "2026-11-14",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-14",
+        "price": 59.99,
+        "ts": "2026-11-14T03:02:58.376630+00:00"
+      }
+    ],
+    "title": "WG801.9 Worx 20V Cordless 8\" Shrubber Trimmer -Tool Only (No Battery or Charger)",
+    "tracking_status": "active"
   },
   "daily|us|v1|284996632027|0": {
     "article_slug": "best-smart-plugs-worth-buying-us",
@@ -14949,7 +15201,7 @@
   },
   "daily|us|v1|325495290283|0": {
     "article_slug": "best-projectors-worth-buying-us",
-    "last_attempt_date": "2026-10-30",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "USD",
@@ -14959,7 +15211,7 @@
       }
     ],
     "title": "REFURBISHED - NEC P401W 3LCD Projector 4000 ANSI HD HDMI w/Remote + EXTRA LAMP",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|us|v1|325576221275|0": {
     "article_slug": "small-bedroom-air-purifiers-us",
@@ -14977,13 +15229,19 @@
   },
   "daily|us|v1|326441322186|0": {
     "article_slug": "best-projectors-worth-buying-us",
-    "last_attempt_date": "2026-10-30",
+    "last_attempt_date": "2026-11-14",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-10-30",
         "price": 129.62,
         "ts": "2026-10-30T02:32:24.566863+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-14",
+        "price": 129.62,
+        "ts": "2026-11-14T03:02:49.077675+00:00"
       }
     ],
     "title": "Refurbished - InFocus IN2124a DLP Projector 3500 ANSI HD 1080p HDMI w/Bundle",
@@ -16433,6 +16691,20 @@
     "title": "Glass Air Fryer Halogen Oven with 12 to 17 Quart Capacity, White",
     "tracking_status": "active"
   },
+  "daily|us|v1|377265056390|0": {
+    "article_slug": "best-hedge-trimmers-worth-buying-us",
+    "last_attempt_date": "2026-11-14",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-14",
+        "price": 129.49,
+        "ts": "2026-11-14T03:02:58.376630+00:00"
+      }
+    ],
+    "title": "DEWALT Cordless Hedge Trimmer (Tool Only) DCHT821B",
+    "tracking_status": "active"
+  },
   "daily|us|v1|377277422892|0": {
     "article_slug": "best-security-cameras-worth-buying-us",
     "last_attempt_date": "2026-11-04",
@@ -16547,6 +16819,20 @@
       }
     ],
     "title": "Kitchenaid 6 Quart Bowl-Lift Stand Mixer, 11 Speed, 6 Attachments Varying Colors",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|377430102353|0": {
+    "article_slug": "best-hedge-trimmers-worth-buying-us",
+    "last_attempt_date": "2026-11-14",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-14",
+        "price": 179.89,
+        "ts": "2026-11-14T03:02:58.376630+00:00"
+      }
+    ],
+    "title": "DEWALT 20V MAX* Pole Hedge Trimmer Tool Only (DCPH820B)",
     "tracking_status": "active"
   },
   "daily|us|v1|384289939822|0": {
