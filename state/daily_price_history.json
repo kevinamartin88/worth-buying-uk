@@ -313,7 +313,7 @@
   },
   "daily|uk|v1|126610484241|0": {
     "article_slug": "best-smartwatches-worth-buying-uk",
-    "last_attempt_date": "2026-11-05",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "GBP",
@@ -963,7 +963,7 @@
   },
   "daily|uk|v1|134426080517|0": {
     "article_slug": "best-printers-worth-buying-uk",
-    "last_attempt_date": "2026-11-05",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "GBP",
@@ -976,6 +976,12 @@
         "date": "2026-11-05",
         "price": 59.95,
         "ts": "2026-11-05T03:25:37.526774+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-17",
+        "price": 59.95,
+        "ts": "2026-11-17T05:01:54.661335+00:00"
       }
     ],
     "title": "Epson Expression Home XP-3200 Inkjet Printer Multifunction Print Scan Copy Wi-Fi",
@@ -1017,7 +1023,7 @@
   },
   "daily|uk|v1|135568371821|0": {
     "article_slug": "best-smartwatches-worth-buying-uk",
-    "last_attempt_date": "2026-11-05",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "GBP",
@@ -1043,7 +1049,7 @@
   },
   "daily|uk|v1|135873800256|0": {
     "article_slug": "best-smartwatches-worth-buying-uk",
-    "last_attempt_date": "2026-11-05",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "GBP",
@@ -1075,7 +1081,7 @@
   },
   "daily|uk|v1|136434427088|435232721685": {
     "article_slug": "best-smartwatches-worth-buying-uk",
-    "last_attempt_date": "2026-11-05",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "GBP",
@@ -1106,6 +1112,12 @@
         "date": "2026-11-05",
         "price": 82.95,
         "ts": "2026-11-05T03:25:37.526774+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-17",
+        "price": 82.95,
+        "ts": "2026-11-17T05:01:54.661335+00:00"
       }
     ],
     "title": "Apple Watch Series 6 Smartwatch - Various Colours - 40&44mm",
@@ -1667,7 +1679,7 @@
   },
   "daily|uk|v1|146069521465|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-uk-2026",
-    "last_attempt_date": "2026-11-05",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "GBP",
@@ -1692,6 +1704,12 @@
         "date": "2026-11-05",
         "price": 64.99,
         "ts": "2026-11-05T03:25:37.526774+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-17",
+        "price": 64.99,
+        "ts": "2026-11-17T05:01:54.661335+00:00"
       }
     ],
     "title": "Vytronix AMC22B Lithium Cordless Upright 3in1 Handheld Stick Vacuum Cleaner 22V",
@@ -1945,7 +1963,7 @@
   },
   "daily|uk|v1|147495125341|0": {
     "article_slug": "best-tyre-inflators-worth-buying-uk",
-    "last_attempt_date": "2026-11-05",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "GBP",
@@ -4685,6 +4703,20 @@
     "title": "Ewbank Manual Carpet Shampooer Upright Cleaner With 500ml Shampoo",
     "tracking_status": "unavailable"
   },
+  "daily|uk|v1|266955010365|0": {
+    "article_slug": "best-electric-shavers-worth-buying-uk",
+    "last_attempt_date": "2026-11-17",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-17",
+        "price": 35.99,
+        "ts": "2026-11-17T05:02:07.654619+00:00"
+      }
+    ],
+    "title": "VGR Electric Shaver Wet Dry Rotary Shaving Razor Face Beard Hair Waterproof Mens",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|266979217860|0": {
     "article_slug": "best-slow-cookers-worth-buying-uk",
     "last_attempt_date": "2026-11-16",
@@ -4733,6 +4765,20 @@
       }
     ],
     "title": "Salter Retro 6.5L Slow Cooker 3 Heat Settings/Keep Warm for Family Cooking Cream",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|266982031005|0": {
+    "article_slug": "best-electric-shavers-worth-buying-uk",
+    "last_attempt_date": "2026-11-17",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-17",
+        "price": 27.99,
+        "ts": "2026-11-17T05:02:07.654619+00:00"
+      }
+    ],
+    "title": "VGR Electric Razor Foil Shaver Men Cordless Shaving Machine Skin Fade Barber Kit",
     "tracking_status": "active"
   },
   "daily|uk|v1|267084588491|567476799348": {
@@ -4805,6 +4851,34 @@
       }
     ],
     "title": "Laundry Basket Washing Dirty Clothes Folding Hamper Bag Large Storage Bin Handle",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|267567306921|0": {
+    "article_slug": "best-electric-shavers-worth-buying-uk",
+    "last_attempt_date": "2026-11-17",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-17",
+        "price": 43.99,
+        "ts": "2026-11-17T05:02:07.654619+00:00"
+      }
+    ],
+    "title": "VGR Professional Electric Razor Foil Shaver Men Cordless Barber Beard Shaving",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|267688713930|0": {
+    "article_slug": "best-electric-shavers-worth-buying-uk",
+    "last_attempt_date": "2026-11-17",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-17",
+        "price": 24.49,
+        "ts": "2026-11-17T05:02:07.654619+00:00"
+      }
+    ],
+    "title": "VGR Electric Shaver Men Beard Razor Waterproof Wet Dry Cordless Rechargeable",
     "tracking_status": "active"
   },
   "daily|uk|v1|267742166123|0": {
@@ -5415,7 +5489,7 @@
   },
   "daily|uk|v1|287131905611|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-11-04",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "GBP",
@@ -5446,6 +5520,12 @@
         "date": "2026-11-04",
         "price": 34.99,
         "ts": "2026-11-04T02:58:46.771608+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-17",
+        "price": 34.99,
+        "ts": "2026-11-17T05:01:54.661335+00:00"
       }
     ],
     "title": "( Basket ) COSORI CAF-P653KUKR Air Fryer Large 6.2L, Clear Blaze air fryer #39-3",
@@ -5453,7 +5533,7 @@
   },
   "daily|uk|v1|287131906106|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-11-04",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "GBP",
@@ -5484,6 +5564,12 @@
         "date": "2026-11-04",
         "price": 14.99,
         "ts": "2026-11-04T02:58:46.771608+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-17",
+        "price": 14.99,
+        "ts": "2026-11-17T05:01:54.661335+00:00"
       }
     ],
     "title": "( Main PCB Board ) COSORI CAF-P653KUKR Air Fryer Large 6.2L, air fryer #39-3",
@@ -5595,7 +5681,7 @@
   },
   "daily|uk|v1|287591506748|0": {
     "article_slug": "best-storage-bins-worth-buying-uk-2026",
-    "last_attempt_date": "2026-11-04",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "GBP",
@@ -5623,7 +5709,7 @@
       }
     ],
     "title": "VonHaus Workshop Storage Bins - 45pcs Wall Mount Storage Organiser for Garage",
-    "tracking_status": "active"
+    "tracking_status": "ended"
   },
   "daily|uk|v1|294069594244|0": {
     "article_slug": "best-lawn-mowers-worth-buying-uk",
@@ -5641,7 +5727,7 @@
   },
   "daily|uk|v1|295994005959|0": {
     "article_slug": "best-storage-bins-worth-buying-uk-2026",
-    "last_attempt_date": "2026-11-04",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "GBP",
@@ -5929,13 +6015,19 @@
   },
   "daily|uk|v1|304536714139|603552391215": {
     "article_slug": "affordable-homeware-for-students-uk",
-    "last_attempt_date": "2026-11-04",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-11-04",
         "price": 15.67,
         "ts": "2026-11-04T17:13:56.315754+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-17",
+        "price": 16.49,
+        "ts": "2026-11-17T05:01:54.661335+00:00"
       }
     ],
     "title": "60L Large Plastic Rattan Style Laundry Clothes Storage Washing Bin Basket Hamper",
@@ -6009,7 +6101,7 @@
   },
   "daily|uk|v1|306813502008|0": {
     "article_slug": "best-value-garden-tool-sets-worth-buying-uk",
-    "last_attempt_date": "2026-11-04",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "GBP",
@@ -6028,6 +6120,12 @@
         "date": "2026-11-04",
         "price": 21.99,
         "ts": "2026-11-04T18:39:41.767387+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-17",
+        "price": 21.99,
+        "ts": "2026-11-17T05:01:54.661335+00:00"
       }
     ],
     "title": "3pc Telescopic Garden Hand Tools Set Extending Handles Fork Trowel Weeder / Hoe",
@@ -6717,7 +6815,7 @@
   },
   "daily|uk|v1|336417110994|545918873552": {
     "article_slug": "affordable-homeware-for-students-uk",
-    "last_attempt_date": "2026-11-04",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "GBP",
@@ -6727,7 +6825,7 @@
       }
     ],
     "title": "105L Foldable Laundry Basket with Lid Large Capacity Washing Hamper with Handles",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|uk|v1|336543004544|0": {
     "article_slug": "best-garden-tool-sets-worth-buying-uk",
@@ -7147,13 +7245,19 @@
   },
   "daily|uk|v1|358912491880|0": {
     "article_slug": "affordable-homeware-for-students-uk",
-    "last_attempt_date": "2026-11-04",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-11-04",
         "price": 13.99,
         "ts": "2026-11-04T17:13:56.315754+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-17",
+        "price": 13.99,
+        "ts": "2026-11-17T05:01:54.661335+00:00"
       }
     ],
     "title": "100L Laundry Basket with Lid Foldable Hamper Bamboo Handles Black",
@@ -7161,7 +7265,7 @@
   },
   "daily|uk|v1|363410362658|0": {
     "article_slug": "best-storage-bins-worth-buying-uk-2026",
-    "last_attempt_date": "2026-11-04",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "GBP",
@@ -7663,13 +7767,19 @@
   },
   "daily|uk|v1|376281117699|0": {
     "article_slug": "affordable-homeware-for-students-uk",
-    "last_attempt_date": "2026-11-04",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-11-04",
         "price": 8.95,
         "ts": "2026-11-04T17:14:00.178178+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-17",
+        "price": 8.95,
+        "ts": "2026-11-17T05:01:54.661335+00:00"
       }
     ],
     "title": "4x Clothes Storage Bags With Zips Bedroom Large Collapsible Storage Box Bedding",
@@ -8029,7 +8139,7 @@
   },
   "daily|uk|v1|397231584942|0": {
     "article_slug": "affordable-homeware-for-students-uk",
-    "last_attempt_date": "2026-11-04",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "GBP",
@@ -8039,7 +8149,7 @@
       }
     ],
     "title": "Under Bed Storage Organisers 100L Foldable Clothes Box with Zipper Handles 4 PK",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|uk|v1|397479343812|0": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-uk",
@@ -8087,13 +8197,19 @@
   },
   "daily|uk|v1|397696385063|0": {
     "article_slug": "best-value-garden-tool-sets-worth-buying-uk",
-    "last_attempt_date": "2026-11-04",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-11-04",
         "price": 21.13,
         "ts": "2026-11-04T18:39:41.767387+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-17",
+        "price": 21.13,
+        "ts": "2026-11-17T05:01:54.661335+00:00"
       }
     ],
     "title": "3pc Telescopic Garden Hand Tools Set Fork Trowel Weeder / Hoe Extending Handles",
@@ -8503,13 +8619,19 @@
   },
   "daily|uk|v1|407319357996|677506940477": {
     "article_slug": "affordable-homeware-for-students-uk",
-    "last_attempt_date": "2026-11-04",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-11-04",
         "price": 10.59,
         "ts": "2026-11-04T17:14:00.178178+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-17",
+        "price": 10.59,
+        "ts": "2026-11-17T05:01:54.661335+00:00"
       }
     ],
     "title": "6/12PCS 90L Storage Bags Zipped for Clothes, Bedding Toys + Packing Moving Box💪",
@@ -9567,7 +9689,7 @@
   },
   "daily|us|v1|137049344868|0": {
     "article_slug": "best-value-video-doorbells-worth-buying-us",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "USD",
@@ -9592,6 +9714,12 @@
         "date": "2026-11-02",
         "price": 34.99,
         "ts": "2026-11-02T02:21:35.863286+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-17",
+        "price": 34.99,
+        "ts": "2026-11-17T05:02:07.694897+00:00"
       }
     ],
     "title": "Arlo AVD4001-100NAR Video Doorbell 2nd Gen 2K, White - Certified Refurbished",
@@ -9599,7 +9727,7 @@
   },
   "daily|us|v1|137050935303|0": {
     "article_slug": "best-value-video-doorbells-worth-buying-us",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "USD",
@@ -9612,10 +9740,16 @@
         "date": "2026-10-22",
         "price": 16.18,
         "ts": "2026-10-22T02:26:38.871687+01:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-17",
+        "price": 19.99,
+        "ts": "2026-11-17T05:02:07.694897+00:00"
       }
     ],
     "title": "Arlo AC2001 Chime 2 Wireless Doorbell - Certified refurbished",
-    "tracking_status": "unavailable"
+    "tracking_status": "active"
   },
   "daily|us|v1|137076667763|0": {
     "article_slug": "best-lawn-mowers-worth-buying-us",
@@ -9735,7 +9869,7 @@
   },
   "daily|us|v1|137596008877|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "USD",
@@ -9809,7 +9943,7 @@
   },
   "daily|us|v1|144084457567|0": {
     "article_slug": "best-tyre-inflators-worth-buying-us",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "USD",
@@ -9828,6 +9962,12 @@
         "date": "2026-11-02",
         "price": 27.99,
         "ts": "2026-11-02T02:21:35.863286+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-17",
+        "price": 28.99,
+        "ts": "2026-11-17T05:02:07.694897+00:00"
       }
     ],
     "title": "Heavy Duty Portable Air Compressor Car Tire Inflator Electric Auto 12V DC 150PSI",
@@ -9863,7 +10003,7 @@
   },
   "daily|us|v1|146727225499|0": {
     "article_slug": "best-tablets-worth-buying-us",
-    "last_attempt_date": "2026-11-03",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "USD",
@@ -9894,6 +10034,12 @@
         "date": "2026-11-03",
         "price": 319.99,
         "ts": "2026-11-03T03:54:30.933507+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-17",
+        "price": 319.99,
+        "ts": "2026-11-17T05:02:07.694897+00:00"
       }
     ],
     "title": "Samsung Galaxy S10 10.9\" FE 128GB WiFi Tablet SM-X520NZACXAR S-Pen Keyboard 2025",
@@ -10757,6 +10903,20 @@
       }
     ],
     "title": "G903 LIGHTSPEED Gaming Mouse with HERO 25K sensor-2.4GHZ- 910-005670",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|167865487922|0": {
+    "article_slug": "best-streaming-devices-worth-buying-us",
+    "last_attempt_date": "2026-11-17",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-17",
+        "price": 32.9,
+        "ts": "2026-11-17T05:02:20.349543+00:00"
+      }
+    ],
+    "title": "Roku Streaming Stick Plus 4K HDR Media Player with Voice Remote - 3810R",
     "tracking_status": "active"
   },
   "daily|us|v1|168047102259|0": {
@@ -12615,7 +12775,7 @@
   },
   "daily|us|v1|206614765677|507343883286": {
     "article_slug": "best-luggage-worth-buying-us",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "USD",
@@ -12625,7 +12785,7 @@
       }
     ],
     "title": "SWISSGEAR Energie Hardside Medium Checked Spinner Suitcase",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|us|v1|206658594712|0": {
     "article_slug": "small-bedroom-air-purifiers-us",
@@ -13011,13 +13171,19 @@
   },
   "daily|us|v1|227384601917|0": {
     "article_slug": "best-luggage-worth-buying-us",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-11-02",
         "price": 79.9,
         "ts": "2026-11-02T02:21:47.712421+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-17",
+        "price": 79.9,
+        "ts": "2026-11-17T05:02:07.694897+00:00"
       }
     ],
     "title": "16\"20\"24\"28\" Trolley Case 4PCS Hardside Lightweight Spinner Luggage Bag Set TSA",
@@ -13157,13 +13323,19 @@
   },
   "daily|us|v1|236334902375|0": {
     "article_slug": "best-luggage-worth-buying-us",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-11-02",
         "price": 84.99,
         "ts": "2026-11-02T02:21:47.712421+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-17",
+        "price": 84.99,
+        "ts": "2026-11-17T05:02:07.694897+00:00"
       }
     ],
     "title": "Luggage Set 3 Piece Suitcase  Double Spinner Wheels HardSide",
@@ -13661,13 +13833,19 @@
   },
   "daily|us|v1|257757668040|0": {
     "article_slug": "best-luggage-worth-buying-us",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-11-02",
         "price": 68.45,
         "ts": "2026-11-02T02:21:47.712421+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-17",
+        "price": 68.45,
+        "ts": "2026-11-17T05:02:07.694897+00:00"
       }
     ],
     "title": "18\" Boarding Suitcase Travel Underseat Carry On Luggage with Wheels Front Pocket",
@@ -13940,6 +14118,20 @@
     ],
     "title": "TEAMGROUP AX2 2TB 3D NAND TLC 2.5 Inch SATA III SSD",
     "tracking_status": "ended"
+  },
+  "daily|us|v1|267845519218|0": {
+    "article_slug": "best-streaming-devices-worth-buying-us",
+    "last_attempt_date": "2026-11-17",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-17",
+        "price": 29.99,
+        "ts": "2026-11-17T05:02:20.349543+00:00"
+      }
+    ],
+    "title": "Roku Streaming Stick 4K Device 4K HDR Dolby Vision Voice Remote - 3820RW",
+    "tracking_status": "active"
   },
   "daily|us|v1|277130534164|0": {
     "article_slug": "best-refurbished-cordless-drills-worth-buying-us",
@@ -15113,6 +15305,20 @@
     "title": "Netac 2TB 1TB 500GB Internal SSD M.2 NVMe PCIe3.0 Solid State Drive lot",
     "tracking_status": "unavailable"
   },
+  "daily|us|v1|314730224210|0": {
+    "article_slug": "best-streaming-devices-worth-buying-us",
+    "last_attempt_date": "2026-11-17",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-17",
+        "price": 13.39,
+        "ts": "2026-11-17T05:02:20.349543+00:00"
+      }
+    ],
+    "title": "2Pcs Usb Power Cord Compatible With Fire Tv Stick,roku Streaming Stick",
+    "tracking_status": "active"
+  },
   "daily|us|v1|315403607769|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
     "last_attempt_date": "2026-11-09",
@@ -15609,7 +15815,7 @@
   },
   "daily|us|v1|318561189043|616918270874": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "USD",
@@ -15640,6 +15846,12 @@
         "date": "2026-11-02",
         "price": 119.99,
         "ts": "2026-11-02T02:21:35.863286+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-17",
+        "price": 119.99,
+        "ts": "2026-11-17T05:02:07.694897+00:00"
       }
     ],
     "title": "Netac 120GB 256GB 1TB 2TB Internal SSD 2.5'' SATAIII 6Gb/s Solid State Drive lot",
@@ -15849,7 +16061,7 @@
   },
   "daily|us|v1|326666680201|0": {
     "article_slug": "best-tablets-worth-buying-us",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "USD",
@@ -15877,7 +16089,7 @@
       }
     ],
     "title": "Lenovo - Tab One - 8.7\" HD Tablet - 4GB RAM - 64GB eMMC - Luna Grey",
-    "tracking_status": "active"
+    "tracking_status": "ended"
   },
   "daily|us|v1|327044787117|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
@@ -15981,7 +16193,7 @@
   },
   "daily|us|v1|327285234753|0": {
     "article_slug": "best-tvs-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "USD",
@@ -16009,11 +16221,11 @@
       }
     ],
     "title": "TCL - 50\" Class QM6K Series 4K UHD HDR QD Mini LED Smart TV with Google TV (2...",
-    "tracking_status": "active"
+    "tracking_status": "ended"
   },
   "daily|us|v1|327296803741|0": {
     "article_slug": "best-tvs-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "USD",
@@ -16041,7 +16253,7 @@
       }
     ],
     "title": "TCL - 50\" Class Q6LR Series 4K UHD HDR QLED Smart TV with Roku TV (2026)",
-    "tracking_status": "active"
+    "tracking_status": "ended"
   },
   "daily|us|v1|327308687169|0": {
     "article_slug": "best-beauty-sets-worth-buying-us",
@@ -16182,6 +16394,20 @@
     ],
     "title": "Hamilton Beach Blender and Food Processor Combo, Shakes + Essential Bundle",
     "tracking_status": "unavailable"
+  },
+  "daily|us|v1|334832955549|0": {
+    "article_slug": "best-streaming-devices-worth-buying-us",
+    "last_attempt_date": "2026-11-17",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-17",
+        "price": 17.97,
+        "ts": "2026-11-17T05:02:20.349543+00:00"
+      }
+    ],
+    "title": "One For All 5 Device Backlit URC7945 Smart Streamer Remote",
+    "tracking_status": "active"
   },
   "daily|us|v1|335660329742|0": {
     "article_slug": "best-hair-straighteners-worth-buying-us",
@@ -16531,7 +16757,7 @@
   },
   "daily|us|v1|354165590164|623531138738": {
     "article_slug": "affordable-homeware-for-students-us",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "USD",
@@ -16544,6 +16770,12 @@
         "date": "2026-11-02",
         "price": 16.73,
         "ts": "2026-11-02T02:21:35.863286+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-17",
+        "price": 16.73,
+        "ts": "2026-11-17T05:02:07.694897+00:00"
       }
     ],
     "title": "1-2PCS Under Bed Storage Bag Containers Clothes Box Underbed Organizer Non-Woven",
@@ -16577,7 +16809,7 @@
   },
   "daily|us|v1|356346299715|625309697559": {
     "article_slug": "affordable-homeware-for-students-us",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "USD",
@@ -16590,6 +16822,12 @@
         "date": "2026-11-02",
         "price": 12.95,
         "ts": "2026-11-02T02:21:35.863286+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-17",
+        "price": 12.95,
+        "ts": "2026-11-17T05:02:07.694897+00:00"
       }
     ],
     "title": "90L Large Laundry Basket Laundry Hamper Bag Washing Bin Clothes Bag Collapsible",
@@ -17187,7 +17425,7 @@
   },
   "daily|us|v1|374274658971|0": {
     "article_slug": "best-carpet-cleaners-worth-buying-us",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "USD",
@@ -17200,6 +17438,12 @@
         "date": "2026-11-02",
         "price": 503.84,
         "ts": "2026-11-02T02:21:35.863286+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-17",
+        "price": 536.0,
+        "ts": "2026-11-17T05:02:07.694897+00:00"
       }
     ],
     "title": "Multifuction Hotel Carpet Cleaning Washing Machine Carpet Extractor Cleaners 30L",
@@ -17561,7 +17805,7 @@
   },
   "daily|us|v1|385826161635|0": {
     "article_slug": "best-video-doorbells-worth-buying-us",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "USD",
@@ -17580,6 +17824,12 @@
         "date": "2026-11-02",
         "price": 52.99,
         "ts": "2026-11-02T02:21:35.863286+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-17",
+        "price": 39.99,
+        "ts": "2026-11-17T05:02:07.694897+00:00"
       }
     ],
     "title": "eufy Video Doorbell Camera C31 2K FHD Security Phone Door Ring Intercom |Refurb",
@@ -18433,7 +18683,7 @@
   },
   "daily|us|v1|398376303191|0": {
     "article_slug": "affordable-homeware-for-students-us",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "USD",
@@ -18449,11 +18699,11 @@
       }
     ],
     "title": "GMOX 90L Laundry Basket,Waterproof Laundry Hamper with Padded Handles",
-    "tracking_status": "active"
+    "tracking_status": "ended"
   },
   "daily|us|v1|398383617779|0": {
     "article_slug": "affordable-homeware-for-students-us",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "USD",
@@ -18466,6 +18716,12 @@
         "date": "2026-11-02",
         "price": 11.75,
         "ts": "2026-11-02T02:21:35.863286+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-17",
+        "price": 11.75,
+        "ts": "2026-11-17T05:02:07.694897+00:00"
       }
     ],
     "title": "Two-Tone 90L Collapsible Laundry Basket Freestanding Foldable Hamper Soft Handle",
@@ -18869,7 +19125,7 @@
   },
   "daily|us|v1|407300581202|0": {
     "article_slug": "affordable-homeware-for-students-us",
-    "last_attempt_date": "2026-11-02",
+    "last_attempt_date": "2026-11-17",
     "observations": [
       {
         "currency": "USD",
@@ -18882,6 +19138,12 @@
         "date": "2026-11-02",
         "price": 28.03,
         "ts": "2026-11-02T02:21:35.863286+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-17",
+        "price": 21.02,
+        "ts": "2026-11-17T05:02:07.694897+00:00"
       }
     ],
     "title": "15in Collapsible Laundry Basket Plastic Hamper Foldable Storage Bin With Handles",
