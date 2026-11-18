@@ -821,6 +821,20 @@
     "title": "Oral-B Vitality Pro Black & Lilac Electric Toothbrush Rechargeable with Smart",
     "tracking_status": "active"
   },
+  "daily|uk|v1|127911633179|429106664415": {
+    "article_slug": "best-value-smart-light-switches-worth-buying-uk",
+    "last_attempt_date": "2026-11-18",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-18",
+        "price": 19.06,
+        "ts": "2026-11-18T19:24:49.094591+00:00"
+      }
+    ],
+    "title": "SONOFF M5 Matter Smart Wall Switch 1/2/3-Gang Push Button Wi-Fi Apple Alexa UK",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|127940325611|0": {
     "article_slug": "best-hair-straighteners-worth-buying-uk",
     "last_attempt_date": "2026-11-18",
@@ -3082,14 +3096,20 @@
     "tracking_status": "active"
   },
   "daily|uk|v1|185894688218|693875348749": {
-    "article_slug": "best-smart-light-switches-worth-buying-uk",
-    "last_attempt_date": "2026-11-14",
+    "article_slug": "best-value-smart-light-switches-worth-buying-uk",
+    "last_attempt_date": "2026-11-18",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-11-14",
         "price": 17.02,
         "ts": "2026-11-14T03:02:49.039466+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-18",
+        "price": 17.02,
+        "ts": "2026-11-18T19:24:49.094591+00:00"
       }
     ],
     "title": "Tuya Smart Life WiFi Wall Light Switch Push Button 1/2 Way 1/2/3Gang F Alexa/APP",
@@ -5899,6 +5919,20 @@
     "title": "Oral-B Vitality PRO Electric Toothbrush With Timer Lilac",
     "tracking_status": "active"
   },
+  "daily|uk|v1|296722363621|0": {
+    "article_slug": "best-value-smart-light-switches-worth-buying-uk",
+    "last_attempt_date": "2026-11-18",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-18",
+        "price": 9.58,
+        "ts": "2026-11-18T19:24:49.094591+00:00"
+      }
+    ],
+    "title": "SONOFF ZBMINIR2 Zigbee3.0 Smart Switch Detach Relay Works with Alexa Google Home",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|296936293078|594677298569": {
     "article_slug": "best-air-purifiers-worth-buying-uk",
     "last_attempt_date": "2026-11-09",
@@ -7710,14 +7744,20 @@
     "tracking_status": "active"
   },
   "daily|uk|v1|365557537360|0": {
-    "article_slug": "best-smart-light-switches-worth-buying-uk",
-    "last_attempt_date": "2026-11-14",
+    "article_slug": "best-value-smart-light-switches-worth-buying-uk",
+    "last_attempt_date": "2026-11-18",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-11-14",
         "price": 12.99,
         "ts": "2026-11-14T03:02:49.039466+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-18",
+        "price": 12.99,
+        "ts": "2026-11-18T19:24:49.094591+00:00"
       }
     ],
     "title": "SONOFF WiFi Smart Touch Switch Wall Light, 1 Gang, T0UK1C (R83)",
@@ -14683,6 +14723,20 @@
     "title": "Car Windshield 14'' Long Mount Holder Suction Cup Gooseneck 360°Cell Phone Stand",
     "tracking_status": "active"
   },
+  "daily|us|v1|287307047444|0": {
+    "article_slug": "best-refurbished-cordless-drills-worth-buying-us",
+    "last_attempt_date": "2026-11-18",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-18",
+        "price": 86.48,
+        "ts": "2026-11-18T19:24:52.556786+00:00"
+      }
+    ],
+    "title": "Milwaukee M18 Compact 1/2Inch Drill Driver (Bare Tool) Refurbished",
+    "tracking_status": "active"
+  },
   "daily|us|v1|287520677006|0": {
     "article_slug": "best-slow-cookers-worth-buying-us",
     "last_attempt_date": "2026-11-05",
@@ -14773,6 +14827,34 @@
       }
     ],
     "title": "Makita FD02 10.8V/12V Max Compact Cordless Drill/Driver 3/8\" Keyless Black/White",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|287700387719|0": {
+    "article_slug": "best-refurbished-cordless-drills-worth-buying-us",
+    "last_attempt_date": "2026-11-18",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-18",
+        "price": 179.99,
+        "ts": "2026-11-18T19:24:52.556786+00:00"
+      }
+    ],
+    "title": "WX945L WORX 20V Drill Driver & 3-3/8\" Worxsaw Combo Kit-CR",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|294169926707|0": {
+    "article_slug": "best-refurbished-cordless-drills-worth-buying-us",
+    "last_attempt_date": "2026-11-18",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-18",
+        "price": 340.44,
+        "ts": "2026-11-18T19:24:52.556786+00:00"
+      }
+    ],
+    "title": "Makita XT268T 18V LXT Li-Ion Brushless 2-Piece Combo Kit (Certified Refurbished)",
     "tracking_status": "active"
   },
   "daily|us|v1|295993284120|594153502152": {
@@ -17402,8 +17484,8 @@
     "tracking_status": "active"
   },
   "daily|us|v1|366199188711|0": {
-    "article_slug": "best-cordless-drills-under-220-worth-buying-us",
-    "last_attempt_date": "2026-11-11",
+    "article_slug": "best-refurbished-cordless-drills-worth-buying-us",
+    "last_attempt_date": "2026-11-18",
     "observations": [
       {
         "currency": "USD",
@@ -17434,6 +17516,12 @@
         "date": "2026-11-11",
         "price": 107.99,
         "ts": "2026-11-11T18:42:58.452907+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-18",
+        "price": 107.99,
+        "ts": "2026-11-18T19:24:52.556786+00:00"
       }
     ],
     "title": "Bosch GSR12V-140FCB22 12V Cordless Max Drill/Driver (Certified Refurbished)",
