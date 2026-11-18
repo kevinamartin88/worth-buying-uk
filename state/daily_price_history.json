@@ -241,7 +241,7 @@
   },
   "daily|uk|v1|117505539805|0": {
     "article_slug": "easy-grip-cutlery-uk",
-    "last_attempt_date": "2026-11-12",
+    "last_attempt_date": "2026-11-18",
     "observations": [
       {
         "currency": "GBP",
@@ -254,6 +254,12 @@
         "date": "2026-11-12",
         "price": 15.3,
         "ts": "2026-11-12T18:23:48.532025+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-18",
+        "price": 15.3,
+        "ts": "2026-11-18T18:02:01.859634+00:00"
       }
     ],
     "title": "3 Pieces Adaptive Cutlery Set Easy Grip Cutlery with Rubberized Handles",
@@ -2341,13 +2347,19 @@
   },
   "daily|uk|v1|158051109546|0": {
     "article_slug": "easy-grip-cutlery-uk",
-    "last_attempt_date": "2026-11-12",
+    "last_attempt_date": "2026-11-18",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-11-12",
         "price": 13.62,
         "ts": "2026-11-12T18:23:48.532025+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-18",
+        "price": 13.62,
+        "ts": "2026-11-18T18:02:01.859634+00:00"
       }
     ],
     "title": "3 Pieces Adaptive Cutlery Set Easy Grip Utensils with Nonslip Handle Flexible",
@@ -4691,7 +4703,7 @@
   },
   "daily|uk|v1|257482991658|0": {
     "article_slug": "easy-grip-cutlery-uk",
-    "last_attempt_date": "2026-11-12",
+    "last_attempt_date": "2026-11-18",
     "observations": [
       {
         "currency": "GBP",
@@ -4704,6 +4716,12 @@
         "date": "2026-11-12",
         "price": 12.9,
         "ts": "2026-11-12T18:23:48.532025+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-18",
+        "price": 12.9,
+        "ts": "2026-11-18T18:02:01.859634+00:00"
       }
     ],
     "title": "Easy Grip Cutlery Set 4pc Red Arthritis Weak Grip Mobility Adaptive Eating Aid",
@@ -7979,7 +7997,7 @@
   },
   "daily|uk|v1|377474533503|0": {
     "article_slug": "easy-grip-cutlery-uk",
-    "last_attempt_date": "2026-11-12",
+    "last_attempt_date": "2026-11-18",
     "observations": [
       {
         "currency": "GBP",
@@ -7992,6 +8010,12 @@
         "date": "2026-11-12",
         "price": 12.01,
         "ts": "2026-11-12T18:23:48.532025+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-18",
+        "price": 12.01,
+        "ts": "2026-11-18T18:02:01.859634+00:00"
       }
     ],
     "title": "3 Pieces Adaptive Cutlery Set Easy Grip Cutlery with Rubberized Handles Flexible",
@@ -14199,7 +14223,7 @@
   },
   "daily|us|v1|267695921738|567499642587": {
     "article_slug": "affordable-homeware-for-students-us",
-    "last_attempt_date": "2026-11-16",
+    "last_attempt_date": "2026-11-18",
     "observations": [
       {
         "currency": "USD",
@@ -14218,6 +14242,12 @@
         "date": "2026-11-16",
         "price": 16.73,
         "ts": "2026-11-16T02:41:09.844728+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-18",
+        "price": 16.73,
+        "ts": "2026-11-18T18:02:11.424370+00:00"
       }
     ],
     "title": "Under Bed Storage Bags 1/2Pack Capacity Breathable Foldable Container Bins USA",
@@ -14577,6 +14607,20 @@
       }
     ],
     "title": "MOES 1/2/3/4 Gang WiFi Smart Light Switch Wall 3 Way Timer Alexa Google APP NEW",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|286776695552|588809099691": {
+    "article_slug": "affordable-homeware-for-students-us",
+    "last_attempt_date": "2026-11-18",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-18",
+        "price": 16.01,
+        "ts": "2026-11-18T18:02:11.424370+00:00"
+      }
+    ],
+    "title": "Large Capacity Zippered Under Bed Storage Bag Non-woven Underbed Clothes Storage",
     "tracking_status": "active"
   },
   "daily|us|v1|286792251512|0": {
@@ -14939,6 +14983,20 @@
       }
     ],
     "title": "Hamilton Beach 70450 White 8 Cup Bowl Food Processor",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|306610608346|0": {
+    "article_slug": "affordable-homeware-for-students-us",
+    "last_attempt_date": "2026-11-18",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-18",
+        "price": 21.52,
+        "ts": "2026-11-18T18:02:07.734994+00:00"
+      }
+    ],
+    "title": "Large Capacity 100L Laundry Hamper with Wheels Foldable Cart, Bamboo Handles Lid",
     "tracking_status": "active"
   },
   "daily|us|v1|306803503917|0": {
@@ -16221,6 +16279,20 @@
     "title": "Levoit - Core 200S-P Smart Air Purifier - Gray",
     "tracking_status": "active"
   },
+  "daily|us|v1|326407540837|515524505513": {
+    "article_slug": "affordable-homeware-for-students-us",
+    "last_attempt_date": "2026-11-18",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-18",
+        "price": 10.25,
+        "ts": "2026-11-18T18:02:11.424370+00:00"
+      }
+    ],
+    "title": "2 pack Flexible Zippered Under Bed Storage Bag Fabric Underbed Clothes Storage",
+    "tracking_status": "active"
+  },
   "daily|us|v1|326441322186|0": {
     "article_slug": "best-projectors-worth-buying-us",
     "last_attempt_date": "2026-11-14",
@@ -16397,6 +16469,20 @@
       }
     ],
     "title": "ZOSI 8CH AI H.265+ 5MP Lite DVR 1080P Outdoor CCTV Home Security Camera System",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|327284424055|516059795042": {
+    "article_slug": "affordable-homeware-for-students-us",
+    "last_attempt_date": "2026-11-18",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-18",
+        "price": 14.03,
+        "ts": "2026-11-18T18:02:11.424370+00:00"
+      }
+    ],
+    "title": "Under Bed Storage Bags Foldable Organizer with Clear Window for Clothes",
     "tracking_status": "active"
   },
   "daily|us|v1|327285234753|0": {
@@ -17435,6 +17521,20 @@
       }
     ],
     "title": "Ninja SMOOTHIEiQ 1400PW Blender, 72-oz XL Pitcher, Auto-iQ Preset, Black",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|366557854070|636255893852": {
+    "article_slug": "affordable-homeware-for-students-us",
+    "last_attempt_date": "2026-11-18",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-18",
+        "price": 9.44,
+        "ts": "2026-11-18T18:02:07.734994+00:00"
+      }
+    ],
+    "title": "Mesh Laundry Hamper Large Foldable Dirty Clothes Basket Storage Bin With Handles",
     "tracking_status": "active"
   },
   "daily|us|v1|366592815264|0": {
@@ -18937,7 +19037,7 @@
   },
   "daily|us|v1|398383617779|0": {
     "article_slug": "affordable-homeware-for-students-us",
-    "last_attempt_date": "2026-11-17",
+    "last_attempt_date": "2026-11-18",
     "observations": [
       {
         "currency": "USD",
@@ -18956,6 +19056,12 @@
         "date": "2026-11-17",
         "price": 11.75,
         "ts": "2026-11-17T05:02:07.694897+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-18",
+        "price": 11.75,
+        "ts": "2026-11-18T18:02:07.734994+00:00"
       }
     ],
     "title": "Two-Tone 90L Collapsible Laundry Basket Freestanding Foldable Hamper Soft Handle",
@@ -19850,5 +19956,19 @@
     ],
     "title": "Samsung 860 EVO Series 1TB, 2.5 Inch (MZ76E1T0E) Solid State Drive",
     "tracking_status": "ended"
+  },
+  "daily|us|v1|960189224937|0": {
+    "article_slug": "affordable-homeware-for-students-us",
+    "last_attempt_date": "2026-11-18",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-18",
+        "price": 27.99,
+        "ts": "2026-11-18T18:02:07.734994+00:00"
+      }
+    ],
+    "title": "Space Saving Collapsible Laundry Basket Foldable White Black Storage Hamper",
+    "tracking_status": "active"
   }
 }
