@@ -28,9 +28,14 @@ def test_real_article_refresh_preserves_commercial_and_publication_evidence(mark
                     r'<p><strong>Prices when checked:</strong>.*?</p>']:
         for fragment in re.findall(pattern, original['content_html'], re.S):
             assert fragment in updated['content_html'], fragment[:100]
-    assert updated['content_html'].count(START) == 1
-    assert FOCUS[(market, slug)]['intro'] in updated['content_html']
-    assert updated['_seo']['search_focus_revision'] == REVISION
+    if (original.get('_research') or {}).get('preserve_editorial_body'):
+        # Reviewed comparisons supersede the older generic topic introduction.
+        assert updated == original
+        assert '<table' in updated['content_html'] and 'Customer feedback:' in updated['content_html']
+    else:
+        assert updated['content_html'].count(START) == 1
+        assert FOCUS[(market, slug)]['intro'] in updated['content_html']
+        assert updated['_seo']['search_focus_revision'] == REVISION
     assert 90 <= len(updated['_seo']['description']) <= 160
     from src.publication_quality import choose_description
     selected, issues = choose_description(updated, market)
@@ -57,8 +62,13 @@ def test_daily_generation_keeps_advice_without_research_network_calls(monkeypatc
     topic = next(row for row in daily.TOPICS if row[0] == FOCUS[(market, slug)]['topic'])
     article = daily.build_article(topic, market, 2026, is_refresh=True)
     assert article['slug'] == slug
-    assert article['content_html'].count(START) == 1
-    assert article['title'] == FOCUS[(market, slug)]['title']
+    existing = daily.load_json(daily.published_article_dir(market) / (slug + '.json'))
+    if (existing.get('_research') or {}).get('preserve_editorial_body'):
+        assert article['content_html'] == existing['content_html']
+        assert article['title'] == existing['title']
+    else:
+        assert article['content_html'].count(START) == 1
+        assert article['title'] == FOCUS[(market, slug)]['title']
     assert article['_promotion']['is_refresh'] is True
     assert article['_generator']['live_ebay_picks'] is False
 
