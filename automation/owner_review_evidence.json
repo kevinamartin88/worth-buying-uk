@@ -2,7 +2,10 @@
   {
     "key": "tower-t16043gry",
     "market": "uk",
-    "title_patterns": ["\\btower\\b", "\\bt16043gry\\b"],
+    "title_patterns": [
+      "\\btower\\b",
+      "\\bt16043gry\\b"
+    ],
     "reviewed_on": "2026-10-13",
     "review_by": "2026-11-13",
     "source_url": "https://www.diy.com/departments/tower-cavaletto-6-5-litre-slow-cooker-grey/5056462300481_BQ.prd",
@@ -14,7 +17,12 @@
   {
     "key": "crockpot-design-7qt-thermal-bag",
     "market": "us",
-    "title_patterns": ["\\bcrock-pot\\b", "\\bdesign series\\b", "\\b7-quart\\b", "\\bthermal bag\\b"],
+    "title_patterns": [
+      "\\bcrock-pot\\b",
+      "\\bdesign series\\b",
+      "\\b7-quart\\b",
+      "\\bthermal bag\\b"
+    ],
     "reviewed_on": "2026-10-13",
     "review_by": "2026-11-13",
     "source_url": "https://www.ebay.com/itm/236829884831",
@@ -22,5 +30,196 @@
     "praise": "One product reviewer reports a successful bone-broth result with a pre-owned unit. That is an encouraging cooking example, although it is an individual experience rather than proof that every unit will perform the same way.",
     "before_buying": "The 7-quart size and thermal-bag bundle make this worth comparing if you cook larger batches or take food to gatherings. Confirm the exact model, included bag and return terms on the current listing, especially when comparing new and pre-owned offers.",
     "verdict": "We would shortlist it for someone who values the carrying-bag bundle alongside a larger cooker. For everyday meals at home, compare the price with a model without the bag and decide whether you will actually use the extra accessory."
+  },
+  {
+    "key": "ring-rtc450",
+    "market": "uk",
+    "title_patterns": [
+      "\\bring\\b",
+      "\\brtc[ -]?450\\b"
+    ],
+    "excluded_title_patterns": [],
+    "reviewed_on": "2026-11-19",
+    "review_by": "2027-02-17",
+    "source_url": "https://www.diy.com/departments/ring-digital-tyre-inflator-with-auto-stop-air-compressor-wheel-car-pump-12v-bike/5055175250915_BQ.prd",
+    "source_label": "B&Q RTC450 product review, 8 January 2025",
+    "source_kind": "customer_reviews",
+    "praise": "One reviewer appreciates simple operation and automatic stopping. This is one owner report, not a measured accuracy or reliability result.",
+    "before_buying": "Confirm your vehicle socket and cable reach; the pump needs a 12V supply.",
+    "verdict": "A practical format for regular car checks when you would rather avoid charging another battery.",
+    "spec_source_url": "https://www.ringautomotive.com/files/mydocs/RTC450Instructions2021.pdf",
+    "comparison_specs": "12V socket power; digital automatic stop; approximately 50cm hose and 3m lead"
+  },
+  {
+    "key": "ring-rtc2000",
+    "market": "uk",
+    "title_patterns": [
+      "\\bring\\b",
+      "\\brtc[ -]?2000\\b"
+    ],
+    "excluded_title_patterns": [],
+    "reviewed_on": "2026-11-19",
+    "review_by": "2027-02-17",
+    "source_url": "https://www.argos.co.uk/product/9481754",
+    "source_label": "Argos RTC2000 customer reviews, November 2026; some reviews incentivised",
+    "source_kind": "customer_reviews",
+    "praise": "November reviewers like the portability and ease of use. A 14 November owner also describes slow inflation and wants a longer hose.",
+    "before_buying": "The short hose can limit positioning; keep the internal battery charged.",
+    "verdict": "Worth comparing for portable top-ups, especially away from a car power socket.",
+    "spec_source_url": "https://www.ringautomotive.com/files/mydocs/RTC2000_Spec.pdf",
+    "comparison_specs": "USB-rechargeable cordless power; automatic stop; four presets; approximately 15cm hose"
+  },
+  {
+    "key": "really-useful-35l",
+    "market": "uk",
+    "title_patterns": [
+      "\\breally useful\\b",
+      "\\b35\\s*(?:l|litre|litres|liter|liters)\\b"
+    ],
+    "excluded_title_patterns": [],
+    "reviewed_on": "2026-11-19",
+    "review_by": "2027-02-17",
+    "source_url": "https://www.argos.co.uk/product/9485365",
+    "source_label": "Argos Really Useful 35L customer reviews, November 2026; some reviews incentivised",
+    "source_kind": "customer_reviews",
+    "praise": "Owners mention useful stacking and visibility. A 16 November reviewer says the handle clips keep lids attached during a move.",
+    "before_buying": "Check the external footprint and usable internal space before choosing a multipack.",
+    "verdict": "The smaller box suits sorting items into separate groups rather than one bulky load.",
+    "spec_source_url": "https://www.argos.co.uk/product/9485365",
+    "comparison_specs": "35L per box; external H31 × W39 × D48cm; handle clips; seller pack quantity varies"
+  },
+  {
+    "key": "strata-curve-65l",
+    "market": "uk",
+    "title_patterns": [
+      "\\bstrata\\b",
+      "\\bcurve\\b",
+      "\\b65\\s*(?:l|litre|litres|liter|liters)\\b"
+    ],
+    "excluded_title_patterns": [],
+    "reviewed_on": "2026-11-19",
+    "review_by": "2027-02-17",
+    "source_url": "https://www.argos.co.uk/product/9484751",
+    "source_label": "Argos Strata Curve 65L customer reviews, October–November 2026; some reviews incentivised",
+    "source_kind": "customer_reviews",
+    "praise": "Customers value clear sides and stacking, while a 31 October reviewer reports a cracked lid and poor lid fit.",
+    "before_buying": "Inspect delivered lids and rims. A clip-on lid is not evidence of waterproofing.",
+    "verdict": "A larger box can suit bulky possessions if its dimensions fit your storage space.",
+    "spec_source_url": "https://www.argos.co.uk/product/9484751",
+    "comparison_specs": "65L per box; external H37 × W60 × D40cm; clip-on lid; seller pack quantity varies"
+  },
+  {
+    "key": "dewalt-dcd777c2",
+    "market": "us",
+    "title_patterns": [
+      "\\bde\\s?walt\\b",
+      "\\bdcd777c2\\b"
+    ],
+    "excluded_title_patterns": [],
+    "reviewed_on": "2026-11-19",
+    "review_by": "2027-02-17",
+    "source_url": "https://www.lowes.com/reviews/dewalt-dcd777c2-drills/1000135807",
+    "source_label": "Lowe's DCD777C2 customer reviews, 2024–2025",
+    "source_kind": "customer_reviews",
+    "praise": "A September 2025 purchaser reports successful deck-screw use. Other customers like the trigger control, while critical comments include chuck problems.",
+    "before_buying": "The C2 kit and DCD777B bare tool differ in included batteries and charger. Check chuck operation during the return period.",
+    "verdict": "A conventional drill/driver kit to compare for accessible household jobs; it does not add a masonry hammer mode.",
+    "spec_source_url": "https://www.northerntool.com/products/dewalt-max-20-volt-compact-brushless-drill-driver-kit-2-li-ion-batteries-1-2in-chuck-1750-rpm-model-dcd777c2-61383",
+    "comparison_specs": "20V MAX brushless drill/driver; 1/2-inch chuck; two-battery kit; 0–500 / 0–1,750 rpm"
+  },
+  {
+    "key": "bosch-gsr12v-140fcb22",
+    "market": "us",
+    "title_patterns": [
+      "\\bbosch\\b",
+      "\\bgsr12v[ -]?140fcb22\\b"
+    ],
+    "excluded_title_patterns": [],
+    "reviewed_on": "2026-11-19",
+    "review_by": "2027-02-17",
+    "source_url": "https://www.lowes.com/pd/Bosch-Flexiclick-12-Volt-1-4-in-Cordless-Drill/1000329709",
+    "source_label": "Lowe's GSR12V-140FCB22 owner review, February 29, 2024",
+    "source_kind": "customer_reviews",
+    "praise": "The reviewer appreciates angled access, light handling and easy head changes. This describes convenience, not measured drilling power.",
+    "before_buying": "Check that the right-angle, offset and chuck attachments are included; used kit contents can differ.",
+    "verdict": "The head system is most useful where fastener access is awkward, such as cabinet fitting.",
+    "spec_source_url": "https://www.boschtools.com/us/en/products/gsr12v-140fcb22-06019F6010",
+    "comparison_specs": "12V MAX Flexiclick; 1/4-inch hex drive; 3/8-inch chuck head; two 2.0Ah batteries and charger"
+  },
+  {
+    "key": "crockpot-sccpvl610-s",
+    "market": "us",
+    "title_patterns": [
+      "\\bcrock[ -]?pot\\b",
+      "\\bsccpvl610[ -]?s(?:[ -](?:a|abr))?\\b"
+    ],
+    "excluded_title_patterns": [],
+    "reviewed_on": "2026-11-19",
+    "review_by": "2027-02-17",
+    "source_url": "https://www.homedepot.com/p/reviews/Crock-Pot-6-Qt-Programmable-Stainless-Steel-Slow-Cooker-with-Locking-Lid-SCCPVL610-S/204269978/1",
+    "source_label": "Home Depot 6-quart customer reports, March–April 2026; page also includes other models",
+    "source_kind": "customer_reviews",
+    "praise": "Relevant 6-quart comments include concerns about heat control and the crock surface. They are individual reports, not our temperature measurements.",
+    "before_buying": "Confirm the full model suffix and manual, return terms and replacement-pot availability. Do not apply the pooled page rating to one model.",
+    "verdict": "Compare this family when programmed timing and carrying cooked food matter more than maximum capacity.",
+    "spec_source_url": "https://www.crock-pot.com/slow-cookers/6-quart/crock-pot-programmable-6.0-quart-cook-carry-slow-cooker-stainless-steel/SAP_SCCPVL610SA.html",
+    "comparison_specs": "6-quart programmable Cook & Carry; automatic Warm; locking lid; check full revision suffix"
+  },
+  {
+    "key": "crockpot-scv800-b",
+    "market": "us",
+    "title_patterns": [
+      "\\bcrock[ -]?pot\\b",
+      "\\bscv800[ -]?b\\b"
+    ],
+    "excluded_title_patterns": [],
+    "reviewed_on": "2026-11-19",
+    "review_by": "2027-02-17",
+    "source_url": "https://www.crock-pot.com/employee/crockpot-8.0-quart-slow-cooker-manual-black/SAP_SCV800B.html",
+    "source_label": "Crock-Pot SCV800-B customer reports, 2022–2024",
+    "source_kind": "customer_reviews",
+    "praise": "Customers describe useful family-meal capacity, leftovers and easy cleaning of the removable pot. These older reports do not certify current-unit durability.",
+    "before_buying": "Warm is selected manually. Check the complete model number, pot condition and replacement availability.",
+    "verdict": "A simple-control alternative for larger recipes if you can manage the finish time yourself.",
+    "spec_source_url": "https://www.crock-pot.com/employee/crockpot-8.0-quart-slow-cooker-manual-black/SAP_SCV800B.html",
+    "comparison_specs": "8-quart capacity; manual High / Low / Warm; removable stoneware; no programmable countdown"
+  },
+  {
+    "key": "kitchenaid-ksm97sl",
+    "market": "us",
+    "title_patterns": [
+      "\\bkitchenaid\\b",
+      "\\bksm97sl\\b"
+    ],
+    "excluded_title_patterns": [],
+    "reviewed_on": "2026-11-19",
+    "review_by": "2027-02-17",
+    "source_url": "https://www.bestbuy.com/product/kitchenaid-deluxe-4-5-quart-tilt-head-stand-mixer-ksm97sl-silver/J3KHV8VYQ3/sku/6424708/reviews",
+    "source_label": "Best Buy KSM97SL customer reviews; some incentivized",
+    "source_kind": "customer_reviews",
+    "praise": "A verified purchaser likes everyday baking results and cleanup but also points out the weight. The review is marked incentivized.",
+    "before_buying": "Measure raised-head clearance and consider how you will lift the machine from storage.",
+    "verdict": "The smaller tilt-head format is worth comparing for regular home baking that fits its recipe limits.",
+    "spec_source_url": "https://assets.katomcdn.com/raw/upload/v1679385925/products/449/449-KSM97SL/449-KSM97SL.pdf",
+    "comparison_specs": "4.5-quart bowl; tilt-head; 10 speeds; check the attachments in the seller package"
+  },
+  {
+    "key": "kitchenaid-ksm55sxxxcu",
+    "market": "us",
+    "title_patterns": [
+      "\\bkitchenaid\\b",
+      "\\bksm55sxxxcu\\b"
+    ],
+    "excluded_title_patterns": [],
+    "reviewed_on": "2026-11-19",
+    "review_by": "2027-02-17",
+    "source_url": "https://www.bestbuy.com/site/reviews/kitchenaid-5-5-quart-bowl-lift-stand-mixer-contour-silver/6531621",
+    "source_label": "Best Buy 5.5-quart model-family reviews across finishes; some incentivized",
+    "source_kind": "customer_reviews",
+    "praise": "Model-family comments praise bread mixing and low-speed control but also describe the weight and awkward cupboard storage.",
+    "before_buying": "The review page groups finishes. Check the exact bundle and bowl/attachment compatibility, rather than assuming all KitchenAid accessories fit.",
+    "verdict": "Compare the larger bowl-lift layout if it suits your recipes and can occupy practical counter space.",
+    "spec_source_url": "https://www.kitchenaid.com/countertop-appliances/stand-mixers/bowl-lift-stand-mixers/p.kitchenaid-5-5-quart-bowl-lift-stand-mixer.KSM55SXXXCU.html",
+    "comparison_specs": "5.5-quart bowl; bowl-lift; 11 speeds including half-speed; exact attachments vary by offer"
   }
 ]
