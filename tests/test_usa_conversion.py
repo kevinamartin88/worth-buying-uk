@@ -260,6 +260,28 @@ def test_tracking_does_not_install_an_unknown_property_or_block_navigation():
         tracking_script('guide', '<script>')
 
 
+def test_pilot_preserves_researched_guide_without_listing_lookup(monkeypatch, tmp_path):
+    import refresh_usa_conversion_pilot as pilot
+    slug = 'best-slow-cookers-worth-buying-us'
+    folder = tmp_path / 'articles-us'
+    folder.mkdir()
+    path = folder / (slug + '.json')
+    original = {'slug': slug, '_generator': {'topic': 'slow-cookers'},
+                '_research': {'preserve_editorial_body': True},
+                'content_html': '<p>Reviewed model comparison</p>',
+                '_promotion': {'daily_featured_date': '2026-10-06'}}
+    path.write_text(json.dumps(original))
+    monkeypatch.setattr(daily, 'ROOT', tmp_path)
+    monkeypatch.setattr(pilot, 'PILOT_TOPICS', ('slow-cookers',))
+    def unexpected_lookup(*args):
+        raise AssertionError('Curated copy must not require live product lookup')
+    monkeypatch.setattr(daily, 'build_article', unexpected_lookup)
+    pilot.main()
+    assert daily.load_json(path) == original
+    report = daily.load_json(tmp_path / 'state/usa_conversion_pilot.json')
+    assert report['articles'][0]['status'] == 'preserved_editorial_comparison'
+
+
 def test_legacy_manual_guide_keeps_its_existing_slug(monkeypatch, tmp_path):
     slug = 'best-air-fryers-worth-buying-us-2026'
     (tmp_path / f'{slug}.json').write_text(json.dumps({'slug': slug, 'title': 'Best Air Fryers'}))
