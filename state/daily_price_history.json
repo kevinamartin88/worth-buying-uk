@@ -4753,7 +4753,7 @@
   },
   "daily|uk|v1|257482991658|0": {
     "article_slug": "easy-grip-cutlery-uk",
-    "last_attempt_date": "2026-11-18",
+    "last_attempt_date": "2026-11-19",
     "observations": [
       {
         "currency": "GBP",
@@ -4772,6 +4772,12 @@
         "date": "2026-11-18",
         "price": 12.9,
         "ts": "2026-11-18T18:02:01.859634+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-19",
+        "price": 12.9,
+        "ts": "2026-11-19T19:02:38.965195+00:00"
       }
     ],
     "title": "Easy Grip Cutlery Set 4pc Red Arthritis Weak Grip Mobility Adaptive Eating Aid",
@@ -6347,6 +6353,20 @@
     "title": "Samsung UE50U8000H 50 Inch LED 4K Ultra HD Smart TV Bluetooth WiFi",
     "tracking_status": "active"
   },
+  "daily|uk|v1|307167720274|0": {
+    "article_slug": "easy-grip-cutlery-uk",
+    "last_attempt_date": "2026-11-19",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-19",
+        "price": 14.21,
+        "ts": "2026-11-19T19:02:38.965195+00:00"
+      }
+    ],
+    "title": "3 Pieces Adaptive Cutlery Set Long-Lasting Utensils with Twistable Shaft",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|307224502752|0": {
     "article_slug": "best-webcams-worth-buying-uk",
     "last_attempt_date": "2026-11-18",
@@ -7098,6 +7118,20 @@
     ],
     "title": "Samsung 43 Inch TV Smart 4K Ultra HD HDR Crystal TV Netflix UE43U8000HKXXU",
     "tracking_status": "ended"
+  },
+  "daily|uk|v1|336669548601|0": {
+    "article_slug": "easy-grip-cutlery-uk",
+    "last_attempt_date": "2026-11-19",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-19",
+        "price": 12.66,
+        "ts": "2026-11-19T19:02:38.965195+00:00"
+      }
+    ],
+    "title": "3 Pieces Adaptive Cutlery Set Ergonomic Utensils with Twistable Shaft Easy Grip",
+    "tracking_status": "active"
   },
   "daily|uk|v1|336750481720|0": {
     "article_slug": "best-gaming-headsets-worth-buying-uk",
@@ -8161,7 +8195,7 @@
   },
   "daily|uk|v1|377474533503|0": {
     "article_slug": "easy-grip-cutlery-uk",
-    "last_attempt_date": "2026-11-18",
+    "last_attempt_date": "2026-11-19",
     "observations": [
       {
         "currency": "GBP",
@@ -8180,6 +8214,12 @@
         "date": "2026-11-18",
         "price": 12.01,
         "ts": "2026-11-18T18:02:01.859634+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-19",
+        "price": 12.01,
+        "ts": "2026-11-19T19:02:38.965195+00:00"
       }
     ],
     "title": "3 Pieces Adaptive Cutlery Set Easy Grip Cutlery with Rubberized Handles Flexible",
