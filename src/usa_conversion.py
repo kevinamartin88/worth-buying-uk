@@ -198,7 +198,7 @@ def cards_html(items, retailer_urls, query):
         cards.append(
             '<article class="wb-buying-card" data-wb-product="' + html.escape(title, quote=True) + '" '
             'style="border:1px solid #dfe6ee;border-radius:14px;padding:18px;margin:16px 0">'
-            f'<p><strong>{html.escape(badges[index])}</strong> · <strong>WorthBuying score:</strong> {score}/100</p>'
+            f'<p><strong>Option {index + 1} to compare</strong></p>'
             f'<h3>{html.escape(title)}</h3>'
             + spec_html
             + (product_image_html(photo, title) if photo else '')

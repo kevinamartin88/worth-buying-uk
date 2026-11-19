@@ -90,8 +90,9 @@ def test_cards_show_evidence_images_shipping_and_honest_search_labels():
     assert text.count('class="wb-product-image"') == 3
     assert '$65.00 before sales tax' in text
     assert 'Brand: Dyson' in text
-    assert 'WorthBuying score:' in text
-    assert 'Best overall' in text or 'Best value' in text
+    assert 'WorthBuying score:' not in text
+    assert 'Best overall' not in text
+    assert 'Option 1 to compare' in text
     assert 'Search Amazon for this product' in text
     assert 'exact product identity and price were not verified' in text
     assert 'Check Amazon price' not in text

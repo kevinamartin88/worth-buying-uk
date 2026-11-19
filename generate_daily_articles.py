@@ -629,8 +629,7 @@ def quick_picks_html(items: list[dict], market: str, query: str) -> str:
         cards.append(
             '<article class="wb-buying-card" data-wb-product="' + html.escape(title, quote=True) + '" '
             'style="border:1px solid #dfe6ee;border-radius:14px;padding:18px;margin:14px 0;background:#fff;">'
-            f'<p style="margin:0 0 6px"><strong>{html.escape(badges[index - 1])}</strong> · '
-            f'WorthBuying score {score}/100</p>'
+            f'<p style="margin:0 0 6px"><strong>Option {index} to compare</strong></p>'
             f'{image_html}'
             f'<h3 style="margin:4px 0 8px">{html.escape(title)}</h3>'
             f'<p style="margin:6px 0"><strong>eBay price checked:</strong> {html.escape(price)}'
@@ -2016,7 +2015,6 @@ def live_sections(items: list[dict], market: str, topic_name: str, query: str) -
 
         parts.append(
             f"<h3>{index}. {safe_title}</h3>\n"
-            f"<p><strong>{html.escape(badges[index - 1])}</strong> · <strong>WorthBuying score:</strong> {score}/100.</p>\n"
             f"<p><strong>Prices when checked:</strong> {html.escape(prices)}."
             f"{condition_text}</p>\n"
             f"<p><strong>Best for:</strong> {html.escape(best_for)}. "
@@ -2208,6 +2206,8 @@ def build_article(
         + "</strong></p>\n"
     )
 
+    from src.owner_reviews import product_comparison_html
+    comparison = product_comparison_html(picks, market) if live else ''
     content = (
         daily_freshness
         + f"<p><strong>{html.escape(buyer_intro(display, region, year, live))}</strong></p>\n"
@@ -2216,6 +2216,7 @@ def build_article(
         f"<p>{methodology} Prices and availability can change after publication, so always verify the live listing.</p>\n"
         f"{editorial_trust_html(market, checked_date)}"
         f"{quick_picks_html(picks, market, query) if live and market != 'us' else ''}"
+        f"{comparison}"
         f"<h2>{'Current picks worth comparing' if live else 'Current retailer searches worth checking'}</h2>\n"
         f"{sections}\n"
         "<h2>How to choose the right option</h2>\n"
@@ -2225,13 +2226,10 @@ def build_article(
         f"<ul>{check_html}</ul>\n"
         f"{retailer_comparison_html(market, display)}"
         "<h2>How we choose these daily picks</h2>\n"
-        "<p>Our product comparisons are built using current retailer data, market analysis and available marketplace feedback "
-        "to identify the products most worthy of consideration. We do not rely on promotional messaging, manufacturer claims "
-        "or advertised discounts when making recommendations. Instead, we focus on products that demonstrate strong value, "
-        "positive seller signals and a credible marketplace track record. Although we have not physically tested every item "
-        "featured, our methodology is designed to help consumers make informed and confident purchasing decisions. Where "
-        "performance, safety or durability are especially important, we also encourage checking independent reviews of the "
-        "exact model.</p>\n"
+        "<p>We compare the exact models, listing specifications, included accessories, condition and current retailer offers. "
+        "Where we have checked product-specific customer comments or published reviews, we link the source beside the "
+        "relevant discussion and explain useful strengths and drawbacks. Seller feedback describes a transaction, not the "
+        "performance of the product. We do not claim our own hands-on testing or turn a seller score into a product rating.</p>\n"
         f"{faq_html(display, category, market)}"
         f"{authority_hub_html(market, key)}"
         f"{related_guides_html(guides)}"
@@ -2255,10 +2253,10 @@ def build_article(
         "pinterest_enabled": True,
         "hero_image_kicker": kicker,
         "pinterest_title": title,
-        "pinterest_subtitle": "Best overall • Best value • Amazon + eBay price checks",
+        "pinterest_subtitle": "Product differences • Buying advice • Amazon + eBay price checks",
         "x_image_title": f"Best {display} Worth Buying",
         "x_kicker": kicker,
-        "x_subtitle": "Best overall • Best value • Amazon + eBay comparison",
+        "x_subtitle": "Product differences • Buying advice • Amazon + eBay comparison",
         "x_text": (
             f"🔎 {title}\n\n"
             f"See our best current picks, value options, Amazon/eBay comparisons and the trade-offs to check before buying.\n\n"
@@ -2343,7 +2341,14 @@ def build_article(
     }
 
     from src.search_guides import enhance_search_guide
-    return enhance_search_guide(article, market)
+    article = enhance_search_guide(article, market)
+    from src.owner_reviews import preserve_researched_guide
+    try:
+        previous = load_json(published_article_dir(market) / f'{slug}.json')
+        article = preserve_researched_guide(article, previous)
+    except (OSError, ValueError, TypeError, KeyError, AttributeError):
+        pass  # Missing or malformed optional editorial history cannot stop daily publishing.
+    return article
 
 
 def main() -> None:
