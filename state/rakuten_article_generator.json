@@ -15,7 +15,7 @@
     "topic": "sideboards"
   },
   "us": {
-    "date": "2026-11-15",
+    "date": "2026-11-19",
     "merchants": [
       "Sharper Image"
     ],
@@ -30,9 +30,10 @@
       "wireless-earbuds",
       "power-banks",
       "security-cameras",
-      "tvs"
+      "tvs",
+      "air-fryers"
     ],
-    "slug": "approved-retailer-tvs-us-2026-11-15",
-    "topic": "tvs"
+    "slug": "approved-retailer-air-fryers-us-2026-11-19",
+    "topic": "air-fryers"
   }
 }
