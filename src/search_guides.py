@@ -140,6 +140,8 @@ def _enhance_base_search_guide(article: dict, market: str) -> dict:
 
 
 def enhance_search_guide(article: dict, market: str) -> dict:
+    if (article.get('_research') or {}).get('preserve_editorial_body'):
+        return article
     from src.search_focus import enhance_search_focus
     from src.usa_editorial import enhance_usa_article
     from src.uk_editorial import enhance_uk_article
