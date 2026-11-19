@@ -82,8 +82,8 @@ def _product_comparison_html(items, market, *, evidence=None, today=None):
             '<p>Match the model, specification and included package before comparing price. '
             'Listing details are seller-stated; linked product specifications are identified separately. '
             'Seller feedback describes the transaction, not product performance.</p>'
-            '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse"><thead><tr>'
-            + ''.join(f'<th scope="col" style="text-align:left;padding:10px;background:#f6f8fb">{h}</th>' for h in headings)
+            '<div style="overflow-x:auto"><table style="width:100%;min-width:720px;border-collapse:collapse"><thead><tr>'
+            + ''.join(f'<th scope="col" style="text-align:left;padding:10px;background:#f6f8fb;color:#082f5b">{h}</th>' for h in headings)
             + '</tr></thead><tbody>' + ''.join(rows) + '</tbody></table></div></section>')
 
 
