@@ -47,6 +47,14 @@ def main():
     # Prepare all five before writing any article, including legacy manual guides
     # whose permanent slugs are resolved from their existing filenames.
     for key in PILOT_TOPICS:
+        existing_slug = daily.evergreen_article_slug(key, 'us')
+        existing_path = daily.ROOT / 'articles-us' / f'{existing_slug}.json'
+        existing = daily.load_json(existing_path)
+        if (existing.get('_research') or {}).get('preserve_editorial_body'):
+            report['articles'].append({'slug': existing_slug, 'topic': key,
+                                       'status': 'preserved_editorial_comparison'})
+            print(f'[usa-conversion] Preserved reviewed comparison: {existing_slug}')
+            continue
         article = daily.build_article(topics[key], "us", now.year)
         if not article["_generator"]["live_ebay_picks"]:
             raise RuntimeError(f"Pilot blocked: {key} has fewer than three verified current products")
