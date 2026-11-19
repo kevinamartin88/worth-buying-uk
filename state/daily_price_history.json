@@ -9917,7 +9917,7 @@
   },
   "daily|us|v1|135834794086|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-09",
+    "last_attempt_date": "2026-11-19",
     "observations": [
       {
         "currency": "USD",
@@ -9972,6 +9972,12 @@
         "date": "2026-11-09",
         "price": 265.0,
         "ts": "2026-11-09T10:57:21.483237+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-19",
+        "price": 265.0,
+        "ts": "2026-11-19T14:01:32.975343+00:00"
       }
     ],
     "title": "Shark Ip3251 Cordless Vacuum Cleaner Powerdetect Clean/ Empty System Dark Gray",
@@ -11831,6 +11837,20 @@
     "title": "Wireless Video Doorbell No Subscription, 2K HD with 166° Wide View Night Vision",
     "tracking_status": "active"
   },
+  "daily|us|v1|178385904592|0": {
+    "article_slug": "best-coffee-machines-worth-buying-us-2026",
+    "last_attempt_date": "2026-11-19",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-19",
+        "price": 66.99,
+        "ts": "2026-11-19T14:01:42.319395+00:00"
+      }
+    ],
+    "title": "Haden 14 Cup Coffee Maker Cream - Hearth & Hand with Magnolia",
+    "tracking_status": "active"
+  },
   "daily|us|v1|178412229318|0": {
     "article_slug": "best-gaming-keyboards-worth-buying-us",
     "last_attempt_date": "2026-11-06",
@@ -13251,13 +13271,19 @@
   },
   "daily|us|v1|206677160893|0": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-09",
+    "last_attempt_date": "2026-11-19",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-11-09",
         "price": 58.99,
         "ts": "2026-11-09T10:57:29.866178+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-19",
+        "price": 58.99,
+        "ts": "2026-11-19T14:01:39.345045+00:00"
       }
     ],
     "title": "PowerXL 8qt Air Max Air Fryer",
@@ -13679,13 +13705,19 @@
   },
   "daily|us|v1|227567323429|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-09",
+    "last_attempt_date": "2026-11-19",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-11-09",
         "price": 108.0,
         "ts": "2026-11-09T10:57:23.712728+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-19",
+        "price": 108.0,
+        "ts": "2026-11-19T14:01:36.100574+00:00"
       }
     ],
     "title": "800GB Intel SSD DC S3700 Series SSDSC2BA800G3P 2.5\" SATA | Tested",
@@ -14133,13 +14165,19 @@
   },
   "daily|us|v1|237069653315|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-09",
+    "last_attempt_date": "2026-11-19",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-11-09",
         "price": 99.39,
         "ts": "2026-11-09T10:57:23.712728+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-19",
+        "price": 99.39,
+        "ts": "2026-11-19T14:01:36.100574+00:00"
       }
     ],
     "title": "TEAMGROUP MS30 1TB with SLC Cache 3D NAND TLC M.2 2280 SATA III 6Gb/s SSD",
@@ -14419,7 +14457,7 @@
   },
   "daily|us|v1|267301861600|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-05",
+    "last_attempt_date": "2026-11-19",
     "observations": [
       {
         "currency": "USD",
@@ -14450,9 +14488,29 @@
         "date": "2026-11-05",
         "price": 142.63,
         "ts": "2026-11-05T03:25:51.207130+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-19",
+        "price": 138.56,
+        "ts": "2026-11-19T14:01:36.100574+00:00"
       }
     ],
     "title": "SanDisk Ultra 3D SSD 1TB, SDSSDH3 2.5\" SSD Drive SATA III 6GB/S (SDSSDH3-1T02)",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|267383770453|0": {
+    "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
+    "last_attempt_date": "2026-11-19",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-19",
+        "price": 82.36,
+        "ts": "2026-11-19T14:01:32.975343+00:00"
+      }
+    ],
+    "title": "VEVOR Cordless Vacuum Cleaner 40KPA Max Suction for Animal Hair Carpet Hardwood",
     "tracking_status": "active"
   },
   "daily|us|v1|267690904563|0": {
@@ -14649,7 +14707,7 @@
   },
   "daily|us|v1|277682426477|0": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-09",
+    "last_attempt_date": "2026-11-19",
     "observations": [
       {
         "currency": "USD",
@@ -14692,6 +14750,12 @@
         "date": "2026-11-09",
         "price": 199.99,
         "ts": "2026-11-09T10:57:29.866178+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-19",
+        "price": 199.99,
+        "ts": "2026-11-19T14:01:39.345045+00:00"
       }
     ],
     "title": "Ninja DoubleStack XL Countertop Oven & Air Fryer DCT601 (Certified Refurbished)",
@@ -15517,7 +15581,7 @@
   },
   "daily|us|v1|313501406620|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-09",
+    "last_attempt_date": "2026-11-19",
     "observations": [
       {
         "currency": "USD",
@@ -15560,6 +15624,12 @@
         "date": "2026-11-09",
         "price": 40.0,
         "ts": "2026-11-09T10:57:23.712728+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-19",
+        "price": 40.0,
+        "ts": "2026-11-19T14:01:36.100574+00:00"
       }
     ],
     "title": "Netac 256GB SSD 2.5'' SATA III 6Gb/s Internal Solid State Drive 500MB/s PC/Latop",
@@ -16681,6 +16751,20 @@
     "title": "Lenovo - Tab One - 8.7\" HD Tablet - 4GB RAM - 64GB eMMC - Luna Grey",
     "tracking_status": "ended"
   },
+  "daily|us|v1|326843264080|0": {
+    "article_slug": "best-air-fryers-worth-buying-us-2026",
+    "last_attempt_date": "2026-11-19",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-19",
+        "price": 134.99,
+        "ts": "2026-11-19T14:01:39.345045+00:00"
+      }
+    ],
+    "title": "Ninja Crispi 5-in-1 Portable Glass Air Fryer Cooking System, Blue",
+    "tracking_status": "active"
+  },
   "daily|us|v1|327044787117|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
     "last_attempt_date": "2026-11-10",
@@ -16931,7 +17015,7 @@
   },
   "daily|us|v1|327378928187|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-09",
+    "last_attempt_date": "2026-11-19",
     "observations": [
       {
         "currency": "USD",
@@ -16980,6 +17064,12 @@
         "date": "2026-11-09",
         "price": 198.0,
         "ts": "2026-11-09T10:57:21.483237+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-19",
+        "price": 198.0,
+        "ts": "2026-11-19T14:01:32.975343+00:00"
       }
     ],
     "title": "Shark IP1251 PowerDetect Cordless Stick Vacuum",
@@ -16998,6 +17088,20 @@
     ],
     "title": "Hamilton Beach Blender and Food Processor Combo, Shakes + Essential Bundle",
     "tracking_status": "unavailable"
+  },
+  "daily|us|v1|327448407121|0": {
+    "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
+    "last_attempt_date": "2026-11-19",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-19",
+        "price": 109.95,
+        "ts": "2026-11-19T14:01:32.975343+00:00"
+      }
+    ],
+    "title": "Shark IX140 Lightweight Cordless Pet Stick Vacuum Blue",
+    "tracking_status": "active"
   },
   "daily|us|v1|333661458019|0": {
     "article_slug": "best-portable-heaters-worth-buying-us-2026",
@@ -18921,6 +19025,20 @@
     "title": "Rockville RPB55 Large/Loud Portable Bluetooth Speaker with Deep Bass+Big Battery",
     "tracking_status": "active"
   },
+  "daily|us|v1|394729840009|0": {
+    "article_slug": "best-coffee-machines-worth-buying-us-2026",
+    "last_attempt_date": "2026-11-19",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-19",
+        "price": 62.99,
+        "ts": "2026-11-19T14:01:42.319395+00:00"
+      }
+    ],
+    "title": "Haden Coffee Machine, 12 Cup Programmable Drip Coffee Maker, Ivory & Chrome",
+    "tracking_status": "active"
+  },
   "daily|us|v1|395089805306|0": {
     "article_slug": "best-office-chairs-worth-buying-us",
     "last_attempt_date": "2026-11-07",
@@ -19359,6 +19477,20 @@
       }
     ],
     "title": "bella PRO - MultiBrew 12-Cup Drip & Single-Serve Coffee Maker - Oatmilk",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|398205251971|0": {
+    "article_slug": "best-coffee-machines-worth-buying-us-2026",
+    "last_attempt_date": "2026-11-19",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-19",
+        "price": 59.43,
+        "ts": "2026-11-19T14:01:42.319395+00:00"
+      }
+    ],
+    "title": "bella PRO MultiBrew 12-Cup Drip & Single-Serve Coffee Maker Stainless Steel NEW!",
     "tracking_status": "active"
   },
   "daily|us|v1|398257980843|0": {
@@ -20075,6 +20207,20 @@
     "title": "Oral-B iO Series 3 Electric Toothbrush with Timer Multiple Brush Modes and",
     "tracking_status": "active"
   },
+  "daily|us|v1|840137505679|0": {
+    "article_slug": "best-air-fryers-worth-buying-us-2026",
+    "last_attempt_date": "2026-11-19",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-19",
+        "price": 77.99,
+        "ts": "2026-11-19T14:01:39.345045+00:00"
+      }
+    ],
+    "title": "Ninja 4qt Air Fryer - Black AF101: Stainless Steel 1550W Digital Control",
+    "tracking_status": "active"
+  },
   "daily|us|v1|860039888097|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
     "last_attempt_date": "2026-11-18",
@@ -20247,13 +20393,19 @@
   },
   "daily|us|v1|920017618327|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-09",
+    "last_attempt_date": "2026-11-19",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-11-09",
         "price": 64.9,
         "ts": "2026-11-09T10:57:32.642050+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-19",
+        "price": 62.93,
+        "ts": "2026-11-19T14:01:42.319395+00:00"
       }
     ],
     "title": "bella PRO - MultiBrew 12-Cup Drip & Single-Serve Coffee Maker - Oatmilk",
