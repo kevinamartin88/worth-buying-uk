@@ -552,7 +552,9 @@ def build_short_video(
         "-map",
         "1:a:0",
         "-vf",
-        "fps=30,fade=t=in:st=0:d=0.25,fade=t=out:st=9.6:d=0.4,format=yuv420p",
+        # Slide one is the article's title card. Show it at full brightness on
+        # frame zero rather than starting with a black fade-in frame.
+        "fps=30,fade=t=out:st=9.6:d=0.4,format=yuv420p",
         "-c:v",
         "libx264",
         "-preset",
