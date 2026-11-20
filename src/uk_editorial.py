@@ -172,6 +172,9 @@ def block(config):
 
 
 def relevant_uk_product(title, query):
+    from src.product_relevance import product_mismatch_reason
+    if product_mismatch_reason(title, query, 'uk'):
+        return False
     title, query = title.casefold(), query.casefold()
     if 'streaming' in query:
         from src.product_relevance import streaming_player

@@ -15,7 +15,7 @@ from urllib.parse import quote_plus, urlsplit
 from src.amazon_creators import AmazonCreatorsClient
 from src.ebay import EbayClient
 from src.product_image_quality import checked_product_image, product_image_html
-from src.product_relevance import streaming_player, streaming_player_aspects, streaming_query
+from src.product_relevance import streaming_player, streaming_player_aspects, streaming_query, product_mismatch_reason
 from src.price_tracking import refresh_tracked_prices
 from src.google_trends import rank_topics_by_trends, trend_keyword_for_title
 from src.google_shopping_trends import rank_topics_by_google_shopping
@@ -1189,6 +1189,8 @@ def listing_score(
         return None
 
     if _implausible_marketplace_title(title_raw):
+        return None
+    if product_mismatch_reason(title_raw, query, 'us' if expected_currency == 'USD' else 'uk'):
         return None
     if query and not _query_relevant(title_raw, query):
         return None
