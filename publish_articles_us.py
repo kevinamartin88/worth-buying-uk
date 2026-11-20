@@ -17,6 +17,7 @@ from src.article_images import (
     verify_required_hero,
 )
 from src.blogger import BloggerClient
+from src.product_checks import prepare_article_products
 from src.publishing_seo import REVISION, enrich_metadata, repair_metadata
 
 ROOT = Path(__file__).resolve().parent
@@ -129,7 +130,7 @@ def main() -> None:
     resolve_usa_blog(blogger)
 
     for path in sorted(ARTICLES_DIR.glob("*.json")):
-        article = json.loads(path.read_text(encoding="utf-8"))
+        article = prepare_article_products(json.loads(path.read_text(encoding="utf-8")), 'us')
         slug = article["slug"]
         title = article["title"]
         article_content = clean_article_disclosures(

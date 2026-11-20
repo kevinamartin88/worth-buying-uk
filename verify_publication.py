@@ -123,6 +123,8 @@ def repairable(result):
 
 
 def verify_one(probe, article, market, post, client=None):
+    from src.product_checks import prepare_article_products
+    article = prepare_article_products(article, market)
     url = public_url(str(post['url']), market)
     if not url:
         return {'verification': 'unconfirmed', 'issues': ['URL outside the active site'], 'ga4_receipt': RECEIPT}

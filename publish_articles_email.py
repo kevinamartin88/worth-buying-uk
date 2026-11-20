@@ -15,6 +15,7 @@ from urllib.request import Request, urlopen
 
 from src.article_copy import clean_article_disclosures
 from src.site_config import get_site_config, get_site_url
+from src.product_checks import prepare_article_products
 
 ROOT = Path(__file__).resolve().parent
 EMAIL_STATE_PATH = ROOT / "state" / "email_published.json"
@@ -555,7 +556,7 @@ def main() -> None:
     blog_state = load_json(blog_state_path)
 
     for path in sorted(articles_dir.glob("*.json")):
-        article = json.loads(path.read_text(encoding="utf-8"))
+        article = prepare_article_products(json.loads(path.read_text(encoding="utf-8")), market)
         mode = str(article.get("mode", "publish")).strip().lower()
         if mode != "publish":
             print(f"[skip] {path.name}: not marked for publish")

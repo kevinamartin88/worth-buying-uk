@@ -3,6 +3,7 @@ from __future__ import annotations
 import html
 from src.price_tracking import valid_observations
 from src.price_charts import chart_html
+from src.product_relevance import product_mismatch_reason
 import json
 import re
 from datetime import datetime
@@ -53,6 +54,9 @@ def market_rows(market: str) -> tuple[list[dict], int]:
 
     for key, entry in history.items():
         if not str(key).startswith(prefix) or not isinstance(entry, dict):
+            continue
+        query = str(entry.get('article_slug') or entry.get('title') or '').replace('-', ' ')
+        if product_mismatch_reason(str(entry.get('title') or ''), query, market):
             continue
 
         if market == "us" and re.search(r"\b(?:not for (?:the )?usa|220[- ]?240 volt|220[- ]?240v)\b", str(entry.get("title") or ""), re.I):
