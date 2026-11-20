@@ -1,6 +1,12 @@
 from __future__ import annotations
 
 import generate_daily_articles as daily
+import json
+from pathlib import Path
+from src.product_relevance import streaming_player
+from src.uk_editorial import relevant_uk_product
+from src.usa_conversion import relevant_product
+
 import pytest
 from src.amazon_creators import AmazonOffer
 
@@ -254,3 +260,96 @@ def test_asin_identity_is_used_as_strongest_amazon_match(monkeypatch):
     rendered = daily.quick_picks_html([item], "uk", "air fryer")
     assert "Check exact match on Amazon UK" in rendered
     assert "amazon.co.uk/dp/B0ABCDEF12" in rendered
+
+
+
+# Streaming players must not be confused with their compatible accessories.
+QUERY='Fire TV Roku streaming device'
+BAD=[
+    '2Pcs Usb Power Cord Compatible With Fire Tv Stick,roku Streaming Stick',
+    'One For All 5 Device Backlit URC7945 Smart Streamer Remote',
+    'Roku Streaming Stick remote control',
+    'Voice Remote for Roku Streaming Stick 4K 3820RW',
+    'USB Power Adapter for Amazon Fire TV Stick 4K',
+    'Roku Streaming Stick 4K replacement receiver cable',
+    'Silicone Case for Fire TV Stick Voice Remote',
+    'HDMI Extender Compatible With Roku Streaming Stick',
+    'Roku Streaming Stick 4K device cable only',
+    'Roku Streaming Stick 4K for parts not working',
+]
+GOOD=[
+    'Roku Streaming Stick 4K Device 4K HDR Dolby Vision Voice Remote - 3820RW',
+    'Roku Streaming Stick Plus 4K HDR Media Player with Voice Remote - 3810R',
+    'Roku Streaming Stick 4K with remote control and USB power cable',
+    'Amazon Fire TV Stick 4K Max with Alexa Voice Remote and power adapter',
+    'Google Chromecast with Google TV 4K',
+    'Apple TV 4K 64GB A2169 with Siri Remote',
+    'NVIDIA SHIELD TV Pro 4K HDR Streaming Media Player',
+    'onn. Google TV 4K Streaming Box with remote',
+]
+def listing(title,market,item_id='example'):
+    return {'itemId':item_id,'title':title,'condition':'New','price':{'value':'29.99','currency':'USD' if market=='us' else 'GBP'},'image':{'imageUrl':'https://example.com/player.jpg'},'seller':{'feedbackPercentage':'99.8','feedbackScore':1000},'buyingOptions':['FIXED_PRICE'],'itemWebUrl':f'https://www.ebay.com/itm/{item_id}','listingMarketplaceId':'EBAY_US','itemLocation':{'country':'US'},'estimatedAvailabilities':[{'estimatedAvailabilityStatus':'IN_STOCK','estimatedAvailableQuantity':1}]}
+
+@pytest.mark.parametrize('title',BAD)
+@pytest.mark.parametrize('market',['uk','us'])
+def test_accessories_cannot_enter_either_market_shortlist(title,market):
+    assert not streaming_player(title)
+    assert not relevant_product(title,QUERY,market)
+    assert not relevant_uk_product(title,QUERY)
+    assert daily.listing_score(listing(title,market),250,'USD' if market=='us' else 'GBP',QUERY) is None
+
+@pytest.mark.parametrize('title',GOOD)
+@pytest.mark.parametrize('market',['uk','us'])
+def test_complete_players_keep_their_bundled_remote_and_power_equipment(title,market):
+    assert streaming_player(title)
+    assert relevant_product(title,QUERY,market)
+    assert relevant_uk_product(title,QUERY)
+    assert daily.listing_score(listing(title,market),250,'USD' if market=='us' else 'GBP',QUERY) is not None
+
+@pytest.mark.parametrize('market',['uk','us'])
+@pytest.mark.parametrize('item_type',['Remote Control','Charging Adapter','USB Power Cord'])
+def test_contradictory_retailer_type_is_rejected(market,item_type):
+    item=listing(GOOD[0],market)
+    item['localizedAspects']=[{'name':'Type','value':item_type}]
+    assert daily.listing_score(item,250,item['price']['currency'],QUERY) is None
+
+@pytest.mark.parametrize('market',['uk','us'])
+def test_accessory_only_results_still_build_the_normal_fallback(monkeypatch,tmp_path,market):
+    class Client:
+        def search(self,**kwargs):return [listing(title,market,str(i)) for i,title in enumerate(BAD)]
+        def get_item(self,*args,**kwargs):raise AssertionError('Rejected accessories must never be fetched as picks')
+    monkeypatch.setattr(daily.EbayClient,'for_market',lambda market:Client())
+    monkeypatch.setattr(daily,'_record_price_history',lambda *args:None)
+    monkeypatch.setattr(daily,'ROOT',tmp_path)
+    topic=next(t for t in daily.TOPICS if t[0]=='streaming-devices')
+    article=daily.build_article(topic,market,2026)
+    assert article['mode']=='publish'
+    assert article['_generator']['live_ebay_picks'] is False
+    assert article['_generator']['pick_count']==0
+    assert 'Popular current listings' in article['content_html']
+    assert not any(title in article['content_html'] for title in BAD)
+
+def test_repaired_existing_guide_has_two_actual_players_and_keeps_its_slug():
+    path=Path(__file__).resolve().parents[1]/'articles-us/best-streaming-devices-worth-buying-us.json'
+    article=json.loads(path.read_text(encoding='utf-8'))
+    content=article['content_html']
+    assert article['slug']=='best-streaming-devices-worth-buying-us'
+    assert article['_research']['models_compared']==2
+    assert content.count('data-wb-product=')==2
+    assert 'URC7945' not in content and '2Pcs' not in content
+    assert 'Best overall' not in content and 'WorthBuying score' not in content
+    assert '$13.39' not in content and '$33' not in article['title']
+    assert 'tag=worthbuyingus-20' in content and 'campid=5339209205' in content
+    assert 'developer.roku.com/dev/docs/hardware' in content
+
+def test_repaired_uk_guide_uses_uk_affiliate_tags_and_no_accessory_picks():
+    path=Path(__file__).resolve().parents[1]/'articles/best-streaming-devices-worth-buying-uk.json'
+    article=json.loads(path.read_text(encoding='utf-8'))
+    content=article['content_html']
+    assert article['slug']=='best-streaming-devices-worth-buying-uk'
+    assert article['_research']['models_compared']==2
+    assert content.count('data-wb-product=')==2
+    assert 'One For All' not in content and 'RCA Converter' not in content
+    assert 'tag=worthbuyin008-21' in content and 'campid=5339209132' in content
+    assert 'worthbuyingus-20' not in content and '5339209205' not in content
+    assert 'www.worthbuyingusa.com' not in content

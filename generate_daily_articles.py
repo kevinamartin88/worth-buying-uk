@@ -15,6 +15,7 @@ from urllib.parse import quote_plus, urlsplit
 from src.amazon_creators import AmazonCreatorsClient
 from src.ebay import EbayClient
 from src.product_image_quality import checked_product_image, product_image_html
+from src.product_relevance import streaming_player, streaming_player_aspects, streaming_query
 from src.price_tracking import refresh_tracked_prices
 from src.google_trends import rank_topics_by_trends, trend_keyword_for_title
 from src.google_shopping_trends import rank_topics_by_google_shopping
@@ -1084,6 +1085,8 @@ def _implausible_marketplace_title(title: str) -> bool:
 
 
 def _query_relevant(title: str, query: str) -> bool:
+    if streaming_query(query):
+        return streaming_player(title)
     query_tokens = meaningful_tokens(query)
     if not query_tokens:
         return True
@@ -1140,6 +1143,8 @@ def _topic_specific_listing_match(title: str, query: str) -> bool:
 
 def _topic_specific_aspect_match(item: dict, query: str) -> bool:
     """Reject obviously contradictory retailer metadata when a type is supplied."""
+    if streaming_query(query):
+        return streaming_player_aspects(item)
     query_cf = query.casefold()
     type_values = []
     for aspect in item.get("localizedAspects") or []:
@@ -2194,11 +2199,7 @@ def build_article(
         f"so this guide links to current retailer searches for {html.escape(display)} instead of inventing product recommendations."
     )
 
-    daily_guide_date = (
-        checked_at.strftime("%-d %B %Y")
-        if market == "uk"
-        else f"{checked_at.strftime('%B')} {checked_at.day}, {checked_at.year}"
-    )
+    daily_guide_date = checked_date
     daily_freshness_label = "UPDATED DAILY GUIDE" if is_refresh else "NEW DAILY GUIDE"
     daily_freshness = (
         '<p class="wb-daily-freshness"><strong>'
@@ -2460,5 +2461,6 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
 
