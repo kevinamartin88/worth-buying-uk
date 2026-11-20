@@ -7,7 +7,7 @@ import re
 from urllib.parse import urlsplit
 
 from src.product_image_quality import product_image_html
-from src.product_relevance import streaming_player, streaming_query
+from src.product_relevance import streaming_player, streaming_query, product_mismatch_reason
 from src.traffic_growth import buyer_fit_copy, factual_pros_cons, pick_badges, worth_buying_score
 
 PILOT_TOPICS = ('cordless-vacuums', 'ssds', 'slow-cookers', 'air-fryers', 'coffee-machines')
@@ -17,6 +17,9 @@ EXPERIMENT = 'usa-buying-cards-v2-traffic-growth'
 def relevant_product(title: str, query: str, market: str = 'us') -> bool:
     text = title.casefold()
     query = query.casefold()
+
+    if product_mismatch_reason(title, query, market):
+        return False
 
     if streaming_query(query):
         return streaming_player(title)

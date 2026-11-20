@@ -16,6 +16,7 @@ from generate_daily_articles import (
 from src.rakuten import RakutenClient, RakutenProduct, _product_destination_url
 from urllib.parse import urlsplit
 from src.cfs_prices import cfs_destination, checked_cfs_price
+from src.product_relevance import product_mismatch_reason
 
 
 ROOT = Path(__file__).resolve().parent
@@ -112,11 +113,11 @@ TOPIC_PRODUCT_RULES = {
     },
     "air-purifiers": {
         "required_any": ("air purifier", "air cleaner"),
-        "exclude_any": ("filter", "refill", "replacement", "wire kit", "capsule"),
+        "exclude_any": ("filter only", "replacement filter", "refill", "replacement", "wire kit", "capsule"),
     },
     "coffee-machines": {
         "required_any": ("coffee machine", "coffee maker", "espresso machine"),
-        "exclude_any": ("filter", "carafe", "capsule", "pod", "replacement", "accessory"),
+        "exclude_any": ("carafe only", "filter basket", "capsule only", "pods only", "replacement", "accessory", "adapters kit", "basket plus"),
     },
     "slow-cookers": {
         "required_any": ("slow cooker", "crock pot", "crock-pot"),
@@ -255,6 +256,8 @@ def relevant_products(
 
     matches: list[RakutenProduct] = []
     for product in products:
+        if product_mismatch_reason(product.name, query):
+            continue
         name = product.name.casefold()
         if topic_key == "gift-cards":
             destination = urlsplit(_product_destination_url(product.url))

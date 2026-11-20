@@ -403,3 +403,18 @@ def test_giftcards_search_failure_falls_back_to_existing_topics(monkeypatch):
             return self.results
     topic, found = generator.find_offer_set(UnavailableGiftcards(products()), 10, [], "us")
     assert topic == air_fryers and len(found) == 3
+
+
+@pytest.mark.parametrize('topic,query,bad,good',[
+    ('air-purifiers','air purifier','HEPA Filter for Air Purifier','Shark Air Purifier Compact HEPA Filter HP072'),
+    ('coffee-machines','coffee machine','Portable Espresso Machine Adapters Kit','Filter Coffee Machine with Carafe'),
+    ('cordless-vacuums','cordless vacuum','Cordless Robotic Pool Cleaner','Cordless Utility Vacuum'),
+    ('wireless-earbuds','wireless earbuds','Foldable Wireless Charging Stand','Wireless Earbuds with Charging Case'),
+    ('slow-cookers','slow cooker','Inkbird Slow Cooker Sous Vide Machine','Crock-Pot Slow Cooker'),
+])
+def test_feed_role_gate_keeps_complete_products(topic,query,bad,good):
+    import dataclasses
+    base=products(1)[0]
+    rejected=dataclasses.replace(base,name=bad)
+    accepted=dataclasses.replace(base,name=good)
+    assert generator.relevant_products([rejected,accepted],query,topic)==[accepted]

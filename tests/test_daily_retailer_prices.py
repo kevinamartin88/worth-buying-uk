@@ -8,6 +8,7 @@ from src.uk_editorial import relevant_uk_product
 from src.usa_conversion import relevant_product
 
 import pytest
+from src.product_relevance import product_mismatch_reason
 from src.amazon_creators import AmazonOffer
 
 
@@ -353,3 +354,54 @@ def test_repaired_uk_guide_uses_uk_affiliate_tags_and_no_accessory_picks():
     assert 'tag=worthbuyin008-21' in content and 'campid=5339209132' in content
     assert 'worthbuyingus-20' not in content and '5339209205' not in content
     assert 'www.worthbuyingusa.com' not in content
+
+
+ROLE_FAILURES = [
+    ('dehumidifier','10 x Dehumidifier Interior Damp Trap Mould Moisture Mildew Remover'),
+    ('cordless vacuum','Cordless Handheld Vacuum Cleaner Small Mini Portable Car Auto Home Wireless'),
+    ('air purifier','Ionizer Wire Kit for Ionic Comfort Quadra Air Purifier'),
+    ('air purifier','HEPA Filter for Basement Air Purifier'),
+    ('air purifier','Philips GoPure In-Car Air Purifier GP5212'),
+    ('coffee machine','Portable Electric Espresso Machine Adapters Kit'),
+    ('coffee machine','Portable Electric Espresso Machine Filter Baskets Kit'),
+    ('cordless vacuum','Cordless Robotic Pool Cleaner'),
+    ('wireless earbuds','3-in-1 Foldable Wireless Charging Stand'),
+    ('wireless earbuds','Brouk & Co Wireless Fast Charging Pad'),
+    ('slow cooker','Inkbird Slow Cooker Sous Vide Machine ISV-300W'),
+    ('food processor','KitchenAid RKSM2FPA Food Processor Attachment'),
+    ('hair straightener','Dyson Corrale Hair Straightener Power Supply Charging Cable Power Cord'),
+    ('electric toothbrush','Electric Toothbrush Smart Handle for Philips Sonicare DiamondClean HX93xx'),
+    ('video doorbell','eufy Video Doorbell Add-On Chime Indoor Chime'),
+    ('video doorbell','Arlo AC2001 Chime 2 Wireless Doorbell'),
+    ('smart plug','DEWNEWILS Wireless Remote Control Outlet Switch Power Plug In'),
+    ('power bank','9000000mAh Power Bank USB Fast Charger'),
+]
+
+@pytest.mark.parametrize('query,title', ROLE_FAILURES)
+@pytest.mark.parametrize('market',['uk','us'])
+def test_confirmed_role_mismatches_cannot_be_selected(query,title,market):
+    assert product_mismatch_reason(title,query,market)
+    assert daily.listing_score(listing(title,market),250,'USD' if market=='us' else 'GBP',query) is None
+
+@pytest.mark.parametrize('query,title',[
+    ('air purifier','Shark NeverChange5 Air Purifier Compact Pro HEPA Filter HP072UK'),
+    ('air purifier','Smart Air Purifier for Home Large Room H13 HEPA Filter'),
+    ('air purifier','PUROXYGEN Smart Air Purifier WiFi 4-Stage Filter'),
+    ('coffee machine','GEEPAS Filter Coffee Maker Machine 12 Cups'),
+    ('food processor','Ninja Food Processor with Bowl and Blade Attachments'),
+    ('hair straightener','Dyson Corrale Hair Straightener with Charging Cable'),
+    ('electric toothbrush','Philips Sonicare Electric Toothbrush with Handle and Brush Heads'),
+    ('video doorbell','Ring Video Doorbell with Indoor Chime'),
+    ('wireless earbuds','Wireless Earbuds with Smart Charging Case'),
+    ('streaming device','Roku® Streaming Stick™ Plus 2025 4K with Voice Remote'),
+    ('power bank','Anker Power Bank 20000mAh with USB-C Cable'),
+    ('car air purifier','Philips GoPure In-Car Air Purifier GP5212'),
+    ('pool cleaner','Cordless Robotic Pool Cleaner'),
+])
+def test_complete_products_and_legitimate_bundles_are_not_accessories(query,title):
+    assert not product_mismatch_reason(title,query,'uk')
+
+def test_region_mismatch_is_specific_to_the_intended_market():
+    title='TP Link Smart Wi-Fi Plug HS100 EU PLUG'
+    assert product_mismatch_reason(title,'smart plug','uk')
+    assert not product_mismatch_reason(title,'smart plug','us')

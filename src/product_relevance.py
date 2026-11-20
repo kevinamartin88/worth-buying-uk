@@ -32,7 +32,7 @@ def streaming_player(title: str) -> bool:
     A player's supplied remote/cable is allowed after a bundle word. Names after
     'for' or 'compatible with' cannot establish the identity of an accessory.
     """
-    text = re.sub(r"\s+", " ", title).strip()
+    text = re.sub(r"\s+", " ", re.sub(r'[®™©]', '', title)).strip()
     if _BROKEN.search(text):
         return False
     core = re.split(r"\b(?:compatible\s+with|for|fits|with|including|includes)\b", text, maxsplit=1, flags=re.I)[0]
@@ -60,3 +60,60 @@ def streaming_player_aspects(item: dict) -> bool:
         if _ACCESSORY.search(core):
             return False
     return True
+
+
+def product_mismatch_reason(title: str, query: str, market: str = '') -> str:
+    """Explain confirmed role mismatches without rejecting included accessories.
+
+    Only explicit accessory/region signals are used here. Unknown models remain
+    subject to the existing relevance, price, seller and fallback checks.
+    """
+    text = re.sub(r'\s+', ' ', title).casefold()
+    topic = query.casefold().replace('-', ' ')
+    core = re.split(r'\b(?:with|including|includes|supplied with)\b', text, maxsplit=1)[0]
+    if _BROKEN.search(text):
+        return 'broken item or packaging rather than a working product'
+    if streaming_query(topic) and not any(x in topic for x in ('webcam', 'microphone', 'headset')):
+        if not streaming_player(title):
+            return 'streaming accessory rather than a complete player'
+    if 'air purifier' in topic or 'air cleaner' in topic:
+        identity = re.search(r'\b(?:air purifier|air cleaner)\b', core)
+        accessory = re.search(r'\b(?:filter|filters|refill|refills|wire kit|capsule|capsules)\b', core)
+        if accessory and (not identity or accessory.start() < identity.start()
+                          or re.search(r'\b(?:replacement|refill|refills|wire kit|capsules?)\b', core)):
+            return 'air-purifier accessory or consumable'
+        if re.search(r'\b(?:in.car|car air|vehicle)\b', core) and 'car' not in topic:
+            return 'vehicle purifier in a home air-purifier guide'
+    if 'coffee' in topic or 'espresso' in topic:
+        if re.search(r'\b(?:adapters? kit|filter baskets? kit|basket plus|replacement (?:carafe|filter)|pods? only)\b', core):
+            return 'coffee-machine accessory rather than a brewer'
+    if 'cordless vacuum' in topic and re.search(r'\bpool\b', core) and 'pool' not in topic:
+        return 'pool cleaner rather than a household vacuum'
+    if 'cordless vacuum' in topic and 'car' not in topic and re.search(r'\b(?:small mini|mini portable car|handheld only)\b', core):
+        return 'mini car-cleaning vacuum rather than the household floor-cleaner recommendation'
+    if 'dehumidifier' in topic and re.search(r'\b(?:damp trap|moisture trap|moisture absorber|refill crystals)\b', core):
+        return 'passive moisture absorber rather than an electric dehumidifier'
+    if 'earbud' in topic and re.search(r'\b(?:charging (?:stand|pad)|wireless (?:fast )?charging pad|case only)\b', core):
+        return 'charger or case rather than earbuds'
+    if 'slow cooker' in topic and re.search(r'\bsous[ -]?vide\b', core):
+        return 'immersion circulator rather than a slow cooker'
+    if 'food processor' in topic and re.search(r'\b(?:attachment|replacement (?:bowl|blade)|bowl only|blade only)\b', core):
+        return 'processor attachment or spare rather than a standalone appliance'
+    if 'straightener' in topic and re.search(r'\b(?:power supply|charging cable|power cord|replacement plates)\b', core):
+        return 'straightener power supply or spare rather than a styler'
+    if 'toothbrush' in topic and re.search(r'\b(?:smart handle|handle only|replacement handle|heads? only)\b', core):
+        return 'toothbrush component rather than a complete brush kit'
+    if 'doorbell' in topic and re.search(r'\b(?:add[ -]on chime|chime 2|chime only|indoor chime|mounting wedge|transformer only)\b', core):
+        return 'doorbell chime or fitting rather than a video doorbell'
+    if 'dash cam' in topic and 'discreet day/night vision camera' in core:
+        return 'general surveillance camera without a dash-camera identity'
+    if 'smart plug' in topic:
+        if market == 'uk' and re.search(r'\b(?:eu|us) plug\b', text):
+            return 'non-UK plug variant in a UK guide'
+        if 'wireless remote control outlet' in core and not re.search(r'\b(?:wifi|wi-fi|app|alexa|google)\b', text):
+            return 'remote-only outlet without the claimed smart-home connectivity'
+    if 'power bank' in topic:
+        for capacity in re.findall(r'\b([\d,]{6,})\s*mah\b', text):
+            if int(capacity.replace(',', '')) > 200_000:
+                return 'unsupported extreme battery-capacity claim'
+    return ''
