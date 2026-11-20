@@ -9665,6 +9665,20 @@
     "title": "Kemaier 5-Piece Garden Tool Set, Heavy-Duty Stainless Steel Premium Black",
     "tracking_status": "active"
   },
+  "daily|us|v1|117526285709|0": {
+    "article_slug": "best-ssds-worth-buying-us-2026",
+    "last_attempt_date": "2026-11-20",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-20",
+        "price": 59.99,
+        "ts": "2026-11-20T13:09:57.004649+00:00"
+      }
+    ],
+    "title": "Samsung 860 PRO 512GB 2.5\" SATA SSD MZ-76P512 - 91% Health",
+    "tracking_status": "active"
+  },
   "daily|us|v1|126785282007|0": {
     "article_slug": "air-fryers-for-students-us",
     "last_attempt_date": "2026-11-07",
@@ -10121,7 +10135,7 @@
   },
   "daily|us|v1|135834794086|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-19",
+    "last_attempt_date": "2026-11-20",
     "observations": [
       {
         "currency": "USD",
@@ -10182,6 +10196,12 @@
         "date": "2026-11-19",
         "price": 265.0,
         "ts": "2026-11-19T14:01:32.975343+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-20",
+        "price": 249.0,
+        "ts": "2026-11-20T13:09:53.885980+00:00"
       }
     ],
     "title": "Shark Ip3251 Cordless Vacuum Cleaner Powerdetect Clean/ Empty System Dark Gray",
@@ -10484,6 +10504,20 @@
     ],
     "title": "Portable Carpet Cleaner Machine - 450W Upholstery Shampooer for Rugs, Sofas, & C",
     "tracking_status": "ended"
+  },
+  "daily|us|v1|137718426188|0": {
+    "article_slug": "best-coffee-machines-worth-buying-us-2026",
+    "last_attempt_date": "2026-11-20",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-20",
+        "price": 79.99,
+        "ts": "2026-11-20T13:10:04.857502+00:00"
+      }
+    ],
+    "title": "Ninja R-CFP150CO DualBrew Grounds & Pods Hot & Iced Coffee Maker - Refurbished",
+    "tracking_status": "active"
   },
   "daily|us|v1|137881194005|0": {
     "article_slug": "easy-grip-cutlery-us",
@@ -12063,13 +12097,19 @@
   },
   "daily|us|v1|178385904592|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-19",
+    "last_attempt_date": "2026-11-20",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-11-19",
         "price": 66.99,
         "ts": "2026-11-19T14:01:42.319395+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-20",
+        "price": 66.99,
+        "ts": "2026-11-20T13:10:04.857502+00:00"
       }
     ],
     "title": "Haden 14 Cup Coffee Maker Cream - Hearth & Hand with Magnolia",
@@ -12727,6 +12767,20 @@
       }
     ],
     "title": "PJ Salvage Sweater Weather Hoodie Pants Set RVSWHD/RVSWP",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|198388315427|0": {
+    "article_slug": "best-coffee-machines-worth-buying-us-2026",
+    "last_attempt_date": "2026-11-20",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-20",
+        "price": 50.99,
+        "ts": "2026-11-20T13:10:04.857502+00:00"
+      }
+    ],
+    "title": "BELLA VersaBrew Single Serve Coffee Maker K-Cup Brew Iced Coffee 3 Sizes Carafes",
     "tracking_status": "active"
   },
   "daily|us|v1|198395708997|0": {
@@ -13501,7 +13555,7 @@
   },
   "daily|us|v1|206677160893|0": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-19",
+    "last_attempt_date": "2026-11-20",
     "observations": [
       {
         "currency": "USD",
@@ -13514,6 +13568,12 @@
         "date": "2026-11-19",
         "price": 58.99,
         "ts": "2026-11-19T14:01:39.345045+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-20",
+        "price": 58.99,
+        "ts": "2026-11-20T13:10:00.705569+00:00"
       }
     ],
     "title": "PowerXL 8qt Air Max Air Fryer",
@@ -13531,6 +13591,20 @@
       }
     ],
     "title": "Crock-Pot 7qt Cook and Carry One Touch Programmable Slow Cooker Blue: Locking",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|206698973983|0": {
+    "article_slug": "best-air-fryers-worth-buying-us-2026",
+    "last_attempt_date": "2026-11-20",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-20",
+        "price": 71.99,
+        "ts": "2026-11-20T13:10:00.705569+00:00"
+      }
+    ],
+    "title": "Gourmia Digital Stainless Steel Toaster Oven Air Fryer – Stainless Steel: 1700W",
     "tracking_status": "active"
   },
   "daily|us|v1|206708574210|0": {
@@ -14415,7 +14489,7 @@
   },
   "daily|us|v1|237069653315|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-19",
+    "last_attempt_date": "2026-11-20",
     "observations": [
       {
         "currency": "USD",
@@ -14428,6 +14502,12 @@
         "date": "2026-11-19",
         "price": 99.39,
         "ts": "2026-11-19T14:01:36.100574+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-20",
+        "price": 99.39,
+        "ts": "2026-11-20T13:09:57.004649+00:00"
       }
     ],
     "title": "TEAMGROUP MS30 1TB with SLC Cache 3D NAND TLC M.2 2280 SATA III 6Gb/s SSD",
@@ -14713,7 +14793,7 @@
   },
   "daily|us|v1|267301861600|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-19",
+    "last_attempt_date": "2026-11-20",
     "observations": [
       {
         "currency": "USD",
@@ -14750,6 +14830,12 @@
         "date": "2026-11-19",
         "price": 138.56,
         "ts": "2026-11-19T14:01:36.100574+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-20",
+        "price": 138.56,
+        "ts": "2026-11-20T13:09:57.004649+00:00"
       }
     ],
     "title": "SanDisk Ultra 3D SSD 1TB, SDSSDH3 2.5\" SSD Drive SATA III 6GB/S (SDSSDH3-1T02)",
@@ -14757,13 +14843,19 @@
   },
   "daily|us|v1|267383770453|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-19",
+    "last_attempt_date": "2026-11-20",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-11-19",
         "price": 82.36,
         "ts": "2026-11-19T14:01:32.975343+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-20",
+        "price": 82.36,
+        "ts": "2026-11-20T13:09:53.885980+00:00"
       }
     ],
     "title": "VEVOR Cordless Vacuum Cleaner 40KPA Max Suction for Animal Hair Carpet Hardwood",
@@ -15799,13 +15891,19 @@
   },
   "daily|us|v1|307241313558|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-09",
+    "last_attempt_date": "2026-11-20",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-11-09",
         "price": 75.99,
         "ts": "2026-11-09T10:57:21.483237+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-20",
+        "price": 75.99,
+        "ts": "2026-11-20T13:09:53.885980+00:00"
       }
     ],
     "title": "Black & Decker Powerseries 20V Cordless Stick Vacuum Cleaner BHFEA520J New",
@@ -17027,13 +17125,19 @@
   },
   "daily|us|v1|326843264080|0": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-19",
+    "last_attempt_date": "2026-11-20",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-11-19",
         "price": 134.99,
         "ts": "2026-11-19T14:01:39.345045+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-20",
+        "price": 134.99,
+        "ts": "2026-11-20T13:10:00.705569+00:00"
       }
     ],
     "title": "Ninja Crispi 5-in-1 Portable Glass Air Fryer Cooking System, Blue",
@@ -19779,13 +19883,19 @@
   },
   "daily|us|v1|398205251971|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-19",
+    "last_attempt_date": "2026-11-20",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-11-19",
         "price": 59.43,
         "ts": "2026-11-19T14:01:42.319395+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-20",
+        "price": 59.43,
+        "ts": "2026-11-20T13:10:04.857502+00:00"
       }
     ],
     "title": "bella PRO MultiBrew 12-Cup Drip & Single-Serve Coffee Maker Stainless Steel NEW!",
@@ -20583,6 +20693,20 @@
     "title": "6-Piece Weighted Bendable Adaptive Utensil Set for Hand Tremors Grey",
     "tracking_status": "active"
   },
+  "daily|us|v1|860148024623|0": {
+    "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
+    "last_attempt_date": "2026-11-20",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-20",
+        "price": 369.0,
+        "ts": "2026-11-20T13:09:53.885980+00:00"
+      }
+    ],
+    "title": "Tineco Floor One S9 Artist Pro Wet Dry Vacuum Cleaner, 25kPa Suction, 360° Smoot",
+    "tracking_status": "active"
+  },
   "daily|us|v1|880006359526|0": {
     "article_slug": "best-slow-cookers-worth-buying-us",
     "last_attempt_date": "2026-11-09",
@@ -20630,6 +20754,20 @@
     ],
     "title": "Instant Pot 5.3qt Air Fryer with Odor Erase + Clearcook",
     "tracking_status": "ended"
+  },
+  "daily|us|v1|880057222276|0": {
+    "article_slug": "best-air-fryers-worth-buying-us-2026",
+    "last_attempt_date": "2026-11-20",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-20",
+        "price": 64.99,
+        "ts": "2026-11-20T13:10:00.705569+00:00"
+      }
+    ],
+    "title": "Instant Pot 5.3qt Air Fryer with Odor Erase + Clearcook",
+    "tracking_status": "active"
   },
   "daily|us|v1|920004862277|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
@@ -20733,6 +20871,20 @@
       }
     ],
     "title": "Single Serve Coffee Maker K Cup & Ground Hot Iced Brew 6-16oz Black",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|920153983276|0": {
+    "article_slug": "best-ssds-worth-buying-us-2026",
+    "last_attempt_date": "2026-11-20",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-20",
+        "price": 52.76,
+        "ts": "2026-11-20T13:09:57.004649+00:00"
+      }
+    ],
+    "title": "Samsung V-NAND SSD 860 MZ-76P512 512GB 2.5\" SATA III SSD MZ7KH512HAJQ",
     "tracking_status": "active"
   },
   "daily|us|v1|940018743291|0": {
