@@ -282,7 +282,7 @@ def _amazon_prime_offers(topic: tuple, market: str) -> list:
     for offer in offers:
         if not offer.image_url:
             continue
-        if not daily.relevant_product(offer.title, query):
+        if not daily.relevant_product(offer.title, query, market):
             continue
         usable.append(offer)
         if len(usable) >= 4:

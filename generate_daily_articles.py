@@ -2351,7 +2351,8 @@ def build_article(
         article = preserve_researched_guide(article, previous)
     except (OSError, ValueError, TypeError, KeyError, AttributeError):
         pass  # Missing or malformed optional editorial history cannot stop daily publishing.
-    return article
+    from src.product_checks import prepare_article_products
+    return prepare_article_products(article, market)
 
 
 def main() -> None:

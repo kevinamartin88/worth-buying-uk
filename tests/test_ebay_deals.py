@@ -216,3 +216,21 @@ def test_push_repairs_images_without_refreshing_offer_prices():
     workflow = yaml.safe_load(path.read_text())
     mode = workflow['jobs']['refresh']['steps'][-1]['env']['MODE']
     assert "github.event_name == 'push' && 'repair-images'" in mode
+
+
+@pytest.mark.parametrize('market',['uk','us'])
+def test_discount_does_not_make_a_pool_cleaner_a_household_vacuum(market):
+    bad=listing(market);bad['title']='Cordless Robotic Pool Cleaner'
+    assert validate_item(bad,market,500,NOW,'cordless vacuum cleaner') is None
+    good=listing(market);good['title']='Cordless Stick Vacuum Cleaner with Charger'
+    assert validate_item(good,market,500,NOW,'cordless vacuum cleaner')
+
+
+def test_refresh_removes_a_newly_mismatched_item_and_renders_without_failure():
+    good=validate_item(listing(), 'uk',500,NOW)
+    good.update(topic='vacuums',ceiling=500)
+    body=render([good],'uk',NOW,NOW.isoformat())
+    client=Mock();client.get_item.return_value={**listing(),'title':'Cordless Robotic Pool Cleaner'}
+    deals,stamp=revalidate(client,'uk',body,NOW)
+    assert deals==[]
+    assert 'No verified eBay deals currently qualify' in render(deals,'uk',NOW,stamp)

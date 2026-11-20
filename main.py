@@ -11,6 +11,8 @@ from src.render import render_post
 from src.seo import audit_post, meta_description
 from src.scoring import evaluate_item
 from src.state import JsonState
+from src.product_relevance import product_mismatch_reason
+from src.product_checks import buying_guide_fallback
 
 
 ROOT = Path(__file__).resolve().parent
@@ -66,6 +68,9 @@ def main() -> None:
 
         selected = []
         for item in items:
+            market = 'us' if cfg['site']['marketplace'] == 'EBAY_US' else 'uk'
+            if product_mismatch_reason(str(item.get('title') or ''), niche['query'], market):
+                continue
             evaluation = evaluate_item(
                 item=item,
                 price_history=price_state.data,
@@ -97,6 +102,8 @@ def main() -> None:
             generated_at=now,
             marketplace=cfg["site"]["marketplace"],
         )
+        if not selected:
+            html = buying_guide_fallback(niche['query'], 'us' if cfg['site']['marketplace'] == 'EBAY_US' else 'uk')
 
         description = meta_description(title, html, cfg["site"]["marketplace"])
         if selected:

@@ -15,6 +15,7 @@ from src.article_images import (
     verify_required_hero,
 )
 from src.blogger import BloggerClient
+from src.product_checks import prepare_article_products
 from src.publishing_seo import REVISION, enrich_metadata, repair_metadata
 
 
@@ -165,7 +166,7 @@ def main() -> None:
     blogger.resolve_blog(UK_BLOG_HOSTS, "Worth Buying UK")
 
     for path in sorted(ARTICLES_DIR.glob("*.json")):
-        article = json.loads(path.read_text(encoding="utf-8"))
+        article = prepare_article_products(json.loads(path.read_text(encoding="utf-8")), 'uk')
         slug = article["slug"]
         title = article["title"]
         article_content = clean_article_disclosures(

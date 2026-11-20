@@ -12,6 +12,7 @@ import requests
 
 from src.article_images import hero_image_html
 from src.ebay import EbayClient, MARKETS
+from src.product_relevance import product_mismatch_reason
 from publish_articles import UK_EPN_PARAMS, add_uk_epn_tracking
 from publish_articles_us import US_EPN_PARAMS, add_us_epn_tracking
 
@@ -51,7 +52,7 @@ def timestamp(value):
         return None
 
 
-def validate_item(item: dict, market: str, ceiling: float, now: datetime) -> dict | None:
+def validate_item(item: dict, market: str, ceiling: float, now: datetime, query: str = '') -> dict | None:
     profile = MARKETS[market]
     price_info = item.get("price") or {}
     marketing = item.get("marketingPrice") or {}
@@ -68,6 +69,8 @@ def validate_item(item: dict, market: str, ceiling: float, now: datetime) -> dic
         return None
     title = " ".join(str(item.get("title") or "").split())
     if not title or UNSUITABLE.search(title) or str(item.get("conditionId")) == "7000":
+        return None
+    if product_mismatch_reason(title, query or title, market):
         return None
     if "FIXED_PRICE" not in (item.get("buyingOptions") or []):
         return None
@@ -145,7 +148,7 @@ def discover(client: EbayClient, market: str, now: datetime) -> list[dict]:
             if (number((summary.get("marketingPrice") or {}).get("discountPercentage")) or 0) < 10:
                 continue
             current = get_current(client, item_id, reference)
-            deal = validate_item(current, market, ceiling, now)
+            deal = validate_item(current, market, ceiling, now, query)
             if deal:
                 deal.update(topic=topic, ceiling=ceiling)
                 selected.append(deal)
@@ -165,7 +168,8 @@ def revalidate(client, market, content, now):
     deals = []
     for record in metadata["items"][:MAX_DEALS]:
         item = get_current(client, record["id"], f"weekly-deals-{market}-{record['topic']}")
-        deal = validate_item(item, market, record["ceiling"], now)
+        query = next((t[1] for t in TOPICS if t[0] == record['topic']), record['topic'])
+        deal = validate_item(item, market, record["ceiling"], now, query)
         if deal:
             deal.update(topic=record["topic"], ceiling=record["ceiling"])
             deals.append(deal)

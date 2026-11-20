@@ -135,3 +135,90 @@ def test_indistinguishable_guides_are_flagged_instead_of_inventing_different_cla
     result = assess(data, row, 'uk', data['canonical'])
     assert result['verification'] == 'needs_attention'
     assert any('editorial review' in issue for issue in result['issues'])
+
+
+@pytest.mark.parametrize('market',['uk','us'])
+@pytest.mark.parametrize('query,bad',[
+    ('streaming devices','USB Power Cable Adapter for Fire TV Stick'),
+    ('food processors','KitchenAid Food Processor Attachment'),
+    ('air purifiers','HEPA Filter for Basement Air Purifier'),
+    ('wireless earbuds','Foldable Wireless Charging Stand'),
+    ('video doorbells','eufy Video Doorbell Add-On Chime'),
+    ('hair straighteners','Dyson Corrale Hair Straightener Power Supply Charging Cable'),
+])
+def test_product_backstop_returns_publishable_guidance_without_bad_offers(query,bad,market):
+    from src.product_checks import prepare_article_products
+    row={'slug':'stable-guide','title':'4 Best Products from $13','mode':'publish',
+         'content_html':f'<h3>1. {bad}</h3><p><a rel="sponsored nofollow" href="https://www.ebay.com/itm/123">View offer</a></p>',
+         '_generator':{'query':query,'pick_count':4,'live_ebay_picks':True},
+         '_promotion':{'promotion_token':'same-token','daily_featured_date':'2026-11-20'}}
+    before=copy.deepcopy(row)
+    result=prepare_article_products(row,market)
+    assert row==before
+    assert result['mode']=='publish' and result['slug']==row['slug']
+    assert result['_promotion']==row['_promotion']
+    assert result['_generator']['pick_count']==0
+    assert bad not in result['content_html'] and '/itm/123' not in result['content_html']
+    assert 'links open searches' in result['content_html']
+    assert result['_seo']['description'] and '4 Best Products' not in result['title']
+    assert prepare_article_products(result,market) is result
+    assert ('worthbuyin008-21' if market=='uk' else 'worthbuyingus-20') in result['content_html']
+
+
+def test_good_articles_keep_the_same_body_metadata_and_fingerprint():
+    from pathlib import Path
+    import json
+    from src.product_checks import prepare_article_products
+    root=Path(__file__).resolve().parents[1]
+    for market,folder in [('uk','articles'),('us','articles-us')]:
+        for path in (root/folder).glob('*.json'):
+            row=json.loads(path.read_text(encoding='utf8'))
+            assert prepare_article_products(row,market) is row, str(path)
+
+
+def test_optional_markup_inspection_error_falls_back_instead_of_stopping(monkeypatch):
+    from src import product_checks
+    def unavailable(*args):raise ValueError('unexpected markup')
+    monkeypatch.setattr(product_checks.RecommendationTitles,'feed',unavailable)
+    result=product_checks.prepare_article_products({'slug':'x','title':'Guide','mode':'publish','content_html':'<p>Original</p>'},'uk')
+    assert result['mode']=='publish' and result['_product_checks']['outcome']=='buying-guide-fallback'
+
+
+def test_retailer_only_roundup_fallback_does_not_switch_affiliate_networks():
+    from src.product_checks import prepare_article_products
+    row={'title':'Air purifier offers','_generator':{'channel':'rakuten','query':'air purifier'},'content_html':'<h3>1. HEPA Filter for Air Purifier</h3><a rel="sponsored" href="https://click.linksynergy.com/x">Offer</a>'}
+    result=prepare_article_products(row,'us')
+    assert 'amazon.' not in result['content_html'] and 'ebay.' not in result['content_html']
+    assert result['_generator']['pick_count']==0
+
+
+def test_amazon_event_selection_uses_the_actual_uk_market(monkeypatch):
+    import generate_prime_big_deal_articles as prime
+    from types import SimpleNamespace
+    offers=[SimpleNamespace(title='TP Link Smart Wi-Fi Plug HS100 EU PLUG',image_url='https://example.com/eu.jpg')]
+    offers += [SimpleNamespace(title=f'Tapo Smart Plug P110 UK {i}',image_url='https://example.com/uk.jpg') for i in range(3)]
+    class Client:
+        def search_offers(self,*args,**kwargs):return offers
+    monkeypatch.setattr(prime.AmazonCreatorsClient,'from_env',lambda market:Client())
+    selected=prime._amazon_prime_offers(prime.topic_by_key('smart-plugs'),'uk')
+    assert len(selected)==3 and all('EU PLUG' not in x.title for x in selected)
+
+
+@pytest.mark.parametrize('market,marketplace',[('uk','EBAY_GB'),('us','EBAY_US')])
+def test_older_niche_route_writes_useful_tracked_fallback_when_all_offers_fail(monkeypatch,tmp_path,market,marketplace):
+    import main as niche
+    cfg={'site':{'marketplace':marketplace,'delivery_country':'GB' if market=='uk' else 'US',
+                 'title_prefix':'Worth Buying','min_seller_feedback_percent':99,'min_seller_feedback_score':100,'history_max_points_per_item':10},
+         'niches':[{'slug':'streaming','name':'Streaming Devices','query':'streaming devices','max_price':250,'min_score':0}],
+         'publishing':{'publish_when_no_items':True}}
+    class Client:
+        def search(self,**kwargs):return [{'title':'USB Power Cable Adapter for Fire TV Stick'}]
+    monkeypatch.setattr(niche,'ROOT',tmp_path)
+    monkeypatch.setattr(niche,'load_config',lambda:cfg)
+    monkeypatch.setattr(niche,'EbayClient',lambda **kwargs:Client())
+    monkeypatch.setenv('DRY_RUN','true')
+    niche.main()
+    content=(tmp_path/'out/streaming.html').read_text(encoding='utf8')
+    assert 'USB Power Cable Adapter' not in content
+    assert 'links open searches' in content
+    assert ('worthbuyin008-21' if market=='uk' else 'worthbuyingus-20') in content

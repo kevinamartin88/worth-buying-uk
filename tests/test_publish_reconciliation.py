@@ -85,3 +85,42 @@ def test_reconciliation_preserves_existing_blogger_content(
     assert 'manual-photo.jpg' in blogger.content
     assert 'Generated replacement body' not in blogger.content
     assert 'wb-published-seo' in blogger.content
+
+
+@pytest.mark.parametrize('module,market',[(publish_articles,'uk'),(publish_articles_us,'us')])
+def test_new_article_with_bad_products_still_publishes_once(monkeypatch,tmp_path,module,market):
+    folder=tmp_path/'articles';folder.mkdir()
+    row={'slug':'new-guide','title':'4 Best Streaming Devices','mode':'publish','labels':['Tech'],
+         'content_html':'<h3>1. USB Power Cable Adapter for Fire TV Stick</h3><a rel="sponsored" href="https://www.ebay.com/itm/123">Buy</a>',
+         '_generator':{'query':'streaming devices'},'_promotion':{'daily_featured_date':'2026-11-20','promotion_token':'stable-token'}}
+    (folder/'guide.json').write_text(json.dumps(row),encoding='utf8')
+    class Blogger:
+        def __init__(self):self.post=None;self.created=0
+        def resolve_blog(self,*args):return {'id':'blog'}
+        def find_post_by_exact_title(self,*args):return None
+        def create_post(self,title,content,labels,is_draft):
+            assert not is_draft
+            self.created+=1
+            domain='www.worthbuyinguk.co.uk' if market=='uk' else 'www.worthbuyingusa.com'
+            self.post={'id':'123','title':title,'content':content,'status':'LIVE','url':f'https://{domain}/2026/11/new-guide.html'}
+            return self.post
+        def get_post(self,*args):return self.post
+        def get_post_or_none(self,*args):return self.post
+        def update_post_content(self,post_id,content):self.post['content']=content;return self.post
+    blogger=Blogger()
+    monkeypatch.setattr(module,'ARTICLES_DIR',folder)
+    monkeypatch.setattr(module,'STATE_PATH',tmp_path/'published.json')
+    monkeypatch.setattr(module.BloggerClient,'from_env',lambda:blogger)
+    monkeypatch.setattr(module,'add_required_hero',lambda content,**kw:('<img src="https://example.com/hero.jpg">'+content,'https://example.com/hero.jpg'))
+    monkeypatch.setattr(module,'backfill_hero_if_missing',lambda content,**kw:(content,'https://example.com/hero.jpg',False))
+    if market=='uk':monkeypatch.setattr(module,'PINTEREST_DIR',tmp_path/'missing')
+    module.main()
+    state=json.loads((tmp_path/'published.json').read_text())
+    assert state['new-guide']['status']=='published'
+    assert state['new-guide']['promotion_token']=='stable-token'
+    assert 'USB Power Cable Adapter' not in blogger.post['content']
+    assert 'links open searches' in blogger.post['content']
+    assert 'wb_retailer_click' in blogger.post['content']
+    assert ('worthbuyin008-21' if market=='uk' else 'worthbuyingus-20') in blogger.post['content']
+    module.main()
+    assert blogger.created==1
