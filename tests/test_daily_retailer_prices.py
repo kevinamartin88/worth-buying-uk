@@ -405,3 +405,25 @@ def test_region_mismatch_is_specific_to_the_intended_market():
     title='TP Link Smart Wi-Fi Plug HS100 EU PLUG'
     assert product_mismatch_reason(title,'smart plug','uk')
     assert not product_mismatch_reason(title,'smart plug','us')
+
+
+def test_guide_recommendations_have_no_known_product_role_mismatches():
+    from bs4 import BeautifulSoup
+    import re
+    root=Path(__file__).resolve().parents[1]
+    failures=[]
+    for market,folder in [('uk','articles'),('us','articles-us')]:
+        for path in (root/folder).glob('*.json'):
+            article=json.loads(path.read_text(encoding='utf8'))
+            topic=(article.get('_generator') or {}).get('topic','').replace('-',' ')
+            if not topic:continue
+            soup=BeautifulSoup(article.get('content_html',''),'html.parser')
+            candidates=[h.get_text(' ',strip=True) for h in soup.select('h3') if re.match(r'^\d+[.)]\s',h.get_text())]
+            for h in soup.select('h2'):
+                if h.get_text(strip=True)=='Current picks at a glance':
+                    ul=h.find_next('ul')
+                    if ul:candidates.extend(x.get_text(' ',strip=True) for x in ul.select('li > strong'))
+            for title in candidates:
+                reason=product_mismatch_reason(title,topic,market)
+                if reason:failures.append((str(path.relative_to(root)),title,reason))
+    assert not failures, failures
