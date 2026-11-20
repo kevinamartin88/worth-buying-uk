@@ -408,8 +408,10 @@ def test_region_mismatch_is_specific_to_the_intended_market():
 
 
 def test_guide_recommendations_have_no_known_product_role_mismatches():
-    from bs4 import BeautifulSoup
+    import html
     import re
+    def plain(markup):
+        return ' '.join(html.unescape(re.sub(r'<[^>]*>', ' ', markup)).split())
     root=Path(__file__).resolve().parents[1]
     failures=[]
     for market,folder in [('uk','articles'),('us','articles-us')]:
@@ -417,12 +419,11 @@ def test_guide_recommendations_have_no_known_product_role_mismatches():
             article=json.loads(path.read_text(encoding='utf8'))
             topic=(article.get('_generator') or {}).get('topic','').replace('-',' ')
             if not topic:continue
-            soup=BeautifulSoup(article.get('content_html',''),'html.parser')
-            candidates=[h.get_text(' ',strip=True) for h in soup.select('h3') if re.match(r'^\d+[.)]\s',h.get_text())]
-            for h in soup.select('h2'):
-                if h.get_text(strip=True)=='Current picks at a glance':
-                    ul=h.find_next('ul')
-                    if ul:candidates.extend(x.get_text(' ',strip=True) for x in ul.select('li > strong'))
+            body=article.get('content_html','')
+            headings=[plain(h) for h in re.findall(r'<h3\b[^>]*>(.*?)</h3>',body,re.S|re.I)]
+            candidates=[h for h in headings if re.match(r'^\d+[.)]\s',h)]
+            for section in re.findall(r'<h2\b[^>]*>\s*Current picks at a glance\s*</h2>(.*?)(?=<h2\b|$)',body,re.S|re.I):
+                candidates.extend(plain(x) for x in re.findall(r'<li\b[^>]*>\s*<strong\b[^>]*>(.*?)</strong>',section,re.S|re.I))
             for title in candidates:
                 reason=product_mismatch_reason(title,topic,market)
                 if reason:failures.append((str(path.relative_to(root)),title,reason))
