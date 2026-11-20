@@ -173,16 +173,21 @@ def block(config):
 
 def relevant_uk_product(title, query):
     title, query = title.casefold(), query.casefold()
-    if 'streaming' in query and 'remote' in title:
-        if re.search(r'remote control|universal remote|replacement remote|remote for', title):
-            return False
-        if not re.search(r'fire tv stick|roku (?:express|streaming)|chromecast|apple tv (?:4k|hd)', title):
+    if 'streaming' in query:
+        from src.product_relevance import streaming_player
+        if not streaming_player(title):
             return False
     if 'smart plug' in query and re.search(r'\b(?:eu|us) plug\b', title):
         return False
     if 'air purifier' in query and re.search(r'\b(?:in[- ]car|car air purifier)\b', title):
         return False
     return True
+
+
+def _streaming_accessory_heading(title):
+    # Advice/FAQ headings are not listing titles. Only annotate an explicit
+    # accessory noun, rather than applying a positive product-identity gate to prose.
+    return bool(re.search(r'\b(?:remote|cable|cord|adapter|mount|case|cover)\b', title, re.I)) and not relevant_uk_product(title, 'streaming device')
 
 
 def enhance_uk_article(article, market):
@@ -196,7 +201,7 @@ def enhance_uk_article(article, market):
         return article
     result = copy.deepcopy(article)
     content = str(article.get('content_html') or '')
-    if topic == 'streaming-devices' and not any(not relevant_uk_product(html.unescape(re.sub('<[^>]+>', '', h)), 'streaming device')
+    if topic == 'streaming-devices' and not any(_streaming_accessory_heading(html.unescape(re.sub('<[^>]+>', '', h)))
             for h in re.findall(r'<h3[^>]*>.*?</h3>', content, re.S)):
         config = ('Streaming devices: check the apps, display connection and power', [
             ('Identify the complete player in the offer', 'A streaming stick or box must be identified by exact model and generation. A replacement remote controls compatible equipment but is not itself a media player. Confirm which unit, remote, power supply and cables the selected offer includes, rather than relying on a bundle photograph.'),
@@ -234,8 +239,9 @@ def enhance_uk_article(article, market):
         heading = match.group(0)
         text = html.unescape(re.sub('<[^>]+>', '', heading)).casefold()
         note = None
-        if topic == 'streaming-devices' and not relevant_uk_product(text, 'streaming device'):
-            note = 'Remote control accessory: not a complete streaming media player.'
+        if topic == 'streaming-devices' and _streaming_accessory_heading(text):
+            note = ('Remote control accessory: not a complete streaming media player.'
+                    if 'remote' in text else 'Accessory: not a complete streaming media player.')
         if topic == 'smart-plugs' and 'eu plug' in text:
             note = 'EU-plug offer: do not treat this as a UK-plug equivalent.'
         if topic == 'air-purifiers' and 'in-car' in text:
@@ -309,3 +315,4 @@ def enhance_uk_savvy(article, market):
     result.setdefault('_seo', {})['description'] = 'UK ' + subject + ' advice: ' + config[0].lower().rstrip('?.!') + '.'
     result['_seo']['uk_editorial_revision'] = REVISION
     return result
+
