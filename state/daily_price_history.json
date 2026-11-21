@@ -1041,13 +1041,19 @@
   },
   "daily|uk|v1|128178601135|0": {
     "article_slug": "best-loungewear-worth-buying-uk",
-    "last_attempt_date": "2026-11-08",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-11-08",
         "price": 23.0,
         "ts": "2026-11-08T02:19:06.937653+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-21",
+        "price": 21.0,
+        "ts": "2026-11-21T03:53:43.950398+00:00"
       }
     ],
     "title": "Pretty You London Luxuriously Soft Loungewear Jogger Set Black Size 8-10",
@@ -1621,13 +1627,19 @@
   },
   "daily|uk|v1|137907964028|0": {
     "article_slug": "best-loungewear-worth-buying-uk",
-    "last_attempt_date": "2026-11-08",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-11-08",
         "price": 31.9,
         "ts": "2026-11-08T02:19:06.937653+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-21",
+        "price": 21.5,
+        "ts": "2026-11-21T03:53:43.950398+00:00"
       }
     ],
     "title": "Womens brown soft cord loungewear set",
@@ -3007,7 +3019,7 @@
   },
   "daily|uk|v1|178067114628|477557009146": {
     "article_slug": "best-loungewear-worth-buying-uk",
-    "last_attempt_date": "2026-11-08",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "GBP",
@@ -3017,7 +3029,7 @@
       }
     ],
     "title": "Womens Tracksuit Co Ord Set Loungewear Top Bottoms Organic Cotton EX Store NEW",
-    "tracking_status": "active"
+    "tracking_status": "ended"
   },
   "daily|uk|v1|178310047316|0": {
     "article_slug": "best-smart-plugs-worth-buying-uk",
@@ -3245,6 +3257,20 @@
     "title": "39/60Pcs Storage Bins Organiser Garage Containers Workshop Box Premium Quality",
     "tracking_status": "active"
   },
+  "daily|uk|v1|186615842719|0": {
+    "article_slug": "best-seasonal-hobby-kits-worth-buying-uk",
+    "last_attempt_date": "2026-11-21",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-21",
+        "price": 33.99,
+        "ts": "2026-11-21T03:53:53.687147+00:00"
+      }
+    ],
+    "title": "New 251pc Craft Model Hobby Tool Kit For Airfix Warhammer Hornby Modellers Set 9",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|186839037770|0": {
     "article_slug": "best-tablets-worth-buying-uk",
     "last_attempt_date": "2026-11-13",
@@ -3287,6 +3313,20 @@
       }
     ],
     "title": "Acer ACTAB1422 10.3\" Android Tablet 64GB Wi-Fi Black HD Screen Tab – Grade B",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|186909119502|0": {
+    "article_slug": "best-seasonal-hobby-kits-worth-buying-uk",
+    "last_attempt_date": "2026-11-21",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-21",
+        "price": 29.99,
+        "ts": "2026-11-21T03:53:53.687147+00:00"
+      }
+    ],
+    "title": "New 106pc Craft Model Hobby Tool Kit Set For Airfix Warhammer Hornby Modellers",
     "tracking_status": "active"
   },
   "daily|uk|v1|186966348557|0": {
@@ -4345,6 +4385,20 @@
       }
     ],
     "title": "EasyJet 55x40x20cm Cabin Approved 4 Wheel Suitcase Trolley Travel Luggage Bag",
+    "tracking_status": "active"
+  },
+  "daily|uk|v1|233890033972|0": {
+    "article_slug": "best-seasonal-hobby-kits-worth-buying-uk",
+    "last_attempt_date": "2026-11-21",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-21",
+        "price": 19.99,
+        "ts": "2026-11-21T03:53:53.687147+00:00"
+      }
+    ],
+    "title": "160pc Electric Rotary Mini Drill & Bit Set Jewellery Making Craft Hobby Tool Kit",
     "tracking_status": "active"
   },
   "daily|uk|v1|235241012926|0": {
@@ -6727,7 +6781,7 @@
   },
   "daily|uk|v1|318042236130|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-11-08",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "GBP",
@@ -6776,6 +6830,12 @@
         "date": "2026-11-08",
         "price": 17.47,
         "ts": "2026-11-08T02:18:52.275255+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-21",
+        "price": 17.47,
+        "ts": "2026-11-21T03:53:43.950398+00:00"
       }
     ],
     "title": "KAHEIGN 3Pcs Silicone Air Fryer Liners for Ninja Flex Drawer AF500UK, 2Pcs 5.2L",
@@ -6803,7 +6863,7 @@
   },
   "daily|uk|v1|318495567333|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-11-08",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "GBP",
@@ -6846,6 +6906,12 @@
         "date": "2026-11-08",
         "price": 11.16,
         "ts": "2026-11-08T02:18:52.275255+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-21",
+        "price": 11.16,
+        "ts": "2026-11-21T03:53:43.950398+00:00"
       }
     ],
     "title": "100PCS Air Fryer Liners for Tefal Easy Fry 5.2L/3.1L, Tower 5.2L/3.3L, Lakeland",
@@ -7165,7 +7231,7 @@
   },
   "daily|uk|v1|334832955549|0": {
     "article_slug": "best-streaming-devices-worth-buying-uk",
-    "last_attempt_date": "2026-11-08",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "GBP",
@@ -7184,6 +7250,12 @@
         "date": "2026-11-08",
         "price": 16.15,
         "ts": "2026-11-08T02:18:52.275255+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-21",
+        "price": 16.47,
+        "ts": "2026-11-21T03:53:43.950398+00:00"
       }
     ],
     "title": "One For All 5 Device Backlit URC7945 Smart Streamer Remote",
@@ -7191,13 +7263,19 @@
   },
   "daily|uk|v1|336412057154|545916266312": {
     "article_slug": "best-loungewear-worth-buying-uk",
-    "last_attempt_date": "2026-11-08",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "GBP",
         "date": "2026-11-08",
         "price": 17.56,
         "ts": "2026-11-08T02:19:06.937653+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-21",
+        "price": 21.95,
+        "ts": "2026-11-21T03:53:43.950398+00:00"
       }
     ],
     "title": "Brand New Ladies Fluffy Knit Lounge Set Grey Tracksuit XS S M L XL",
@@ -7401,7 +7479,7 @@
   },
   "daily|uk|v1|336813720643|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-11-08",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "GBP",
@@ -7414,6 +7492,12 @@
         "date": "2026-11-08",
         "price": 31.9,
         "ts": "2026-11-08T02:18:52.275255+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-21",
+        "price": 31.9,
+        "ts": "2026-11-21T03:53:43.950398+00:00"
       }
     ],
     "title": "Daewoo 2.5L Compact Air Fryer 1000W Black with Timer & Temp Control",
@@ -8071,9 +8155,23 @@
     "title": "SONOFF WiFi Smart Touch Switch Wall Light, 1 Gang, T0UK1C (R83)",
     "tracking_status": "active"
   },
+  "daily|uk|v1|365813011641|0": {
+    "article_slug": "best-seasonal-hobby-kits-worth-buying-uk",
+    "last_attempt_date": "2026-11-21",
+    "observations": [
+      {
+        "currency": "GBP",
+        "date": "2026-11-21",
+        "price": 26.99,
+        "ts": "2026-11-21T03:53:53.687147+00:00"
+      }
+    ],
+    "title": "162pc Electric Rotary Mini Drill & Bit Set Jewellery Making Craft Hobby Tool Kit",
+    "tracking_status": "active"
+  },
   "daily|uk|v1|365867899913|0": {
     "article_slug": "best-tvs-worth-buying-uk-2026",
-    "last_attempt_date": "2026-11-08",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "GBP",
@@ -8087,7 +8185,7 @@
   },
   "daily|uk|v1|366046119481|0": {
     "article_slug": "best-tvs-worth-buying-uk-2026",
-    "last_attempt_date": "2026-11-08",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "GBP",
@@ -8101,7 +8199,7 @@
   },
   "daily|uk|v1|366046119566|0": {
     "article_slug": "best-tvs-worth-buying-uk-2026",
-    "last_attempt_date": "2026-11-08",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "GBP",
@@ -8115,7 +8213,7 @@
   },
   "daily|uk|v1|366046122252|0": {
     "article_slug": "best-tvs-worth-buying-uk-2026",
-    "last_attempt_date": "2026-11-08",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "GBP",
@@ -8137,7 +8235,7 @@
       }
     ],
     "title": "Toshiba 55 Inch TV Smart 4K Ultra HD HDR QLED Freely TV Netflix 55QV1563DB",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|uk|v1|366553813286|0": {
     "article_slug": "air-fryers-for-students-uk",
@@ -8161,7 +8259,7 @@
   },
   "daily|uk|v1|366624077554|0": {
     "article_slug": "best-coffee-machines-worth-buying-uk-2026",
-    "last_attempt_date": "2026-11-08",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "GBP",
@@ -8192,6 +8290,12 @@
         "date": "2026-11-08",
         "price": 64.99,
         "ts": "2026-11-08T02:18:52.275255+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-21",
+        "price": 64.99,
+        "ts": "2026-11-21T03:53:43.950398+00:00"
       }
     ],
     "title": "De'Longhi EC230.BK Ground Espresso Coffee Machine Maker Stilosa 1L 1100w Black",
@@ -8199,7 +8303,7 @@
   },
   "daily|uk|v1|366627390415|0": {
     "article_slug": "air-fryers-for-students-uk",
-    "last_attempt_date": "2026-11-08",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "GBP",
@@ -8213,7 +8317,7 @@
   },
   "daily|uk|v1|366715779749|0": {
     "article_slug": "best-tvs-worth-buying-uk-2026",
-    "last_attempt_date": "2026-11-08",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "GBP",
@@ -8411,7 +8515,7 @@
   },
   "daily|uk|v1|386118922277|0": {
     "article_slug": "best-security-cameras-worth-buying-uk",
-    "last_attempt_date": "2026-11-08",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "GBP",
@@ -8442,6 +8546,12 @@
         "date": "2026-11-08",
         "price": 31.99,
         "ts": "2026-11-08T02:18:52.275255+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-21",
+        "price": 31.99,
+        "ts": "2026-11-21T03:53:43.950398+00:00"
       }
     ],
     "title": "ieGeek Outdoor 3MP Battery Security Camera Wireless WiFi CCTV System for Home,UK",
@@ -8501,7 +8611,7 @@
   },
   "daily|uk|v1|389741281452|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-uk-2026",
-    "last_attempt_date": "2026-11-08",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "GBP",
@@ -8521,7 +8631,7 @@
   },
   "daily|uk|v1|393244557000|0": {
     "article_slug": "best-coffee-machines-worth-buying-uk-2026",
-    "last_attempt_date": "2026-11-08",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "GBP",
@@ -8747,7 +8857,7 @@
   },
   "daily|uk|v1|397746603338|0": {
     "article_slug": "best-security-cameras-worth-buying-uk",
-    "last_attempt_date": "2026-11-08",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "GBP",
@@ -8778,6 +8888,12 @@
         "date": "2026-11-08",
         "price": 31.99,
         "ts": "2026-11-08T02:18:52.275255+00:00"
+      },
+      {
+        "currency": "GBP",
+        "date": "2026-11-21",
+        "price": 31.99,
+        "ts": "2026-11-21T03:53:43.950398+00:00"
       }
     ],
     "title": "Iegeek 5MP Indoor Home Security Camera 2.4 / 5GHz Night Vision 360 PTZ SC1 2PCS",
@@ -9423,7 +9539,7 @@
   },
   "daily|uk|v1|840085699823|0": {
     "article_slug": "best-hedge-trimmers-worth-buying-uk",
-    "last_attempt_date": "2026-11-07",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "GBP",
@@ -9433,7 +9549,7 @@
       }
     ],
     "title": "Ryobi OPT1845 ONE+ 18V Cordless Pole Hedge Trimmer 45cm Blade Bare Tool",
-    "tracking_status": "active"
+    "tracking_status": "ended"
   },
   "daily|uk|v1|860107365670|0": {
     "article_slug": "best-streaming-devices-under-100-worth-buying-uk",
@@ -11433,7 +11549,7 @@
   },
   "daily|us|v1|167017878525|0": {
     "article_slug": "best-gaming-headsets-worth-buying-us",
-    "last_attempt_date": "2026-11-13",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -11452,6 +11568,12 @@
         "date": "2026-11-13",
         "price": 104.99,
         "ts": "2026-11-13T03:21:36.402558+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 99.16,
+        "ts": "2026-11-21T03:54:04.708043+00:00"
       }
     ],
     "title": "HEADSET-PRO X 2 LIGHTSPEED Wireless Gaming Headset-WHITE-2.4GHZ- 981-001268",
@@ -11459,7 +11581,7 @@
   },
   "daily|us|v1|167017920270|0": {
     "article_slug": "best-gaming-headsets-worth-buying-us",
-    "last_attempt_date": "2026-11-13",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -11478,6 +11600,12 @@
         "date": "2026-11-13",
         "price": 75.0,
         "ts": "2026-11-13T03:21:36.402558+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 75.0,
+        "ts": "2026-11-21T03:54:04.708043+00:00"
       }
     ],
     "title": "Logitech - G PRO X Wireless Gaming Headset for PC - Black",
@@ -11567,6 +11695,20 @@
     "title": "Norco Big-Grip Adaptive Eating Bendable Utensil Spoon, Fork, Knife 281600519NC",
     "tracking_status": "active"
   },
+  "daily|us|v1|167192715223|0": {
+    "article_slug": "best-gaming-headsets-worth-buying-us",
+    "last_attempt_date": "2026-11-21",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 171.0,
+        "ts": "2026-11-21T03:54:04.708043+00:00"
+      }
+    ],
+    "title": "Logitech Astro A50 X LIGHTSPEED Wireless Gaming Headset Base Black",
+    "tracking_status": "active"
+  },
   "daily|us|v1|167817560267|0": {
     "article_slug": "best-gaming-mice-worth-buying-us",
     "last_attempt_date": "2026-11-09",
@@ -11593,6 +11735,20 @@
       }
     ],
     "title": "Roku Streaming Stick Plus 4K HDR Media Player with Voice Remote - 3810R",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|167875595688|0": {
+    "article_slug": "best-gaming-headsets-worth-buying-us",
+    "last_attempt_date": "2026-11-21",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 109.99,
+        "ts": "2026-11-21T03:54:04.708043+00:00"
+      }
+    ],
+    "title": "Sony PULSE Elite Wireless Bluetooth Headset w/ Microphone PS5 PC",
     "tracking_status": "active"
   },
   "daily|us|v1|168047102259|0": {
@@ -12117,13 +12273,19 @@
   },
   "daily|us|v1|178412229318|0": {
     "article_slug": "best-gaming-keyboards-worth-buying-us",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-11-06",
         "price": 84.99,
         "ts": "2026-11-06T03:22:36.175776+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 84.99,
+        "ts": "2026-11-21T03:53:53.737007+00:00"
       }
     ],
     "title": "Razer BlackWidow V4 X Mechanical Gaming Keyboard with Razer Chroma RGB: Aluminum",
@@ -12131,13 +12293,19 @@
   },
   "daily|us|v1|178412229729|0": {
     "article_slug": "best-gaming-keyboards-worth-buying-us",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-11-06",
         "price": 42.99,
         "ts": "2026-11-06T03:22:36.175776+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 42.99,
+        "ts": "2026-11-21T03:53:53.737007+00:00"
       }
     ],
     "title": "HyperX Alloy Origins 65 Mechanical Gaming Keyboard for PC: RGB Lighting USB-A",
@@ -12145,7 +12313,7 @@
   },
   "daily|us|v1|178506808902|0": {
     "article_slug": "best-gaming-keyboards-worth-buying-us",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -12155,7 +12323,7 @@
       }
     ],
     "title": "AULA F75 75% Wireless Mechanical Gaming Keyboard-4000m Bat Creamy HotSwap",
-    "tracking_status": "active"
+    "tracking_status": "ended"
   },
   "daily|us|v1|185935454347|0": {
     "article_slug": "best-smartwatches-worth-buying-us",
@@ -12513,7 +12681,7 @@
   },
   "daily|us|v1|188591459539|0": {
     "article_slug": "best-car-jump-starters-before-winter-us-2026",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -12532,6 +12700,12 @@
         "date": "2026-11-06",
         "price": 30.59,
         "ts": "2026-11-06T03:22:20.921598+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 30.59,
+        "ts": "2026-11-21T03:53:53.737007+00:00"
       }
     ],
     "title": "Monster New 8000mah Jump Starter Power Bank: Portable Car Jumper 8000 Amps",
@@ -13623,7 +13797,7 @@
   },
   "daily|us|v1|221605928059|0": {
     "article_slug": "best-security-cameras-worth-buying-us",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -13654,6 +13828,12 @@
         "date": "2026-11-06",
         "price": 71.99,
         "ts": "2026-11-06T03:22:20.921598+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 71.99,
+        "ts": "2026-11-21T03:53:53.737007+00:00"
       }
     ],
     "title": "ZOSI 4Pack 2MP 1080p TVI Home Security Camera CCTV Outdoor 120ft IR Night Vision",
@@ -14615,7 +14795,7 @@
   },
   "daily|us|v1|257664039846|0": {
     "article_slug": "best-car-jump-starters-before-winter-us-2026",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -14634,6 +14814,12 @@
         "date": "2026-11-06",
         "price": 155.99,
         "ts": "2026-11-06T03:22:20.921598+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 155.99,
+        "ts": "2026-11-21T03:53:53.737007+00:00"
       }
     ],
     "title": "12v Battery Jumper Car Starter Booster Truck Heavy Duty Portable Car Jump Box",
@@ -15201,13 +15387,19 @@
   },
   "daily|us|v1|278095374490|0": {
     "article_slug": "best-gaming-keyboards-worth-buying-us",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-11-06",
         "price": 46.14,
         "ts": "2026-11-06T03:22:36.175776+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 42.09,
+        "ts": "2026-11-21T03:53:53.737007+00:00"
       }
     ],
     "title": "Acer Nitro NAK100 Gaming Keyboard and Mouse Combo 6400 DPI RGB Wired",
@@ -15377,7 +15569,7 @@
   },
   "daily|us|v1|287520677006|0": {
     "article_slug": "best-slow-cookers-worth-buying-us",
-    "last_attempt_date": "2026-11-05",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -15414,6 +15606,12 @@
         "date": "2026-11-05",
         "price": 42.99,
         "ts": "2026-11-05T03:25:51.207130+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 42.99,
+        "ts": "2026-11-21T03:53:53.737007+00:00"
       }
     ],
     "title": "Bella - 6-qt. Programmable Slow Cooker & 2-qt. Slow Cooker Set - Oatmilk",
@@ -15421,13 +15619,19 @@
   },
   "daily|us|v1|287522739512|0": {
     "article_slug": "best-car-phone-mounts-worth-buying-us",
-    "last_attempt_date": "2026-11-05",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-11-05",
         "price": 10.89,
         "ts": "2026-11-05T03:26:03.395057+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 9.8,
+        "ts": "2026-11-21T03:53:53.737007+00:00"
       }
     ],
     "title": "360° Car Windshield Mount Holder Suction Cup Long Gooseneck Cell Phone GPS Stand",
@@ -15753,7 +15957,7 @@
   },
   "daily|us|v1|307089193294|0": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-us",
-    "last_attempt_date": "2026-11-05",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -15784,6 +15988,12 @@
         "date": "2026-11-05",
         "price": 160.19,
         "ts": "2026-11-05T03:25:51.207130+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 160.19,
+        "ts": "2026-11-21T03:53:53.737007+00:00"
       }
     ],
     "title": "18QT Large Air Fryer Oven, Touch Screen, 10-in-1 Multi-Function, Family Size, He",
@@ -16167,7 +16377,7 @@
   },
   "daily|us|v1|314002724093|615332075354": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-05",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -16201,7 +16411,7 @@
       }
     ],
     "title": "Netac 120GB 256GB 512GB SSD 2.5\" SATA III 6GB/s Internal Solid State Drive lot",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|us|v1|314491550846|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
@@ -16273,7 +16483,7 @@
   },
   "daily|us|v1|314506784446|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -16395,7 +16605,7 @@
   },
   "daily|us|v1|315707748236|614122978746": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -16426,6 +16636,12 @@
         "date": "2026-11-06",
         "price": 359.0,
         "ts": "2026-11-06T03:22:20.921598+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 359.0,
+        "ts": "2026-11-21T03:53:53.737007+00:00"
       }
     ],
     "title": "Netac 1TB 512GB 256GB Internal SSD 2.5inch SATA Solid State Drive lot PC Laptop",
@@ -16525,7 +16741,7 @@
   },
   "daily|us|v1|318011596698|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -16556,6 +16772,12 @@
         "date": "2026-11-06",
         "price": 159.0,
         "ts": "2026-11-06T03:22:20.921598+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 69.0,
+        "ts": "2026-11-21T03:53:53.737007+00:00"
       }
     ],
     "title": "Tineco Floor One S3 Pro Smart Cordless All-in-One Vacuum Cleaner, Self-Cleaning",
@@ -16807,7 +17029,7 @@
   },
   "daily|us|v1|318376599313|0": {
     "article_slug": "best-blenders-worth-buying-us",
-    "last_attempt_date": "2026-11-05",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -18673,13 +18895,19 @@
   },
   "daily|us|v1|376289184564|0": {
     "article_slug": "best-car-phone-mounts-worth-buying-us",
-    "last_attempt_date": "2026-11-05",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-11-05",
         "price": 16.48,
         "ts": "2026-11-05T03:26:03.395057+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 17.98,
+        "ts": "2026-11-21T03:53:53.737007+00:00"
       }
     ],
     "title": "360° Mount Holder Car Windshield Stand For Mobile Cell Phone GPS iPhone Samsung",
@@ -18929,7 +19157,7 @@
   },
   "daily|us|v1|385249593150|0": {
     "article_slug": "best-lawn-mowers-worth-buying-us",
-    "last_attempt_date": "2026-11-05",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -18942,6 +19170,12 @@
         "date": "2026-11-05",
         "price": 119.99,
         "ts": "2026-11-05T03:25:51.207130+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 119.99,
+        "ts": "2026-11-21T03:53:53.737007+00:00"
       }
     ],
     "title": "2-Pack 24x12.00-12 Lawn Mower Tires 4Ply Heavy Duty 24x12-12 24x12x12 Turf Tyre",
@@ -19039,13 +19273,19 @@
   },
   "daily|us|v1|386950187492|0": {
     "article_slug": "best-car-phone-mounts-worth-buying-us",
-    "last_attempt_date": "2026-11-05",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-11-05",
         "price": 16.15,
         "ts": "2026-11-05T03:26:03.395057+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 16.15,
+        "ts": "2026-11-21T03:53:53.737007+00:00"
       }
     ],
     "title": "New Ball Mount & Magnetic Phone Socket 2 Pack Car Mount Phone Holder",
@@ -20397,7 +20637,7 @@
   },
   "daily|us|v1|407248695131|0": {
     "article_slug": "best-tyre-inflators-worth-buying-us",
-    "last_attempt_date": "2026-11-05",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -20416,6 +20656,12 @@
         "date": "2026-11-05",
         "price": 32.49,
         "ts": "2026-11-05T03:25:51.207130+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 32.49,
+        "ts": "2026-11-21T03:53:53.737007+00:00"
       }
     ],
     "title": "Portable Heavy Duty 12V 150PSI Car Tyre Auto Tire Inflator Pump Air Compressor",
@@ -20497,7 +20743,7 @@
   },
   "daily|us|v1|800556776572|0": {
     "article_slug": "air-fryers-for-students-us",
-    "last_attempt_date": "2026-11-05",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",

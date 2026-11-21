@@ -1,9 +1,9 @@
 {
   "uk": {
-    "authority_cluster": "Consumer Tech",
-    "content_action": "refreshed",
-    "date": "2026-11-20",
-    "day": "Friday",
+    "authority_cluster": "Lifestyle & Personal Care",
+    "content_action": "created",
+    "date": "2026-11-21",
+    "day": "Saturday",
     "demand_score": null,
     "google_cached": false,
     "google_observed_at": null,
@@ -17,18 +17,18 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-soundbars-worth-buying-uk-2026",
-    "title": "4 Best Soundbars UK 2026: Picks from £94–£399",
-    "topic": "soundbars",
+    "slug": "best-seasonal-hobby-kits-worth-buying-uk",
+    "title": "4 Best Seasonal Hobby & Craft Kits UK 2026: Picks from £19.99–£34",
+    "topic": "seasonal-hobby-kits",
     "trend_traffic": null,
-    "weekend_focus": null,
-    "weekend_priority": false
+    "weekend_focus": "saturday-home-diy",
+    "weekend_priority": true
   },
   "us": {
-    "authority_cluster": "Consumer Tech",
+    "authority_cluster": "Gaming & Entertainment",
     "content_action": "refreshed",
-    "date": "2026-11-20",
-    "day": "Friday",
+    "date": "2026-11-21",
+    "day": "Saturday",
     "demand_score": null,
     "google_cached": false,
     "google_observed_at": null,
@@ -42,11 +42,11 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-soundbars-worth-buying-us-2026",
-    "title": "4 Best Soundbars USA 2026: Picks from $129–$366",
-    "topic": "soundbars",
+    "slug": "best-gaming-headsets-worth-buying-us",
+    "title": "4 Best Gaming Headsets USA 2026: Picks from $75–$171",
+    "topic": "gaming-headsets",
     "trend_traffic": null,
-    "weekend_focus": null,
-    "weekend_priority": false
+    "weekend_focus": "saturday-home-diy",
+    "weekend_priority": true
   }
 }
