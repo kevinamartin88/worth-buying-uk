@@ -893,9 +893,18 @@ def authority_candidate_pool(
         if (today - last).days >= REFRESH_AFTER_DAYS:
             due.append(topic)
 
+    # A daily slot must prefer a genuinely new guide over resurfacing an old URL.
+    fresh_focused = [topic for topic in focused if not topic_already_covered(article_dir, topic, year)]
+    if fresh_focused:
+        return fresh_focused
+    # Do not force repeated weekend topics when the weekend pool is exhausted.
+    fresh_all = [topic for topic in core if not topic_already_covered(article_dir, topic, year)]
+    if fresh_all:
+        return fresh_all
+    # If every authority topic has a guide, create a clearly dated new edition
+    # (unique slug below), rather than pretending an existing post is new.
     if due:
         return due
-
     dated.sort(key=lambda row: row[0])
     return [topic for _, topic in dated[:12]] or focused
 
@@ -2130,13 +2139,14 @@ def build_article(
     gsc_signal: dict | None = None,
     demand_score: float | None = None,
     is_refresh: bool = False,
+    slug_override: str | None = None,
 ) -> dict:
     topic = localise_topic(topic, market)
     key, display, query, max_uk, max_us, category, kicker = topic
     region = "UK" if market == "uk" else "USA"
     directory_name = "articles" if market == "uk" else "articles-us"
     max_price = float(max_uk if market == "uk" else max_us)
-    slug = evergreen_article_slug(key, market)
+    slug = slug_override or evergreen_article_slug(key, market)
 
     try:
         picks = current_picks(market, query, max_price, slug)
@@ -2368,7 +2378,7 @@ def main() -> None:
 
     for market in ("uk", "us"):
         market_state = state.get(market, {})
-        if market_state.get("date") == today:
+        if market_state.get("date") == today and market_state.get("content_action") == "created":
             print(
                 f"[daily-skip] {market.upper()}: article already generated today "
                 f"({market_state.get('slug')})"
@@ -2393,6 +2403,11 @@ def main() -> None:
         planned_slug = evergreen_article_slug(topic[0], market)
         planned_target = article_dir / f"{planned_slug}.json"
         refreshing = planned_target.exists()
+        # Once a topic has been covered, use a distinctive dated edition with
+        # its own article and URL. Never overwrite/feature an old post as "new".
+        unique_slug = f"{planned_slug}-daily-{today}" if refreshing else planned_slug
+        if (article_dir / f"{unique_slug}.json").exists():
+            raise RuntimeError(f"Today's unique guide already exists: {unique_slug}")
 
         article = build_article(
             topic,
@@ -2401,10 +2416,15 @@ def main() -> None:
             trend_signal=trend_signal,
             gsc_signal=gsc_signal,
             demand_score=demand_score,
-            is_refresh=refreshing,
+            is_refresh=False,
+            slug_override=unique_slug,
         )
+        if refreshing:
+            article["title"] = article["title"] + " | " + now.strftime("%-d %B %Y") + " Buying Update"
+            article["pinterest_title"] = article["title"]
+            article["_seo"]["description"] = str(article["_seo"].get("description") or "") + " Updated " + today + "."
         target = article_dir / f"{article['slug']}.json"
-        article.setdefault("_promotion", {})["is_refresh"] = refreshing
+        article.setdefault("_promotion", {})["is_refresh"] = False
         article["_promotion"]["promotion_token"] = f"{today}:{market}:{article['slug']}"
 
         target.write_text(
@@ -2446,12 +2466,12 @@ def main() -> None:
             ),
             "live_ebay_picks": bool(article["_generator"]["live_ebay_picks"]),
             "pick_count": int(article["_generator"]["pick_count"]),
-            "content_action": "refreshed" if refreshing else "created",
+            "content_action": "created",
             "authority_cluster": article["_seo"]["authority_cluster"],
             "monetisation_goal": article["_monetisation"]["primary_goal"],
         }
         generated += 1
-        action = "refreshed" if refreshing else "created"
+        action = "created"
         print(
             f"[daily-{action}] {market.upper()}: {target.relative_to(ROOT)} "
             f"(day={day_name}, selection_basis={state[market]['selection_basis']}, "
