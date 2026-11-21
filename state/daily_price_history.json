@@ -9783,13 +9783,19 @@
   },
   "daily|us|v1|117526285709|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-20",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-11-20",
         "price": 59.99,
         "ts": "2026-11-20T14:29:17.358873+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 59.99,
+        "ts": "2026-11-21T21:29:15.518428+00:00"
       }
     ],
     "title": "Samsung 860 PRO 512GB 2.5\" SATA SSD MZ-76P512 - 91% Health",
@@ -10251,7 +10257,7 @@
   },
   "daily|us|v1|135834794086|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-20",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -10318,6 +10324,12 @@
         "date": "2026-11-20",
         "price": 249.0,
         "ts": "2026-11-20T14:55:56.800111+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 249.0,
+        "ts": "2026-11-21T21:29:12.459379+00:00"
       }
     ],
     "title": "Shark Ip3251 Cordless Vacuum Cleaner Powerdetect Clean/ Empty System Dark Gray",
@@ -12253,7 +12265,7 @@
   },
   "daily|us|v1|178385904592|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-20",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -12266,6 +12278,12 @@
         "date": "2026-11-20",
         "price": 66.99,
         "ts": "2026-11-20T14:56:05.120761+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 66.99,
+        "ts": "2026-11-21T21:29:21.927554+00:00"
       }
     ],
     "title": "Haden 14 Cup Coffee Maker Cream - Hearth & Hand with Magnolia",
@@ -13347,6 +13365,20 @@
     "title": "Pro Nano Titanium 2\" Ultra-Sleek Hair Straightener Flat Iron BNT134T BaByliss",
     "tracking_status": "active"
   },
+  "daily|us|v1|198773335352|0": {
+    "article_slug": "best-air-fryers-worth-buying-us-2026",
+    "last_attempt_date": "2026-11-21",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 63.88,
+        "ts": "2026-11-21T21:29:18.960693+00:00"
+      }
+    ],
+    "title": "Gourmia 9 Qt Digital Air Fryer Ceramic Basket 12 Presets Viewing Window GAF998",
+    "tracking_status": "active"
+  },
   "daily|us|v1|202437217097|502468362071": {
     "article_slug": "best-backpacks-worth-buying-us",
     "last_attempt_date": "2026-11-18",
@@ -13729,7 +13761,7 @@
   },
   "daily|us|v1|206677160893|0": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-20",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -13748,6 +13780,12 @@
         "date": "2026-11-20",
         "price": 58.99,
         "ts": "2026-11-20T14:56:02.089101+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 58.99,
+        "ts": "2026-11-21T21:29:18.960693+00:00"
       }
     ],
     "title": "PowerXL 8qt Air Max Air Fryer",
@@ -13769,13 +13807,19 @@
   },
   "daily|us|v1|206698973983|0": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-20",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-11-20",
         "price": 71.99,
         "ts": "2026-11-20T14:56:02.089101+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 71.99,
+        "ts": "2026-11-21T21:29:18.960693+00:00"
       }
     ],
     "title": "Gourmia Digital Stainless Steel Toaster Oven Air Fryer – Stainless Steel: 1700W",
@@ -14669,7 +14713,7 @@
   },
   "daily|us|v1|237069653315|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-20",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -14688,6 +14732,12 @@
         "date": "2026-11-20",
         "price": 99.39,
         "ts": "2026-11-20T14:55:59.290870+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 99.39,
+        "ts": "2026-11-21T21:29:15.518428+00:00"
       }
     ],
     "title": "TEAMGROUP MS30 1TB with SLC Cache 3D NAND TLC M.2 2280 SATA III 6Gb/s SSD",
@@ -14979,7 +15029,7 @@
   },
   "daily|us|v1|267301861600|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-20",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -15022,6 +15072,12 @@
         "date": "2026-11-20",
         "price": 138.56,
         "ts": "2026-11-20T14:55:59.290870+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 138.56,
+        "ts": "2026-11-21T21:29:15.518428+00:00"
       }
     ],
     "title": "SanDisk Ultra 3D SSD 1TB, SDSSDH3 2.5\" SSD Drive SATA III 6GB/S (SDSSDH3-1T02)",
@@ -15803,6 +15859,20 @@
     "title": "Kitchen Elite 26 Qt Air Fryer Oven KE-AFO-107-26 Stainless Steel",
     "tracking_status": "active"
   },
+  "daily|us|v1|298655037705|0": {
+    "article_slug": "best-coffee-machines-worth-buying-us-2026",
+    "last_attempt_date": "2026-11-21",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 197.41,
+        "ts": "2026-11-21T21:29:21.927554+00:00"
+      }
+    ],
+    "title": "Professional Espresso Coffee Maker for Home,with Milk Frother for Latte",
+    "tracking_status": "active"
+  },
   "daily|us|v1|298662231575|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
     "last_attempt_date": "2026-10-08",
@@ -16537,7 +16607,7 @@
   },
   "daily|us|v1|315403607769|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-09",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -16598,6 +16668,12 @@
         "date": "2026-11-09",
         "price": 79.95,
         "ts": "2026-11-09T10:57:32.642050+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 79.95,
+        "ts": "2026-11-21T21:29:21.927554+00:00"
       }
     ],
     "title": "Ninja CFP105 DualBrew Hot & Iced Coffee Maker (Black)",
@@ -17347,7 +17423,7 @@
   },
   "daily|us|v1|326843264080|0": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-20",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -17360,6 +17436,12 @@
         "date": "2026-11-20",
         "price": 134.99,
         "ts": "2026-11-20T14:56:02.089101+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 134.99,
+        "ts": "2026-11-21T21:29:18.960693+00:00"
       }
     ],
     "title": "Ninja Crispi 5-in-1 Portable Glass Air Fryer Cooking System, Blue",
@@ -17615,7 +17697,7 @@
   },
   "daily|us|v1|327378928187|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-19",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -17670,6 +17752,12 @@
         "date": "2026-11-19",
         "price": 198.0,
         "ts": "2026-11-19T14:01:32.975343+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 198.0,
+        "ts": "2026-11-21T21:29:12.459379+00:00"
       }
     ],
     "title": "Shark IP1251 PowerDetect Cordless Stick Vacuum",
@@ -17691,13 +17779,19 @@
   },
   "daily|us|v1|327448407121|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-19",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
         "date": "2026-11-19",
         "price": 109.95,
         "ts": "2026-11-19T14:01:32.975343+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 109.95,
+        "ts": "2026-11-21T21:29:12.459379+00:00"
       }
     ],
     "title": "Shark IX140 Lightweight Cordless Pet Stick Vacuum Blue",
@@ -19349,6 +19443,20 @@
     "title": "eufy X10 Pro Omni Robot Vacuum and Mop Combo, All-in-One  -Certified Refurbished",
     "tracking_status": "unavailable"
   },
+  "daily|us|v1|387503110027|0": {
+    "article_slug": "best-ssds-worth-buying-us-2026",
+    "last_attempt_date": "2026-11-21",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 89.99,
+        "ts": "2026-11-21T21:29:15.518428+00:00"
+      }
+    ],
+    "title": "Kingston NV3 M.2 2280 500GB PCIe 4.0 x4 NVMe Internal Solid State Drive (SSD) SN",
+    "tracking_status": "active"
+  },
   "daily|us|v1|388117105312|0": {
     "article_slug": "best-wireless-earbuds-worth-buying-us",
     "last_attempt_date": "2026-11-10",
@@ -19801,7 +19909,7 @@
   },
   "daily|us|v1|396419881868|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-12",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -19838,6 +19946,12 @@
         "date": "2026-11-12",
         "price": 83.99,
         "ts": "2026-11-12T03:45:12.064347+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 83.99,
+        "ts": "2026-11-21T21:29:12.459379+00:00"
       }
     ],
     "title": "Cordless Stick Vacuum Cleaner 45KPa 550W LED Motorized Floor Brush 65Mins Handhe",
@@ -21101,7 +21215,7 @@
   },
   "daily|us|v1|920017618327|0": {
     "article_slug": "best-coffee-machines-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-19",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -21114,6 +21228,12 @@
         "date": "2026-11-19",
         "price": 62.93,
         "ts": "2026-11-19T14:01:42.319395+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 62.93,
+        "ts": "2026-11-21T21:29:21.927554+00:00"
       }
     ],
     "title": "bella PRO - MultiBrew 12-Cup Drip & Single-Serve Coffee Maker - Oatmilk",
