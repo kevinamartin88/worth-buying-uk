@@ -72,8 +72,10 @@ jobs:
           uk_date="$(jq -r '.uk.date // ""' state/daily_article_generator.json 2>/dev/null || true)"
           us_date="$(jq -r '.us.date // ""' state/daily_article_generator.json 2>/dev/null || true)"
 
-          if [ "$uk_date" = "$today" ] && [ "$us_date" = "$today" ]; then
-            echo "Today's UK and USA articles already exist; keeping this retry lightweight."
+          uk_action="$(jq -r '.uk.content_action // ""' state/daily_article_generator.json 2>/dev/null || true)"
+          us_action="$(jq -r '.us.content_action // ""' state/daily_article_generator.json 2>/dev/null || true)"
+          if [ "$uk_date" = "$today" ] && [ "$us_date" = "$today" ] && [ "$uk_action" = "created" ] && [ "$us_action" = "created" ]; then
+            echo "Today's UK and USA new article files exist; checking published state."
             echo "needed=false" >> "$GITHUB_OUTPUT"
           else
             echo "At least one market still needs today's article."
@@ -141,10 +143,35 @@ jobs:
           git push
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
+      - name: Check real publication state before attempting uploads
+        id: published
+        shell: bash
+        run: |
+          today="$(TZ=Europe/London date +%F)"
+          for market in uk us; do
+            slug="$(jq -r --arg m "$market" '.[$m].slug // ""' state/daily_article_generator.json)"
+            file="state/articles_published.json"
+            if [ "$market" = "us" ]; then file="state/articles_us_published.json"; fi
+            verified="$(jq -r --arg slug "$slug" --arg today "$today" '
+              .[$slug] | if .status == "published" and (.post_id // "") != "" and (.url // "") != ""
+              and .daily_featured_date == $today then "true" else "false" end
+            ' "$file" 2>/dev/null || echo false)"
+            if [ "$verified" = "true" ]; then
+              echo "$market=false" >> "$GITHUB_OUTPUT"
+              echo "[$market] Today's article already has recorded Blogger publication."
+            else
+              echo "$market=true" >> "$GITHUB_OUTPUT"
+              echo "[$market] No confirmed publication for today's article; publisher retry required."
+            fi
+          done
+
       - name: Start UK and USA publishing workflows independently
-        if: steps.save.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh workflow run publish-articles.yml --ref main -f chain_usa=false
-          gh workflow run publish-articles-us.yml --ref main
+          if [ "${{ steps.published.outputs.uk }}" = "true" ]; then
+            gh workflow run publish-articles.yml --ref main -f chain_usa=false
+          fi
+          if [ "${{ steps.published.outputs.us }}" = "true" ]; then
+            gh workflow run publish-articles-us.yml --ref main
+          fi
