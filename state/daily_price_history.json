@@ -9675,7 +9675,7 @@
   },
   "daily|us|v1|115616630395|417139470690": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-07",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -9712,6 +9712,12 @@
         "date": "2026-11-07",
         "price": 30.68,
         "ts": "2026-11-07T02:41:29.268069+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 29.99,
+        "ts": "2026-11-21T21:30:03.641553+00:00"
       }
     ],
     "title": "UTEN Air Fryer XXL 1700W 4.2QT/5.8QT/6.9QT Oven Hot Electric Air Fryer Cooker US",
@@ -9719,7 +9725,7 @@
   },
   "daily|us|v1|115616630395|417139470691": {
     "article_slug": "best-air-fryers-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-07",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -9756,6 +9762,12 @@
         "date": "2026-11-07",
         "price": 40.84,
         "ts": "2026-11-07T02:41:29.268069+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 40.84,
+        "ts": "2026-11-21T21:30:03.641553+00:00"
       }
     ],
     "title": "UTEN Air Fryer XXL 1700W 4.2QT/5.8QT/6.9QT Oven Hot Electric Air Fryer Cooker US",
@@ -9803,7 +9815,7 @@
   },
   "daily|us|v1|126785282007|0": {
     "article_slug": "air-fryers-for-students-us",
-    "last_attempt_date": "2026-11-07",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -9834,6 +9846,12 @@
         "date": "2026-11-07",
         "price": 33.53,
         "ts": "2026-11-07T02:41:29.268069+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 31.76,
+        "ts": "2026-11-21T21:30:03.641553+00:00"
       }
     ],
     "title": "Uten 4.2Qt Electric Air Fryer XL Large Capacity with Timer & Temperature Control",
@@ -9957,7 +9975,7 @@
   },
   "daily|us|v1|128021889205|0": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-us",
-    "last_attempt_date": "2026-11-07",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -9994,6 +10012,12 @@
         "date": "2026-11-07",
         "price": 143.98,
         "ts": "2026-11-07T02:41:29.268069+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 143.98,
+        "ts": "2026-11-21T21:30:03.641553+00:00"
       }
     ],
     "title": "Effortless 10.2 QT Air Fryer - 1700W, Stain Resistant, Family-Friendly Design",
@@ -10033,7 +10057,7 @@
   },
   "daily|us|v1|128116695179|0": {
     "article_slug": "best-ssds-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-07",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -10095,7 +10119,7 @@
   },
   "daily|us|v1|135030277743|0": {
     "article_slug": "best-lawn-mowers-worth-buying-us",
-    "last_attempt_date": "2026-11-07",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -10108,6 +10132,12 @@
         "date": "2026-11-07",
         "price": 114.99,
         "ts": "2026-11-07T02:41:29.268069+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 104.99,
+        "ts": "2026-11-21T21:30:03.641553+00:00"
       }
     ],
     "title": "LawnMaster MEB1114K Electric Corded Lawn Mower 15-Inch 11AMP",
@@ -10337,7 +10367,7 @@
   },
   "daily|us|v1|136009238820|0": {
     "article_slug": "best-wifi-routers-worth-buying-us",
-    "last_attempt_date": "2026-11-07",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -10350,6 +10380,12 @@
         "date": "2026-11-07",
         "price": 149.99,
         "ts": "2026-11-07T02:41:29.268069+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 129.99,
+        "ts": "2026-11-21T21:30:03.641553+00:00"
       }
     ],
     "title": "NETGEAR RS300-100NAR Nighthawk RS300 WiFi 7 Router, Black-Certified Refurbished",
@@ -15623,6 +15659,20 @@
     "title": "Milwaukee M18 Compact 1/2Inch Drill Driver (Bare Tool) Refurbished",
     "tracking_status": "active"
   },
+  "daily|us|v1|287406607300|0": {
+    "article_slug": "best-robot-vacuum-cleaners-worth-buying-us-2026-daily-2026-11-21",
+    "last_attempt_date": "2026-11-21",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 299.0,
+        "ts": "2026-11-21T21:30:16.682436+00:00"
+      }
+    ],
+    "title": "MOVA P10 Pro Ultra Gen2 Robot Vacuum with 26,000Pa Suction & Self-Cleaning Dock",
+    "tracking_status": "active"
+  },
   "daily|us|v1|287520677006|0": {
     "article_slug": "best-slow-cookers-worth-buying-us",
     "last_attempt_date": "2026-11-21",
@@ -16861,7 +16911,7 @@
   },
   "daily|us|v1|318012189912|0": {
     "article_slug": "best-slow-cookers-worth-buying-us",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -16898,6 +16948,12 @@
         "date": "2026-11-06",
         "price": 49.99,
         "ts": "2026-11-06T03:22:20.921598+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 49.99,
+        "ts": "2026-11-21T21:30:03.641553+00:00"
       }
     ],
     "title": "Chefman 7-Qt Programmable Slow Cooker w/ Locking Lid, Adjustable Temp & Timer",
@@ -17021,7 +17077,7 @@
   },
   "daily|us|v1|318258330825|0": {
     "article_slug": "best-slow-cookers-worth-buying-us",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -17058,6 +17114,12 @@
         "date": "2026-11-06",
         "price": 59.99,
         "ts": "2026-11-06T03:22:20.921598+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 59.99,
+        "ts": "2026-11-21T21:30:03.641553+00:00"
       }
     ],
     "title": "Crock-Pot 7qt Slow Cooker Touch Control 4 Settings Locking Lid Digital",
@@ -17085,7 +17147,7 @@
   },
   "daily|us|v1|318326091218|0": {
     "article_slug": "best-office-chairs-worth-buying-us",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -17101,7 +17163,7 @@
       }
     ],
     "title": "400LBS Big and Tall Office Chair Heavy Duty Executive PU Leather Wide Seat",
-    "tracking_status": "active"
+    "tracking_status": "ended"
   },
   "daily|us|v1|318376599313|0": {
     "article_slug": "best-blenders-worth-buying-us",
@@ -17469,7 +17531,7 @@
   },
   "daily|us|v1|327165583695|0": {
     "article_slug": "best-blenders-worth-buying-us",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -17517,7 +17579,7 @@
   },
   "daily|us|v1|327256191239|0": {
     "article_slug": "best-security-cameras-worth-buying-us",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -17542,6 +17604,12 @@
         "date": "2026-11-06",
         "price": 99.99,
         "ts": "2026-11-06T03:22:20.921598+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 99.99,
+        "ts": "2026-11-21T21:30:03.641553+00:00"
       }
     ],
     "title": "ZOSI 8CH AI H.265+ 5MP Lite DVR 1080P Outdoor CCTV Home Security Camera System",
@@ -17669,7 +17737,7 @@
   },
   "daily|us|v1|327346178650|0": {
     "article_slug": "best-slow-cookers-worth-buying-us",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -17841,7 +17909,7 @@
   },
   "daily|us|v1|335999325826|0": {
     "article_slug": "best-blenders-worth-buying-us",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -17860,6 +17928,12 @@
         "date": "2026-11-06",
         "price": 69.95,
         "ts": "2026-11-06T03:22:20.921598+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 69.95,
+        "ts": "2026-11-21T21:30:03.641553+00:00"
       }
     ],
     "title": "Ninja BN401 Nutri-Blender Pro with Auto-iQ, 1100W Motor, (2) 24oz Cups",
@@ -17867,7 +17941,7 @@
   },
   "daily|us|v1|336514451057|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -17898,6 +17972,12 @@
         "date": "2026-11-06",
         "price": 55.24,
         "ts": "2026-11-06T03:22:20.921598+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 67.99,
+        "ts": "2026-11-21T21:30:03.641553+00:00"
       }
     ],
     "title": "6-in-1 Cordless Vacuum Cleaner 50KPA Stick Vacuum Lightweight Rechargeable 45min",
@@ -17905,7 +17985,7 @@
   },
   "daily|us|v1|336549959473|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -17930,6 +18010,12 @@
         "date": "2026-11-06",
         "price": 78.39,
         "ts": "2026-11-06T03:22:20.921598+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 78.39,
+        "ts": "2026-11-21T21:30:03.641553+00:00"
       }
     ],
     "title": "Cordless Vacuum Cleaner 55KPA 55Mins Stick Brushless Motor 500W Hardwood floor",
@@ -18081,7 +18167,7 @@
   },
   "daily|us|v1|336793215539|0": {
     "article_slug": "best-cordless-vacuums-worth-buying-us-2026",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -18106,6 +18192,12 @@
         "date": "2026-11-06",
         "price": 95.19,
         "ts": "2026-11-06T03:22:20.921598+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 119.99,
+        "ts": "2026-11-21T21:30:03.641553+00:00"
       }
     ],
     "title": "Cordless Vacuum Cleaner 650W 65KPA 75Mins Self-Standing Stick Vacuum for Home",
@@ -18347,7 +18439,7 @@
   },
   "daily|us|v1|358545500239|0": {
     "article_slug": "best-car-jump-starters-before-winter-us-2026",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -18366,6 +18458,12 @@
         "date": "2026-11-06",
         "price": 55.23,
         "ts": "2026-11-06T03:22:20.921598+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 55.23,
+        "ts": "2026-11-21T21:30:03.641553+00:00"
       }
     ],
     "title": "Car Jump Starter 8000A Air Compressor Battery Booster 12V Tire Inflator Kit",
@@ -18373,7 +18471,7 @@
   },
   "daily|us|v1|358787993983|0": {
     "article_slug": "best-large-capacity-air-fryers-worth-buying-us",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -18398,6 +18496,12 @@
         "date": "2026-11-06",
         "price": 88.09,
         "ts": "2026-11-06T03:22:20.921598+00:00"
+      },
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 98.98,
+        "ts": "2026-11-21T21:30:03.641553+00:00"
       }
     ],
     "title": "Multifunctional 7.2 QT Air Fryer with Touchscreen – Cook Healthy for Your Family",
@@ -18663,7 +18767,7 @@
   },
   "daily|us|v1|366542686084|0": {
     "article_slug": "best-blenders-worth-buying-us",
-    "last_attempt_date": "2026-11-06",
+    "last_attempt_date": "2026-11-21",
     "observations": [
       {
         "currency": "USD",
@@ -18685,7 +18789,7 @@
       }
     ],
     "title": "Ninja SMOOTHIEiQ 1400PW Blender, 72-oz XL Pitcher, Auto-iQ Preset, Black",
-    "tracking_status": "active"
+    "tracking_status": "unavailable"
   },
   "daily|us|v1|366557854070|636255893852": {
     "article_slug": "affordable-homeware-for-students-us",
@@ -20485,6 +20589,48 @@
       }
     ],
     "title": "SONOFF 4CHPROR3 Wifi Smart Light Switch Module with RF Control for Alexa/Google",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|406352898776|0": {
+    "article_slug": "best-robot-vacuum-cleaners-worth-buying-us-2026-daily-2026-11-21",
+    "last_attempt_date": "2026-11-21",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 139.99,
+        "ts": "2026-11-21T21:30:16.682436+00:00"
+      }
+    ],
+    "title": "Roborock Q7 Series Robot Vacuum Cleaner, 8000Pa, Dual Anti-Tangle System, LiDAR",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|406368105002|0": {
+    "article_slug": "best-robot-vacuum-cleaners-worth-buying-us-2026-daily-2026-11-21",
+    "last_attempt_date": "2026-11-21",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 287.99,
+        "ts": "2026-11-21T21:30:16.682436+00:00"
+      }
+    ],
+    "title": "Roborock Q10 X5+ Self-Emptying Robot Vacuum Cleaner, 10000Pa, Obstacle Avoidance",
+    "tracking_status": "active"
+  },
+  "daily|us|v1|406463997247|0": {
+    "article_slug": "best-robot-vacuum-cleaners-worth-buying-us-2026-daily-2026-11-21",
+    "last_attempt_date": "2026-11-21",
+    "observations": [
+      {
+        "currency": "USD",
+        "date": "2026-11-21",
+        "price": 199.99,
+        "ts": "2026-11-21T21:30:16.682436+00:00"
+      }
+    ],
+    "title": "Roborock Q7 M5+ Self-Empty Robot Vacuum Cleaner & Mop, 10000Pa, Dual Anti-Tangle",
     "tracking_status": "active"
   },
   "daily|us|v1|406591827525|0": {
