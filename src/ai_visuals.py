@@ -22,7 +22,7 @@ from src.refresh_badge import updated_badge_text as _updated_badge_text
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUEST_TIMEOUT = 120
-MODEL = "@cf/bytedance/stable-diffusion-xl-lightning"
+MODEL = os.getenv("CLOUDFLARE_IMAGE_MODEL", "@cf/black-forest-labs/flux-1-schnell")
 GEN_WIDTH = 1024
 GEN_HEIGHT = 576
 OUTPUT_WIDTH = 1600
@@ -1047,6 +1047,33 @@ def generate_image(
     return True
 
 
+def _make_safe_fallback_hero(article: dict, market: str, target: Path) -> None:
+    """Reliable non-photographic fallback; never invent a picture of a product."""
+    from PIL import ImageDraw, ImageFont
+    import textwrap
+
+    canvas = Image.new("RGB", (OUTPUT_WIDTH, OUTPUT_HEIGHT), NAVY)
+    draw = ImageDraw.Draw(canvas)
+    draw.rectangle((0, 0, OUTPUT_WIDTH, 26), fill=TEAL)
+    draw.rounded_rectangle((90, 115, 1510, 790), radius=45, fill=DEEP_NAVY, outline=TEAL, width=5)
+    try:
+        font = ImageFont.truetype("DejaVuSans-Bold.ttf", 83)
+        small = ImageFont.truetype("DejaVuSans.ttf", 34)
+    except OSError:
+        font = ImageFont.load_default()
+        small = font
+    title = str(article.get("title") or article.get("slug") or "Buying guide").strip()
+    lines = textwrap.wrap(title, width=27, break_long_words=False)[:5]
+    y = 255
+    for line in lines:
+        draw.text((150, y), line, fill=WHITE, font=font)
+        y += 105
+    draw.text((150, 165), "WORTH BUYING " + market.upper(), fill=TEAL, font=small)
+    draw.text((150, 710), "Independent buying guide | Compare current retailer offers", fill=MUTED_WHITE, font=small)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    canvas.save(target, "JPEG", quality=92, optimize=True)
+
+
 def generate_market(market: str, force: bool = False) -> int:
     if market not in {"uk", "us"}:
         raise ValueError("market must be 'uk' or 'us'")
@@ -1090,6 +1117,12 @@ def generate_market(market: str, force: bool = False) -> int:
         except Exception as exc:
             # Visuals enhance publishing but must never block a valid article.
             print(f"[ai-visual-warning] {slug}: {type(exc).__name__}: {exc}")
+            try:
+                _make_safe_fallback_hero(article, market, target)
+                count += 1
+                print(f"[ai-visual-fallback] {target.relative_to(ROOT)}: safe branded artwork")
+            except Exception as fallback_exc:
+                print(f"[ai-visual-fallback-error] {slug}: {fallback_exc}")
             continue
 
         if changed:
