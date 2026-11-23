@@ -1,4 +1,8 @@
 import wave
+import shutil
+import subprocess
+
+import pytest
 
 from src.youtube_shorts import (
     HEIGHT,
@@ -133,4 +137,32 @@ def test_short_slide_renders_centered_mobile_safe_layout(tmp_path):
     )
 
     assert slide.size == (1080, 1920)
+
+
+@pytest.mark.parametrize('market',['uk','us'])
+@pytest.mark.skipif(not shutil.which('ffmpeg'),reason='Real video verification requires FFmpeg')
+def test_first_encoded_frame_shows_the_title_image_without_black_fade(tmp_path,market):
+    from PIL import Image, ImageChops, ImageDraw, ImageStat
+    from src.youtube_shorts import HERO_FRAME, build_short_video
+
+    hero=tmp_path/'title-image.jpg'
+    logo=tmp_path/'logo.png'
+    artwork=Image.new('RGB',(1600,900),(20,160,100))
+    ImageDraw.Draw(artwork).rectangle((800,0,1600,900),fill=(210,70,40))
+    artwork.save(hero)
+    Image.new('RGBA',(600,100),(8,47,91,255)).save(logo)
+    video=build_short_video({'title':f'Title image first: {market.upper()}',
+                             'youtube_short_points':['Compare the exact model','Check the complete package']},
+                            market=market,hero_path=hero,logo_path=logo,
+                            output_path=tmp_path/'short.mp4',work_dir=tmp_path/'slides')
+    decoded=tmp_path/'first-frame.png'
+    subprocess.run([shutil.which('ffmpeg'),'-y','-i',str(video),'-frames:v','1',str(decoded)],
+                   check=True,capture_output=True)
+    expected=Image.open(tmp_path/'slides/slide-01.png').convert('RGB')
+    actual=Image.open(decoded).convert('RGB')
+    assert actual.size==(1080,1920)
+    # Compare decoded video pixels, not just the intended source slide or command.
+    difference=ImageChops.difference(actual.crop(HERO_FRAME),expected.crop(HERO_FRAME))
+    assert max(ImageStat.Stat(difference).mean)<6
+    assert max(ImageStat.Stat(actual.crop(HERO_FRAME)).mean)>80
 
