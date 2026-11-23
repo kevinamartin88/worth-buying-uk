@@ -83,3 +83,29 @@ def test_official_amazon_product_image_is_preserved_and_standardised():
     assert quality.FRAME_STYLE in result
     assert 'https://m.media-amazon.com/images/I/example._SL1200_.jpg' in result
     assert 'alt="Amazon product"' in result
+
+
+def test_transient_timeout_retries_same_photo(monkeypatch):
+    calls = []
+    def dimensions(url):
+        calls.append(url)
+        if len(calls) < 3:
+            raise quality.requests.Timeout("temporary CDN timeout")
+        return 800, 600
+    monkeypatch.setattr(quality, "image_dimensions", dimensions)
+    monkeypatch.setattr(quality.time, "sleep", lambda _: None)
+    url = "https://i.ebayimg.com/images/g/retry/s-l1600.jpg"
+    assert quality.checked_product_image(url) == (url, 800, 600)
+    assert calls == [url] * 3
+
+
+def test_persistent_timeout_still_blocks_publication(monkeypatch):
+    calls = []
+    def dimensions(url):
+        calls.append(url)
+        raise quality.requests.Timeout("still unavailable")
+    monkeypatch.setattr(quality, "image_dimensions", dimensions)
+    monkeypatch.setattr(quality.time, "sleep", lambda _: None)
+    with pytest.raises(RuntimeError, match="still unavailable"):
+        quality.checked_product_image("https://i.ebayimg.com/images/g/retry/s-l1600.jpg")
+    assert len(calls) == 3
