@@ -93,7 +93,7 @@ def main():
         if article.get('_generator', {}).get('channel') != 'rakuten':
             continue
         content, count, verified = refresh_content(article['content_html'], client, now)
-        if not count:
+        if not count and content == article['content_html']:
             continue
         article['content_html'] = content
         article['source_sha'] = f"{now.isoformat()}-{article['slug']}-cfs-selling-prices-v1"
