@@ -45,3 +45,12 @@ def test_core_content_generators_stage_all_tracked_state_before_rebase():
         text = (ROOT / '.github/workflows' / name).read_text()
         assert 'git add -u state' in text
         assert 'Unexpected unstaged tracked changes would make the automated rebase unsafe' in text
+
+
+def test_shared_repository_writers_preserve_waiting_runs():
+    for path in (ROOT / '.github/workflows').glob('*.yml'):
+        workflow = yaml.safe_load(path.read_text())
+        concurrency = workflow.get('concurrency', {})
+        if isinstance(concurrency, dict) and concurrency.get('group') == 'worth-buying-repo-writes':
+            assert concurrency.get('queue') == 'max', path.name
+            assert concurrency.get('cancel-in-progress') is False, path.name
