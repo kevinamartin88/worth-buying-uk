@@ -180,6 +180,8 @@
       {
         "label": "Built-up handle option",
         "query": "adaptive cutlery easy grip",
+        "fallback_queries": ["easy grip cutlery", "built up handle cutlery"],
+        "exclude": "\\b(baby|babies|toddler|children|child|infant|holder|tubing)\\b",
         "query_us": "adaptive utensils easy grip",
         "match": "cutlery|utensil|spoon|fork",
         "specifics": "adaptive|easy.?grip|built.?up|large.?handle|ergonomic",
@@ -194,6 +196,8 @@
       {
         "label": "Angled or bendable option",
         "query": "bendable adaptive spoon",
+        "fallback_queries": ["bendable spoon"],
+        "exclude": "\\b(baby|babies|toddler|children|child|infant|holder|tubing)\\b",
         "match": "spoon|utensil|cutlery",
         "specifics": "bendable|angled|adjustable",
         "new_only": true,

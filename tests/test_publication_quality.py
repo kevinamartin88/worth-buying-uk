@@ -9,6 +9,21 @@ from src.publishing_seo import repair_metadata, enrich_metadata, metadata_html
 from verify_publication import assess, verify_one
 
 
+def test_render_probe_uses_reader_url_without_cache_busting(monkeypatch):
+    from unittest.mock import Mock
+    import verify_publication as verification
+    browser = Mock()
+    context = browser.new_context.return_value
+    page = context.new_page.return_value
+    url = 'https://www.worthbuyinguk.co.uk/2026/11/guide.html'
+    page.url = url
+    page.goto.return_value.status = 200
+    monkeypatch.setattr(verification, 'assess', lambda *args: {'verification': 'passed'})
+    assert verification.render_probe(browser, {}, 'uk', url)['verification'] == 'passed'
+    page.goto.assert_called_once_with(url, wait_until='domcontentloaded', timeout=20000)
+    context.close.assert_called_once()
+
+
 def article(market='uk'):
     return {'slug': 'coffee-guide', 'title': 'Best Coffee Machines Worth Buying in the UK (2026)' if market == 'uk' else 'Best Coffee Makers Worth Buying in the USA (2026)',
             'content_html': '<h2>Coffee makers</h2><p>Filter vs espresso, milk drinks, cleaning, warranty and retailer comparisons.</p>',

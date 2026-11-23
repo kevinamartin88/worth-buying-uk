@@ -974,6 +974,15 @@ def _generate_air_fryer_product_hero(
     return True
 
 
+def image_request_payload(article: dict, market: str) -> dict:
+    """Use the selected model's input contract, not another model's options."""
+    prompt = build_prompt(article, market)
+    if MODEL == "@cf/black-forest-labs/flux-1-schnell":
+        return {"prompt": prompt[:2048], "steps": 4}
+    return {"prompt": prompt, "negative_prompt": negative_prompt(article),
+            "width": GEN_WIDTH, "height": GEN_HEIGHT, "seed": _seed_for(article, market)}
+
+
 def generate_image(
     article: dict,
     market: str,
@@ -1022,13 +1031,7 @@ def generate_image(
         f"https://api.cloudflare.com/client/v4/accounts/{account_id}"
         f"/ai/run/{MODEL}"
     )
-    payload = {
-        "prompt": build_prompt(article, market),
-        "negative_prompt": negative_prompt(article),
-        "width": GEN_WIDTH,
-        "height": GEN_HEIGHT,
-        "seed": _seed_for(article, market),
-    }
+    payload = image_request_payload(article, market)
 
     response = requests.post(
         endpoint,

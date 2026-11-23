@@ -205,5 +205,39 @@ class CloudEditorialTests(unittest.TestCase):
             self.assertEqual(state, before)
 
 
+    def test_manual_recovery_only_retries_blocked_market_on_monday(self):
+        state = {"weekly": {"uk": {"status": "blocked"}, "us": {"status": "published"}}}
+        attempts = c.weekly(clock(5), state, [self.brief], lambda *a: ["verified"],
+                            self.builder, lambda *a: None, retry_blocked=True)
+        self.assertEqual(set(attempts), {"uk"})
+        self.assertEqual(state["weekly"]["us"]["status"], "published")
+        again = c.weekly(clock(5), state, [self.brief], lambda *a: self.fail("duplicate"), retry_blocked=True)
+        self.assertEqual(again, {})
+
+    def test_adaptive_research_checks_beyond_four_generic_candidates(self):
+        group = {"label": "cutlery", "query": "easy grip cutlery", "match": "cutlery",
+                 "specifics": "built.up", "ceiling": {"uk": 55}, "new_only": True}
+        base = {"title": "Easy grip cutlery", "price": {"currency": "GBP"},
+                "conditionId": "1000", "image": {"imageUrl": "photo"}}
+        items = [{**base, "itemId": str(n), "localizedAspects": []} for n in range(5)]
+        items[-1]["localizedAspects"] = [{"value": "Built-up handles"}]
+        class Client:
+            @staticmethod
+            def for_market(market): return Client()
+            def search(self, **kwargs): return items[:]
+            def get_item(self, item_id, **kwargs): return items[int(item_id)]
+        with patch('src.ebay.EbayClient', Client), \
+             patch('generate_daily_articles.current_picks', side_effect=AssertionError('premature shortlist')), \
+             patch('generate_daily_articles.listing_score', return_value=80), \
+             patch('src.product_image_quality.checked_product_image', return_value=('photo', 800, 600)):
+            picks = c.collect({"groups": [group]}, 'uk', 'cutlery-uk')
+        self.assertEqual(picks[0]['item']['itemId'], '4')
+
+    def test_adult_cutlery_excludes_child_products(self):
+        item = {"title": "Baby bendable spoon", "price": {"currency": "GBP"},
+                "itemId": "1", "image": {"imageUrl": "photo"}}
+        self.assertFalse(c.eligible(item, {"match": "spoon", "exclude": "baby|child"}, "uk"))
+
+
 if __name__ == "__main__":
     unittest.main()

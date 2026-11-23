@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 import html
 import json
 import os
+import time
 from pathlib import Path
 from urllib.parse import urlsplit
 
@@ -99,9 +100,9 @@ def render_probe(browser, article, market, url):
     context.route('**/*', route)
     page = context.new_page()
     try:
-        separator = '&' if '?' in url else '?'
-        check_url = url + separator + 'wb_quality=' + str(int(datetime.now(timezone.utc).timestamp() * 1000))
-        response = page.goto(check_url, wait_until='domcontentloaded', timeout=20000)
+        # Audit the same cacheable URL readers use. Unique query strings forced
+        # every probe to the Blogger origin and increased throttling pressure.
+        response = page.goto(url, wait_until='domcontentloaded', timeout=20000)
         if not response or response.status >= 400:
             raise RuntimeError('PublicPageUnavailable HTTP=' + str(response.status if response else 'no response'))
         if not same_site(page.url, get_site_host(market)):
@@ -174,7 +175,9 @@ def run(market, recent=None, read_only=False):
         with sync_playwright() as playwright:
             browser = playwright.chromium.launch(headless=True)
             try:
-                for post in posts:
+                for index, post in enumerate(posts):
+                    if index:
+                        time.sleep(3)
                     result = {}
                     name = str(post.get('source_file') or '')
                     if not name or Path(name).name != name:

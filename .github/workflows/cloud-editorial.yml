@@ -2,6 +2,11 @@ name: Cloud bespoke guides and traffic improvement
 
 on:
   workflow_dispatch:
+    inputs:
+      retry_blocked:
+        description: "Recover existing blocked drafts only, outside the weekly slot"
+        type: boolean
+        default: false
   push:
     branches: [main]
     paths: [state/manual-cloud-editorial-kick.txt]
@@ -42,6 +47,7 @@ jobs:
       - name: Generate guides and run the bounded growth experiment
         env:
           PYTHONPATH: .
+          RETRY_BLOCKED: ${{ inputs.retry_blocked }}
           EBAY_ENV: production
           EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
           EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
@@ -53,7 +59,12 @@ jobs:
           GSC_REFRESH_TOKEN: ${{ secrets.GSC_REFRESH_TOKEN }}
           GSC_UK_SITE_URL: ${{ secrets.GSC_UK_SITE_URL }}
           GSC_US_SITE_URL: ${{ secrets.GSC_US_SITE_URL }}
-        run: python cloud_editorial.py
+        run: |
+          if [ "$RETRY_BLOCKED" = "true" ]; then
+            python cloud_editorial.py --retry-blocked
+          else
+            python cloud_editorial.py
+          fi
       - name: Save articles, photos and execution records
         if: always()
         id: save

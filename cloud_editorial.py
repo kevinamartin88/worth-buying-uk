@@ -50,6 +50,8 @@ def eligible(item, group, market):
     title = str(item.get("title", ""))
     if REJECT.search(title) or not re.search(group["match"], title, re.I):
         return False
+    if group.get("exclude") and re.search(group["exclude"], title, re.I):
+        return False
     if str((item.get("price") or {}).get("currency")) != ("GBP" if market == "uk" else "USD"):
         return False
     if group.get("new_only") and str(item.get("conditionId")) != "1000":
@@ -80,7 +82,17 @@ def collect(brief, market, slug):
         selected = None
         for search_query in dict.fromkeys(queries):
             try:
-                candidates = daily.current_picks(market, search_query, group["ceiling"][market], slug)
+                if group.get("specifics"):
+                    # Adaptive-product evidence must be checked BEFORE reducing
+                    # the pool to the four generic daily recommendations.
+                    candidates = client.search(query=search_query,
+                        max_price=group["ceiling"][market], require_free_shipping=False,
+                        affiliate_reference=slug, limit=40)
+                    candidates.sort(key=lambda item: daily.listing_score(item,
+                        group["ceiling"][market], "GBP" if market == "uk" else "USD",
+                        query=search_query) or -1, reverse=True)
+                else:
+                    candidates = daily.current_picks(market, search_query, group["ceiling"][market], slug)
             except (RuntimeError, ValueError) as exc:
                 print(f"[editorial-search-skip] {market} {search_query}: {exc}")
                 continue
@@ -233,15 +245,17 @@ def build_article(brief, market, picks, today):
             "_generator": {"market": market, "topic": brief["key"], "content_type": "bespoke-weekly", "live_ebay_picks": True, "pick_count": len(picks), "date": today.isoformat()}}
 
 
-def weekly(now, state, briefs, collector=collect, builder=build_article, hero=create_hero):
+def weekly(now, state, briefs, collector=collect, builder=build_article, hero=create_hero, retry_blocked=False):
     # Wednesday onward permits a recovery run after a temporary outage.
     today = now.date()
     attempts = {}
-    if today < START or now.weekday() < 2 or (now.weekday() == 2 and now.hour < 10):
+    if today < START or (not retry_blocked and (now.weekday() < 2 or (now.weekday() == 2 and now.hour < 10))):
         return attempts
     week = today.strftime("%G-W%V")
     for market in MARKETS:
         ledger = state.setdefault("weekly", {}).setdefault(market, {})
+        if retry_blocked and ledger.get("status") != "blocked":
+            continue
         if ledger.get("week") == week:
             continue
         index = int(ledger.get("next", 0)) % len(briefs)
@@ -463,6 +477,7 @@ def report(state, now, current_run):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--preview", action="store_true", help="Validate briefs and show plan without API calls or writes")
+    parser.add_argument("--retry-blocked", action="store_true", help="Retry only existing blocked drafts outside the normal weekly window")
     parser.add_argument("--check-current-run", action="store_true", help="Check the saved run report without generating or publishing")
     args = parser.parse_args()
     if args.check_current_run:
@@ -482,7 +497,7 @@ def main():
     current_run = {"started_at": now.isoformat(), "weekly": {}}
     try:
         reconcile_publication(state)
-        current_run["weekly"] = weekly(now, state, briefs)
+        current_run["weekly"] = weekly(now, state, briefs, retry_blocked=args.retry_blocked)
         growth(now, state)
         search_metrics(now, state)
         promote(now, state)

@@ -3,6 +3,13 @@ from PIL import Image, ImageDraw
 from src import ai_visuals
 
 
+def test_flux_schnell_payload_matches_provider_contract(monkeypatch):
+    monkeypatch.setattr(ai_visuals, "MODEL", "@cf/black-forest-labs/flux-1-schnell")
+    monkeypatch.setattr(ai_visuals, "build_prompt", lambda *args: "x" * 2500)
+    payload = ai_visuals.image_request_payload({}, "uk")
+    assert payload == {"prompt": "x" * 2048, "steps": 4}
+
+
 def test_long_retailer_name_fits_inside_featured_card():
     draw = ImageDraw.Draw(Image.new("RGB", (800, 200), "white"))
     name = "Choice Furniture Superstore"
