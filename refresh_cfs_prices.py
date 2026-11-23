@@ -21,10 +21,10 @@ CHECK_NOTE = re.compile(r'<p data-wb-cfs-price-check="true">.*?</p>\s*', re.S)
 
 
 def refresh_content(content, client, now):
-    count, verified = 0, 0
+    count, verified, removed = 0, 0, 0
 
     def update(match):
-        nonlocal count, verified
+        nonlocal count, verified, removed
         block = match.group(0)
         urls = [html.unescape(value) for value in re.findall(r'href="([^"]+)"', block)]
         tracking = next((url for url in urls if cfs_destination(url)), '')
@@ -35,6 +35,11 @@ def refresh_content(content, client, now):
         name = re.sub(r'^\d+\.\s*', '', name)
         product = RakutenProduct(name, 'Choice Furniture Superstore', tracking, currency='GBP')
         ok, reason, final_url = client.validate_product_destination(product)
+        if not ok and re.search(r'HTTP (404|410)$', reason):
+            count -= 1
+            removed += 1
+            print(f"[cfs-removed] {name}: retailer confirms product page no longer exists")
+            return ''
         price = checked_cfs_price(client, product) if ok else None
         verified += bool(price)
         current = f'£{price}' if price else 'Check the current retailer price'
@@ -42,7 +47,9 @@ def refresh_content(content, client, now):
         return PRICE.sub(lambda part: part[1] + current + part[2], block, count=1)
 
     result = BLOCK.sub(update, CHECK_NOTE.sub('', content))
-    if not count:
+    numbers = iter(range(1, 1000))
+    result = re.sub(r'(<h3>)\d+\.\s*', lambda m: f'{m[1]}{next(numbers)}. ', result)
+    if not count and not removed:
         return content, 0, 0
     note = (
         '<p data-wb-cfs-price-check="true"><strong>CFS selling prices checked:</strong> '

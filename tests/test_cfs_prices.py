@@ -51,3 +51,16 @@ def test_refreshes_old_cfs_quote_without_changing_other_offers(verified, expecte
     assert '£88.00' in result and tracking in result
     again, _, _ = refresh_content(result, client, datetime(2026, 10, 6, tzinfo=timezone.utc))
     assert again == result
+
+
+@pytest.mark.parametrize('status,removed', [(404, True), (410, True), (403, False), (429, False), (500, False)])
+def test_only_confirmed_missing_products_are_removed(status, removed):
+    tracking = 'https://click.linksynergy.com/link?murl=' + quote(URL, safe='')
+    content = f'<h2>Offers</h2><h3>1. Missing Wardrobe</h3><p><strong>Price when checked:</strong> £199.00.</p><a href="{tracking}">Buy</a><h3>2. Good Wardrobe</h3><p><strong>Price when checked:</strong> £199.00.</p><a href="{tracking}">Buy</a><h2>Advice</h2>'
+    client = Mock()
+    client.validate_product_destination.side_effect = [(False, f'retailer request failed: HTTPError HTTP {status}', ''), (True, 'ok', URL)]
+    client._validated_product_pages = {tracking: (page(), URL)}
+    result, count, verified = refresh_content(content, client, datetime(2026, 11, 23, tzinfo=timezone.utc))
+    assert ('Missing Wardrobe' not in result) == removed
+    assert count == (1 if removed else 2) and verified == 1
+    assert ('<h3>1. Good Wardrobe</h3>' in result) == removed
