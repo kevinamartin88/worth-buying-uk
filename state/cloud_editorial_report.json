@@ -1,11 +1,11 @@
 {
-  "run": "2026-11-19T19:02:34.869298+00:00",
+  "run": "2026-11-23T09:38:12.217276+00:00",
   "current_run": {
-    "started_at": "2026-11-19T19:02:34.869298+00:00",
+    "started_at": "2026-11-23T09:38:12.217276+00:00",
     "weekly": {
       "uk": {
-        "status": "blocked",
-        "error": "ValueError: No verified, relevant listing with a usable photo for Built-up handle option"
+        "status": "generated-awaiting-publisher",
+        "error": null
       }
     }
   },
@@ -636,12 +636,12 @@
     },
     "weekly": {
       "uk": {
-        "status": "blocked",
-        "error": "ValueError: No verified, relevant listing with a usable photo for Built-up handle option",
-        "attempted": "2026-11-19",
-        "week": "2026-W45",
-        "next": 2,
-        "slug": "affordable-homeware-for-students-uk",
+        "status": "generated-awaiting-publisher",
+        "error": null,
+        "attempted": "2026-11-23",
+        "week": "2026-W48",
+        "next": 3,
+        "slug": "easy-grip-cutlery-uk",
         "url": "https://www.worthbuyinguk.co.uk/2026/11/affordable-homeware-for-university.html"
       },
       "us": {
