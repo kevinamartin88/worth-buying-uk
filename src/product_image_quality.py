@@ -4,6 +4,7 @@ from __future__ import annotations
 import html
 import logging
 import re
+import time
 from functools import lru_cache
 from html.parser import HTMLParser
 from io import BytesIO
@@ -75,7 +76,14 @@ def checked_product_image(url: str) -> tuple[str, int, int]:
     errors = []
     for candidate in dict.fromkeys((larger, url)):
         try:
-            width, height = image_dimensions(candidate)
+            for attempt in range(3):
+                try:
+                    width, height = image_dimensions(candidate)
+                    break
+                except (requests.Timeout, requests.ConnectionError):
+                    if attempt == 2:
+                        raise
+                    time.sleep(attempt + 1)
             if max(width, height) < MIN_SOURCE_EDGE:
                 raise ValueError(f"only {width}x{height}; need at least {MIN_SOURCE_EDGE}px on the long edge")
             if min(width, height) < 100:
