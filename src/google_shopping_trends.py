@@ -167,8 +167,10 @@ def rank_topics_by_google_shopping(
     )
 
     ranked: list[tuple[tuple, dict]] = []
+    fresh_queries = {str(topic[2]).strip().casefold() for topic, _ in cached}
+    missing = [topic for topic in topics if str(topic[2]).strip().casefold() not in fresh_queries]
     try:
-        for batch in _chunks(topics, BATCH_SIZE):
+        for batch in _chunks(missing, BATCH_SIZE):
             batch_terms = [str(topic[2]).strip() for topic in batch]
             terms = [ANCHOR_TERM]
             for term in batch_terms:
@@ -220,11 +222,13 @@ def rank_topics_by_google_shopping(
                     ranked.append((topic, signal))
 
             # Be polite to the public Trends endpoint and reduce 429 risk.
-            time.sleep(1.0)
+            time.sleep(3.0)
 
     except Exception as exc:
         status = getattr(getattr(exc, "response", None), "status_code", None)
-        remember(market, ranked, rate_limited=status == 429)
+        response = getattr(exc, "response", None)
+        remember(market, ranked, rate_limited=status == 429,
+                 retry_after=response.headers.get("Retry-After") if response is not None else None)
         print(
             f"[shopping-trends-warning] {market.upper()}: lookup unavailable "
             f"({type(exc).__name__}, HTTP {status}); retaining only recent observed signals."
@@ -234,6 +238,7 @@ def rank_topics_by_google_shopping(
         session.close()
 
     remember(market, ranked)
+    ranked.extend(cached)
     ranked.sort(
         key=lambda pair: (
             -float(pair[1].get("score") or 0),

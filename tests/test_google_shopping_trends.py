@@ -44,3 +44,20 @@ def test_rate_limit_keeps_recent_observations_and_stops_requests(monkeypatch, tm
     assert cache.cooling_down("uk")
     assert shopping.rank_topics_by_google_shopping(topics, "uk")[0][1]["cached"]
     assert len(calls) == 1
+    assert shopping.rank_topics_by_google_shopping(topics, "us") == []
+    assert len(calls) == 1
+
+
+def test_only_missing_topics_are_fetched(monkeypatch, tmp_path):
+    from src import google_shopping_trends as shopping, shopping_cache as cache
+    monkeypatch.setattr(cache, "CACHE_PATH", tmp_path / "cache.json")
+    topics = [("air", "Air", "air purifier"), ("slow", "Slow", "slow cooker")]
+    cache.remember("uk", [(topics[0], {"query": "air purifier", "score": 50})])
+    calls = []
+    def widgets(session, terms, geo, hl):
+        calls.append(terms)
+        return []
+    monkeypatch.setattr(shopping, "_explore_widgets", widgets)
+    result = shopping.rank_topics_by_google_shopping(topics, "uk")
+    assert result[0][0] == topics[0]
+    assert calls == [["air fryer", "slow cooker"]]

@@ -62,12 +62,12 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: main
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: "pip"
@@ -226,7 +226,7 @@ jobs:
       - name: Save UK publication quality evidence
         if: always()
         continue-on-error: true
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: publication-quality-uk
           path: reports/publication-quality-uk.json
@@ -274,7 +274,7 @@ jobs:
       - name: Save UK Google discovery evidence
         if: always()
         continue-on-error: true
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: google-discovery-after-publication-uk
           path: reports/google-discovery-uk.json

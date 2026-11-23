@@ -20,6 +20,17 @@ def test_rate_limit_cooldown_expires(monkeypatch, tmp_path):
     monkeypatch.setattr(cache.time, "time", lambda: 100000)
     cache.remember("uk", [], rate_limited=True)
     assert cache.cooling_down("uk")
-    assert not cache.cooling_down("us")
+    assert cache.cooling_down("us")
     monkeypatch.setattr(cache.time, "time", lambda: 100000 + cache.COOLDOWN + 1)
     assert not cache.cooling_down("uk")
+
+
+def test_repeated_limits_back_off_and_honour_server_wait(monkeypatch, tmp_path):
+    monkeypatch.setattr(cache, "CACHE_PATH", tmp_path / "cache.json")
+    monkeypatch.setattr(cache.time, "time", lambda: 100000)
+    cache.remember("uk", [], rate_limited=True, retry_after="100000")
+    assert cache.read_cache()["_service"]["retry_after"] == 200000
+    cache.remember("us", [], rate_limited=True)
+    assert cache.read_cache()["_service"]["retry_after"] == 200000
+    assert cache.read_cache()["_service"]["consecutive_limits"] == 2
+    assert cache.cooling_down("uk") and cache.cooling_down("us")

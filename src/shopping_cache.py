@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import math
 import time
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 
 CACHE_PATH = Path(__file__).resolve().parents[1] / "state" / "google_shopping_cache.json"
@@ -43,12 +44,14 @@ def cached_topics(topics: list[tuple], market: str) -> list[tuple[tuple, dict]]:
 
 def cooling_down(market: str) -> bool:
     try:
-        return float(read_cache().get(market, {}).get("retry_after", 0)) > time.time()
+        cache = read_cache()
+        return max(float(cache.get(key, {}).get("retry_after", 0))
+                   for key in (market, "_service")) > time.time()
     except (TypeError, ValueError):
         return False
 
 
-def remember(market: str, ranked: list, rate_limited: bool = False) -> None:
+def remember(market: str, ranked: list, rate_limited: bool = False, retry_after=None) -> None:
     cache = read_cache()
     state = cache.setdefault(market, {})
     now = time.time()
@@ -64,5 +67,21 @@ def remember(market: str, ranked: list, rate_limited: bool = False) -> None:
         }
     state["entries"] = entries
     if rate_limited:
-        state["retry_after"] = now + COOLDOWN
+        service = cache.setdefault("_service", {})
+        failures = min(int(service.get("consecutive_limits", 0)) + 1, 4)
+        delay = COOLDOWN * 2 ** (failures - 1)
+        try:
+            server_delay = float(retry_after)
+        except (TypeError, ValueError):
+            try:
+                server_delay = parsedate_to_datetime(retry_after).timestamp() - now
+            except (TypeError, ValueError, OverflowError):
+                server_delay = 0
+        if math.isfinite(server_delay):
+            delay = max(delay, server_delay)
+        deadline = max(now + delay, float(service.get("retry_after", 0)))
+        service.update(retry_after=deadline, consecutive_limits=failures)
+        state["retry_after"] = now + delay
+    elif ranked:
+        cache.setdefault("_service", {})["consecutive_limits"] = 0
     save_cache(cache)

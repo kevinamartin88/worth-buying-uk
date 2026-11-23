@@ -277,7 +277,8 @@ class RakutenClient:
             )
             response.raise_for_status()
         except requests.RequestException as exc:
-            return False, f"retailer request failed: {type(exc).__name__}", ""
+            status = getattr(getattr(exc, 'response', None), 'status_code', None)
+            return False, f"retailer request failed: {type(exc).__name__}" + (f" HTTP {status}" if status else ""), ""
 
         final_url = str(getattr(response, "url", "") or destination)
         final = urlsplit(final_url)

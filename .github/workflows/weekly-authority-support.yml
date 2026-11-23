@@ -21,12 +21,12 @@ jobs:
     timeout-minutes: 12
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: main
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: "pip"
@@ -64,6 +64,7 @@ jobs:
         run: |
           set -euo pipefail
           git add articles articles-us state/authority_support.json state/daily_price_history.json
+          git add -u state
           if git diff --cached --quiet; then
             echo "No supporting article changes to commit."
             exit 0

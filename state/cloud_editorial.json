@@ -625,13 +625,13 @@
   },
   "weekly": {
     "uk": {
-      "status": "generated-awaiting-publisher",
+      "status": "published",
       "error": null,
       "attempted": "2026-11-23",
       "week": "2026-W48",
       "next": 3,
       "slug": "easy-grip-cutlery-uk",
-      "url": "https://www.worthbuyinguk.co.uk/2026/11/affordable-homeware-for-university.html"
+      "url": "https://www.worthbuyinguk.co.uk/2026/11/easy-grip-cutlery-for-reduced-hand.html"
     },
     "us": {
       "status": "published",

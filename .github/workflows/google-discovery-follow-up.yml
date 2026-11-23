@@ -28,10 +28,10 @@ jobs:
       matrix:
         market: [uk, us]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: main
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
           cache: pip
@@ -69,7 +69,7 @@ jobs:
       - name: Save publication quality evidence
         if: always()
         continue-on-error: true
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: publication-quality-follow-up-${{ matrix.market }}
           path: reports/publication-quality-${{ matrix.market }}.json
@@ -78,7 +78,7 @@ jobs:
       - name: Save Google discovery evidence
         if: always()
         continue-on-error: true
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: google-discovery-follow-up-${{ matrix.market }}
           path: reports/google-discovery-${{ matrix.market }}.json
