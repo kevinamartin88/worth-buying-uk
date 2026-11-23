@@ -12,6 +12,7 @@ from src.article_images import add_required_hero, verify_required_hero
 from src.blogger import BloggerClient
 from src.cfs_prices import cfs_destination, checked_cfs_price
 from src.rakuten import RakutenClient, RakutenProduct
+from src.publishing_seo import enrich_metadata
 from publish_articles import UK_BLOG_HOSTS
 
 ROOT = Path(__file__).resolve().parent
@@ -71,7 +72,8 @@ def publish_existing(article, blogger):
     before = blogger.get_post_or_none(post_id)
     if not before or not before.get('url'):
         raise RuntimeError('Existing CFS post could not be read')
-    content, hero = add_required_hero(clean_article_disclosures(article['content_html']), 'uk', article['slug'], article['title'])
+    enriched = enrich_metadata(clean_article_disclosures(article['content_html']), article, 'uk')
+    content, hero = add_required_hero(enriched, 'uk', article['slug'], article['title'])
     blogger.update_post_content(post_id, content)
     stored = blogger.get_post_or_none(post_id)
     if not stored or stored.get('url') != before['url'] or stored.get('content') != content:

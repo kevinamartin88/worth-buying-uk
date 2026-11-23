@@ -64,3 +64,21 @@ def test_only_confirmed_missing_products_are_removed(status, removed):
     assert ('Missing Wardrobe' not in result) == removed
     assert count == (1 if removed else 2) and verified == 1
     assert ('<h3>1. Good Wardrobe</h3>' in result) == removed
+
+
+def test_price_publication_keeps_seo_description_and_tracking(monkeypatch):
+    import refresh_cfs_prices as refresh
+    from src.publishing_seo import description_for
+    article = {'slug': 'cfs-wardrobes-test', 'title': 'Wardrobes UK',
+               'content_html': '<h2>Wardrobes</h2><p>Measure door swing and assembly clearance.</p>',
+               '_seo': {'description': 'UK buying guide: Wardrobes: measure rail space, door swing and assembly clearance.'}}
+    stored = {'id': '1', 'url': 'https://www.worthbuyinguk.co.uk/guide.html', 'content': 'old'}
+    client = Mock()
+    client.find_post_by_exact_title.return_value = stored
+    client.get_post_or_none.side_effect = lambda _: dict(stored)
+    client.update_post_content.side_effect = lambda _, content: stored.update(content=content)
+    monkeypatch.setattr(refresh, 'add_required_hero', lambda content, *args: (content, 'hero'))
+    monkeypatch.setattr(refresh, 'verify_required_hero', lambda *args: None)
+    refresh.publish_existing(article, client)
+    assert description_for(article, 'uk') in stored['content']
+    assert 'wb-published-seo' in stored['content'] and 'wb_retailer_click' in stored['content']
