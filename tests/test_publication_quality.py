@@ -30,6 +30,57 @@ def article(market='uk'):
             '_seo': {'description': f'Compare coffee {"machines in the UK" if market == "uk" else "makers in the USA"}: filter vs espresso, milk drinks, cleaning and warranty buying checks.'}}
 
 
+def test_rate_limit_waits_then_checks_real_response(monkeypatch):
+    from unittest.mock import Mock
+    import verify_publication as v
+    page = Mock()
+    page.goto.side_effect = [Mock(status=429, headers={'retry-after': '45'}), Mock(status=200)]
+    sleep = Mock()
+    monkeypatch.setattr(v.time, 'sleep', sleep)
+    assert v.navigate_public_page(page, 'https://example.test/').status == 200
+    sleep.assert_called_once_with(45)
+    assert page.goto.call_count == 2
+
+
+@pytest.mark.parametrize('headers,attempts', [({'retry-after': '3600'}, 1), ({}, 2)])
+def test_rate_limit_never_hammers_or_reports_success(monkeypatch, headers, attempts):
+    from unittest.mock import Mock
+    import verify_publication as v
+    page = Mock()
+    page.goto.return_value = Mock(status=429, headers=headers)
+    monkeypatch.setattr(v.time, 'sleep', Mock())
+    with pytest.raises(v.PublicPageUnavailable) as error:
+        v.navigate_public_page(page, 'https://example.test/')
+    assert error.value.status == 429
+    assert page.goto.call_count == attempts
+
+
+def test_retry_after_http_date():
+    from datetime import datetime, timezone
+    from verify_publication import retry_delay
+    assert retry_delay({'retry-after': 'Mon, 23 Nov 2026 10:01:00 GMT'},
+                       datetime(2026, 11, 23, 10, 0, tzinfo=timezone.utc)) == 60
+
+
+def test_metadata_probe_skips_heavy_assets_but_keeps_scripts(monkeypatch):
+    from unittest.mock import Mock
+    import verify_publication as v
+    browser = Mock()
+    page = browser.new_context.return_value.new_page.return_value
+    page.url = 'https://www.worthbuyinguk.co.uk/guide.html'
+    page.goto.return_value.status = 200
+    monkeypatch.setattr(v, 'assess', lambda *args: {'verification': 'passed'})
+    v.render_probe(browser, {}, 'uk', page.url)
+    route = browser.new_context.return_value.route.call_args.args[1]
+    for resource, blocked in [('image', True), ('font', True), ('script', False), ('document', False)]:
+        request = Mock()
+        request.request.url = page.url
+        request.request.resource_type = resource
+        route(request)
+        assert request.abort.called == blocked
+        assert request.continue_.called != blocked
+
+
 @pytest.mark.parametrize('market', ['uk', 'us'])
 def test_preserves_accurate_description_and_repairs_bad_descriptions(market):
     row = article(market)

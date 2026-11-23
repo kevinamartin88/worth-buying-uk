@@ -14,7 +14,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: google-discovery-follow-up
+  group: worth-buying-repo-writes
+  queue: max
   cancel-in-progress: false
 
 jobs:
@@ -22,6 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
+      max-parallel: 1
       fail-fast: false
       matrix:
         market: [uk, us]

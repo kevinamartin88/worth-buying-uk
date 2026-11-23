@@ -15,7 +15,6 @@ on:
       - "src/internal_links.py"
       - "src/publishing_seo.py"
       - "src/publication_quality.py"
-      - "verify_publication.py"
       - "post_publish_seo.py"
       - "src/google_discovery_report.py"
       - "src/article_copy.py"

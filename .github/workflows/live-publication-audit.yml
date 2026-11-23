@@ -1,0 +1,50 @@
+name: Live publication audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'verify_publication.py'
+      - '.github/workflows/live-publication-audit.yml'
+permissions:
+  contents: read
+concurrency:
+  group: worth-buying-repo-writes
+  queue: max
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: |
+          pip install -r requirements.txt 'playwright>=1.49,<2'
+          python -m playwright install --with-deps chromium
+      - name: Test retry handling and real browser metadata
+        env:
+          PYTHONPATH: .
+        run: pytest -q tests/test_publication_quality.py tests/test_publication_quality_browser.py
+      - name: Check three recent pages in each market sequentially
+        env:
+          PYTHONPATH: .
+        run: |
+          python verify_publication.py --market uk --recent 3 --read-only
+          sleep 10
+          python verify_publication.py --market us --recent 3 --read-only
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          reports=[json.loads(p.read_text()) for p in Path('reports').glob('publication-quality-*.json')]
+          assert len(reports)==2 and all(r['complete'] and r['posts'] for r in reports), 'Live audit incomplete; inspect saved evidence'
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-publication-audit
+          path: reports/publication-quality-*.json
+          retention-days: 30

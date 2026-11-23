@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import argparse
 from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
 import html
 import json
 import os
@@ -22,6 +23,40 @@ from src.site_config import get_site_host, get_site_config
 
 ROOT = Path(__file__).resolve().parent
 RECEIPT = 'not tested: no synthetic events are sent to production GA4'
+
+
+class PublicPageUnavailable(RuntimeError):
+    def __init__(self, status, headers=None):
+        super().__init__('PublicPageUnavailable HTTP=' + str(status))
+        self.status = status
+        self.headers = {k: v for k, v in (headers or {}).items()
+                        if k.lower() in {'server', 'retry-after', 'cf-ray', 'content-type'}}
+
+
+def retry_delay(headers, now=None):
+    """Honour Retry-After; long waits are deferred, never shortened."""
+    value = headers.get('retry-after', '')
+    try:
+        seconds = float(value)
+    except (ValueError, TypeError):
+        try:
+            seconds = (parsedate_to_datetime(value) - (now or datetime.now(timezone.utc))).total_seconds()
+        except (ValueError, TypeError, OverflowError):
+            seconds = 30
+    return max(10, seconds)
+
+
+def navigate_public_page(page, url):
+    for attempt in range(2):
+        response = page.goto(url, wait_until='domcontentloaded', timeout=20000)
+        if response and response.status < 400:
+            return response
+        failure = PublicPageUnavailable(response.status if response else 'no response',
+                                        response.headers if response else {})
+        delay = retry_delay(failure.headers)
+        if failure.status != 429 or attempt or delay > 60:
+            raise failure
+        time.sleep(delay)
 
 PROBE = r'''() => {
   const body=document.querySelector('.post-body');
@@ -92,7 +127,8 @@ def render_probe(browser, article, market, url):
     # Do not add test page views, ad impressions or retailer clicks to real accounts.
     def route(request):
         host = (urlsplit(request.request.url).hostname or '').lower()
-        if (host.endswith('.google-analytics.com') or host == 'google-analytics.com'
+        if (request.request.resource_type in {'image', 'media', 'font', 'stylesheet'}
+                or host.endswith('.google-analytics.com') or host == 'google-analytics.com'
                 or host.endswith('.doubleclick.net') or host.endswith('.googlesyndication.com')):
             request.abort()
         else:
@@ -102,9 +138,7 @@ def render_probe(browser, article, market, url):
     try:
         # Audit the same cacheable URL readers use. Unique query strings forced
         # every probe to the Blogger origin and increased throttling pressure.
-        response = page.goto(url, wait_until='domcontentloaded', timeout=20000)
-        if not response or response.status >= 400:
-            raise RuntimeError('PublicPageUnavailable HTTP=' + str(response.status if response else 'no response'))
+        response = navigate_public_page(page, url)
         if not same_site(page.url, get_site_host(market)):
             raise RuntimeError('UnexpectedRedirectHost=' + str(urlsplit(page.url).hostname))
         page.locator('.post-body').first.wait_for(state='attached', timeout=5000)
@@ -113,7 +147,10 @@ def render_probe(browser, article, market, url):
             page.wait_for_function("document.querySelector('script.wb-published-seo') && document.querySelector('meta[name=description]')", timeout=5000)
         except Exception:
             pass  # assess() records missing metadata rather than calling it a pass.
-        return assess(page.evaluate(PROBE), article, market, url)
+        result = assess(page.evaluate(PROBE), article, market, url)
+        result['http_status'] = response.status
+        result['probe_scope'] = 'Live metadata and local click handlers; visual assets are not downloaded or audited'
+        return result
     finally:
         context.close()
 
@@ -137,13 +174,20 @@ def verify_one(probe, article, market, post, client=None):
         # Repair only scripts and affiliate attributes; never replace editorial copy,
         # hero images, post dates, labels, title or URL with generated source content.
         repaired = repair_metadata(client, stored, article, market)
+        time.sleep(10)
         second = probe(article, market, url)
         second['repair'] = {'attempted': True, 'stored_content_changed': repaired.get('content') != stored.get('content'),
                             'before_issues': first['issues']}
         return second
     except Exception as exc:
         details = str(exc) if isinstance(exc, RuntimeError) and str(exc).startswith(('PublicPageUnavailable', 'UnexpectedRedirectHost')) else type(exc).__name__
-        return {'verification': 'unconfirmed', 'issues': [details], 'ga4_receipt': RECEIPT}
+        result = {'verification': 'unconfirmed', 'issues': [details], 'ga4_receipt': RECEIPT}
+        if isinstance(exc, PublicPageUnavailable):
+            result['http_status'] = exc.status
+            result['response_headers'] = exc.headers
+            if exc.status == 429:
+                result['retry_after_seconds'] = retry_delay(exc.headers)
+        return result
 
 
 def checkpoint(path, report):
@@ -177,7 +221,7 @@ def run(market, recent=None, read_only=False):
             try:
                 for index, post in enumerate(posts):
                     if index:
-                        time.sleep(3)
+                        time.sleep(10)
                     result = {}
                     name = str(post.get('source_file') or '')
                     if not name or Path(name).name != name:
