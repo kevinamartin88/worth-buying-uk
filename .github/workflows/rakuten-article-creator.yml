@@ -19,7 +19,7 @@ permissions:
   actions: write
 
 concurrency:
-  group: worth-buying-rakuten-writes
+  group: worth-buying-repo-writes
   queue: max
   cancel-in-progress: false
 
@@ -31,6 +31,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
+        with:
+          ref: main
 
       - name: Set up Python
         uses: actions/setup-python@v6

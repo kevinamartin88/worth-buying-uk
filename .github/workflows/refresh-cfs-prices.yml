@@ -15,7 +15,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: worth-buying-rakuten-writes
+  group: worth-buying-repo-writes
+  queue: max
   cancel-in-progress: false
 
 jobs:
@@ -24,6 +25,8 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: main
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
