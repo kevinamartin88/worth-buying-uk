@@ -103,3 +103,11 @@ def test_savvy_keeps_market_specific_examples_and_distinct_angles():
 def test_localisation_does_not_corrupt_words_and_roundup_explains_discount_basis():
     assert uk_text('entire tyre shipping cost') == 'entire tyre delivery cost'
     assert 'seller\'s stated reference price' in weekly_deal_advice()
+
+def test_dated_daily_description_survives_repeated_enrichment():
+    article = {'slug': 'dated-hangers', '_generator': {'topic': 'non-slip-hangers'},
+               'content_html': '<h2>How to choose the right option</h2><p>Old</p><h2>Evidence</h2>',
+               '_seo': {'last_checked_iso': '2026-11-22'}}
+    enriched = enhance_uk_article(article, 'uk')
+    enriched['_seo']['description'] += ' Updated 2026-11-22.'
+    assert enhance_uk_article(enriched, 'uk') == enriched

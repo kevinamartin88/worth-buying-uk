@@ -261,7 +261,11 @@ def enhance_uk_article(article, market):
     if article.get('slug') == 'ps5-vs-ps4-best-value-uk-2026':
         subject = 'PlayStation consoles: ' + subject
     description = 'UK buying guide: ' + subject + '.'
-    seo['description'] = description if len(description) <= 155 else description[:154].rsplit(' ', 1)[0].rstrip(' ,.;:') + '…'
+    description = description if len(description) <= 155 else description[:154].rsplit(' ', 1)[0].rstrip(' ,.;:') + '…'
+    # The dated daily route adds this suffix after editorial enrichment.
+    # Preserve that exact, valid date on repeated publishing passes.
+    dated = description + ' Updated ' + str(seo.get('last_checked_iso') or '') + '.'
+    seo['description'] = dated if seo.get('description') == dated and len(dated) <= 155 else description
     seo['uk_editorial_revision'] = REVISION
     return result
 
