@@ -37,7 +37,7 @@ for market in ('uk', 'us'):
         query = group.get('query_' + market, group['query'])
         queries = [query, 'easy grip cutlery' if 'handle' in group['label'] else 'bendable spoon']
         for q in dict.fromkeys(queries):
-            items = client.search(query=q, max_price=group['ceiling'][market], require_free_shipping=False, limit=30)
+            items = client.search(query=q, max_price=group['ceiling'][market], require_free_shipping=False, affiliate_reference='bespoke-diagnostic', limit=30)
             print(json.dumps({'market': market, 'query': q, 'results': len(items)}))
             for item in items[:12]:
                 detail = client.get_item(item['itemId'])
