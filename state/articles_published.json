@@ -976,7 +976,7 @@
   },
   "best-soundbars-worth-buying-uk-2026": {
     "daily_featured_date": "2026-11-20",
-    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/uk/best-soundbars-worth-buying-uk-2026.jpg?v=8fec2dab5251c9c8",
+    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/uk/best-soundbars-worth-buying-uk-2026.jpg?v=d0e0337fc2b45f12",
     "image_required": true,
     "post_id": "389493596232247950",
     "primary_category": "Tech",
@@ -1263,6 +1263,20 @@
     "status": "published",
     "title": "Diamond Jewellery Deals on eBay UK: What to Know Before You Buy (2026)",
     "url": "https://www.worthbuyinguk.co.uk/2026/10/diamond-jewellery-deals-on-ebay-uk-what.html"
+  },
+  "easy-grip-cutlery-uk": {
+    "daily_featured_date": null,
+    "hero_image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/uk/easy-grip-cutlery-uk.jpg",
+    "image_required": true,
+    "post_id": "7133636208717029826",
+    "promotion_token": null,
+    "publish_fingerprint": "1cfd5635d98dcafb7b8a8ee82e494a8de2d36fa72e739925545383782939a791",
+    "seo_revision": "published-seo-v1",
+    "source_file": "easy-grip-cutlery-uk.json",
+    "source_sha": "b2fa72dbbe21ddf9c57092fa004c9a79b45ad3d5dd471fcbf2ad274680d28830",
+    "status": "published",
+    "title": "Easy-Grip Cutlery for Reduced Hand Mobility: How to Compare Options",
+    "url": "https://www.worthbuyinguk.co.uk/2026/11/easy-grip-cutlery-for-reduced-hand.html"
   },
   "garage-equipment-tools-deals-ebay-uk-2026": {
     "daily_featured_date": null,

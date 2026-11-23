@@ -890,6 +890,17 @@
   "diamond-jewellery-deals-ebay-uk-2026": {
     "status": "preexisting"
   },
+  "easy-grip-cutlery-uk": {
+    "buffer_channel_id": "6aa84d4aea19ca0bde41a0a4",
+    "buffer_post_id": "6b040bbd00ec56c26ff3a008",
+    "buffer_sent_at": "2026-11-23T09:47:42.557Z",
+    "buffer_status": "sent",
+    "image_url": "https://raw.githubusercontent.com/kevinamartin88/worth-buying-uk/main/assets/ai/uk/easy-grip-cutlery-uk.jpg",
+    "promotion_token": null,
+    "source_sha": "b2fa72dbbe21ddf9c57092fa004c9a79b45ad3d5dd471fcbf2ad274680d28830",
+    "title": "Easy-Grip Cutlery for Reduced Hand Mobility: How to Compare Options",
+    "url": "https://www.worthbuyinguk.co.uk/2026/11/easy-grip-cutlery-for-reduced-hand.html"
+  },
   "garage-equipment-tools-deals-ebay-uk-2026": {
     "status": "preexisting"
   },
