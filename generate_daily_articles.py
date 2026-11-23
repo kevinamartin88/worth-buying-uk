@@ -1662,6 +1662,12 @@ def amazon_model_query(title: str, fallback_query: str) -> tuple[str, bool]:
             token, re.I,
         ):
             continue
+        # Pack counts, feature counts and joined marketing phrases are not
+        # manufacturer model identities (e.g. 162pc, 10-Heat, 000Pa).
+        if re.match(r"^\d", token) or re.search(
+            r"(?:headset|wireless|white|black|ghz)", token, re.I
+        ):
+            continue
         compact = re.sub(r"[^A-Za-z0-9]", "", token)
         if len(compact) < 5:
             continue
