@@ -1,9 +1,9 @@
 {
   "uk": {
-    "authority_cluster": "Cleaning & Home Climate",
+    "authority_cluster": "Consumer Tech",
     "content_action": "created",
-    "date": "2026-11-22",
-    "day": "Sunday",
+    "date": "2026-11-23",
+    "day": "Monday",
     "demand_score": null,
     "google_cached": false,
     "google_observed_at": null,
@@ -17,18 +17,18 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-non-slip-hangers-worth-buying-uk-2026-daily-2026-11-22",
-    "title": "4 Best Non-Slip Hangers UK 2026: Picks from £8.29–£56 | 22 November 2026 Buying Update",
-    "topic": "non-slip-hangers",
+    "slug": "best-video-doorbells-worth-buying-uk-2026-daily-2026-11-23",
+    "title": "4 Best Video Doorbells UK 2026: Picks from £45–£100 | 23 November 2026 Buying Update",
+    "topic": "video-doorbells",
     "trend_traffic": null,
-    "weekend_focus": "sunday-home",
-    "weekend_priority": true
+    "weekend_focus": null,
+    "weekend_priority": false
   },
   "us": {
     "authority_cluster": "Cleaning & Home Climate",
     "content_action": "created",
-    "date": "2026-11-22",
-    "day": "Sunday",
+    "date": "2026-11-23",
+    "day": "Monday",
     "demand_score": null,
     "google_cached": false,
     "google_observed_at": null,
@@ -42,11 +42,11 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-non-slip-hangers-worth-buying-us-2026-daily-2026-11-22",
-    "title": "4 Best Non-Slip Hangers USA 2026: Picks from $16.62–$31 | 22 November 2026 Buying Update",
-    "topic": "non-slip-hangers",
+    "slug": "best-electric-blankets-worth-buying-us-2026-daily-2026-11-23",
+    "title": "4 Best Electric Blankets USA 2026: Picks from $30–$50 | 23 November 2026 Buying Update",
+    "topic": "electric-blankets",
     "trend_traffic": null,
-    "weekend_focus": "sunday-home",
-    "weekend_priority": true
+    "weekend_focus": null,
+    "weekend_priority": false
   }
 }
