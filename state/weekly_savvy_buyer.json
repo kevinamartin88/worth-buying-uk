@@ -1,6 +1,6 @@
 {
   "uk": {
-    "date": "2026-11-16",
+    "date": "2026-11-23",
     "dates": [
       "2026-10-03",
       "2026-10-05",
@@ -12,14 +12,15 @@
       "2026-10-26",
       "2026-11-02",
       "2026-11-09",
-      "2026-11-16"
+      "2026-11-16",
+      "2026-11-23"
     ],
-    "slug": "savvy-buyer-monday-subscriptions-finance-before-you-shop-uk-2026-11-16",
-    "title": "Savvy Buyer Monday: Before You Shop for Checking Subscriptions And Payment Plans (UK)",
-    "week": "2026-W47"
+    "slug": "savvy-buyer-monday-subscriptions-finance-avoid-traps-uk-2026-11-23",
+    "title": "Savvy Buyer Monday: Common Traps to Avoid for Checking Subscriptions And Payment Plans (UK)",
+    "week": "2026-W48"
   },
   "us": {
-    "date": "2026-11-16",
+    "date": "2026-11-23",
     "dates": [
       "2026-10-03",
       "2026-10-05",
@@ -31,10 +32,11 @@
       "2026-10-26",
       "2026-11-02",
       "2026-11-09",
-      "2026-11-16"
+      "2026-11-16",
+      "2026-11-23"
     ],
-    "slug": "savvy-buyer-monday-subscriptions-finance-before-you-shop-us-2026-11-16",
-    "title": "Savvy Buyer Monday: Before You Shop for Checking Subscriptions And Payment Plans (US)",
-    "week": "2026-W47"
+    "slug": "savvy-buyer-monday-subscriptions-finance-avoid-traps-us-2026-11-23",
+    "title": "Savvy Buyer Monday: Common Traps to Avoid for Checking Subscriptions And Payment Plans (US)",
+    "week": "2026-W48"
   }
 }
