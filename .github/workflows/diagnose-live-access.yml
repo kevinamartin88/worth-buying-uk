@@ -1,0 +1,42 @@
+name: Diagnose live page access
+on:
+  workflow_dispatch:
+  push:
+    paths: ['.github/workflows/diagnose-live-access.yml']
+permissions:
+  contents: read
+concurrency:
+  group: live-access-diagnostic
+  cancel-in-progress: false
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Inspect one public document per market
+        run: |
+          python - <<'PY'
+          import json,time
+          from playwright.sync_api import sync_playwright
+          from pathlib import Path
+          with sync_playwright() as p:
+              browser=p.chromium.launch()
+              for market,path in [('uk','state/articles_published.json'),('us','state/articles_us_published.json')]:
+                  data=json.loads(Path(path).read_text())
+                  rows=[v for v in data.values() if isinstance(v,dict) and v.get('url')]
+                  context=browser.new_context(service_workers='block')
+                  context.route('**/*',lambda r: r.continue_() if r.request.resource_type=='document' else r.abort())
+                  page=context.new_page()
+                  response=page.goto(rows[-1]['url'],wait_until='domcontentloaded',timeout=30000)
+                  print(json.dumps({'market':market,'url':page.url,'status':response.status,'headers':{k:v for k,v in response.headers.items() if k in ['server','retry-after','cf-ray','via','content-type']},'body':page.locator('body').inner_text()[:1800]}))
+                  context.close()
+                  time.sleep(10)
+              browser.close()
+          PY
