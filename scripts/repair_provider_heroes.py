@@ -1,4 +1,4 @@
-"""Repair nine affected heroes with verified product photos before AI fallback."""
+"""Repair nine product heroes with consistent, tightly framed regional logos."""
 import json
 import os
 from pathlib import Path

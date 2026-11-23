@@ -39,7 +39,5 @@ jobs:
             git pull --rebase origin main
             git push
           fi
-      - name: Refresh publication through the existing publishers
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh workflow run publish-articles.yml --ref main -f chain_usa=true
+      # Existing posts reference these stable raw/main image URLs. Updating
+      # their images requires no duplicate article or social publishing run.

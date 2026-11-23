@@ -148,7 +148,7 @@ def render_brief(brief, market):
 def create_hero(article, market, picks, output=None):
     """Render a real listing photo and the actual brand logo, without AI costs."""
     import requests
-    from PIL import Image, ImageDraw, ImageFont
+    from PIL import Image, ImageDraw, ImageFont, ImageChops
     from src.product_image_quality import is_ebay_image, MAX_BYTES
     url = picks[0]["item"]["image"]["imageUrl"]
     if not is_ebay_image(url):
@@ -172,6 +172,11 @@ def create_hero(article, market, picks, output=None):
     logo_path = ROOT / "assets" / "brand" / ("worth-buying-uk-logo.png" if market == "uk" else "worth-buying-usa-logo.png")
     with Image.open(logo_path) as logo:
         logo = logo.convert("RGBA")
+        white = Image.new("RGB", logo.size, "white")
+        white.paste(logo, mask=logo.getchannel("A"))
+        bounds = ImageChops.difference(white, Image.new("RGB", logo.size, "white")).convert("L").point(lambda v: 255 if v > 20 else 0).getbbox()
+        if bounds:
+            logo = logo.crop(bounds)
         logo.thumbnail((540, 110), Image.Resampling.LANCZOS)
         draw.rounded_rectangle((70, 55, 660, 205), radius=16, fill="white")
         canvas.paste(logo, (95, 75), logo)
