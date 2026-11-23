@@ -994,6 +994,32 @@ def image_request_payload(article: dict, market: str) -> dict:
             "width": GEN_WIDTH, "height": GEN_HEIGHT, "seed": _seed_for(article, market)}
 
 
+def _generate_verified_product_hero(article: dict, market: str, output=None) -> bool:
+    """Prefer an actual advertised product over a synthesized product scene."""
+    from html.parser import HTMLParser
+    from src.product_image_quality import checked_product_image, is_ebay_image
+    from cloud_editorial import create_hero
+    class Photos(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.photos = []
+        def handle_starttag(self, tag, attrs):
+            data = dict(attrs)
+            if tag == 'img' and data.get('alt') and is_ebay_image(data.get('src', '')):
+                self.photos.append(data)
+    photos = Photos()
+    photos.feed(article.get('content_html', ''))
+    for photo in photos.photos:
+        try:
+            url, _, _ = checked_product_image(photo['src'])
+            create_hero(article, market, [{'item': {'image': {'imageUrl': url}}}], output=output)
+            print('[verified-product-hero]', article['slug'])
+            return True
+        except (requests.RequestException, RuntimeError, ValueError, OSError):
+            continue
+    return False
+
+
 def generate_image(
     article: dict,
     market: str,
@@ -1032,6 +1058,10 @@ def generate_image(
 
     if _has_any(_topic_haystack(article), "air fryer", "air-fryer"):
         raise RuntimeError("No reviewed air-fryer source or suitable retailer photo; refusing diffusion fallback")
+
+    if _generate_verified_product_hero(article, market, output):
+        _write_style_marker(output, article)
+        return True
 
     if not account_id or not api_token:
         raise RuntimeError(

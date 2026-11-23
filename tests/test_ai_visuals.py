@@ -14,6 +14,20 @@ def test_flux_schnell_payload_matches_provider_contract(monkeypatch):
     assert 'No typography' in payload['prompt']
 
 
+def test_verified_product_photo_is_preferred_and_unrelated_hosts_ignored(monkeypatch):
+    from unittest.mock import Mock
+    import cloud_editorial
+    from src import product_image_quality
+    checked = Mock(return_value=('https://i.ebayimg.com/images/g/product/s-l1600.jpg', 800, 800))
+    render = Mock()
+    monkeypatch.setattr(product_image_quality, 'checked_product_image', checked)
+    monkeypatch.setattr(cloud_editorial, 'create_hero', render)
+    article = {'slug': 'example', 'content_html': '<img src="https://example.com/ad.jpg" alt="Ad"><img src="https://i.ebayimg.com/images/g/product/s-l800.jpg" alt="Advertised product">'}
+    assert ai_visuals._generate_verified_product_hero(article, 'uk')
+    checked.assert_called_once_with('https://i.ebayimg.com/images/g/product/s-l800.jpg')
+    assert render.call_args.args[2][0]['item']['image']['imageUrl'].endswith('/s-l1600.jpg')
+
+
 def test_long_retailer_name_fits_inside_featured_card():
     draw = ImageDraw.Draw(Image.new("RGB", (800, 200), "white"))
     name = "Choice Furniture Superstore"

@@ -145,7 +145,7 @@ def render_brief(brief, market):
     return "\n".join(parts)
 
 
-def create_hero(article, market, picks):
+def create_hero(article, market, picks, output=None):
     """Render a real listing photo and the actual brand logo, without AI costs."""
     import requests
     from PIL import Image, ImageDraw, ImageFont
@@ -193,7 +193,7 @@ def create_hero(article, market, picks):
         draw.text((75, 280 + index * 65), line, font=font, fill="white")
     small = ImageFont.truetype(font_path, 27)
     draw.text((75, 810), "PRACTICAL CHECKS · CURRENT LISTINGS", font=small, fill="#7de2dc")
-    target = ROOT / "assets" / "ai" / market / (article["slug"] + ".jpg")
+    target = Path(output) if output is not None else ROOT / "assets" / "ai" / market / (article["slug"] + ".jpg")
     target.parent.mkdir(parents=True, exist_ok=True)
     canvas.save(target, "JPEG", quality=92)
 

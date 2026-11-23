@@ -1,4 +1,4 @@
-"""Bounded repair of the nine images affected by the November provider error."""
+"""Repair nine affected heroes with verified product photos before AI fallback."""
 import json
 import os
 from pathlib import Path
