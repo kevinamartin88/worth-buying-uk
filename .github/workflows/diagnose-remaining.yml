@@ -1,0 +1,35 @@
+name: Diagnose image and bespoke research providers
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['scripts/diagnose_remaining.py']
+permissions:
+  contents: read
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python scripts/diagnose_remaining.py
+        env:
+          PYTHONPATH: .
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          EBAY_ENV: production
+          EBAY_CLIENT_ID: ${{ secrets.EBAY_CLIENT_ID }}
+          EBAY_CLIENT_SECRET: ${{ secrets.EBAY_CLIENT_SECRET }}
+          EPN_CAMPAIGN_ID: ${{ secrets.EPN_CAMPAIGN_ID }}
+          EPN_US_CAMPAIGN_ID: ${{ secrets.EPN_US_CAMPAIGN_ID }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: remaining-provider-diagnostics
+          path: reports/remaining-diagnostics
+          retention-days: 7
