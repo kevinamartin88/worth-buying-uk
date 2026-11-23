@@ -17,6 +17,7 @@ permissions:
 
 concurrency:
   group: worth-buying-repo-writes
+  queue: max
   cancel-in-progress: false
 
 jobs:
