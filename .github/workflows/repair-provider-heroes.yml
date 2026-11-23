@@ -1,0 +1,45 @@
+name: Repair November provider hero images
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['scripts/repair_provider_heroes.py']
+permissions:
+  contents: write
+  actions: write
+concurrency:
+  group: worth-buying-repo-writes
+  queue: max
+  cancel-in-progress: false
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python scripts/repair_provider_heroes.py
+        env:
+          PYTHONPATH: .
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      - name: Save repaired artwork
+        run: |
+          git add assets/ai
+          if ! git diff --cached --quiet; then
+            git config user.name "worth-buying-image-repair-bot"
+            git config user.email "worth-buying-image-repair-bot@users.noreply.github.com"
+            git commit -m "Regenerate affected UK and USA photo backgrounds"
+            git pull --rebase origin main
+            git push
+          fi
+      - name: Refresh publication through the existing publishers
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run publish-articles.yml --ref main -f chain_usa=true

@@ -978,6 +978,17 @@ def image_request_payload(article: dict, market: str) -> dict:
     """Use the selected model's input contract, not another model's options."""
     prompt = build_prompt(article, market)
     if MODEL == "@cf/black-forest-labs/flux-1-schnell":
+        # Schnell has no negative_prompt input. Put visual exclusions in the
+        # supported prompt and avoid asking it to reproduce an article headline.
+        subject = re.sub(r"\b(?:best|worth buying|buying update)\b", "", str(article.get("title", "household products")), flags=re.I)
+        subject = re.sub(r"\b20\d\d\b|[£$]\d+(?:[.,]\d+)?", "", subject)
+        prompt = ("Photograph only: no text, lettering, words, numbers, logos, labels, captions, "
+                  "banners, graphic panels or watermarks anywhere. "
+                  f"Photograph the physical products described by this subject: {subject[:250]}. "
+                  + _visual_direction(article)[:1100]
+                  + " Natural lighting, realistic materials, restrained commercial photography. "
+                  "Place the products on the left; leave the right side as simple photographic background. "
+                  "Do not design a poster, cover, infographic or advertisement. No typography.")
         return {"prompt": prompt[:2048], "steps": 4}
     return {"prompt": prompt, "negative_prompt": negative_prompt(article),
             "width": GEN_WIDTH, "height": GEN_HEIGHT, "seed": _seed_for(article, market)}

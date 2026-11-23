@@ -7,7 +7,11 @@ def test_flux_schnell_payload_matches_provider_contract(monkeypatch):
     monkeypatch.setattr(ai_visuals, "MODEL", "@cf/black-forest-labs/flux-1-schnell")
     monkeypatch.setattr(ai_visuals, "build_prompt", lambda *args: "x" * 2500)
     payload = ai_visuals.image_request_payload({}, "uk")
-    assert payload == {"prompt": "x" * 2048, "steps": 4}
+    assert set(payload) == {'prompt', 'steps'}
+    assert payload['steps'] == 4
+    assert len(payload['prompt']) <= 2048
+    assert 'no text' in payload['prompt']
+    assert 'No typography' in payload['prompt']
 
 
 def test_long_retailer_name_fits_inside_featured_card():
