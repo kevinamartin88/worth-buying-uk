@@ -1,22 +1,22 @@
 {
   "uk": {
     "action": "created",
-    "authority_cluster": "Smart Home & Connectivity",
-    "parent_topic": "smart-light-switches",
+    "authority_cluster": "Lifestyle & Personal Care",
+    "parent_topic": "beauty-sets",
     "selection_basis": "gsc-opportunity-or-authority-rotation",
-    "slug": "best-value-smart-light-switches-worth-buying-uk",
+    "slug": "best-value-beauty-sets-worth-buying-uk",
     "support_angle": "value",
-    "title": "4 Best Value Smart Light Switches UK 2026: Picks from £9.58–£19.06",
-    "week": "2026-W47"
+    "title": "4 Best Value Beauty & Self-Care Sets UK 2026: Picks from £16.99–£33",
+    "week": "2026-W48"
   },
   "us": {
     "action": "refreshed",
     "authority_cluster": "DIY & Garden",
     "parent_topic": "cordless-drills",
     "selection_basis": "gsc-opportunity-or-authority-rotation",
-    "slug": "best-refurbished-cordless-drills-worth-buying-us",
-    "support_angle": "refurbished",
-    "title": "4 Best Refurbished Cordless Drills USA 2026: Picks from $86–$340",
-    "week": "2026-W47"
+    "slug": "best-value-cordless-drills-worth-buying-us",
+    "support_angle": "value",
+    "title": "4 Best Value Cordless Drills USA 2026: Picks from $21–$108",
+    "week": "2026-W48"
   }
 }
