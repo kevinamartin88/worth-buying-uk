@@ -634,12 +634,12 @@
       "url": "https://www.worthbuyinguk.co.uk/2026/11/easy-grip-cutlery-for-reduced-hand.html"
     },
     "us": {
-      "status": "published",
+      "status": "generated-awaiting-publisher",
       "error": null,
-      "attempted": "2026-11-18",
-      "week": "2026-W47",
-      "next": 2,
-      "slug": "affordable-homeware-for-students-usa",
+      "attempted": "2026-11-25",
+      "week": "2026-W48",
+      "next": 3,
+      "slug": "easy-grip-cutlery-usa",
       "url": "https://www.worthbuyingusa.com/2026/10/affordable-home-essentials-for-college.html"
     }
   },
