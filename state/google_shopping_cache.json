@@ -1,11 +1,11 @@
 {
   "_service": {
-    "consecutive_limits": 2,
-    "retry_after": 1795546489.9971008
+    "consecutive_limits": 3,
+    "retry_after": 1795653340.253008
   },
   "uk": {
     "entries": {},
-    "retry_after": 1795546489.9971008
+    "retry_after": 1795653340.253008
   },
   "us": {
     "entries": {},
