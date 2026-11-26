@@ -73,6 +73,16 @@ def product_mismatch_reason(title: str, query: str, market: str = '') -> str:
     core = re.split(r'\b(?:with|including|includes|supplied with)\b', text, maxsplit=1)[0]
     if _BROKEN.search(text):
         return 'broken item or packaging rather than a working product'
+    if re.search(r'\bbattery\s+(?:chargers?|maintainers?)\b', topic) and not re.search(r'\bjump[ -]?starters?\b', topic):
+        jump_identity = re.search(r'\b(?:jump[ -]?starters?|jumper\s+(?:box|pack))\b', core)
+        # A portable starting pack may append "battery charger" to its headline
+        # because it also charges USB devices. Keep explicit mains combination
+        # chargers, and chargers supplied with a separate starting accessory.
+        mains_charger = (re.search(r'\b(?:mains|(?:110|120|230|240)\s*v\s*ac)\b', core)
+                         and re.search(r'\bbattery\s+charger\b', core)
+                         and not re.search(r'\b(?:power\s*bank|\d+\s*mah|jumper\s+box)\b', core))
+        if jump_identity and not mains_charger:
+            return 'portable jump starter rather than a battery charger or maintainer'
     if streaming_query(topic) and not any(x in topic for x in ('webcam', 'microphone', 'headset')):
         if not streaming_player(title):
             return 'streaming accessory rather than a complete player'
