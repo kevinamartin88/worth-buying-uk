@@ -4,6 +4,49 @@ from urllib.parse import parse_qs, urlsplit
 
 import pytest
 
+from src.product_relevance import product_mismatch_reason
+from src.product_checks import prepare_article_products
+
+
+@pytest.mark.parametrize('market', ['uk', 'us'])
+@pytest.mark.parametrize('title', [
+    'TOPDON JS2000 PRO 2500A Car Jump Starter Pack Battery Booster Power Bank Charger',
+    '20000A Car Jump Starter Battery Booster LED Power Bank Pack USB Fast Charger',
+    '30000mAh Car Jump Starter Booster Jumper Box Portable Power Bank Battery Charger',
+])
+def test_battery_charger_selection_rejects_portable_starting_packs(market, title):
+    assert product_mismatch_reason(title, 'Car Battery Chargers', market)
+
+
+@pytest.mark.parametrize('title', [
+    'DRAPER BATTERY CHARGER 10-14 AMP 12V 24V VEHICLE BOOSTER 52965',
+    'Sealey Battery Maintainer Charger 1A Fully Automatic Smart 6v 12v SBC1',
+    'Smart Battery Charger 12V/24V 10A Lithium LiFePO4 Lead-Acid Car Battery Charger',
+    '12V Battery Charger with 50A Engine Start',
+    'Mains Battery Charger and Jump Starter 230V AC 12V 20A',
+    'Car Battery Charger with portable Jump Starter included',
+])
+def test_battery_charger_selection_keeps_chargers_and_explicit_combinations(title):
+    assert not product_mismatch_reason(title, 'Car Battery Chargers', 'uk')
+
+
+def test_jump_starter_guide_still_accepts_a_portable_starting_pack():
+    assert not product_mismatch_reason('TOPDON JS2000 PRO Car Jump Starter Power Bank Charger', 'Car Jump Starters', 'uk')
+
+
+@pytest.mark.parametrize('market', ['uk', 'us'])
+def test_starting_pack_at_publication_uses_nonblocking_tracked_fallback(market):
+    original = {'slug': 'permanent-charger-guide', 'title': 'Car Battery Chargers',
+                '_generator': {'topic': 'battery-chargers'},
+                '_promotion': {'promotion_token': 'keep-this-token'},
+                'content_html': '<h2>Current picks worth comparing</h2><h3>1. 30000mAh Car Jump Starter Booster Jumper Box Portable Power Bank Battery Charger</h3><p><a href="https://www.ebay.com/itm/800423363420" rel="sponsored nofollow">Offer</a></p><h2>How to choose</h2>'}
+    result = prepare_article_products(original, market)
+    assert result['slug'] == original['slug']
+    assert result['_promotion'] == original['_promotion']
+    assert '30000mAh' not in result['content_html']
+    assert ('worthbuyin008-21' if market == 'uk' else 'worthbuyingus-20') in result['content_html']
+    assert ('5339209132' if market == 'uk' else '5339209205') in result['content_html']
+
 from src.publication_quality import choose_description, repair_affiliate_links, affiliate_issues, CONFIG
 from src.publishing_seo import repair_metadata, enrich_metadata, metadata_html
 from verify_publication import assess, verify_one
