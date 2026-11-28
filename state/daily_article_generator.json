@@ -1,9 +1,9 @@
 {
   "uk": {
-    "authority_cluster": "Consumer Tech",
+    "authority_cluster": "Gaming & Entertainment",
     "content_action": "created",
-    "date": "2026-11-27",
-    "day": "Friday",
+    "date": "2026-11-28",
+    "day": "Saturday",
     "demand_score": null,
     "google_cached": false,
     "google_observed_at": null,
@@ -17,18 +17,18 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-power-banks-worth-buying-uk-2026-daily-2026-11-27",
-    "title": "4 Best Power Banks UK 2026: Picks from £17.64–£65 | 27 November 2026 Buying Update",
-    "topic": "power-banks",
+    "slug": "best-gaming-headsets-worth-buying-uk-daily-2026-11-28",
+    "title": "4 Best Gaming Headsets UK 2026: Picks from £35–£110 | 28 November 2026 Buying Update",
+    "topic": "gaming-headsets",
     "trend_traffic": null,
-    "weekend_focus": null,
-    "weekend_priority": false
+    "weekend_focus": "saturday-home-diy",
+    "weekend_priority": true
   },
   "us": {
-    "authority_cluster": "Motoring",
+    "authority_cluster": "DIY & Garden",
     "content_action": "created",
-    "date": "2026-11-27",
-    "day": "Friday",
+    "date": "2026-11-28",
+    "day": "Saturday",
     "demand_score": null,
     "google_cached": false,
     "google_observed_at": null,
@@ -42,11 +42,11 @@
     "shopping_current": null,
     "shopping_momentum": null,
     "shopping_relative_to_anchor": null,
-    "slug": "best-dash-cams-worth-buying-us-2026-daily-2026-11-27",
-    "title": "4 Best Dash Cams USA 2026: Picks from $78–$210 | 27 November 2026 Buying Update",
-    "topic": "dash-cams",
+    "slug": "best-pressure-washers-worth-buying-us-daily-2026-11-28",
+    "title": "4 Best Pressure Washers USA 2026: Picks from $85–$225 | 28 November 2026 Buying Update",
+    "topic": "pressure-washers",
     "trend_traffic": null,
-    "weekend_focus": null,
-    "weekend_priority": false
+    "weekend_focus": "saturday-home-diy",
+    "weekend_priority": true
   }
 }
